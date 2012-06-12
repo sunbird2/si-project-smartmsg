@@ -124,7 +124,7 @@ public class SessionManagement {
 			return false;
 	}
 	
-	public BooleanAndDescriptionVO login(Connection conn, String user_id, String password) {
+	protected BooleanAndDescriptionVO createSession(Connection conn, String user_id, String password) {
 		
 		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
 		rvo.setbResult(false);
@@ -207,7 +207,7 @@ public class SessionManagement {
 	}
 	
 	
-	public UserInformationVO getUserInformation(Connection conn, String user_id) {
+	protected UserInformationVO getInformation(Connection conn, String user_id) {
 		
 		UserInformationVO vo = new UserInformationVO();
 		
