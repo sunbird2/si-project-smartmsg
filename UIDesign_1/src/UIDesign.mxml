@@ -2,12 +2,10 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
 			   xmlns:s="library://ns.adobe.com/flex/spark"
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
-			   width="1024" height="768" 
 			   xmlns:component="component.*"
-			   skinClass="skin.AppSkin"
-			   >
+			   xmlns:services="services.*"
+			   width="1024" height="768" skinClass="skin.AppSkin">
 	<fx:Style source="assets/style/styles.css"/>
-	
 	
 	<s:states>
 		<s:State name="home"/>
