@@ -2,11 +2,14 @@ package com.m;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.common.VbyP;
 import com.common.util.SLibrary;
 import com.m.common.BooleanAndDescriptionVO;
 import com.m.common.PointManager;
+import com.m.emoticon.Emotion;
 import com.m.member.Join;
 import com.m.member.JoinVO;
 import com.m.member.SessionManagement;
@@ -141,6 +144,43 @@ public class SmartDS extends SessionManagement {
 		finally { close(conn); }
 		
 		return vo;
+	}
+	
+	
+	/*###############################
+	#	emoticon					#
+	###############################*/
+	public String[] getEmotiCateList(String gubun) {
+		
+		Connection conn = null;
+		Emotion em = null;
+		String [] arr = null;
+		try {
+			conn = VbyP.getDB();
+			em = Emotion.getInstance();
+			arr = em.getCategory(conn, gubun);
+			
+		}catch (Exception e) {}	finally {			
+			close(conn);
+		}
+		
+		return arr;
+	}
+	public ArrayList<HashMap<String, String>> getEmotiListPage(String gubun, String category, int page, int count) {
+		
+		Connection conn = null;
+		Emotion em = null;
+		ArrayList<HashMap<String, String>> al = null;
+		try {
+			conn = VbyP.getDB();
+			em = Emotion.getInstance();
+			al = em.getEmotiCatePage(conn, getSession(), gubun, category, page, count);
+			
+		}catch (Exception e) {}	finally {			
+			close(conn);
+		}
+		
+		return al;
 	}
 	
 	
