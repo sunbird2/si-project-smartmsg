@@ -29,7 +29,7 @@ package lib
 			"ⓨ","ⓩ","①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩","½"
 		);
 		
-		public static var bLogin:Boolean = true;
+		public static var bLogin:Boolean = false;
 		public static var user_id:String = "";
 		public static var point:uint = 0;
 		

@@ -19,14 +19,17 @@
 	</fx:Declarations>
 	
 	<component:Menus id="menus" skinClass="skin.MenuSkin" change="{this.currentState = event.obj as String}"/>
-	<s:Group>
-		<component:Address id="address" includeIn="address" skinClass="skin.AddressSkin" />
-		<component:Bill id="bill" includeIn="bill" skinClass="skin.BillSkin" />
-		<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" />
-		<component:Send id="send" includeIn="send" skinClass="skin.SendSkin"/>
-		
+	<s:VGroup>
 		<component:Login id="login" skinClass="skin.LoginSkin" />
-		<component:Join id="join" skinClass="skin.JoinSkin" visible="false" />
-	</s:Group>
+		<s:Group>
+			<component:Address id="address" includeIn="address" skinClass="skin.AddressSkin" />
+			<component:Bill id="bill" includeIn="bill" skinClass="skin.BillSkin" />
+			<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" />
+			<component:Send id="send" includeIn="send" skinClass="skin.SendSkin"/>
+			
+			<component:Join id="join" skinClass="skin.JoinSkin" visible="false" />
+		</s:Group>
+	</s:VGroup>
+	
 	
 </s:Application>

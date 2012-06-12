@@ -82,8 +82,8 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
     private var _internal_afterLast : Boolean;
     private var _internal_concurrency : int;
     private var _internal_closed : Boolean;
-    private var _internal_first : Boolean;
     private var _internal_warnings : valueObjects.SQLWarning;
+    private var _internal_first : Boolean;
     private var _internal_metaData : valueObjects.ResultSetMetaData;
 
     private static var emptyArray:Array = new Array();
@@ -181,15 +181,15 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get first() : Boolean
-    {
-        return _internal_first;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get warnings() : valueObjects.SQLWarning
     {
         return _internal_warnings;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get first() : Boolean
+    {
+        return _internal_first;
     }
 
     [Bindable(event="propertyChange")]
@@ -326,16 +326,6 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set first(value:Boolean) : void
-    {
-        var oldValue:Boolean = _internal_first;
-        if (oldValue !== value)
-        {
-            _internal_first = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "first", oldValue, _internal_first));
-        }
-    }
-
     public function set warnings(value:valueObjects.SQLWarning) : void
     {
         var oldValue:valueObjects.SQLWarning = _internal_warnings;
@@ -343,6 +333,16 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
         {
             _internal_warnings = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "warnings", oldValue, _internal_warnings));
+        }
+    }
+
+    public function set first(value:Boolean) : void
+    {
+        var oldValue:Boolean = _internal_first;
+        if (oldValue !== value)
+        {
+            _internal_first = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "first", oldValue, _internal_first));
         }
     }
 

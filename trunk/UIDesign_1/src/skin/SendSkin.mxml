@@ -89,14 +89,15 @@
 	
 	
 	<!-- 이모티콘 -->
-	<s:HGroup x="200">
-		<s:List id="category" visible="false" >
+	<s:VGroup x="250">
+		<s:List id="category" width="500" height="50" visible="false" itemRenderer="skin.emoticon.CategoryRenderer" >
 			<s:layout><lib:FlowLayout /></s:layout>
 		</s:List>
-		<s:List id="msgBox" visible="false" >
+		<s:List id="msgBox" visible="false" width="500" itemRenderer="skin.emoticon.EmoticonRenderer" >
 			<s:layout><s:TileLayout horizontalGap="32" verticalGap="10"/></s:layout>
 		</s:List>
-	</s:HGroup>
+		<lib:Paging id="paging" />
+	</s:VGroup>
 
 	
 	

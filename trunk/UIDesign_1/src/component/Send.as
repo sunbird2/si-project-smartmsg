@@ -7,12 +7,16 @@ package component
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	
+	import lib.CustomEvent;
 	import lib.Gv;
 	import lib.KoreaPhoneNumberFormatter;
+	import lib.Paging;
+	import lib.RemoteManager;
 	import lib.SLibrary;
 	
 	import mx.collections.ArrayCollection;
 	import mx.events.FlexEvent;
+	import mx.rpc.events.ResultEvent;
 	
 	import spark.components.Button;
 	import spark.components.CheckBox;
@@ -46,6 +50,7 @@ package component
 		[SkinPart(required="false")]public var emoticon:RichText;
 		[SkinPart(required="false")]public var category:List;
 		[SkinPart(required="false")]public var msgBox:List;
+		[SkinPart(required="false")]public var paging:Paging;
 		
 		
 		// phones
@@ -106,7 +111,6 @@ package component
 		public function get sendMode():String {	return _sendMode; }
 		public function set sendMode(value:String):void	{ _sendMode = value; }
 		
-		
 		public function get currentByte():int {	return _currentByte; }
 		public function set currentByte(value:int):void	{ _currentByte = value; this.byte.text = String( value ); }
 		
@@ -117,6 +121,16 @@ package component
 		[Bindable]
 		private var alPhone:ArrayCollection = new ArrayCollection();
 		private var Kpf:KoreaPhoneNumberFormatter = new KoreaPhoneNumberFormatter();
+		
+		
+		/**
+		 * emoticon properties
+		 * */
+		[Bindable]
+		private var alEmt:ArrayCollection = new ArrayCollection();
+		private var gubun:String = "테마문자";
+		private var cate:String = "";
+		private var currTotalCount:int = 0;
 		
 		
 
@@ -134,6 +148,13 @@ package component
 			else if (instance == sendList) sendList.dataProvider = alPhone;
 			else if (instance == callback) callback.addEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
 			else if (instance == sendBtn) callback.addEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
+			else if (instance == emoticon) emoticon.addEventListener(MouseEvent.CLICK, emoticon_clickHandler);
+			else if (instance == category) category.addEventListener(IndexChangeEvent.CHANGE, category_changeHandler);
+			else if (instance == paging) paging.addEventListener("clickPage", paging_clickPageHandler);
+			else if (instance == msgBox) msgBox.addEventListener(IndexChangeEvent.CHANGE, msgBox_changeHandler);
+			
+			
+			
 		}
 		override protected function partRemoved(partName:String, instance:Object) : void {
 			
@@ -299,6 +320,61 @@ package component
 		private function sendBtn_clickHandler(event:MouseEvent):void {
 			
 		}
+		
+		
+		/**
+		 * emoticon function
+		 * */
+		private function emoticon_clickHandler(event:MouseEvent):void {
+			
+			paging.viewDataCount = 6;
+			RemoteManager.getInstance.result = emoticonCate_resultHandler;
+			RemoteManager.getInstance.callresponderToken 
+				= RemoteManager.getInstance.service.getEmotiCateList(gubun);
+		}
+		private function emoticonCate_resultHandler(event:ResultEvent):void {
+
+			var ac:ArrayCollection =  event.result as ArrayCollection;
+			category.dataProvider = ac;
+			getEmotiList();
+			
+		}
+		private function getEmotiList():void {
+			
+			RemoteManager.getInstance.result = emoticon_resultHandler;
+			RemoteManager.getInstance.callresponderToken 
+				= RemoteManager.getInstance.service.getEmotiListPage(gubun, cate, 0, paging.viewDataCount);
+		}
+		protected function emoticon_resultHandler(event:ResultEvent):void {
+			
+			alEmt = event.result as ArrayCollection;
+			
+			if (alEmt != null && alEmt.length > 0) {
+				paging.totalDataCount = Object(alEmt.getItemAt(0)).cnt;
+				
+				if (currTotalCount != paging.totalDataCount)paging.init();
+				currTotalCount = paging.totalDataCount;
+				
+				category.visible = true;
+				msgBox.visible = true;
+			}
+			msgBox.dataProvider = alEmt;
+		}
+		private function category_changeHandler(event:IndexChangeEvent):void {
+			this.cate = category.selectedItem as String;
+			getEmotiList();
+		}
+		protected function paging_clickPageHandler(event:CustomEvent):void {
+			
+			RemoteManager.getInstance.result = emoticon_resultHandler;
+			RemoteManager.getInstance.callresponderToken 
+				= RemoteManager.getInstance.service.getEmotiListPage(gubun, cate, int(event.obj), paging.viewDataCount);
+		}
+		private function msgBox_changeHandler(event:IndexChangeEvent):void {
+			var obj:Object = msgBox.selectedItem as Object;
+			msg = obj.msg;
+		}
+		
 		
 	}
 }
