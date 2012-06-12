@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("component.Log")]
+	</fx:Metadata>
+	<s:layout>
+		<s:VerticalLayout />
+	</s:layout>
+	<s:HGroup>
+		<mx:DateField id="dateField1" yearNavigationEnabled="true" formatString="YYYY-MM-DD"/>
+		<mx:DateField id="dateField2" yearNavigationEnabled="true" formatString="YYYY-MM-DD"/>
+		<s:Button id="reservationBtn" label="예약보기" />	
+	</s:HGroup>
+	<s:HGroup>
+		<s:List id="groupList" />
+		<s:List id="detailList" />	
+	</s:HGroup>
+</s:Skin>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		>
+	<fx:Metadata>[HostComponent("component.Menus")]</fx:Metadata>
+	<s:states>
+		<s:State name="home"/>
+		<s:State name="send"/>
+		<s:State name="address"/>
+		<s:State name="bill"/>
+		<s:State name="log"/>
+	</s:states>
+	
+	<s:layout>
+		<s:VerticalLayout gap="20" />
+	</s:layout>
+	
+	<s:RichText id="labelHome" text="HOME" color.home="0x6A635F" fontSize="26" fontFamily="NGD"/>
+	<s:RichText id="labelSend" text="메시지" color.send="0xD66F74" fontSize="26" fontFamily="NGD"/>
+	<s:RichText id="labelAddress" text="주소록" color.address="0x309EBC" fontSize="26" fontFamily="NGD"/>
+	<s:RichText id="labelBill" text="결제" color.bill="0x91C368" fontSize="26" fontFamily="NGD"/>
+	<s:RichText id="labelLog" text="내역" color.log="0x91C368" fontSize="26" fontFamily="NGD"/>
+</s:Skin>

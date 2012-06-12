@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("component.Login")]
+	</fx:Metadata>
+	<s:layout>
+		<s:HorizontalLayout />
+	</s:layout>
+	<s:TextInput id="user_id" prompt="id" />
+	<s:TextInput id="user_pw" displayAsPassword="true" prompt="password" />
+	<s:Button id="login" label="login" />
+	<s:Button id="join" label="join" />
+	
+</s:Skin>
