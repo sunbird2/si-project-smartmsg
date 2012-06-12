@@ -59,17 +59,17 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
      * properties
      */
     private var _internal_user_name : String;
-    private var _internal_point : String;
     private var _internal_phone_return : String;
-    private var _internal_levaeYN : String;
-    private var _internal_hp : String;
     private var _internal_email : String;
     private var _internal_emailYN : String;
+    private var _internal_hpYN : String;
+    private var _internal_jumin_no : String;
+    private var _internal_point : String;
+    private var _internal_levaeYN : String;
+    private var _internal_hp : String;
     private var _internal_unit_cost : int;
     private var _internal_line : String;
-    private var _internal_hpYN : String;
     private var _internal_user_id : String;
-    private var _internal_jumin_no : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -100,27 +100,9 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
     }
 
     [Bindable(event="propertyChange")]
-    public function get point() : String
-    {
-        return _internal_point;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get phone_return() : String
     {
         return _internal_phone_return;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get levaeYN() : String
-    {
-        return _internal_levaeYN;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get hp() : String
-    {
-        return _internal_hp;
     }
 
     [Bindable(event="propertyChange")]
@@ -136,6 +118,36 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
     }
 
     [Bindable(event="propertyChange")]
+    public function get hpYN() : String
+    {
+        return _internal_hpYN;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get jumin_no() : String
+    {
+        return _internal_jumin_no;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get point() : String
+    {
+        return _internal_point;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get levaeYN() : String
+    {
+        return _internal_levaeYN;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get hp() : String
+    {
+        return _internal_hp;
+    }
+
+    [Bindable(event="propertyChange")]
     public function get unit_cost() : int
     {
         return _internal_unit_cost;
@@ -148,21 +160,9 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
     }
 
     [Bindable(event="propertyChange")]
-    public function get hpYN() : String
-    {
-        return _internal_hpYN;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get user_id() : String
     {
         return _internal_user_id;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get jumin_no() : String
-    {
-        return _internal_jumin_no;
     }
 
     public function clearAssociations() : void
@@ -183,16 +183,6 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
         }
     }
 
-    public function set point(value:String) : void
-    {
-        var oldValue:String = _internal_point;
-        if (oldValue !== value)
-        {
-            _internal_point = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "point", oldValue, _internal_point));
-        }
-    }
-
     public function set phone_return(value:String) : void
     {
         var oldValue:String = _internal_phone_return;
@@ -200,26 +190,6 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
         {
             _internal_phone_return = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "phone_return", oldValue, _internal_phone_return));
-        }
-    }
-
-    public function set levaeYN(value:String) : void
-    {
-        var oldValue:String = _internal_levaeYN;
-        if (oldValue !== value)
-        {
-            _internal_levaeYN = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "levaeYN", oldValue, _internal_levaeYN));
-        }
-    }
-
-    public function set hp(value:String) : void
-    {
-        var oldValue:String = _internal_hp;
-        if (oldValue !== value)
-        {
-            _internal_hp = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "hp", oldValue, _internal_hp));
         }
     }
 
@@ -243,6 +213,56 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
         }
     }
 
+    public function set hpYN(value:String) : void
+    {
+        var oldValue:String = _internal_hpYN;
+        if (oldValue !== value)
+        {
+            _internal_hpYN = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "hpYN", oldValue, _internal_hpYN));
+        }
+    }
+
+    public function set jumin_no(value:String) : void
+    {
+        var oldValue:String = _internal_jumin_no;
+        if (oldValue !== value)
+        {
+            _internal_jumin_no = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "jumin_no", oldValue, _internal_jumin_no));
+        }
+    }
+
+    public function set point(value:String) : void
+    {
+        var oldValue:String = _internal_point;
+        if (oldValue !== value)
+        {
+            _internal_point = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "point", oldValue, _internal_point));
+        }
+    }
+
+    public function set levaeYN(value:String) : void
+    {
+        var oldValue:String = _internal_levaeYN;
+        if (oldValue !== value)
+        {
+            _internal_levaeYN = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "levaeYN", oldValue, _internal_levaeYN));
+        }
+    }
+
+    public function set hp(value:String) : void
+    {
+        var oldValue:String = _internal_hp;
+        if (oldValue !== value)
+        {
+            _internal_hp = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "hp", oldValue, _internal_hp));
+        }
+    }
+
     public function set unit_cost(value:int) : void
     {
         var oldValue:int = _internal_unit_cost;
@@ -263,16 +283,6 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
         }
     }
 
-    public function set hpYN(value:String) : void
-    {
-        var oldValue:String = _internal_hpYN;
-        if (oldValue !== value)
-        {
-            _internal_hpYN = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "hpYN", oldValue, _internal_hpYN));
-        }
-    }
-
     public function set user_id(value:String) : void
     {
         var oldValue:String = _internal_user_id;
@@ -280,16 +290,6 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
         {
             _internal_user_id = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_id", oldValue, _internal_user_id));
-        }
-    }
-
-    public function set jumin_no(value:String) : void
-    {
-        var oldValue:String = _internal_jumin_no;
-        if (oldValue !== value)
-        {
-            _internal_jumin_no = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "jumin_no", oldValue, _internal_jumin_no));
         }
     }
 

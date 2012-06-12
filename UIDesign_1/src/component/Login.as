@@ -42,6 +42,7 @@ package component
 		public function get cstat():String { return _cstat; }
 		public function set cstat(value:String):void { _cstat = value; }
 		
+		
 		public function Login()
 		{
 			//TODO: implement function
@@ -62,6 +63,8 @@ package component
 			super.partAdded(partName, instance);
 			if (instance == join) join.addEventListener(MouseEvent.CLICK, join_clickHandler);
 			else if (instance == login) login.addEventListener(MouseEvent.CLICK, login_clickHandler);
+			else if (instance == login_id) login_id.text = Gv.user_id;
+			else if (instance == point) point.text = SLibrary.addComma( String(Gv.point) );
 		}
 		
 		/* Implement the partRemoved() method to remove the even handlers added in partAdded() */
@@ -99,8 +102,9 @@ package component
 			
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {
-				cstat = "login";
-				invalidateSkinState();
+				
+				callLater(login_check);
+				
 			} else {
 				SLibrary.alert("로그인 실패");
 			}
@@ -126,7 +130,6 @@ package component
 				Gv.bLogin = true;
 				Gv.user_id = uvo.user_id;
 				Gv.point = uint( uvo.point );
-				
 			} else {
 				cstat = "logout";
 			}
