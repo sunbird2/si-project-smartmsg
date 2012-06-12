@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("component.Address")]
+	</fx:Metadata>
+	<s:layout>
+		<s:HorizontalLayout />
+	</s:layout>
+	
+	<!-- group -->
+	<s:VGroup>
+		<s:List id="groupList" />
+		<s:HGroup>
+			<s:TextInput id="groupAddInput" />
+			<s:Button id="groupAddBtn" label="그룹추가" />	
+		</s:HGroup>
+	</s:VGroup>
+	
+	
+	<!-- name -->
+	<s:List id="nameList" />
+	
+	<!-- card -->
+	<s:VGroup>
+		<s:Image id="photo" />
+		<s:TextInput id="nameL" />
+		<s:TextInput id="company" />
+		<s:TextInput id="hp" />
+		<s:TextInput id="phone" />
+		<s:RichEditableText id="memo"  fontFamily="Arial"/>
+		<s:Button id="cardBtn" label="추가" />	
+	</s:VGroup>
+	
+	
+	<!--function-->
+	<s:RichText id="addressFromExcel" text="엑셀 가져오기"  fontFamily="Arial"/>
+	<s:RichText id="addressFromCopy" text="복사 가져오기"  fontFamily="Arial"/>
+	
+	
+</s:Skin>

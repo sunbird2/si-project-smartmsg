@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   width="1024" height="768" 
+			   xmlns:component="component.*"
+			   skinClass="skin.AppSkin"
+			   >
+	<fx:Style source="assets/style/styles.css"/>
+	
+	
+	<s:states>
+		<s:State name="home"/>
+		<s:State name="send"/>
+		<s:State name="address"/>
+		<s:State name="bill"/>
+		<s:State name="log"/>
+	</s:states>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<component:Menus id="menus" skinClass="skin.MenuSkin" change="{this.currentState = event.obj as String}"/>
+	<s:Group>
+		<component:Address id="address" includeIn="address" skinClass="skin.AddressSkin" />
+		<component:Bill id="bill" includeIn="bill" skinClass="skin.BillSkin" />
+		<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" />
+		<component:Send id="send" includeIn="send" skinClass="skin.SendSkin"/>
+		
+		<component:Login id="login" skinClass="skin.LoginSkin" />
+		<component:Join id="join" skinClass="skin.JoinSkin" visible="false" />
+	</s:Group>
+	
+	
+	
+	
+</s:Application>
