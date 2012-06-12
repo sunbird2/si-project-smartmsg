@@ -6,12 +6,20 @@
 	<fx:Metadata>
 		[HostComponent("component.Login")]
 	</fx:Metadata>
-	<s:layout>
-		<s:HorizontalLayout />
-	</s:layout>
-	<s:TextInput id="user_id" prompt="id" />
-	<s:TextInput id="user_pw" displayAsPassword="true" prompt="password" />
-	<s:Button id="login" label="login" />
-	<s:Button id="join" label="join" />
+	<s:states>
+		<s:State name="logout"/>
+		<s:State name="login"/>
+	</s:states>
+	<s:HGroup includeIn="logout">
+		<s:TextInput id="user_id" prompt="id" />
+		<s:TextInput id="user_pw" displayAsPassword="true" prompt="password" />
+		<s:Button id="login" label="login" />
+		<s:Button id="join" label="join" />	
+	</s:HGroup>
+	<s:HGroup includeIn="login">
+		<s:Label id="login_id" />
+		<s:Label id="point" />
+	</s:HGroup>
+	
 	
 </s:Skin>

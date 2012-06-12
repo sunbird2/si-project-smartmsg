@@ -58,14 +58,14 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
     /**
      * properties
      */
-    private var _internal_point : String;
     private var _internal_user_name : String;
+    private var _internal_point : String;
     private var _internal_phone_return : String;
-    private var _internal_hp : String;
     private var _internal_levaeYN : String;
+    private var _internal_hp : String;
     private var _internal_email : String;
-    private var _internal_unit_cost : int;
     private var _internal_emailYN : String;
+    private var _internal_unit_cost : int;
     private var _internal_line : String;
     private var _internal_hpYN : String;
     private var _internal_user_id : String;
@@ -94,15 +94,15 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
      */
 
     [Bindable(event="propertyChange")]
-    public function get point() : String
-    {
-        return _internal_point;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get user_name() : String
     {
         return _internal_user_name;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get point() : String
+    {
+        return _internal_point;
     }
 
     [Bindable(event="propertyChange")]
@@ -112,15 +112,15 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
     }
 
     [Bindable(event="propertyChange")]
-    public function get hp() : String
-    {
-        return _internal_hp;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get levaeYN() : String
     {
         return _internal_levaeYN;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get hp() : String
+    {
+        return _internal_hp;
     }
 
     [Bindable(event="propertyChange")]
@@ -130,15 +130,15 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
     }
 
     [Bindable(event="propertyChange")]
-    public function get unit_cost() : int
-    {
-        return _internal_unit_cost;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get emailYN() : String
     {
         return _internal_emailYN;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get unit_cost() : int
+    {
+        return _internal_unit_cost;
     }
 
     [Bindable(event="propertyChange")]
@@ -173,16 +173,6 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
      * data/source property setters
      */
 
-    public function set point(value:String) : void
-    {
-        var oldValue:String = _internal_point;
-        if (oldValue !== value)
-        {
-            _internal_point = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "point", oldValue, _internal_point));
-        }
-    }
-
     public function set user_name(value:String) : void
     {
         var oldValue:String = _internal_user_name;
@@ -190,6 +180,16 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
         {
             _internal_user_name = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_name", oldValue, _internal_user_name));
+        }
+    }
+
+    public function set point(value:String) : void
+    {
+        var oldValue:String = _internal_point;
+        if (oldValue !== value)
+        {
+            _internal_point = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "point", oldValue, _internal_point));
         }
     }
 
@@ -203,16 +203,6 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
         }
     }
 
-    public function set hp(value:String) : void
-    {
-        var oldValue:String = _internal_hp;
-        if (oldValue !== value)
-        {
-            _internal_hp = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "hp", oldValue, _internal_hp));
-        }
-    }
-
     public function set levaeYN(value:String) : void
     {
         var oldValue:String = _internal_levaeYN;
@@ -220,6 +210,16 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
         {
             _internal_levaeYN = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "levaeYN", oldValue, _internal_levaeYN));
+        }
+    }
+
+    public function set hp(value:String) : void
+    {
+        var oldValue:String = _internal_hp;
+        if (oldValue !== value)
+        {
+            _internal_hp = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "hp", oldValue, _internal_hp));
         }
     }
 
@@ -233,16 +233,6 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
         }
     }
 
-    public function set unit_cost(value:int) : void
-    {
-        var oldValue:int = _internal_unit_cost;
-        if (oldValue !== value)
-        {
-            _internal_unit_cost = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "unit_cost", oldValue, _internal_unit_cost));
-        }
-    }
-
     public function set emailYN(value:String) : void
     {
         var oldValue:String = _internal_emailYN;
@@ -250,6 +240,16 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
         {
             _internal_emailYN = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "emailYN", oldValue, _internal_emailYN));
+        }
+    }
+
+    public function set unit_cost(value:int) : void
+    {
+        var oldValue:int = _internal_unit_cost;
+        if (oldValue !== value)
+        {
+            _internal_unit_cost = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "unit_cost", oldValue, _internal_unit_cost));
         }
     }
 

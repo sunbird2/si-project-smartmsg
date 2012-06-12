@@ -29,7 +29,4 @@
 		<component:Join id="join" skinClass="skin.JoinSkin" visible="false" />
 	</s:Group>
 	
-	
-	
-	
 </s:Application>
