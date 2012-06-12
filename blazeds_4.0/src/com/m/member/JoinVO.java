@@ -12,10 +12,6 @@ public class JoinVO implements Serializable {
 	String user_id;
 	String passwd;
 	String hp;
-	String email;
-	String emailYN;
-	String hpYN;
-	
 	
 	
 	public String getUser_id() {
@@ -36,25 +32,6 @@ public class JoinVO implements Serializable {
 	}
 	public void setHp(String hp) {
 		this.hp = hp;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getEmailYN() {
-		return emailYN;
-	}
-	public void setEmailYN(String emailYN) {
-		this.emailYN = emailYN;
-	}
-	public String getHpYN() {
-		return hpYN;
-	}
-	public void setHpYN(String hpYN) {
-		this.hpYN = hpYN;
 	}
 	
 	

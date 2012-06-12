@@ -78,8 +78,7 @@ public class Join {
 			pq.setPrepared( conn, VbyP.getSQL("join") );
 			pq.setString(1, SLibrary.IfNull(vo.getUser_id()));
 			pq.setString(2, SLibrary.IfNull(vo.getPassword()));
-			pq.setString(5, SLibrary.IfNull(vo.getHp()));
-			pq.setString(7, SLibrary.IfNull(vo.getEmail()));
+			pq.setString(3, SLibrary.IfNull(vo.getHp()));
 			
 			count = pq.executeUpdate();
 			
@@ -140,10 +139,7 @@ public class Join {
 			
 			pq.setString(1, SLibrary.IfNull(vo.getPassword()));
 			pq.setString(2, SLibrary.IfNull(vo.getHp()));
-			pq.setString(3, SLibrary.IfNull(vo.getEmail()));
-			pq.setString(4, SLibrary.IfNull(vo.getEmailYN()));
-			pq.setString(5, SLibrary.IfNull(vo.getHpYN()));
-			pq.setString(6, SLibrary.IfNull(vo.getUser_id()));
+			pq.setString(3, SLibrary.IfNull(vo.getUser_id()));
 			count = pq.executeUpdate();
 			
 			
