@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiResourceLocking="false" privileged="true" path="" >
+	<Resource name="jdbc/smart"
+		auth="Container"
+		type="javax.sql.DataSource"
+		driverClassName="com.mysql.jdbc.Driver"
+		removeAbandonedTimeout="60"
+		removeAbandoned="true"
+		logAbandoned="true"
+		loginTimeout="10"
+		maxActive="100" 
+		minIdle="10" 
+		maxWait="10000"
+		username="smart"
+		password="1qkrtlgnsdlek!"
+		testOnBorrow="true"
+		validationQuery="select 1 "
+		poolPreparedStatements="true"
+        url="jdbc:mysql://1.226.84.99:3306/smart?autoReconnection=true&amp;"
+        />
+</Context>
