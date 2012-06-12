@@ -7,6 +7,7 @@ package component
 	import flash.events.MouseEvent;
 	
 	import lib.BooleanAndDescriptionVO;
+	import lib.RemoteManager;
 	import lib.SLibrary;
 	
 	import mx.rpc.events.ResultEvent;
@@ -104,7 +105,9 @@ package component
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
 		}
 		
-		
+		/**
+		 * agree handler
+		 * */
 		private function next1_clickHandler(event:MouseEvent):void {
 			
 			if (agree1.selected == false) SLibrary.alert("이용약관에 동의해 주세요");
@@ -114,14 +117,16 @@ package component
 				invalidateSkinState();
 			}
 		}
-		
+		/**
+		 * cancel
+		 * */
 		private function cancel1_clickHandler(event:MouseEvent):void {
 			this.visible = false;
 		}
 		
 		
 		/**
-		 * step2 function
+		 * userid valid
 		 * */
 		private function userid_keyUpHandler(event:KeyboardEvent):void {
 			
@@ -134,7 +139,7 @@ package component
 			var arr:Array = StringValidator.validateString(sv, ti.text);
 			
 			if (arr.length > 0) {
-				trace(ti.getStyle("borderColor"));
+				
 				ti.setStyle("borderColor",INVALID_COLOR);
 				useridh.text = ValidationResult(arr[0]).errorMessage;
 			}else {
@@ -143,14 +148,15 @@ package component
 				dupleIdCheck(ti.text);
 			}
 		}
+		/**
+		 * userid duple valid
+		 * */
 		private function dupleIdCheck(id:String):void {
 			
 			if (id != "") {
-				/*if (roStat != "ID") {
-					remoteObjectInit("ID");
-					ro.addEventListener(ResultEvent.RESULT,idCheck_ResultEventHandler);
-				}
-				ro.checkID( id );*/
+				RemoteManager.getInstance.result = idCheck_ResultEventHandler;
+				RemoteManager.getInstance.callresponderToken 
+					= RemoteManager.getInstance.service.checkID(id);
 			}
 		}
 		private function idCheck_ResultEventHandler(event:ResultEvent):void {
@@ -165,6 +171,9 @@ package component
 			}
 		}
 
+		/**
+		 * userpw valid
+		 * */
 		protected function userpw_keyUpHandler(event:KeyboardEvent):void
 		{
 			var ti:TextInput = TextInput(event.currentTarget);
@@ -183,7 +192,9 @@ package component
 				userpwh.text = "확인";
 			}
 		}
-		
+		/**
+		 * userrepw valid
+		 * */
 		protected function userrepw_keyUpHandler(event:KeyboardEvent):void
 		{
 			var ti:TextInput = TextInput(event.currentTarget);
@@ -206,6 +217,9 @@ package component
 				}
 			}
 		}
+		/**
+		 * hp valid
+		 * */
 		protected function tiHp_keyUpHandler(event:KeyboardEvent):void
 		{
 			var phone:String = String(userhp1.selectedItem.data)+userhp2.text+userhp3.text;
@@ -228,7 +242,9 @@ package component
 		}
 		
 		
-		
+		/**
+		 * all valid
+		 * */
 		private function checkAll():Boolean {
 			
 			var b:Boolean = false;
@@ -242,14 +258,26 @@ package component
 			return b;
 		}
 		
+		
+		/**
+		 * join service call
+		 * */
 		private function next2_clickHandler(event:MouseEvent):void {
 			
 			if (checkAll == false) SLibrary.alert("붉은색 부분을 확인해 주세요.");
 			else {
-				step = 2;
-				invalidateSkinState();
+				RemoteManager.getInstance.result = next2_resultHandler;
+				RemoteManager.getInstance.callresponderToken 
+					= RemoteManager.getInstance.service.join(userid.text, userpw.text, userrepw.text, String(userhp1.selectedItem.data) + userhp2.text + userhp3.text );
+				
 			}
 		}
+		private function next2_resultHandler(event:ResultEvent):void {
+			
+			step = 2;
+			invalidateSkinState();
+		}
+		
 		
 	}
 }

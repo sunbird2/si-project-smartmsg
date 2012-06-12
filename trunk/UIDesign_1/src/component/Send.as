@@ -178,7 +178,7 @@ package component
 			msg_ByteCheck();
 			if ( currentByte > Gv.SMS_BYTE ) sendMode = "LMS";
 			if ( currentByte > Gv.LMS_BYTE) {
-				trace("cutByte!!"+currentByte+"/"+this.maxByte);
+				//trace("cutByte!!"+currentByte+"/"+this.maxByte);
 				this.msg = SLibrary.cutByteTo(this.msg, this.maxByte);
 			}
 		}
