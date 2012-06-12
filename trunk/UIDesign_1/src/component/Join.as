@@ -274,8 +274,14 @@ package component
 		}
 		private function next2_resultHandler(event:ResultEvent):void {
 			
-			step = 2;
-			invalidateSkinState();
+			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+			if (bVO.bResult) {
+				step = 2;
+				invalidateSkinState();
+			} else {
+				SLibrary.alert("로그인 실패");
+			}
+			
 		}
 		
 		

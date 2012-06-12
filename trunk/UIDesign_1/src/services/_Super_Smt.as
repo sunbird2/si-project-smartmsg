@@ -71,6 +71,9 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         operation = new mx.rpc.remoting.Operation(null, "getAdminSession");
          operation.resultType = String;
         operations["getAdminSession"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "logout_session");
+         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+        operations["logout_session"] = operation;
 
         _serviceControl.operations = operations;
         _serviceControl.convertResultHandler = com.adobe.serializers.utility.TypeUtility.convertResultHandler;
@@ -153,10 +156,10 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
       *
       * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
       */
-    public function login(arg0:valueObjects.Connection, arg1:String, arg2:String) : mx.rpc.AsyncToken
+    public function login(arg0:String, arg1:String) : mx.rpc.AsyncToken
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("login");
-		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1,arg2) ;
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1) ;
         return _internal_token;
     }
      
@@ -297,10 +300,10 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
       *
       * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
       */
-    public function getUserInformation(arg0:valueObjects.Connection, arg1:String) : mx.rpc.AsyncToken
+    public function getUserInformation() : mx.rpc.AsyncToken
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getUserInformation");
-		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1) ;
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send() ;
         return _internal_token;
     }
      
@@ -318,6 +321,24 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
     public function getAdminSession() : mx.rpc.AsyncToken
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getAdminSession");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send() ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'logout_session' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function logout_session() : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("logout_session");
 		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send() ;
         return _internal_token;
     }

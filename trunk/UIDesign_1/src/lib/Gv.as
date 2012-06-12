@@ -30,6 +30,8 @@ package lib
 		);
 		
 		public static var bLogin:Boolean = true;
+		public static var user_id:String = "";
+		public static var point:uint = 0;
 		
 		public function Gv(){}
 		
