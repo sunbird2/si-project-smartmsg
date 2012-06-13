@@ -60,7 +60,7 @@
 		
 		<!--회신번호-->
 		<s:HGroup verticalAlign="middle">
-			<s:ComboBox id="callback" />
+			<s:ComboBox id="callback" itemRenderer="component.send.ReturnPhoneRenderer"/>
 			<s:Button id="callbackSave" label="회신번호저장"  fontFamily="NGD"/>
 		</s:HGroup>
 		
