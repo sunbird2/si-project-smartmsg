@@ -6,11 +6,11 @@ package component
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	import lib.BooleanAndDescriptionVO;
 	import lib.Gv;
 	import lib.RemoteManager;
 	import lib.SLibrary;
 	
+	import mx.events.FlexEvent;
 	import mx.rpc.events.ResultEvent;
 	
 	import spark.components.Button;
@@ -18,6 +18,7 @@ package component
 	import spark.components.TextInput;
 	import spark.components.supportClasses.SkinnableComponent;
 	
+	import valueObjects.BooleanAndDescriptionVO;
 	import valueObjects.UserInformationVO;
 	
 	
@@ -65,6 +66,7 @@ package component
 			else if (instance == login) login.addEventListener(MouseEvent.CLICK, login_clickHandler);
 			else if (instance == login_id) login_id.text = Gv.user_id;
 			else if (instance == point) point.text = SLibrary.addComma( String(Gv.point) );
+			else if (instance == user_pw) user_pw.addEventListener(FlexEvent.ENTER, login_clickHandler); 
 		}
 		
 		/* Implement the partRemoved() method to remove the even handlers added in partAdded() */
@@ -85,7 +87,7 @@ package component
 		/**
 		 * login Handler
 		 * */
-		private function login_clickHandler(event:MouseEvent):void {
+		private function login_clickHandler(event:Event):void {
 			
 			if (user_id.text == "") SLibrary.alert("아이디를 입력 하세요");
 			else if (user_pw.text == "") SLibrary.alert("비밀번호를 입력 하세요");

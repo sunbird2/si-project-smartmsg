@@ -6,7 +6,6 @@ package component
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	
-	import lib.BooleanAndDescriptionVO;
 	import lib.RemoteManager;
 	import lib.SLibrary;
 	
@@ -20,6 +19,8 @@ package component
 	import spark.components.Label;
 	import spark.components.TextInput;
 	import spark.components.supportClasses.SkinnableComponent;
+	
+	import valueObjects.BooleanAndDescriptionVO;
 	
 	
 	/* A component must identify the view states that its skin supports. 
