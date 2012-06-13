@@ -1,6 +1,7 @@
 package component
 {
 	
+	import component.send.Emoticon;
 	import component.send.PhoneVO;
 	
 	import flash.events.Event;
@@ -126,6 +127,7 @@ package component
 		/**
 		 * emoticon properties
 		 * */
+		private var emt:Emoticon;
 		[Bindable]
 		private var alEmt:ArrayCollection = new ArrayCollection();
 		private var gubun:String = "테마문자";
@@ -134,7 +136,10 @@ package component
 		
 		
 
-		public function Send() { super(); }
+		public function Send() { 
+			super();
+			emt = new Emoticon(category, msgBox, paging);
+		}
 		override protected function getCurrentSkinState():String { return super.getCurrentSkinState(); } 
 		override protected function partAdded(partName:String, instance:Object) : void {
 			
@@ -148,13 +153,11 @@ package component
 			else if (instance == sendList) sendList.dataProvider = alPhone;
 			else if (instance == callback) callback.addEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
 			else if (instance == sendBtn) callback.addEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
-			else if (instance == emoticon) emoticon.addEventListener(MouseEvent.CLICK, emoticon_clickHandler);
-			else if (instance == category) category.addEventListener(IndexChangeEvent.CHANGE, category_changeHandler);
-			else if (instance == paging) paging.addEventListener("clickPage", paging_clickPageHandler);
+			else if (instance == emoticon) emoticon.addEventListener(MouseEvent.CLICK, emt.emoticon_clickHandler);
+			else if (instance == category) category.addEventListener(IndexChangeEvent.CHANGE, emt.category_changeHandler);
+			else if (instance == paging) paging.addEventListener("clickPage", emt.paging_clickPageHandler);
 			else if (instance == msgBox) msgBox.addEventListener(IndexChangeEvent.CHANGE, msgBox_changeHandler);
-			
-			
-			
+
 		}
 		override protected function partRemoved(partName:String, instance:Object) : void {
 			
