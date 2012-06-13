@@ -30,6 +30,8 @@ package component
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
 	
+	import valueObjects.BooleanAndDescriptionVO;
+	
 	
 	[SkinState("message")]
 	[SkinState("sendList")]
@@ -128,17 +130,11 @@ package component
 		 * emoticon properties
 		 * */
 		private var emt:Emoticon;
-		[Bindable]
-		private var alEmt:ArrayCollection = new ArrayCollection();
-		private var gubun:String = "테마문자";
-		private var cate:String = "";
-		private var currTotalCount:int = 0;
-		
-		
 
 		public function Send() { 
 			super();
-			emt = new Emoticon(category, msgBox, paging);
+			emt = new Emoticon();
+			
 		}
 		override protected function getCurrentSkinState():String { return super.getCurrentSkinState(); } 
 		override protected function partAdded(partName:String, instance:Object) : void {
@@ -152,25 +148,49 @@ package component
 			else if (instance == dupleDelete) dupleDelete.addEventListener(MouseEvent.CLICK, dupleDelete_clickHandler);
 			else if (instance == sendList) sendList.dataProvider = alPhone;
 			else if (instance == callback) callback.addEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
-			else if (instance == sendBtn) callback.addEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
+			else if (instance == sendBtn) sendBtn.addEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
 			else if (instance == emoticon) emoticon.addEventListener(MouseEvent.CLICK, emt.emoticon_clickHandler);
 			else if (instance == category) category.addEventListener(IndexChangeEvent.CHANGE, emt.category_changeHandler);
 			else if (instance == paging) paging.addEventListener("clickPage", emt.paging_clickPageHandler);
 			else if (instance == msgBox) msgBox.addEventListener(IndexChangeEvent.CHANGE, msgBox_changeHandler);
+			else if (instance == myMessage) myMessage.addEventListener(MouseEvent.CLICK, emt.myMessage_clickHandler);
+			else if (instance == messageSaveBtn) messageSaveBtn.addEventListener(MouseEvent.CLICK, messageSaveBtn_clickHandler);
+			else if (instance == sentMessage) sentMessage.addEventListener(MouseEvent.CLICK, emt.sentMessage_clickHandler);
+			
+			
 
 		}
 		override protected function partRemoved(partName:String, instance:Object) : void {
 			
 			super.partRemoved(partName, instance);
 			
-			if (instance == specialChar) 
-				specialChar.removeEventListener(MouseEvent.CLICK, specialChar_clickHandler );
-			else if (instance == message) 
-				message.removeEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
+			if (instance == specialChar) specialChar.removeEventListener(MouseEvent.CLICK, specialChar_clickHandler );
+			else if (instance == message) message.removeEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
+			else if (instance == sendListInput)	sendListInput.removeEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
+			else if (instance == sendListInputBtn) sendListInputBtn.removeEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
+			else if (instance == dupleDelete) dupleDelete.removeEventListener(MouseEvent.CLICK, dupleDelete_clickHandler);
+			else if (instance == sendList) sendList.dataProvider = alPhone;
+			else if (instance == callback) callback.removeEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
+			else if (instance == sendBtn) sendBtn.removeEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
+			else if (instance == emoticon) emoticon.removeEventListener(MouseEvent.CLICK, emt.emoticon_clickHandler);
+			else if (instance == category) category.removeEventListener(IndexChangeEvent.CHANGE, emt.category_changeHandler);
+			else if (instance == paging) paging.removeEventListener("clickPage", emt.paging_clickPageHandler);
+			else if (instance == msgBox) msgBox.removeEventListener(IndexChangeEvent.CHANGE, msgBox_changeHandler);
+			else if (instance == myMessage) myMessage.removeEventListener(MouseEvent.CLICK, emt.myMessage_clickHandler);
+		}
+		override protected function createChildren():void
+		{
+			// TODO Auto Generated method stub
+			super.createChildren();
+			emt.category = category;
+			emt.msgBox = msgBox;
+			emt.paging = paging;
+			
 		}
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void	{
 			
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
+			
 			isValid();
 		}
 		
@@ -316,6 +336,55 @@ package component
 		}
 		protected function charClickHandler(e:MouseEvent):void { this.msg += RichText(e.currentTarget).text; }
 		
+		/**
+		 * save message
+		 * */
+		public function messageSaveBtn_clickHandler(event:MouseEvent):void {
+			
+			if (message.text != "") {
+				RemoteManager.getInstance.result = messageSaveBtn_resultHandler;
+				RemoteManager.getInstance.callresponderToken 
+					= RemoteManager.getInstance.service.saveMymsg(message.text);
+			}else {
+				SLibrary.alert("메시지를 입력 후 저장하세요.");
+			}
+		}
+		private function messageSaveBtn_resultHandler(event:ResultEvent):void {
+			
+			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+			if (bvo.bResult) {
+				SLibrary.alert("저장되었습니다.");
+				if (msgBox.visible && emt.gubun == "my")
+					emt.myMessage_clickHandler(null);
+			}else {
+				SLibrary.alert("실패");
+			}
+		}
+		
+		/**
+		 * delete message
+		 * */
+		public function delMymessage(idx:int):void {
+			if (idx != 0) {
+				RemoteManager.getInstance.result = delMymessage_resultHandler;
+				RemoteManager.getInstance.callresponderToken 
+					= RemoteManager.getInstance.service.delMymsg(idx);
+			}else {
+				SLibrary.alert("키가 없습니다.");
+			}
+		}
+		private function delMymessage_resultHandler(event:ResultEvent):void {
+			
+			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+			if (bvo.bResult) {
+				SLibrary.alert("삭제되었습니다.");
+				if (msgBox.visible && emt.gubun == "my")
+					emt.myMessage_clickHandler(null);
+			}else {
+				SLibrary.alert("실패");
+			}
+		}
+		
 		
 		/**
 		 * send function
@@ -328,51 +397,6 @@ package component
 		/**
 		 * emoticon function
 		 * */
-		private function emoticon_clickHandler(event:MouseEvent):void {
-			
-			paging.viewDataCount = 6;
-			RemoteManager.getInstance.result = emoticonCate_resultHandler;
-			RemoteManager.getInstance.callresponderToken 
-				= RemoteManager.getInstance.service.getEmotiCateList(gubun);
-		}
-		private function emoticonCate_resultHandler(event:ResultEvent):void {
-
-			var ac:ArrayCollection =  event.result as ArrayCollection;
-			category.dataProvider = ac;
-			getEmotiList();
-			
-		}
-		private function getEmotiList():void {
-			
-			RemoteManager.getInstance.result = emoticon_resultHandler;
-			RemoteManager.getInstance.callresponderToken 
-				= RemoteManager.getInstance.service.getEmotiListPage(gubun, cate, 0, paging.viewDataCount);
-		}
-		protected function emoticon_resultHandler(event:ResultEvent):void {
-			
-			alEmt = event.result as ArrayCollection;
-			
-			if (alEmt != null && alEmt.length > 0) {
-				paging.totalDataCount = Object(alEmt.getItemAt(0)).cnt;
-				
-				if (currTotalCount != paging.totalDataCount)paging.init();
-				currTotalCount = paging.totalDataCount;
-				
-				category.visible = true;
-				msgBox.visible = true;
-			}
-			msgBox.dataProvider = alEmt;
-		}
-		private function category_changeHandler(event:IndexChangeEvent):void {
-			this.cate = category.selectedItem as String;
-			getEmotiList();
-		}
-		protected function paging_clickPageHandler(event:CustomEvent):void {
-			
-			RemoteManager.getInstance.result = emoticon_resultHandler;
-			RemoteManager.getInstance.callresponderToken 
-				= RemoteManager.getInstance.service.getEmotiListPage(gubun, cate, int(event.obj), paging.viewDataCount);
-		}
 		private function msgBox_changeHandler(event:IndexChangeEvent):void {
 			var obj:Object = msgBox.selectedItem as Object;
 			msg = obj.msg;
