@@ -16,42 +16,39 @@ import mx.events.PropertyChangeEvent;
 use namespace model_internal;
 
 [ExcludeClass]
-internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobjects.AbstractEntityMetadata
+internal class _PhoneVOEntityMetadata extends com.adobe.fiber.valueobjects.AbstractEntityMetadata
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("fileName", "lineNumber", "className", "nativeMethod", "methodName");
+    model_internal static var allProperties:Array = new Array("pNo", "pName");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("fileName", "lineNumber", "className", "nativeMethod", "methodName");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("pNo", "pName");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("fileName", "lineNumber", "className", "nativeMethod", "methodName");
+    model_internal static var dataProperties:Array = new Array("pNo", "pName");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("fileName", "lineNumber", "className", "nativeMethod", "methodName");
+    model_internal static var nonDerivedProperties:Array = new Array("pNo", "pName");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
-    model_internal static var entityName:String = "StackTraceElement";
+    model_internal static var entityName:String = "PhoneVO";
     model_internal static var dependentsOnMap:Object;
     model_internal static var dependedOnServices:Array = new Array();
     model_internal static var propertyTypeMap:Object;
 
 
-    model_internal var _instance:_Super_StackTraceElement;
+    model_internal var _instance:_Super_PhoneVO;
     model_internal static var _nullStyle:com.adobe.fiber.styles.Style = new com.adobe.fiber.styles.Style();
 
-    public function _StackTraceElementEntityMetadata(value : _Super_StackTraceElement)
+    public function _PhoneVOEntityMetadata(value : _Super_PhoneVO)
     {
         // initialize property maps
         if (model_internal::dependentsOnMap == null)
         {
             // dependents map
             model_internal::dependentsOnMap = new Object();
-            model_internal::dependentsOnMap["fileName"] = new Array();
-            model_internal::dependentsOnMap["lineNumber"] = new Array();
-            model_internal::dependentsOnMap["className"] = new Array();
-            model_internal::dependentsOnMap["nativeMethod"] = new Array();
-            model_internal::dependentsOnMap["methodName"] = new Array();
+            model_internal::dependentsOnMap["pNo"] = new Array();
+            model_internal::dependentsOnMap["pName"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
@@ -59,11 +56,8 @@ internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobj
 
         // Property type Map
         model_internal::propertyTypeMap = new Object();
-        model_internal::propertyTypeMap["fileName"] = "String";
-        model_internal::propertyTypeMap["lineNumber"] = "int";
-        model_internal::propertyTypeMap["className"] = "String";
-        model_internal::propertyTypeMap["nativeMethod"] = "Boolean";
-        model_internal::propertyTypeMap["methodName"] = "String";
+        model_internal::propertyTypeMap["pNo"] = "String";
+        model_internal::propertyTypeMap["pName"] = "String";
 
         model_internal::_instance = value;
     }
@@ -116,7 +110,7 @@ internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobj
     override public function getDependants(propertyName:String):Array
     {
        if (model_internal::nonDerivedProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a data property of entity StackTraceElement");
+            throw new Error(propertyName + " is not a data property of entity PhoneVO");
             
        return model_internal::dependentsOnMap[propertyName] as Array;  
     }
@@ -134,7 +128,7 @@ internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobj
     override public function getCollectionBase(propertyName:String):String
     {
         if (model_internal::collectionProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a collection property of entity StackTraceElement");
+            throw new Error(propertyName + " is not a collection property of entity PhoneVO");
 
         return model_internal::collectionBaseMap[propertyName];
     }
@@ -142,7 +136,7 @@ internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobj
     override public function getPropertyType(propertyName:String):String
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a property of StackTraceElement");
+            throw new Error(propertyName + " is not a property of PhoneVO");
 
         return model_internal::propertyTypeMap[propertyName];
     }
@@ -156,7 +150,7 @@ internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobj
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " does not exist for entity StackTraceElement");
+            throw new Error(propertyName + " does not exist for entity PhoneVO");
         }
 
         return model_internal::_instance[propertyName];
@@ -166,7 +160,7 @@ internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobj
     {
         if (model_internal::nonDerivedProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " is not a modifiable property of entity StackTraceElement");
+            throw new Error(propertyName + " is not a modifiable property of entity PhoneVO");
         }
 
         model_internal::_instance[propertyName] = value;
@@ -198,7 +192,7 @@ internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobj
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " does not exist for entity StackTraceElement");
+            throw new Error(propertyName + " does not exist for entity PhoneVO");
         }
 
         if (model_internal::allAlwaysAvailableProperties.indexOf(propertyName) != -1)
@@ -293,31 +287,13 @@ internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobj
     }
 
     [Bindable(event="propertyChange")]
-    public function get isFileNameAvailable():Boolean
+    public function get isPNoAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isLineNumberAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isClassNameAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isNativeMethodAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isMethodNameAvailable():Boolean
+    public function get isPNameAvailable():Boolean
     {
         return true;
     }
@@ -333,31 +309,13 @@ internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobj
     }
 
     [Bindable(event="propertyChange")]   
-    public function get fileNameStyle():com.adobe.fiber.styles.Style
+    public function get pNoStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get lineNumberStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get classNameStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get nativeMethodStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get methodNameStyle():com.adobe.fiber.styles.Style
+    public function get pNameStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

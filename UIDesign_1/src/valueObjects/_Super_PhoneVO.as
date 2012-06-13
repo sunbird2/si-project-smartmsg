@@ -1,6 +1,6 @@
 /**
  * This is a generated class and is not intended for modification.  To customize behavior
- * of this value object you may modify the generated sub-class of this class - StackTraceElement.as.
+ * of this value object you may modify the generated sub-class of this class - PhoneVO.as.
  */
 
 package valueObjects
@@ -20,20 +20,20 @@ import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 use namespace model_internal;
 
 [ExcludeClass]
-public class _Super_StackTraceElement extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
+public class _Super_PhoneVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
 {
     model_internal static function initRemoteClassAliasSingle(cz:Class) : void
     {
         try
         {
-            if (flash.net.getClassByAlias("java.lang.StackTraceElement") == null)
+            if (flash.net.getClassByAlias("com.m.send.PhoneVO") == null)
             {
-                flash.net.registerClassAlias("java.lang.StackTraceElement", cz);
+                flash.net.registerClassAlias("com.m.send.PhoneVO", cz);
             }
         }
         catch (e:Error)
         {
-            flash.net.registerClassAlias("java.lang.StackTraceElement", cz);
+            flash.net.registerClassAlias("com.m.send.PhoneVO", cz);
         }
     }
 
@@ -41,7 +41,7 @@ public class _Super_StackTraceElement extends flash.events.EventDispatcher imple
     {
     }
 
-    model_internal var _dminternal_model : _StackTraceElementEntityMetadata;
+    model_internal var _dminternal_model : _PhoneVOEntityMetadata;
     model_internal var _changedObjects:mx.collections.ArrayCollection = new ArrayCollection();
 
     public function getChangedObjects() : Array
@@ -58,11 +58,8 @@ public class _Super_StackTraceElement extends flash.events.EventDispatcher imple
     /**
      * properties
      */
-    private var _internal_fileName : String;
-    private var _internal_lineNumber : int;
-    private var _internal_className : String;
-    private var _internal_nativeMethod : Boolean;
-    private var _internal_methodName : String;
+    private var _internal_pNo : String;
+    private var _internal_pName : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -74,9 +71,9 @@ public class _Super_StackTraceElement extends flash.events.EventDispatcher imple
 
     model_internal var _changeWatcherArray:Array = new Array();
 
-    public function _Super_StackTraceElement()
+    public function _Super_PhoneVO()
     {
-        _model = new _StackTraceElementEntityMetadata(this);
+        _model = new _PhoneVOEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
 
@@ -87,33 +84,15 @@ public class _Super_StackTraceElement extends flash.events.EventDispatcher imple
      */
 
     [Bindable(event="propertyChange")]
-    public function get fileName() : String
+    public function get pNo() : String
     {
-        return _internal_fileName;
+        return _internal_pNo;
     }
 
     [Bindable(event="propertyChange")]
-    public function get lineNumber() : int
+    public function get pName() : String
     {
-        return _internal_lineNumber;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get className() : String
-    {
-        return _internal_className;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get nativeMethod() : Boolean
-    {
-        return _internal_nativeMethod;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get methodName() : String
-    {
-        return _internal_methodName;
+        return _internal_pName;
     }
 
     public function clearAssociations() : void
@@ -124,53 +103,23 @@ public class _Super_StackTraceElement extends flash.events.EventDispatcher imple
      * data/source property setters
      */
 
-    public function set fileName(value:String) : void
+    public function set pNo(value:String) : void
     {
-        var oldValue:String = _internal_fileName;
+        var oldValue:String = _internal_pNo;
         if (oldValue !== value)
         {
-            _internal_fileName = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "fileName", oldValue, _internal_fileName));
+            _internal_pNo = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "pNo", oldValue, _internal_pNo));
         }
     }
 
-    public function set lineNumber(value:int) : void
+    public function set pName(value:String) : void
     {
-        var oldValue:int = _internal_lineNumber;
+        var oldValue:String = _internal_pName;
         if (oldValue !== value)
         {
-            _internal_lineNumber = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "lineNumber", oldValue, _internal_lineNumber));
-        }
-    }
-
-    public function set className(value:String) : void
-    {
-        var oldValue:String = _internal_className;
-        if (oldValue !== value)
-        {
-            _internal_className = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "className", oldValue, _internal_className));
-        }
-    }
-
-    public function set nativeMethod(value:Boolean) : void
-    {
-        var oldValue:Boolean = _internal_nativeMethod;
-        if (oldValue !== value)
-        {
-            _internal_nativeMethod = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "nativeMethod", oldValue, _internal_nativeMethod));
-        }
-    }
-
-    public function set methodName(value:String) : void
-    {
-        var oldValue:String = _internal_methodName;
-        if (oldValue !== value)
-        {
-            _internal_methodName = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "methodName", oldValue, _internal_methodName));
+            _internal_pName = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "pName", oldValue, _internal_pName));
         }
     }
 
@@ -234,14 +183,14 @@ public class _Super_StackTraceElement extends flash.events.EventDispatcher imple
 
     [Transient]
     [Bindable(event="propertyChange")]
-    public function get _model() : _StackTraceElementEntityMetadata
+    public function get _model() : _PhoneVOEntityMetadata
     {
         return model_internal::_dminternal_model;
     }
 
-    public function set _model(value : _StackTraceElementEntityMetadata) : void
+    public function set _model(value : _PhoneVOEntityMetadata) : void
     {
-        var oldValue : _StackTraceElementEntityMetadata = model_internal::_dminternal_model;
+        var oldValue : _PhoneVOEntityMetadata = model_internal::_dminternal_model;
         if (oldValue !== value)
         {
             model_internal::_dminternal_model = value;

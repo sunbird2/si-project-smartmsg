@@ -2,7 +2,7 @@ package component
 {
 	
 	import component.send.Emoticon;
-	import component.send.PhoneVO;
+	import component.send.ReturnPhone;
 	
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -31,6 +31,7 @@ package component
 	import spark.events.IndexChangeEvent;
 	
 	import valueObjects.BooleanAndDescriptionVO;
+	import valueObjects.PhoneVO;
 	
 	
 	[SkinState("message")]
@@ -130,10 +131,17 @@ package component
 		 * emoticon properties
 		 * */
 		private var emt:Emoticon;
+		
+		
+		/**
+		 * returnPhone properties
+		 * */
+		public var rt:ReturnPhone;
 
 		public function Send() { 
 			super();
 			emt = new Emoticon();
+			rt = new ReturnPhone();
 			
 		}
 		override protected function getCurrentSkinState():String { return super.getCurrentSkinState(); } 
@@ -156,7 +164,7 @@ package component
 			else if (instance == myMessage) myMessage.addEventListener(MouseEvent.CLICK, emt.myMessage_clickHandler);
 			else if (instance == messageSaveBtn) messageSaveBtn.addEventListener(MouseEvent.CLICK, messageSaveBtn_clickHandler);
 			else if (instance == sentMessage) sentMessage.addEventListener(MouseEvent.CLICK, emt.sentMessage_clickHandler);
-			
+			else if (instance == callbackSave) callbackSave.addEventListener(MouseEvent.CLICK, rt.callbackSave_clickHandler);
 			
 
 		}
@@ -177,6 +185,8 @@ package component
 			else if (instance == paging) paging.removeEventListener("clickPage", emt.paging_clickPageHandler);
 			else if (instance == msgBox) msgBox.removeEventListener(IndexChangeEvent.CHANGE, msgBox_changeHandler);
 			else if (instance == myMessage) myMessage.removeEventListener(MouseEvent.CLICK, emt.myMessage_clickHandler);
+			
+			
 		}
 		override protected function createChildren():void
 		{
@@ -185,6 +195,11 @@ package component
 			emt.category = category;
 			emt.msgBox = msgBox;
 			emt.paging = paging;
+			
+			callback.labelField = "phone";
+			rt.callback = this.callback;
+			rt.getReturnPhone();
+			
 			
 		}
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void	{
@@ -205,7 +220,7 @@ package component
 			if ( Gv.bLogin == false ) validMessage = "로그인 후 이용 가능 합니다.";
 			else if ( msg == "" ) validMessage = "메시지를 입력 하세요.";
 			else if (this.alPhone.length <= 0) validMessage = "전화번호를 입력하세요.";
-			else if (callBackNo == "") validMessage = "회신번호를 입력하세요.";
+			else if (rt.returnPhone == "") validMessage = "회신번호를 입력하세요.";
 			else {
 				validMessage = "보내기 버튼을 누르면 전송 됩니다.";
 				sendBtn.enabled = true;
@@ -286,20 +301,6 @@ package component
 			setTotalCount();
 			SLibrary.alert(dupCnt + " 건의 중복번호가 제거 되었습니다.");
 		}
-		
-		
-		
-		/**
-		 * callback function
-		 * */
-		public function get callBackNo():String {
-			
-			if (callback.selectedIndex < 0) return callback.selectedItem as String;
-			else return callback.selectedItem.phone as String;
-		}
-		private function callback_changeHandler(event:Event):void { isValid(); }
-		
-		
 		
 		
 		/**
@@ -384,6 +385,12 @@ package component
 				SLibrary.alert("실패");
 			}
 		}
+		
+		/**
+		 * returnPhone function
+		 * */
+		private function callback_changeHandler(event:Event):void { isValid(); }
+		
 		
 		
 		/**
