@@ -258,6 +258,7 @@ package component
 				if (sendListInput.text != "") {
 					if (SLibrary.bKoreaPhoneCheck( sendListInput.text )) {
 						addPhone(sendListInput.text, "");
+						sendListInput.text = "";
 					}
 					else SLibrary.alert("잘못된 전화번호 입니다.");
 				}

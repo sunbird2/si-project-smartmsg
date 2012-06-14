@@ -13,7 +13,7 @@ package component.send
 	import mx.core.IFactory;
 	import mx.rpc.events.ResultEvent;
 	
-	import skin.emoticon.CategoryRenderer;
+	import skin.emoticon.EmoticonRenderer;
 	import skin.emoticon.MyRenderer;
 	
 	import spark.components.List;
@@ -51,6 +51,7 @@ package component.send
 		public function emoticon_clickHandler(event:MouseEvent):void {
 			
 			paging.viewDataCount = 6;
+			gubun = "테마문자";
 			RemoteManager.getInstance.result = emoticonCate_resultHandler;
 			RemoteManager.getInstance.callresponderToken 
 				= RemoteManager.getInstance.service.getEmotiCateList(gubun);
@@ -77,6 +78,7 @@ package component.send
 			
 			if (Gv.bLogin) {
 				paging.viewDataCount = 6;
+				gubun = "sent";
 				RemoteManager.getInstance.result = emoticon_resultHandler;
 				RemoteManager.getInstance.callresponderToken 
 					= RemoteManager.getInstance.service.getSentListPage(0, paging.viewDataCount);
@@ -111,10 +113,12 @@ package component.send
 				if (gubun == "my") {
 					category.visible = false;
 					msgBox.itemRenderer = new ClassFactory(MyRenderer);
+				}else if (gubun == "sent") {
+					msgBox.itemRenderer = new ClassFactory(EmoticonRenderer);
 				}
 				else {
 					category.visible = true;
-					msgBox.itemRenderer = new ClassFactory(CategoryRenderer);
+					msgBox.itemRenderer = new ClassFactory(EmoticonRenderer);
 				}
 				msgBox.visible = true;
 			}
