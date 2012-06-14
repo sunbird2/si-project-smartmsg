@@ -22,14 +22,14 @@ internal class _ConnectionEntityMetadata extends com.adobe.fiber.valueobjects.Ab
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("autoCommit", "holdability", "readOnly", "typeMap", "catalog", "closed", "clientInfo", "transactionIsolation", "warnings", "metaData");
+    model_internal static var allProperties:Array = new Array("autoCommit", "readOnly", "holdability", "typeMap", "catalog", "closed", "clientInfo", "transactionIsolation", "warnings", "metaData");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("autoCommit", "holdability", "readOnly", "typeMap", "catalog", "closed", "clientInfo", "transactionIsolation", "warnings", "metaData");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("autoCommit", "readOnly", "holdability", "typeMap", "catalog", "closed", "clientInfo", "transactionIsolation", "warnings", "metaData");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("autoCommit", "holdability", "readOnly", "typeMap", "catalog", "closed", "clientInfo", "transactionIsolation", "warnings", "metaData");
+    model_internal static var dataProperties:Array = new Array("autoCommit", "readOnly", "holdability", "typeMap", "catalog", "closed", "clientInfo", "transactionIsolation", "warnings", "metaData");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("autoCommit", "holdability", "readOnly", "typeMap", "catalog", "closed", "clientInfo", "transactionIsolation", "warnings", "metaData");
+    model_internal static var nonDerivedProperties:Array = new Array("autoCommit", "readOnly", "holdability", "typeMap", "catalog", "closed", "clientInfo", "transactionIsolation", "warnings", "metaData");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -50,8 +50,8 @@ internal class _ConnectionEntityMetadata extends com.adobe.fiber.valueobjects.Ab
             // dependents map
             model_internal::dependentsOnMap = new Object();
             model_internal::dependentsOnMap["autoCommit"] = new Array();
-            model_internal::dependentsOnMap["holdability"] = new Array();
             model_internal::dependentsOnMap["readOnly"] = new Array();
+            model_internal::dependentsOnMap["holdability"] = new Array();
             model_internal::dependentsOnMap["typeMap"] = new Array();
             model_internal::dependentsOnMap["catalog"] = new Array();
             model_internal::dependentsOnMap["closed"] = new Array();
@@ -67,8 +67,8 @@ internal class _ConnectionEntityMetadata extends com.adobe.fiber.valueobjects.Ab
         // Property type Map
         model_internal::propertyTypeMap = new Object();
         model_internal::propertyTypeMap["autoCommit"] = "Boolean";
-        model_internal::propertyTypeMap["holdability"] = "int";
         model_internal::propertyTypeMap["readOnly"] = "Boolean";
+        model_internal::propertyTypeMap["holdability"] = "int";
         model_internal::propertyTypeMap["typeMap"] = "Object";
         model_internal::propertyTypeMap["catalog"] = "String";
         model_internal::propertyTypeMap["closed"] = "Boolean";
@@ -311,13 +311,13 @@ internal class _ConnectionEntityMetadata extends com.adobe.fiber.valueobjects.Ab
     }
 
     [Bindable(event="propertyChange")]
-    public function get isHoldabilityAvailable():Boolean
+    public function get isReadOnlyAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isReadOnlyAvailable():Boolean
+    public function get isHoldabilityAvailable():Boolean
     {
         return true;
     }
@@ -381,13 +381,13 @@ internal class _ConnectionEntityMetadata extends com.adobe.fiber.valueobjects.Ab
     }
 
     [Bindable(event="propertyChange")]   
-    public function get holdabilityStyle():com.adobe.fiber.styles.Style
+    public function get readOnlyStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get readOnlyStyle():com.adobe.fiber.styles.Style
+    public function get holdabilityStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
