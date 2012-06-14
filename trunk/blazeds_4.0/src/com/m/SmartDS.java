@@ -1,5 +1,7 @@
 package com.m;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,6 +12,8 @@ import com.common.util.SLibrary;
 import com.m.common.BooleanAndDescriptionVO;
 import com.m.common.PointManager;
 import com.m.emoticon.Emotion;
+import com.m.excel.ExcelLoader;
+import com.m.excel.ExcelLoaderResultVO;
 import com.m.member.Join;
 import com.m.member.JoinVO;
 import com.m.member.SessionManagement;
@@ -354,8 +358,41 @@ public class SmartDS extends SessionManagement {
 		return rvo;
 	}
 
-	
-	
+	/*###############################
+	#	excel						#
+	###############################*/
+	public ExcelLoaderResultVO getExcelLoaderData(byte[] bytes, String fileName){
+		
+		VbyP.accessLog(getSession()+" >> excel Upload");
+		ExcelLoaderResultVO evo = new ExcelLoaderResultVO();
+		String path = VbyP.getValue("excelUploadPath");
+
+		ExcelLoader el = new ExcelLoader();
+		String uploadFileName = "";
+		evo.setbResult(true);
+		
+		try {
+			uploadFileName = el.uploadExcelFile(bytes, path, fileName);
+		}catch(Exception e){
+			evo.setbResult(false);
+			evo.setstrDescription("upload fail");
+		}
+		
+		try {
+			evo.setList( el.getExcelData(path, uploadFileName) );
+		}catch(IOException ie) {
+			System.out.println(ie.toString());
+		}catch(Exception e) {
+			System.out.println(e.toString());
+			evo.setbResult(false);
+			evo.setstrDescription("no excel formatt");
+		}
+		finally {		 
+			new File(path + uploadFileName).delete();
+		}
+	    
+		return evo;
+	}
 	
 	
 	
