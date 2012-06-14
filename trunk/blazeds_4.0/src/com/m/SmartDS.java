@@ -14,6 +14,10 @@ import com.m.member.Join;
 import com.m.member.JoinVO;
 import com.m.member.SessionManagement;
 import com.m.member.UserInformationVO;
+import com.m.returnphone.ReturnPhone;
+import com.m.send.ISend;
+import com.m.send.SendManager;
+import com.m.send.SendMessageVO;
 
 import flex.messaging.FlexContext;
 
@@ -182,6 +186,177 @@ public class SmartDS extends SessionManagement {
 		
 		return al;
 	}
+	public BooleanAndDescriptionVO saveMymsg(String msg) {
+		
+		Connection conn = null;
+		Emotion em = null;
+		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		
+		try {
+			if (SLibrary.isNull(msg)) throw new Exception("no message");
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			em = Emotion.getInstance();
+			bvo = em.saveMymsg(conn, getSession(), msg);
+			
+		}catch (Exception e) {
+			bvo.setbResult(false);
+			bvo.setstrDescription(e.getMessage());
+		}	finally { close(conn); }
+		
+		return bvo;
+	}
+	public BooleanAndDescriptionVO delMymsg(int idx) {
+		
+		Connection conn = null;
+		Emotion em = null;
+		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		
+		try {
+			if (idx == 0) throw new Exception("no idx");
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			em = Emotion.getInstance();
+			bvo = em.delMymsg(conn, getSession(), idx);
+			
+		}catch (Exception e) {
+			bvo.setbResult(false);
+			bvo.setstrDescription(e.getMessage());
+		}	finally { close(conn); }
+		
+		return bvo;
+	}
+	public ArrayList<HashMap<String, String>> getSentListPage(int page, int count) {
+		
+		Connection conn = null;
+		Emotion em = null;
+		ArrayList<HashMap<String, String>> al = null;
+		try {
+			conn = VbyP.getDB();
+			em = Emotion.getInstance();
+			al = em.getSentPage(conn, getSession(), page, count);
+			
+		}catch (Exception e) {}	finally {			
+			close(conn);
+		}
+		
+		return al;
+	}
+	
+	
+	/*###############################
+	#	returnPhone					#
+	###############################*/
+	public BooleanAndDescriptionVO setReturnPhone(String phone) {
+		
+		Connection conn = null;
+		ReturnPhone em = null;
+		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		
+		try {
+			if (SLibrary.isNull(phone)) throw new Exception("no phone");
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			em = ReturnPhone.getInstance();
+			bvo = em.setReturnPhone(conn, getSession(), phone);
+			
+		}catch (Exception e) {
+			bvo.setbResult(false);
+			bvo.setstrDescription(e.getMessage());
+		}	finally { close(conn); }
+		
+		return bvo;
+	}
+	
+	public ArrayList<HashMap<String, String>> getReturnPhone() {
+		
+		Connection conn = null;
+		ReturnPhone em = null;
+		ArrayList<HashMap<String, String>> al = null;
+		try {
+			conn = VbyP.getDB();
+			em = ReturnPhone.getInstance();
+			al = em.getReturnPhone(conn, getSession());
+			
+		}catch (Exception e) {}	finally {			
+			close(conn);
+		}
+		
+		return al;
+	}
+	public BooleanAndDescriptionVO setReturnPhoneTimeWrite(int idx) {
+		
+		Connection conn = null;
+		ReturnPhone em = null;
+		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		
+		try {
+			if (idx == 0) throw new Exception("no key");
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			em = ReturnPhone.getInstance();
+			bvo = em.setReturnPhoneTimeWrite(conn, getSession(), idx);
+			
+		}catch (Exception e) {
+			bvo.setbResult(false);
+			bvo.setstrDescription(e.getMessage());
+		}	finally { close(conn); }
+		
+		return bvo;
+	}
+	public BooleanAndDescriptionVO deleteReturnPhone(int idx) {
+		
+		Connection conn = null;
+		ReturnPhone em = null;
+		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		
+		try {
+			if (idx == 0) throw new Exception("no key");
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			em = ReturnPhone.getInstance();
+			bvo = em.deleteReturnPhone(conn, getSession(), idx);
+			
+		}catch (Exception e) {
+			bvo.setbResult(false);
+			bvo.setstrDescription(e.getMessage());
+		}	finally { close(conn); }
+		
+		return bvo;
+	}
+	
+	
+	/*###############################
+	#	send						#
+	###############################*/
+	public BooleanAndDescriptionVO sendSMSconf( SendMessageVO smvo ) {
+		
+		Connection conn = null;
+		ISend send = SendManager.getInstance();
+		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		UserInformationVO uvo = null;
+		try {
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			uvo = getInformation(conn, getSession());
+			
+			smvo.setReqIP(FlexContext.getHttpRequest().getRemoteAddr());
+			
+			send.send(conn, uvo, smvo);
+
+		}catch (Exception e) {
+			rvo.setbResult(false);
+			rvo.setstrDescription(e.getMessage());
+			System.out.println(e.toString());
+		}
+		finally { close(conn); }
+		
+		return rvo;
+	}
+
+	
+	
+	
 	
 	
 	
