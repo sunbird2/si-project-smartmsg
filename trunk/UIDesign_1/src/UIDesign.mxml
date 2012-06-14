@@ -4,7 +4,7 @@
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   xmlns:component="component.*"
 			   xmlns:services="services.*"
-			   width="1024" height="768" skinClass="skin.AppSkin">
+			   width="1024" height="768" skinClass="skin.AppSkin" xmlns:excel="component.excel.*">
 	<fx:Style source="assets/style/styles.css"/>
 	
 	<s:states>
@@ -17,7 +17,7 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	
+	<excel:Excel id="excel" skinClass="skin.excel.ExcelSkin" />
 	<component:Menus id="menus" skinClass="skin.MenuSkin" change="{this.currentState = event.obj as String}"/>
 	<s:VGroup>
 		<component:Login id="login" skinClass="skin.LoginSkin" />
@@ -30,6 +30,7 @@
 			<component:Join id="join" skinClass="skin.JoinSkin" visible="false" />
 		</s:Group>
 	</s:VGroup>
+	
 	
 	
 </s:Application>

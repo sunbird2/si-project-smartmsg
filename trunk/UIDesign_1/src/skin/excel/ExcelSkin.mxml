@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("component.excel.Excel")]
+	</fx:Metadata>
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="upload"/>
+		<s:State name="action"/>
+	</s:states>
+	
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" />
+	</s:layout>
+	<s:RichText id="helpText" text="엑셀열기 를 클릭하세요." />
+	<s:HGroup verticalAlign="middle">
+		<s:Button id="openBtn" includeIn="normal" label="엑셀열기" />
+		<s:ComboBox id="phoneCombo" includeIn="upload, action" width="80" />
+		<s:ComboBox id="nameCombo" includeIn="upload, action" width="80" />
+		<s:VGroup includeIn="action">
+			<s:HGroup>
+				<s:ComboBox id="addressCombo" width="80" />
+				<s:Button id="addressBtn" label="주소록 저장" />	
+			</s:HGroup>
+			<s:Button id="sendBtn" label="전송" />
+		</s:VGroup>
+	</s:HGroup>
+	<s:HGroup>
+		<s:DataGrid id="excelView">
+			
+		</s:DataGrid>
+		<s:List id="resultList" itemRenderer="skin.excel.ResultListRenderer">
+			
+		</s:List>
+	</s:HGroup>
+	
+</s:Skin>
