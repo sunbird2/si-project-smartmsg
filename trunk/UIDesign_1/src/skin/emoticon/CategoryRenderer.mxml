@@ -3,18 +3,6 @@
 				xmlns:s="library://ns.adobe.com/flex/spark" 
 				xmlns:mx="library://ns.adobe.com/flex/mx" 
 				autoDrawBackground="true">
-	<fx:Script>
-		<![CDATA[
-			
-			override public function set data(value:Object):void
-			{
-				// TODO Auto Generated method stub
-				super.data = value;
-			}
-			
-		]]>
-	</fx:Script>
-	
 	<s:Label text="{data}"/>
 	
 </s:ItemRenderer>

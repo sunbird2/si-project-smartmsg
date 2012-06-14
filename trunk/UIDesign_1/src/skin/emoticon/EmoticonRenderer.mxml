@@ -10,12 +10,13 @@
 			{
 				// TODO Auto Generated method stub
 				super.data = value;
-				emt.text = data.msg;
+				if (data != null)
+					emt.text = data.msg;
 			}
 			
 		]]>
 	</fx:Script>
 	
-	<s:RichText id="emt" width="100" height="100" text="{data}"/>
+	<s:RichText id="emt" width="100" height="100"/>
 	
 </s:ItemRenderer>
