@@ -1,6 +1,6 @@
 /**
  * This is a generated class and is not intended for modification.  To customize behavior
- * of this value object you may modify the generated sub-class of this class - Connection.as.
+ * of this value object you may modify the generated sub-class of this class - SendMessageVO.as.
  */
 
 package valueObjects
@@ -10,8 +10,7 @@ import com.adobe.fiber.valueobjects.IValueObject;
 import flash.events.EventDispatcher;
 import mx.collections.ArrayCollection;
 import mx.events.PropertyChangeEvent;
-import valueObjects.DatabaseMetaData;
-import valueObjects.SQLWarning;
+import valueObjects.PhoneVO;
 
 import flash.net.registerClassAlias;
 import flash.net.getClassByAlias;
@@ -22,35 +21,29 @@ import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 use namespace model_internal;
 
 [ExcludeClass]
-public class _Super_Connection extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
+public class _Super_SendMessageVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
 {
     model_internal static function initRemoteClassAliasSingle(cz:Class) : void
     {
         try
         {
-            if (flash.net.getClassByAlias("java.sql.Connection") == null)
+            if (flash.net.getClassByAlias("com.m.send.SendMessageVO") == null)
             {
-                flash.net.registerClassAlias("java.sql.Connection", cz);
+                flash.net.registerClassAlias("com.m.send.SendMessageVO", cz);
             }
         }
         catch (e:Error)
         {
-            flash.net.registerClassAlias("java.sql.Connection", cz);
+            flash.net.registerClassAlias("com.m.send.SendMessageVO", cz);
         }
     }
 
     model_internal static function initRemoteClassAliasAllRelated() : void
     {
-        valueObjects.SQLWarning.initRemoteClassAliasSingleChild();
-        valueObjects.Throwable.initRemoteClassAliasSingleChild();
-        valueObjects.StackTraceElement.initRemoteClassAliasSingleChild();
-        valueObjects.SQLException.initRemoteClassAliasSingleChild();
-        valueObjects.DatabaseMetaData.initRemoteClassAliasSingleChild();
-        valueObjects.ResultSet.initRemoteClassAliasSingleChild();
-        valueObjects.Connection.initRemoteClassAliasSingleChild();
+        valueObjects.PhoneVO.initRemoteClassAliasSingleChild();
     }
 
-    model_internal var _dminternal_model : _ConnectionEntityMetadata;
+    model_internal var _dminternal_model : _SendMessageVOEntityMetadata;
     model_internal var _changedObjects:mx.collections.ArrayCollection = new ArrayCollection();
 
     public function getChangedObjects() : Array
@@ -67,16 +60,18 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
     /**
      * properties
      */
-    private var _internal_autoCommit : Boolean;
-    private var _internal_readOnly : Boolean;
-    private var _internal_holdability : int;
-    private var _internal_typeMap : Object;
-    private var _internal_catalog : String;
-    private var _internal_closed : Boolean;
-    private var _internal_clientInfo : Object;
-    private var _internal_transactionIsolation : int;
-    private var _internal_warnings : valueObjects.SQLWarning;
-    private var _internal_metaData : valueObjects.DatabaseMetaData;
+    private var _internal_message : String;
+    private var _internal_al : ArrayCollection;
+    model_internal var _internal_al_leaf:valueObjects.PhoneVO;
+    private var _internal_itMinute : int;
+    private var _internal_bMerge : Boolean;
+    private var _internal_imagePath : String;
+    private var _internal_itCount : int;
+    private var _internal_returnPhone : String;
+    private var _internal_bReservation : Boolean;
+    private var _internal_bInterval : Boolean;
+    private var _internal_reservationDate : String;
+    private var _internal_reqIP : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -88,9 +83,9 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
 
     model_internal var _changeWatcherArray:Array = new Array();
 
-    public function _Super_Connection()
+    public function _Super_SendMessageVO()
     {
-        _model = new _ConnectionEntityMetadata(this);
+        _model = new _SendMessageVOEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
 
@@ -101,63 +96,69 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
      */
 
     [Bindable(event="propertyChange")]
-    public function get autoCommit() : Boolean
+    public function get message() : String
     {
-        return _internal_autoCommit;
+        return _internal_message;
     }
 
     [Bindable(event="propertyChange")]
-    public function get readOnly() : Boolean
+    public function get al() : ArrayCollection
     {
-        return _internal_readOnly;
+        return _internal_al;
     }
 
     [Bindable(event="propertyChange")]
-    public function get holdability() : int
+    public function get itMinute() : int
     {
-        return _internal_holdability;
+        return _internal_itMinute;
     }
 
     [Bindable(event="propertyChange")]
-    public function get typeMap() : Object
+    public function get bMerge() : Boolean
     {
-        return _internal_typeMap;
+        return _internal_bMerge;
     }
 
     [Bindable(event="propertyChange")]
-    public function get catalog() : String
+    public function get imagePath() : String
     {
-        return _internal_catalog;
+        return _internal_imagePath;
     }
 
     [Bindable(event="propertyChange")]
-    public function get closed() : Boolean
+    public function get itCount() : int
     {
-        return _internal_closed;
+        return _internal_itCount;
     }
 
     [Bindable(event="propertyChange")]
-    public function get clientInfo() : Object
+    public function get returnPhone() : String
     {
-        return _internal_clientInfo;
+        return _internal_returnPhone;
     }
 
     [Bindable(event="propertyChange")]
-    public function get transactionIsolation() : int
+    public function get bReservation() : Boolean
     {
-        return _internal_transactionIsolation;
+        return _internal_bReservation;
     }
 
     [Bindable(event="propertyChange")]
-    public function get warnings() : valueObjects.SQLWarning
+    public function get bInterval() : Boolean
     {
-        return _internal_warnings;
+        return _internal_bInterval;
     }
 
     [Bindable(event="propertyChange")]
-    public function get metaData() : valueObjects.DatabaseMetaData
+    public function get reservationDate() : String
     {
-        return _internal_metaData;
+        return _internal_reservationDate;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get reqIP() : String
+    {
+        return _internal_reqIP;
     }
 
     public function clearAssociations() : void
@@ -168,103 +169,128 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
      * data/source property setters
      */
 
-    public function set autoCommit(value:Boolean) : void
+    public function set message(value:String) : void
     {
-        var oldValue:Boolean = _internal_autoCommit;
+        var oldValue:String = _internal_message;
         if (oldValue !== value)
         {
-            _internal_autoCommit = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "autoCommit", oldValue, _internal_autoCommit));
+            _internal_message = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "message", oldValue, _internal_message));
         }
     }
 
-    public function set readOnly(value:Boolean) : void
+    public function set al(value:*) : void
     {
-        var oldValue:Boolean = _internal_readOnly;
+        var oldValue:ArrayCollection = _internal_al;
         if (oldValue !== value)
         {
-            _internal_readOnly = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "readOnly", oldValue, _internal_readOnly));
+            if (value is ArrayCollection)
+            {
+                _internal_al = value;
+            }
+            else if (value is Array)
+            {
+                _internal_al = new ArrayCollection(value);
+            }
+            else if (value == null)
+            {
+                _internal_al = null;
+            }
+            else
+            {
+                throw new Error("value of al must be a collection");
+            }
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "al", oldValue, _internal_al));
         }
     }
 
-    public function set holdability(value:int) : void
+    public function set itMinute(value:int) : void
     {
-        var oldValue:int = _internal_holdability;
+        var oldValue:int = _internal_itMinute;
         if (oldValue !== value)
         {
-            _internal_holdability = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "holdability", oldValue, _internal_holdability));
+            _internal_itMinute = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "itMinute", oldValue, _internal_itMinute));
         }
     }
 
-    public function set typeMap(value:Object) : void
+    public function set bMerge(value:Boolean) : void
     {
-        var oldValue:Object = _internal_typeMap;
+        var oldValue:Boolean = _internal_bMerge;
         if (oldValue !== value)
         {
-            _internal_typeMap = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "typeMap", oldValue, _internal_typeMap));
+            _internal_bMerge = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "bMerge", oldValue, _internal_bMerge));
         }
     }
 
-    public function set catalog(value:String) : void
+    public function set imagePath(value:String) : void
     {
-        var oldValue:String = _internal_catalog;
+        var oldValue:String = _internal_imagePath;
         if (oldValue !== value)
         {
-            _internal_catalog = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "catalog", oldValue, _internal_catalog));
+            _internal_imagePath = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "imagePath", oldValue, _internal_imagePath));
         }
     }
 
-    public function set closed(value:Boolean) : void
+    public function set itCount(value:int) : void
     {
-        var oldValue:Boolean = _internal_closed;
+        var oldValue:int = _internal_itCount;
         if (oldValue !== value)
         {
-            _internal_closed = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "closed", oldValue, _internal_closed));
+            _internal_itCount = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "itCount", oldValue, _internal_itCount));
         }
     }
 
-    public function set clientInfo(value:Object) : void
+    public function set returnPhone(value:String) : void
     {
-        var oldValue:Object = _internal_clientInfo;
+        var oldValue:String = _internal_returnPhone;
         if (oldValue !== value)
         {
-            _internal_clientInfo = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "clientInfo", oldValue, _internal_clientInfo));
+            _internal_returnPhone = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "returnPhone", oldValue, _internal_returnPhone));
         }
     }
 
-    public function set transactionIsolation(value:int) : void
+    public function set bReservation(value:Boolean) : void
     {
-        var oldValue:int = _internal_transactionIsolation;
+        var oldValue:Boolean = _internal_bReservation;
         if (oldValue !== value)
         {
-            _internal_transactionIsolation = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "transactionIsolation", oldValue, _internal_transactionIsolation));
+            _internal_bReservation = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "bReservation", oldValue, _internal_bReservation));
         }
     }
 
-    public function set warnings(value:valueObjects.SQLWarning) : void
+    public function set bInterval(value:Boolean) : void
     {
-        var oldValue:valueObjects.SQLWarning = _internal_warnings;
+        var oldValue:Boolean = _internal_bInterval;
         if (oldValue !== value)
         {
-            _internal_warnings = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "warnings", oldValue, _internal_warnings));
+            _internal_bInterval = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "bInterval", oldValue, _internal_bInterval));
         }
     }
 
-    public function set metaData(value:valueObjects.DatabaseMetaData) : void
+    public function set reservationDate(value:String) : void
     {
-        var oldValue:valueObjects.DatabaseMetaData = _internal_metaData;
+        var oldValue:String = _internal_reservationDate;
         if (oldValue !== value)
         {
-            _internal_metaData = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "metaData", oldValue, _internal_metaData));
+            _internal_reservationDate = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "reservationDate", oldValue, _internal_reservationDate));
+        }
+    }
+
+    public function set reqIP(value:String) : void
+    {
+        var oldValue:String = _internal_reqIP;
+        if (oldValue !== value)
+        {
+            _internal_reqIP = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "reqIP", oldValue, _internal_reqIP));
         }
     }
 
@@ -328,14 +354,14 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
 
     [Transient]
     [Bindable(event="propertyChange")]
-    public function get _model() : _ConnectionEntityMetadata
+    public function get _model() : _SendMessageVOEntityMetadata
     {
         return model_internal::_dminternal_model;
     }
 
-    public function set _model(value : _ConnectionEntityMetadata) : void
+    public function set _model(value : _SendMessageVOEntityMetadata) : void
     {
-        var oldValue : _ConnectionEntityMetadata = model_internal::_dminternal_model;
+        var oldValue : _SendMessageVOEntityMetadata = model_internal::_dminternal_model;
         if (oldValue !== value)
         {
             model_internal::_dminternal_model = value;

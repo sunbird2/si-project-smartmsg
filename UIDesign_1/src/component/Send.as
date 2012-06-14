@@ -32,6 +32,7 @@ package component
 	
 	import valueObjects.BooleanAndDescriptionVO;
 	import valueObjects.PhoneVO;
+	import valueObjects.SendMessageVO;
 	
 	
 	[SkinState("message")]
@@ -398,7 +399,23 @@ package component
 		 * */
 		private function sendBtn_clickHandler(event:MouseEvent):void {
 			
+			var smvo:SendMessageVO = new SendMessageVO();
+			
+			smvo.bInterval = false;
+			smvo.bMerge = false;
+			smvo.bReservation = false;
+			smvo.message = msg;
+			smvo.returnPhone = rt.returnPhone;
+			smvo.al = alPhone;
+			
+			RemoteManager.getInstance.result = sendBtn_resultHandler;
+			RemoteManager.getInstance.callresponderToken 
+				= RemoteManager.getInstance.service.sendSMSconf(smvo);
 		}
+		private function sendBtn_resultHandler(event:ResultEvent):void {
+			
+		}
+		
 		
 		
 		/**

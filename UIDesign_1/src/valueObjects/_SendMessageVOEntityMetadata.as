@@ -9,9 +9,8 @@ import com.adobe.fiber.styles.Style;
 import com.adobe.fiber.valueobjects.AbstractEntityMetadata;
 import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 import com.adobe.fiber.valueobjects.IPropertyIterator;
-import valueObjects.Connection;
-import valueObjects.ResultSet;
-import valueObjects.SQLWarning;
+import mx.collections.ArrayCollection;
+import valueObjects.PhoneVO;
 import com.adobe.fiber.core.model_internal;
 import com.adobe.fiber.valueobjects.IModelType;
 import mx.events.PropertyChangeEvent;
@@ -19,74 +18,67 @@ import mx.events.PropertyChangeEvent;
 use namespace model_internal;
 
 [ExcludeClass]
-internal class _StatementEntityMetadata extends com.adobe.fiber.valueobjects.AbstractEntityMetadata
+internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects.AbstractEntityMetadata
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("fetchSize", "connection", "resultSetHoldability", "queryTimeout", "resultSetType", "resultSetConcurrency", "fetchDirection", "maxFieldSize", "poolable", "maxRows", "closed", "resultSet", "updateCount", "warnings", "generatedKeys");
+    model_internal static var allProperties:Array = new Array("message", "al", "itMinute", "bMerge", "imagePath", "itCount", "returnPhone", "bReservation", "bInterval", "reservationDate", "reqIP");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("fetchSize", "connection", "resultSetHoldability", "queryTimeout", "resultSetType", "resultSetConcurrency", "fetchDirection", "maxFieldSize", "poolable", "maxRows", "closed", "resultSet", "updateCount", "warnings", "generatedKeys");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("message", "al", "itMinute", "bMerge", "imagePath", "itCount", "returnPhone", "bReservation", "bInterval", "reservationDate", "reqIP");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("fetchSize", "connection", "resultSetHoldability", "queryTimeout", "resultSetType", "resultSetConcurrency", "fetchDirection", "maxFieldSize", "poolable", "maxRows", "closed", "resultSet", "updateCount", "warnings", "generatedKeys");
+    model_internal static var dataProperties:Array = new Array("message", "al", "itMinute", "bMerge", "imagePath", "itCount", "returnPhone", "bReservation", "bInterval", "reservationDate", "reqIP");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("fetchSize", "connection", "resultSetHoldability", "queryTimeout", "resultSetType", "resultSetConcurrency", "fetchDirection", "maxFieldSize", "poolable", "maxRows", "closed", "resultSet", "updateCount", "warnings", "generatedKeys");
+    model_internal static var nonDerivedProperties:Array = new Array("message", "al", "itMinute", "bMerge", "imagePath", "itCount", "returnPhone", "bReservation", "bInterval", "reservationDate", "reqIP");
     model_internal static var derivedProperties:Array = new Array();
-    model_internal static var collectionProperties:Array = new Array();
+    model_internal static var collectionProperties:Array = new Array("al");
     model_internal static var collectionBaseMap:Object;
-    model_internal static var entityName:String = "Statement";
+    model_internal static var entityName:String = "SendMessageVO";
     model_internal static var dependentsOnMap:Object;
     model_internal static var dependedOnServices:Array = new Array();
     model_internal static var propertyTypeMap:Object;
 
 
-    model_internal var _instance:_Super_Statement;
+    model_internal var _instance:_Super_SendMessageVO;
     model_internal static var _nullStyle:com.adobe.fiber.styles.Style = new com.adobe.fiber.styles.Style();
 
-    public function _StatementEntityMetadata(value : _Super_Statement)
+    public function _SendMessageVOEntityMetadata(value : _Super_SendMessageVO)
     {
         // initialize property maps
         if (model_internal::dependentsOnMap == null)
         {
             // dependents map
             model_internal::dependentsOnMap = new Object();
-            model_internal::dependentsOnMap["fetchSize"] = new Array();
-            model_internal::dependentsOnMap["connection"] = new Array();
-            model_internal::dependentsOnMap["resultSetHoldability"] = new Array();
-            model_internal::dependentsOnMap["queryTimeout"] = new Array();
-            model_internal::dependentsOnMap["resultSetType"] = new Array();
-            model_internal::dependentsOnMap["resultSetConcurrency"] = new Array();
-            model_internal::dependentsOnMap["fetchDirection"] = new Array();
-            model_internal::dependentsOnMap["maxFieldSize"] = new Array();
-            model_internal::dependentsOnMap["poolable"] = new Array();
-            model_internal::dependentsOnMap["maxRows"] = new Array();
-            model_internal::dependentsOnMap["closed"] = new Array();
-            model_internal::dependentsOnMap["resultSet"] = new Array();
-            model_internal::dependentsOnMap["updateCount"] = new Array();
-            model_internal::dependentsOnMap["warnings"] = new Array();
-            model_internal::dependentsOnMap["generatedKeys"] = new Array();
+            model_internal::dependentsOnMap["message"] = new Array();
+            model_internal::dependentsOnMap["al"] = new Array();
+            model_internal::dependentsOnMap["itMinute"] = new Array();
+            model_internal::dependentsOnMap["bMerge"] = new Array();
+            model_internal::dependentsOnMap["imagePath"] = new Array();
+            model_internal::dependentsOnMap["itCount"] = new Array();
+            model_internal::dependentsOnMap["returnPhone"] = new Array();
+            model_internal::dependentsOnMap["bReservation"] = new Array();
+            model_internal::dependentsOnMap["bInterval"] = new Array();
+            model_internal::dependentsOnMap["reservationDate"] = new Array();
+            model_internal::dependentsOnMap["reqIP"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
+            model_internal::collectionBaseMap["al"] = "valueObjects.PhoneVO";
         }
 
         // Property type Map
         model_internal::propertyTypeMap = new Object();
-        model_internal::propertyTypeMap["fetchSize"] = "int";
-        model_internal::propertyTypeMap["connection"] = "valueObjects.Connection";
-        model_internal::propertyTypeMap["resultSetHoldability"] = "int";
-        model_internal::propertyTypeMap["queryTimeout"] = "int";
-        model_internal::propertyTypeMap["resultSetType"] = "int";
-        model_internal::propertyTypeMap["resultSetConcurrency"] = "int";
-        model_internal::propertyTypeMap["fetchDirection"] = "int";
-        model_internal::propertyTypeMap["maxFieldSize"] = "int";
-        model_internal::propertyTypeMap["poolable"] = "Boolean";
-        model_internal::propertyTypeMap["maxRows"] = "int";
-        model_internal::propertyTypeMap["closed"] = "Boolean";
-        model_internal::propertyTypeMap["resultSet"] = "valueObjects.ResultSet";
-        model_internal::propertyTypeMap["updateCount"] = "int";
-        model_internal::propertyTypeMap["warnings"] = "valueObjects.SQLWarning";
-        model_internal::propertyTypeMap["generatedKeys"] = "valueObjects.ResultSet";
+        model_internal::propertyTypeMap["message"] = "String";
+        model_internal::propertyTypeMap["al"] = "ArrayCollection";
+        model_internal::propertyTypeMap["itMinute"] = "int";
+        model_internal::propertyTypeMap["bMerge"] = "Boolean";
+        model_internal::propertyTypeMap["imagePath"] = "String";
+        model_internal::propertyTypeMap["itCount"] = "int";
+        model_internal::propertyTypeMap["returnPhone"] = "String";
+        model_internal::propertyTypeMap["bReservation"] = "Boolean";
+        model_internal::propertyTypeMap["bInterval"] = "Boolean";
+        model_internal::propertyTypeMap["reservationDate"] = "String";
+        model_internal::propertyTypeMap["reqIP"] = "String";
 
         model_internal::_instance = value;
     }
@@ -139,7 +131,7 @@ internal class _StatementEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     override public function getDependants(propertyName:String):Array
     {
        if (model_internal::nonDerivedProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a data property of entity Statement");
+            throw new Error(propertyName + " is not a data property of entity SendMessageVO");
             
        return model_internal::dependentsOnMap[propertyName] as Array;  
     }
@@ -157,7 +149,7 @@ internal class _StatementEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     override public function getCollectionBase(propertyName:String):String
     {
         if (model_internal::collectionProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a collection property of entity Statement");
+            throw new Error(propertyName + " is not a collection property of entity SendMessageVO");
 
         return model_internal::collectionBaseMap[propertyName];
     }
@@ -165,7 +157,7 @@ internal class _StatementEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     override public function getPropertyType(propertyName:String):String
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a property of Statement");
+            throw new Error(propertyName + " is not a property of SendMessageVO");
 
         return model_internal::propertyTypeMap[propertyName];
     }
@@ -179,7 +171,7 @@ internal class _StatementEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " does not exist for entity Statement");
+            throw new Error(propertyName + " does not exist for entity SendMessageVO");
         }
 
         return model_internal::_instance[propertyName];
@@ -189,7 +181,7 @@ internal class _StatementEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     {
         if (model_internal::nonDerivedProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " is not a modifiable property of entity Statement");
+            throw new Error(propertyName + " is not a modifiable property of entity SendMessageVO");
         }
 
         model_internal::_instance[propertyName] = value;
@@ -221,7 +213,7 @@ internal class _StatementEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " does not exist for entity Statement");
+            throw new Error(propertyName + " does not exist for entity SendMessageVO");
         }
 
         if (model_internal::allAlwaysAvailableProperties.indexOf(propertyName) != -1)
@@ -316,91 +308,67 @@ internal class _StatementEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]
-    public function get isFetchSizeAvailable():Boolean
+    public function get isMessageAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isConnectionAvailable():Boolean
+    public function get isAlAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isResultSetHoldabilityAvailable():Boolean
+    public function get isItMinuteAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isQueryTimeoutAvailable():Boolean
+    public function get isBMergeAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isResultSetTypeAvailable():Boolean
+    public function get isImagePathAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isResultSetConcurrencyAvailable():Boolean
+    public function get isItCountAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isFetchDirectionAvailable():Boolean
+    public function get isReturnPhoneAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isMaxFieldSizeAvailable():Boolean
+    public function get isBReservationAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isPoolableAvailable():Boolean
+    public function get isBIntervalAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isMaxRowsAvailable():Boolean
+    public function get isReservationDateAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isClosedAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isResultSetAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isUpdateCountAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isWarningsAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isGeneratedKeysAvailable():Boolean
+    public function get isReqIPAvailable():Boolean
     {
         return true;
     }
@@ -416,91 +384,67 @@ internal class _StatementEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]   
-    public function get fetchSizeStyle():com.adobe.fiber.styles.Style
+    public function get messageStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get connectionStyle():com.adobe.fiber.styles.Style
+    public function get alStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get resultSetHoldabilityStyle():com.adobe.fiber.styles.Style
+    public function get itMinuteStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get queryTimeoutStyle():com.adobe.fiber.styles.Style
+    public function get bMergeStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get resultSetTypeStyle():com.adobe.fiber.styles.Style
+    public function get imagePathStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get resultSetConcurrencyStyle():com.adobe.fiber.styles.Style
+    public function get itCountStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get fetchDirectionStyle():com.adobe.fiber.styles.Style
+    public function get returnPhoneStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get maxFieldSizeStyle():com.adobe.fiber.styles.Style
+    public function get bReservationStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get poolableStyle():com.adobe.fiber.styles.Style
+    public function get bIntervalStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get maxRowsStyle():com.adobe.fiber.styles.Style
+    public function get reservationDateStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get closedStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get resultSetStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get updateCountStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get warningsStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get generatedKeysStyle():com.adobe.fiber.styles.Style
+    public function get reqIPStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

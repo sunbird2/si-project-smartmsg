@@ -7,13 +7,13 @@ package services
 import com.adobe.fiber.core.model_internal;
 import com.adobe.fiber.services.wrapper.RemoteObjectServiceWrapper;
 import com.adobe.serializers.utility.TypeUtility;
-import mx.collections.ArrayCollection;
 import mx.rpc.AbstractOperation;
 import mx.rpc.AsyncToken;
 import mx.rpc.remoting.Operation;
 import mx.rpc.remoting.RemoteObject;
 import valueObjects.BooleanAndDescriptionVO;
 import valueObjects.Connection;
+import valueObjects.SendMessageVO;
 import valueObjects.UserInformationVO;
 
 import mx.collections.ItemResponder;
@@ -547,10 +547,10 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
       *
       * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
       */
-    public function sendSMSconf(arg0:String, arg1:ArrayCollection, arg2:String, arg3:String, arg4:String, arg5:Boolean) : mx.rpc.AsyncToken
+    public function sendSMSconf(arg0:valueObjects.SendMessageVO) : mx.rpc.AsyncToken
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("sendSMSconf");
-		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1,arg2,arg3,arg4,arg5) ;
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
         return _internal_token;
     }
      
