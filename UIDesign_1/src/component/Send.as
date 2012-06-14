@@ -178,7 +178,6 @@ package component
 			else if (instance == sendListInput)	sendListInput.removeEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
 			else if (instance == sendListInputBtn) sendListInputBtn.removeEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
 			else if (instance == dupleDelete) dupleDelete.removeEventListener(MouseEvent.CLICK, dupleDelete_clickHandler);
-			else if (instance == sendList) sendList.dataProvider = alPhone;
 			else if (instance == callback) callback.removeEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
 			else if (instance == sendBtn) sendBtn.removeEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
 			else if (instance == emoticon) emoticon.removeEventListener(MouseEvent.CLICK, emt.emoticon_clickHandler);
@@ -186,6 +185,9 @@ package component
 			else if (instance == paging) paging.removeEventListener("clickPage", emt.paging_clickPageHandler);
 			else if (instance == msgBox) msgBox.removeEventListener(IndexChangeEvent.CHANGE, msgBox_changeHandler);
 			else if (instance == myMessage) myMessage.removeEventListener(MouseEvent.CLICK, emt.myMessage_clickHandler);
+			else if (instance == messageSaveBtn) messageSaveBtn.removeEventListener(MouseEvent.CLICK, messageSaveBtn_clickHandler);
+			else if (instance == sentMessage) sentMessage.removeEventListener(MouseEvent.CLICK, emt.sentMessage_clickHandler);
+			else if (instance == callbackSave) callbackSave.removeEventListener(MouseEvent.CLICK, rt.callbackSave_clickHandler);
 			
 			
 		}
@@ -249,6 +251,10 @@ package component
 		 * */
 		public function addPhone(phone:String, pname:String):void {
 			alPhone.addItem(getPvo(phone, pname));
+			setTotalCount();
+		}
+		public function addPhoneList(ac:ArrayCollection):void {
+			alPhone = ac;
 			setTotalCount();
 		}
 		protected function sendListInput_enterHandler(event:Event):void {

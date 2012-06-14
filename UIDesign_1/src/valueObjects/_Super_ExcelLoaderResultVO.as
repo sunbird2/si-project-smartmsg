@@ -1,6 +1,6 @@
 /**
  * This is a generated class and is not intended for modification.  To customize behavior
- * of this value object you may modify the generated sub-class of this class - SQLWarning.as.
+ * of this value object you may modify the generated sub-class of this class - ExcelLoaderResultVO.as.
  */
 
 package valueObjects
@@ -10,10 +10,6 @@ import com.adobe.fiber.valueobjects.IValueObject;
 import flash.events.EventDispatcher;
 import mx.collections.ArrayCollection;
 import mx.events.PropertyChangeEvent;
-import valueObjects.SQLException;
-import valueObjects.SQLWarning;
-import valueObjects.StackTraceElement;
-import valueObjects.Throwable;
 
 import flash.net.registerClassAlias;
 import flash.net.getClassByAlias;
@@ -24,32 +20,28 @@ import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 use namespace model_internal;
 
 [ExcludeClass]
-public class _Super_SQLWarning extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
+public class _Super_ExcelLoaderResultVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
 {
     model_internal static function initRemoteClassAliasSingle(cz:Class) : void
     {
         try
         {
-            if (flash.net.getClassByAlias("java.sql.SQLWarning") == null)
+            if (flash.net.getClassByAlias("com.m.excel.ExcelLoaderResultVO") == null)
             {
-                flash.net.registerClassAlias("java.sql.SQLWarning", cz);
+                flash.net.registerClassAlias("com.m.excel.ExcelLoaderResultVO", cz);
             }
         }
         catch (e:Error)
         {
-            flash.net.registerClassAlias("java.sql.SQLWarning", cz);
+            flash.net.registerClassAlias("com.m.excel.ExcelLoaderResultVO", cz);
         }
     }
 
     model_internal static function initRemoteClassAliasAllRelated() : void
     {
-        valueObjects.SQLWarning.initRemoteClassAliasSingleChild();
-        valueObjects.Throwable.initRemoteClassAliasSingleChild();
-        valueObjects.StackTraceElement.initRemoteClassAliasSingleChild();
-        valueObjects.SQLException.initRemoteClassAliasSingleChild();
     }
 
-    model_internal var _dminternal_model : _SQLWarningEntityMetadata;
+    model_internal var _dminternal_model : _ExcelLoaderResultVOEntityMetadata;
     model_internal var _changedObjects:mx.collections.ArrayCollection = new ArrayCollection();
 
     public function getChangedObjects() : Array
@@ -66,15 +58,9 @@ public class _Super_SQLWarning extends flash.events.EventDispatcher implements c
     /**
      * properties
      */
-    private var _internal_SQLState : String;
-    private var _internal_message : String;
-    private var _internal_nextWarning : valueObjects.SQLWarning;
-    private var _internal_localizedMessage : String;
-    private var _internal_cause : valueObjects.Throwable;
-    private var _internal_errorCode : int;
-    private var _internal_nextException : valueObjects.SQLException;
-    private var _internal_stackTrace : ArrayCollection;
-    model_internal var _internal_stackTrace_leaf:valueObjects.StackTraceElement;
+    private var _internal_bResult : Boolean;
+    private var _internal_list : ArrayCollection;
+    private var _internal_strDescription : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -86,9 +72,9 @@ public class _Super_SQLWarning extends flash.events.EventDispatcher implements c
 
     model_internal var _changeWatcherArray:Array = new Array();
 
-    public function _Super_SQLWarning()
+    public function _Super_ExcelLoaderResultVO()
     {
-        _model = new _SQLWarningEntityMetadata(this);
+        _model = new _ExcelLoaderResultVOEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
 
@@ -99,51 +85,21 @@ public class _Super_SQLWarning extends flash.events.EventDispatcher implements c
      */
 
     [Bindable(event="propertyChange")]
-    public function get SQLState() : String
+    public function get bResult() : Boolean
     {
-        return _internal_SQLState;
+        return _internal_bResult;
     }
 
     [Bindable(event="propertyChange")]
-    public function get message() : String
+    public function get list() : ArrayCollection
     {
-        return _internal_message;
+        return _internal_list;
     }
 
     [Bindable(event="propertyChange")]
-    public function get nextWarning() : valueObjects.SQLWarning
+    public function get strDescription() : String
     {
-        return _internal_nextWarning;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get localizedMessage() : String
-    {
-        return _internal_localizedMessage;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get cause() : valueObjects.Throwable
-    {
-        return _internal_cause;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get errorCode() : int
-    {
-        return _internal_errorCode;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get nextException() : valueObjects.SQLException
-    {
-        return _internal_nextException;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get stackTrace() : ArrayCollection
-    {
-        return _internal_stackTrace;
+        return _internal_strDescription;
     }
 
     public function clearAssociations() : void
@@ -154,98 +110,48 @@ public class _Super_SQLWarning extends flash.events.EventDispatcher implements c
      * data/source property setters
      */
 
-    public function set SQLState(value:String) : void
+    public function set bResult(value:Boolean) : void
     {
-        var oldValue:String = _internal_SQLState;
+        var oldValue:Boolean = _internal_bResult;
         if (oldValue !== value)
         {
-            _internal_SQLState = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "SQLState", oldValue, _internal_SQLState));
+            _internal_bResult = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "bResult", oldValue, _internal_bResult));
         }
     }
 
-    public function set message(value:String) : void
+    public function set list(value:*) : void
     {
-        var oldValue:String = _internal_message;
-        if (oldValue !== value)
-        {
-            _internal_message = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "message", oldValue, _internal_message));
-        }
-    }
-
-    public function set nextWarning(value:valueObjects.SQLWarning) : void
-    {
-        var oldValue:valueObjects.SQLWarning = _internal_nextWarning;
-        if (oldValue !== value)
-        {
-            _internal_nextWarning = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "nextWarning", oldValue, _internal_nextWarning));
-        }
-    }
-
-    public function set localizedMessage(value:String) : void
-    {
-        var oldValue:String = _internal_localizedMessage;
-        if (oldValue !== value)
-        {
-            _internal_localizedMessage = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "localizedMessage", oldValue, _internal_localizedMessage));
-        }
-    }
-
-    public function set cause(value:valueObjects.Throwable) : void
-    {
-        var oldValue:valueObjects.Throwable = _internal_cause;
-        if (oldValue !== value)
-        {
-            _internal_cause = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "cause", oldValue, _internal_cause));
-        }
-    }
-
-    public function set errorCode(value:int) : void
-    {
-        var oldValue:int = _internal_errorCode;
-        if (oldValue !== value)
-        {
-            _internal_errorCode = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "errorCode", oldValue, _internal_errorCode));
-        }
-    }
-
-    public function set nextException(value:valueObjects.SQLException) : void
-    {
-        var oldValue:valueObjects.SQLException = _internal_nextException;
-        if (oldValue !== value)
-        {
-            _internal_nextException = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "nextException", oldValue, _internal_nextException));
-        }
-    }
-
-    public function set stackTrace(value:*) : void
-    {
-        var oldValue:ArrayCollection = _internal_stackTrace;
+        var oldValue:ArrayCollection = _internal_list;
         if (oldValue !== value)
         {
             if (value is ArrayCollection)
             {
-                _internal_stackTrace = value;
+                _internal_list = value;
             }
             else if (value is Array)
             {
-                _internal_stackTrace = new ArrayCollection(value);
+                _internal_list = new ArrayCollection(value);
             }
             else if (value == null)
             {
-                _internal_stackTrace = null;
+                _internal_list = null;
             }
             else
             {
-                throw new Error("value of stackTrace must be a collection");
+                throw new Error("value of list must be a collection");
             }
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "stackTrace", oldValue, _internal_stackTrace));
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "list", oldValue, _internal_list));
+        }
+    }
+
+    public function set strDescription(value:String) : void
+    {
+        var oldValue:String = _internal_strDescription;
+        if (oldValue !== value)
+        {
+            _internal_strDescription = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "strDescription", oldValue, _internal_strDescription));
         }
     }
 
@@ -309,14 +215,14 @@ public class _Super_SQLWarning extends flash.events.EventDispatcher implements c
 
     [Transient]
     [Bindable(event="propertyChange")]
-    public function get _model() : _SQLWarningEntityMetadata
+    public function get _model() : _ExcelLoaderResultVOEntityMetadata
     {
         return model_internal::_dminternal_model;
     }
 
-    public function set _model(value : _SQLWarningEntityMetadata) : void
+    public function set _model(value : _ExcelLoaderResultVOEntityMetadata) : void
     {
-        var oldValue : _SQLWarningEntityMetadata = model_internal::_dminternal_model;
+        var oldValue : _ExcelLoaderResultVOEntityMetadata = model_internal::_dminternal_model;
         if (oldValue !== value)
         {
             model_internal::_dminternal_model = value;

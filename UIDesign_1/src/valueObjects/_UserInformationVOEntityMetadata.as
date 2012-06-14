@@ -20,14 +20,14 @@ internal class _UserInformationVOEntityMetadata extends com.adobe.fiber.valueobj
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("user_name", "phone_return", "email", "emailYN", "hpYN", "jumin_no", "point", "levaeYN", "hp", "unit_cost", "line", "user_id");
+    model_internal static var allProperties:Array = new Array("user_name", "phone_return", "email", "emailYN", "hpYN", "jumin_no", "point", "hp", "levaeYN", "unit_cost", "line", "user_id");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("user_name", "phone_return", "email", "emailYN", "hpYN", "jumin_no", "point", "levaeYN", "hp", "unit_cost", "line", "user_id");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("user_name", "phone_return", "email", "emailYN", "hpYN", "jumin_no", "point", "hp", "levaeYN", "unit_cost", "line", "user_id");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("user_name", "phone_return", "email", "emailYN", "hpYN", "jumin_no", "point", "levaeYN", "hp", "unit_cost", "line", "user_id");
+    model_internal static var dataProperties:Array = new Array("user_name", "phone_return", "email", "emailYN", "hpYN", "jumin_no", "point", "hp", "levaeYN", "unit_cost", "line", "user_id");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("user_name", "phone_return", "email", "emailYN", "hpYN", "jumin_no", "point", "levaeYN", "hp", "unit_cost", "line", "user_id");
+    model_internal static var nonDerivedProperties:Array = new Array("user_name", "phone_return", "email", "emailYN", "hpYN", "jumin_no", "point", "hp", "levaeYN", "unit_cost", "line", "user_id");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -54,8 +54,8 @@ internal class _UserInformationVOEntityMetadata extends com.adobe.fiber.valueobj
             model_internal::dependentsOnMap["hpYN"] = new Array();
             model_internal::dependentsOnMap["jumin_no"] = new Array();
             model_internal::dependentsOnMap["point"] = new Array();
-            model_internal::dependentsOnMap["levaeYN"] = new Array();
             model_internal::dependentsOnMap["hp"] = new Array();
+            model_internal::dependentsOnMap["levaeYN"] = new Array();
             model_internal::dependentsOnMap["unit_cost"] = new Array();
             model_internal::dependentsOnMap["line"] = new Array();
             model_internal::dependentsOnMap["user_id"] = new Array();
@@ -73,8 +73,8 @@ internal class _UserInformationVOEntityMetadata extends com.adobe.fiber.valueobj
         model_internal::propertyTypeMap["hpYN"] = "String";
         model_internal::propertyTypeMap["jumin_no"] = "String";
         model_internal::propertyTypeMap["point"] = "String";
-        model_internal::propertyTypeMap["levaeYN"] = "String";
         model_internal::propertyTypeMap["hp"] = "String";
+        model_internal::propertyTypeMap["levaeYN"] = "String";
         model_internal::propertyTypeMap["unit_cost"] = "int";
         model_internal::propertyTypeMap["line"] = "String";
         model_internal::propertyTypeMap["user_id"] = "String";
@@ -349,13 +349,13 @@ internal class _UserInformationVOEntityMetadata extends com.adobe.fiber.valueobj
     }
 
     [Bindable(event="propertyChange")]
-    public function get isLevaeYNAvailable():Boolean
+    public function get isHpAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isHpAvailable():Boolean
+    public function get isLevaeYNAvailable():Boolean
     {
         return true;
     }
@@ -431,13 +431,13 @@ internal class _UserInformationVOEntityMetadata extends com.adobe.fiber.valueobj
     }
 
     [Bindable(event="propertyChange")]   
-    public function get levaeYNStyle():com.adobe.fiber.styles.Style
+    public function get hpStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get hpStyle():com.adobe.fiber.styles.Style
+    public function get levaeYNStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
