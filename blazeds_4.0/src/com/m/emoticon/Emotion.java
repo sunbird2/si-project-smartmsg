@@ -7,6 +7,7 @@ import java.util.HashMap;
 import com.common.VbyP;
 import com.common.db.PreparedExecuteQueryManager;
 import com.common.util.SLibrary;
+import com.m.common.BooleanAndDescriptionVO;
 
 public class Emotion {
 
@@ -65,6 +66,77 @@ public class Emotion {
 			pq.setInt(3, from);
 			pq.setInt(4, count);
 		}
+		
+		
+		al = pq.ExecuteQueryArrayList();
+		
+		return al;
+	}
+	
+	
+	
+	public BooleanAndDescriptionVO saveMymsg(Connection conn, String user_id, String msg) {
+		
+		VbyP.accessLog(user_id+" >> saveMymsg "+msg);
+		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		rvo.setbResult(false);
+		
+		StringBuffer buf = new StringBuffer();
+		buf.append(VbyP.getSQL("insert_mymsg"));
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		pq.setPrepared( conn, buf.toString() );
+		pq.setString(1, user_id);
+		pq.setString(2, msg);
+		pq.executeUpdate();
+		
+		rvo.setbResult(true);
+		
+		return rvo;
+		
+	}
+	
+	public BooleanAndDescriptionVO delMymsg(Connection conn, String user_id, int idx) {
+		
+		VbyP.accessLog(user_id+" >> delMymsg "+idx);
+		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		
+		StringBuffer buf = new StringBuffer();
+		buf.append(VbyP.getSQL("delete_mymsg"));
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		pq.setPrepared( conn, buf.toString() );
+		pq.setString(1, user_id);
+		pq.setInt(2, idx);
+		pq.executeUpdate();
+		
+		rvo.setbResult(true);
+	
+		return rvo;
+		
+	}
+	
+	public ArrayList<HashMap<String, String>> getSentPage(Connection conn, String user_id, int page, int count) {
+		
+		ArrayList<HashMap<String, String>> al = null;
+		
+		int from = 0;
+			
+		conn = VbyP.getDB();
+		
+		page += 1;
+		from = count * (page -1);
+		
+		VbyP.accessLog(" >>  emotion( sent ) "+Integer.toString(from));
+		
+		StringBuffer buf = new StringBuffer();
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		
+		buf.append(VbyP.getSQL("mysent_message"));
+		
+		pq.setPrepared( conn, buf.toString() );
+		pq.setString(1, SLibrary.IfNull( user_id ));
+		pq.setString(2, SLibrary.IfNull( user_id ));
+		pq.setInt(3, from);
+		pq.setInt(4, count);
 		
 		
 		al = pq.ExecuteQueryArrayList();
