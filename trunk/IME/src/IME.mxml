@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600"
+			   xmlns:components="creacog.spark.components.*">
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace components "creacog.spark.components.*";
+		@font-face
+		{
+			src: url("assets/나눔고딕ExtraBold.ttf");
+			fontFamily:"NGD";
+			fontWeight:normal;
+			fontStyle:normal;
+			embedAsCFF: true;
+			unicodeRange: U+0020-U+007E,U+1100-U+11F9,U+3000-U+303F,U+3131-U+318E,U+327F-U+327F,U+AC00-U+D7A3,U+FF01-U+FF60;
+		}
+		@font-face
+		{
+			src: url("assets/나눔명조ExtraBold.ttf");
+			fontFamily:"NM";
+			fontWeight:normal;
+			fontStyle:normal;
+			embedAsCFF: true;
+			unicodeRange: U+0020-U+007E,U+1100-U+11F9,U+3000-U+303F,U+3131-U+318E,U+327F-U+327F,U+AC00-U+D7A3,U+FF01-U+FF60;
+		}
+	</fx:Style>
+	<fx:Script>
+		<![CDATA[
+			import creacog.spark.components.ResizeableTitleWindow;
+			import creacog.spark.events.TitleWindowBoundsEvent;
+			import creacog.spark.skins.ResizeableTitleWindowMacSkin;
+			import creacog.spark.skins.ResizeableTitleWindowSkin;
+			
+			import mx.events.FlexEvent;
+			import mx.graphics.ImageSnapshot;
+			import mx.graphics.codec.JPEGEncoder;
+			import mx.managers.PopUpManager;
+			
+			import spark.components.Group;
+			import spark.components.Image;
+			import spark.components.RichEditableText;
+			import spark.events.IndexChangeEvent;
+			import spark.events.TitleWindowBoundsEvent;
+			
+			[Embed(source="assets/images.jpg")]
+			public var img:Class;
+			
+			// RESIZEABLE : B
+			private var rTitleWindowB :ResizeableTitleWindow = new ResizeableTitleWindow();
+			
+			public function get tool():uint	{ return tools.selectedIndex;	}
+			public function set tool(value:uint):void {tools.selectedIndex = value; }
+
+			protected function newWindow():void
+			{
+				rTitleWindowB.x            = 110;
+				rTitleWindowB.y            = 210;
+ 				/* rTitleWindowB.width        = 100;
+				rTitleWindowB.height    = 100;  */
+				rTitleWindowB.title        = "EditeImage";                
+				
+				rTitleWindowB.setStyle("skinclass", new ClassFactory(ResizeableTitleWindowMacSkin));
+				rTitleWindowB.setStyle("cornerRadius", 5);
+				rTitleWindowB.setStyle("borderColor", 0x999999);
+				rTitleWindowB.setStyle("dropShadowVisible", false);
+				
+				
+				
+				PopUpManager.addPopUp(    rTitleWindowB,
+					this,
+					false );
+				
+				// MONITOR EVENTS
+				rTitleWindowB.addEventListener(
+					creacog.spark.events.TitleWindowBoundsEvent.WINDOW_RESIZE_START,
+					rTitleWindowB_titleWindowBoundsEventHandler );
+				
+				rTitleWindowB.addEventListener(
+					creacog.spark.events.TitleWindowBoundsEvent.WINDOW_RESIZING,
+					rTitleWindowB_titleWindowBoundsEventHandler );
+				
+				rTitleWindowB.addEventListener(
+					creacog.spark.events.TitleWindowBoundsEvent.WINDOW_RESIZE_END,
+					rTitleWindowB_titleWindowBoundsEventHandler );
+				
+				rTitleWindowB.addEventListener(
+					creacog.spark.events.TitleWindowBoundsEvent.WINDOW_RESIZE,
+					rTitleWindowB_titleWindowBoundsEventHandler );
+				
+				rTitleWindowB.addEventListener(
+					spark.events.TitleWindowBoundsEvent.WINDOW_MOVE,
+					rTitleWindowB_titleWindowBoundsEventHandler );
+				
+				//callLater(addImage);
+			}
+			protected function rTitleWindowB_titleWindowBoundsEventHandler( e:Event ):void
+			{
+				trace( e.type );
+			}
+			
+			private function addImage():void {
+			
+				var temp:Image=new Image();
+				temp.source=img;
+				temp.addEventListener(MouseEvent.CLICK, img_clickHandler );
+				rTitleWindowB.contentGroup.addElement(temp);
+			}
+			
+			private function img_clickHandler(event:MouseEvent):void {
+				
+				if (tool == 0) {
+					var rt:RichEditableText = new RichEditableText();
+					rt.x = event.localX;
+					rt.y = event.localY;
+					rt.setStyle("fontFamily",fontFmaily.selectedItem as String);
+					rt.setStyle("fontSize",fontSize.selectedItem as int);
+					rt.setStyle("color",fontColor.selectedColor);
+					rt.setStyle("fontWeight",fontWeight.selectedItem as String);
+					
+					rt.addEventListener(MouseEvent.MOUSE_DOWN, handleDown);
+					rt.addEventListener(MouseEvent.MOUSE_UP, handleUp);
+
+					rTitleWindowB.contentGroup.addElement(rt);
+					
+					callLater(setFocuse, [rt]);
+				}
+			}
+			
+			private function setFocuse(rt:RichEditableText):void {
+				focusManager.setFocus(rt);
+			}
+			
+			
+			private function richEdite_moveHandler(event:MouseEvent):void {
+				
+				if (tools.selectedIndex == 1) {
+					var rt:RichEditableText = event.currentTarget as RichEditableText;
+					rt.x = event.localX;
+					rt.y = event.localY;
+				}
+			}
+			
+			
+			private function saveImageToFileSystem(group:Group):void
+			{
+				var jPEGEncoder:JPEGEncoder = new JPEGEncoder(500);
+				var imageSnapshot:ImageSnapshot = ImageSnapshot.captureImage(group, 0, jPEGEncoder);
+				var fileReference:FileReference = new FileReference();
+				fileReference.save(imageSnapshot.data, "img123.jpg");
+			}
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				saveImageToFileSystem(rTitleWindowB.contentGroup);
+			}
+			
+			
+			
+			private function handleDown(e:Event):void{
+				e.currentTarget.startDrag();
+			}
+			private function handleUp(e:Event):void{
+				e.currentTarget.stopDrag();
+				focusManager.setFocus(tools);
+			}
+			
+			protected function tools_changeHandler(event:IndexChangeEvent):void
+			{
+				if (event.newIndex == 0) {
+					textOption.visible = true;
+				}else {
+					textOption.visible = false;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:VGroup>
+		<s:HGroup>
+			<s:Button label="load Window" click="newWindow()" />
+			<s:Button label="load Image" click="addImage()" />
+			<s:Button label="save" click="button1_clickHandler(event)" />
+		</s:HGroup>
+		<s:ButtonBar id="tools"
+					 requireSelection="true" selectedIndex="0" change="tools_changeHandler(event)" >
+			<mx:ArrayCollection>
+				<fx:String>Text</fx:String>
+				<fx:String>Move</fx:String> 
+			</mx:ArrayCollection>
+		</s:ButtonBar>
+		<s:HGroup id="textOption">
+			<s:ComboBox id="fontFmaily" selectedIndex="1">
+				<s:dataProvider>
+					<mx:ArrayList>
+						<fx:String>Dotum</fx:String>
+						<fx:String>NGD</fx:String>
+						<fx:String>NM</fx:String>
+						<fx:String>굴림체</fx:String>
+					</mx:ArrayList>
+				</s:dataProvider>
+			</s:ComboBox>
+			<s:ComboBox id="fontSize" selectedIndex="1">
+				<s:dataProvider>
+					<mx:ArrayList>
+						<fx:int>12</fx:int>
+						<fx:int>24</fx:int>
+						<fx:int>26</fx:int>
+						<fx:int>34</fx:int>
+					</mx:ArrayList>
+				</s:dataProvider>
+			</s:ComboBox>
+			<s:ButtonBar id="fontWeight"
+						 requireSelection="true" selectedIndex="0" >
+				<mx:ArrayCollection>
+					<fx:String>normal</fx:String>
+					<fx:String>bold</fx:String> 
+				</mx:ArrayCollection>
+			</s:ButtonBar>
+			<mx:ColorPicker id="fontColor" />	
+		</s:HGroup>
+	</s:VGroup>
+	
+	
+</s:Application>
