@@ -97,7 +97,7 @@
 			}
 			protected function rTitleWindowB_titleWindowBoundsEventHandler( e:Event ):void
 			{
-				trace( e.type );
+				//trace( e.type );
 			}
 			
 			private function addImage():void {
