@@ -6,10 +6,10 @@ package component
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	
+	import lib.CustomEvent;
 	import lib.RemoteSingleManager;
 	import lib.SLibrary;
 	
-	import mx.rpc.events.ResultEvent;
 	import mx.validators.StringValidator;
 	import mx.validators.ValidationResult;
 	
@@ -155,12 +155,12 @@ package component
 		private function dupleIdCheck(id:String):void {
 			
 			if (id != "") {
-				RemoteSingleManager.getInstance.addEventListener("checkID", idCheck_ResultEventHandler, false, 0, true);
+				RemoteSingleManager.getInstance.addEventListener("checkID", idCheck_CustomEventHandler, false, 0, true);
 				RemoteSingleManager.getInstance.callresponderToken 
 					= RemoteSingleManager.getInstance.service.checkID(id);
 			}
 		}
-		private function idCheck_ResultEventHandler(event:ResultEvent):void {
+		private function idCheck_CustomEventHandler(event:CustomEvent):void {
 			
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {
@@ -272,7 +272,7 @@ package component
 					= RemoteSingleManager.getInstance.service.checkID(id);
 			}
 		}
-		private function next2_resultHandler(event:ResultEvent):void {
+		private function next2_resultHandler(event:CustomEvent):void {
 			
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {

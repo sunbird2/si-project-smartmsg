@@ -12,18 +12,18 @@ package lib
 				super(type);
 				
 				// Set the new property.
-				this.obj = obj;
+				this.result = obj;
 			}
 			
 			// Define static constant.
 			public static const SEND_OBJECT:String = "sendObject";
 			
 			// Define a public variable to hold the state of the enable property.
-			public var obj:Object;
+			public var result:Object;
 			
 			// Override the inherited clone() method. 
 			override public function clone():Event {
-				return new CustomEvent(type, obj);
+				return new CustomEvent(type, result);
 			}
 		}
 	

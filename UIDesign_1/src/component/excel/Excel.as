@@ -7,15 +7,12 @@ package component.excel
 	import flash.utils.ByteArray;
 	
 	import lib.CustomEvent;
-	import lib.FileUploadByRemoteObject;
-	import lib.FileUploadByRemoteObjectEvent;
 	import lib.RemoteSingleManager;
 	import lib.SLibrary;
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ArrayList;
 	import mx.controls.dataGridClasses.DataGridColumn;
-	import mx.rpc.events.ResultEvent;
 	
 	import skin.excel.ExcelSkin;
 	
@@ -99,7 +96,7 @@ package component.excel
 				resultList.dataProvider = acRslt;
 				resultList.labelFunction = resultListLabelFunc;
 			}
-			/*else if (instance == excelView) excelView.dataProvider = acExcel;*/
+			else if (instance == excelView) excelView.dataProvider = acExcel;
 			
 			
 			
@@ -158,14 +155,17 @@ package component.excel
 				
 				acRslt.removeAll();
 				
+				
 				for (var i:int = 0; i < cnt; i++) {
 					
 					phone = acExcel[i][phoneCombo.dataProvider.getItemAt(phoneCombo.selectedIndex).label] as String;
 					
 					if (phone != null)
 						phone = phone.replace(chkInvaildChar,"");
-					if (bName)
-						name = acExcel[i][nameCombo.dataProvider.getItemAt(nameCombo.selectedIndex).label] as String;
+					if (bName) {
+						var obj:Object = acExcel[i][nameCombo.dataProvider.getItemAt(nameCombo.selectedIndex).label];
+						name = (obj != null)? obj as String:"";
+					}
 					
 					// 0 이 빠진경우
 					if (phone != null && int(phone) != 0 && phone.length > 6 && phone.substr(0,1) != "0")
@@ -257,14 +257,13 @@ package component.excel
 		}
 		
 		
-		private function excelUpload_RESULTHandler(e:ResultEvent):void {
+		private function excelUpload_RESULTHandler(e:CustomEvent):void {
 			
 			var data:ExcelLoaderResultVO = e.result as ExcelLoaderResultVO;
 			
 			if (data.bResult) {
 				acExcel.removeAll();
-				acExcel = data.list;
-				excelView.dataProvider = acExcel;
+				acExcel.addAll(data.list);
 				callLater(setStep, [UPLOADED]);
 				
 			}else {
@@ -360,6 +359,13 @@ package component.excel
 				acRslt = null;
 			}
 			
+			if (uploadFiles != null) {
+				for (var i:Number = 0; i < uploadFiles.length; i++) {
+					delete uploadFiles[i];
+				}
+				uploadFiles = null;
+			}
+			
 			pvo = null;
 			
 			helpText = null;
@@ -369,7 +375,7 @@ package component.excel
 			_currStat = null;
 			refUploadFile = null;
 
-			
+			RemoteSingleManager.getInstance.removeEventListener("getExcelLoaderData", excelUpload_RESULTHandler);
 			removeEventListener(Event.REMOVED_FROM_STAGE, destroy, false);
 			
 			

@@ -11,11 +11,8 @@
 	<fx:Script>
 		<![CDATA[
 			import component.excel.Excel;
-			
 			import lib.CustomEvent;
-			
 			import mx.collections.ArrayCollection;
-			
 			import skin.excel.ExcelSkin;
 			
 			private var excel:Excel;
@@ -33,7 +30,7 @@
 				this.contentGroup.addElement(excel);
 			}
 			private function excel_sendHandler(event:CustomEvent):void {
-				send.addPhoneList( event.obj as ArrayCollection );
+				send.addPhoneList( event.result as ArrayCollection );
 			}
 			private function removeExcel():void {
 				
@@ -57,7 +54,7 @@
 	</fx:Declarations>
 	
 	<s:HGroup paddingTop="20" paddingLeft="20">
-		<component:Menus id="menus" skinClass="skin.MenuSkin" change="{this.currentState = event.obj as String}"/>
+		<component:Menus id="menus" skinClass="skin.MenuSkin" change="{this.currentState = event.result as String}"/>
 		<s:VGroup>
 			<component:Login id="login" skinClass="skin.LoginSkin" />
 			<s:Group>

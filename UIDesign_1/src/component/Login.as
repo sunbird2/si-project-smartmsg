@@ -12,7 +12,6 @@ package component
 	import lib.SLibrary;
 	
 	import mx.events.FlexEvent;
-	import mx.rpc.events.ResultEvent;
 	
 	import spark.components.Button;
 	import spark.components.Label;
@@ -101,7 +100,7 @@ package component
 		/**
 		 * login resultHandler
 		 * */
-		private function login_resultHandler(event:ResultEvent):void {
+		private function login_resultHandler(event:CustomEvent):void {
 			
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {
@@ -127,7 +126,7 @@ package component
 		 * */
 		private function login_check_resultHandler(event:CustomEvent):void {
 			
-			var uvo:UserInformationVO = event.obj as UserInformationVO;
+			var uvo:UserInformationVO = event.result as UserInformationVO;
 			if (uvo != null) {
 				cstat = "login";
 				Gv.bLogin = true;

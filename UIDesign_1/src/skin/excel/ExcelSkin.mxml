@@ -29,7 +29,7 @@
 		</s:VGroup>
 	</s:HGroup>
 	<s:HGroup>
-		<s:DataGrid id="excelView">
+		<s:DataGrid id="excelView" width="200" height="100">
 			
 		</s:DataGrid>
 		<s:List id="resultList" height="100">
