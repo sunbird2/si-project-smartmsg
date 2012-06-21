@@ -26,6 +26,8 @@ package component
 	/* A component must identify the view states that its skin supports. 
 	Use the [SkinState] metadata tag to define the view states in the component class. 
 	[SkinState("normal")] */
+	[SkinState("group")]
+	[SkinState("nameCard")]
 	
 	public class Address extends SkinnableComponent
 	{
@@ -55,9 +57,11 @@ package component
 		private var acGroup:ArrayCollection = new ArrayCollection();
 		private var acName:ArrayCollection = new ArrayCollection();
 		
-		private var card:AddressVO;
+		private var card:AddressVO = new AddressVO();
 		
 		private var currentGroupName:String = "";
+		
+		private var currentStat:String = "group";
 		
 		public function Address() {
 			super();
@@ -67,7 +71,7 @@ package component
 		/* Implement the getCurrentSkinState() method to set the view state of the skin class. */
 		override protected function getCurrentSkinState():String
 		{
-			return super.getCurrentSkinState();
+			return currentStat;
 		} 
 		
 		/* Implement the partAdded() method to attach event handlers to a skin part, 
@@ -148,18 +152,21 @@ package component
 			RemoteSingleManager.getInstance.removeEventListener("getAddrList", getNameList_resultHandler);
 			
 			var data:ArrayCollection = event.result as ArrayCollection;
-			acName.removeAll();
-			acName.addAll(data);
 			
-			viewCard(new AddressVO());
+			if (data != null && data.length > 0) {
+				acName.removeAll();
+				acName.addAll(data);
+				callLater(viewCard, [card]);
+			}else {
+				callLater(viewCard, [new AddressVO()]);
+			}
+			currentStat = "nameCard";
+			invalidateSkinState();
+			
 		}
 		private function viewCard(avo:AddressVO):void {
 			
 			card = avo;
-			
-			nameL.visible = true;
-			phone.visible = true;
-			memo.visible = true;
 			
 			nameL.text = avo.name;
 			phone.text = avo.phone;
