@@ -45,7 +45,7 @@
 			<s:Button id="sendListInputBtn" label="+" />	
 		</s:HGroup>
 		<s:HGroup>
-			<s:List id="sendList" itemRenderer="component.send.SendListRenderer" />
+			<s:List id="sendList" itemRenderer="component.send.SendListRenderer" height="100" />
 			<s:VGroup>
 				<s:RichText id="sendListFromAddress" text="주소록"  fontFamily="NGD" rotation="-20"/>
 				<s:RichText id="sendListFromExcel" text="엑셀"  fontFamily="NGD" rotation="-20"/>

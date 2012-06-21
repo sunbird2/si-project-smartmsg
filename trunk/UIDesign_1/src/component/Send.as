@@ -17,7 +17,6 @@ package component
 	
 	import mx.collections.ArrayCollection;
 	import mx.events.FlexEvent;
-	import mx.rpc.events.ResultEvent;
 	
 	import spark.components.Button;
 	import spark.components.CheckBox;
@@ -257,7 +256,7 @@ package component
 			setTotalCount();
 		}
 		public function addPhoneList(ac:ArrayCollection):void {
-			alPhone = ac;
+			alPhone.addAll(ac);
 			setTotalCount();
 		}
 		protected function sendListInput_enterHandler(event:Event):void {
@@ -365,7 +364,7 @@ package component
 				SLibrary.alert("메시지를 입력 후 저장하세요.");
 			}
 		}
-		private function messageSaveBtn_resultHandler(event:ResultEvent):void {
+		private function messageSaveBtn_resultHandler(event:CustomEvent):void {
 			
 			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bvo.bResult) {
@@ -389,7 +388,7 @@ package component
 				SLibrary.alert("키가 없습니다.");
 			}
 		}
-		private function delMymessage_resultHandler(event:ResultEvent):void {
+		private function delMymessage_resultHandler(event:CustomEvent):void {
 			
 			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bvo.bResult) {
@@ -421,13 +420,24 @@ package component
 			smvo.message = msg;
 			smvo.returnPhone = rt.returnPhone;
 			smvo.al = alPhone;
-			
+			 
 			RemoteSingleManager.getInstance.addEventListener("sendSMSconf", sendBtn_resultHandler, false, 0, true);
 			RemoteSingleManager.getInstance.callresponderToken 
 				= RemoteSingleManager.getInstance.service.sendSMSconf(smvo);
 		}
-		private function sendBtn_resultHandler(event:ResultEvent):void {
+		private function sendBtn_resultHandler(event:CustomEvent):void {
 			
+			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+			if (bVO.bResult) {
+				
+				isValid();
+				SLibrary.alert( bVO.strDescription+" 건 전송 요청이 완료 되었습니다." );
+				
+			} else {
+				
+				isValid();
+				SLibrary.alert(bVO.strDescription);
+			}
 		}
 		
 		

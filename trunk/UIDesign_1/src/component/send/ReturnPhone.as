@@ -11,7 +11,6 @@ package component.send
 	import mx.collections.ArrayCollection;
 	import mx.core.ClassFactory;
 	import mx.core.IFactory;
-	import mx.rpc.events.ResultEvent;
 	
 	import skin.emoticon.CategoryRenderer;
 	import skin.emoticon.MyRenderer;
@@ -55,7 +54,7 @@ package component.send
 					= RemoteSingleManager.getInstance.service.getReturnPhone();
 			}
 		}
-		public function getReturnPhone_resultHandler(event:ResultEvent):void {
+		public function getReturnPhone_resultHandler(event:CustomEvent):void {
 			
 			alReturnPhone = event.result as ArrayCollection; 
 			if (alReturnPhone != null && alReturnPhone.length > 0) {
@@ -72,7 +71,7 @@ package component.send
 				SLibrary.alert("로그인 후 이용가능 합니다.");
 			}
 		}
-		public function callbackSave_resultHandler(event:ResultEvent):void {
+		public function callbackSave_resultHandler(event:CustomEvent):void {
 			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bvo.bResult) {
 				SLibrary.alert("저장되었습니다.");
@@ -90,7 +89,7 @@ package component.send
 				SLibrary.alert("로그인 후 이용가능 합니다.");
 			}
 		}
-		public function callbackUp_resultHandler(event:ResultEvent):void {
+		public function callbackUp_resultHandler(event:CustomEvent):void {
 			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bvo.bResult) {
 				SLibrary.alert("설정되었습니다.");
@@ -108,7 +107,7 @@ package component.send
 				SLibrary.alert("로그인 후 이용가능 합니다.");
 			}
 		}
-		public function callbackDelete_resultHandler(event:ResultEvent):void {
+		public function callbackDelete_resultHandler(event:CustomEvent):void {
 			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bvo.bResult) {
 				SLibrary.alert("삭제되었습니다.");

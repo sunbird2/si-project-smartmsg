@@ -11,7 +11,6 @@ package component.send
 	import mx.collections.ArrayCollection;
 	import mx.core.ClassFactory;
 	import mx.core.IFactory;
-	import mx.rpc.events.ResultEvent;
 	
 	import skin.emoticon.EmoticonRenderer;
 	import skin.emoticon.MyRenderer;
@@ -88,7 +87,7 @@ package component.send
 			}
 			
 		}
-		public function emoticonCate_resultHandler(event:ResultEvent):void {
+		public function emoticonCate_resultHandler(event:CustomEvent):void {
 			
 			var ac:ArrayCollection =  event.result as ArrayCollection;
 			category.dataProvider = ac;
@@ -101,7 +100,7 @@ package component.send
 			RemoteSingleManager.getInstance.callresponderToken 
 				= RemoteSingleManager.getInstance.service.getEmotiListPage(gubun, cate, 0, paging.viewDataCount);
 		}
-		public function emoticon_resultHandler(event:ResultEvent):void {
+		public function emoticon_resultHandler(event:CustomEvent):void {
 			
 			alEmt = event.result as ArrayCollection;
 			
@@ -133,7 +132,7 @@ package component.send
 			
 			RemoteSingleManager.getInstance.addEventListener("getEmotiListPage", emoticon_resultHandler, false, 0, true);
 			RemoteSingleManager.getInstance.callresponderToken 
-				= RemoteSingleManager.getInstance.service.getEmotiListPage(gubun, cate, int(event.obj), paging.viewDataCount);
+				= RemoteSingleManager.getInstance.service.getEmotiListPage(gubun, cate, int(event.result), paging.viewDataCount);
 		}
 		
 		
