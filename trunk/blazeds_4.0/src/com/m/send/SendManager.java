@@ -268,7 +268,7 @@ public class SendManager implements ISend {
 //						asms.sendAdmin(conn, 
 //								"M["+bGlobal+"스팸필터]\r\n" + mvo.getUser_id() + "\r\n" 
 //								+ filterMessage  );
-//						throw new Exception("스팸성 문구가 발견 되었습니다.");
+				throw new Exception("스팸성 문구가 발견 되었습니다.");
 			}
 		}
 		//ip 필터링

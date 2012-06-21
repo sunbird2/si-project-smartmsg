@@ -339,6 +339,7 @@ public class SmartDS extends SessionManagement {
 		ISend send = SendManager.getInstance();
 		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
 		UserInformationVO uvo = null;
+		int rslt = 0;
 		try {
 			if (!bSession()) throw new Exception("no login");
 			conn = VbyP.getDB();
@@ -346,7 +347,12 @@ public class SmartDS extends SessionManagement {
 			
 			smvo.setReqIP(FlexContext.getHttpRequest().getRemoteAddr());
 			
-			send.send(conn, uvo, smvo);
+			rslt = send.send(conn, uvo, smvo);
+			if (rslt > 0) {
+				rvo.setbResult(true);
+				rvo.setstrDescription(Integer.toString(rslt));
+			}
+				
 
 		}catch (Exception e) {
 			rvo.setbResult(false);
