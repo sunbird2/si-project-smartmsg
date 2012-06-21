@@ -9,6 +9,9 @@ import java.util.HashMap;
 
 import com.common.VbyP;
 import com.common.util.SLibrary;
+import com.m.address.Address;
+import com.m.address.AddressVO;
+import com.m.address.IAddress;
 import com.m.common.BooleanAndDescriptionVO;
 import com.m.common.PointManager;
 import com.m.emoticon.Emotion;
@@ -400,6 +403,80 @@ public class SmartDS extends SessionManagement {
 		return evo;
 	}
 	
+	/*###############################
+	#	Address						#
+	###############################*/
+	public ArrayList<AddressVO> getAddrList(int flag, String groupNameOrSearch) {
+		
+		Connection conn = null;
+		IAddress addr = null;
+		ArrayList<AddressVO> al = null;
+		try {
+			conn = VbyP.getDB();
+			addr = Address.getInstance();
+			
+			switch (flag) {
+			case Address.GROUP:
+				al = addr.getAddrGroupList(conn, getSession());
+				break;
+			
+			case Address.NAME:
+				if (SLibrary.isNull(groupNameOrSearch))
+					al = addr.getAddrNameList(conn, getSession());
+				else
+					al = addr.getAddrNameList(conn, getSession(), groupNameOrSearch);
+				break;
+				
+			case Address.SEARCH:
+				al = addr.getAddrSearchNameList(conn, getSession(), groupNameOrSearch);
+				break;
+			}
+			
+			
+		}catch (Exception e) {}	finally {			
+			close(conn);
+		}
+		
+		return al;
+	}
+	
+	public int modifyAddr(int flag, AddressVO avo) {
+		
+		Connection conn = null;
+		IAddress addr = null;
+		int result = 0;
+		
+		try {
+			conn = VbyP.getDB();
+			addr = Address.getInstance();
+			
+			switch (flag) {
+			case Address.GROUP_INSERT:
+				result = addr.insertGroup(conn, avo);
+				break;
+			case Address.GROUP_UPDATE:
+				result = addr.updateGroup(conn, avo);
+				break;
+			case Address.GROUP_DELETE:
+				result = addr.deleteGroup(conn, avo);
+				break;
+				
+			case Address.NAME_INSERT:
+				result = addr.insertName(conn, avo);
+				break;
+			case Address.NAME_UPDATE:
+				result = addr.updateName(conn, avo);
+				break;
+			case Address.NAME_DELETE:
+				result = addr.deleteName(conn, avo);
+				break;
+			
+			}
+			
+		}catch (Exception e) {}	finally { close(conn); }
+		
+		return result;
+	}
 	
 	
 	
