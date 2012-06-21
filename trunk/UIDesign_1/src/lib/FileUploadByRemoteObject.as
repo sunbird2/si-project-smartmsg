@@ -12,6 +12,9 @@ package lib
 	import mx.rpc.events.ResultEvent;
 	import mx.rpc.remoting.RemoteObject;
 
+	[Event(name="finished", type="lib.FileUploadByRemoteObjectEvent")]
+	[Event(name="uploading", type="lib.FileUploadByRemoteObjectEvent")]
+	[Event(name="error", type="lib.FileUploadByRemoteObjectEvent")]
 
 	public class FileUploadByRemoteObject extends UIComponent
 	{
@@ -148,7 +151,30 @@ package lib
 			var fure:FileUploadByRemoteObjectEvent = new FileUploadByRemoteObjectEvent(FileUploadByRemoteObjectEvent.COMPLETE, event);
 			fure.isEnabled = true;
 			this.dispatchEvent(fure);
-		} 
+		}
+		
+		public function destory():void {
+			
+			if (ro) {
+				ro.removeEventListener( ResultEvent.RESULT, resultHandler );
+				ro.removeEventListener( FaultEvent.FAULT, faultHandler );	
+				ro = null;
+			}
+			
+			
+			if (refUploadFile) {
+				refUploadFile.removeEventListener(Event.SELECT,onFileSelect); 
+				refUploadFile.removeEventListener(Event.COMPLETE,onFileComplete); 
+				refUploadFile = null; 
+			}
+			
+			
+			for ( var i:int = 0 ; i <  _UploadFiles.length ; i++ ) { 
+				delete _UploadFiles[i];
+			}
+			_UploadFiles = null;;
+			
+		}
 		
 	}
 }

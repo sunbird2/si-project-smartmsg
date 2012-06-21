@@ -6,7 +6,7 @@ package component
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	
-	import lib.RemoteManager;
+	import lib.RemoteSingleManager;
 	import lib.SLibrary;
 	
 	import mx.rpc.events.ResultEvent;
@@ -155,9 +155,9 @@ package component
 		private function dupleIdCheck(id:String):void {
 			
 			if (id != "") {
-				RemoteManager.getInstance.result = idCheck_ResultEventHandler;
-				RemoteManager.getInstance.callresponderToken 
-					= RemoteManager.getInstance.service.checkID(id);
+				RemoteSingleManager.getInstance.addEventListener("checkID", idCheck_ResultEventHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.checkID(id);
 			}
 		}
 		private function idCheck_ResultEventHandler(event:ResultEvent):void {
@@ -267,10 +267,9 @@ package component
 			
 			if (checkAll == false) SLibrary.alert("붉은색 부분을 확인해 주세요.");
 			else {
-				RemoteManager.getInstance.result = next2_resultHandler;
-				RemoteManager.getInstance.callresponderToken 
-					= RemoteManager.getInstance.service.join(userid.text, userpw.text, userrepw.text, String(userhp1.selectedItem.data) + userhp2.text + userhp3.text );
-				
+				RemoteSingleManager.getInstance.addEventListener("join", next2_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.checkID(id);
 			}
 		}
 		private function next2_resultHandler(event:ResultEvent):void {

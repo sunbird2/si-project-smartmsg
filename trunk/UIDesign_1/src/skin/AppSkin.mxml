@@ -42,6 +42,25 @@
     </s:states>
     
     <!-- fill -->
+	<!--<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed(source='/assets/background.png')" fillMode="repeat" />-->
+	<!--<s:Rect left="0" right="0" top="0" bottom="0">
+		<s:fill>
+			<s:RadialGradient >
+				<s:GradientEntry color="0x999999" ratio="10" alpha=".2"/>
+				<s:GradientEntry color="0x555555" ratio="10" alpha=".2"/>
+				<s:GradientEntry color="0x000000" ratio="10" alpha=".2"/>
+			</s:RadialGradient>
+		</s:fill>
+	</s:Rect>-->
+	<!--<s:Rect left="0" right="0" top="0" bottom="0" rotation="30">
+		<s:fill>
+			<s:LinearGradient>
+				<s:GradientEntry color="0xFFFFFF" ratio="0" alpha=".2"/>
+				<s:GradientEntry color="0x555555" ratio=".33" alpha=".2"/>
+				<s:GradientEntry color="0x000000" ratio=".66" alpha=".2"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>-->
     <!--- 
         A rectangle with a solid color fill that forms the background of the application.
         The color of the fill is set to the Application's backgroundColor property.
@@ -89,11 +108,7 @@
         </s:Group>
 
         <!---  @copy spark.components.SkinnableContainer#contentGroup -->
-        <s:Group id="contentGroup" width="100%" height="100%" minWidth="0" minHeight="0" >
-			<s:layout>
-				<s:HorizontalLayout paddingLeft="10" paddingRight="10" paddingTop="27" paddingBottom="7" gap="10" />
-			</s:layout>
-		</s:Group>
+        <s:Group id="contentGroup" width="100%" height="100%" minWidth="0" minHeight="0" />
 
     </s:Group>
 

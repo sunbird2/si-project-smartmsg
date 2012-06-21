@@ -5,7 +5,7 @@ package component.send
 	import lib.CustomEvent;
 	import lib.Gv;
 	import lib.Paging;
-	import lib.RemoteManager;
+	import lib.RemoteSingleManager;
 	import lib.SLibrary;
 	
 	import mx.collections.ArrayCollection;
@@ -52,9 +52,9 @@ package component.send
 			
 			paging.viewDataCount = 6;
 			gubun = "테마문자";
-			RemoteManager.getInstance.result = emoticonCate_resultHandler;
-			RemoteManager.getInstance.callresponderToken 
-				= RemoteManager.getInstance.service.getEmotiCateList(gubun);
+			RemoteSingleManager.getInstance.addEventListener("getEmotiCateList", emoticonCate_resultHandler, false, 0, true);
+			RemoteSingleManager.getInstance.callresponderToken 
+				= RemoteSingleManager.getInstance.service.getEmotiCateList(gubun);
 		}
 		/**
 		 * myMessage Click
@@ -79,9 +79,10 @@ package component.send
 			if (Gv.bLogin) {
 				paging.viewDataCount = 6;
 				gubun = "sent";
-				RemoteManager.getInstance.result = emoticon_resultHandler;
-				RemoteManager.getInstance.callresponderToken 
-					= RemoteManager.getInstance.service.getSentListPage(0, paging.viewDataCount);
+				RemoteSingleManager.getInstance.addEventListener("getSentListPage", emoticon_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.getSentListPage(0, paging.viewDataCount);
+				
 			}else {
 				SLibrary.alert("로그인 후 이용가능 합니다.");
 			}
@@ -96,9 +97,9 @@ package component.send
 		}
 		public function getEmotiList():void {
 			
-			RemoteManager.getInstance.result = emoticon_resultHandler;
-			RemoteManager.getInstance.callresponderToken 
-				= RemoteManager.getInstance.service.getEmotiListPage(gubun, cate, 0, paging.viewDataCount);
+			RemoteSingleManager.getInstance.addEventListener("getEmotiListPage", emoticon_resultHandler, false, 0, true);
+			RemoteSingleManager.getInstance.callresponderToken 
+				= RemoteSingleManager.getInstance.service.getEmotiListPage(gubun, cate, 0, paging.viewDataCount);
 		}
 		public function emoticon_resultHandler(event:ResultEvent):void {
 			
@@ -130,9 +131,9 @@ package component.send
 		}
 		public function paging_clickPageHandler(event:CustomEvent):void {
 			
-			RemoteManager.getInstance.result = emoticon_resultHandler;
-			RemoteManager.getInstance.callresponderToken 
-				= RemoteManager.getInstance.service.getEmotiListPage(gubun, cate, int(event.obj), paging.viewDataCount);
+			RemoteSingleManager.getInstance.addEventListener("getEmotiListPage", emoticon_resultHandler, false, 0, true);
+			RemoteSingleManager.getInstance.callresponderToken 
+				= RemoteSingleManager.getInstance.service.getEmotiListPage(gubun, cate, int(event.obj), paging.viewDataCount);
 		}
 		
 		
