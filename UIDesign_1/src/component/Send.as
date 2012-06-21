@@ -12,7 +12,7 @@ package component
 	import lib.Gv;
 	import lib.KoreaPhoneNumberFormatter;
 	import lib.Paging;
-	import lib.RemoteManager;
+	import lib.RemoteSingleManager;
 	import lib.SLibrary;
 	
 	import mx.collections.ArrayCollection;
@@ -166,6 +166,7 @@ package component
 			else if (instance == messageSaveBtn) messageSaveBtn.addEventListener(MouseEvent.CLICK, messageSaveBtn_clickHandler);
 			else if (instance == sentMessage) sentMessage.addEventListener(MouseEvent.CLICK, emt.sentMessage_clickHandler);
 			else if (instance == callbackSave) callbackSave.addEventListener(MouseEvent.CLICK, rt.callbackSave_clickHandler);
+			else if (instance == sendListFromExcel) sendListFromExcel.addEventListener(MouseEvent.CLICK, sendListFromExcel_clickHandler);
 			
 
 		}
@@ -211,6 +212,8 @@ package component
 			
 			isValid();
 		}
+		
+		
 		
 		
 		/**
@@ -275,7 +278,7 @@ package component
 		}
 		private function getPvo(pno:String, pname:String):PhoneVO {
 			
-			var pvo:PhoneVO = new PhoneVO;
+			var pvo:PhoneVO = new PhoneVO();
 			pvo.pName = pname;
 			pvo.pNo = pno;
 			
@@ -308,6 +311,10 @@ package component
 			alPhone = arr;
 			setTotalCount();
 			SLibrary.alert(dupCnt + " 건의 중복번호가 제거 되었습니다.");
+		}
+		
+		private function sendListFromExcel_clickHandler(event:MouseEvent):void {
+			(parentApplication as UIDesign).toggleExcel();
 		}
 		
 		
@@ -351,9 +358,9 @@ package component
 		public function messageSaveBtn_clickHandler(event:MouseEvent):void {
 			
 			if (message.text != "") {
-				RemoteManager.getInstance.result = messageSaveBtn_resultHandler;
-				RemoteManager.getInstance.callresponderToken 
-					= RemoteManager.getInstance.service.saveMymsg(message.text);
+				RemoteSingleManager.getInstance.addEventListener("saveMymsg", messageSaveBtn_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.saveMymsg(message.text);
 			}else {
 				SLibrary.alert("메시지를 입력 후 저장하세요.");
 			}
@@ -375,9 +382,9 @@ package component
 		 * */
 		public function delMymessage(idx:int):void {
 			if (idx != 0) {
-				RemoteManager.getInstance.result = delMymessage_resultHandler;
-				RemoteManager.getInstance.callresponderToken 
-					= RemoteManager.getInstance.service.delMymsg(idx);
+				RemoteSingleManager.getInstance.addEventListener("delMymsg", delMymessage_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.delMymsg(idx);
 			}else {
 				SLibrary.alert("키가 없습니다.");
 			}
@@ -415,9 +422,9 @@ package component
 			smvo.returnPhone = rt.returnPhone;
 			smvo.al = alPhone;
 			
-			RemoteManager.getInstance.result = sendBtn_resultHandler;
-			RemoteManager.getInstance.callresponderToken 
-				= RemoteManager.getInstance.service.sendSMSconf(smvo);
+			RemoteSingleManager.getInstance.addEventListener("sendSMSconf", sendBtn_resultHandler, false, 0, true);
+			RemoteSingleManager.getInstance.callresponderToken 
+				= RemoteSingleManager.getInstance.service.sendSMSconf(smvo);
 		}
 		private function sendBtn_resultHandler(event:ResultEvent):void {
 			

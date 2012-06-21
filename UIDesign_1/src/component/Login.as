@@ -6,8 +6,9 @@ package component
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
+	import lib.CustomEvent;
 	import lib.Gv;
-	import lib.RemoteManager;
+	import lib.RemoteSingleManager;
 	import lib.SLibrary;
 	
 	import mx.events.FlexEvent;
@@ -92,9 +93,9 @@ package component
 			if (user_id.text == "") SLibrary.alert("아이디를 입력 하세요");
 			else if (user_pw.text == "") SLibrary.alert("비밀번호를 입력 하세요");
 			else {
-				RemoteManager.getInstance.result = login_resultHandler;
-				RemoteManager.getInstance.callresponderToken 
-					= RemoteManager.getInstance.service.login(user_id.text, user_pw.text);
+				RemoteSingleManager.getInstance.addEventListener("login", login_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.login(user_id.text, user_pw.text);
 			}
 		}
 		/**
@@ -117,16 +118,16 @@ package component
 		 * */
 		private function login_check():void {
 			
-			RemoteManager.getInstance.result = login_check_resultHandler;
-			RemoteManager.getInstance.callresponderToken 
-				= RemoteManager.getInstance.service.getUserInformation();
+			RemoteSingleManager.getInstance.addEventListener("getUserInformation", login_check_resultHandler, false, 0, true);
+			RemoteSingleManager.getInstance.callresponderToken 
+				= RemoteSingleManager.getInstance.service.getUserInformation();
 		}
 		/**
 		 * login check resultHandler
 		 * */
-		private function login_check_resultHandler(event:ResultEvent):void {
+		private function login_check_resultHandler(event:CustomEvent):void {
 			
-			var uvo:UserInformationVO = event.result as UserInformationVO;
+			var uvo:UserInformationVO = event.obj as UserInformationVO;
 			if (uvo != null) {
 				cstat = "login";
 				Gv.bLogin = true;

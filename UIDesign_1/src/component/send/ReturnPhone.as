@@ -5,7 +5,7 @@ package component.send
 	import lib.CustomEvent;
 	import lib.Gv;
 	import lib.Paging;
-	import lib.RemoteManager;
+	import lib.RemoteSingleManager;
 	import lib.SLibrary;
 	
 	import mx.collections.ArrayCollection;
@@ -50,9 +50,9 @@ package component.send
 		public function getReturnPhone():void {
 			
 			if (Gv.bLogin) {
-				RemoteManager.getInstance.result = getReturnPhone_resultHandler;
-				RemoteManager.getInstance.callresponderToken 
-					= RemoteManager.getInstance.service.getReturnPhone();
+				RemoteSingleManager.getInstance.addEventListener("getReturnPhone", getReturnPhone_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.getReturnPhone();
 			}
 		}
 		public function getReturnPhone_resultHandler(event:ResultEvent):void {
@@ -65,9 +65,9 @@ package component.send
 		}
 		public function callbackSave_clickHandler(event:MouseEvent):void {
 			if (Gv.bLogin) {
-				RemoteManager.getInstance.result = callbackSave_resultHandler;
-				RemoteManager.getInstance.callresponderToken 
-					= RemoteManager.getInstance.service.setReturnPhone(callback.selectedItem as String);
+				RemoteSingleManager.getInstance.addEventListener("setReturnPhone", callbackSave_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.setReturnPhone(callback.selectedItem as String);
 			} else {
 				SLibrary.alert("로그인 후 이용가능 합니다.");
 			}
@@ -83,9 +83,9 @@ package component.send
 		}
 		public function callbackUp(idx:int):void {
 			if (Gv.bLogin) {
-				RemoteManager.getInstance.result = callbackUp_resultHandler;
-				RemoteManager.getInstance.callresponderToken 
-					= RemoteManager.getInstance.service.setReturnPhoneTimeWrite(idx);
+				RemoteSingleManager.getInstance.addEventListener("setReturnPhoneTimeWrite", callbackUp_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.setReturnPhoneTimeWrite(idx);
 			} else {
 				SLibrary.alert("로그인 후 이용가능 합니다.");
 			}
@@ -101,9 +101,9 @@ package component.send
 		}
 		public function callbackDelete(idx:int):void {
 			if (Gv.bLogin) {
-				RemoteManager.getInstance.result = callbackDelete_resultHandler;
-				RemoteManager.getInstance.callresponderToken 
-					= RemoteManager.getInstance.service.deleteReturnPhone(idx);
+				RemoteSingleManager.getInstance.addEventListener("deleteReturnPhone", callbackDelete_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.deleteReturnPhone(idx);
 			} else {
 				SLibrary.alert("로그인 후 이용가능 합니다.");
 			}

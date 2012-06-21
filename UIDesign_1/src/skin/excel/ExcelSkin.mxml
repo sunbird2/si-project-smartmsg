@@ -32,7 +32,7 @@
 		<s:DataGrid id="excelView">
 			
 		</s:DataGrid>
-		<s:List id="resultList" itemRenderer="skin.excel.ResultListRenderer">
+		<s:List id="resultList" height="100">
 			
 		</s:List>
 	</s:HGroup>
