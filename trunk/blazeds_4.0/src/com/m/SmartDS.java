@@ -412,6 +412,7 @@ public class SmartDS extends SessionManagement {
 		IAddress addr = null;
 		ArrayList<AddressVO> al = null;
 		try {
+			if (!bSession()) throw new Exception("no login");
 			conn = VbyP.getDB();
 			addr = Address.getInstance();
 			
@@ -447,8 +448,11 @@ public class SmartDS extends SessionManagement {
 		int result = 0;
 		
 		try {
+			if (!bSession()) throw new Exception("no login");
 			conn = VbyP.getDB();
 			addr = Address.getInstance();
+			
+			avo.setUser_id(getSession());
 			
 			switch (flag) {
 			case Address.GROUP_INSERT:

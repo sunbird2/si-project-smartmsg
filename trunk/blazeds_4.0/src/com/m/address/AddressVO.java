@@ -45,7 +45,7 @@ public class AddressVO implements Serializable {
 		this.idx = idx;
 	}
 	public String getUser_id() {
-		return user_id;
+		return SLibrary.IfNull(user_id);
 	}
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
@@ -57,37 +57,37 @@ public class AddressVO implements Serializable {
 		this.grp = grp;
 	}
 	public String getGrpName() {
-		return grpName;
+		return SLibrary.IfNull(grpName);
 	}
 	public void setGrpName(String grpName) {
 		this.grpName = grpName;
 	}
 	public String getName() {
-		return name;
+		return SLibrary.IfNull(name);
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
 	public String getPhone() {
-		return phone;
+		return SLibrary.IfNull(phone);
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public String getMemo() {
-		return memo;
+		return SLibrary.IfNull(memo);
 	}
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
 	public String getWritedate() {
-		return writedate;
+		return SLibrary.IfNull(etcInfo);
 	}
 	public void setWritedate(String writedate) {
 		this.writedate = writedate;
 	}
 	public String getEtcInfo() {
-		return etcInfo;
+		return (etcInfo == null)?"":etcInfo;
 	}
 	public void setEtcInfo(String etcInfo) {
 		this.etcInfo = etcInfo;

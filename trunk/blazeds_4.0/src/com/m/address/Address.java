@@ -50,6 +50,7 @@ public class Address implements IAddress {
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
 		pq.setPrepared(conn, SQL);
 		pq.setString(1, user_id);
+		pq.setInt(2, Address.NAME);
 		al = pq.ExecuteQueryArrayList();
 		
 		return parseVO(al);
@@ -65,6 +66,7 @@ public class Address implements IAddress {
 		pq.setPrepared(conn, SQL);
 		pq.setString(1, user_id);
 		pq.setString(2, groupName);
+		pq.setInt(3, Address.NAME);
 		al = pq.ExecuteQueryArrayList();
 		
 		return parseVO(al);
