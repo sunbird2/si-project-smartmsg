@@ -12,7 +12,7 @@
 	
 	<!-- group -->
 	<s:VGroup>
-		<s:List id="groupList" />
+		<s:List id="groupList" itemRenderer="skin.address.GroupRenderer"  />
 		<s:HGroup>
 			<s:TextInput id="groupAddInput" />
 			<s:Button id="groupAddBtn" label="그룹추가" />	
@@ -21,16 +21,14 @@
 	
 	
 	<!-- name -->
-	<s:List id="nameList" />
+	<s:List id="nameList" itemRenderer="skin.address.NameRenderer"/>
 	
 	<!-- card -->
 	<s:VGroup>
 		<s:Image id="photo" />
-		<s:TextInput id="nameL" />
-		<s:TextInput id="company" />
-		<s:TextInput id="hp" />
-		<s:TextInput id="phone" />
-		<s:RichEditableText id="memo"  fontFamily="Arial"/>
+		<s:TextInput id="nameL" visible="false" />
+		<s:TextInput id="phone" visible="false" />
+		<s:RichEditableText id="memo" width="100" height="50"/>
 		<s:Button id="cardBtn" label="추가" />	
 	</s:VGroup>
 	

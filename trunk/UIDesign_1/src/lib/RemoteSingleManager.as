@@ -44,7 +44,7 @@ package lib
 		private function callResponder_ResultHandler(event:ResultEvent):void {
 			
 			var s:String = RemotingMessage(event.token.message).operation;
-			
+			trace("########"+s);
 			this.dispatchEvent(new CustomEvent(s, event.result));
 		}
 		
