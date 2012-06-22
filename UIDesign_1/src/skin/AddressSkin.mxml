@@ -6,30 +6,42 @@
 	<fx:Metadata>
 		[HostComponent("component.Address")]
 	</fx:Metadata>
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="nameEdit" />
+	</s:states>
 	<s:layout>
 		<s:HorizontalLayout />
 	</s:layout>
 	
 	<!-- group -->
 	<s:VGroup>
-		<s:List id="groupList" itemRenderer="skin.address.GroupRenderer"  />
-		<s:HGroup>
-			<s:TextInput id="groupAddInput" />
-			<s:Button id="groupAddBtn" label="그룹추가" />	
-		</s:HGroup>
+		<s:List id="groupList" focusColor="0xFF0000" itemRenderer="skin.address.GroupRenderer"  />
+		<s:Button id="groupAddBtn" label="+" />
 	</s:VGroup>
 	
 	
 	<!-- name -->
-	<s:List id="nameList" itemRenderer="skin.address.NameRenderer"/>
+	<s:VGroup>
+		<s:List id="nameList" itemRenderer="skin.address.NameRenderer"/>
+		<s:Button id="nameAddBtn" label="+" />
+	</s:VGroup>
+	
 	
 	<!-- card -->
 	<s:VGroup>
 		<s:Image id="photo" />
-		<s:TextInput id="nameL" visible="false" />
-		<s:TextInput id="phone" visible="false" />
-		<s:RichEditableText id="memo" width="100" height="50"/>
-		<s:Button id="cardBtn" label="추가" />	
+		<s:TextInput id="nameL" prompt="이름"
+					 editable.nameEdit="true" editable.normal="false" 
+					 borderVisible.nameEdit="true" borderVisible.normal="false"/>
+		<s:TextInput id="phone" prompt="전화번호" 
+					 editable.nameEdit="true" editable.normal="false"
+					 borderVisible.nameEdit="true" borderVisible.normal="false"/>
+		<s:TextArea id="memo" 
+							width="100" height="50"
+							editable.nameEdit="true" editable.normal="false"
+							borderVisible.nameEdit="true" borderVisible.normal="false"/>
+		<s:Button id="cardBtn" label.nameEdit="저장" label.normal="편집" />
 	</s:VGroup>
 	
 	

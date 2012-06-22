@@ -11,12 +11,16 @@
 			{
 				// TODO Auto Generated method stub
 				super.data = value;
-				var avo:AddressVO = super.data as AddressVO;
-				viewName.text = (avo.name != "") ? avo.name : avo.phone;
+				if (super.data != null) {
+					var avo:AddressVO = super.data as AddressVO;
+					viewName.text = (avo.name != "") ? avo.name : avo.phone;	
+				}
+				
 			}
 			
 		]]>
 	</fx:Script>
-	<s:Label id="viewName"/>
+	<s:Label id="viewName"
+			 top="7" bottom="5" left="5" right="3"/>
 	
 </s:ItemRenderer>
