@@ -90,7 +90,10 @@ public class Address implements IAddress {
 		pq.setString(7, SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss"));
 		pq.setString(8, "");
 		
-		rsltCount = pq.executeUpdate();			
+		rsltCount = pq.executeUpdate();
+		
+		if (rsltCount > 0)
+			rsltCount = getLastKey(conn);
 		
 		return rsltCount;
 	}
@@ -128,7 +131,7 @@ public class Address implements IAddress {
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
 		
 		pq.setPrepared(conn, SQL);
-		pq.setInt(1, vo.getIdx());
+		pq.setString(1, vo.getGrpName());
 		
 		rsltCount = pq.executeUpdate();			
 		
@@ -153,7 +156,9 @@ public class Address implements IAddress {
 		pq.setString(7, SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss"));
 		pq.setString(8, vo.getEtcInfo());
 		
-		rsltCount = pq.executeUpdate();			
+		rsltCount = pq.executeUpdate();
+		if (rsltCount > 0)
+			rsltCount = getLastKey(conn);
 		
 		return rsltCount;
 	}
@@ -225,6 +230,14 @@ public class Address implements IAddress {
 		}
 		
 		return result;
+	}
+	
+	private int getLastKey(Connection conn) {
+		
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		pq.setPrepared( conn, VbyP.getSQL("address_last_insert_id") );
+		return pq.ExecuteQueryNum();
+				
 	}
 
 }
