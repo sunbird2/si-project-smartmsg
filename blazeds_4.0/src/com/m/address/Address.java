@@ -7,6 +7,7 @@ import java.util.HashMap;
 import com.common.VbyP;
 import com.common.db.PreparedExecuteQueryManager;
 import com.common.util.SLibrary;
+import com.m.common.Gv;
 
 public class Address implements IAddress {
 
@@ -20,6 +21,11 @@ public class Address implements IAddress {
 	public static final int NAME_INSERT = 20;
 	public static final int NAME_UPDATE = 21;
 	public static final int NAME_DELETE = 22;
+	
+	public static final int NAMES_INSERT = 30;
+	public static final int NAMES_INSERT_GROUP = 31;
+	public static final int NAMES_UPDATE_GROUP = 32;
+	public static final int NAMES_DELETE = 33;
 	
 	static Address em = new Address();
 	
@@ -203,6 +209,7 @@ public class Address implements IAddress {
 		return rsltCount;
 	}
 	
+	@Override
 	public ArrayList<AddressVO> getAddrSearchNameList(Connection conn, String user_id, String search) {
 		
 		ArrayList<HashMap<String, String>> al = null;
@@ -216,6 +223,198 @@ public class Address implements IAddress {
 		al = pq.ExecuteQueryArrayList();
 		
 		return parseVO(al);
+	}
+	
+	@Override
+	public int insertNames(Connection conn, String user_id, ArrayList<AddressVO> al) {
+		
+		int count = al.size();
+		int rsltCount = 0;
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		String SQL = "";
+		int maxBatch = SLibrary.parseInt( VbyP.getValue("executeBatchCount") );
+		
+		if (count > 0) {
+			
+			AddressVO vo = null;
+			
+			SQL = VbyP.getSQL("address_insert_name");
+			
+			pq.setPrepared(conn, SQL);
+			
+			for (int i = 0; i < count; i++) {
+				
+				vo = al.get(i);
+				pq.setString(1, user_id);
+				pq.setInt(2, Address.NAME);
+				pq.setString(3, vo.getGrpName());
+				pq.setString(4, vo.getName());
+				pq.setString(5, vo.getPhone());
+				pq.setString(6, vo.getMemo());
+				pq.setString(7, SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss"));
+				pq.setString(8, vo.getEtcInfo());
+				
+				pq.addBatch();
+				
+				Gv.setCOUNT(user_id, i+1);
+				
+				if (i >= maxBatch && (i%maxBatch) == 0 ) {
+					
+					rsltCount += pq.executeBatch();
+					try { if ( conn != null ) conn.close(); } catch(Exception e) {System.out.println( "reconn close Error!!!!" + e.toString());}
+					conn = VbyP.getDB();					
+					if (conn == null) System.out.println("reconn connection is NULL Error!!!!");
+					
+					pq.setPrepared( conn, SQL );
+				}
+			}
+			rsltCount += pq.executeBatch();
+		}
+
+		return rsltCount;
+	}
+	
+	@Override
+	public int insertNames(Connection conn, String user_id, String group, ArrayList<AddressVO> al) {
+		
+		int count = al.size();
+		int rsltCount = 0;
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		String SQL = "";
+		int maxBatch = SLibrary.parseInt( VbyP.getValue("executeBatchCount") );
+		
+		if (count > 0) {
+			
+			AddressVO vo = null;
+			
+			SQL = VbyP.getSQL("address_insert_name");
+			
+			pq.setPrepared(conn, SQL);
+			
+			for (int i = 0; i < count; i++) {
+				
+				vo = al.get(i);
+				pq.setString(1, user_id);
+				pq.setInt(2, Address.NAME);
+				pq.setString(3, group);
+				pq.setString(4, vo.getName());
+				pq.setString(5, vo.getPhone());
+				pq.setString(6, vo.getMemo());
+				pq.setString(7, SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss"));
+				pq.setString(8, vo.getEtcInfo());
+				
+				pq.addBatch();
+				
+				Gv.setCOUNT(user_id, i+1);
+				
+				if (i >= maxBatch && (i%maxBatch) == 0 ) {
+					
+					rsltCount += pq.executeBatch();
+					try { if ( conn != null ) conn.close(); } catch(Exception e) {System.out.println( "reconn close Error!!!!" + e.toString());}
+					conn = VbyP.getDB();					
+					if (conn == null) System.out.println("reconn connection is NULL Error!!!!");
+					
+					pq.setPrepared( conn, SQL );
+				}
+			}
+			rsltCount += pq.executeBatch();
+		}
+
+		return rsltCount;
+	}
+	
+	@Override
+	public int updateNames(Connection conn, String user_id, String group, ArrayList<AddressVO> al) {
+		
+		int count = al.size();
+		int rsltCount = 0;
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		String SQL = "";
+		int maxBatch = SLibrary.parseInt( VbyP.getValue("executeBatchCount") );
+		
+		if (count > 0) {
+			
+			AddressVO vo = null;
+			
+			SQL = VbyP.getSQL("address_update_name");
+			
+			pq.setPrepared(conn, SQL);
+			
+			for (int i = 0; i < count; i++) {
+				
+				vo = al.get(i);
+				
+				pq.setString(1, user_id);
+				pq.setInt(2, Address.NAME);
+				pq.setString(3, group);
+				pq.setString(4, vo.getName());
+				pq.setString(5, vo.getPhone());
+				pq.setString(6, vo.getMemo());
+				pq.setString(7, SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss"));
+				pq.setString(8, vo.getEtcInfo());
+				pq.setInt(9, vo.getIdx());
+				
+				pq.addBatch();
+				
+				Gv.setCOUNT(user_id, i+1);
+				
+				if (i >= maxBatch && (i%maxBatch) == 0 ) {
+					
+					rsltCount += pq.executeBatch();
+					try { if ( conn != null ) conn.close(); } catch(Exception e) {System.out.println( "reconn close Error!!!!" + e.toString());}
+					conn = VbyP.getDB();					
+					if (conn == null) System.out.println("reconn connection is NULL Error!!!!");
+					
+					pq.setPrepared( conn, SQL );
+				}
+			}
+			rsltCount += pq.executeBatch();
+		}
+
+		return rsltCount;
+	}
+	
+	@Override
+	public int deleteNames(Connection conn, String user_id, ArrayList<AddressVO> al) {
+		
+		int count = al.size();
+		int rsltCount = 0;
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		String SQL = "";
+		int maxBatch = SLibrary.parseInt( VbyP.getValue("executeBatchCount") );
+		
+		if (count > 0) {
+			
+			AddressVO vo = null;
+			
+			SQL = VbyP.getSQL("address_delete_name");
+			
+			pq.setPrepared(conn, SQL);
+			
+			for (int i = 0; i < count; i++) {
+				
+				vo = al.get(i);
+				
+				pq.setInt(1, vo.getIdx());
+				
+				pq.addBatch();
+				
+				Gv.setCOUNT(user_id, i+1);
+				
+				if (i >= maxBatch && (i%maxBatch) == 0 ) {
+					
+					rsltCount += pq.executeBatch();
+					try { if ( conn != null ) conn.close(); } catch(Exception e) {System.out.println( "reconn close Error!!!!" + e.toString());}
+					conn = VbyP.getDB();					
+					if (conn == null) System.out.println("reconn connection is NULL Error!!!!");
+					
+					pq.setPrepared( conn, SQL );
+				}
+			}
+			rsltCount += pq.executeBatch();
+		}
+
+		return rsltCount;
 	}
 	
 	private ArrayList<AddressVO> parseVO(ArrayList<HashMap<String, String>> al) {
