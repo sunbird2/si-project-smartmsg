@@ -16,7 +16,7 @@
 	
 	<!-- group -->
 	<s:VGroup>
-		<s:List id="groupList" height="120" focusColor="0xFF0000" itemRenderer="skin.address.GroupRenderer"  />
+		<s:List id="groupList" height="120" itemRenderer="skin.address.GroupRenderer"  />
 		<s:Button id="groupAddBtn" label="+" />
 	</s:VGroup>
 	
