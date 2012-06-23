@@ -16,14 +16,14 @@
 	
 	<!-- group -->
 	<s:VGroup>
-		<s:List id="groupList" focusColor="0xFF0000" itemRenderer="skin.address.GroupRenderer"  />
+		<s:List id="groupList" height="120" focusColor="0xFF0000" itemRenderer="skin.address.GroupRenderer"  />
 		<s:Button id="groupAddBtn" label="+" />
 	</s:VGroup>
 	
 	
 	<!-- name -->
 	<s:VGroup>
-		<s:List id="nameList" itemRenderer="skin.address.NameRenderer"/>
+		<s:List id="nameList" height="120" itemRenderer="skin.address.NameRenderer"/>
 		<s:Button id="nameAddBtn" label="+" />
 	</s:VGroup>
 	

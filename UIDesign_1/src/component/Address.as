@@ -2,9 +2,11 @@ package component
 {
 	/* For guidance on writing an ActionScript Skinnable Component please refer to the Flex documentation: 
 	www.adobe.com/go/actionscriptskinnablecomponents */
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	
 	import lib.AlertManager;
 	import lib.CustomEvent;
@@ -13,12 +15,14 @@ package component
 	import lib.SLibrary;
 	
 	import mx.collections.ArrayCollection;
+	import mx.collections.ArrayList;
 	import mx.controls.Alert;
 	import mx.events.CloseEvent;
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
 	import mx.events.DragEvent;
 	import mx.events.PropertyChangeEvent;
+	import mx.rpc.events.ResultEvent;
 	
 	import spark.components.Button;
 	import spark.components.Image;
@@ -28,6 +32,7 @@ package component
 	import spark.components.TextInput;
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
+	import spark.layouts.VerticalLayout;
 	import spark.layouts.supportClasses.DropLocation;
 	
 	import valueObjects.AddressVO;
@@ -140,11 +145,13 @@ package component
 				groupList.addEventListener(IndexChangeEvent.CHANGE, groupList_changeHandler);
 				groupList.addEventListener(KeyboardEvent.KEY_UP, groupList_keyUpHandler);
 				groupList.addEventListener(DragEvent.DRAG_DROP, groupList_dragDropHandler);
+				groupList.addEventListener(DragEvent.DRAG_OVER, groupList_dragOverHandler);
 			}
 			else if (instance == nameList) {
 				nameList.dataProvider = acName;
 				nameList.dragEnabled = true;
 				nameList.dragMoveEnabled = true;
+				nameList.allowMultipleSelection = true;
 				nameList.addEventListener(IndexChangeEvent.CHANGE, nameList_changeHandler);
 				nameList.addEventListener(KeyboardEvent.KEY_UP, namepList_keyUpHandler);
 				
@@ -412,20 +419,63 @@ package component
 		 * */
 		private function groupList_dragDropHandler(event:DragEvent):void {
 			
-			trace(nameList.layout.calculateDropLocation(event));
-			var d:DropLocation = nameList.layout.calculateDropLocation(event);
-			trace(d.dropIndex);
+			event.preventDefault();
+
 			var cnt:int = List(event.dragInitiator).selectedIndices.length;
 			if (cnt > 0) {
+				var ac:ArrayCollection = new ArrayCollection();
 				for(var i:Number = 0; i < cnt; i++) {
-					AddressVO( List(event.dragInitiator).selectedItems[i] );
+					ac.addItem( AddressVO( List(event.dragInitiator).selectedItems[i] ) );
 				}
+				if (event.action == "copy") {
+					moveGroup( ac, acGroup.getItemAt(findItemIndexForDragEvent(event)).grpName );	
+				}else {
+					copyGroup( ac, acGroup.getItemAt(findItemIndexForDragEvent(event)).grpName );	
+				}
+				
+				
 			}
-			trace(111);
+		}
+		private function groupList_dragOverHandler(event:DragEvent):void {
+			event.preventDefault();
+		}
+		private function findItemIndexForDragEvent(event:DragEvent):Number{
+			
+			var d:DropLocation = event.target.layout.calculateDropLocation(event);
+			var v:VerticalLayout = VerticalLayout(event.target.layout);
+			var itemIndex:Number = Math.floor( d.dropPoint.y/v.rowHeight );
+			
+			return itemIndex;
 		}
 		
+		private function moveGroup(ac:ArrayCollection, groupName:String):void {
+			
+			if (groupName == "") {
+				SLibrary.alert("이동할 그룹 이름이 없습니다.");
+			}else {
+				
+				RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", moveGroup_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.modifyManyAddr(32, ac, groupName);	
+			}
+		}
+		private function copyGroup(ac:ArrayCollection, groupName:String):void {
+			
+			if (groupName == "") {
+				SLibrary.alert("복사할 그룹 이름이 없습니다.");
+			}else {
+				
+				RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", moveGroup_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.modifyManyAddr(31, ac, groupName);	
+			}
+		}
+		private function moveGroup_resultHandler(event:CustomEvent):void {
+			
+		}
+		
+		
 		private function nameList_dragCompleteHandler(event:DragEvent):void {
-			trace(222);
 		}
 		
 		
