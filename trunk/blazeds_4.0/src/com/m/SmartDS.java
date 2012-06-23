@@ -482,6 +482,41 @@ public class SmartDS extends SessionManagement {
 		return result;
 	}
 	
+	public int modifyManyAddr(int flag, ArrayList<AddressVO> al, String group) {
+		
+		Connection conn = null;
+		IAddress addr = null;
+		int result = 0;
+		
+		try {
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			addr = Address.getInstance();
+			
+			switch (flag) {
+			case Address.NAMES_INSERT:
+				result = addr.insertNames(conn, getSession(), al);
+				break;
+			case Address.NAMES_INSERT_GROUP:
+				if (!SLibrary.isNull(group))
+					result = addr.insertNames(conn, getSession(), group, al);
+				break;
+			case Address.NAMES_UPDATE_GROUP:
+				if (!SLibrary.isNull(group))
+					result = addr.updateNames(conn, getSession(), group,  al);
+				break;
+				
+			case Address.NAMES_DELETE:
+				result = addr.deleteNames(conn, getSession(), al);
+				break;
+			
+			}
+			
+		}catch (Exception e) {}	finally { close(conn); }
+		
+		return result;
+	}
+	
 	
 	
 	private void close(Connection conn) {
