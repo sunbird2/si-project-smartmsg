@@ -8,6 +8,7 @@ import com.adobe.fiber.core.model_internal;
 import com.adobe.fiber.services.wrapper.RemoteObjectServiceWrapper;
 import com.adobe.serializers.utility.TypeUtility;
 import flash.utils.ByteArray;
+import mx.collections.ArrayCollection;
 import mx.rpc.AbstractOperation;
 import mx.rpc.AsyncToken;
 import mx.rpc.remoting.Operation;
@@ -118,6 +119,9 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         operation = new mx.rpc.remoting.Operation(null, "getAddrList");
          operation.resultElementType = valueObjects.AddressVO;
         operations["getAddrList"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "modifyManyAddr");
+         operation.resultType = int;
+        operations["modifyManyAddr"] = operation;
 
         _serviceControl.operations = operations;
         _serviceControl.convertResultHandler = com.adobe.serializers.utility.TypeUtility.convertResultHandler;
@@ -618,6 +622,24 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getAddrList");
 		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1) ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'modifyManyAddr' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function modifyManyAddr(arg0:int, arg1:ArrayCollection, arg2:String) : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("modifyManyAddr");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1,arg2) ;
         return _internal_token;
     }
      
