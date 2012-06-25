@@ -1,5 +1,7 @@
 package lib
 {
+	import mx.collections.ArrayCollection;
+
 	public class Gv
 	{
 		public static const SMS_BYTE:uint = 90;
@@ -32,6 +34,8 @@ package lib
 		public static var bLogin:Boolean = false;
 		public static var user_id:String = "";
 		public static var point:uint = 0;
+		
+		public static var addressGroupList:ArrayCollection = new ArrayCollection;
 		
 		public function Gv(){}
 		

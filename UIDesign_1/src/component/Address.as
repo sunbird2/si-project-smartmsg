@@ -56,6 +56,8 @@ package component
 		// name
 		[SkinPart(required="false")]public var nameList:List;
 		[SkinPart(required="false")]public var nameAddBtn:Button;
+		[SkinPart(required="false")]public var nameCount:RichText;
+		
 		
 		
 		// card
@@ -78,12 +80,22 @@ package component
 		
 		private var confirmAlert:AlertManager;
 		
+		// activeCode and vo
+		private var _activeCode:Number = 0;
+		private var _activeAddressVO:AddressVO;
+		
 		public function Address() {
 			super();
 			getGroup();
 			acGroup.addEventListener(CollectionEvent.COLLECTION_CHANGE, acGroup_changeHandler);
 		}
 		
+		public function get activeAddressVO():AddressVO { return _activeAddressVO; }
+		public function set activeAddressVO(value:AddressVO):void { _activeAddressVO = value; }
+
+		public function get activeCode():Number { return _activeCode; }
+		public function set activeCode(value:Number):void { _activeCode = value; }
+
 		public function get bEdite():Boolean { return _bEdite; }
 		public function set bEdite(value:Boolean):void {
 			if (_bEdite != value) {
@@ -105,7 +117,7 @@ package component
 							&& AddressVO(event.items[i]) != null 
 							&& AddressVO(event.items[i]).idx != 0) {  
 							
-							activeGroup(12, AddressVO(event.items[i])); 
+							activeAddress(12, AddressVO(event.items[i])); 
 						} 
 					} 
 					break; 
@@ -115,8 +127,8 @@ package component
 						if (event.items[i] is PropertyChangeEvent
 							&& PropertyChangeEvent(event.items[i]) != null
 							&& PropertyChangeEvent(event.items[i]).property == "grpName") { 
-							
-							activeGroup(
+							trace("update!!");
+							activeAddress(
 								(AddressVO(PropertyChangeEvent(event.items[i]).source).idx == 0)? 10 : 11,
 								AddressVO(PropertyChangeEvent(event.items[i]).source)
 							); 
@@ -154,12 +166,12 @@ package component
 				nameList.allowMultipleSelection = true;
 				nameList.addEventListener(IndexChangeEvent.CHANGE, nameList_changeHandler);
 				nameList.addEventListener(KeyboardEvent.KEY_UP, namepList_keyUpHandler);
-				
-				nameList.addEventListener(DragEvent.DRAG_COMPLETE, nameList_dragCompleteHandler);
+
 			}
 			else if (instance == groupAddBtn) groupAddBtn.addEventListener(MouseEvent.CLICK, groupAddBtn_clickHandler);
 			else if (instance == nameAddBtn) nameAddBtn.addEventListener(MouseEvent.CLICK, nameAddBtn_clickHandler);
 			else if (instance == cardBtn) cardBtn.addEventListener(MouseEvent.CLICK, cardBtn_clickHandler);
+			else if (instance == addressFromExcel) addressFromExcel.addEventListener(MouseEvent.CLICK, addressFromExcel_clickHandler);
 
 		}
 		
@@ -189,15 +201,16 @@ package component
 			acGroup.removeAll();
 			// allGroup add
 			acGroup.addItem( allAddressGroupVO() );
-			
 			acGroup.addAll(data);
+			
+			setGvGroup();
 		}
 		private function groupList_keyUpHandler(event:KeyboardEvent):void {
 			
 			if (event.keyCode == 46
 				&& AddressVO(groupList.selectedItem).grpName != "모두") {
 				
-				confirmAlert = new AlertManager("그룹의 카드도 지워 집니다.\n 삭제 하시겠습니까?","그룹삭제", 1|8, Sprite(parentApplication), groupList.selectedIndex);
+				confirmAlert = new AlertManager("그룹의 전화번호도 지워 집니다.\n 삭제 하시겠습니까?","그룹삭제", 1|8, Sprite(parentApplication), groupList.selectedIndex);
 				confirmAlert.addEventListener("yes",deleteGroup_confirmHandler, false, 0, true);
 			}
 				
@@ -209,6 +222,24 @@ package component
 			avo.idx = 0;
 			
 			return avo;
+		}
+		private function setGvGroup():void {
+			
+			var arr:Array = [];
+			if (acGroup != null && acGroup.length > 0) {
+			
+				var avo:AddressVO = null;
+				Gv.addressGroupList.removeAll();
+				for (var i:Number = 0; i < acGroup.length; i++) {
+					avo = acGroup.getItemAt(i) as AddressVO;
+					if (avo.idx != 0) {
+						Gv.addressGroupList.addItem(avo.grpName);
+					}
+						
+				}
+				
+			}
+			 
 		}
 		private function deleteGroup_confirmHandler(event:CustomEvent):void {
 			
@@ -242,6 +273,7 @@ package component
 			
 			acName.removeAll();
 			acName.addAll(data);
+			nameCount.text = String(acName.length);
 			viewCard();
 			bEdite = false;
 			
@@ -263,15 +295,11 @@ package component
 			if (avo.idx == 0) {// insert
 				if (currentGroupName == "") SLibrary.alert("그룹 선택 후 저장하세요.");
 				else {
-					RemoteSingleManager.getInstance.addEventListener("modifyAddr", cardBtn_resultHandler, false, 0, true);
-					RemoteSingleManager.getInstance.callresponderToken
-						= RemoteSingleManager.getInstance.service.modifyAddr(20, avo); 
+					activeAddress(20, avo);
 				}
 				
 			}else {// update
-				RemoteSingleManager.getInstance.addEventListener("modifyAddr", cardBtn_resultHandler, false, 0, true);
-				RemoteSingleManager.getInstance.callresponderToken 
-					= RemoteSingleManager.getInstance.service.modifyAddr(21, avo);	
+				activeAddress(21, avo);
 			}
 		}
 		private function setCard():void {
@@ -306,17 +334,6 @@ package component
 				
 			
 		}
-		private function cardBtn_resultHandler(event:CustomEvent):void {
-			
-			RemoteSingleManager.getInstance.removeEventListener("modifyAddr", cardBtn_resultHandler);
-			
-			var idx:int = event.result as int;
-			if (idx > 0) {
-				AddressVO(acName.getItemAt( nameList.selectedIndex )).idx = idx;
-				bEdite = false;
-			}
-			else SLibrary.alert("적용 되지 않았습니다.");
-		}
 		
 		private function nameList_changeHandler(event:IndexChangeEvent):void {
 			
@@ -336,7 +353,7 @@ package component
 			
 			confirmAlert.removeEventListener("yes",deleteName_confirmHandler);
 			confirmAlert = null;
-			activeGroup(22, AddressVO( acName.getItemAt(int(event.result)) ) ); 
+			activeAddress(22, AddressVO( acName.getItemAt(int(event.result)) ) ); 
 			acName.removeItemAt( int(event.result) );
 			viewCard();
 		}
@@ -352,50 +369,45 @@ package component
 			acGroup.addItem( avo );
 			
 		}
-		/**
-		 * insert group
-		 * */
-		private function addGroup(groupName:String):void {
-			
-			if (groupName == "") {
-				SLibrary.alert("그룹이름을 입력하세요.")
-			}else {
-				var avo:AddressVO = new AddressVO();
-				avo.user_id = Gv.user_id;
-				avo.grpName = groupName;
-				
-				RemoteSingleManager.getInstance.addEventListener("modifyAddr", addGroup_changHandler, false, 0, true);
-				RemoteSingleManager.getInstance.callresponderToken 
-					= RemoteSingleManager.getInstance.service.modifyAddr(10, avo);	
-			}
-		}
-		private function addGroup_changHandler(event:CustomEvent):void {
-			
-			RemoteSingleManager.getInstance.removeEventListener("modifyAddr", addGroup_changHandler);
-			var i:int = event.result as int;
-			if (i > 0) getGroup();
-			else SLibrary.alert("적용 되지 않았습니다.");
-		}
 		
 		/**
 		 * insert or update group
 		 * */
-		private function activeGroup(code:Number, avo:AddressVO):void {
+		private function activeAddress(code:Number, avo:AddressVO):void {
 			
 			if (avo.grpName == "") {
 				SLibrary.alert("그룹이름이 없습니다.");
 			}else {
+				activeCode = code;
+				activeAddressVO = avo;
 				
-				RemoteSingleManager.getInstance.addEventListener("modifyAddr", activeGroup_changHandler, false, 0, true);
+				setGvGroup();
+				RemoteSingleManager.getInstance.addEventListener("modifyAddr", activeAddress_resultHandler, false, 0, true);
 				RemoteSingleManager.getInstance.callresponderToken 
 					= RemoteSingleManager.getInstance.service.modifyAddr(code, avo);
 			}
 		}
-		private function activeGroup_changHandler(event:CustomEvent):void {
+		private function activeAddress_resultHandler(event:CustomEvent):void {
 			
-			RemoteSingleManager.getInstance.removeEventListener("modifyAddr", activeGroup_changHandler);
+			RemoteSingleManager.getInstance.removeEventListener("modifyAddr", activeAddress_resultHandler);
 			var i:int = event.result as int;
-			if (i <= 0) SLibrary.alert("적용 되지 않았습니다.");
+			
+			if (i <= 0) {
+				SLibrary.alert("적용 되지 않았습니다.");
+				return;
+			}
+			switch(activeCode) {
+				
+				case 10:
+				case 20:
+				{
+					activeAddressVO.idx = i;
+					break;
+				}
+				default: { break; }
+			}
+			
+			
 		}
 		
 		/**
@@ -405,6 +417,7 @@ package component
 			
 			bEdite = true;
 			acName.addItemAt(new AddressVO(), 0);
+			nameCount.text = String(acName.length);
 			callLater(editeSelect);
 		}
 		private function editeSelect():void {
@@ -474,10 +487,9 @@ package component
 			
 		}
 		
-		
-		private function nameList_dragCompleteHandler(event:DragEvent):void {
+		private function addressFromExcel_clickHandler(event:MouseEvent):void {
+			(parentApplication as UIDesign).toggleExcel();
 		}
-		
 		
 		
 		public function destory():void {

@@ -19,6 +19,7 @@
 			
 			private function onChange(event:Event):void 
 			{
+				trace(inputTxt.text+"/"+labelDisplay.text);
 				var oldValue:String = labelDisplay.text;
 				var list:ListBase = this.owner as ListBase;
 				if (data.idx == 0 && data.grpName != "모두" && inputTxt.text == "") {
@@ -31,7 +32,7 @@
 					data.grpName = inputTxt.text;
 					labelDisplay.text = inputTxt.text;
 					//dispatch the data update event
-					list.dataProvider.itemUpdated(data, "grpName", oldValue, inputTxt.text); 
+					//list.dataProvider.itemUpdated(data, "grpName", oldValue, inputTxt.text); 
 				}
 				isEdit(false);
 			}
@@ -64,13 +65,14 @@
 	
 	<s:Label id="labelDisplay" 
 			 text="{data.grpName}"
+			 fontFamily="NGD"
 			 doubleClick="onEdit(event)"
 			 top="7" bottom="5" left="5" right="3"/>
 	<s:TextInput id="inputTxt" 
 				 visible="false"
+				 fontFamily="NGD"
 				 focusOut="onChange(event)"
 				 enter="inputTxt_enterHandler(event)"
-				 
 				 top="1" bottom="1" left="1" right="0"/>
 	
 </s:ItemRenderer>

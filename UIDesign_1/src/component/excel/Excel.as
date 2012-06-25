@@ -7,12 +7,14 @@ package component.excel
 	import flash.utils.ByteArray;
 	
 	import lib.CustomEvent;
+	import lib.Gv;
 	import lib.RemoteSingleManager;
 	import lib.SLibrary;
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ArrayList;
 	import mx.controls.dataGridClasses.DataGridColumn;
+	import mx.rpc.events.ResultEvent;
 	
 	import skin.excel.ExcelSkin;
 	
@@ -25,12 +27,14 @@ package component.excel
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
 	
+	import valueObjects.AddressVO;
 	import valueObjects.ExcelLoaderResultVO;
 	import valueObjects.PhoneVO;
 	
 	[SkinState("normal")]
 	[SkinState("upload")]
-	[SkinState("action")]
+	[SkinState("actionSend")]
+	[SkinState("actionAddress")]
 	
 	[Event(name="send", type="lib.CustomEvent")]
 	
@@ -40,6 +44,7 @@ package component.excel
 		[SkinPart(required="false")]public var openBtn:Button;
 		[SkinPart(required="false")]public var phoneCombo:ComboBox;
 		[SkinPart(required="false")]public var nameCombo:ComboBox;
+		[SkinPart(required="false")]public var memoCombo:ComboBox;
 		[SkinPart(required="false")]public var addressCombo:ComboBox;
 		[SkinPart(required="false")]public var addressBtn:Button;
 		[SkinPart(required="false")]public var sendBtn:Button;
@@ -57,9 +62,12 @@ package component.excel
 		private var acExcel:ArrayCollection = new ArrayCollection();
 		
 		private var pvo:PhoneVO;
+		private var avo:AddressVO;
 		
 		private var refUploadFile:FileReference = new FileReference();
 		private var uploadFiles:Array = new Array();
+		
+		private var _bFromAddress:Boolean = false;
 		
 		
 		public function Excel()	{
@@ -70,6 +78,9 @@ package component.excel
 			addEventListener(Event.REMOVED_FROM_STAGE, destroy, false, 0, true);
 		}
 		
+		public function get bFromAddress():Boolean { return _bFromAddress; }
+		public function set bFromAddress(value:Boolean):void { _bFromAddress = value; }
+
 		public function get currStat():String { return _currStat; }
 		public function set currStat(value:String):void { _currStat = value; }
 
@@ -91,12 +102,23 @@ package component.excel
 				setComboBoxData(nameCombo, "이름열");
 				nameCombo.addEventListener(IndexChangeEvent.CHANGE, nameCombo_changeHandler);
 			}
+			else if (instance == memoCombo) {
+				setComboBoxData(memoCombo, "메모열");
+				memoCombo.addEventListener(IndexChangeEvent.CHANGE, memoCombo_changeHandler);
+			}
 			else if (instance == sendBtn) sendBtn.addEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
 			else if (instance == resultList) {
 				resultList.dataProvider = acRslt;
 				resultList.labelFunction = resultListLabelFunc;
 			}
 			else if (instance == excelView) excelView.dataProvider = acExcel;
+			else if (instance == addressCombo){
+				addressCombo.dataProvider = Gv.addressGroupList;
+				if (Gv.addressGroupList.length > 0) {
+					addressCombo.selectedIndex = 0;
+				}
+			}
+			else if (instance == addressBtn) addressBtn.addEventListener(MouseEvent.CLICK, addressBtn_clickHandler);
 			
 			
 			
@@ -110,11 +132,18 @@ package component.excel
 			else if (instance == phoneCombo) phoneCombo.removeEventListener(IndexChangeEvent.CHANGE, phoneCombo_changeHandler);
 			else if (instance == nameCombo)	nameCombo.removeEventListener(IndexChangeEvent.CHANGE, nameCombo_changeHandler);
 			else if (instance == sendBtn) sendBtn.removeEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
+			else if (instance == addressCombo) addressCombo.dataProvider = null;
+			else if (instance == addressBtn) addressBtn.removeEventListener(MouseEvent.CLICK, addressBtn_clickHandler);
 		}
 		
 		
 		private function resultListLabelFunc(item:Object):String {
-			return item.pNo + " " + item.pName; 
+
+			if (bFromAddress)
+				return item.phone + " " + item.name+ " " + item.memo;
+			else
+				return item.pNo + " " + item.pName;	
+			 
 		}
 		
 		private function sendBtn_clickHandler(event:MouseEvent):void {
@@ -144,13 +173,23 @@ package component.excel
 			} 
 		}
 		
+		private function memoCombo_changeHandler(event:IndexChangeEvent):void {
+			
+			if ( memoCombo.selectedIndex >= 0 ) {
+				
+				convertPhoneAcFromExcel();
+			} 
+		}
+		
 		private function convertPhoneAcFromExcel():void {
 			
 			if (acExcel != null) {
 				var cnt:int = acExcel.length;
 				var phone:String = "";
 				var name:String = "";
+				var memo:String = "";
 				var bName:Boolean = nameCombo.selectedIndex >= 0 ? true : false;
+				var bMemo:Boolean = memoCombo.selectedIndex >= 0 ? true : false;
 				var chkInvaildChar:RegExp = /[^0-9]/g;	
 				
 				acRslt.removeAll();
@@ -166,13 +205,20 @@ package component.excel
 						var obj:Object = acExcel[i][nameCombo.dataProvider.getItemAt(nameCombo.selectedIndex).label];
 						name = (obj != null)? obj as String:"";
 					}
+					if (bMemo) {
+						var obj2:Object = acExcel[i][memoCombo.dataProvider.getItemAt(memoCombo.selectedIndex).label];
+						memo = (obj2 != null)? obj2 as String:"";
+					}
 					
 					// 0 이 빠진경우
 					if (phone != null && int(phone) != 0 && phone.length > 6 && phone.substr(0,1) != "0")
 						phone = "0"+phone;
 					
 					if (SLibrary.bKoreaPhoneCheck(phone)) {
-						acRslt.addItem( getPhoneVO( phone, name ) );
+						if (bFromAddress)
+							acRslt.addItem( getAddressVO( phone, name, memo ) );
+						else
+							acRslt.addItem( getPhoneVO( phone, name ) );
 					}
 				}
 				
@@ -183,6 +229,15 @@ package component.excel
 			pvo.pNo = pno;
 			pvo.pName = pname;
 			return pvo;
+		}
+		
+		private function getAddressVO(ano:String, aname:String, amemo:String):AddressVO {
+			avo = new AddressVO();
+			
+			avo.phone = ano;
+			avo.name = aname;
+			avo.memo = amemo;
+			return avo;
 		}
 		
 		
@@ -259,6 +314,7 @@ package component.excel
 		
 		private function excelUpload_RESULTHandler(e:CustomEvent):void {
 			
+			RemoteSingleManager.getInstance.removeEventListener("getExcelLoaderData", excelUpload_RESULTHandler);
 			var data:ExcelLoaderResultVO = e.result as ExcelLoaderResultVO;
 			
 			if (data.bResult) {
@@ -308,10 +364,30 @@ package component.excel
 					break;
 				case SELPHONE:
 					helpText.text = "주소록 저장 또는 전송을 크릭하세요.";
-					currStat = "action";
+					if (bFromAddress)
+						currStat = "actionAddress";
+					else
+						currStat = "actionSend";
 					break;
 			}
 			invalidateSkinState();
+		}
+		
+		private function addressBtn_clickHandler(event:MouseEvent):void {
+			
+			RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", addressBtn_resultHandler, false, 0, true);
+			RemoteSingleManager.getInstance.callresponderToken 
+				= RemoteSingleManager.getInstance.service.modifyManyAddr(31, acRslt, addressCombo.selectedItem as String);
+		}
+		private function addressBtn_resultHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("modifyManyAddr", addressBtn_resultHandler);
+			var i:int = event.result as int;
+			if (i > 0) {
+				SLibrary.alert( String(addressCombo.selectedItem)+" 에 저장 되었습니다.")
+				parentApplication.toggleExcel();
+			}
+			else SLibrary.alert("저장 되지 않았습니다.");
 		}
 		
 		public function destroy(e:Event):void {
@@ -373,6 +449,9 @@ package component.excel
 			addressBtn = null;
 			sendBtn = null;
 			_currStat = null;
+			
+			refUploadFile.removeEventListener(Event.SELECT,onFileSelect); 
+			refUploadFile.removeEventListener(Event.COMPLETE,onFileComplete);
 			refUploadFile = null;
 
 			RemoteSingleManager.getInstance.removeEventListener("getExcelLoaderData", excelUpload_RESULTHandler);
