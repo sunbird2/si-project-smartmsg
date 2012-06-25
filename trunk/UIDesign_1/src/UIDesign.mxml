@@ -10,12 +10,18 @@
 	<fx:Style source="assets/style/styles.css"/>
 	<fx:Script>
 		<![CDATA[
+			import component.address.SendModeAddress;
 			import component.excel.Excel;
+			
 			import lib.CustomEvent;
+			
 			import mx.collections.ArrayCollection;
+			
 			import skin.excel.ExcelSkin;
 			
 			private var excel:Excel;
+			private var sma:SendModeAddress;
+
 			
 			public function toggleExcel():void {
 				
@@ -26,6 +32,7 @@
 				excel = new Excel();
 				excel.horizontalCenter = 0;
 				excel.verticalCenter = 0;
+				excel.bFromAddress = menus.clickStat == "address" ? true : false;
 				excel.addEventListener("send", excel_sendHandler);
 				this.contentGroup.addElement(excel);
 			}
@@ -37,7 +44,29 @@
 				excel.removeEventListener("send", excel_sendHandler);
 				this.contentGroup.removeElement(excel);
 				excel = null;
+			}
+			
+			
+			public function toggleSendModeAddress():void {
 				
+				if (sma == null) createSendModeAddress();
+				else removeSendModeAddress();
+			}
+			private function createSendModeAddress():void {
+				sma = new SendModeAddress();
+				sma.horizontalCenter = 0;
+				sma.verticalCenter = 0;
+				sma.addEventListener("sendAddress", sma_sendHandler);
+				this.contentGroup.addElement(sma);
+			}
+			private function sma_sendHandler(event:CustomEvent):void {
+				send.addPhoneList( event.result as ArrayCollection );
+			}
+			private function removeSendModeAddress():void {
+				
+				sma.removeEventListener("sendAddress", sma_sendHandler);
+				this.contentGroup.removeElement(sma);
+				sma = null;
 			}
 		]]>
 	</fx:Script>

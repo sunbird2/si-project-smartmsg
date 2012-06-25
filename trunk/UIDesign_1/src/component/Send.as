@@ -166,6 +166,7 @@ package component
 			else if (instance == sentMessage) sentMessage.addEventListener(MouseEvent.CLICK, emt.sentMessage_clickHandler);
 			else if (instance == callbackSave) callbackSave.addEventListener(MouseEvent.CLICK, rt.callbackSave_clickHandler);
 			else if (instance == sendListFromExcel) sendListFromExcel.addEventListener(MouseEvent.CLICK, sendListFromExcel_clickHandler);
+			else if (instance == sendListFromAddress) sendListFromAddress.addEventListener(MouseEvent.CLICK, sendListFromAddress_clickHandler);
 			
 
 		}
@@ -438,6 +439,11 @@ package component
 				isValid();
 				SLibrary.alert(bVO.strDescription);
 			}
+		}
+		
+		
+		private function sendListFromAddress_clickHandler(event:MouseEvent):void {
+			parentApplication.toggleSendModeAddress();
 		}
 		
 		
