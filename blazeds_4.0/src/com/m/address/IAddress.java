@@ -8,6 +8,7 @@ public interface IAddress {
 	ArrayList<AddressVO> getAddrGroupList(Connection conn, String user_id);
 	ArrayList<AddressVO> getAddrNameList(Connection conn, String user_id);
 	ArrayList<AddressVO> getAddrNameList(Connection conn, String user_id, String groupName);
+	StringBuffer getTreeData(Connection conn, String user_id);
 	
 	ArrayList<AddressVO> getAddrSearchNameList(Connection conn, String user_id, String search);
 	

@@ -77,6 +77,25 @@ public class Address implements IAddress {
 		
 		return parseVO(al);
 	}
+	
+	@Override
+	public StringBuffer getTreeData(Connection conn, String user_id) {
+		
+		StringBuffer buf = null;
+		
+		ArrayList<HashMap<String, String>> al = null;
+		
+		String SQL = VbyP.getSQL( "address_tree_xml" );
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		pq.setPrepared(conn, SQL);
+		pq.setString(1, user_id);
+		al = pq.ExecuteQueryArrayList();
+		
+		buf = makeXML(al);
+		
+		
+		return buf;
+	}
 
 	@Override
 	public int insertGroup(Connection conn, AddressVO vo) {
@@ -415,6 +434,44 @@ public class Address implements IAddress {
 		}
 
 		return rsltCount;
+	}
+	
+	private StringBuffer makeXML(ArrayList<HashMap<String, String>> al) {
+		
+		StringBuffer buf = new StringBuffer();
+		int cnt = al.size();
+		HashMap<String, String> hm = null;
+		boolean bAddrsOpen = false;
+		//buf.append("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
+		buf.append("<root>");
+		buf.append("<msg>ok</msg>");
+		
+		for (int i = 0; i < cnt; i++) {
+			
+			hm = al.get(i);
+			
+			if (SLibrary.IfNull(hm, "grp").equals("0") && bAddrsOpen == true) {
+				buf.append("</addrs>");
+				bAddrsOpen = false;
+			}
+			if (SLibrary.IfNull(hm, "grp").equals("0")) {
+				buf.append("<addrs idx='0' type='group' label='"+SLibrary.IfNull(hm, "grpName")+"'>");
+				bAddrsOpen = true;
+			}
+			
+			if (SLibrary.IfNull(hm, "grp").equals("1")) {
+				buf.append("<addr idx='"+SLibrary.IfNull(hm, "idx")+"' group='"+SLibrary.IfNull(hm, "grpName")+"' label='"+SLibrary.IfNull(hm, "name")+"' phone='"+SLibrary.IfNull(hm, "phone")+"' memo='"+SLibrary.IfNull(hm, "memo")+"' />");
+			}
+			
+		}
+		if (bAddrsOpen == true) {
+			buf.append("</addrs>");
+			bAddrsOpen = false;
+		}
+		buf.append("</root>");
+		
+		return buf;
+		
 	}
 	
 	private ArrayList<AddressVO> parseVO(ArrayList<HashMap<String, String>> al) {

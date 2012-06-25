@@ -441,6 +441,29 @@ public class SmartDS extends SessionManagement {
 		return al;
 	}
 	
+	public String getAddrTree() {
+		
+		Connection conn = null;
+		Address address = null;
+		StringBuffer buf = new StringBuffer();
+		
+		try {
+
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			if (conn == null) throw new Exception("DB연결이 되어 있지 않습니다.");
+			
+			address = Address.getInstance();
+			
+			buf = address.getTreeData(conn, getSession());
+			
+		}catch (Exception e) { VbyP.errorLogDaily("getAddrTree >>"+e.toString()); }	
+		finally {			
+			close(conn);
+		}
+		return buf.toString();
+	}
+	
 	public int modifyAddr(int flag, AddressVO avo) {
 		
 		Connection conn = null;
