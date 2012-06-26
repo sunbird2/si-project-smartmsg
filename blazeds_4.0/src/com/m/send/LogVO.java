@@ -1,6 +1,9 @@
 package com.m.send;
 
 import java.io.Serializable;
+import java.util.HashMap;
+
+import com.common.util.SLibrary;
 
 public class LogVO implements Serializable {
 	
@@ -18,6 +21,25 @@ public class LogVO implements Serializable {
 	String ynDel = "N";
 	String delType = "";
 	String timeDel = "";
+	
+	public LogVO(){}
+	
+	public LogVO(HashMap<String, String> hm) {
+		
+		if (hm != null) {
+			setIdx(SLibrary.intValue(SLibrary.IfNull(hm, "idx")));
+			setLine(SLibrary.IfNull(hm, "line"));
+			setMode(SLibrary.IfNull(hm, "mode"));
+			setMethod(SLibrary.IfNull(hm, "method"));
+			setMessage(SLibrary.IfNull(hm, "message"));
+			setUser_ip(SLibrary.IfNull(hm, "user_ip"));
+			setTimeSend(SLibrary.IfNull(hm, "timeSend"));
+			setTimeWrite(SLibrary.IfNull(hm, "timeWrite"));
+			setYnDel(SLibrary.IfNull(hm, "ynDel"));
+			setDelType(SLibrary.IfNull(hm, "delType"));
+			setTimeDel(SLibrary.IfNull(hm, "timeDel"));
+		}
+	}
 	
 	public int getIdx() {
 		return idx;

@@ -17,6 +17,7 @@ public class MessageVO implements Serializable {
 	int groupKey;
 	String sendMode = "I"; // 즉시, 예약
 	String imagePath = "";
+	String rsltDate;
 	
 	public String getSendDate() {
 		return sendDate;
@@ -84,6 +85,12 @@ public class MessageVO implements Serializable {
 	}
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+	public String getRsltDate() {
+		return rsltDate;
+	}
+	public void setRsltDate(String rsltDate) {
+		this.rsltDate = rsltDate;
 	}
 	
 	

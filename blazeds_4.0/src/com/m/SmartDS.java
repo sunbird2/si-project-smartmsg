@@ -366,6 +366,11 @@ public class SmartDS extends SessionManagement {
 		
 		return rvo;
 	}
+	
+	/*###############################
+	#	sent Log					#
+	###############################*/
+	
 
 	/*###############################
 	#	excel						#
@@ -539,6 +544,9 @@ public class SmartDS extends SessionManagement {
 		
 		return result;
 	}
+	
+	
+	
 	
 	
 	
