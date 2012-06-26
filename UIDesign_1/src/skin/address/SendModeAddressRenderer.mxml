@@ -7,13 +7,14 @@
 			
 			override public function set data(value:Object):void {
 				super.data = value;
-				if (treeListData != null && treeListData.hasChildren){
+				/* if (treeListData != null && treeListData.hasChildren){
 					var chk:XMLList = new XMLList(treeListData.item);
 					var myChild:int = chk[0].children().length();
 					labelField.text = treeListData.label + " (" + myChild + ")";
 				}else if (data != null) {
 					labelField.text = data.attribute('label') != "" ? data.attribute('label') : data.attribute('phone');
-				}
+				} */
+				labelField.text = data.attribute('label') != "" ? data.attribute('label') : data.attribute('phone');
 			}
 		]]>
 	</fx:Script>

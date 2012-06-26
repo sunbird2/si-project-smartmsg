@@ -12,9 +12,10 @@
 	name=addressTree, type=mx.controls.Tree, required=false
 	-->
 	<s:VGroup>
-		<s:TextInput id="searchTextInput" />
+		<s:TextInput id="searchTextInput" fontFamily="Dotum" />
 		<mx:Tree id="addressTree" 
 				 width="200" height="120"
-				 itemRenderer="skin.address.SendModeAddressRenderer"/>
+				 itemRenderer="skin.address.SendModeAddressRenderer"
+				 fontFamily="Dotum"/>
 	</s:VGroup>
 </s:Skin>
