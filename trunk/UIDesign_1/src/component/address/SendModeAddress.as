@@ -3,10 +3,14 @@ package component.address
 	/* For guidance on writing an ActionScript Skinnable Component please refer to the Flex documentation: 
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.utils.clearTimeout;
+	import flash.utils.setTimeout;
 	
+	import lib.AlertManager;
 	import lib.CustomEvent;
 	import lib.FilteredTreeDataDescriptor;
 	import lib.RemoteSingleManager;
@@ -42,7 +46,7 @@ package component.address
 		
 		private var xml:XMLListCollection = new XMLListCollection;
 		private var pvo:PhoneVO = null;
-		
+		private var confirmAlert:AlertManager;
 		
 		public function SendModeAddress()
 		{
@@ -67,11 +71,10 @@ package component.address
 			if (instance == addressTree) {
 				addressTree.dataProvider = xml;
 				addressTree.labelField = "@label";
-				addressTree.dataDescriptor = new FilteredTreeDataDescriptor(filterFunc);
 				addressTree.addEventListener(ListEvent.CHANGE, addressTree_changeHandler);
 				
 			}
-			else if (instance == searchTextInput) searchTextInput.addEventListener(KeyboardEvent.KEY_UP, searchTextInput_changeHandler);
+			else if (instance == searchTextInput) searchTextInput.addEventListener(KeyboardEvent.KEY_UP, search_keyUpHandler);
 			
 		}
 		
@@ -101,9 +104,9 @@ package component.address
 				xml.addAll(new XMLListCollection(xlData.elements("addrs")));
 			}
 		}
+		
 		private function addressTree_changeHandler(event:ListEvent):void {
 			
-			var phone:String = "";
 			var selXML:XML = addressTree.selectedItem as XML;
 			var type:String = selXML.attribute("type");
 			var xmlList:XMLList = new XMLList(selXML);
@@ -114,13 +117,25 @@ package component.address
 					
 					ac.addItem( getPhoneVO(element.@phone,element.@label) )
 				}
-			}else {
+				
+				confirmAlert = new AlertManager(element.@group+" 그룹 "+String(ac.length)+"명을 전송에 추가 하시겠습니까?","전송추가", 1|8, Sprite(parentApplication), ac);
+				confirmAlert.addEventListener("yes",addressTree_sendGroupConfirmHandler, false, 0, true);
+				
+			}else if (type == "all" && searchTextInput.text == "") {
+				confirmAlert = new AlertManager(element.@group+"모두를 전송에 추가 하시겠습니까?","전송추가", 1|8, Sprite(parentApplication), ac);
+				confirmAlert.addEventListener("yes",addressTree_sendGroupConfirmHandler, false, 0, true);
+			}
+			else {
 				ac.addItem( getPhoneVO(selXML.@phone,selXML.@label) )
+				dispatchEvent(new CustomEvent("sendAddress", ac ) );
 			}
 			
-			phone = phone.substr(0, phone.length -1);
-			dispatchEvent(new CustomEvent("sendAddress", ac ) );
 			
+		}
+		private function addressTree_sendGroupConfirmHandler(event:CustomEvent):void {
+			
+			confirmAlert.removeEventListener("yes",addressTree_sendGroupConfirmHandler);
+			dispatchEvent(new CustomEvent("sendAddress", event.result as ArrayCollection ) );
 		}
 		private function getPhoneVO(pno:String, pname:String):PhoneVO {
 			pvo = new PhoneVO();
@@ -129,27 +144,99 @@ package component.address
 			return pvo;
 		}
 		
+		
 		/**
 		 * filter
 		 * */
-		private function searchTextInput_changeHandler(event:KeyboardEvent):void {
+		private var timeoutID:uint;
+		private var duration:Number = 1000;
+		private function search_keyUpHandler(evnet:KeyboardEvent):void {
 			
-			/*if (addressTree != null) {
-				(addressTree.dataDescriptor as TreeDescriptor).filter = searchTextInput.text;
-				
-			}*/
-			addressTree.invalidateList();
-			
+			clearTimeout(timeoutID);
+			timeoutID = setTimeout(searchHandler,duration);	
 		}
 		
-		private function filterFunc(node:Object):ICollectionView
-		{
-			return new XMLListCollection(node.addr.( @label.match(new RegExp("^" + searchTextInput.text, "i")) || @phone.match(new RegExp("^" + searchTextInput.text, "i"))  ));
+		protected function searchHandler():void {
+			
+			if (xml != null) {
+				addressTree.dataProvider = xml;
+				xml.refresh();
+				filterDataDescriptor();
+				callLater(expendTree);
+			}else {
+				
+			}
+		}
+		
+		private function filterDataDescriptor():void {
+			// 하위노드 필터링
+			var descriptor:ITreeDataDescriptor = new FilteredTreeDataDescriptor(getFilteredCollection);
+			addressTree.dataDescriptor = descriptor;
+		}
+		
+		private function getFilteredCollection(item:Object):ICollectionView {
+			
+			var node:XML = item as XML;
+			var dp:XMLListCollection = new XMLListCollection(node.children());
+			dp.filterFunction = checkString;
+			dp.refresh();
+			
+			return dp;
+		}
+		
+		private function checkString(item:Object):Boolean {
+			
+			var _searchString:String = searchTextInput.text;
+			if(!_searchString) return true;
+			
+			var node:XML = item as XML;
+			var label:String = node.@label;
+			var pattern:String = ".*"+_searchString+".*";
+			
+			
+			if ( new String(node.@label).match(pattern) || new String(node.@phone).match(pattern) ) {
+				trace(node.@label + "/"+node.@phone);
+				return true;
+			}
+			
+			var children:XMLList = node.children();
+			
+			// 재귀호출로 하위노드 검사
+			for each ( var child:XML in children ) {
+				
+				if (checkString(child))	return true;
+			}				
+			return false;
+		}
+		
+		// 노드 모두 펼침
+		private function expendTree():void {
+			
+			if(addressTree) {
+				
+				var len:int = xml.length;
+				for(var i:int=0; i<len; ++i) {
+					addressTree.expandChildrenOf(xml.getItemAt(i), true);
+				}
+			}
+			//callLater(spinnerStop);
+		}
+		
+		// 그룹 노드 펼침
+		private function expendGroupTree():void {
+			
+			if(addressTree) {
+				if (xml.length > 0)
+					addressTree.expandItem(xml.getItemAt(0), true);
+				
+			}
+			
+			//callLater(spinnerStop);
 		}
 		
 		public function destroy():void {
 			
-			removeEventListener(Event.REMOVED_FROM_STAGE, destroy, false);
+			removeEventListener(Event.REMOVED_FROM_STAGE, destroy);
 		}
 		
 	}
