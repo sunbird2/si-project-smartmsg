@@ -82,6 +82,12 @@ package component.address
 		override protected function partRemoved(partName:String, instance:Object) : void
 		{
 			super.partRemoved(partName, instance);
+			if (instance == addressTree) {
+				Object(addressTree.dataProvider).removeAll();
+				addressTree.removeEventListener(ListEvent.CHANGE, addressTree_changeHandler);
+				
+			}
+			else if (instance == searchTextInput) searchTextInput.removeEventListener(KeyboardEvent.KEY_UP, search_keyUpHandler);
 		}
 		
 		private function getAddress():void {
@@ -234,9 +240,13 @@ package component.address
 			//callLater(spinnerStop);
 		}
 		
-		public function destroy():void {
+		public function destroy(e:Event):void {
 			
-			removeEventListener(Event.REMOVED_FROM_STAGE, destroy);
+			addressTree.removeEventListener(ListEvent.CHANGE, addressTree_changeHandler);
+			xml.removeAll();
+			xml = null;
+			pvo = null;
+			confirmAlert = null;
 		}
 		
 	}

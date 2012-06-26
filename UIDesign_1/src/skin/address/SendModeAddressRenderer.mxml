@@ -14,7 +14,8 @@
 				}else if (data != null) {
 					labelField.text = data.attribute('label') != "" ? data.attribute('label') : data.attribute('phone');
 				} */
-				labelField.text = data.attribute('label') != "" ? data.attribute('label') : data.attribute('phone');
+				if (data != null)
+					labelField.text = data.attribute('label') != "" ? data.attribute('label') : data.attribute('phone');
 			}
 		]]>
 	</fx:Script>
