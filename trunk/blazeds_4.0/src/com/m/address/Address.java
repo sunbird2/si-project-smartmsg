@@ -445,7 +445,7 @@ public class Address implements IAddress {
 		//buf.append("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
 		buf.append("<root>");
 		buf.append("<msg>ok</msg>");
-		
+		//buf.append("<all idx='0' type='all' label='모두' name='' phone=''>");
 		for (int i = 0; i < cnt; i++) {
 			
 			hm = al.get(i);
@@ -460,7 +460,7 @@ public class Address implements IAddress {
 			}
 			
 			if (SLibrary.IfNull(hm, "grp").equals("1")) {
-				buf.append("<addr idx='"+SLibrary.IfNull(hm, "idx")+"' group='"+SLibrary.IfNull(hm, "grpName")+"' label='"+SLibrary.IfNull(hm, "name")+"' phone='"+SLibrary.IfNull(hm, "phone")+"' memo='"+SLibrary.IfNull(hm, "memo")+"' />");
+				buf.append("<addr idx='"+SLibrary.IfNull(hm, "idx")+"' group='"+SLibrary.IfNull(hm, "grpName")+"' label='"+SLibrary.IfNull(hm, "name")+"' phone='"+SLibrary.IfNull(hm, "phone")+"' />");
 			}
 			
 		}
@@ -468,6 +468,7 @@ public class Address implements IAddress {
 			buf.append("</addrs>");
 			bAddrsOpen = false;
 		}
+		//buf.append("</all>");
 		buf.append("</root>");
 		
 		return buf;
