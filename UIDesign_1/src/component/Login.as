@@ -50,6 +50,15 @@ package component
 			super();
 			login_check();
 		}
+		/**
+		 * login check
+		 * */
+		public function login_check():void {
+			
+			RemoteSingleManager.getInstance.addEventListener("getUserInformation", login_check_resultHandler, false, 0, true);
+			RemoteSingleManager.getInstance.callresponderToken 
+				= RemoteSingleManager.getInstance.service.getUserInformation();
+		}
 		
 		/* Implement the getCurrentSkinState() method to set the view state of the skin class. */
 		override protected function getCurrentSkinState():String
@@ -112,15 +121,7 @@ package component
 			}
 		}
 		
-		/**
-		 * login check
-		 * */
-		private function login_check():void {
-			
-			RemoteSingleManager.getInstance.addEventListener("getUserInformation", login_check_resultHandler, false, 0, true);
-			RemoteSingleManager.getInstance.callresponderToken 
-				= RemoteSingleManager.getInstance.service.getUserInformation();
-		}
+		
 		/**
 		 * login check resultHandler
 		 * */

@@ -68,6 +68,11 @@
 				this.contentGroup.removeElement(sma);
 				sma = null;
 			}
+			
+			// login check
+			public function login_check():void {
+				login.login_check();
+			}
 		]]>
 	</fx:Script>
 	

@@ -3,8 +3,11 @@ package component
 	/* For guidance on writing an ActionScript Skinnable Component please refer to the Flex documentation: 
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	
+	import flash.display.Sprite;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	
+	import lib.AlertManager;
 	import lib.CustomEvent;
 	import lib.Gv;
 	import lib.RemoteSingleManager;
@@ -30,6 +33,7 @@ package component
 	import spark.events.IndexChangeEvent;
 	import spark.filters.DropShadowFilter;
 	
+	import valueObjects.BooleanAndDescriptionVO;
 	import valueObjects.LogVO;
 	import valueObjects.MessageVO;
 	
@@ -59,6 +63,8 @@ package component
 		private var acGroup:ArrayCollection = new ArrayCollection();
 		private var acDetail:ArrayCollection = new ArrayCollection();
 		private var acChart:ArrayCollection = new ArrayCollection();
+		
+		private var confirmAlert:AlertManager;
 		
 		public function Log()
 		{
@@ -100,6 +106,7 @@ package component
 			else if (instance == groupList) {
 				groupList.dataProvider = acGroup;
 				groupList.addEventListener(IndexChangeEvent.CHANGE, groupList_changeHandler);
+				groupList.addEventListener(KeyboardEvent.KEY_UP, groupList_keyUpHandler);
 			}
 			else if (instance == detailList) {
 				detailList.dataProvider = acDetail;
@@ -113,6 +120,7 @@ package component
 			}
 			
 		}
+		
 		
 		private function getPieSeries():PieSeries {
 			
@@ -172,12 +180,16 @@ package component
 			
 			yyyymm = String(date.fullYear)+String( SLibrary.addTwoSizeNumer(date.month+1) );
 			
+			getSentList();
+	
+		}
+		private function getSentList():void {
+			
 			if (Gv.bLogin) {
 				RemoteSingleManager.getInstance.addEventListener("getSentList", getSentList_resultHandler, false, 0, true);
 				RemoteSingleManager.getInstance.callresponderToken 
 					= RemoteSingleManager.getInstance.service.getSentList(yyyymm);
 			}
-	
 		}
 		private function getSentList_resultHandler(event:CustomEvent):void {
 			
@@ -236,6 +248,36 @@ package component
 			acChart.addItem({result:"실패",cnt:fail});
 			acChart.addItem({result:"없는번호",cnt:noNum});
 			
+		}
+		
+		
+		private function groupList_keyUpHandler(event:KeyboardEvent):void {
+			
+			if (event.keyCode == 46) {
+				
+				confirmAlert = new AlertManager("삭제 하시겠습니까?","내역삭제", 1|8, Sprite(parentApplication), groupList.selectedIndex);
+				confirmAlert.addEventListener("yes",deleteGroupList_confirmHandler, false, 0, true);
+			}
+		}
+		
+		private function deleteGroupList_confirmHandler(event:CustomEvent):void {
+			
+			confirmAlert.removeEventListener("yes",deleteGroupList_confirmHandler);
+			
+			RemoteSingleManager.getInstance.addEventListener("deleteSent", deleteSent_resultHandler, false, 0, true);
+			RemoteSingleManager.getInstance.callresponderToken 
+				= RemoteSingleManager.getInstance.service.deleteSent( LogVO(acGroup.getItemAt(event.result as int)) );
+		}
+		private function deleteSent_resultHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("deleteSent", deleteSent_resultHandler);
+			var bvo:BooleanAndDescriptionVO = BooleanAndDescriptionVO(event.result);
+			if (bvo.bResult == true)
+				acGroup.removeItemAt(groupList.selectedIndex);
+			
+			SLibrary.alert( BooleanAndDescriptionVO(event.result).strDescription );
+			
+			Main(parentApplication).login_check();
 		}
 		
 	}
