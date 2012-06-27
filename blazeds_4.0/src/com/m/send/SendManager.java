@@ -131,8 +131,10 @@ public class SendManager implements ISend {
 		lvo = makeLogVO(uvo, smvo);
 		idx = insertLog(conn, lvo);
 		
+		int point = smvo.getAl().size() * SLibrary.intValue(VbyP.getValue(getMode(smvo)+"_COUNT"));
+		
 		if (idx > 0)
-			rslt = updatePoint(conn, uvo, lvo.getMode(), smvo.getAl().size());
+			rslt = updatePoint(conn, uvo, lvo.getMode(), point);
 		else throw new Exception("insertLog Error!!");
 		
 		if (rslt > 0){
@@ -143,7 +145,7 @@ public class SendManager implements ISend {
 		
 		
 		
-		return 0;
+		return rslt;
 	}
 	
 	private ILineSet getLineInstance(String line) throws Exception {

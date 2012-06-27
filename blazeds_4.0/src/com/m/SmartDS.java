@@ -420,12 +420,14 @@ public class SmartDS extends SessionManagement {
 		Connection conn = null;
 		ISent sent = SentManager.getInstance();
 		ISentData sentData = null;
+		UserInformationVO uvo = null;
 		
 		int sentCnt = 0;
 		int cancelAbleCnt = 0;
 		int cancelCnt = 0;
 		
 		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		rvo.setbResult(false);
 		
 		try {
 			if (!bSession()) throw new Exception("no login");
@@ -440,29 +442,50 @@ public class SmartDS extends SessionManagement {
 			
 			if (cancelAbleCnt > 0) {
 				
+				uvo = getInformation(conn, getSession());
+				
 				sentCnt = sentData.getCount(conn, slvo);
+				// delete data;
 				cancelCnt = sentData.cancel(conn, slvo);
 				
 				if (sentCnt == cancelCnt) {
 					slvo.setYnDel("Y");
 					slvo.setTimeDel(SLibrary.getDateTimeString());
 					slvo.setDelType("cancel");
-					cancelCnt = sent.updateLog(conn, slvo);
+					sent.updateLog(conn, slvo);
+					rvo.setbResult(true);
+					rvo.setstrDescription(cancelCnt + "건이 취소 되었습니다.");
 				} else {
 					rvo.setstrDescription("총 "+ sentCnt + " 건 중 미발송된 "+ cancelCnt + "건이  취소 되었습니다.");
 				}
+				
+				
+				
+				int code = 0;
+				int point = 0;
+				if (slvo.getMode().equals("LMS")) { code = 46; point = cancelCnt*SLibrary.intValue(VbyP.getValue("LMS_COUNT")); }
+				else if (slvo.getMode().equals("MMS")) { code = 26; point = cancelCnt*SLibrary.intValue(VbyP.getValue("LMS_COUNT")); }
+				else { code = 16; point = cancelCnt*SLibrary.intValue(VbyP.getValue("LMS_COUNT")); }
+
+				if ( PointManager.getInstance().insertUserPoint(conn, uvo, code, point) <= 0 )
+					rvo.setstrDescription("총 "+ sentCnt + " 건 중 미발송된 "+ cancelCnt + "건이  취소 되었으나, 보상이 이루어 지지 않았습니다. 관리자에게 문의 하세요.");
+				
 			}else {
 				
 				slvo.setYnDel("Y");
 				slvo.setTimeDel(SLibrary.getDateTimeString());
 				slvo.setDelType("logdel");
 				cancelCnt = sent.updateLog(conn, slvo);
-				if (cancelCnt > 0)
+				if (cancelCnt > 0) {
+					rvo.setbResult(true);
 					rvo.setstrDescription("삭제 되었습니다.");
-				else
+				}
+					
+				else {
 					rvo.setstrDescription("삭제가 적용되지 않았습니다.");
+				}
+					
 			}
-			rvo.setbResult(true);
 
 
 		}catch (Exception e) { 
