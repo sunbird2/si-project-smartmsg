@@ -17,12 +17,18 @@ import com.m.common.PointManager;
 import com.m.emoticon.Emotion;
 import com.m.excel.ExcelLoader;
 import com.m.excel.ExcelLoaderResultVO;
+import com.m.log.ISent;
+import com.m.log.ISentData;
+import com.m.log.SentManager;
+import com.m.log.telecom.LGSent;
 import com.m.member.Join;
 import com.m.member.JoinVO;
 import com.m.member.SessionManagement;
 import com.m.member.UserInformationVO;
 import com.m.returnphone.ReturnPhone;
 import com.m.send.ISend;
+import com.m.send.LogVO;
+import com.m.send.MessageVO;
 import com.m.send.SendManager;
 import com.m.send.SendMessageVO;
 
@@ -370,7 +376,104 @@ public class SmartDS extends SessionManagement {
 	/*###############################
 	#	sent Log					#
 	###############################*/
+	public ArrayList<LogVO> getSentList(String yyyymm) {
+		
+		Connection conn = null;
+		ISent sent = SentManager.getInstance();
+		ArrayList<LogVO> al = null;
+		try {
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			
+			al = sent.getList(conn, getSession(), yyyymm);
+				
+
+		}catch (Exception e) { System.out.println(e.toString()); }
+		finally { close(conn); }
+		
+		return al;
+	}
 	
+	public ArrayList<MessageVO> getSentListDetail(LogVO slvo) {
+		
+		Connection conn = null;
+		ISentData sentData = null;
+		ArrayList<MessageVO> al = null;
+		try {
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			
+			if (slvo.getLine().equals("lg")) sentData = LGSent.getInstance();
+			
+			slvo.setUser_id(getSession());
+			al = sentData.getListDetail(conn, slvo);
+				
+
+		}catch (Exception e) { System.out.println(e.toString()); }
+		finally { close(conn); }
+		
+		return al;
+	}
+	
+	public BooleanAndDescriptionVO deleteSent(LogVO slvo) {
+		
+		Connection conn = null;
+		ISent sent = SentManager.getInstance();
+		ISentData sentData = null;
+		
+		int sentCnt = 0;
+		int cancelAbleCnt = 0;
+		int cancelCnt = 0;
+		
+		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		
+		try {
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			
+			if (slvo.getLine().equals("lg")) sentData = LGSent.getInstance();
+			
+			slvo.setUser_id(getSession());
+			
+			cancelAbleCnt = sentData.getCancelAbleCount(conn, slvo);
+			
+			
+			if (cancelAbleCnt > 0) {
+				
+				sentCnt = sentData.getCount(conn, slvo);
+				cancelCnt = sentData.cancel(conn, slvo);
+				
+				if (sentCnt == cancelCnt) {
+					slvo.setYnDel("Y");
+					slvo.setTimeDel(SLibrary.getDateTimeString());
+					slvo.setDelType("cancel");
+					cancelCnt = sent.updateLog(conn, slvo);
+				} else {
+					rvo.setstrDescription("총 "+ sentCnt + " 건 중 미발송된 "+ cancelCnt + "건이  취소 되었습니다.");
+				}
+			}else {
+				
+				slvo.setYnDel("Y");
+				slvo.setTimeDel(SLibrary.getDateTimeString());
+				slvo.setDelType("logdel");
+				cancelCnt = sent.updateLog(conn, slvo);
+				if (cancelCnt > 0)
+					rvo.setstrDescription("삭제 되었습니다.");
+				else
+					rvo.setstrDescription("삭제가 적용되지 않았습니다.");
+			}
+			rvo.setbResult(true);
+
+
+		}catch (Exception e) { 
+			rvo.setbResult(false);
+			rvo.setstrDescription("실패 하였습니다.");
+			
+		}
+		finally { close(conn); }
+		
+		return rvo;
+	}
 
 	/*###############################
 	#	excel						#

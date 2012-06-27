@@ -12,6 +12,12 @@ import com.m.send.LogVO;
 import com.m.send.MessageVO;
 
 public class LGSent implements ISentData {
+	
+	static ISentData sent = new LGSent();
+	public static ISentData getInstance() {
+		return sent;
+	}
+	private LGSent(){}
 
 	@Override
 	public ArrayList<MessageVO> getListDetail(Connection conn, LogVO slvo) {
@@ -46,6 +52,23 @@ public class LGSent implements ISentData {
 		pq.setPrepared(conn, SQL);
 		pq.setString(1, slvo.getUser_id());
 		pq.setString(2, Integer.toString(slvo.getIdx()));
+		
+		return pq.ExecuteQueryNum();
+	}
+	
+	@Override
+	public int getCount(Connection conn, LogVO slvo) {
+		
+		String SQL = "";
+		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_count_mms" );
+		else SQL = VbyP.getSQL( "sent_lg_count" );
+		
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		pq.setPrepared(conn, SQL);
+		pq.setString(1, slvo.getUser_id());
+		pq.setString(2, Integer.toString(slvo.getIdx()));
+		pq.setString(3, slvo.getUser_id());
+		pq.setString(4, Integer.toString(slvo.getIdx()));
 		
 		return pq.ExecuteQueryNum();
 	}
@@ -93,9 +116,9 @@ public class LGSent implements ISentData {
 			mvo.setSendDate(SLibrary.IfNull(hm, "TR_SENDDATE"));
 			mvo.setUser_id(SLibrary.IfNull(hm, "TR_ID"));
 			mvo.setStat(SLibrary.IfNull(hm, "TR_SENDSTAT"));
-			mvo.setRslt(SLibrary.IfNull(hm, "TR_RSLTSTAT"));
+			mvo.setRslt( VbyP.getValue( "lg_"+SLibrary.IfNull(hm, "TR_RSLTSTAT") ) );
 			mvo.setPhone(SLibrary.IfNull(hm, "TR_PHONE"));
-			mvo.setName( SLibrary.IfNull(hm, "TR_ETC2"));
+			mvo.setName(SLibrary.IfNull(hm, "TR_ETC2"));
 			mvo.setCallback(SLibrary.IfNull(hm, "TR_CALLBACK"));
 			mvo.setMsg(SLibrary.IfNull(hm, "TR_MSG"));
 			mvo.setGroupKey(SLibrary.intValue(SLibrary.IfNull(hm, "TR_ETC1")));
@@ -116,7 +139,7 @@ public class LGSent implements ISentData {
 			mvo.setSendDate(SLibrary.IfNull(hm, "REQDATE"));
 			mvo.setUser_id(SLibrary.IfNull(hm, "ID"));
 			mvo.setStat(SLibrary.IfNull(hm, "STATUS"));
-			mvo.setRslt(SLibrary.IfNull(hm, "RSLT"));
+			mvo.setRslt( VbyP.getValue( "lg_mms_"+SLibrary.IfNull(hm, "RSLT") ));
 			mvo.setPhone(SLibrary.IfNull(hm, "PHONE"));
 			mvo.setName( SLibrary.IfNull(hm, "ETC2"));
 			mvo.setCallback(SLibrary.IfNull(hm, "CALLBACK"));

@@ -9,6 +9,12 @@ import com.common.db.PreparedExecuteQueryManager;
 import com.m.send.LogVO;
 
 public class SentManager implements ISent {
+	
+	static ISent sent = new SentManager();
+	public static ISent getInstance() {
+		return sent;
+	}
+	private SentManager(){}
 
 	@Override
 	public ArrayList<LogVO> getList(Connection conn, String user_id, String yyyymm) {

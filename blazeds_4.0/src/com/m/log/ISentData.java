@@ -11,5 +11,6 @@ public interface ISentData {
 	ArrayList<MessageVO> getListDetail(Connection conn, LogVO slvo);
 	
 	int getCancelAbleCount(Connection conn, LogVO slvo);
+	int getCount(Connection conn, LogVO slvo);
 	int cancel(Connection conn, LogVO slvo);
 }
