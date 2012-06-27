@@ -314,7 +314,7 @@ package component
 		}
 		
 		private function sendListFromExcel_clickHandler(event:MouseEvent):void {
-			(parentApplication as UIDesign).toggleExcel();
+			(parentApplication as Main).toggleExcel();
 		}
 		
 		

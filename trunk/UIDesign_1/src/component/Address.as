@@ -488,7 +488,7 @@ package component
 		}
 		
 		private function addressFromExcel_clickHandler(event:MouseEvent):void {
-			(parentApplication as UIDesign).toggleExcel();
+			(parentApplication as Main).toggleExcel();
 		}
 		
 		
