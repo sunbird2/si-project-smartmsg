@@ -17,6 +17,8 @@ import valueObjects.AddressVO;
 import valueObjects.BooleanAndDescriptionVO;
 import valueObjects.Connection;
 import valueObjects.ExcelLoaderResultVO;
+import valueObjects.LogVO;
+import valueObjects.MessageVO;
 import valueObjects.SendMessageVO;
 import valueObjects.UserInformationVO;
 
@@ -35,6 +37,8 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
 
         // initialize RemoteClass alias for all entities returned by functions of this service
         valueObjects.AddressVO._initRemoteClassAlias();
+        valueObjects.MessageVO._initRemoteClassAlias();
+        valueObjects.LogVO._initRemoteClassAlias();
 
         var operations:Object = new Object();
         var operation:mx.rpc.remoting.Operation;
@@ -125,6 +129,15 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         operation = new mx.rpc.remoting.Operation(null, "getAddrTree");
          operation.resultType = String;
         operations["getAddrTree"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "getSentListDetail");
+         operation.resultElementType = valueObjects.MessageVO;
+        operations["getSentListDetail"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "deleteSent");
+         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+        operations["deleteSent"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "getSentList");
+         operation.resultElementType = valueObjects.LogVO;
+        operations["getSentList"] = operation;
 
         _serviceControl.operations = operations;
         _serviceControl.convertResultHandler = com.adobe.serializers.utility.TypeUtility.convertResultHandler;
@@ -661,6 +674,60 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getAddrTree");
 		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send() ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'getSentListDetail' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function getSentListDetail(arg0:valueObjects.LogVO) : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getSentListDetail");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'deleteSent' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function deleteSent(arg0:valueObjects.LogVO) : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("deleteSent");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'getSentList' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function getSentList(arg0:String) : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getSentList");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
         return _internal_token;
     }
      
