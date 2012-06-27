@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			import lib.SLibrary;
+			
+			import valueObjects.LogVO;
+			
+			override public function set data(value:Object):void
+			{
+				// TODO Auto Generated method stub
+				super.data = value;
+				if (super.data != null) {
+
+					main.text = SLibrary.cutByteTo( LogVO(super.data).message.replace(/\n/g,"") , 30 );
+					sub.text = LogVO(super.data).mode + " " + LogVO(super.data).timeSend ;
+				}
+					
+			}
+			
+		]]>
+	</fx:Script>
+	<s:VGroup top="7" bottom="5" left="5" right="3">
+		<s:Label id="main" fontFamily="Dotum" />
+		<s:Label id="sub" fontSize="10" color="0x999999" />
+	</s:VGroup>
+	
+	
+</s:ItemRenderer>
