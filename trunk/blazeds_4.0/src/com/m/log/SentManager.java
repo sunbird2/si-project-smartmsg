@@ -41,16 +41,16 @@ public class SentManager implements ISent {
 		
 		pq.setPrepared(conn, SQL);
 		pq.setString(1, slvo.getLine());
-		pq.setString(1, slvo.getMode());
-		pq.setString(1, slvo.getMethod());
-		pq.setString(1, slvo.getMessage());
-		pq.setString(1, slvo.getUser_ip());
-		pq.setString(1, slvo.getTimeSend());
-		pq.setString(1, slvo.getTimeWrite());
-		pq.setString(1, slvo.getYnDel());
-		pq.setString(1, slvo.getDelType());
-		pq.setString(1, slvo.getTimeDel());
-		pq.setInt(1, slvo.getIdx());
+		pq.setString(2, slvo.getMode());
+		pq.setString(3, slvo.getMethod());
+		pq.setString(4, slvo.getMessage());
+		pq.setString(5, slvo.getUser_ip());
+		pq.setString(6, slvo.getTimeSend());
+		pq.setString(7, slvo.getTimeWrite());
+		pq.setString(8, slvo.getYnDel());
+		pq.setString(9, slvo.getDelType());
+		pq.setString(10, slvo.getTimeDel());
+		pq.setInt(11, slvo.getIdx());
 		
 		rsltCount = pq.executeUpdate();			
 		
