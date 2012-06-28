@@ -13,29 +13,30 @@
 		<s:State name="actionAddress"/>
 	</s:states>
 	
-	<s:layout>
-		<s:VerticalLayout horizontalAlign="center" />
-	</s:layout>
-	<s:RichText id="helpText" text="엑셀열기 를 클릭하세요." />
-	<s:HGroup verticalAlign="middle">
-		<s:Button id="openBtn" includeIn="normal" label="엑셀열기" />
-		<s:ComboBox id="phoneCombo" includeIn="upload, actionSend, actionAddress" width="80" />
-		<s:ComboBox id="nameCombo" includeIn="upload, actionSend, actionAddress" width="80" />
-		<s:ComboBox id="memoCombo" includeIn="upload, actionSend, actionAddress" width="80" />
-		<s:Button id="sendBtn" includeIn="actionSend" label="전송" />
-		<s:HGroup includeIn="actionAddress">
-			<s:ComboBox id="addressCombo" width="80" />
-			<s:Button id="addressBtn" label="저장" />	
+	<s:VGroup>
+		<s:RichText id="helpText" text="엑셀열기 를 클릭하세요." />
+		<s:HGroup verticalAlign="middle">
+			<s:Button id="openBtn" includeIn="normal" label="엑셀열기" />
+			<s:ComboBox id="phoneCombo" includeIn="upload, actionSend, actionAddress" width="80" />
+			<s:ComboBox id="nameCombo" includeIn="upload, actionSend, actionAddress" width="80" />
+			<s:ComboBox id="memoCombo" includeIn="upload, actionSend, actionAddress" width="80" />
+			<s:Button id="sendBtn" includeIn="actionSend" label="전송" />
+			<s:HGroup includeIn="actionAddress">
+				<s:ComboBox id="addressCombo" width="80" />
+				<s:Button id="addressBtn" label="저장" />	
+			</s:HGroup>
+			
 		</s:HGroup>
-		
-	</s:HGroup>
-	<s:HGroup>
-		<s:DataGrid id="excelView" width="200" height="100">
-			
-		</s:DataGrid>
-		<s:List id="resultList" height="100">
-			
-		</s:List>
-	</s:HGroup>
+		<s:HGroup>
+			<s:DataGrid id="excelView" width="200" height="100">
+				
+			</s:DataGrid>
+			<s:List id="resultList" height="100">
+				
+			</s:List>
+		</s:HGroup>
+	</s:VGroup>
+	<s:RichText id="close" text="X" right="10" fontSize="26" fontFamily="NGD" />
+	
 	
 </s:Skin>

@@ -26,6 +26,7 @@ package component.address
 	
 	import skin.excel.SendModeAddressSkin;
 	
+	import spark.components.RichText;
 	import spark.components.TextInput;
 	import spark.components.supportClasses.SkinnableComponent;
 	
@@ -36,6 +37,7 @@ package component.address
 	Use the [SkinState] metadata tag to define the view states in the component class. 
 	[SkinState("normal")] */
 	[Event(name="sendAddress", type="lib.CustomEvent")]
+	[Event(name="close", type="flash.events.Event")]
 	
 	public class SendModeAddress extends SkinnableComponent
 	{
@@ -43,6 +45,7 @@ package component.address
 		[SkinPart(required="true")] */
 		[SkinPart(required="false")]public var searchTextInput:TextInput;
 		[SkinPart(required="false")]public var addressTree:Tree;
+		[SkinPart(required="true")] public var close:RichText;
 		
 		private var xml:XMLListCollection = new XMLListCollection;
 		private var pvo:PhoneVO = null;
@@ -75,6 +78,7 @@ package component.address
 				
 			}
 			else if (instance == searchTextInput) searchTextInput.addEventListener(KeyboardEvent.KEY_UP, search_keyUpHandler);
+			else if (instance == close)	close.addEventListener(MouseEvent.CLICK, close_clickHandler);
 			
 		}
 		
@@ -88,6 +92,7 @@ package component.address
 				
 			}
 			else if (instance == searchTextInput) searchTextInput.removeEventListener(KeyboardEvent.KEY_UP, search_keyUpHandler);
+			else if (instance == close)	close.removeEventListener(MouseEvent.CLICK, close_clickHandler);
 		}
 		
 		private function getAddress():void {
@@ -238,6 +243,9 @@ package component.address
 			}
 			
 			//callLater(spinnerStop);
+		}
+		private function close_clickHandler(event:MouseEvent):void {
+			this.dispatchEvent(new Event("close"));
 		}
 		
 		public function destroy(e:Event):void {

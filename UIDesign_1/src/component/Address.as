@@ -2,6 +2,8 @@ package component
 {
 	/* For guidance on writing an ActionScript Skinnable Component please refer to the Flex documentation: 
 	www.adobe.com/go/actionscriptskinnablecomponents */
+	import component.excel.Excel;
+	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
@@ -25,6 +27,7 @@ package component
 	import mx.rpc.events.ResultEvent;
 	
 	import spark.components.Button;
+	import spark.components.Group;
 	import spark.components.Image;
 	import spark.components.List;
 	import spark.components.RichText;
@@ -49,6 +52,9 @@ package component
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
 		[SkinPart(required="true")] */
 		
+		
+		[SkinPart(required="true")]public var contentGroup:Group;
+		
 		// group
 		[SkinPart(required="false")]public var groupList:List;
 		[SkinPart(required="false")]public var groupAddBtn:Button;
@@ -71,6 +77,7 @@ package component
 		[SkinPart(required="false")]public var addressFromExcel:RichText;
 		[SkinPart(required="false")]public var addressFromCopy:RichText;
 		
+		private var excel:Excel;
 		
 		private var acGroup:ArrayCollection = new ArrayCollection();
 		private var acName:ArrayCollection = new ArrayCollection();
@@ -488,7 +495,30 @@ package component
 		}
 		
 		private function addressFromExcel_clickHandler(event:MouseEvent):void {
-			(parentApplication as Main).toggleExcel();
+			toggleExcel();
+		}
+		public function toggleExcel():void {
+			
+			if (excel == null) createExcel();
+			else removeExcel();
+		}
+		private function createExcel():void {
+			excel = new Excel();
+			excel.horizontalCenter = 0;
+			excel.verticalCenter = 0;
+			excel.bFromAddress = false;
+			excel.addEventListener("saveAddress", excel_saveAddressHandler);
+			this.contentGroup.addElement(excel);
+		}
+		private function excel_saveAddressHandler(event:CustomEvent):void {
+			SLibrary.alert(String(event.result)+" 에 저장 되었습니다.");
+			getGroup();
+		}
+		private function removeExcel():void {
+			
+			excel.removeEventListener("saveAddress", excel_saveAddressHandler);
+			this.contentGroup.removeElement(excel);
+			excel = null;
 		}
 		
 		

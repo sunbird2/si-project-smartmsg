@@ -18,4 +18,5 @@
 				 itemRenderer="skin.address.SendModeAddressRenderer"
 				 fontFamily="Dotum"/>
 	</s:VGroup>
+	<s:RichText id="close" text="X" right="10" fontSize="26" fontFamily="NGD" />
 </s:Skin>

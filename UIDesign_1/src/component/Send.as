@@ -1,7 +1,11 @@
 package component
 {
 	
-	import component.send.Emoticon;
+	import component.address.SendModeAddress;
+	import component.emoticon.Emoticon;
+	import component.excel.Excel;
+	import component.log.SendModeLog;
+	import component.paste.Paste;
 	import component.send.ReturnPhone;
 	
 	import flash.events.Event;
@@ -21,6 +25,7 @@ package component
 	import spark.components.Button;
 	import spark.components.CheckBox;
 	import spark.components.ComboBox;
+	import spark.components.Group;
 	import spark.components.List;
 	import spark.components.RichEditableText;
 	import spark.components.RichText;
@@ -43,18 +48,16 @@ package component
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
 		[SkinPart(required="true")] */
 		
+		[SkinPart(reqired='true')]public var contentGroup:Group;
+		
 		// message
 		[SkinPart(required="false")]public var message:RichEditableText;
 		[SkinPart(required="false")]public var byte:RichText;
 		[SkinPart(required="false")]public var messageSaveBtn:Button;
 		[SkinPart(required="false")]public var specialChar:RichText;
-		[SkinPart(required="false")]public var specialCharGroup:TileGroup;
 		[SkinPart(required="false")]public var myMessage:RichText;
 		[SkinPart(required="false")]public var sentMessage:RichText;
 		[SkinPart(required="false")]public var emoticon:RichText;
-		[SkinPart(required="false")]public var category:List;
-		[SkinPart(required="false")]public var msgBox:List;
-		[SkinPart(required="false")]public var paging:Paging;
 		
 		
 		// phones
@@ -125,12 +128,16 @@ package component
 		[Bindable]
 		private var alPhone:ArrayCollection = new ArrayCollection();
 		private var Kpf:KoreaPhoneNumberFormatter = new KoreaPhoneNumberFormatter();
+		private var excel:Excel;
+		private var sma:SendModeAddress;
+		private var sml:SendModeLog;
+		private var paste:Paste;
 		
 		
 		/**
 		 * emoticon properties
 		 * */
-		private var emt:Emoticon;
+		private var emoticonBox:Emoticon;
 		
 		
 		/**
@@ -140,16 +147,19 @@ package component
 
 		public function Send() { 
 			super();
-			emt = new Emoticon();
 			rt = new ReturnPhone();
 			
 		}
+		
+		
+		
+		
 		override protected function getCurrentSkinState():String { return super.getCurrentSkinState(); } 
 		override protected function partAdded(partName:String, instance:Object) : void {
 			
 			super.partAdded(partName, instance);
 			
-			if (instance == specialChar) specialChar.addEventListener(MouseEvent.CLICK, specialChar_clickHandler );
+			if (instance == specialChar) specialChar.addEventListener(MouseEvent.CLICK, emoticonView_clickHandler );
 			else if (instance == message) message.addEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
 			else if (instance == sendListInput)	sendListInput.addEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
 			else if (instance == sendListInputBtn) sendListInputBtn.addEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
@@ -157,16 +167,15 @@ package component
 			else if (instance == sendList) sendList.dataProvider = alPhone;
 			else if (instance == callback) callback.addEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
 			else if (instance == sendBtn) sendBtn.addEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
-			else if (instance == emoticon) emoticon.addEventListener(MouseEvent.CLICK, emt.emoticon_clickHandler);
-			else if (instance == category) category.addEventListener(IndexChangeEvent.CHANGE, emt.category_changeHandler);
-			else if (instance == paging) paging.addEventListener("clickPage", emt.paging_clickPageHandler);
-			else if (instance == msgBox) msgBox.addEventListener(IndexChangeEvent.CHANGE, msgBox_changeHandler);
-			else if (instance == myMessage) myMessage.addEventListener(MouseEvent.CLICK, emt.myMessage_clickHandler);
+			else if (instance == emoticon) emoticon.addEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
+			else if (instance == myMessage) myMessage.addEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
 			else if (instance == messageSaveBtn) messageSaveBtn.addEventListener(MouseEvent.CLICK, messageSaveBtn_clickHandler);
-			else if (instance == sentMessage) sentMessage.addEventListener(MouseEvent.CLICK, emt.sentMessage_clickHandler);
+			else if (instance == sentMessage) sentMessage.addEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
 			else if (instance == callbackSave) callbackSave.addEventListener(MouseEvent.CLICK, rt.callbackSave_clickHandler);
 			else if (instance == sendListFromExcel) sendListFromExcel.addEventListener(MouseEvent.CLICK, sendListFromExcel_clickHandler);
 			else if (instance == sendListFromAddress) sendListFromAddress.addEventListener(MouseEvent.CLICK, sendListFromAddress_clickHandler);
+			else if (instance == sendListFromSent) sendListFromSent.addEventListener(MouseEvent.CLICK, sendListFromSent_clickHandler);
+			else if (instance == sendListFromCopy) sendListFromCopy.addEventListener(MouseEvent.CLICK, sendListFromCopy_clickHandler);
 			
 
 		}
@@ -174,20 +183,17 @@ package component
 			
 			super.partRemoved(partName, instance);
 			
-			if (instance == specialChar) specialChar.removeEventListener(MouseEvent.CLICK, specialChar_clickHandler );
+			if (instance == specialChar) specialChar.removeEventListener(MouseEvent.CLICK, emoticonView_clickHandler );
 			else if (instance == message) message.removeEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
 			else if (instance == sendListInput)	sendListInput.removeEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
 			else if (instance == sendListInputBtn) sendListInputBtn.removeEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
 			else if (instance == dupleDelete) dupleDelete.removeEventListener(MouseEvent.CLICK, dupleDelete_clickHandler);
 			else if (instance == callback) callback.removeEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
 			else if (instance == sendBtn) sendBtn.removeEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
-			else if (instance == emoticon) emoticon.removeEventListener(MouseEvent.CLICK, emt.emoticon_clickHandler);
-			else if (instance == category) category.removeEventListener(IndexChangeEvent.CHANGE, emt.category_changeHandler);
-			else if (instance == paging) paging.removeEventListener("clickPage", emt.paging_clickPageHandler);
-			else if (instance == msgBox) msgBox.removeEventListener(IndexChangeEvent.CHANGE, msgBox_changeHandler);
-			else if (instance == myMessage) myMessage.removeEventListener(MouseEvent.CLICK, emt.myMessage_clickHandler);
+			else if (instance == emoticon) emoticon.removeEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
+			else if (instance == myMessage) myMessage.removeEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
 			else if (instance == messageSaveBtn) messageSaveBtn.removeEventListener(MouseEvent.CLICK, messageSaveBtn_clickHandler);
-			else if (instance == sentMessage) sentMessage.removeEventListener(MouseEvent.CLICK, emt.sentMessage_clickHandler);
+			else if (instance == sentMessage) sentMessage.removeEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
 			else if (instance == callbackSave) callbackSave.removeEventListener(MouseEvent.CLICK, rt.callbackSave_clickHandler);
 			
 			
@@ -196,10 +202,7 @@ package component
 		{
 			// TODO Auto Generated method stub
 			super.createChildren();
-			emt.category = category;
-			emt.msgBox = msgBox;
-			emt.paging = paging;
-			
+
 			callback.labelField = "phone";
 			rt.callback = this.callback;
 			rt.getReturnPhone();
@@ -314,43 +317,36 @@ package component
 		}
 		
 		private function sendListFromExcel_clickHandler(event:MouseEvent):void {
-			(parentApplication as Main).toggleExcel();
+			toggleExcel();
+		}
+		public function toggleExcel():void {
+			
+			if (excel == null) createExcel();
+			else removeExcel();
+		}
+		private function createExcel():void {
+			excel = new Excel();
+			excel.horizontalCenter = 0;
+			excel.verticalCenter = 0;
+			excel.bFromAddress = false;
+			excel.addEventListener("send", excel_sendHandler);
+			excel.addEventListener("close", excel_closeHandler);
+			this.contentGroup.addElement(excel);
+		}
+		private function excel_sendHandler(event:CustomEvent):void {
+			addPhoneList( event.result as ArrayCollection );
+		}
+		private function excel_closeHandler(event:Event):void {
+			removeExcel();
 		}
 		
-		
-		/**
-		 * specialChar function
-		 * */
-		private function specialChar_clickHandler(event:MouseEvent):void { charToggle(); }
-		private function charToggle():void {
+		private function removeExcel():void {
 			
-			var cnt:uint = Gv.spcData.length;
-			var char:RichText = null;
-			var i:int = 0;
-			if (specialCharGroup.visible) {
-				
-				for ( i = 0; i < cnt; i++) {
-					specialCharGroup.getElementAt(i).removeEventListener(MouseEvent.CLICK, charClickHandler);
-				}
-				specialCharGroup.removeAllElements();
-				
-				specialCharGroup.visible = false;
-			}else {
-				
-				for ( i = 0; i < cnt; i++) {
-					char = new RichText();
-					char.text = Gv.spcData[i];
-					char.setStyle("fontSize",20);
-					
-					specialCharGroup.addElement(char);
-					char.addEventListener(MouseEvent.CLICK, charClickHandler);
-				}
-				
-				specialCharGroup.visible = true;
-			}
-			
+			excel.removeEventListener("send", excel_sendHandler);
+			excel.removeEventListener("close", excel_closeHandler);
+			this.contentGroup.removeElement(excel);
+			excel = null;
 		}
-		protected function charClickHandler(e:MouseEvent):void { this.msg += RichText(e.currentTarget).text; }
 		
 		/**
 		 * save message
@@ -370,32 +366,6 @@ package component
 			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bvo.bResult) {
 				SLibrary.alert("저장되었습니다.");
-				if (msgBox.visible && emt.gubun == "my")
-					emt.myMessage_clickHandler(null);
-			}else {
-				SLibrary.alert("실패");
-			}
-		}
-		
-		/**
-		 * delete message
-		 * */
-		public function delMymessage(idx:int):void {
-			if (idx != 0) {
-				RemoteSingleManager.getInstance.addEventListener("delMymsg", delMymessage_resultHandler, false, 0, true);
-				RemoteSingleManager.getInstance.callresponderToken 
-					= RemoteSingleManager.getInstance.service.delMymsg(idx);
-			}else {
-				SLibrary.alert("키가 없습니다.");
-			}
-		}
-		private function delMymessage_resultHandler(event:CustomEvent):void {
-			
-			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bvo.bResult) {
-				SLibrary.alert("삭제되었습니다.");
-				if (msgBox.visible && emt.gubun == "my")
-					emt.myMessage_clickHandler(null);
 			}else {
 				SLibrary.alert("실패");
 			}
@@ -443,17 +413,142 @@ package component
 		
 		
 		private function sendListFromAddress_clickHandler(event:MouseEvent):void {
-			parentApplication.toggleSendModeAddress();
+			toggleSendModeAddress();
+		}
+		private function toggleSendModeAddress():void {
+			
+			if (sma == null) createSendModeAddress();
+			else removeSendModeAddress();
+		}
+		private function createSendModeAddress():void {
+			sma = new SendModeAddress();
+			sma.horizontalCenter = 0;
+			sma.verticalCenter = 0;
+			sma.addEventListener("sendAddress", sma_sendHandler);
+			sma.addEventListener("close", sma_closeHandler);
+			this.contentGroup.addElement(sma);
+		}
+		private function sma_sendHandler(event:CustomEvent):void {
+			addPhoneList( event.result as ArrayCollection );
+		}
+		private function sma_closeHandler(event:Event):void {
+			removeSendModeAddress();
+		}
+		private function removeSendModeAddress():void {
+			
+			sma.removeEventListener("sendAddress", sma_sendHandler);
+			sma.removeEventListener("close", sma_closeHandler);
+			this.contentGroup.removeElement(sma);
+			sma = null;
 		}
 		
 		
+		private function sendListFromSent_clickHandler(event:MouseEvent):void {
+			toggleSendModeLog();
+		}
+		private function toggleSendModeLog():void {
+			
+			if (sml == null) createSendModeLog();
+			else removeSendModeLog();
+		}
+		private function createSendModeLog():void {
+			sml = new SendModeLog();
+			sml.horizontalCenter = 0;
+			sml.verticalCenter = 0;
+			sml.addEventListener("getPhone", sml_sendHandler);
+			sml.addEventListener("close", sml_closeHandler);
+			this.contentGroup.addElement(sml);
+		}
+		private function sml_sendHandler(event:CustomEvent):void {
+			addPhoneList( event.result as ArrayCollection );
+		}
+		private function sml_closeHandler(event:Event):void {
+			removeSendModeLog();
+		}
+		private function removeSendModeLog():void {
+			
+			sml.removeEventListener("getPhone", sml_sendHandler);
+			sml.removeEventListener("close", sml_closeHandler);
+			this.contentGroup.removeElement(sml);
+			sml = null;
+		}
 		
-		/**
-		 * emoticon function
-		 * */
-		private function msgBox_changeHandler(event:IndexChangeEvent):void {
-			var obj:Object = msgBox.selectedItem as Object;
-			msg = obj.msg;
+		
+		private function sendListFromCopy_clickHandler(event:MouseEvent):void {
+			
+			togglePaste();
+		}
+		private function togglePaste():void {
+			
+			if (paste == null) createPaste();
+			else removePaste();
+		}
+		private function createPaste():void {
+			paste = new Paste();
+			paste.horizontalCenter = 0;
+			paste.verticalCenter = 0;
+			paste.addEventListener("getPhone", paste_sendHandler);
+			paste.addEventListener("close", paste_closeHandler);
+			this.contentGroup.addElement(paste);
+		}
+		private function paste_sendHandler(event:CustomEvent):void {
+			addPhoneList( event.result as ArrayCollection );
+		}
+		private function paste_closeHandler(event:Event):void {
+			removePaste();
+		}
+		
+		private function removePaste():void {
+			
+			paste.removeEventListener("getPhone", paste_sendHandler);
+			paste.removeEventListener("close", paste_closeHandler);
+			this.contentGroup.removeElement(paste);
+			paste = null;
+		}
+		
+		
+		private function emoticonView_clickHandler(event:MouseEvent):void {
+			
+			var state:String = "emoticon";
+			if (event.target == emoticon) state="emoticon";
+			else if (event.target == specialChar) state="specialChar";
+			else if (event.target == myMessage) state="myMessage";
+			else if (event.target == sentMessage) state="sentMessage";
+			
+			if (emoticonBox == null) {
+				createEmoticon(state);
+			}else {
+				if (emoticonBox.state == state )
+					removeEmoticon();
+				else
+					emoticonBox.state = state;
+			}
+		}
+		private function createEmoticon(state:String):void {
+			emoticonBox = new Emoticon(state);
+			emoticonBox.horizontalCenter = 0;
+			emoticonBox.verticalCenter = 0;
+			emoticonBox.addEventListener("message", emoticonBox_messageHandler);
+			emoticonBox.addEventListener("specialChar", emoticonBox_specialCharHandler);
+			emoticonBox.addEventListener("close", emoticonBox_closeHandler);
+			this.contentGroup.addElement(emoticonBox);
+		}
+		private function emoticonBox_messageHandler(event:CustomEvent):void {
+			msg = event.result as String;
+		}
+		private function emoticonBox_specialCharHandler(event:CustomEvent):void {
+			msg += event.result as String;
+		}
+		private function emoticonBox_closeHandler(event:Event):void {
+			removeEmoticon();
+		}
+		public function removeEmoticon():void {
+			
+			emoticonBox.removeEventListener("message", emoticonBox_messageHandler);
+			emoticonBox.removeEventListener("specialChar", emoticonBox_specialCharHandler);
+			emoticonBox.removeEventListener("close", emoticonBox_closeHandler);
+			this.contentGroup.removeElement(emoticonBox);
+			emoticonBox = null;
 		}
 		
 		
