@@ -37,6 +37,8 @@ package component.excel
 	[SkinState("actionAddress")]
 	
 	[Event(name="send", type="lib.CustomEvent")]
+	[Event(name="saveAddress", type="lib.CustomEvent")]
+	[Event(name="close", type="flash.events.Event")]
 	
 	public class Excel extends SkinnableComponent
 	{
@@ -50,6 +52,7 @@ package component.excel
 		[SkinPart(required="false")]public var sendBtn:Button;
 		[SkinPart(required="false")]public var excelView:DataGrid;
 		[SkinPart(required="false")]public var resultList:List;
+		[SkinPart(required="true")] public var close:RichText;
 		
 		
 		private const NONE:int = 0;
@@ -119,6 +122,8 @@ package component.excel
 				}
 			}
 			else if (instance == addressBtn) addressBtn.addEventListener(MouseEvent.CLICK, addressBtn_clickHandler);
+			else if (instance == close)	close.addEventListener(MouseEvent.CLICK, close_clickHandler);
+			
 			
 			
 			
@@ -134,6 +139,7 @@ package component.excel
 			else if (instance == sendBtn) sendBtn.removeEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
 			else if (instance == addressCombo) addressCombo.dataProvider = null;
 			else if (instance == addressBtn) addressBtn.removeEventListener(MouseEvent.CLICK, addressBtn_clickHandler);
+			else if (instance == close)	close.removeEventListener(MouseEvent.CLICK, close_clickHandler);
 		}
 		
 		
@@ -384,10 +390,12 @@ package component.excel
 			RemoteSingleManager.getInstance.removeEventListener("modifyManyAddr", addressBtn_resultHandler);
 			var i:int = event.result as int;
 			if (i > 0) {
-				SLibrary.alert( String(addressCombo.selectedItem)+" 에 저장 되었습니다.")
-				parentApplication.toggleExcel();
+				this.dispatchEvent( new CustomEvent("saveAddress", String(addressCombo.selectedItem) ));
 			}
 			else SLibrary.alert("저장 되지 않았습니다.");
+		}
+		private function close_clickHandler(event:MouseEvent):void {
+			this.dispatchEvent(new Event("close"));
 		}
 		
 		public function destroy(e:Event):void {

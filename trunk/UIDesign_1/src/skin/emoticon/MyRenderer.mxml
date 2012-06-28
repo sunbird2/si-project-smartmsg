@@ -17,8 +17,9 @@
 			
 			protected function delete_clickHandler(event:MouseEvent):void
 			{
-				var obj:Send = parentApplication.send as Send;
-				obj.delMymessage( int(this.data.idx) );
+				trace(1);
+				/* var obj:Send = parentApplication.send as Send;
+				obj.delMymessage( int(this.data.idx) ); */
 			}
 			
 		]]>

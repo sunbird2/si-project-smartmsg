@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
-		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" xmlns:lib="lib.*">
+		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" xmlns:lib="lib.*" xmlns:address="component.address.*">
 	<!-- host component -->
 	<fx:Metadata>
 		[HostComponent("component.Send")]
@@ -12,92 +12,78 @@
 		<s:State name="send"/>
 	</s:states>
 	
-	
-	<s:VGroup>
-		<!--메시지-->
-		<s:HGroup>
-			<s:Group width="200" height="220" >
-				<s:Rect left="0" right="0" top="0" bottom="0" radiusX="2" radiusY="2">
-					<s:stroke>
-						<s:SolidColorStroke color="#BABABA"/>
-					</s:stroke>
-				</s:Rect>
-				<s:Scroller skinClass="skin.scroller.ThinScrooller" left="5" right="5" top="5" bottom="25" >
-					<s:RichEditableText id="message" width="100%" height="100%" 
-										focusEnabled="false" fontFamily="굴림체" fontSize="16"/>
-				</s:Scroller>
-				
-				<s:RichText id="byte" text="0" bottom="5" right="5" fontFamily="NGD"/>
-				<s:Button id="messageSaveBtn" bottom="5" left="5" label="저장" fontFamily="NGD"/>
-			</s:Group>
-			<s:VGroup>
-				<s:RichText id="specialChar" text="특수문자"  fontFamily="NGD" rotation="-20"/>
-				<s:RichText id="myMessage" text="내메시지"  fontFamily="NGD" rotation="-20"/>
-				<s:RichText id="sentMessage" text="최근메시지"  fontFamily="NGD" rotation="-20"/>
-				<s:RichText id="emoticon" text="이모티콘"  fontFamily="NGD" rotation="-20"/>
-			</s:VGroup>
-		</s:HGroup>
+	<s:Group id="contentGroup">
+		<s:VGroup>
+			<!--메시지-->
+			<s:HGroup>
+				<s:Group width="200" height="220" >
+					<s:Rect left="0" right="0" top="0" bottom="0" radiusX="2" radiusY="2">
+						<s:stroke>
+							<s:SolidColorStroke color="#BABABA"/>
+						</s:stroke>
+					</s:Rect>
+					<s:Scroller skinClass="skin.scroller.ThinScrooller" left="5" right="5" top="5" bottom="25" >
+						<s:RichEditableText id="message" width="100%" height="100%" 
+											focusEnabled="false" fontFamily="굴림체" fontSize="16"/>
+					</s:Scroller>
+					
+					<s:RichText id="byte" text="0" bottom="5" right="5" fontFamily="NGD"/>
+					<s:Button id="messageSaveBtn" bottom="5" left="5" label="저장" fontFamily="NGD"/>
+				</s:Group>
+				<s:VGroup>
+					<s:RichText id="specialChar" text="특수문자"  fontFamily="NGD" rotation="-20"/>
+					<s:RichText id="myMessage" text="내메시지"  fontFamily="NGD" rotation="-20"/>
+					<s:RichText id="sentMessage" text="최근메시지"  fontFamily="NGD" rotation="-20"/>
+					<s:RichText id="emoticon" text="이모티콘"  fontFamily="NGD" rotation="-20"/>
+				</s:VGroup>
+			</s:HGroup>
+			
+			
+			<!--수신전화번호-->
+			<s:HGroup>
+				<s:TextInput id="sendListInput" />
+				<s:Button id="sendListInputBtn" label="+" />	
+			</s:HGroup>
+			<s:HGroup>
+				<s:List id="sendList" itemRenderer="component.send.SendListRenderer" height="100" />
+				<s:VGroup>
+					<s:RichText id="sendListFromCopy" text="대량입력"  fontFamily="NGD" rotation="-20"/>	
+					<s:RichText id="sendListFromAddress" text="주소록"  fontFamily="NGD" rotation="-20"/>
+					<s:RichText id="sendListFromExcel" text="엑셀"  fontFamily="NGD" rotation="-20"/>
+					<s:RichText id="sendListFromSent" text="최근발송"  fontFamily="NGD" rotation="-20"/>
+				</s:VGroup>
+			</s:HGroup>
+			<s:HGroup verticalAlign="middle">
+				<s:Button id="dupleDelete" label="중복제거"  fontFamily="NGD"/>
+				<s:RichText id="countPhone" text="0"  fontFamily="NGD"/>	
+			</s:HGroup>
+			
+			<!--회신번호-->
+			<s:HGroup verticalAlign="middle">
+				<s:ComboBox id="callback" itemRenderer="component.send.ReturnPhoneRenderer"/>
+				<s:Button id="callbackSave" label="회신번호저장"  fontFamily="NGD"/>
+			</s:HGroup>
+			
+			
+			<!--전송-->
+			<s:CheckBox id="sendReservation" label="예약설정" />
+			<s:CheckBox id="sendInterval" label="간격설정" />
+			<s:HGroup>
+				<s:Button id="sendBtn" label="전송" enabled="false" />
+				<s:Button id="resetBtn" label="취소" />	
+			</s:HGroup>
+		</s:VGroup>
+		
+		<s:VGroup horizontalCenter="200" verticalCenter="0">
+			<s:RichText id="helpText"
+						text="메시지를 입력하세요" fontFamily="NGD" fontSize="28"/>
+			<s:RichText id="subHelpText"
+						text="메시지를 입력하세요" fontFamily="NGD" fontSize="12"/>
+		</s:VGroup>
 		
 		
-		<!--수신전화번호-->
-		<s:HGroup>
-			<s:TextInput id="sendListInput" />
-			<s:Button id="sendListInputBtn" label="+" />	
-		</s:HGroup>
-		<s:HGroup>
-			<s:List id="sendList" itemRenderer="component.send.SendListRenderer" height="100" />
-			<s:VGroup>
-				<s:RichText id="sendListFromAddress" text="주소록"  fontFamily="NGD" rotation="-20"/>
-				<s:RichText id="sendListFromExcel" text="엑셀"  fontFamily="NGD" rotation="-20"/>
-				<s:RichText id="sendListFromSent" text="최근발송"  fontFamily="NGD" rotation="-20"/>
-				<s:RichText id="sendListFromCopy" text="복사"  fontFamily="NGD" rotation="-20"/>	
-			</s:VGroup>
-		</s:HGroup>
-		<s:HGroup verticalAlign="middle">
-			<s:Button id="dupleDelete" label="중복제거"  fontFamily="NGD"/>
-			<s:RichText id="countPhone" text="0"  fontFamily="NGD"/>	
-		</s:HGroup>
-		
-		<!--회신번호-->
-		<s:HGroup verticalAlign="middle">
-			<s:ComboBox id="callback" itemRenderer="component.send.ReturnPhoneRenderer"/>
-			<s:Button id="callbackSave" label="회신번호저장"  fontFamily="NGD"/>
-		</s:HGroup>
-		
-		
-		<!--전송-->
-		<s:CheckBox id="sendReservation" label="예약설정" />
-		<s:CheckBox id="sendInterval" label="간격설정" />
-		<s:HGroup>
-			<s:Button id="sendBtn" label="전송" enabled="false" />
-			<s:Button id="resetBtn" label="취소" />	
-		</s:HGroup>
-	</s:VGroup>
+	</s:Group>
 	
-	<s:VGroup horizontalCenter="200" verticalCenter="0">
-		<s:RichText id="helpText"
-					text="메시지를 입력하세요" fontFamily="NGD" fontSize="28"/>
-		<s:RichText id="subHelpText"
-					text="메시지를 입력하세요" fontFamily="NGD" fontSize="12"/>
-	</s:VGroup>
-	
-	
-	<!-- 특수문자 -->
-	<s:Scroller  x="250" skinClass="skin.scroller.ThinScrooller" width="200" height="200">
-		<s:TileGroup id="specialCharGroup" visible="false" width="200" />	
-	</s:Scroller>
-	
-	
-	<!-- 이모티콘 -->
-	<s:VGroup x="250">
-		<s:List id="category" width="500" height="50" visible="false" itemRenderer="skin.emoticon.CategoryRenderer" >
-			<s:layout><lib:FlowLayout /></s:layout>
-		</s:List>
-		<s:List id="msgBox" visible="false" width="500" itemRenderer="skin.emoticon.EmoticonRenderer" >
-			<s:layout><s:TileLayout horizontalGap="32" verticalGap="10"/></s:layout>
-		</s:List>
-		<lib:Paging id="paging" />
-	</s:VGroup>
 
 	
 	
