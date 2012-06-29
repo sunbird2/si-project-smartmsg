@@ -82,6 +82,9 @@ package component
 		override protected function partRemoved(partName:String, instance:Object) : void
 		{
 			super.partRemoved(partName, instance);
+			if (instance == join) join.removeEventListener(MouseEvent.CLICK, join_clickHandler);
+			else if (instance == login) login.removeEventListener(MouseEvent.CLICK, login_clickHandler);
+			else if (instance == user_pw) user_pw.removeEventListener(FlexEvent.ENTER, login_clickHandler); 
 		}
 		
 		/**
@@ -89,8 +92,7 @@ package component
 		 * */
 		private function join_clickHandler(event:MouseEvent):void {
 			
-			if ( parentApplication.join )
-				parentApplication.join.visible = true;
+			Main(parentApplication).joinView();
 		}
 		
 		/**

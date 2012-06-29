@@ -3,8 +3,11 @@ package component
 	/* For guidance on writing an ActionScript Skinnable Component please refer to the Flex documentation: 
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	
+	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	
 	import lib.CustomEvent;
 	import lib.RemoteSingleManager;
@@ -12,6 +15,8 @@ package component
 	
 	import mx.validators.StringValidator;
 	import mx.validators.ValidationResult;
+	
+	import skin.JoinSkin;
 	
 	import spark.components.Button;
 	import spark.components.CheckBox;
@@ -23,6 +28,7 @@ package component
 	import valueObjects.BooleanAndDescriptionVO;
 	
 	
+	[Event(name="complete", type="flash.events.Event")]
 	/* A component must identify the view states that its skin supports. 
 	Use the [SkinState] metadata tag to define the view states in the component class. 
 	[SkinState("normal")] */
@@ -50,6 +56,9 @@ package component
 		[SkinPart(required="false")]public var userhph:Label;
 		[SkinPart(required="false")]public var next2:Button;
 		[SkinPart(required="false")]public var cancel2:Button;
+		[SkinPart(required="false")]public var sec:Label;
+		
+		private var inTimer:Timer;
 		
 		private var VALID_COLOR:Number = 0x0000FF;
 		private var INVALID_COLOR:Number = 0xFF0000;
@@ -64,6 +73,7 @@ package component
 		public function Join()
 		{
 			super();
+			setStyle("skinClass", JoinSkin);
 		}
 		
 		/* Implement the getCurrentSkinState() method to set the view state of the skin class. */
@@ -88,17 +98,29 @@ package component
 			else if (instance == userid) userid.addEventListener(KeyboardEvent.KEY_UP, userid_keyUpHandler );
 			else if (instance == userpw) userpw.addEventListener(KeyboardEvent.KEY_UP, userpw_keyUpHandler);
 			else if (instance == userrepw) userrepw.addEventListener(KeyboardEvent.KEY_UP, userrepw_keyUpHandler);
-			else if (instance == userhp2) userhp2.addEventListener(KeyboardEvent.KEY_UP, tiHp_keyUpHandler);
-			else if (instance == userhp3) userhp3.addEventListener(KeyboardEvent.KEY_UP, tiHp_keyUpHandler);
+			else if (instance == userhp2) {
+				userhp2.maxChars = 4;
+				userhp2.addEventListener(KeyboardEvent.KEY_UP, tiHp_keyUpHandler);
+			}
+			else if (instance == userhp3) {
+				userhp3.maxChars = 4;
+				userhp3.addEventListener(KeyboardEvent.KEY_UP, tiHp_keyUpHandler);
+			}
 			else if (instance == next2) next2.addEventListener(MouseEvent.CLICK, next2_clickHandler);
-			
-			
-			
+			else if (instance == sec) autoIn();
 			
 		}
 		
 		override protected function partRemoved(partName:String, instance:Object) : void {
 			super.partRemoved(partName, instance);
+			if (instance == next1) next1.removeEventListener( MouseEvent.CLICK, next1_clickHandler );
+			else if (instance == cancel1) cancel1.removeEventListener( MouseEvent.CLICK, cancel1_clickHandler );
+			else if (instance == userid) userid.removeEventListener(KeyboardEvent.KEY_UP, userid_keyUpHandler );
+			else if (instance == userpw) userpw.removeEventListener(KeyboardEvent.KEY_UP, userpw_keyUpHandler);
+			else if (instance == userrepw) userrepw.removeEventListener(KeyboardEvent.KEY_UP, userrepw_keyUpHandler);
+			else if (instance == userhp2) userhp2.removeEventListener(KeyboardEvent.KEY_UP, tiHp_keyUpHandler);
+			else if (instance == userhp3) userhp3.removeEventListener(KeyboardEvent.KEY_UP, tiHp_keyUpHandler);
+			else if (instance == next2) next2.removeEventListener(MouseEvent.CLICK, next2_clickHandler);
 		}
 		
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void	{
@@ -269,7 +291,7 @@ package component
 			else {
 				RemoteSingleManager.getInstance.addEventListener("join", next2_resultHandler, false, 0, true);
 				RemoteSingleManager.getInstance.callresponderToken 
-					= RemoteSingleManager.getInstance.service.checkID(id);
+					= RemoteSingleManager.getInstance.service.join(userid.text, userpw.text, userrepw.text, String(userhp1.selectedItem.data)+userhp2.text+userhp3.text);
 			}
 		}
 		private function next2_resultHandler(event:CustomEvent):void {
@@ -282,6 +304,50 @@ package component
 				SLibrary.alert("로그인 실패");
 			}
 			
+		}
+		
+		
+		private function autoIn():void {
+			inTimer = new Timer(1000, 5);
+			inTimer.addEventListener("timer", timerHandler);
+			inTimer.start();
+		}
+		
+		private function timerHandler(event:TimerEvent):void {
+			
+			var num:Number = Number(sec.text);
+			num--;
+			sec.text = String(num);
+			
+			if (num <= 0) {
+				inTimer.stop();
+				inTimer.removeEventListener("timer", timerHandler);
+				dispatchEvent(new Event("complete"));
+			}
+			
+		}
+		
+		
+		public function destory():void {
+			
+			agree1 = null;
+			agree2 = null;
+			next1 = null;
+			cancel1 = null;
+			userid = null;
+			useridh = null;
+			userpw = null;
+			userpwh = null;
+			userrepw = null;
+			userrepwh = null;
+			userhp1 = null;
+			userhp2 = null;
+			userhp3 = null;
+			userhph = null;
+			next2 = null;
+			cancel2 = null;
+			
+			sv = null;
 		}
 		
 		

@@ -10,13 +10,29 @@
 	<fx:Style source="assets/style/styles.css"/>
 	<fx:Script>
 		<![CDATA[
-			import component.emoticon.Emoticon;
+			import component.Join;
 			
-			private var component_emoticon_Emoticon_obj:component.emoticon.Emoticon;
-			
+			private var join:Join;
 			
 			// login check
 			public function login_check():void {
+				login.login_check();
+			}
+			
+			
+			public function joinView():void {
+				
+				join = new Join();
+				join.verticalCenter = 0;
+				join.horizontalCenter = 0;
+				join.addEventListener("complete", join_completeHandler);
+				this.contentGroup.addElement(join);
+			}
+			
+			private function join_completeHandler(event:Event):void {
+				
+				join.removeEventListener("complete", join_completeHandler);
+				this.contentGroup.removeElement(join);
 				login.login_check();
 			}
 		]]>
@@ -39,10 +55,9 @@
 			<component:Login id="login" skinClass="skin.LoginSkin" />
 			<s:Group>
 				<component:Address id="address" includeIn="address" skinClass="skin.AddressSkin" />
-				<component:Bill id="bill" includeIn="bill" skinClass="skin.BillSkin" />
+				<component:Bill id="bill" includeIn="bill" />
 				<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" />
 				<component:Send id="send" includeIn="send" skinClass="skin.SendSkin"/>
-				<component:Join id="join" skinClass="skin.JoinSkin" visible="false" />
 			</s:Group>
 		</s:VGroup>	
 	</s:HGroup>

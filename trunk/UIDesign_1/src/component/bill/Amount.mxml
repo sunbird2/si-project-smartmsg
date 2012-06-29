@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	<fx:Metadata>
+		[Event(name="selected", type="flash.events.Event")]
+		[Event(name="select", type="flash.events.Event")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			[Bindable]
+			public var amount:String = "";
+			
+			protected function select_clickHandler(event:MouseEvent):void
+			{
+				amount = Label(event.currentTarget).text;
+				this.currentState = "selected";
+				dispatchEvent(new Event("selected"));
+			}
+			
+			protected function selected_clickHandler(event:MouseEvent):void
+			{
+				this.currentState = "select";
+				dispatchEvent(new Event("select"));
+			}
+		]]>
+	</fx:Script>
+	
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:states>
+		<s:State name="select" />
+		<s:State name="selected" />
+	</s:states>
+	<s:TileGroup includeIn="select">
+		<s:Label text="10,000원 124건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
+		<s:Label text="30,000원 1,243건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
+		<s:Label text="50,000원 2,224건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
+		<s:Label text="100,000원 3,324건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
+		<s:Label text="10,000원 124건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
+		<s:Label text="30,000원 1,243건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
+		<s:Label text="50,000원 2,224건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
+		<s:Label text="100,000원 3,324건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
+	</s:TileGroup>
+	<s:Label id="amountLabel" text="{amount}" includeIn="selected" click="selected_clickHandler(event)" />
+</s:Group>

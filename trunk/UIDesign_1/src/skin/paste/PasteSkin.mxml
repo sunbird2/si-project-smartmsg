@@ -17,6 +17,6 @@
 		
 		<s:Button id="send" includeIn="phones" label="넣기" height="150" />	
 	</s:HGroup>
-	<s:RichText id="close" text="X" right="10" fontSize="26" fontFamily="NGD" />
+	<s:RichText id="close" text="X" top="-26" right="-26" fontSize="26" fontFamily="NGD" />
 	
 </s:Skin>

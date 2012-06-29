@@ -4,6 +4,7 @@ package component.emoticon
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	
 	import lib.CustomEvent;
@@ -129,6 +130,7 @@ package component.emoticon
 			else if (instance == msgBox) {
 				msgBox.dataProvider = acEmt;
 				msgBox.addEventListener(IndexChangeEvent.CHANGE, msgBox_changeHandler);
+				msgBox.addEventListener(KeyboardEvent.KEY_UP, msgBox_keyboardUpHandler);
 			}
 			else if (instance == paging) {
 				paging.viewDataCount = viewDataCount;
@@ -273,6 +275,16 @@ package component.emoticon
 		/**
 		 * delete message
 		 * */
+		private function msgBox_keyboardUpHandler(event:KeyboardEvent):void {
+			
+			if (event.keyCode == 46
+				&& state == "myMessage"
+				&& Object(msgBox.selectedItem).idx != null) {
+				
+				delMymessage( int(msgBox.selectedItem.idx) );
+			}
+			
+		}
 		public function delMymessage(idx:int):void {
 			if (idx != 0) {
 				RemoteSingleManager.getInstance.addEventListener("delMymsg", delMymessage_resultHandler, false, 0, true);

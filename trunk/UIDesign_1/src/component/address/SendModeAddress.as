@@ -24,7 +24,7 @@ package component.address
 	import mx.events.ListEvent;
 	import mx.rpc.events.ResultEvent;
 	
-	import skin.excel.SendModeAddressSkin;
+	import skin.address.SendModeAddressSkin;
 	
 	import spark.components.RichText;
 	import spark.components.TextInput;
