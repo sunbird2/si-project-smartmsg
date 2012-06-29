@@ -6,6 +6,8 @@ package component
 	import component.excel.Excel;
 	import component.log.SendModeLog;
 	import component.paste.Paste;
+	import component.send.Interval;
+	import component.send.ReservationCalendar;
 	import component.send.ReturnPhone;
 	
 	import flash.events.Event;
@@ -26,6 +28,7 @@ package component
 	import spark.components.CheckBox;
 	import spark.components.ComboBox;
 	import spark.components.Group;
+	import spark.components.Label;
 	import spark.components.List;
 	import spark.components.RichEditableText;
 	import spark.components.RichText;
@@ -89,6 +92,8 @@ package component
 		[SkinPart(required="false")]public var helpText:RichText;
 		[SkinPart(required="false")]public var subHelpText:RichText;
 		
+		public var reservation:ReservationCalendar;
+		public var interval:Interval;
 		
 		/**
 		 * message properties 
@@ -176,6 +181,8 @@ package component
 			else if (instance == sendListFromAddress) sendListFromAddress.addEventListener(MouseEvent.CLICK, sendListFromAddress_clickHandler);
 			else if (instance == sendListFromSent) sendListFromSent.addEventListener(MouseEvent.CLICK, sendListFromSent_clickHandler);
 			else if (instance == sendListFromCopy) sendListFromCopy.addEventListener(MouseEvent.CLICK, sendListFromCopy_clickHandler);
+			else if (instance == sendReservation) sendReservation.addEventListener(Event.CHANGE, sendReservation_changeHandler);
+			else if (instance == sendInterval) sendInterval.addEventListener(Event.CHANGE, sendInterval_changeHandler);
 			
 
 		}
@@ -387,7 +394,19 @@ package component
 			
 			smvo.bInterval = false;
 			smvo.bMerge = false;
-			smvo.bReservation = false;
+			
+			if (sendReservation.selected) {
+				smvo.bReservation = true;
+				smvo.reservationDate = sendReservation.label + ":00";
+			}else smvo.bReservation = false;
+			
+			if (sendInterval.selected) {
+				smvo.bInterval = true;
+				var arr:Array = sendInterval.label.split("/");
+				smvo.itCount = int(arr[0]);
+				smvo.itMinute = int(arr[1]);
+			}else smvo.bInterval = false;
+			
 			smvo.message = msg;
 			smvo.returnPhone = rt.returnPhone;
 			smvo.al = alPhone;
@@ -550,6 +569,98 @@ package component
 			this.contentGroup.removeElement(emoticonBox);
 			emoticonBox = null;
 		}
+		
+		
+		private function sendReservation_changeHandler(event:Event):void {
+			
+			if (sendReservation.selected) {
+				sendReservation.label = "";
+				createReaervation();
+			}else {
+				
+				sendReservation.label = "예약설정";
+				removeReaervation();
+			}
+		}
+		private function createReaervation():void {
+			
+			if (reservation == null) {
+				reservation = new ReservationCalendar();
+				reservation.horizontalCenter = 0;
+				reservation.verticalCenter = 0;
+				reservation.addEventListener("setReservation", reservation_setReservationHandler);
+				reservation.addEventListener("cancelReservation", reservation_cancelReservationHandler);
+				this.contentGroup.addElement(reservation);
+			}
+			
+		}
+		private function reservation_setReservationHandler(event:CustomEvent):void {
+			sendReservation.label = event.result as String;
+		}
+		private function reservation_cancelReservationHandler(event:Event):void {
+			
+			sendReservation.selected = false;
+			sendReservation.dispatchEvent(new Event("change"));
+		}
+		
+		private function removeReaervation():void {
+			
+			if (reservation != null) {
+				reservation.removeEventListener("setReservation", reservation_setReservationHandler);
+				reservation.removeEventListener("cancelReservation", reservation_cancelReservationHandler);
+				this.contentGroup.removeElement(reservation);
+				reservation = null;
+			}
+			
+		}
+		
+		private function sendInterval_changeHandler(event:Event):void {
+			
+			if (sendInterval.selected) {
+				sendInterval.label = "";
+				createInterval();
+			}else {
+				
+				sendInterval.label = "간격설정";
+				removeInterval();
+			}
+		}
+		private function createInterval():void {
+			
+			if (interval == null) {
+				interval = new Interval();
+				interval.horizontalCenter = 0;
+				interval.verticalCenter = 0;
+				interval.addEventListener("setInterval", interval_setintervalHandler);
+				interval.addEventListener("cancelInterval", interval_cancelintervalHandler);
+				this.contentGroup.addElement(interval);
+			}
+			
+		}
+		private function interval_setintervalHandler(event:CustomEvent):void {
+			
+			var obj:Object = event.result;
+			sendInterval.label = obj.cnt + " / " + obj.minute;
+		}
+		private function interval_cancelintervalHandler(event:Event):void {
+			
+			sendInterval.selected = false;
+			sendInterval.dispatchEvent(new Event("change"));
+		}
+		
+		private function removeInterval():void {
+			
+			if (interval != null) {
+				interval.removeEventListener("setInterval", interval_setintervalHandler);
+				interval.removeEventListener("cancelInterval", interval_cancelintervalHandler);
+				this.contentGroup.removeElement(interval);
+				interval = null;
+			}
+			
+		}
+		
+		
+		
 		
 		
 	}

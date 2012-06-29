@@ -21,14 +21,14 @@
 		</s:List>
 		<s:List id="msgBox" includeIn="emoticon, myMessage, sentMessage" width="500" 
 				fontFamily="Dotum"
-				itemRenderer="skin.emoticon.EmoticonRenderer" itemRenderer.myMessage="skin.emoticon.MyRenderer" >
+				itemRenderer="skin.emoticon.EmoticonRenderer" >
 			<s:layout><s:TileLayout horizontalGap="32" verticalGap="10"/></s:layout>
 		</s:List>
 		<lib:Paging id="paging" includeIn="emoticon, myMessage, sentMessage" />
 		
 		<s:Scroller includeIn="specialChar" skinClass="skin.scroller.ThinScrooller" width="500" height="200">
-			<s:TileGroup id="specialCharGroup" width="200"  fontFamily="NGD"/>	
+			<s:TileGroup id="specialCharGroup" width="500"  fontFamily="NGD"/>	
 		</s:Scroller>
 	</s:VGroup>
-	<s:RichText id="close" text="X" right="10" fontSize="26" fontFamily="NGD" />
+	<s:RichText id="close" text="X" top="-26" right="-26" fontSize="26" fontFamily="NGD" />
 </s:Skin>

@@ -19,6 +19,6 @@
 				height="400"
 				itemRenderer="skin.log.GroupListRenderer" />
 	</s:VGroup>
-	<s:RichText id="close" text="X" right="10" fontSize="26" fontFamily="NGD" />
+	<s:RichText id="close" text="X" top="-26" right="-26" fontSize="26" fontFamily="NGD" />
 	
 </s:Skin>
