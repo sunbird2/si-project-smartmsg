@@ -3,7 +3,13 @@
 		xmlns:fx="http://ns.adobe.com/mxml/2009"
 		>
 	<fx:Metadata>[HostComponent("component.Menus")]</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import mx.effects.easing.Bounce;
+		]]>
+	</fx:Script>
 	<fx:Declarations>
+		<s:Bounce id="bounceEasing"/>
 		<s:Animate id="a" 
 				   duration="550" >
 			<s:SimpleMotionPath valueFrom="26"
@@ -23,6 +29,7 @@
 					angleZFrom="0.0" angleZTo="0.0"
 					duration="1000"
 					repeatCount="1"
+					easer="{bounceEasing}"
 					/>
 	</fx:Declarations>
 	<s:states>
@@ -37,7 +44,7 @@
 		<s:VerticalLayout gap="20" />
 	</s:layout>
 	
-	<s:RichText id="labelHome" text="HOME" 
+	<s:RichText id="labelHome" text="HOME"
 				buttonMode="true"
 				rollOverEffect="a" rollOutEffect="b"
 				mouseUpEffect="{rotateEffect}"
