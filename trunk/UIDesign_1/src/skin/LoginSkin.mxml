@@ -10,15 +10,21 @@
 		<s:State name="logout"/>
 		<s:State name="login"/>
 	</s:states>
-	<s:HGroup includeIn="logout">
-		<s:TextInput id="user_id" prompt="id" width="200" fontSize="30" />
-		<s:TextInput id="user_pw" displayAsPassword="true" prompt="password" width="200" fontSize="30" />
-		<s:Button id="login" label="로그인" fontFamily="NGD" fontSize="30" height="38" />
-		<s:Button id="join" label="가입" fontFamily="NGD" fontSize="30" height="38" />	
-	</s:HGroup>
+	<s:VGroup includeIn="logout" gap="2">
+		<s:HGroup>
+			<s:TextInput id="user_id" prompt="id" width="120" fontSize="20" />
+			<s:TextInput id="user_pw" displayAsPassword="true" prompt="password" width="120" fontSize="20" />
+			<s:Button id="login" label="로그인" fontFamily="NGD" fontSize="16" height="28" />
+		</s:HGroup>
+		<s:Group width="100%">
+			<s:CheckBox left="0" verticalCenter="0" label="아이디기억" fontFamily="Dotum"  />
+			<s:Button id="join" right="0" top="0" label="회원가입" fontFamily="Dotum"/>
+		</s:Group>
+	</s:VGroup>
+	
 	<s:HGroup includeIn="login">
-		<s:Label id="login_id" fontSize="30"/>
-		<s:Label id="point" fontSize="30" />
+		<s:Label id="login_id" fontSize="20"/>
+		<s:Label id="point" fontSize="20" />
 	</s:HGroup>
 	
 	
