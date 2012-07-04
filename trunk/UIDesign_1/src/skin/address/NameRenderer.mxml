@@ -21,7 +21,7 @@
 		]]>
 	</fx:Script>
 	<s:Label id="viewName"
-			 fontFamily="NGD"
+			 fontFamily="Dotum"
 			 top="7" bottom="5" left="5" right="3"/>
 	
 </s:ItemRenderer>
