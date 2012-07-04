@@ -34,25 +34,24 @@
 			<s:VGroup>
 				<s:Image id="photo" />
 				<s:TextInput id="nameL" prompt="이름"
-							 fontFamily="NGD"
+							 fontFamily="Dotum"
 							 editable.nameEdit="true" editable.normal="false" 
 							 borderVisible.nameEdit="true" borderVisible.normal="false"/>
 				<s:TextInput id="phone" prompt="전화번호" 
-							 fontFamily="NGD"
+							 fontFamily="Dotum"
 							 editable.nameEdit="true" editable.normal="false"
 							 borderVisible.nameEdit="true" borderVisible.normal="false"/>
 				<s:TextArea id="memo" 
-							fontFamily="NGD"
+							fontFamily="Dotum"
 							width="100" height="50"
 							editable.nameEdit="true" editable.normal="false"
 							borderVisible.nameEdit="true" borderVisible.normal="false"/>
-				<s:Button id="cardBtn" fontFamily="NGD" label.nameEdit="저장" label.normal="편집" />
+				<s:Button id="cardBtn" fontFamily="Dotum" label.nameEdit="저장" label.normal="편집" />
 			</s:VGroup>
 			
 			
 			<!--function-->
 			<s:RichText id="addressFromExcel" text="엑셀 가져오기" fontFamily="NGD"/>
-			<s:RichText id="addressFromCopy" text="복사 가져오기" fontFamily="NGD"/>
 		</s:HGroup>
 		
 	</s:Group>

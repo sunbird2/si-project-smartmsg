@@ -65,12 +65,12 @@
 	
 	<s:Label id="labelDisplay" 
 			 text="{data.grpName}"
-			 fontFamily="NGD"
+			 fontFamily="Dotum"
 			 doubleClick="onEdit(event)"
 			 top="7" bottom="5" left="5" right="3"/>
 	<s:TextInput id="inputTxt" 
 				 visible="false"
-				 fontFamily="NGD"
+				 fontFamily="Dotum"
 				 focusOut="onChange(event)"
 				 enter="inputTxt_enterHandler(event)"
 				 top="1" bottom="1" left="1" right="0"/>

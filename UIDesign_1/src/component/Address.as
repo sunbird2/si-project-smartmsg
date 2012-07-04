@@ -6,6 +6,7 @@ package component
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
@@ -75,7 +76,6 @@ package component
 		
 		// function
 		[SkinPart(required="false")]public var addressFromExcel:RichText;
-		[SkinPart(required="false")]public var addressFromCopy:RichText;
 		
 		private var excel:Excel;
 		
@@ -452,8 +452,6 @@ package component
 				}else {
 					copyGroup( ac, acGroup.getItemAt(findItemIndexForDragEvent(event)).grpName );	
 				}
-				
-				
 			}
 		}
 		private function groupList_dragOverHandler(event:DragEvent):void {
@@ -508,11 +506,15 @@ package component
 			excel.verticalCenter = 0;
 			excel.bFromAddress = false;
 			excel.addEventListener("saveAddress", excel_saveAddressHandler);
+			excel.addEventListener("close", excel_closeHandler);
 			this.contentGroup.addElement(excel);
 		}
 		private function excel_saveAddressHandler(event:CustomEvent):void {
 			SLibrary.alert(String(event.result)+" 에 저장 되었습니다.");
 			getGroup();
+		}
+		private function excel_closeHandler(event:Event):void {
+			removeExcel();
 		}
 		private function removeExcel():void {
 			
