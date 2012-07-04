@@ -11,14 +11,14 @@
 		<s:State name="login"/>
 	</s:states>
 	<s:HGroup includeIn="logout">
-		<s:TextInput id="user_id" prompt="id" />
-		<s:TextInput id="user_pw" displayAsPassword="true" prompt="password" />
-		<s:Button id="login" label="login" />
-		<s:Button id="join" label="join" />	
+		<s:TextInput id="user_id" prompt="id" fontSize="30" />
+		<s:TextInput id="user_pw" displayAsPassword="true" prompt="password" fontSize="30" />
+		<s:Button id="login" label="login" fontSize="30" />
+		<s:Button id="join" label="join" fontSize="30" />	
 	</s:HGroup>
 	<s:HGroup includeIn="login">
-		<s:Label id="login_id" />
-		<s:Label id="point" />
+		<s:Label id="login_id" fontSize="30" />
+		<s:Label id="point" fontSize="30" />
 	</s:HGroup>
 	
 	

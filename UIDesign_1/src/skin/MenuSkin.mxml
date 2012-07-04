@@ -3,6 +3,28 @@
 		xmlns:fx="http://ns.adobe.com/mxml/2009"
 		>
 	<fx:Metadata>[HostComponent("component.Menus")]</fx:Metadata>
+	<fx:Declarations>
+		<s:Animate id="a" 
+				   duration="550" >
+			<s:SimpleMotionPath valueFrom="26"
+								valueTo="30"
+								property="fontSize" />
+		</s:Animate>
+		<s:Animate id="b" 
+				   duration="550" >
+			<s:SimpleMotionPath valueFrom="30"
+								valueTo="26"
+								property="fontSize" />
+		</s:Animate>
+		
+		<s:Rotate3D id="rotateEffect" 
+					angleXFrom="0.0" angleXTo="0.0" 
+					angleYFrom="0.0" angleYTo="360.0" 
+					angleZFrom="0.0" angleZTo="0.0"
+					duration="1000"
+					repeatCount="1"
+					/>
+	</fx:Declarations>
 	<s:states>
 		<s:State name="home"/>
 		<s:State name="send"/>
@@ -15,9 +37,33 @@
 		<s:VerticalLayout gap="20" />
 	</s:layout>
 	
-	<s:RichText id="labelHome" text="HOME" color.home="0x6A635F" fontSize="26" fontFamily="NGD"/>
-	<s:RichText id="labelSend" text="메시지" color.send="0xD66F74" fontSize="26" fontFamily="NGD"/>
-	<s:RichText id="labelAddress" text="주소록" color.address="0x309EBC" fontSize="26" fontFamily="NGD"/>
-	<s:RichText id="labelBill" text="결제" color.bill="0x91C368" fontSize="26" fontFamily="NGD"/>
-	<s:RichText id="labelLog" text="내역" color.log="0x91C368" fontSize="26" fontFamily="NGD"/>
+	<s:RichText id="labelHome" text="HOME" 
+				buttonMode="true"
+				rollOverEffect="a" rollOutEffect="b"
+				mouseUpEffect="{rotateEffect}"
+				color.home="0x6A635F" fontSize="26" fontFamily="NGD"/>
+	
+	<s:RichText id="labelSend" text="메시지" 
+				buttonMode="true"
+				rollOverEffect="a" rollOutEffect="b"
+				mouseUpEffect="{rotateEffect}" 
+				color.send="0xD66F74" fontSize="26" fontFamily="NGD"/>
+	
+	<s:RichText id="labelAddress" text="주소록"
+				buttonMode="true"
+				rollOverEffect="a" rollOutEffect="b"
+				mouseUpEffect="{rotateEffect}"
+				color.address="0x309EBC" fontSize="26" fontFamily="NGD"/>
+	
+	<s:RichText id="labelBill" text="결제"
+				buttonMode="true"
+				rollOverEffect="a" rollOutEffect="b"
+				mouseUpEffect="{rotateEffect}" 
+				color.bill="0x91C368" fontSize="26" fontFamily="NGD"/>
+	
+	<s:RichText id="labelLog" text="내역" 
+				buttonMode="true"
+				rollOverEffect="a" rollOutEffect="b"
+				mouseUpEffect="{rotateEffect}" 
+				color.log="0x91C368" fontSize="26" fontFamily="NGD"/>
 </s:Skin>

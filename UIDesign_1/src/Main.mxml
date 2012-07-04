@@ -49,17 +49,17 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<s:HGroup paddingTop="20" paddingLeft="20">
-		<component:Menus id="menus" skinClass="skin.MenuSkin" change="{this.currentState = event.result as String}"/>
-		<s:VGroup>
-			<component:Login id="login" skinClass="skin.LoginSkin" />
-			<s:Group>
-				<component:Address id="address" includeIn="address" skinClass="skin.AddressSkin" />
-				<component:Bill id="bill" includeIn="bill" />
-				<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" />
-				<component:Send id="send" includeIn="send" skinClass="skin.SendSkin"/>
-			</s:Group>
-		</s:VGroup>	
-	</s:HGroup>
+	<component:Menus id="menus" skinClass="skin.MenuSkin"
+					 x="50" y="100"
+					 change="{this.currentState = event.result as String}"/>
+	<component:Login id="login" skinClass="skin.LoginSkin"
+					 horizontalCenter="0" y="50"
+					 />
+	<s:Group horizontalCenter="0" verticalCenter="0">
+		<component:Address id="address" includeIn="address" skinClass="skin.AddressSkin" />
+		<component:Bill id="bill" includeIn="bill" />
+		<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" />
+		<component:Send id="send" includeIn="send" skinClass="skin.SendSkin"/>
+	</s:Group>
 	
 </s:Application>
