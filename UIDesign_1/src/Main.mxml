@@ -46,8 +46,22 @@
 		<s:State name="log"/>
 	</s:states>
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:Bounce id="bounceEasing"/>
 	</fx:Declarations>
+	<s:transitions>
+		<s:Transition id="transition" fromState="*" toState="*">
+			<s:Parallel id="t1" targets="{[send, address, bill, log]}">
+				<s:Rotate3D id="rotateEffect" 
+							angleXFrom="0.0" angleXTo="0.0" 
+							angleYFrom="0.0" angleYTo="360.0" 
+							angleZFrom="0.0" angleZTo="0.0"
+							duration="1000"
+							repeatCount="1"
+							easer="{bounceEasing}"
+							/>
+			</s:Parallel>
+		</s:Transition>
+	</s:transitions>
 	
 	<component:Menus id="menus" skinClass="skin.MenuSkin"
 					 x="50" y="100"
@@ -59,7 +73,7 @@
 		<component:Address id="address" includeIn="address" skinClass="skin.AddressSkin" />
 		<component:Bill id="bill" includeIn="bill" />
 		<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" />
-		<component:Send id="send" includeIn="send" skinClass="skin.SendSkin"/>
+		<component:Send id="send" includeIn="send" skinClass="skin.SendSkin" showEffect="{transition}"/>
 	</s:Group>
 	
 </s:Application>
