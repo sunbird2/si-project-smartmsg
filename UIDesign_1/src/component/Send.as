@@ -153,6 +153,8 @@ package component
 		public function Send() { 
 			super();
 			rt = new ReturnPhone();
+			trace(2222);
+			addEventListener(Event.REMOVED_FROM_STAGE, destroy, false, 0, true);
 			
 		}
 		
@@ -213,6 +215,7 @@ package component
 			callback.labelField = "phone";
 			rt.callback = this.callback;
 			rt.getReturnPhone();
+			trace(333);
 			
 			
 		}
@@ -659,7 +662,10 @@ package component
 			
 		}
 		
-		
+		public function destroy(event:Event):void {
+			
+			trace(111);
+		}
 		
 		
 		
