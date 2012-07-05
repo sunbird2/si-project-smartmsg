@@ -50,7 +50,7 @@
 	</fx:Declarations>
 	<s:transitions>
 		<s:Transition id="transition" fromState="*" toState="*">
-			<s:Parallel id="t1" targets="{[send, address, bill, log]}">
+			<!--<s:Parallel id="t1" targets="{[send, address, bill, log]}">
 				<s:Rotate3D id="rotateEffect" 
 							angleXFrom="0.0" angleXTo="0.0" 
 							angleYFrom="0.0" angleYTo="360.0" 
@@ -59,21 +59,45 @@
 							repeatCount="1"
 							easer="{bounceEasing}"
 							/>
-			</s:Parallel>
+			</s:Parallel>-->
+			<s:Sequence id="t1" targets="{[main_group]}"> 
+				<s:Animate id="a" duration="500" easer="{bounceEasing}">
+					<s:SimpleMotionPath valueFrom="1024"
+										valueTo="100"
+										property="top" />
+					<s:SimpleMotionPath valueFrom="100"
+										valueTo="100"
+										property="bottom" />
+					<s:SimpleMotionPath valueFrom="{this.width/2}"
+										valueTo="0"
+										property="left" />
+					<s:SimpleMotionPath valueFrom="{this.width/2}"
+										valueTo="0"
+										property="right" />
+				</s:Animate>
+			</s:Sequence> 
+
 		</s:Transition>
 	</s:transitions>
 	
-	<component:Menus id="menus" skinClass="skin.MenuSkin"
-					 x="50" y="100"
+	<component:Menus id="menus" skinClass="skin.MenuDockSkin"
+					 bottom="10" horizontalCenter="0"
 					 change="{this.currentState = event.result as String}"/>
 	<component:Login id="login" skinClass="skin.LoginSkin"
 					 horizontalCenter="0" y="50"
 					 />
-	<s:Group horizontalCenter="0" verticalCenter="0">
-		<component:Address id="address" includeIn="address" skinClass="skin.AddressSkin" />
-		<component:Bill id="bill" includeIn="bill" />
-		<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" />
-		<component:Send id="send" includeIn="send" skinClass="skin.SendSkin" showEffect="{transition}"/>
+	
+	<s:Group id="main_group" left="0" right="0" top="100" bottom="100" clipAndEnableScrolling="true">
+<!--		<s:Rect left="0" right="0" top="0" bottom="0">
+			<s:stroke>
+				<s:SolidColorStroke color="0xFF0000" />
+			</s:stroke>
+		</s:Rect>-->
+		<component:Address id="address" includeIn="address" skinClass="skin.AddressSkin" horizontalCenter="0" verticalCenter="0" />
+		<component:Bill id="bill" includeIn="bill" horizontalCenter="0" verticalCenter="0" />
+		<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" horizontalCenter="0" verticalCenter="0" />
+		<component:Send id="send" includeIn="send" skinClass="skin.SendSkin" horizontalCenter="0" verticalCenter="0"/>
 	</s:Group>
+	
 	
 </s:Application>
