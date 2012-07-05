@@ -42,10 +42,10 @@
 			<!--수신전화번호-->
 			<s:HGroup>
 				<s:TextInput id="sendListInput" />
-				<s:Button id="sendListInputBtn" label="+" />	
+				<s:Button id="sendListInputBtn" label="+" fontFamily="NGD" />	
 			</s:HGroup>
 			<s:HGroup>
-				<s:List id="sendList" itemRenderer="component.send.SendListRenderer" height="100" />
+				<s:List id="sendList" itemRenderer="component.send.SendListRenderer" width="200" height="100" />
 				<s:VGroup>
 					<s:RichText id="sendListFromCopy" text="대량입력"  fontFamily="NGD" rotation="-20"/>	
 					<s:RichText id="sendListFromAddress" text="주소록"  fontFamily="NGD" rotation="-20"/>
@@ -61,7 +61,7 @@
 			<!--회신번호-->
 			<s:HGroup verticalAlign="middle">
 				<s:ComboBox id="callback" itemRenderer="component.send.ReturnPhoneRenderer"/>
-				<s:Button id="callbackSave" label="회신번호저장"  fontFamily="NGD"/>
+				<s:Button id="callbackSave" label="저장"  fontFamily="NGD"/>
 			</s:HGroup>
 			
 			
