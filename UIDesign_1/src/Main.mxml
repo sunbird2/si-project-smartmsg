@@ -88,15 +88,17 @@
 					 />
 	
 	<s:Group id="main_group" left="0" right="0" top="100" bottom="100" clipAndEnableScrolling="true">
-<!--		<s:Rect left="0" right="0" top="0" bottom="0">
+		<!--<s:Rect left="0" right="0" top="0" bottom="0">
 			<s:stroke>
-				<s:SolidColorStroke color="0xFF0000" />
+				<s:SolidColorStroke color="0xFF0000" alpha="0.2" />
 			</s:stroke>
 		</s:Rect>-->
-		<component:Address id="address" includeIn="address" skinClass="skin.AddressSkin" horizontalCenter="0" verticalCenter="0" />
-		<component:Bill id="bill" includeIn="bill" horizontalCenter="0" verticalCenter="0" />
-		<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" horizontalCenter="0" verticalCenter="0" />
-		<component:Send id="send" includeIn="send" skinClass="skin.SendSkin" horizontalCenter="0" verticalCenter="0"/>
+		<component:Home id="home" includeIn="home" left="0" right="0" top="0" bottom="0" minWidth="1024" minHeight="420" horizontalCenter="0" verticalCenter="0" />
+		<component:Send id="send" includeIn="send" skinClass="skin.SendSkin" minWidth="1024" minHeight="420" horizontalCenter="0" verticalCenter="0"/>
+		<component:Address id="address" includeIn="address" skinClass="skin.AddressSkin" minWidth="1024" minHeight="420" horizontalCenter="0" verticalCenter="0" />
+		<component:Bill id="bill" includeIn="bill" horizontalCenter="0" minWidth="1024" minHeight="420" verticalCenter="0" />
+		<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" minWidth="1024" minHeight="420" horizontalCenter="0" verticalCenter="0" />
+		
 	</s:Group>
 	
 	

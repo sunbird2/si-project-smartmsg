@@ -152,11 +152,34 @@ package component
 
 		public function Send() { 
 			super();
+			
 			rt = new ReturnPhone();
-			trace(2222);
-			addEventListener(Event.REMOVED_FROM_STAGE, destroy, false, 0, true);
+			addEventListener(Event.ADDED_TO_STAGE, addedtostage_handler, false, 0, true);
+			addEventListener(Event.REMOVED_FROM_STAGE, removedfromstage_handler, false, 0, true);
 			
 		}
+		
+		public function addedtostage_handler(event:Event):void {
+			
+			
+		}
+		
+		public function removedfromstage_handler(event:Event):void {
+			
+			
+			Object(sendList.dataProvider).removeAll();
+			alPhone.removeAll();
+			removeReaervation();
+			removeInterval();
+			
+			removeExcel();
+			removeSendModeAddress()
+			removeSendModeLog();
+			removePaste();
+			removeEmoticon();
+		
+		}
+		
 		
 		
 		
@@ -172,7 +195,14 @@ package component
 			else if (instance == sendListInputBtn) sendListInputBtn.addEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
 			else if (instance == dupleDelete) dupleDelete.addEventListener(MouseEvent.CLICK, dupleDelete_clickHandler);
 			else if (instance == sendList) sendList.dataProvider = alPhone;
-			else if (instance == callback) callback.addEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
+			else if (instance == callback) {
+				
+				callback.labelField = "phone";
+				rt.callback = this.callback;
+				rt.getReturnPhone();
+				rt.setData();
+				callback.addEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
+			}
 			else if (instance == sendBtn) sendBtn.addEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
 			else if (instance == emoticon) emoticon.addEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
 			else if (instance == myMessage) myMessage.addEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
@@ -211,12 +241,6 @@ package component
 		{
 			// TODO Auto Generated method stub
 			super.createChildren();
-
-			callback.labelField = "phone";
-			rt.callback = this.callback;
-			rt.getReturnPhone();
-			trace(333);
-			
 			
 		}
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void	{
@@ -352,10 +376,13 @@ package component
 		
 		private function removeExcel():void {
 			
-			excel.removeEventListener("send", excel_sendHandler);
-			excel.removeEventListener("close", excel_closeHandler);
-			this.contentGroup.removeElement(excel);
-			excel = null;
+			if (excel != null) {
+				excel.removeEventListener("send", excel_sendHandler);
+				excel.removeEventListener("close", excel_closeHandler);
+				this.contentGroup.removeElement(excel);
+				excel = null;
+			}
+			
 		}
 		
 		/**
@@ -458,10 +485,13 @@ package component
 		}
 		private function removeSendModeAddress():void {
 			
-			sma.removeEventListener("sendAddress", sma_sendHandler);
-			sma.removeEventListener("close", sma_closeHandler);
-			this.contentGroup.removeElement(sma);
-			sma = null;
+			if (sma != null) {
+				sma.removeEventListener("sendAddress", sma_sendHandler);
+				sma.removeEventListener("close", sma_closeHandler);
+				this.contentGroup.removeElement(sma);
+				sma = null;
+			}
+			
 		}
 		
 		
@@ -489,10 +519,13 @@ package component
 		}
 		private function removeSendModeLog():void {
 			
-			sml.removeEventListener("getPhone", sml_sendHandler);
-			sml.removeEventListener("close", sml_closeHandler);
-			this.contentGroup.removeElement(sml);
-			sml = null;
+			if (sml != null) {
+				sml.removeEventListener("getPhone", sml_sendHandler);
+				sml.removeEventListener("close", sml_closeHandler);
+				this.contentGroup.removeElement(sml);
+				sml = null;
+			}
+		
 		}
 		
 		
@@ -522,10 +555,13 @@ package component
 		
 		private function removePaste():void {
 			
-			paste.removeEventListener("getPhone", paste_sendHandler);
-			paste.removeEventListener("close", paste_closeHandler);
-			this.contentGroup.removeElement(paste);
-			paste = null;
+			if (paste != null) {
+				paste.removeEventListener("getPhone", paste_sendHandler);
+				paste.removeEventListener("close", paste_closeHandler);
+				this.contentGroup.removeElement(paste);
+				paste = null;
+			}
+			
 		}
 		
 		
@@ -566,11 +602,14 @@ package component
 		}
 		public function removeEmoticon():void {
 			
-			emoticonBox.removeEventListener("message", emoticonBox_messageHandler);
-			emoticonBox.removeEventListener("specialChar", emoticonBox_specialCharHandler);
-			emoticonBox.removeEventListener("close", emoticonBox_closeHandler);
-			this.contentGroup.removeElement(emoticonBox);
-			emoticonBox = null;
+			if (emoticonBox != null) {
+				emoticonBox.removeEventListener("message", emoticonBox_messageHandler);
+				emoticonBox.removeEventListener("specialChar", emoticonBox_specialCharHandler);
+				emoticonBox.removeEventListener("close", emoticonBox_closeHandler);
+				this.contentGroup.removeElement(emoticonBox);
+				emoticonBox = null;
+			}
+			
 		}
 		
 		
@@ -664,7 +703,9 @@ package component
 		
 		public function destroy(event:Event):void {
 			
-			trace(111);
+			
+			
+			
 		}
 		
 		
