@@ -33,6 +33,7 @@ import com.m.send.SendManager;
 import com.m.send.SendMessageVO;
 
 import flex.messaging.FlexContext;
+import flex.messaging.FlexSession;
 
 public class SmartDS extends SessionManagement {
 	
@@ -70,13 +71,15 @@ public class SmartDS extends SessionManagement {
 		vo.setHp(hp);
 		
 		int rslt = join.insert(vo);
-		PointManager.getInstance().initPoint( user_id, 0);
+		PointManager.getInstance().initPoint( user_id, 5);
 		
 		if (rslt < 1) {
 			bvo.setbResult(false);
 			bvo.setstrDescription("가입 실패");
 		}else {
 			bvo.setbResult(true);
+			FlexSession session =  FlexContext.getFlexSession();
+			session.setAttribute("user_id", user_id);
 		}
 		return bvo;
 	}
