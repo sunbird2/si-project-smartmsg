@@ -4,9 +4,12 @@
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   xmlns:component="component.*"
 			   xmlns:services="services.*"
+			   xmlns:excel="component.excel.*"
 			   width="100%" height="100%"
 			   frameRate="45"
-			   skinClass="skin.AppSkin" xmlns:excel="component.excel.*">
+			   skinClass="skin.AppSkin"
+			   preloader="lib.MainProgressBar"
+			   >
 	<fx:Style source="assets/style/styles.css"/>
 	<fx:Script>
 		<![CDATA[
