@@ -13,9 +13,17 @@
 	</s:states>
 	
 	<s:Group id="contentGroup" left="0" right="0" top="0" bottom="0">
-		<s:VGroup>
+		
+		<s:VGroup top="20" horizontalCenter="0">
+			<s:RichText id="helpText"
+						text="메시지를 입력하세요" fontFamily="NGD" fontSize="28"/>
+			<s:RichText id="subHelpText"
+						text="메시지를 입력하세요" fontFamily="NGD" fontSize="12"/>
+		</s:VGroup>
+		
+		<s:HGroup bottom="30" gap="30" horizontalCenter="0">
 			<!--메시지-->
-			<s:HGroup>
+			<s:VGroup>
 				<s:Group width="200" height="220" >
 					<s:Rect left="0" right="0" top="0" bottom="0" radiusX="2" radiusY="2">
 						<s:stroke>
@@ -30,56 +38,59 @@
 					<s:RichText id="byte" text="0" bottom="5" right="5" fontFamily="NGD"/>
 					<s:Button id="messageSaveBtn" bottom="5" left="5" label="저장" fontFamily="NGD"/>
 				</s:Group>
-				<s:VGroup>
+				<s:TileGroup width="200">
 					<s:RichText id="specialChar" text="특수문자"  fontFamily="NGD" rotation="-20"/>
 					<s:RichText id="myMessage" text="내메시지"  fontFamily="NGD" rotation="-20"/>
 					<s:RichText id="sentMessage" text="최근메시지"  fontFamily="NGD" rotation="-20"/>
 					<s:RichText id="emoticon" text="이모티콘"  fontFamily="NGD" rotation="-20"/>
-				</s:VGroup>
-			</s:HGroup>
+				</s:TileGroup>
+			</s:VGroup>
 			
 			
 			<!--수신전화번호-->
-			<s:HGroup>
-				<s:TextInput id="sendListInput" />
-				<s:Button id="sendListInputBtn" label="+" fontFamily="NGD" />	
-			</s:HGroup>
-			<s:HGroup>
-				<s:List id="sendList" itemRenderer="component.send.SendListRenderer" width="200" height="100" />
-				<s:VGroup>
+			<s:VGroup>
+				<s:HGroup>
+					<s:TextInput id="sendListInput" />
+					<s:Button id="sendListInputBtn" label="+" fontFamily="NGD" />	
+				</s:HGroup>
+				
+				<s:List id="sendList" itemRenderer="component.send.SendListRenderer" width="200" height="130" />
+				
+				<s:HGroup verticalAlign="middle">
+					<s:Button id="dupleDelete" label="중복제거"  fontFamily="NGD"/>
+					<s:RichText id="countPhone" text="0"  fontFamily="NGD"/>	
+				</s:HGroup>
+				
+				<s:TileGroup width="200">
 					<s:RichText id="sendListFromCopy" text="대량입력"  fontFamily="NGD" rotation="-20"/>	
 					<s:RichText id="sendListFromAddress" text="주소록"  fontFamily="NGD" rotation="-20"/>
 					<s:RichText id="sendListFromExcel" text="엑셀"  fontFamily="NGD" rotation="-20"/>
 					<s:RichText id="sendListFromSent" text="최근발송"  fontFamily="NGD" rotation="-20"/>
-				</s:VGroup>
-			</s:HGroup>
-			<s:HGroup verticalAlign="middle">
-				<s:Button id="dupleDelete" label="중복제거"  fontFamily="NGD"/>
-				<s:RichText id="countPhone" text="0"  fontFamily="NGD"/>	
-			</s:HGroup>
+				</s:TileGroup>
+			</s:VGroup>
 			
-			<!--회신번호-->
-			<s:HGroup verticalAlign="middle">
-				<s:ComboBox id="callback" itemRenderer="component.send.ReturnPhoneRenderer"/>
-				<s:Button id="callbackSave" label="저장"  fontFamily="NGD"/>
-			</s:HGroup>
+			
+			
 			
 			
 			<!--전송-->
-			<s:CheckBox id="sendReservation" label="예약설정" />
-			<s:CheckBox id="sendInterval" label="간격설정" />
-			<s:HGroup>
-				<s:Button id="sendBtn" label="전송" enabled="false" />
-				<s:Button id="resetBtn" label="취소" />	
-			</s:HGroup>
-		</s:VGroup>
+			<s:VGroup>
+				<!--회신번호-->
+				<s:HGroup verticalAlign="middle">
+					<s:ComboBox id="callback" itemRenderer="component.send.ReturnPhoneRenderer"/>
+					<s:Button id="callbackSave" label="저장"  fontFamily="NGD"/>
+				</s:HGroup>
+				<s:CheckBox id="sendReservation" label="예약설정" fontFamily="Dotum" />
+				<s:CheckBox id="sendInterval" label="간격설정" fontFamily="Dotum" />
+				<s:HGroup>
+					<s:Button id="sendBtn" label="전송" enabled="false" fontFamily="NGD" />
+					<s:Button id="resetBtn" label="취소" fontFamily="NGD" />	
+				</s:HGroup>
+			</s:VGroup>
+			
+		</s:HGroup>
 		
-		<s:VGroup horizontalCenter="200" verticalCenter="0">
-			<s:RichText id="helpText"
-						text="메시지를 입력하세요" fontFamily="NGD" fontSize="28"/>
-			<s:RichText id="subHelpText"
-						text="메시지를 입력하세요" fontFamily="NGD" fontSize="12"/>
-		</s:VGroup>
+		
 		
 		
 	</s:Group>

@@ -23,7 +23,7 @@ package component.send
 
 	public class ReturnPhone
 	{
-		private var _alReturnPhone:ArrayCollection;
+		private var _alReturnPhone:ArrayCollection = new ArrayCollection;
 		private var _callback:ComboBox;
 		
 		public function ReturnPhone(){}
@@ -54,14 +54,24 @@ package component.send
 					= RemoteSingleManager.getInstance.service.getReturnPhone();
 			}
 		}
-		public function getReturnPhone_resultHandler(event:CustomEvent):void {
+		private function getReturnPhone_resultHandler(event:CustomEvent):void {
 			
-			alReturnPhone = event.result as ArrayCollection; 
-			if (alReturnPhone != null && alReturnPhone.length > 0) {
+			alReturnPhone.removeAll();
+			var data:ArrayCollection = event.result as ArrayCollection;
+			if (data)
+				alReturnPhone.addAll(data);
+ 
+			
+		}
+		
+		public function setData():void {
+			
+			if (callback != null && alReturnPhone != null && alReturnPhone.length > 0) {
 				callback.dataProvider = alReturnPhone;
 				callback.selectedIndex = 0;
 			}
 		}
+		
 		public function callbackSave_clickHandler(event:MouseEvent):void {
 			if (Gv.bLogin) {
 				RemoteSingleManager.getInstance.addEventListener("setReturnPhone", callbackSave_resultHandler, false, 0, true);

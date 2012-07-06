@@ -93,8 +93,23 @@ package component
 		
 		public function Address() {
 			super();
-			getGroup();
+			
 			acGroup.addEventListener(CollectionEvent.COLLECTION_CHANGE, acGroup_changeHandler);
+			addEventListener(Event.ADDED_TO_STAGE, addedtostage_handler, false, 0, true);
+			addEventListener(Event.REMOVED_FROM_STAGE, removedfromstage_handler, false, 0, true);
+		}
+		public function addedtostage_handler(event:Event):void {
+			
+			getGroup();
+		}
+		
+		public function removedfromstage_handler(event:Event):void {
+			
+			Object(groupList.dataProvider).removeAll();
+			Object(nameList.dataProvider).removeAll();
+			removeExcel();
+			acGroup.removeAll();
+			acName.removeAll();
 		}
 		
 		public function get activeAddressVO():AddressVO { return _activeAddressVO; }
@@ -518,9 +533,12 @@ package component
 		}
 		private function removeExcel():void {
 			
-			excel.removeEventListener("saveAddress", excel_saveAddressHandler);
-			this.contentGroup.removeElement(excel);
-			excel = null;
+			if (excel != null) {
+				excel.removeEventListener("saveAddress", excel_saveAddressHandler);
+				this.contentGroup.removeElement(excel);
+				excel = null;
+			}
+			
 		}
 		
 		
