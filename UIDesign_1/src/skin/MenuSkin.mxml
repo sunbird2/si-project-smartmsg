@@ -40,37 +40,51 @@
 		<s:State name="log"/>
 	</s:states>
 	
-	<s:layout>
-		<s:VerticalLayout gap="20" />
-	</s:layout>
+	<s:Rect width="1140" height="57">
+		<s:fill>
+			<s:SolidColor color="0x999999" alpha="0.15" />
+		</s:fill>
+	</s:Rect>
+	<s:BitmapImage source="@Embed('/assets/menu_div.png')" horizontalCenter="0" smooth="true" alpha="0.14" y="5"/>
+	<s:Group width="218" height="57">
+		<s:Image source="assets/menu_over_bg.png" right="0" />
+		<s:RichText id="labelHome" horizontalCenter="0" text="HOME" y="21"
+					buttonMode="true"
+					mouseUpEffect="{rotateEffect}"
+					color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
+					color.home="#008cc4" />
+	</s:Group>
+	<s:HGroup gap="150" horizontalCenter="0" y="21">
+		
+		
+		
+		<s:RichText id="labelSend" text="메시지" 
+					buttonMode="true"
+					
+					mouseUpEffect="{rotateEffect}"
+					color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
+					color.send="#008cc4"/>
+		
+		<s:RichText id="labelAddress" text="주소록"
+					buttonMode="true"
+					
+					mouseUpEffect="{rotateEffect}"
+					color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
+					color.address="#008cc4"/>
+		
+		<s:RichText id="labelBill" text="결제"
+					buttonMode="true"
+					
+					mouseUpEffect="{rotateEffect}"
+					color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
+					color.bill="#008cc4"/>
+		
+		<s:RichText id="labelLog" text="내역" 
+					buttonMode="true"
+					
+					mouseUpEffect="{rotateEffect}"
+					color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
+					color.log="#008cc4"/>
+	</s:HGroup>
 	
-	<s:RichText id="labelHome" text="HOME"
-				buttonMode="true"
-				rollOverEffect="a" rollOutEffect="b"
-				mouseUpEffect="{rotateEffect}"
-				color.home="0x6A635F" fontSize="26" fontFamily="NGD"/>
-	
-	<s:RichText id="labelSend" text="메시지" 
-				buttonMode="true"
-				rollOverEffect="a" rollOutEffect="b"
-				mouseUpEffect="{rotateEffect}" 
-				color.send="0xD66F74" fontSize="26" fontFamily="NGD"/>
-	
-	<s:RichText id="labelAddress" text="주소록"
-				buttonMode="true"
-				rollOverEffect="a" rollOutEffect="b"
-				mouseUpEffect="{rotateEffect}"
-				color.address="0x309EBC" fontSize="26" fontFamily="NGD"/>
-	
-	<s:RichText id="labelBill" text="결제"
-				buttonMode="true"
-				rollOverEffect="a" rollOutEffect="b"
-				mouseUpEffect="{rotateEffect}" 
-				color.bill="0x91C368" fontSize="26" fontFamily="NGD"/>
-	
-	<s:RichText id="labelLog" text="내역" 
-				buttonMode="true"
-				rollOverEffect="a" rollOutEffect="b"
-				mouseUpEffect="{rotateEffect}" 
-				color.log="0x91C368" fontSize="26" fontFamily="NGD"/>
 </s:Skin>
