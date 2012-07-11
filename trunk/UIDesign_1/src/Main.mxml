@@ -83,8 +83,8 @@
 		</s:Transition>
 	</s:transitions>
 	
-	<component:Menus id="menus" skinClass="skin.MenuDockSkin"
-					 bottom="10" horizontalCenter="0"
+	<component:Menus id="menus" skinClass="skin.MenuSkin"
+					 horizontalCenter="0" y="0"
 					 change="{this.currentState = event.result as String}"/>
 	<component:Login id="login" skinClass="skin.LoginSkin"
 					 horizontalCenter="0" y="50"
