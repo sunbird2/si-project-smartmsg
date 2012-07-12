@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:scroller="skin.scroller.*">
 
     <fx:Metadata>
     <![CDATA[ 
@@ -14,7 +14,8 @@
     <!---  A vertical scrollbar that lets you control the portion of data that is displayed 
             when there is too much data to fit vertically in a display area.
             The Scroller determines whether the vertical ScrollBar is visible. -->
-    <s:VScrollBar id="verticalScrollBar" visible="false" skinClass="skin.scroller.ThinVScrollBar" />
+	<scroller:VScrollBar id="verticalScrollBar" visible="false" skinClass="skin.scroller.ThinVScrollBar" />
+<!--    <s:VScrollBar id="verticalScrollBar" visible="false" skinClass="skin.scroller.ThinVScrollBar" />-->
     
     <!---  A horizontal scrollbar that lets you control the portion of data that is displayed 
             when there is too much data to fit horizontally in a display area.

@@ -31,10 +31,15 @@
 		<s:VGroup paddingTop="80">
 			<s:BitmapImage source="@Embed('/assets/ad_img01.png')" smooth="true"/>
 			<s:HGroup>
-				<s:Group width="330" height="300">
+				<s:Group width="330" height="305">
 					<s:BitmapImage source="@Embed('/assets/main_box.png')" top="5" smooth="true"/>
 					<s:BitmapImage source="@Embed('/assets/services icon.png')" left="5" smooth="true"/>
-					
+					<s:VGroup left="20" top="80" gap="30">
+						<s:BitmapImage source="@Embed('/assets/web icon.png')" smooth="true"/>
+						<s:BitmapImage source="@Embed('/assets/seo icon.png')" smooth="true"/>
+						<s:BitmapImage source="@Embed('/assets/logo icon.png')" smooth="true"/>
+						<s:BitmapImage source="@Embed('/assets/app icon.png')" smooth="true"/>
+					</s:VGroup>
 				</s:Group>	
 			</s:HGroup>
 			
