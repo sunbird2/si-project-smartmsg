@@ -40,51 +40,70 @@
 		<s:State name="log"/>
 	</s:states>
 	
-	<s:Rect width="1140" height="57">
-		<s:fill>
-			<s:SolidColor color="0x999999" alpha="0.15" />
-		</s:fill>
-	</s:Rect>
+	
+	<s:HGroup gap="0" horizontalCenter="0" width="1140" height="57">
+		<s:Rect width="98" height="57"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
+		<s:Group width="180" height="57">
+			<s:Rect width="100%" height="57" visible="true" visible.home="false"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
+			<s:RichText id="labelHome" text="HOME" y="21" horizontalCenter="0"
+						buttonMode="true"
+						mouseUpEffect="{rotateEffect}"
+						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
+						color.home="#008cc4" />
+		</s:Group>
+		
+		<s:Group width="180" height="57">
+			<s:Rect width="100%" height="57" visible="true" visible.send="false"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
+			<s:RichText id="labelSend" text="메시지" y="21"  horizontalCenter="0"
+						buttonMode="true"
+						mouseUpEffect="{rotateEffect}"
+						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
+						color.send="#008cc4"/>
+		</s:Group>
+		
+		<s:Group width="209" height="57">
+			<s:Rect visible="true" width="100%" height="57"	visible.address="false"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
+			<s:RichText id="labelAddress" text="주소록" y="21" horizontalCenter="0"
+						buttonMode="true"
+						mouseUpEffect="{rotateEffect}"
+						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
+						color.address="#008cc4"/>
+		</s:Group>
+		
+		<s:Group width="197" height="57">
+			<s:Rect visible="true" width="100%" height="57" visible.bill="false"
+					><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
+			<s:RichText id="labelBill" text="결제" y="21" horizontalCenter="0"
+						buttonMode="true"
+						mouseUpEffect="{rotateEffect}"
+						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
+						color.bill="#008cc4"/>
+		</s:Group>
+		
+		<s:Group width="180" height="57">
+			<s:Rect width="100%" height="57" visible="true" visible.log="false"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
+			<s:RichText id="labelLog" text="내역" y="21" horizontalCenter="0" 
+						buttonMode="true"
+						mouseUpEffect="{rotateEffect}"
+						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
+						color.log="#008cc4"/>
+		</s:Group>
+		
+		<s:Rect width="90" height="57"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
+	</s:HGroup>
 	<s:BitmapImage source="@Embed('/assets/menu_div.png')" horizontalCenter="0" smooth="true" alpha="0.14" y="5"/>
-	<s:Group width="218" height="57">
-		<s:Image source="assets/menu_over_bg.png" right="0" />
-		<s:RichText id="labelHome" horizontalCenter="0" text="HOME" y="21"
-					buttonMode="true"
-					mouseUpEffect="{rotateEffect}"
-					color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
-					color.home="#008cc4" />
-	</s:Group>
+	
+	
 	<s:HGroup gap="150" horizontalCenter="0" y="21">
 		
 		
 		
-		<s:RichText id="labelSend" text="메시지" 
-					buttonMode="true"
-					
-					mouseUpEffect="{rotateEffect}"
-					color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
-					color.send="#008cc4"/>
 		
-		<s:RichText id="labelAddress" text="주소록"
-					buttonMode="true"
-					
-					mouseUpEffect="{rotateEffect}"
-					color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
-					color.address="#008cc4"/>
 		
-		<s:RichText id="labelBill" text="결제"
-					buttonMode="true"
-					
-					mouseUpEffect="{rotateEffect}"
-					color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
-					color.bill="#008cc4"/>
 		
-		<s:RichText id="labelLog" text="내역" 
-					buttonMode="true"
-					
-					mouseUpEffect="{rotateEffect}"
-					color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
-					color.log="#008cc4"/>
+		
+		
+		
 	</s:HGroup>
 	
 </s:Skin>

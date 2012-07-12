@@ -8,7 +8,6 @@
 			   width="100%" height="100%"
 			   frameRate="45"
 			   skinClass="skin.AppSkin"
-			   preloader="lib.MainProgressBar"
 			   >
 	<fx:Style source="assets/style/styles.css"/>
 	<fx:Script>
@@ -86,11 +85,12 @@
 	<component:Menus id="menus" skinClass="skin.MenuSkin"
 					 horizontalCenter="0" y="0"
 					 change="{this.currentState = event.result as String}"/>
+	
 	<component:Login id="login" skinClass="skin.LoginSkin"
-					 horizontalCenter="0" y="50"
+					 horizontalCenter="10" y="110"
 					 />
 	
-	<s:Group id="main_group" left="0" right="0" top="100" bottom="100" clipAndEnableScrolling="true">
+	<s:Group id="main_group" width="1024" top="100" bottom="100" horizontalCenter="0" clipAndEnableScrolling="true">
 		<!--<s:Rect left="0" right="0" top="0" bottom="0">
 			<s:stroke>
 				<s:SolidColorStroke color="0xFF0000" alpha="0.2" />

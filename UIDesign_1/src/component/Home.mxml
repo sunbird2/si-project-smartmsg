@@ -5,5 +5,43 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<home:TagCloud howElliptical="1.5" left="10" right="10" top="10" bottom="10" url="assets/home.xml" />
+	
+	<s:HGroup>
+		<s:VGroup>
+			<s:BitmapImage source="@Embed('/assets/logo.png')" smooth="true"/>
+			<s:Group width="220" top="80">
+				<s:BitmapImage source="@Embed('/assets/category_line.png')"
+							   top="30"
+							   smooth="true" alpha="0.2"/>
+				<s:BitmapImage source="@Embed('/assets/category_dot.png')"
+							   top="12" smooth="true"  />
+				<s:VGroup left="16" top="10" gap="16" >
+					<s:Label text="단문( SMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+					<s:Label text="장문( LMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+					<s:Label text="사진( MMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+					<s:Label text="엑셀 업로드 발송" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+					<s:Label text="주소록 관리" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+					<s:Label text="결제하기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+					<s:Label text="발송내역 ( 통계 )" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+					<s:Label text="고객센터" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+				</s:VGroup>
+			</s:Group>
+		</s:VGroup>
+		
+		<s:VGroup paddingTop="80">
+			<s:BitmapImage source="@Embed('/assets/ad_img01.png')" smooth="true"/>
+			<s:HGroup>
+				<s:Group width="330" height="300">
+					<s:BitmapImage source="@Embed('/assets/main_box.png')" top="5" smooth="true"/>
+					<s:BitmapImage source="@Embed('/assets/services icon.png')" left="5" smooth="true"/>
+					
+				</s:Group>	
+			</s:HGroup>
+			
+		</s:VGroup>
+		
+	</s:HGroup>
+	
+	
+	<!--<home:TagCloud howElliptical="1.5" left="10" right="10" top="10" bottom="10" url="assets/home.xml" />-->
 </s:Group>
