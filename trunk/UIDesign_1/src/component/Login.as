@@ -3,8 +3,14 @@ package component
 	/* For guidance on writing an ActionScript Skinnable Component please refer to the Flex documentation: 
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	
+	import component.util.CustomToolTip;
+	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	
+	import flashx.textLayout.elements.LinkElement;
+	import flashx.textLayout.elements.SpanElement;
+	import flashx.textLayout.events.FlowElementMouseEvent;
 	
 	import lib.CustomEvent;
 	import lib.Gv;
@@ -12,6 +18,7 @@ package component
 	import lib.SLibrary;
 	
 	import mx.events.FlexEvent;
+	import mx.managers.PopUpManager;
 	
 	import spark.components.Button;
 	import spark.components.Label;
@@ -36,12 +43,14 @@ package component
 		[SkinPart(required="false")]public var user_pw:TextInput;
 		[SkinPart(required="false")]public var login:Button;
 		[SkinPart(required="false")]public var join:Button;
-		[SkinPart(required="false")]public var login_id:Label;
-		[SkinPart(required="false")]public var point:Label;
+		[SkinPart(required="false")]public var login_id:LinkElement;
+		[SkinPart(required="false")]public var point:LinkElement;
 		
 		private var _cstat:String = "logout";
 		public function get cstat():String { return _cstat; }
 		public function set cstat(value:String):void { _cstat = value; }
+		
+		private var customToolTip:CustomToolTip;
 		
 		
 		public function Login()
@@ -73,8 +82,24 @@ package component
 			super.partAdded(partName, instance);
 			if (instance == join) join.addEventListener(MouseEvent.CLICK, join_clickHandler);
 			else if (instance == login) login.addEventListener(MouseEvent.CLICK, login_clickHandler);
-			else if (instance == login_id) login_id.text = Gv.user_id;
-			else if (instance == point) point.text = SLibrary.addComma( String(Gv.point) );
+			else if (instance == login_id) {
+				login_id.addEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
+				login_id.addEventListener(FlowElementMouseEvent.ROLL_OUT, tooltip_outHandler);
+				login_id.addEventListener(FlowElementMouseEvent.CLICK, login_id_clickHandler);
+				
+				var l:SpanElement = new SpanElement();
+				l.text = Gv.user_id;
+				login_id.addChild(l);
+			}
+			else if (instance == point) {
+				point.addEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
+				point.addEventListener(FlowElementMouseEvent.ROLL_OUT, tooltip_outHandler);
+
+				var p:SpanElement = new SpanElement();
+				p.text =  SLibrary.addComma( String(Gv.point) );
+				p.color = 0xff7b01;
+				point.addChild(p);
+			}
 			else if (instance == user_pw) user_pw.addEventListener(FlexEvent.ENTER, login_clickHandler); 
 		}
 		
@@ -139,6 +164,31 @@ package component
 				cstat = "logout";
 			}
 			invalidateSkinState();
+		}
+		
+		
+		private function tooltip_overHandler(event:FlowElementMouseEvent):void {
+
+			if(!customToolTip){
+				customToolTip = new CustomToolTip();
+				customToolTip.x = parentApplication.mouseX - customToolTip.width/2;
+				customToolTip.y = parentApplication.mouseY - 40;
+				PopUpManager.addPopUp(customToolTip, this, false);
+			}
+			customToolTip.text =  LinkElement(event.flowElement).href;
+		}
+		private function tooltip_outHandler(event:FlowElementMouseEvent):void {
+
+			PopUpManager.removePopUp(customToolTip);
+			customToolTip = null;
+		}
+		
+		
+		private function login_id_clickHandler(event:FlowElementMouseEvent):void {
+			event.stopImmediatePropagation();
+			event.preventDefault();
+			trace("click!!!!");
+			
 		}
 		
 	}

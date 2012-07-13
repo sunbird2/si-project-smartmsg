@@ -14,6 +14,9 @@ package component
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	
+	import flashx.textLayout.elements.LinkElement;
+	import flashx.textLayout.elements.SpanElement;
+	
 	import lib.CustomEvent;
 	import lib.Gv;
 	import lib.KoreaPhoneNumberFormatter;
@@ -55,29 +58,31 @@ package component
 		
 		// message
 		[SkinPart(required="false")]public var message:RichEditableText;
-		[SkinPart(required="false")]public var byte:RichText;
-		[SkinPart(required="false")]public var messageSaveBtn:Button;
-		[SkinPart(required="false")]public var specialChar:RichText;
-		[SkinPart(required="false")]public var myMessage:RichText;
-		[SkinPart(required="false")]public var sentMessage:RichText;
-		[SkinPart(required="false")]public var emoticon:RichText;
+		[SkinPart(required="false")]public var byte:SpanElement;
+		[SkinPart(required="false")]public var messageSaveBtn:LinkElement;
+		[SkinPart(required="false")]public var specialChar:LinkElement;
+		[SkinPart(required="false")]public var myMessage:LinkElement;
+		[SkinPart(required="false")]public var sentMessage:LinkElement;
+		[SkinPart(required="false")]public var emoticon:LinkElement;
 		
 		
 		// phones
 		[SkinPart(required="false")]public var sendListInput:TextInput;
 		[SkinPart(required="false")]public var sendListInputBtn:Button;
 		[SkinPart(required="false")]public var sendList:List;
-		[SkinPart(required="false")]public var countPhone:RichText;
-		[SkinPart(required="false")]public var sendListFromAddress:RichText;
-		[SkinPart(required="false")]public var sendListFromExcel:RichText;
-		[SkinPart(required="false")]public var sendListFromSent:RichText;
-		[SkinPart(required="false")]public var sendListFromCopy:RichText;
-		[SkinPart(required="false")]public var dupleDelete:Button;
+		[SkinPart(required="false")]public var countPhone:SpanElement;
+		[SkinPart(required="false")]public var sendListFromAddress:LinkElement;
+		[SkinPart(required="false")]public var sendListFromExcel:LinkElement;
+		[SkinPart(required="false")]public var sendListFromSent:LinkElement;
+		[SkinPart(required="false")]public var sendListFromCopy:LinkElement;
+		[SkinPart(required="false")]public var dupleDelete:LinkElement;
+		[SkinPart(required="false")]public var phoneRemoveAll:LinkElement;
+		
 		
 		
 		// callback
 		[SkinPart(required="false")]public var callback:ComboBox;
-		[SkinPart(required="false")]public var callbackSave:Button;
+		[SkinPart(required="false")]public var callbackSave:LinkElement;
 		
 		
 		
@@ -213,6 +218,8 @@ package component
 			else if (instance == sendListFromAddress) sendListFromAddress.addEventListener(MouseEvent.CLICK, sendListFromAddress_clickHandler);
 			else if (instance == sendListFromSent) sendListFromSent.addEventListener(MouseEvent.CLICK, sendListFromSent_clickHandler);
 			else if (instance == sendListFromCopy) sendListFromCopy.addEventListener(MouseEvent.CLICK, sendListFromCopy_clickHandler);
+			else if (instance == phoneRemoveAll) phoneRemoveAll.addEventListener(MouseEvent.CLICK, phoneRemoveAll_clickHandler);
+			
 			else if (instance == sendReservation) sendReservation.addEventListener(Event.CHANGE, sendReservation_changeHandler);
 			else if (instance == sendInterval) sendInterval.addEventListener(Event.CHANGE, sendInterval_changeHandler);
 			
@@ -526,6 +533,13 @@ package component
 				sml = null;
 			}
 		
+		}
+		
+		
+		private function phoneRemoveAll_clickHandler(event:MouseEvent):void {
+			
+			Object(sendList.dataProvider).removeAll();
+			alPhone.removeAll();
 		}
 		
 		

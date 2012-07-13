@@ -24,10 +24,19 @@
 		</s:Group>
 	</s:VGroup>
 	
-	<s:HGroup left="20" includeIn="login">
-		<s:Label id="login_id" fontSize="20"/>
-		<s:Label id="point" fontSize="20" />
-	</s:HGroup>
+	<s:Group left="20" includeIn="login">
+		<s:RichEditableText editable="false" focusEnabled="false" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#008cc4" fontSize="20" lineHeight="170%" kerning="off">
+			<s:content><s:p><s:a kerning="auto" href="정보 수정 페이지로 이동합니다." id="login_id"></s:a><s:span color="#8d8d8d" kerning="auto"> 님 안녕하세요. </s:span></s:p><s:p><s:span color="#8d8d8d" kerning="auto">현재                를 </s:span><s:a color="#ff7b01" href="MyPage 로 이동 합니다." kerning="auto" id="point"></s:a><s:span color="#8d8d8d" kerning="auto">건 발송하실 수 있습니다. </s:span></s:p></s:content>
+		</s:RichEditableText>
+		<s:ComboBox id="combo" left="50" bottom="0" width="70" fontFamily="NGD"
+					selectedIndex="0" skinClass="skin.compnent.ComboSkin01">
+			<s:ArrayCollection>
+				<fx:Object label="SMS" data="SMS"/>
+				<fx:Object label="LMS" data="LMS"/>
+				<fx:Object label="MMS" data="MMS"/>
+			</s:ArrayCollection>
+		</s:ComboBox>
+	</s:Group>
 	
 	
 </s:Skin>
