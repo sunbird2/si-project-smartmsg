@@ -255,6 +255,11 @@ package component
 			else if (instance == sentMessage) sentMessage.removeEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
 			else if (instance == callbackSave) callbackSave.removeEventListener(MouseEvent.CLICK, rt.callbackSave_clickHandler);
 			
+			if (instance is LinkElement) {
+				instance.removeEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
+				instance.removeEventListener(FlowElementMouseEvent.ROLL_OUT, tooltip_outHandler);
+			}
+			
 			
 		}
 		override protected function createChildren():void
