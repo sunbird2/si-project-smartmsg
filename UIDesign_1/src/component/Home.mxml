@@ -7,41 +7,91 @@
 	</fx:Declarations>
 	
 	<s:HGroup>
-		<s:VGroup>
+		<s:VGroup gap="10">
 			<s:BitmapImage source="@Embed('/assets/logo.png')" smooth="true"/>
-			<s:Group width="220" top="80">
-				<s:BitmapImage source="@Embed('/assets/category_line.png')"
-							   top="30"
-							   smooth="true" alpha="0.2"/>
-				<s:BitmapImage source="@Embed('/assets/category_dot.png')"
-							   top="12" smooth="true"  />
-				<s:VGroup left="16" top="10" gap="16" >
-					<s:Label text="단문( SMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-					<s:Label text="장문( LMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-					<s:Label text="사진( MMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-					<s:Label text="엑셀 업로드 발송" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-					<s:Label text="주소록 관리" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-					<s:Label text="결제하기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-					<s:Label text="발송내역 ( 통계 )" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-					<s:Label text="고객센터" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-				</s:VGroup>
-			</s:Group>
 		</s:VGroup>
 		
 		<s:VGroup paddingTop="80">
 			<s:BitmapImage source="@Embed('/assets/ad_img01.png')" smooth="true"/>
-			<s:HGroup>
-				<s:Group width="330" height="305">
-					<s:BitmapImage source="@Embed('/assets/main_box.png')" top="5" smooth="true"/>
-					<s:BitmapImage source="@Embed('/assets/services icon.png')" left="5" smooth="true"/>
-					<s:VGroup left="20" top="80" gap="30">
-						<s:BitmapImage source="@Embed('/assets/web icon.png')" smooth="true"/>
-						<s:BitmapImage source="@Embed('/assets/seo icon.png')" smooth="true"/>
-						<s:BitmapImage source="@Embed('/assets/logo icon.png')" smooth="true"/>
-						<s:BitmapImage source="@Embed('/assets/app icon.png')" smooth="true"/>
-					</s:VGroup>
-				</s:Group>	
-			</s:HGroup>
+			<!-- service & preview -->
+			<s:Group width="100%">
+				
+				<s:Group left="0" width="330" height="305">
+					<s:BitmapImage source="@Embed('/assets/main_box.png')" top="10" smooth="true"/>
+					<s:BitmapImage source="@Embed('/assets/services icon.png')" left="10" smooth="true"/>
+					<s:Label text="SERVICES" left="60" top="20" color="#4f5254" fontSize="24" />
+					<s:Label text="What we can do" left="60" top="50" color="#6a6e70" fontSize="16" fontStyle="italic" />
+					<s:Scroller left="20" top="80" right="5" bottom="0" skinClass="skin.scroller.ThinScrooller">
+						<s:VGroup gap="30">
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/web icon.png')" smooth="true"/>
+								<s:Label text="SMS, LMS, MMS 대량 발송" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18" />
+							</s:Group>
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/seo icon.png')" smooth="true"/>
+								<s:Label text="대량 주소록 관리" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18"  />
+							</s:Group>
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/logo icon.png')" smooth="true"/>
+								<s:Label text="실시간 발송 결과 및 통계" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18"  />
+							</s:Group>
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/app icon.png')" smooth="true"/>
+								<s:Label text="이미지 편집 및 발송" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18"  />
+							</s:Group>
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/web icon.png')" smooth="true"/>
+								<s:Label text="SMS, LMS, MMS 대량 발송" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18" />
+							</s:Group>
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/seo icon.png')" smooth="true"/>
+								<s:Label text="대량 주소록 관리" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18"  />
+							</s:Group>
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/logo icon.png')" smooth="true"/>
+								<s:Label text="실시간 발송 결과 및 통계" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18"  />
+							</s:Group>
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/app icon.png')" smooth="true"/>
+								<s:Label text="이미지 편집 및 발송" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18"  />
+							</s:Group>
+						</s:VGroup>
+					</s:Scroller>
+				</s:Group>
+				
+				<s:Group right="0" width="330" height="305">
+					<s:BitmapImage source="@Embed('/assets/main_box.png')" top="10" smooth="true"/>
+					<s:BitmapImage source="@Embed('/assets/portfolio icon.png')" left="10" smooth="true"/>
+					<s:Label text="PREVIEW" left="60" top="20" color="#4f5254" fontSize="24" />
+					<s:Label text="our preview works" left="60" top="50" color="#6a6e70" fontSize="16" fontStyle="italic" />
+					<s:Scroller left="20" top="80" right="5" bottom="0" skinClass="skin.scroller.ThinScrooller">
+						<s:TileGroup>
+							<s:Image source="assets/image_1.png"/>
+							<s:Image source="assets/image_2.png"/>
+							<s:Image source="assets/image_3.png"/>
+							<s:Image source="assets/image_4.png"/>
+							<s:Image source="assets/image_5.png"/>
+						</s:TileGroup>
+					</s:Scroller>
+				</s:Group>
+				
+			</s:Group><!-- service & preview -->
+			
+			<s:Group width="100%" height="305">
+				<s:BitmapImage source="@Embed('/assets/main_box.png')" top="10" left="0" right="0" bottom="0" smooth="true"/>
+				<s:BitmapImage source="@Embed('/assets/portfolio icon.png')" left="10" smooth="true"/>
+				<s:Label text="PREVIEW" left="60" top="20" color="#4f5254" fontSize="24" />
+				<s:Label text="our preview works" left="60" top="50" color="#6a6e70" fontSize="16" fontStyle="italic" />
+				<s:Scroller left="20" top="80" right="5" bottom="0" skinClass="skin.scroller.ThinScrooller">
+					<s:TileGroup>
+						<s:Image source="assets/image_1.png"/>
+						<s:Image source="assets/image_2.png"/>
+						<s:Image source="assets/image_3.png"/>
+						<s:Image source="assets/image_4.png"/>
+						<s:Image source="assets/image_5.png"/>
+					</s:TileGroup>
+				</s:Scroller>
+			</s:Group>
 			
 		</s:VGroup>
 		
