@@ -9,6 +9,7 @@ package component
 	import component.send.Interval;
 	import component.send.ReservationCalendar;
 	import component.send.ReturnPhone;
+	import component.util.CustomToolTip;
 	
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -16,6 +17,7 @@ package component
 	
 	import flashx.textLayout.elements.LinkElement;
 	import flashx.textLayout.elements.SpanElement;
+	import flashx.textLayout.events.FlowElementMouseEvent;
 	
 	import lib.CustomEvent;
 	import lib.Gv;
@@ -26,6 +28,7 @@ package component
 	
 	import mx.collections.ArrayCollection;
 	import mx.events.FlexEvent;
+	import mx.managers.PopUpManager;
 	
 	import spark.components.Button;
 	import spark.components.CheckBox;
@@ -64,6 +67,8 @@ package component
 		[SkinPart(required="false")]public var myMessage:LinkElement;
 		[SkinPart(required="false")]public var sentMessage:LinkElement;
 		[SkinPart(required="false")]public var emoticon:LinkElement;
+		[SkinPart(required="false")]public var addImage:LinkElement;
+		
 		
 		
 		// phones
@@ -99,6 +104,8 @@ package component
 		
 		public var reservation:ReservationCalendar;
 		public var interval:Interval;
+		
+		private var customToolTip:CustomToolTip;
 		
 		/**
 		 * message properties 
@@ -222,6 +229,12 @@ package component
 			
 			else if (instance == sendReservation) sendReservation.addEventListener(Event.CHANGE, sendReservation_changeHandler);
 			else if (instance == sendInterval) sendInterval.addEventListener(Event.CHANGE, sendInterval_changeHandler);
+			
+			
+			if (instance is LinkElement) {
+				instance.addEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
+				instance.addEventListener(FlowElementMouseEvent.ROLL_OUT, tooltip_outHandler);
+			}
 			
 
 		}
@@ -713,6 +726,25 @@ package component
 				interval = null;
 			}
 			
+		}
+		
+		/**
+		 * tooltip
+		 * */
+		private function tooltip_overHandler(event:FlowElementMouseEvent):void {
+			
+			if(!customToolTip){
+				customToolTip = new CustomToolTip();
+				customToolTip.x = parentApplication.mouseX - customToolTip.width/2;
+				customToolTip.y = parentApplication.mouseY - 40;
+				PopUpManager.addPopUp(customToolTip, this, false);
+			}
+			customToolTip.text =  LinkElement(event.flowElement).href;
+		}
+		private function tooltip_outHandler(event:FlowElementMouseEvent):void {
+			
+			PopUpManager.removePopUp(customToolTip);
+			customToolTip = null;
 		}
 		
 		public function destroy(event:Event):void {
