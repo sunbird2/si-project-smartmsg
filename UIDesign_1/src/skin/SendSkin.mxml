@@ -56,9 +56,9 @@
 						<s:RichText whiteSpaceCollapse="preserve" fontFamily="NGD" color="#515151" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" kerning="off">
 							<s:content><s:p><s:span id="byte">0</s:span><s:span kerning="auto"> </s:span><s:span fontSize="12" lineHeight="166.65%" kerning="auto">byte</s:span></s:p></s:content>
 						</s:RichText>
-						<s:RichText width="225" height="201" textDecoration="none" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%">
-							<s:content><s:p><s:span>발송할 메시지를 직접 입력하거나   </s:span><s:a id="myMessage" color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">내메시지</s:span></s:a><s:span>, </s:span><s:a id="sentMessage" color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">최근발송메시지</s:span></s:a><s:span>, </s:span><s:a id="emoticon" color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">이모티콘</s:span></s:a><s:span>, </s:span><s:a id="specialChar" color="#008cc4" fontFamily="NGD" ><s:span color="#008cc4" textDecoration="none">특수문자</s:span></s:a><s:span>에서 추가할 수 있으며, 90byte 이상을 입력하면 LMS(장문), 이미지를 </s:span><s:a color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">첨부</s:span></s:a><s:span> 하면 MMS(사진)를 발송할 수 있습니다. 또한 입력한 내용을 내메시지에 </s:span><s:a id="messageSaveBtn" color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">저장</s:span></s:a><s:span> 하여 재사용 가능 합니다.</s:span></s:p></s:content>
-						</s:RichText>
+						<s:RichEditableText editable="false" focusEnabled="false"  width="225" height="201" textDecoration="none" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%">
+							<s:content><s:p><s:span>발송할 메시지를 직접 입력하거나   </s:span><s:a id="myMessage" href="내메시지 창을 열어봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">내메시지</s:span></s:a><s:span>, </s:span><s:a id="sentMessage" href="최근발솓메시지 창을 열어봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">최근발송메시지</s:span></s:a><s:span>, </s:span><s:a id="emoticon" href="이모티콘 창을 열어 봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">이모티콘</s:span></s:a><s:span>, </s:span><s:a id="specialChar" href="특수문자창을 열어 봅니다." color="#008cc4" fontFamily="NGD" ><s:span color="#008cc4" textDecoration="none">특수문자</s:span></s:a><s:span>에서 추가할 수 있으며, 90byte 이상을 입력하면 LMS(장문), 이미지를 </s:span><s:a id="addImage" color="#008cc4" href="이미지를 첨부 합니다." fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">첨부</s:span></s:a><s:span> 하면 MMS(사진)를 발송할 수 있습니다. 또한 입력한 내용을 내메시지에 </s:span><s:a id="messageSaveBtn" color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">저장</s:span></s:a><s:span> 하여 재사용 가능 합니다.</s:span></s:p></s:content>
+						</s:RichEditableText>
 						
 					</s:VGroup>
 					
@@ -80,9 +80,9 @@
 							<s:content><s:p><s:span id="countPhone">0</s:span><s:span kerning="auto"> </s:span><s:span fontSize="12" lineHeight="166.65%" kerning="auto">명</s:span></s:p></s:content>
 						</s:RichText>
 						
-						<s:RichText width="311" height="174" textDecoration="none" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%">
-							<s:content><s:p><s:span>전송할 전화번호를 직접 입력 후 추가 하거나 </s:span><s:a id="sendListFromCopy" color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">대량입력</s:span></s:a><s:span>, </s:span><s:a id="sendListFromAddress" color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">주소록</s:span></s:a><s:span>, </s:span><s:a id="sendListFromExcel" color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">엑셀</s:span></s:a><s:span>, </s:span><s:a id="sendListFromSent" color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">최근발송목록</s:span></s:a><s:span>을 통해 일괄 추가할 수 있습니다. 추가된 전화번호는 아이콘을 통해 제거 하거나 </s:span><s:a id="phoneRemoveAll" color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">전체삭제</s:span></s:a><s:span> 할 수 있습니다.</s:span></s:p><s:p><s:span>중복번호는 </s:span><s:a id="dupleDelete" color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">직접 제거</s:span></s:a><s:span>하거나 발송시 자동 실패 처리 됩니다.</s:span></s:p></s:content>
-						</s:RichText>
+						<s:RichEditableText editable="false" focusEnabled="false"  width="311" height="174" textDecoration="none" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%">
+							<s:content><s:p><s:span>전송할 전화번호를 직접 입력 후 추가 하거나 </s:span><s:a id="sendListFromCopy" href="복사,붙여넣거나 대량입력 할 수 있는 창을 열어봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">대량입력</s:span></s:a><s:span>, </s:span><s:a id="sendListFromAddress" href="주소록을 영어 봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">주소록</s:span></s:a><s:span>, </s:span><s:a id="sendListFromExcel" href="엑셍을 업로드 할 수 있는 창을 열어 봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">엑셀</s:span></s:a><s:span>, </s:span><s:a id="sendListFromSent" href="최근발송 목록을 추가 할수 있는 창을 열어 봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">최근발송목록</s:span></s:a><s:span>을 통해 일괄 추가할 수 있습니다. 추가된 전화번호는 아이콘을 통해 제거 하거나 </s:span><s:a id="phoneRemoveAll" href="입력된 모든 전화번호를 지웁니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">전체삭제</s:span></s:a><s:span> 할 수 있습니다.</s:span></s:p><s:p><s:span>중복번호는 </s:span><s:a id="dupleDelete"  href="중복번호를 제거 합니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">직접 제거</s:span></s:a><s:span>하거나 발송시 자동 실패 처리 됩니다.</s:span></s:p></s:content>
+						</s:RichEditableText>
 					</s:VGroup>
 					
 				</s:Group><!-- send row1 -->
@@ -97,9 +97,9 @@
 									itemRenderer="component.send.ReturnPhoneRenderer" 
 									skinClass="skin.compnent.ComboSkin01"/>
 						
-						<s:RichText width="225" height="201" textDecoration="none" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%" x="408" y="1001">
-							<s:content><s:p><s:span>회신번호를 직접 입력하거나 입력뇐 번로를 </s:span><s:a id="callbackSave" color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">저장</s:span></s:a><s:span> 할수 있습니다. 여러번호를 저장하여 선택 하거나 삭제 또는 저장된 특정번호를 기본회신번호로 설정해 보세요 .</s:span></s:p></s:content>
-						</s:RichText>
+						<s:RichEditableText editable="false" focusEnabled="false"  width="225" height="201" textDecoration="none" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%" x="408" y="1001">
+							<s:content><s:p><s:span>회신번호를 직접 입력하거나 입력뇐 번로를 </s:span><s:a id="callbackSave"  href="입력한 회신번호를 저장 합니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">저장</s:span></s:a><s:span> 할수 있습니다. 여러번호를 저장하여 선택 하거나 삭제 또는 저장된 특정번호를 기본회신번호로 설정해 보세요 .</s:span></s:p></s:content>
+						</s:RichEditableText>
 						
 					</s:VGroup>
 					
