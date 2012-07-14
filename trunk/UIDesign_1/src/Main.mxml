@@ -71,6 +71,14 @@
 	<fx:Declarations>
 		<s:Bounce id="bounceEasing"/>
 	</fx:Declarations>
+	<s:transitions>
+		<s:Transition id="t1">
+			<s:Wipe id="wipe"
+					direction="right"
+					target="{main_group}"
+					duration="300" />
+		</s:Transition>
+	</s:transitions>
 	<!--<s:transitions>
 		<s:Transition id="transition" fromState="*" toState="*">
 			<s:Parallel id="t1" targets="{[send, address, bill, log]}">
