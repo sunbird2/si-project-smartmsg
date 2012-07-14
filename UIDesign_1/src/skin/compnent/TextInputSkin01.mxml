@@ -247,7 +247,6 @@ in accordance with the terms of the license agreement accompanying it.
 	<s:RichEditableText id="textDisplay"
 						verticalAlign="middle"
 						widthInChars="10"
-						fontFamily="NGD"
 						left="4" right="4" top="2" bottom="2" />
 	<!--- Defines the Label that is used for prompt text. The includeInLayout property is false so the prompt text does not affect measurement. -->
 	<s:Label id="promptDisplay" maxDisplayedLines="1"

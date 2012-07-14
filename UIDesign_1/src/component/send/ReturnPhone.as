@@ -1,6 +1,7 @@
 package component.send
 {
-	import flash.events.MouseEvent;
+	
+	import flashx.textLayout.events.FlowElementMouseEvent;
 	
 	import lib.CustomEvent;
 	import lib.Gv;
@@ -30,7 +31,7 @@ package component.send
 		
 
 		public function get callback():ComboBox { return _callback; }
-		public function set callback(value:ComboBox):void { _callback = value; }
+		public function set callback(value:ComboBox):void { _callback = value; callback.dataProvider = alReturnPhone;  }
 
 		public function get alReturnPhone():ArrayCollection { return _alReturnPhone; }
 		public function set alReturnPhone(value:ArrayCollection):void { _alReturnPhone = value; }
@@ -58,8 +59,11 @@ package component.send
 			
 			alReturnPhone.removeAll();
 			var data:ArrayCollection = event.result as ArrayCollection;
-			if (data)
+			if (data) {
 				alReturnPhone.addAll(data);
+				callback.selectedIndex = 0;
+			}
+				
  
 			
 		}
@@ -67,12 +71,13 @@ package component.send
 		public function setData():void {
 			
 			if (callback != null && alReturnPhone != null && alReturnPhone.length > 0) {
-				callback.dataProvider = alReturnPhone;
 				callback.selectedIndex = 0;
 			}
 		}
 		
-		public function callbackSave_clickHandler(event:MouseEvent):void {
+		public function callbackSave_clickHandler(event:FlowElementMouseEvent):void {
+			event.stopImmediatePropagation();
+			event.preventDefault();
 			if (Gv.bLogin) {
 				RemoteSingleManager.getInstance.addEventListener("setReturnPhone", callbackSave_resultHandler, false, 0, true);
 				RemoteSingleManager.getInstance.callresponderToken 

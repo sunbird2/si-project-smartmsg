@@ -15,7 +15,7 @@
 				super.data = value;
 				if (super.data != null) {
 
-					main.text = SLibrary.cutByteTo( LogVO(super.data).message.replace(/\n/g,"") , 30 );
+					main.text = SLibrary.cutByteTo( LogVO(super.data).message.replace(/\n/g,"") , 20 );
 					sub.text = LogVO(super.data).mode + " " + LogVO(super.data).timeSend ;
 				}
 					

@@ -38,6 +38,7 @@ package component
 	import spark.components.List;
 	import spark.components.RichEditableText;
 	import spark.components.RichText;
+	import spark.components.TextArea;
 	import spark.components.TextInput;
 	import spark.components.TileGroup;
 	import spark.components.supportClasses.SkinnableComponent;
@@ -60,7 +61,7 @@ package component
 		[SkinPart(reqired='true')]public var contentGroup:Group;
 		
 		// message
-		[SkinPart(required="false")]public var message:RichEditableText;
+		[SkinPart(required="false")]public var message:TextArea;
 		[SkinPart(required="false")]public var byte:SpanElement;
 		[SkinPart(required="false")]public var messageSaveBtn:LinkElement;
 		[SkinPart(required="false")]public var specialChar:LinkElement;
@@ -96,6 +97,11 @@ package component
 		[SkinPart(required="false")]public var sendInterval:CheckBox;
 		[SkinPart(required="false")]public var sendBtn:Button;
 		[SkinPart(required="false")]public var resetBtn:Button;
+		[SkinPart(required="false")]public var confirm_mode:SpanElement;
+		[SkinPart(required="false")]public var confirm_count:SpanElement;
+		[SkinPart(required="false")]public var confirm_reservation:SpanElement;
+		[SkinPart(required="false")]public var confirm_delay:SpanElement;
+		
 		
 		
 		
@@ -133,7 +139,7 @@ package component
 		}
 		
 		public function get sendMode():String {	return _sendMode; }
-		public function set sendMode(value:String):void	{ _sendMode = value; }
+		public function set sendMode(value:String):void	{ _sendMode = value; confirm_mode.text = sendMode; }
 		
 		public function get currentByte():int {	return _currentByte; }
 		public function set currentByte(value:int):void	{ _currentByte = value; this.byte.text = String( value ); }
@@ -143,7 +149,7 @@ package component
 		 * phones properties
 		 * */
 		[Bindable]
-		private var alPhone:ArrayCollection = new ArrayCollection();
+		public var alPhone:ArrayCollection = new ArrayCollection();
 		private var Kpf:KoreaPhoneNumberFormatter = new KoreaPhoneNumberFormatter();
 		private var excel:Excel;
 		private var sma:SendModeAddress;
@@ -201,31 +207,30 @@ package component
 			
 			super.partAdded(partName, instance);
 			
-			if (instance == specialChar) specialChar.addEventListener(MouseEvent.CLICK, emoticonView_clickHandler );
+			if (instance == specialChar) specialChar.addEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler );
 			else if (instance == message) message.addEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
 			else if (instance == sendListInput)	sendListInput.addEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
 			else if (instance == sendListInputBtn) sendListInputBtn.addEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
-			else if (instance == dupleDelete) dupleDelete.addEventListener(MouseEvent.CLICK, dupleDelete_clickHandler);
+			else if (instance == dupleDelete) dupleDelete.addEventListener(FlowElementMouseEvent.CLICK, dupleDelete_clickHandler);
 			else if (instance == sendList) sendList.dataProvider = alPhone;
 			else if (instance == callback) {
 				
 				callback.labelField = "phone";
 				rt.callback = this.callback;
 				rt.getReturnPhone();
-				rt.setData();
 				callback.addEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
 			}
 			else if (instance == sendBtn) sendBtn.addEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
-			else if (instance == emoticon) emoticon.addEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
-			else if (instance == myMessage) myMessage.addEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
-			else if (instance == messageSaveBtn) messageSaveBtn.addEventListener(MouseEvent.CLICK, messageSaveBtn_clickHandler);
-			else if (instance == sentMessage) sentMessage.addEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
-			else if (instance == callbackSave) callbackSave.addEventListener(MouseEvent.CLICK, rt.callbackSave_clickHandler);
-			else if (instance == sendListFromExcel) sendListFromExcel.addEventListener(MouseEvent.CLICK, sendListFromExcel_clickHandler);
-			else if (instance == sendListFromAddress) sendListFromAddress.addEventListener(MouseEvent.CLICK, sendListFromAddress_clickHandler);
-			else if (instance == sendListFromSent) sendListFromSent.addEventListener(MouseEvent.CLICK, sendListFromSent_clickHandler);
-			else if (instance == sendListFromCopy) sendListFromCopy.addEventListener(MouseEvent.CLICK, sendListFromCopy_clickHandler);
-			else if (instance == phoneRemoveAll) phoneRemoveAll.addEventListener(MouseEvent.CLICK, phoneRemoveAll_clickHandler);
+			else if (instance == emoticon) emoticon.addEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
+			else if (instance == myMessage) myMessage.addEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
+			else if (instance == messageSaveBtn) messageSaveBtn.addEventListener(FlowElementMouseEvent.CLICK, messageSaveBtn_clickHandler);
+			else if (instance == sentMessage) sentMessage.addEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
+			else if (instance == callbackSave) callbackSave.addEventListener(FlowElementMouseEvent.CLICK, rt.callbackSave_clickHandler);
+			else if (instance == sendListFromExcel) sendListFromExcel.addEventListener(FlowElementMouseEvent.CLICK, sendListFromExcel_clickHandler);
+			else if (instance == sendListFromAddress) sendListFromAddress.addEventListener(FlowElementMouseEvent.CLICK, sendListFromAddress_clickHandler);
+			else if (instance == sendListFromSent) sendListFromSent.addEventListener(FlowElementMouseEvent.CLICK, sendListFromSent_clickHandler);
+			else if (instance == sendListFromCopy) sendListFromCopy.addEventListener(FlowElementMouseEvent.CLICK, sendListFromCopy_clickHandler);
+			else if (instance == phoneRemoveAll) phoneRemoveAll.addEventListener(FlowElementMouseEvent.CLICK, phoneRemoveAll_clickHandler);
 			
 			else if (instance == sendReservation) sendReservation.addEventListener(Event.CHANGE, sendReservation_changeHandler);
 			else if (instance == sendInterval) sendInterval.addEventListener(Event.CHANGE, sendInterval_changeHandler);
@@ -242,18 +247,18 @@ package component
 			
 			super.partRemoved(partName, instance);
 			
-			if (instance == specialChar) specialChar.removeEventListener(MouseEvent.CLICK, emoticonView_clickHandler );
+			if (instance == specialChar) specialChar.removeEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler );
 			else if (instance == message) message.removeEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
 			else if (instance == sendListInput)	sendListInput.removeEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
 			else if (instance == sendListInputBtn) sendListInputBtn.removeEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
-			else if (instance == dupleDelete) dupleDelete.removeEventListener(MouseEvent.CLICK, dupleDelete_clickHandler);
+			else if (instance == dupleDelete) dupleDelete.removeEventListener(FlowElementMouseEvent.CLICK, dupleDelete_clickHandler);
 			else if (instance == callback) callback.removeEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
 			else if (instance == sendBtn) sendBtn.removeEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
-			else if (instance == emoticon) emoticon.removeEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
-			else if (instance == myMessage) myMessage.removeEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
-			else if (instance == messageSaveBtn) messageSaveBtn.removeEventListener(MouseEvent.CLICK, messageSaveBtn_clickHandler);
-			else if (instance == sentMessage) sentMessage.removeEventListener(MouseEvent.CLICK, emoticonView_clickHandler);
-			else if (instance == callbackSave) callbackSave.removeEventListener(MouseEvent.CLICK, rt.callbackSave_clickHandler);
+			else if (instance == emoticon) emoticon.removeEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
+			else if (instance == myMessage) myMessage.removeEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
+			else if (instance == messageSaveBtn) messageSaveBtn.removeEventListener(FlowElementMouseEvent.CLICK, messageSaveBtn_clickHandler);
+			else if (instance == sentMessage) sentMessage.removeEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
+			else if (instance == callbackSave) callbackSave.removeEventListener(FlowElementMouseEvent.CLICK, rt.callbackSave_clickHandler);
 			
 			if (instance is LinkElement) {
 				instance.removeEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
@@ -284,16 +289,30 @@ package component
 		public function isValid():void {
 			
 			var validMessage:String = "";
-			
-			if ( Gv.bLogin == false ) validMessage = "로그인 후 이용 가능 합니다.";
-			else if ( msg == "" ) validMessage = "메시지를 입력 하세요.";
-			else if (this.alPhone.length <= 0) validMessage = "전화번호를 입력하세요.";
-			else if (rt.returnPhone == "") validMessage = "회신번호를 입력하세요.";
+			var subMessage:String = "";
+			if ( Gv.bLogin == false ) {
+				validMessage = "로그인 후 이용 가능 합니다.";
+				subMessage = "회원 가입은 상단의 회원가입 버튼을 클릭하세요.";
+			}
+			else if ( msg == "" ) {
+				validMessage = "메시지를 입력 하세요.";
+				subMessage = "90Byte 이상 입력시 LMS로 자동 전환됩니다.";
+			}
+			else if (this.alPhone.length <= 0) {
+				validMessage = "전화번호를 추가하세요.";
+				subMessage = "아래 대량입력, 주소록, 엑셀등 글씨를 클릭 하여 추가 하실 수 있습니다.";
+			}
+			else if (rt.returnPhone == "") {
+				validMessage = "회신번호를 입력하세요.";
+				subMessage = "여러 번호를 저장 하거나 선택 할 수 있습니다.";
+			}
 			else {
 				validMessage = "보내기 버튼을 누르면 전송 됩니다.";
+				subMessage = "예약 설정 또는 간격설정을 하실 수 있습니다.";
 				sendBtn.enabled = true;
 			}
 			helpText.text = validMessage;
+			subHelpText.text = subMessage;
 			
 		}
 		
@@ -350,9 +369,13 @@ package component
 		public function phoneFormat(ph:String):String {	return Kpf.format(ph);	}
 		private function setTotalCount():void { 
 			this.countPhone.text = new String(this.alPhone.length);
+			confirm_count.text = this.countPhone.text;
 			this.isValid();
 		}
 		private function dupleDelete_clickHandler(event:Event):void {
+			
+			event.stopImmediatePropagation();
+			event.preventDefault();
 			var cnt:int = alPhone.length;
 			var arr:ArrayCollection = new ArrayCollection();
 			var tempStr:String = "";
@@ -375,7 +398,9 @@ package component
 			SLibrary.alert(dupCnt + " 건의 중복번호가 제거 되었습니다.");
 		}
 		
-		private function sendListFromExcel_clickHandler(event:MouseEvent):void {
+		private function sendListFromExcel_clickHandler(event:FlowElementMouseEvent):void {
+			event.stopImmediatePropagation();
+			event.preventDefault();
 			toggleExcel();
 		}
 		public function toggleExcel():void {
@@ -413,8 +438,9 @@ package component
 		/**
 		 * save message
 		 * */
-		public function messageSaveBtn_clickHandler(event:MouseEvent):void {
-			
+		public function messageSaveBtn_clickHandler(event:FlowElementMouseEvent):void {
+			event.stopImmediatePropagation();
+			event.preventDefault();
 			if (message.text != "") {
 				RemoteSingleManager.getInstance.addEventListener("saveMymsg", messageSaveBtn_resultHandler, false, 0, true);
 				RemoteSingleManager.getInstance.callresponderToken 
@@ -486,7 +512,9 @@ package component
 		}
 		
 		
-		private function sendListFromAddress_clickHandler(event:MouseEvent):void {
+		private function sendListFromAddress_clickHandler(event:FlowElementMouseEvent):void {
+			event.stopImmediatePropagation();
+			event.preventDefault();
 			toggleSendModeAddress();
 		}
 		private function toggleSendModeAddress():void {
@@ -520,7 +548,9 @@ package component
 		}
 		
 		
-		private function sendListFromSent_clickHandler(event:MouseEvent):void {
+		private function sendListFromSent_clickHandler(event:FlowElementMouseEvent):void {
+			event.stopImmediatePropagation();
+			event.preventDefault();
 			toggleSendModeLog();
 		}
 		private function toggleSendModeLog():void {
@@ -554,15 +584,17 @@ package component
 		}
 		
 		
-		private function phoneRemoveAll_clickHandler(event:MouseEvent):void {
-			
+		private function phoneRemoveAll_clickHandler(event:FlowElementMouseEvent):void {
+			event.stopImmediatePropagation();
+			event.preventDefault();
 			Object(sendList.dataProvider).removeAll();
 			alPhone.removeAll();
 		}
 		
 		
-		private function sendListFromCopy_clickHandler(event:MouseEvent):void {
-			
+		private function sendListFromCopy_clickHandler(event:FlowElementMouseEvent):void {
+			event.stopImmediatePropagation();
+			event.preventDefault();
 			togglePaste();
 		}
 		private function togglePaste():void {
@@ -597,13 +629,14 @@ package component
 		}
 		
 		
-		private function emoticonView_clickHandler(event:MouseEvent):void {
-			
+		private function emoticonView_clickHandler(event:FlowElementMouseEvent):void {
+			event.stopImmediatePropagation();
+			event.preventDefault();
 			var state:String = "emoticon";
-			if (event.target == emoticon) state="emoticon";
-			else if (event.target == specialChar) state="specialChar";
-			else if (event.target == myMessage) state="myMessage";
-			else if (event.target == sentMessage) state="sentMessage";
+			if (event.flowElement == emoticon) state="emoticon";
+			else if (event.flowElement == specialChar) state="specialChar";
+			else if (event.flowElement == myMessage) state="myMessage";
+			else if (event.flowElement == sentMessage) state="sentMessage";
 			
 			if (emoticonBox == null) {
 				createEmoticon(state);
@@ -653,7 +686,9 @@ package component
 			}else {
 				
 				sendReservation.label = "예약설정";
+				confirm_reservation.text = "";
 				removeReaervation();
+				
 			}
 		}
 		private function createReaervation():void {
@@ -669,12 +704,15 @@ package component
 			
 		}
 		private function reservation_setReservationHandler(event:CustomEvent):void {
+			
 			sendReservation.label = event.result as String;
+			confirm_reservation.text = " "+sendReservation.label+" 시간에 ";
 		}
 		private function reservation_cancelReservationHandler(event:Event):void {
 			
 			sendReservation.selected = false;
 			sendReservation.dispatchEvent(new Event("change"));
+			
 		}
 		
 		private function removeReaervation():void {
@@ -696,6 +734,7 @@ package component
 			}else {
 				
 				sendInterval.label = "간격설정";
+				confirm_delay.text = "";
 				removeInterval();
 			}
 		}
@@ -714,12 +753,14 @@ package component
 		private function interval_setintervalHandler(event:CustomEvent):void {
 			
 			var obj:Object = event.result;
-			sendInterval.label = obj.cnt + " / " + obj.minute;
+			sendInterval.label = obj.cnt + "/" + obj.minute;
+			confirm_delay.text = sendInterval.label+" 간격으로";
 		}
 		private function interval_cancelintervalHandler(event:Event):void {
 			
 			sendInterval.selected = false;
 			sendInterval.dispatchEvent(new Event("change"));
+			
 		}
 		
 		private function removeInterval():void {

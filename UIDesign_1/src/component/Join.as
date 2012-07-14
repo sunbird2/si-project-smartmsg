@@ -13,6 +13,7 @@ package component
 	import lib.RemoteSingleManager;
 	import lib.SLibrary;
 	
+	import mx.events.FlexEvent;
 	import mx.validators.StringValidator;
 	import mx.validators.ValidationResult;
 	
@@ -94,6 +95,8 @@ package component
 			
 			super.partAdded(partName, instance);
 			if (instance == next1) next1.addEventListener( MouseEvent.CLICK, next1_clickHandler );
+			else if (instance == agree1) agree1.addEventListener( Event.CHANGE, autoNext1 );
+			else if (instance == agree2) agree2.addEventListener( Event.CHANGE, autoNext1 );
 			else if (instance == cancel1) cancel1.addEventListener( MouseEvent.CLICK, cancel1_clickHandler );
 			else if (instance == userid) userid.addEventListener(KeyboardEvent.KEY_UP, userid_keyUpHandler );
 			else if (instance == userpw) userpw.addEventListener(KeyboardEvent.KEY_UP, userpw_keyUpHandler);
@@ -109,11 +112,14 @@ package component
 			else if (instance == next2) next2.addEventListener(MouseEvent.CLICK, next2_clickHandler);
 			else if (instance == sec) autoIn();
 			
+			
 		}
 		
 		override protected function partRemoved(partName:String, instance:Object) : void {
 			super.partRemoved(partName, instance);
 			if (instance == next1) next1.removeEventListener( MouseEvent.CLICK, next1_clickHandler );
+			else if (instance == agree1) agree1.removeEventListener( Event.CHANGE, autoNext1 );
+			else if (instance == agree2) agree2.removeEventListener( Event.CHANGE, autoNext1 );
 			else if (instance == cancel1) cancel1.removeEventListener( MouseEvent.CLICK, cancel1_clickHandler );
 			else if (instance == userid) userid.removeEventListener(KeyboardEvent.KEY_UP, userid_keyUpHandler );
 			else if (instance == userpw) userpw.removeEventListener(KeyboardEvent.KEY_UP, userpw_keyUpHandler);
@@ -126,6 +132,14 @@ package component
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void	{
 			
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
+		}
+		
+		private function autoNext1(event:Event):void {
+			
+			if (agree1.selected == true && agree2.selected == true) {
+				step = 1;
+				invalidateSkinState();
+			}
 		}
 		
 		/**

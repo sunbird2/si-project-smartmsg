@@ -8,11 +8,14 @@
 			   width="100%" height="100%"
 			   frameRate="45"
 			   skinClass="skin.AppSkin"
+			   stateChangeComplete="application_stateChangeCompleteHandler(event)"
 			   >
 	<fx:Style source="assets/style/styles.css"/>
 	<fx:Script>
 		<![CDATA[
 			import component.Join;
+			
+			import mx.events.FlexEvent;
 			
 			private var join:Join;
 			
@@ -24,19 +27,36 @@
 			
 			public function joinView():void {
 				
+				this.currentState = "join";
 				join = new Join();
-				join.verticalCenter = 0;
-				join.horizontalCenter = 0;
 				join.addEventListener("complete", join_completeHandler);
-				this.contentGroup.addElement(join);
+				this.main_group.addElement(join);
 			}
 			
 			private function join_completeHandler(event:Event):void {
 				
-				join.removeEventListener("complete", join_completeHandler);
-				this.contentGroup.removeElement(join);
-				login.login_check();
+				join_remove();
+				this.currentState = "home";
+				
 			}
+			private function join_remove():void {
+				
+				if (join != null) {
+					join.removeEventListener("complete", join_completeHandler);
+					this.main_group.removeElement(join);
+					join = null;
+					login.login_check();	
+				}
+				
+			}
+			
+			protected function application_stateChangeCompleteHandler(event:FlexEvent):void
+			{
+				if (currentCSSState != "join" && join != null) {
+					join_remove();
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -46,6 +66,7 @@
 		<s:State name="address"/>
 		<s:State name="bill"/>
 		<s:State name="log"/>
+		<s:State name="join"/>
 	</s:states>
 	<fx:Declarations>
 		<s:Bounce id="bounceEasing"/>
@@ -86,56 +107,66 @@
 					 horizontalCenter="0" y="0"
 					 change="{this.currentState = event.result as String}"/>
 	
-	<component:Login id="login" skinClass="skin.LoginSkin"
-					 horizontalCenter="10" y="110"
-					 />
 	
 	
-	<s:Group id="main_group" width="1024" top="100" horizontalCenter="0">
-		
-		<!-- frash news -->
-		<s:VGroup top="100">
-			<s:RichText width="199" height="20" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase" x="130" y="650">
-				<s:content><s:p><s:span>Categories</s:span></s:p></s:content>
-			</s:RichText>
+	<s:VGroup width="1140" paddingTop="100" horizontalCenter="0" horizontalAlign="center">
+		<s:Group id="main_group" width="1024">
 			
-			<s:Group width="220" top="80">
-				<s:BitmapImage source="@Embed('/assets/category_line.png')"
-							   top="30"
-							   smooth="true" alpha="0.2"/>
-				<s:BitmapImage source="@Embed('/assets/category_dot.png')"
-							   top="12" smooth="true"  />
-				<s:VGroup left="16" top="10" gap="16" >
-					<s:Label text="단문( SMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-					<s:Label text="장문( LMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-					<s:Label text="사진( MMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-					<s:Label text="엑셀 업로드 발송" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-					<s:Label text="주소록 관리" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-					<s:Label text="결제하기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-					<s:Label text="발송내역 ( 통계 )" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-					<s:Label text="고객센터" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-				</s:VGroup>
-			</s:Group>
-			<s:Spacer height="10"/>
-			<s:RichText width="199" height="20" whiteSpaceCollapse="preserve" fontWeight="bold" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
-				<s:content><s:p><s:span>Fresh</s:span><s:span color="#8d8d8d"> News</s:span></s:p></s:content>
+			<component:Login id="login" left="260" skinClass="skin.LoginSkin" excludeFrom="join" />
+			
+			<!-- category && frash news -->
+			<s:VGroup top="100" excludeFrom="join">
+				<s:RichText width="199" height="20" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase" x="130" y="650">
+					<s:content><s:p><s:span>Categories</s:span></s:p></s:content>
+				</s:RichText>
+				
+				<s:Group width="220" top="80">
+					<s:BitmapImage source="@Embed('/assets/category_line.png')"
+								   top="30"
+								   smooth="true" alpha="0.2"/>
+					<s:BitmapImage source="@Embed('/assets/category_dot.png')"
+								   top="12" smooth="true"  />
+					<s:VGroup left="16" top="10" gap="16" >
+						<s:Label text="단문( SMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+						<s:Label text="장문( LMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+						<s:Label text="사진( MMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+						<s:Label text="엑셀 업로드 발송" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+						<s:Label text="주소록 관리" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+						<s:Label text="결제하기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+						<s:Label text="발송내역 ( 통계 )" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+						<s:Label text="고객센터" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+					</s:VGroup>
+				</s:Group>
+				<s:Spacer height="20"/>
+				<s:RichText width="199" height="20" whiteSpaceCollapse="preserve" fontWeight="bold" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
+					<s:content><s:p><s:span>Fresh</s:span><s:span color="#8d8d8d"> News</s:span></s:p></s:content>
+				</s:RichText>
+				<s:RichText width="220" height="416" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="12" lineHeight="166.65%">
+					<s:content><s:p><s:span fontFamily="Dotum" fontWeight="bold">June 30, 2012</s:span></s:p><s:p><s:span color="#008cc4" fontSize="14" lineHeight="142.85%">[이벤트] 회원가입 무료건 제공</s:span></s:p><s:p><s:span fontSize="14">저희 서비스에 관심을 가져주시고 새로 가입하신 모든 분들께 100건의 체험 건수를 무료로 드립니다.</s:span></s:p><s:p><s:span fontFamily="Dotum" fontWeight="bold">June 14, 2012</s:span></s:p><s:p><s:span color="#008cc4" fontSize="14" lineHeight="142.85%">[점검] 정기 시스템</s:span></s:p><s:p><s:span fontSize="14" lineHeight="178.55%">보다 안정적이고 신속한 서비스를 위해 00:00 ~ 00:30까지 시스템을 점검 합니다.</s:span></s:p><s:p><s:span fontFamily="Dotum" fontWeight="bold">May 29, 2012</s:span></s:p><s:p><s:span color="#008cc4" fontSize="14" lineHeight="142.85%">[공징] 2012년 3분기 세금계산서</s:span></s:p><s:p><s:span fontSize="14" lineHeight="178.55%">3분기 세금계산서 발행을 마감 합니다. 확인하시고 신청하시기 바랍니다.</s:span></s:p>
+					</s:content>
+				</s:RichText>
+			</s:VGroup><!-- category && frash news -->
+			
+			
+			<component:Home id="home" includeIn="home" left="0" right="0" top="0" bottom="0" minWidth="1024" minHeight="420" horizontalCenter="0" />
+			<component:Send id="send" includeIn="send" skinClass="skin.SendSkin" minWidth="1024" minHeight="420" horizontalCenter="0"/>
+			<component:Address id="address" includeIn="address" skinClass="skin.AddressSkin" minWidth="1024" minHeight="420" horizontalCenter="0" />
+			<component:Bill id="bill" includeIn="bill" horizontalCenter="0" minWidth="1024" minHeight="420" width="100%" />
+			<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" minWidth="1024" minHeight="420" horizontalCenter="0" />
+			
+		</s:Group>
+		
+		<s:Group width="1140">
+			<s:Rect width="100%" height="118"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
+			<s:RichText width="220" height="66"  x="129" verticalCenter="0" whiteSpaceCollapse="preserve" fontFamily="NGDB" color="#454545" fontSize="20" lineHeight="170%" typographicCase="uppercase">
+				<s:content><s:p><s:span>Customer Service</s:span></s:p><s:p><s:span fontFamily="Times New Roman" color="#008cc4" fontSize="36" lineHeight="94.45%">070.9445.7837</s:span></s:p></s:content>
 			</s:RichText>
-			<s:RichText width="220" height="416" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="12" lineHeight="166.65%">
-				<s:content><s:p><s:span fontFamily="Dotum" fontWeight="bold">June 30, 2012</s:span></s:p><s:p><s:span color="#008cc4" fontSize="14" lineHeight="142.85%">[이벤트] 회원가입 무료건 제공</s:span></s:p><s:p><s:span fontSize="14">저희 서비스에 관심을 가져주시고 새로 가입하신 모든 분들께 100건의 체험 건수를 무료로 드립니다.</s:span></s:p>
-					<s:p><s:span fontFamily="Dotum" fontWeight="bold">June 14, 2012</s:span></s:p><s:p><s:span color="#008cc4" fontSize="14" lineHeight="142.85%">[점검] 정기 시스템</s:span></s:p><s:p><s:span fontSize="14" lineHeight="178.55%">보다 안정적이고 신속한 서비스를 위해 00:00 ~ 00:30까지 시스템을 점검 합니다.</s:span></s:p>
-					<s:p><s:span fontFamily="Dotum" fontWeight="bold">May 29, 2012</s:span></s:p><s:p><s:span color="#008cc4" fontSize="14" lineHeight="142.85%">[공징] 2012년 3분기 세금계산서</s:span></s:p><s:p><s:span fontSize="14" lineHeight="178.55%">3분기 세금계산서 발행을 마감 합니다. 확인하시고 신청하시기 바랍니다.</s:span></s:p>
-				</s:content>
+			<s:RichText width="331" height="34" x="559" verticalCenter="0" whiteSpaceCollapse="preserve" fontFamily="Arial" color="#ff7b01" fontSize="14" lineHeight="142.85%" textDecoration="underline">
+				<s:content><s:p><s:span>Website template</s:span><s:span color="#454545" textDecoration="none"> designed by TemplateMonster.com</s:span></s:p><s:p><s:span color="#454545" trackingRight="1%" textDecoration="none">         </s:span><s:span trackingRight="1%" textDecoration="none"> </s:span><s:span>3D Models</s:span><s:span color="#454545" textDecoration="none"> provided by Templates.com</s:span></s:p></s:content>
 			</s:RichText>
-		</s:VGroup>
-		
-		
-		<component:Home id="home" includeIn="home" left="0" right="0" top="0" bottom="0" minWidth="1024" minHeight="420" horizontalCenter="0" verticalCenter="0" />
-		<component:Send id="send" includeIn="send" skinClass="skin.SendSkin" minWidth="1024" minHeight="420" horizontalCenter="0" verticalCenter="0"/>
-		<component:Address id="address" includeIn="address" skinClass="skin.AddressSkin" minWidth="1024" minHeight="420" horizontalCenter="0" verticalCenter="0" />
-		<component:Bill id="bill" includeIn="bill" horizontalCenter="0" minWidth="1024" minHeight="420" verticalCenter="0" />
-		<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" minWidth="1024" minHeight="420" horizontalCenter="0" verticalCenter="0" />
-		
-	</s:Group>
+		</s:Group>
+	</s:VGroup>
+	
 
 	
 	

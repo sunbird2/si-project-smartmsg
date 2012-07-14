@@ -89,6 +89,7 @@ package component
 				
 				var l:SpanElement = new SpanElement();
 				l.text = Gv.user_id;
+				l.textDecoration = "none";
 				login_id.addChild(l);
 			}
 			else if (instance == point) {
@@ -98,6 +99,7 @@ package component
 				var p:SpanElement = new SpanElement();
 				p.text =  SLibrary.addComma( String(Gv.point) );
 				p.color = 0xff7b01;
+				p.textDecoration = "none";
 				point.addChild(p);
 			}
 			else if (instance == user_pw) user_pw.addEventListener(FlexEvent.ENTER, login_clickHandler); 
