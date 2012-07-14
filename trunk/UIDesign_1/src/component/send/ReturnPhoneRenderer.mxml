@@ -43,10 +43,10 @@
 			
 		]]>
 	</fx:Script>
-	<s:Group width="100%" height="20">
-		<s:Label id="phone" left="2" verticalCenter="0" />
-		<s:Button id="defBtn"  right="16" verticalCenter="0" click="def_clickHandler(event)" label="기본설정"/>
-		<s:Button id="deleteBtn" right="1" verticalCenter="0" click="delete_clickHandler(event)" label="삭제" />
+	<s:Group width="100%" height="30">
+		<s:Label id="phone" left="2" verticalCenter="0" fontFamily="NGD" fontSize="16" />
+		<s:Button id="defBtn" width="70"  right="32" verticalCenter="0" click="def_clickHandler(event)" label="기본설정" fontFamily="NGD" fontSize="12"/>
+		<s:Button id="deleteBtn" width="30" right="1" verticalCenter="0" click="delete_clickHandler(event)" label="X" fontFamily="NGD" fontSize="12" />
 	</s:Group>
 	
 </s:ItemRenderer>

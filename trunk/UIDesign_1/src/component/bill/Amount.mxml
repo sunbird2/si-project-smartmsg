@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
 	<fx:Metadata>
 		[Event(name="selected", type="flash.events.Event")]
 		[Event(name="select", type="flash.events.Event")]
@@ -36,14 +36,14 @@
 		<s:State name="selected" />
 	</s:states>
 	<s:TileGroup includeIn="select">
-		<s:Label text="10,000원 124건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
-		<s:Label text="30,000원 1,243건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
-		<s:Label text="50,000원 2,224건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
-		<s:Label text="100,000원 3,324건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
-		<s:Label text="10,000원 124건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
-		<s:Label text="30,000원 1,243건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
-		<s:Label text="50,000원 2,224건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
-		<s:Label text="100,000원 3,324건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" />
+		<s:Label text="10,000원 124건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />
+		<s:Label text="30,000원 1,243건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />
+		<s:Label text="50,000원 2,224건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />
+		<s:Label text="100,000원 3,324건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />
+		<s:Label text="10,000원 124건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />
+		<s:Label text="30,000원 1,243건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />
+		<s:Label text="50,000원 2,224건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />
+		<s:Label text="100,000원 3,324건/12원" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />
 	</s:TileGroup>
-	<s:Label id="amountLabel" text="{amount}" includeIn="selected" click="selected_clickHandler(event)" />
+	<s:Label id="amountLabel" text="{amount}" includeIn="selected" fontFamily="NGDB" fontSize="26" click="selected_clickHandler(event)" buttonMode="true" />
 </s:Group>

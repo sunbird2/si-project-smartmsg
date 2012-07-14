@@ -15,6 +15,7 @@
 				super.data = value;
 				if (data) {
 					var obj:Send = parentApplication.send as Send;
+					idx.text = String(obj.alPhone.getItemIndex(data)+1);
 					pna.text = data.pName;
 					pno.text = obj.phoneFormat( data.pNo );
 				}
@@ -29,9 +30,10 @@
 			
 		]]>
 	</fx:Script>
-	<s:HGroup>
-		<s:Label id="pna"/>
-		<s:Label id="pno"/>	
-		<s:Button label="del" click="del_clickHandler(event)" />
-	</s:HGroup>
+	<s:Group width="100%" height="25">
+		<s:Label id="idx" left="5" verticalCenter="0" fontFamily="Gulim" fontSize="16"/>
+		<s:Label id="pno" left="50" verticalCenter="0" fontFamily="Gulim" fontSize="16"/>	
+		<s:Label id="pna" left="150" verticalCenter="0" fontFamily="Gulim" fontSize="16"/>
+		<s:Button label="X" click="del_clickHandler(event)" fontFamily="NGD" width="30" right="5" verticalCenter="0" />
+	</s:Group>
 </s:ItemRenderer>

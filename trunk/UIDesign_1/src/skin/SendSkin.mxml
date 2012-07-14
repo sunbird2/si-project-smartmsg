@@ -28,10 +28,10 @@
 			
 			<s:Group top="100" horizontalCenter="0">
 				<s:BitmapImage source="@Embed('assets/message_help2.png')" smooth="true"/>
-				<s:RichText id="helpText" left="50" top="30"
+				<s:RichText id="helpText" left="30" top="24"
 							text="메시지를 입력하세요" color="0xFFFFFF" fontFamily="NGDB" fontSize="42"/>
-				<s:RichText id="subHelpText" left="50" top="70"
-							text="메시지를 입력하세요" color="0xCCCCCC" fontFamily="NGD" fontSize="30"/>
+				<s:RichText id="subHelpText" left="30" top="69" width="630"
+							text="90Byte 이상 입력시 LMS로 자동 전환됩니다." color="0xCCCCCC" fontFamily="NGD" fontSize="20"/>
 			</s:Group>
 			
 			<s:VGroup top="270" bottom="30" width="690" horizontalCenter="0">
@@ -41,46 +41,42 @@
 						<s:RichText width="199" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24">
 							<s:content><s:p><s:span>1. 메시지</s:span><s:span color="#8d8d8d"> </s:span><s:span color="#8d8d8d">입력</s:span></s:p></s:content>
 						</s:RichText>
-						<s:Group width="225" height="220" >
-							<s:Rect left="0" right="0" top="0" bottom="0" radiusX="2" radiusY="2">
-								<s:stroke>
-									<s:SolidColorStroke color="#BABABA"/>
-								</s:stroke>
-							</s:Rect>
-							<s:Scroller skinClass="skin.scroller.ThinScrooller" left="5" right="5" top="5" bottom="25" >
-								<s:RichEditableText id="message" width="100%" height="100%" 
-													focusEnabled="false" fontFamily="굴림체" fontSize="16"/>
-							</s:Scroller>
-							
-						</s:Group>
+						<s:TextArea id="message" width="225" height="220" skinClass="skin.compnent.TextAreaSkin01" prompt="여기에 메시지를 입력하세요." fontFamily="Gulim" fontSize="16" />
+						
 						<s:RichText whiteSpaceCollapse="preserve" fontFamily="NGD" color="#515151" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" kerning="off">
 							<s:content><s:p><s:span id="byte">0</s:span><s:span kerning="auto"> </s:span><s:span fontSize="12" lineHeight="166.65%" kerning="auto">byte</s:span></s:p></s:content>
 						</s:RichText>
 						<s:RichEditableText editable="false" focusEnabled="false"  width="225" height="201" textDecoration="none" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%">
-							<s:content><s:p><s:span>발송할 메시지를 직접 입력하거나   </s:span><s:a id="myMessage" href="내메시지 창을 열어봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">내메시지</s:span></s:a><s:span>, </s:span><s:a id="sentMessage" href="최근발솓메시지 창을 열어봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">최근발송메시지</s:span></s:a><s:span>, </s:span><s:a id="emoticon" href="이모티콘 창을 열어 봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">이모티콘</s:span></s:a><s:span>, </s:span><s:a id="specialChar" href="특수문자창을 열어 봅니다." color="#008cc4" fontFamily="NGD" ><s:span color="#008cc4" textDecoration="none">특수문자</s:span></s:a><s:span>에서 추가할 수 있으며, 90byte 이상을 입력하면 LMS(장문), 이미지를 </s:span><s:a id="addImage" color="#008cc4" href="이미지를 첨부 합니다." fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">첨부</s:span></s:a><s:span> 하면 MMS(사진)를 발송할 수 있습니다. 또한 입력한 내용을 내메시지에 </s:span><s:a id="messageSaveBtn" href="입력된 메시지를 내메시지에 저장 합니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">저장</s:span></s:a><s:span> 하여 재사용 가능 합니다.</s:span></s:p></s:content>
+							<s:content><s:p><s:span>발송할 메시지를 직접 입력하거나,   </s:span><s:a id="myMessage" href="내메시지 창을 열어봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">내메시지</s:span></s:a><s:span>, </s:span><s:a id="sentMessage" href="최근발솓메시지 창을 열어봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">최근발송메시지</s:span></s:a><s:span>, </s:span><s:a id="emoticon" href="이모티콘 창을 열어 봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">이모티콘</s:span></s:a><s:span>, </s:span><s:a id="specialChar" href="특수문자창을 열어 봅니다." color="#008cc4" fontFamily="NGD" ><s:span color="#008cc4" textDecoration="none">특수문자</s:span></s:a><s:span>에서 추가할 수 있으며, 90byte 이상을 입력하면 LMS(장문), 이미지를 </s:span><s:a id="addImage" color="#008cc4" href="이미지를 첨부 합니다." fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">첨부</s:span></s:a><s:span> 하면 MMS(사진)를 발송할 수 있습니다. 또한 입력한 내용을 내메시지에 </s:span><s:a id="messageSaveBtn" href="입력된 메시지를 내메시지에 저장 합니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">저장</s:span></s:a><s:span> 하여 재사용 가능 합니다.</s:span></s:p></s:content>
 						</s:RichEditableText>
 						
 					</s:VGroup>
 					
 					
 					<!--수신전화번호-->
-					<s:VGroup width="311" right="0">
+					<s:VGroup width="380" right="0">
 						<s:RichText width="199" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%">
 							<s:content><s:p><s:span>2. 전화번호</s:span><s:span color="#8d8d8d"> </s:span><s:span color="#8d8d8d">입력</s:span></s:p></s:content>
 						</s:RichText>
 						<s:HGroup>
-							<s:TextInput id="sendListInput" skinClass="skin.compnent.TextInputSkin01" height="30" />
+							<s:TextInput id="sendListInput" skinClass="skin.compnent.TextInputSkin01" fontSize="16" height="30" />
 							<s:Button id="sendListInputBtn" skinClass="skin.compnent.ButtonSkin01" label="+" fontFamily="NGD" />	
 						</s:HGroup>
 						
-						<s:List id="sendList" itemRenderer="component.send.SendListRenderer" width="200" height="130" />
+						<s:List id="sendList" 
+								width="380" height="230" 
+								itemRenderer="component.send.SendListRenderer"
+								skinClass="skin.compnent.ListSkin01"
+								alternatingItemColors="{[0xFFFFFF,0xEEEEEE]}"
+								rollOverColor="0xDDDDDD"
+								 />
 						
 						
 						<s:RichText whiteSpaceCollapse="preserve" fontFamily="NGD" color="#515151" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" kerning="off">
 							<s:content><s:p><s:span id="countPhone">0</s:span><s:span kerning="auto"> </s:span><s:span fontSize="12" lineHeight="166.65%" kerning="auto">명</s:span></s:p></s:content>
 						</s:RichText>
 						
-						<s:RichEditableText editable="false" focusEnabled="false"  width="311" height="174" textDecoration="none" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%">
+						<s:RichEditableText editable="false" focusEnabled="false"  width="380" height="174" textDecoration="none" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%">
 							<s:content><s:p><s:span>전송할 전화번호를 직접 입력 후 추가 하거나 </s:span><s:a id="sendListFromCopy" href="복사,붙여넣거나 대량입력 할 수 있는 창을 열어봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">대량입력</s:span></s:a><s:span>, </s:span><s:a id="sendListFromAddress" href="주소록을 영어 봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">주소록</s:span></s:a><s:span>, </s:span><s:a id="sendListFromExcel" href="엑셍을 업로드 할 수 있는 창을 열어 봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">엑셀</s:span></s:a><s:span>, </s:span><s:a id="sendListFromSent" href="최근발송 목록을 추가 할수 있는 창을 열어 봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">최근발송목록</s:span></s:a><s:span>을 통해 일괄 추가할 수 있습니다. 추가된 전화번호는 아이콘을 통해 제거 하거나 </s:span><s:a id="phoneRemoveAll" href="입력된 모든 전화번호를 지웁니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">전체삭제</s:span></s:a><s:span> 할 수 있습니다.</s:span></s:p><s:p><s:span>중복번호는 </s:span><s:a id="dupleDelete"  href="중복번호를 제거 합니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">직접 제거</s:span></s:a><s:span>하거나 발송시 자동 실패 처리 됩니다.</s:span></s:p></s:content>
 						</s:RichEditableText>
 					</s:VGroup>
@@ -93,12 +89,12 @@
 						<s:RichText width="199" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%">
 							<s:content><s:p><s:span>3. 회신번호</s:span><s:span color="#8d8d8d"> </s:span><s:span color="#8d8d8d">선택</s:span></s:p></s:content>
 						</s:RichText>
-						<s:ComboBox id="callback" 
+						<s:ComboBox id="callback" height="30" fontFamily="NGD" fontSize="16"
 									itemRenderer="component.send.ReturnPhoneRenderer" 
 									skinClass="skin.compnent.ComboSkin01"/>
 						
 						<s:RichEditableText editable="false" focusEnabled="false"  width="225" height="201" textDecoration="none" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%" x="408" y="1001">
-							<s:content><s:p><s:span>회신번호를 직접 입력하거나 입력뇐 번로를 </s:span><s:a id="callbackSave"  href="입력한 회신번호를 저장 합니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">저장</s:span></s:a><s:span> 할수 있습니다. 여러번호를 저장하여 선택 하거나 삭제 또는 저장된 특정번호를 기본회신번호로 설정해 보세요 .</s:span></s:p></s:content>
+							<s:content><s:p><s:span>회신번호를 직접 입력하거나 입력된 번호를 </s:span><s:a id="callbackSave"  href="입력한 회신번호를 저장 합니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">저장</s:span></s:a><s:span> 할 수 있습니다. 여러번호를 저장하여 선택 하거나 삭제 또는 저장된 특정번호를 기본회신번호로 설정해 보세요 .</s:span></s:p></s:content>
 						</s:RichEditableText>
 						
 					</s:VGroup>
@@ -106,18 +102,20 @@
 					
 					
 					<!--전송-->
-					<s:VGroup width="311" right="0">
+					<s:VGroup width="380" right="0">
 						<s:RichText width="199" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%">
 							<s:content><s:p><s:span>4. 발송</s:span><s:span color="#8d8d8d"> </s:span><s:span color="#8d8d8d">처리</s:span></s:p></s:content>
 						</s:RichText>
-						<s:CheckBox id="sendReservation" label="예약설정" fontFamily="Dotum" />
-						<s:CheckBox id="sendInterval" label="간격설정" fontFamily="Dotum" />
-						<s:RichText width="225" height="201" whiteSpaceCollapse="preserve" fontFamily="나눔고딕" color="#454545" fontSize="14" lineHeight="178.55%" textDecoration="underline">
-							<s:content><s:p><s:span>SMS</s:span><s:span textDecoration="none"> 를 </s:span><s:span>1,000</s:span><s:span textDecoration="none">명에게</s:span></s:p><s:p><s:span>2012년 07월 09일 10시00분</s:span><s:span textDecoration="none"> 에</s:span></s:p><s:p><s:span>10개씩 1분간격</s:span><s:span textDecoration="none">으로</s:span></s:p><s:p><s:span textDecoration="none">발송하시겠습니까?</s:span></s:p></s:content>
+						<s:CheckBox id="sendReservation" label="예약설정" fontSize="14" fontFamily="NGD" />
+						<s:CheckBox id="sendInterval" label="간격설정" fontSize="14" fontFamily="NGD" />
+						<s:Spacer height="10" />
+						<s:RichText width="380" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" lineHeight="150%" fontSize="14">
+							<s:content><s:p><s:span id="confirm_mode" fontFamily="NGDB">SMS</s:span><s:span> 를 </s:span><s:span id="confirm_count" fontFamily="NGDB">0</s:span><s:span> 명에게</s:span><s:span id="confirm_reservation" fontFamily="NGDB"></s:span><s:span id="confirm_delay" fontFamily="NGDB"></s:span></s:p><s:p><s:span>발송하시겠습니까?</s:span></s:p></s:content>
 						</s:RichText>
+						<s:Spacer height="10" />
 						<s:HGroup>
-							<s:Button id="sendBtn" label="전송" enabled="false" fontFamily="NGD" />
-							<s:Button id="resetBtn" label="취소" fontFamily="NGD" />	
+							<s:Button id="sendBtn" label="예" enabled="false" color="0x2DB149" fontFamily="NGDB" fontSize="18" skinClass="skin.compnent.ButtonSkin01" />
+							<!--<s:Button id="resetBtn" label="아니오" color="0xFF0000" fontFamily="NGDB" fontSize="18" skinClass="skin.compnent.ButtonSkin01" />	-->
 						</s:HGroup>
 					</s:VGroup>
 					

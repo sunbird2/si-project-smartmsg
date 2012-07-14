@@ -3,6 +3,7 @@ package component
 	/* For guidance on writing an ActionScript Skinnable Component please refer to the Flex documentation: 
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	import component.excel.Excel;
+	import component.util.CustomToolTip;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
@@ -10,6 +11,10 @@ package component
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
+	
+	import flashx.textLayout.elements.LinkElement;
+	import flashx.textLayout.elements.SpanElement;
+	import flashx.textLayout.events.FlowElementMouseEvent;
 	
 	import lib.AlertManager;
 	import lib.CustomEvent;
@@ -25,6 +30,7 @@ package component
 	import mx.events.CollectionEventKind;
 	import mx.events.DragEvent;
 	import mx.events.PropertyChangeEvent;
+	import mx.managers.PopUpManager;
 	import mx.rpc.events.ResultEvent;
 	
 	import spark.components.Button;
@@ -58,12 +64,12 @@ package component
 		
 		// group
 		[SkinPart(required="false")]public var groupList:List;
-		[SkinPart(required="false")]public var groupAddBtn:Button;
+		[SkinPart(required="false")]public var groupAddBtn:LinkElement;
 		
 		// name
 		[SkinPart(required="false")]public var nameList:List;
-		[SkinPart(required="false")]public var nameAddBtn:Button;
-		[SkinPart(required="false")]public var nameCount:RichText;
+		[SkinPart(required="false")]public var nameAddBtn:LinkElement;
+		[SkinPart(required="false")]public var nameCount:SpanElement;
 		
 		
 		
@@ -75,7 +81,7 @@ package component
 		[SkinPart(required="false")]public var cardBtn:Button;
 		
 		// function
-		[SkinPart(required="false")]public var addressFromExcel:RichText;
+		[SkinPart(required="false")]public var addressFromExcel:LinkElement;
 		
 		private var excel:Excel;
 		
@@ -86,6 +92,7 @@ package component
 		private var _bEdite:Boolean = false;
 		
 		private var confirmAlert:AlertManager;
+		private var customToolTip:CustomToolTip;
 		
 		// activeCode and vo
 		private var _activeCode:Number = 0;
@@ -188,12 +195,16 @@ package component
 				nameList.allowMultipleSelection = true;
 				nameList.addEventListener(IndexChangeEvent.CHANGE, nameList_changeHandler);
 				nameList.addEventListener(KeyboardEvent.KEY_UP, namepList_keyUpHandler);
-
 			}
-			else if (instance == groupAddBtn) groupAddBtn.addEventListener(MouseEvent.CLICK, groupAddBtn_clickHandler);
-			else if (instance == nameAddBtn) nameAddBtn.addEventListener(MouseEvent.CLICK, nameAddBtn_clickHandler);
+			else if (instance == groupAddBtn) groupAddBtn.addEventListener(FlowElementMouseEvent.CLICK, groupAddBtn_clickHandler);
+			else if (instance == nameAddBtn) nameAddBtn.addEventListener(FlowElementMouseEvent.CLICK, nameAddBtn_clickHandler);
 			else if (instance == cardBtn) cardBtn.addEventListener(MouseEvent.CLICK, cardBtn_clickHandler);
-			else if (instance == addressFromExcel) addressFromExcel.addEventListener(MouseEvent.CLICK, addressFromExcel_clickHandler);
+			else if (instance == addressFromExcel) addressFromExcel.addEventListener(FlowElementMouseEvent.CLICK, addressFromExcel_clickHandler);
+			
+			if (instance is LinkElement) {
+				instance.addEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
+				instance.addEventListener(FlowElementMouseEvent.ROLL_OUT, tooltip_outHandler);
+			}
 
 		}
 		
@@ -201,6 +212,10 @@ package component
 		override protected function partRemoved(partName:String, instance:Object) : void
 		{
 			super.partRemoved(partName, instance);
+			if (instance is LinkElement) {
+				instance.removeEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
+				instance.removeEventListener(FlowElementMouseEvent.ROLL_OUT, tooltip_outHandler);
+			}
 		}
 		
 		
@@ -384,8 +399,10 @@ package component
 		/**
 		 * add Group
 		 * */
-		private function groupAddBtn_clickHandler(event:MouseEvent):void {
+		private function groupAddBtn_clickHandler(event:FlowElementMouseEvent):void {
 			
+			event.stopImmediatePropagation();
+			event.preventDefault();
 			var avo:AddressVO = new AddressVO();
 			avo.grpName = "";
 			acGroup.addItem( avo );
@@ -435,8 +452,10 @@ package component
 		/**
 		 * name method
 		 * */
-		private function nameAddBtn_clickHandler(event:MouseEvent):void {
+		private function nameAddBtn_clickHandler(event:FlowElementMouseEvent):void {
 			
+			event.stopImmediatePropagation();
+			event.preventDefault();
 			bEdite = true;
 			acName.addItemAt(new AddressVO(), 0);
 			nameCount.text = String(acName.length);
@@ -507,7 +526,9 @@ package component
 			
 		}
 		
-		private function addressFromExcel_clickHandler(event:MouseEvent):void {
+		private function addressFromExcel_clickHandler(event:FlowElementMouseEvent):void {
+			event.stopImmediatePropagation();
+			event.preventDefault();
 			toggleExcel();
 		}
 		public function toggleExcel():void {
@@ -539,6 +560,25 @@ package component
 				excel = null;
 			}
 			
+		}
+		
+		/**
+		 * tooltip
+		 * */
+		private function tooltip_overHandler(event:FlowElementMouseEvent):void {
+			
+			if(!customToolTip){
+				customToolTip = new CustomToolTip();
+				customToolTip.x = parentApplication.mouseX - customToolTip.width/2;
+				customToolTip.y = parentApplication.mouseY - 40;
+				PopUpManager.addPopUp(customToolTip, this, false);
+			}
+			customToolTip.text =  LinkElement(event.flowElement).href;
+		}
+		private function tooltip_outHandler(event:FlowElementMouseEvent):void {
+			
+			PopUpManager.removePopUp(customToolTip);
+			customToolTip = null;
 		}
 		
 		

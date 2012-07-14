@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
 
     ADOBE SYSTEMS INCORPORATED
@@ -9,9 +10,10 @@
     in accordance with the terms of the license agreement accompanying it.
 
 -->
-<!--- The default skin class for the textInput of a Spark ComboBox component.  
 
-      @see spark.components.ComboBox
+<!--- The default skin class for Spark TextArea component.  
+
+     @see spark.components.TextArea
         
       @langversion 3.0
       @playerversion Flash 10
@@ -20,32 +22,52 @@
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
     xmlns:fb="http://ns.adobe.com/flashbuilder/2009" 
-    blendMode="normal">
+    alpha.disabledStates="0.5" blendMode="normal">
 
     <fx:Metadata>
     <![CDATA[ 
         /** 
          * @copy spark.skins.spark.ApplicationSkin#hostComponent
          */
-        [HostComponent("spark.components.TextInput")]
+        [HostComponent("spark.components.TextArea")]
     ]]>
     </fx:Metadata> 
     
     <fx:Script fb:purpose="styling">
-        private var paddingChanged:Boolean;
-        private var cornerRadius:Number = 0;
-        
-        /* Define the skin elements that should not be colorized. */
-        static private const exclusions:Array = ["background", "textDisplay", "promptDisplay"];
+        <![CDATA[
+        import mx.core.FlexVersion;
 
+        private var lineBreakChanged:Boolean;
+        private var paddingChanged:Boolean;
+        private var verticalAlignChanged:Boolean;
+        
+        /* Define the skin elements that should not be colorized. 
+           For text area, the skin itself is colorized but the individual parts are not as well 
+           as the border since it uses the borderColor style. */
+        static private const exclusions:Array = ["background", "scroller", "promptDisplay", "border"];
+        
+        /* exclusions before Flex 4.5 for backwards-compatibility purposes */
+        static private const exclusions_4_0:Array = ["background", "scroller", "promptDisplay"];
+        
         /**
          * @private
-         */   
-        override public function get colorizeExclusions():Array {return exclusions;}
+         */
+        override public function get colorizeExclusions():Array 
+        {
+            // Since border is styleable via borderColor, no need to allow chromeColor to affect
+            // the border.  This is wrapped in a compatibility flag since this change was added  
+            // in Flex 4.5
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+            {
+                return exclusions_4_0;
+            }
+            
+            return exclusions;
+        }
         
         /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
         static private const contentFill:Array = ["bgFill"];
-
+        
         /**
          *  @private
          */
@@ -58,10 +80,20 @@
         {
             super.commitProperties();
             
+            if (lineBreakChanged)
+            {
+                updateStringStyle("lineBreak");
+                lineBreakChanged = false;
+            }
             if (paddingChanged)
             {
                 updatePadding();
                 paddingChanged = false;
+            }
+            if (verticalAlignChanged)
+            {
+                updateStringStyle("verticalAlign");
+                verticalAlignChanged = false;
             }
         }
         
@@ -84,7 +116,7 @@
                 border.visible = true;
                 shadow.visible = true;
                 background.left = background.top = background.right = background.bottom = 1;
-                textDisplay.left = textDisplay.right = 1;
+                textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 1;
                 if (promptDisplay)
                 {
                     promptDisplay.setLayoutBoundsSize(unscaledWidth - 2, unscaledHeight - 2);
@@ -96,27 +128,16 @@
                 border.visible = false;
                 shadow.visible = false;
                 background.left = background.top = background.right = background.bottom = 0;
-                textDisplay.left = textDisplay.right = 0;
                 if (promptDisplay)
                 {
-                    promptDisplay.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
-                    promptDisplay.setLayoutBoundsPosition(0, 0);
+                    promptDisplay.setLayoutBoundsSize(unscaledWidth - 1, unscaledHeight - 1);
+                    promptDisplay.setLayoutBoundsPosition(1, 1);
                 }
             }
-            
-            /* var cr:Number = getStyle("cornerRadius");
-            
-            if (cornerRadius != cr)
-            {
-                cornerRadius = cr;
-                shadow.bottomLeftRadiusX = shadow.topLeftRadiusX = cornerRadius;
-                border.bottomLeftRadiusX = border.topLeftRadiusX = cornerRadius;
-                background.bottomLeftRadiusX = background.topLeftRadiusX = cornerRadius;
-            } */
-            
+
             super.updateDisplayList(unscaledWidth, unscaledHeight);
         }
-
+        
         /**
          *  @private
          */
@@ -167,31 +188,66 @@
         /**
          *  @private
          */
+        private function updateStringStyle(styleName:String):void
+        {
+            if (!textDisplay)
+                return;
+            
+            // Push style into the textDisplay
+            var style:String;
+            
+            style = getStyle(styleName);
+            if (textDisplay.getStyle(styleName) != style)
+                textDisplay.setStyle(styleName, style);
+
+            if (!promptDisplay)
+                return;
+            
+            // Push style into the promptDisplay
+            style = getStyle(styleName);
+            if (promptDisplay.getStyle(styleName) != style)
+                promptDisplay.setStyle(styleName, style);
+        }
+        
+        /**
+         *  @private
+         */
         override public function styleChanged(styleProp:String):void
         {
             var allStyles:Boolean = !styleProp || styleProp == "styleName";
 
             super.styleChanged(styleProp);
             
+            if (allStyles || styleProp.indexOf("lineBreak") == 0)
+            {
+                lineBreakChanged = true;
+                invalidateProperties();
+            }
             if (allStyles || styleProp.indexOf("padding") == 0)
             {
                 paddingChanged = true;
                 invalidateProperties();
             }
+            if (allStyles || styleProp.indexOf("verticalAlign") == 0)
+            {
+                verticalAlignChanged = true;
+                invalidateProperties();
+            }
         }
+        ]]>
     </fx:Script>
     
     <fx:Script>
         <![CDATA[
-            /** 
-             * @private 
-             */     
-            private static const focusExclusions:Array = ["textDisplay"];
+        /** 
+         * @private 
+         */     
+        private static const focusExclusions:Array = ["textDisplay"];
 
-            /**
-             *  @private
-             */
-            override public function get focusSkinExclusions():Array { return focusExclusions;};
+        /**
+         *  @private
+         */
+        override public function get focusSkinExclusions():Array { return focusExclusions;};
         ]]>
     </fx:Script>
     
@@ -203,50 +259,53 @@
     </s:states>
     
     
-
     <!-- fill -->
-    <!--- Defines the appearance of the TextInput component's background. -->
-    <s:Rect id="background" left="1" right="1" top="1" bottom="1">
+    <!--- Defines the appearance of the TextArea component's background. -->
+    <s:Rect id="background" left="1" right="1" top="1" bottom="1" radiusX="3" visible="false">
         <s:fill>
-        <!--- Defines the background fill color. -->
-            <s:SolidColor id="bgFill" color="0xFFFFFF" />
+            <!--- @private Defines the background fill color. -->
+            <s:SolidColor id="bgFill" color="0xFFFFFF" alpha="0" />
         </s:fill>
     </s:Rect>
 	
-	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('assets/TextInput_bg.png')" smooth="true" fillMode="scale"/>
-    
+	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('assets/textarea_input.png')" smooth="true" fillMode="scale" alpha="0.5"/>
+	
     <!-- shadow -->
     <!--- @private -->
-    <s:Rect left="1" top="1" right="1" height="1" id="shadow" visible="false">
+    <s:Rect id="shadow" left="1" top="1" right="1" height="1" radiusX="3" visible="false">
         <s:fill>
-            <s:SolidColor color="0x000000" alpha="0.12" />
+            <s:SolidColor color="0x000000" alpha="0" />
         </s:fill>
     </s:Rect>
 	
 	<!-- border --> 
 	<!--- @private -->
-	<s:Rect left="0" right="0" top="0" bottom="0" id="border">
+	<s:Rect id="border" left="0" right="0" top="0" bottom="0" radiusX="3">
 		<s:stroke>
 			<s:LinearGradientStroke rotation="90" weight="1">
-				<s:GradientEntry color="0x888888" 
-								 alpha="0.75"/>
 				<s:GradientEntry color="0xAAAAAA" 
 								 alpha="0.5625" />
+				<s:GradientEntry color="0x888888" 
+								 alpha="0.75"/>
 			</s:LinearGradientStroke>
 		</s:stroke>
 	</s:Rect>
+
+	
+	
+
+    <!--- Defines the scroller that is used to scroll the TextArea control. -->
+    <s:Scroller id="scroller" left="0" top="0" right="0" bottom="0" minViewportInset="1" measuredSizeIncludesScrollBars="false" hasFocusableChildren="false"
+				skinClass="skin.scroller.ThinScrooller">
+        <!--- @copy spark.components.supportClasses.SkinnableTextBase#textDisplay -->
+        <s:RichEditableText id="textDisplay" heightInLines="10" widthInChars="15" />
+    </s:Scroller>
     
-    <!-- text -->
-    <!--- @copy spark.components.supportClasses.SkinnableTextBase#textDisplay -->
-    <s:RichEditableText id="textDisplay"
-              lineBreak="explicit"
-              widthInChars="10" verticalCenter="0"/>
     <!--- Defines the Label that is used for prompt text. The includeInLayout property is false so the prompt text does not affect measurement. -->
-    <s:Label id="promptDisplay" maxDisplayedLines="1"
-                verticalAlign="middle"
+    <s:Label id="promptDisplay"
                 mouseEnabled="false" mouseChildren="false"
                 includeIn="normalWithPrompt,disabledWithPrompt" 
                 includeInLayout="false"
-                />
+                />            
 
 </s:SparkSkin>
