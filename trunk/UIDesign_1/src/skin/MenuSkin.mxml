@@ -47,7 +47,7 @@
 			<s:Rect width="100%" height="57" visible="true" visible.home="false"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
 			<s:RichText id="labelHome" text="HOME" y="21" horizontalCenter="0"
 						buttonMode="true"
-						mouseUpEffect="{rotateEffect}"
+						mouseDownEffect="{rotateEffect}"
 						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
 						color.home="#008cc4" />
 		</s:Group>
@@ -56,7 +56,7 @@
 			<s:Rect width="100%" height="57" visible="true" visible.send="false"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
 			<s:RichText id="labelSend" text="메시지" y="21"  horizontalCenter="0"
 						buttonMode="true"
-						mouseUpEffect="{rotateEffect}"
+						mouseDownEffect="{rotateEffect}"
 						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
 						color.send="#008cc4"/>
 		</s:Group>
@@ -65,7 +65,7 @@
 			<s:Rect visible="true" width="100%" height="57"	visible.address="false"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
 			<s:RichText id="labelAddress" text="주소록" y="21" horizontalCenter="0"
 						buttonMode="true"
-						mouseUpEffect="{rotateEffect}"
+						mouseDownEffect="{rotateEffect}"
 						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
 						color.address="#008cc4"/>
 		</s:Group>
@@ -75,7 +75,7 @@
 					><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
 			<s:RichText id="labelBill" text="결제" y="21" horizontalCenter="0"
 						buttonMode="true"
-						mouseUpEffect="{rotateEffect}"
+						mouseDownEffect="{rotateEffect}"
 						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
 						color.bill="#008cc4"/>
 		</s:Group>
@@ -84,7 +84,7 @@
 			<s:Rect width="100%" height="57" visible="true" visible.log="false"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
 			<s:RichText id="labelLog" text="내역" y="21" horizontalCenter="0" 
 						buttonMode="true"
-						mouseUpEffect="{rotateEffect}"
+						mouseDownEffect="{rotateEffect}"
 						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
 						color.log="#008cc4"/>
 		</s:Group>

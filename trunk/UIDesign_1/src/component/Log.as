@@ -4,6 +4,7 @@ package component
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	
@@ -20,10 +21,13 @@ package component
 	import mx.collections.ArrayList;
 	import mx.controls.DateField;
 	import mx.controls.dataGridClasses.DataGridColumn;
+	import mx.core.mx_internal;
 	import mx.events.FlexEvent;
 	import mx.formatters.DateFormatter;
 	import mx.graphics.SolidColor;
 	import mx.graphics.SolidColorStroke;
+	
+	import skin.LogSkin;
 	
 	import spark.components.Button;
 	import spark.components.DataGrid;
@@ -65,6 +69,7 @@ package component
 		private var _yyyymm:String;
 		private var acGroup:ArrayCollection = new ArrayCollection();
 		private var acDetail:ArrayCollection = new ArrayCollection();
+		private var alDetailColumn:ArrayList = new ArrayList();
 		private var acChart:ArrayCollection = new ArrayCollection();
 		
 		private var confirmAlert:AlertManager;
@@ -73,8 +78,27 @@ package component
 		{
 			//TODO: implement function
 			super();
+			
 			monthSlider_valueCommitHandler();
+			//addEventListener(Event.REMOVED_FROM_STAGE, removedfromstage_handler);
 		}
+		
+		/*public function removedfromstage_handler(event:Event):void {
+			
+			removeEventListener(Event.REMOVED_FROM_STAGE, removedfromstage_handler);
+			
+			Object(groupList.dataProvider).removeAll();
+			acGroup.removeAll();
+			
+			Object(detailList.dataProvider).removeAll();
+			acDetail.removeAll();
+			
+			Object(chart.dataProvider).removeAll();
+			acChart.removeAll();
+			//setStyle("skinClass", null);
+			//detachSkin();
+			//destroy();
+		}*/
 		
 		/* Implement the getCurrentSkinState() method to set the view state of the skin class. */
 
@@ -94,7 +118,11 @@ package component
 		configure a skin part, or perform other actions when a skin part is added. */	
 		override protected function partAdded(partName:String, instance:Object) : void
 		{
+			
 			super.partAdded(partName, instance);
+			
+			trace("partAdded " + partName);
+			
 			if (instance == preMonth) preMonth.addEventListener(MouseEvent.CLICK, preMonth_clickHandler);
 			else if (instance == month) yyyymm = yyyymm;
 			else if (instance == nextMonth) nextMonth.addEventListener(MouseEvent.CLICK, nextMonth_clickHandler);
@@ -108,13 +136,15 @@ package component
 			}
 			else if (instance == groupList) {
 				groupList.dataProvider = acGroup;
-				groupList.addEventListener(IndexChangeEvent.CHANGE, groupList_changeHandler);
-				groupList.addEventListener(KeyboardEvent.KEY_UP, groupList_keyUpHandler);
+				groupList.addEventListener(IndexChangeEvent.CHANGE, groupList_changeHandler, false, 0, true);
+				groupList.addEventListener(KeyboardEvent.KEY_UP, groupList_keyUpHandler, false, 0, true);
 			}
 			else if (instance == detailList) {
 				detailList.dataProvider = acDetail;
-				var gc:GridColumn = ArrayList(detailList.columns).getItemAt(0) as GridColumn;
-				gc.labelFunction = detailListLabelFunction;
+				setColumn();
+				detailList.columns = alDetailColumn;
+				//var gc:GridColumn = ArrayList(detailList.columns).getItemAt(0) as GridColumn;
+				//gc.labelFunction = detailListLabelFunction;
 			}
 			else if (instance == chart) {
 				
@@ -126,28 +156,69 @@ package component
 			
 		}
 		
+		private function setColumn():void {
+			
+			var gc0:GridColumn = new GridColumn();
+			gc0.headerText = "번호";
+			var gc1:GridColumn = new GridColumn("phone");
+			gc0.headerText = "전화번호";
+			var gc2:GridColumn = new GridColumn("name");
+			gc0.headerText = "이름";
+			var gc3:GridColumn = new GridColumn("rslt");
+			gc0.headerText = "결과";
+			var gc4:GridColumn = new GridColumn("rsltDate");
+			gc0.headerText = "결과시간";
+			var gc5:GridColumn = new GridColumn("callback");
+			gc0.headerText = "회신번호";
+			alDetailColumn.addItem(gc0);
+			alDetailColumn.addItem(gc1);
+			alDetailColumn.addItem(gc2);
+			alDetailColumn.addItem(gc3);
+			alDetailColumn.addItem(gc4);
+			alDetailColumn.addItem(gc5);
+		}
+		
 		/* Implement the partRemoved() method to remove the even handlers added in partAdded() */
 		override protected function partRemoved(partName:String, instance:Object) : void
 		{
-			super.partRemoved(partName, instance);
+			trace("partRemoved " + partName);
+			
 			if (instance == preMonth) preMonth.removeEventListener(MouseEvent.CLICK, preMonth_clickHandler);
-			else if (instance == month) yyyymm = yyyymm;
 			else if (instance == nextMonth) nextMonth.removeEventListener(MouseEvent.CLICK, nextMonth_clickHandler);
 			else if (instance == monthSlider) {
-				monthSlider.dataTipFormatFunction = null;
+				//monthSlider.dataTipFormatFunction = null;
 				monthSlider.removeEventListener(FlexEvent.VALUE_COMMIT, monthSlider_valueCommitHandler);
 			}
 			else if (instance == groupList) {
-				ArrayCollection(groupList.dataProvider).removeAll();
+				
 				groupList.removeEventListener(IndexChangeEvent.CHANGE, groupList_changeHandler);
 				groupList.removeEventListener(KeyboardEvent.KEY_UP, groupList_keyUpHandler);
+				Object(groupList.dataProvider).removeAll();
+				acGroup.removeAll();
+				acGroup = null;
+				//groupList.dataProvider = null;
 			}
 			else if (instance == detailList) {
-				ArrayCollection(detailList.dataProvider).removeAll();
+				
+				Object(detailList.dataProvider).removeAll();
+				detailList.columns = null;
+				
+				acDetail.removeAll();
+				acDetail = null;
 			}
 			else if (instance == chart) {
-				ArrayCollection(chart.dataProvider).removeAll();
+				Object(chart.dataProvider).removeAll();
 			}
+			
+			super.partRemoved(partName, instance);
+		}
+		
+		override public function stylesInitialized():void {
+			setStyle("skinClass", LogSkin);
+		}
+		override protected function createChildren():void {
+			mx_internal::skinDestructionPolicy = "auto";
+			super.createChildren();
 		}
 		
 		private function getPieSeries():PieSeries {
@@ -305,6 +376,41 @@ package component
 		private function detailListLabelFunction(item:Object, column:GridColumn):String {
 			
 			return (acDetail.length - acDetail.getItemIndex(item)).toString();
+		}
+		
+		
+		public function destroy():void {
+			
+			preMonth = null;
+			month = null;
+			nextMonth = null;
+			monthSlider = null;
+			
+			message = null;
+			
+			_yyyymm = null;
+			if (acChart != null) {
+				acChart.removeAll();
+				acChart = null;
+			}
+			if (acGroup != null) {
+				acGroup.removeAll();
+				acGroup = null;
+			}
+			
+			if (acDetail != null) {
+				acDetail.removeAll();
+				acDetail = null;
+			}
+			
+			if (alDetailColumn != null) {
+				alDetailColumn.removeAll();
+				alDetailColumn = null;
+			}
+			
+			
+			confirmAlert = null;
+			
 		}
 		
 	}

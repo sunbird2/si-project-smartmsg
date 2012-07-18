@@ -75,6 +75,7 @@ package component
 		{
 			super();
 			setStyle("skinClass", JoinSkin);
+			addEventListener(Event.REMOVED_FROM_STAGE, destory, false, 0, true);
 		}
 		
 		/* Implement the getCurrentSkinState() method to set the view state of the skin class. */
@@ -124,9 +125,16 @@ package component
 			else if (instance == userid) userid.removeEventListener(KeyboardEvent.KEY_UP, userid_keyUpHandler );
 			else if (instance == userpw) userpw.removeEventListener(KeyboardEvent.KEY_UP, userpw_keyUpHandler);
 			else if (instance == userrepw) userrepw.removeEventListener(KeyboardEvent.KEY_UP, userrepw_keyUpHandler);
-			else if (instance == userhp2) userhp2.removeEventListener(KeyboardEvent.KEY_UP, tiHp_keyUpHandler);
-			else if (instance == userhp3) userhp3.removeEventListener(KeyboardEvent.KEY_UP, tiHp_keyUpHandler);
+			else if (instance == userhp2) {
+				userhp2.maxChars = 4;
+				userhp2.removeEventListener(KeyboardEvent.KEY_UP, tiHp_keyUpHandler);
+			}
+			else if (instance == userhp3) {
+				userhp3.maxChars = 4;
+				userhp3.removeEventListener(KeyboardEvent.KEY_UP, tiHp_keyUpHandler);
+			}
 			else if (instance == next2) next2.removeEventListener(MouseEvent.CLICK, next2_clickHandler);
+			else if (instance == sec) autoIn();
 		}
 		
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void	{
@@ -198,6 +206,7 @@ package component
 		}
 		private function idCheck_CustomEventHandler(event:CustomEvent):void {
 			
+			RemoteSingleManager.getInstance.removeEventListener("checkID", idCheck_CustomEventHandler);
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {
 				userid.setStyle("borderColor",VALID_COLOR);
@@ -310,6 +319,7 @@ package component
 		}
 		private function next2_resultHandler(event:CustomEvent):void {
 			
+			RemoteSingleManager.getInstance.removeEventListener("join", next2_resultHandler);
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {
 				step = 2;
@@ -342,8 +352,9 @@ package component
 		}
 		
 		
-		public function destory():void {
+		public function destory(e:Event):void {
 			
+			removeEventListener(Event.REMOVED_FROM_STAGE, destory);
 			agree1 = null;
 			agree2 = null;
 			next1 = null;
@@ -362,6 +373,8 @@ package component
 			cancel2 = null;
 			
 			sv = null;
+			
+			inTimer.removeEventListener("timer", timerHandler);
 		}
 		
 		

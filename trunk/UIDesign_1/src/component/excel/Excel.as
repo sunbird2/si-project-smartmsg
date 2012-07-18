@@ -52,7 +52,7 @@ package component.excel
 		[SkinPart(required="false")]public var sendBtn:Button;
 		[SkinPart(required="false")]public var excelView:DataGrid;
 		[SkinPart(required="false")]public var resultList:List;
-		[SkinPart(required="true")] public var close:RichText;
+		[SkinPart(required="true")] public var close:Button;
 		
 		
 		private const NONE:int = 0;

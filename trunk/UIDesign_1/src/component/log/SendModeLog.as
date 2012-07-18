@@ -19,6 +19,7 @@ package component.log
 	
 	import skin.log.SendModeLogSkin;
 	
+	import spark.components.Button;
 	import spark.components.HSlider;
 	import spark.components.Label;
 	import spark.components.List;
@@ -47,7 +48,7 @@ package component.log
 		[SkinPart(required="false")]public var monthSlider:HSlider;
 		
 		[SkinPart(required="false")]public var groupList:List;
-		[SkinPart(required="true")] public var close:RichText;
+		[SkinPart(required="true")] public var close:Button;
 		
 		private var _yyyymm:String;
 		private var acGroup:ArrayCollection = new ArrayCollection();

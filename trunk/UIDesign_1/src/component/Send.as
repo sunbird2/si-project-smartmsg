@@ -30,6 +30,8 @@ package component
 	import mx.events.FlexEvent;
 	import mx.managers.PopUpManager;
 	
+	import skin.SendSkin;
+	
 	import spark.components.Button;
 	import spark.components.CheckBox;
 	import spark.components.ComboBox;
@@ -149,8 +151,8 @@ package component
 		 * phones properties
 		 * */
 		[Bindable]
-		public var alPhone:ArrayCollection = new ArrayCollection();
-		private var Kpf:KoreaPhoneNumberFormatter = new KoreaPhoneNumberFormatter();
+		public var alPhone:ArrayCollection;
+		private var Kpf:KoreaPhoneNumberFormatter;
 		private var excel:Excel;
 		private var sma:SendModeAddress;
 		private var sml:SendModeLog;
@@ -170,16 +172,15 @@ package component
 
 		public function Send() { 
 			super();
-			
-			rt = new ReturnPhone();
+			setStyle("skinClass", SendSkin);
 			addEventListener(Event.ADDED_TO_STAGE, addedtostage_handler, false, 0, true);
 			addEventListener(Event.REMOVED_FROM_STAGE, removedfromstage_handler, false, 0, true);
-			
 		}
 		
 		public function addedtostage_handler(event:Event):void {
 			
-			
+			alPhone = new ArrayCollection();
+			Kpf = new KoreaPhoneNumberFormatter();
 		}
 		
 		public function removedfromstage_handler(event:Event):void {
@@ -195,6 +196,8 @@ package component
 			removeSendModeLog();
 			removePaste();
 			removeEmoticon();
+			
+			destroy(null);
 		
 		}
 		
@@ -206,7 +209,7 @@ package component
 		override protected function partAdded(partName:String, instance:Object) : void {
 			
 			super.partAdded(partName, instance);
-			
+			trace("partAdded " + partName);
 			if (instance == specialChar) specialChar.addEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler );
 			else if (instance == message) message.addEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
 			else if (instance == sendListInput)	sendListInput.addEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
@@ -215,6 +218,7 @@ package component
 			else if (instance == sendList) sendList.dataProvider = alPhone;
 			else if (instance == callback) {
 				
+				if (rt == null)	rt = new ReturnPhone();
 				callback.labelField = "phone";
 				rt.callback = this.callback;
 				rt.getReturnPhone();
@@ -225,7 +229,10 @@ package component
 			else if (instance == myMessage) myMessage.addEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
 			else if (instance == messageSaveBtn) messageSaveBtn.addEventListener(FlowElementMouseEvent.CLICK, messageSaveBtn_clickHandler);
 			else if (instance == sentMessage) sentMessage.addEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
-			else if (instance == callbackSave) callbackSave.addEventListener(FlowElementMouseEvent.CLICK, rt.callbackSave_clickHandler);
+			else if (instance == callbackSave) {
+				if (rt == null)	rt = new ReturnPhone();
+				callbackSave.addEventListener(FlowElementMouseEvent.CLICK, rt.callbackSave_clickHandler);
+			}
 			else if (instance == sendListFromExcel) sendListFromExcel.addEventListener(FlowElementMouseEvent.CLICK, sendListFromExcel_clickHandler);
 			else if (instance == sendListFromAddress) sendListFromAddress.addEventListener(FlowElementMouseEvent.CLICK, sendListFromAddress_clickHandler);
 			else if (instance == sendListFromSent) sendListFromSent.addEventListener(FlowElementMouseEvent.CLICK, sendListFromSent_clickHandler);
@@ -246,19 +253,32 @@ package component
 		override protected function partRemoved(partName:String, instance:Object) : void {
 			
 			super.partRemoved(partName, instance);
-			
+			trace("partRemoved " + partName);
 			if (instance == specialChar) specialChar.removeEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler );
 			else if (instance == message) message.removeEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
 			else if (instance == sendListInput)	sendListInput.removeEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
 			else if (instance == sendListInputBtn) sendListInputBtn.removeEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
 			else if (instance == dupleDelete) dupleDelete.removeEventListener(FlowElementMouseEvent.CLICK, dupleDelete_clickHandler);
-			else if (instance == callback) callback.removeEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
+			else if (instance == sendList) sendList.dataProvider = alPhone;
+			else if (instance == callback) {
+				rt.destory();
+				callback.removeEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
+			}
 			else if (instance == sendBtn) sendBtn.removeEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
 			else if (instance == emoticon) emoticon.removeEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
 			else if (instance == myMessage) myMessage.removeEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
 			else if (instance == messageSaveBtn) messageSaveBtn.removeEventListener(FlowElementMouseEvent.CLICK, messageSaveBtn_clickHandler);
 			else if (instance == sentMessage) sentMessage.removeEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
 			else if (instance == callbackSave) callbackSave.removeEventListener(FlowElementMouseEvent.CLICK, rt.callbackSave_clickHandler);
+			else if (instance == sendListFromExcel) sendListFromExcel.removeEventListener(FlowElementMouseEvent.CLICK, sendListFromExcel_clickHandler);
+			else if (instance == sendListFromAddress) sendListFromAddress.removeEventListener(FlowElementMouseEvent.CLICK, sendListFromAddress_clickHandler);
+			else if (instance == sendListFromSent) sendListFromSent.removeEventListener(FlowElementMouseEvent.CLICK, sendListFromSent_clickHandler);
+			else if (instance == sendListFromCopy) sendListFromCopy.removeEventListener(FlowElementMouseEvent.CLICK, sendListFromCopy_clickHandler);
+			else if (instance == phoneRemoveAll) phoneRemoveAll.removeEventListener(FlowElementMouseEvent.CLICK, phoneRemoveAll_clickHandler);
+				
+			else if (instance == sendReservation) sendReservation.removeEventListener(Event.CHANGE, sendReservation_changeHandler);
+			else if (instance == sendInterval) sendInterval.removeEventListener(Event.CHANGE, sendInterval_changeHandler);
+			
 			
 			if (instance is LinkElement) {
 				instance.removeEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
@@ -267,12 +287,7 @@ package component
 			
 			
 		}
-		override protected function createChildren():void
-		{
-			// TODO Auto Generated method stub
-			super.createChildren();
-			
-		}
+		
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void	{
 			
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
@@ -795,9 +810,62 @@ package component
 		
 		public function destroy(event:Event):void {
 			
+			contentGroup = null;
+			
+			// message
+			message = null;
+			byte = null;
+			messageSaveBtn = null;
+			specialChar = null;
+			myMessage = null;
+			sentMessage = null;
+			emoticon = null;
+			addImage = null;
 			
 			
 			
+			// phones
+			sendListInput = null;
+			sendListInputBtn = null;
+			sendList = null;
+			countPhone = null;
+			sendListFromAddress = null;
+			sendListFromExcel = null;
+			sendListFromSent = null;
+			sendListFromCopy = null;
+			dupleDelete = null;
+			phoneRemoveAll = null;
+			
+			
+			
+			// callback
+			callback = null;
+			callbackSave = null;
+			
+			
+			
+			// sendBtn
+			sendReservation = null;
+			sendInterval = null;
+			sendBtn = null;
+			resetBtn = null;
+			confirm_mode = null;
+			confirm_count = null;
+			confirm_reservation = null;
+			confirm_delay = null;
+			
+			
+			
+			
+			helpText = null;
+			subHelpText = null;
+			
+			if (alPhone != null) {
+				alPhone.removeAll();
+				alPhone = null;	
+			}
+			
+			Kpf = null;
 		}
 		
 		

@@ -19,7 +19,6 @@
 			
 			private function onChange(event:Event):void 
 			{
-				trace(inputTxt.text+"/"+labelDisplay.text);
 				var oldValue:String = labelDisplay.text;
 				var list:ListBase = this.owner as ListBase;
 				if (data.idx == 0 && data.grpName != "모두" && inputTxt.text == "") {

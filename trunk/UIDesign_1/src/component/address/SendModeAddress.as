@@ -26,6 +26,7 @@ package component.address
 	
 	import skin.address.SendModeAddressSkin;
 	
+	import spark.components.Button;
 	import spark.components.RichText;
 	import spark.components.TextInput;
 	import spark.components.supportClasses.SkinnableComponent;
@@ -45,7 +46,7 @@ package component.address
 		[SkinPart(required="true")] */
 		[SkinPart(required="false")]public var searchTextInput:TextInput;
 		[SkinPart(required="false")]public var addressTree:Tree;
-		[SkinPart(required="true")] public var close:RichText;
+		[SkinPart(required="true")] public var close:Button;
 		
 		private var xml:XMLListCollection = new XMLListCollection;
 		private var pvo:PhoneVO = null;

@@ -42,7 +42,7 @@
 						<s:RichText width="199" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase" x="378" y="364">
 							<s:content><s:p><s:span>그룹</s:span></s:p></s:content>
 						</s:RichText>
-						<s:List id="groupList" width="100%" height="353" itemRenderer="skin.address.GroupRenderer" skinClass="skin.compnent.ListSkin01"  />
+						<s:List id="groupList" width="100%" height="353" skinClass="skin.compnent.ListSkin02"  />
 						<s:RichEditableText editable="false" focusEnabled="false" width="210" height="201" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%">
 							<s:content><s:p><s:span>그룹을 선택 하면 해당 그룹의 이름이 오른쪽에 보여 집니다.</s:span></s:p><s:p><s:span>그룹을 </s:span><s:a id="groupAddBtn" href="클릭시 위에 입력창이 나타납니다." color="#008cc4">추가</s:a><s:span> 하거나 그룹이름을 더블 클릭 하여 수정 할 수 있습니다.</s:span></s:p><s:p><s:span> 그룹삭제는 선택 후 키보드의 Delete 누르시기바랍니다. </s:span></s:p></s:content>
 						</s:RichEditableText>
@@ -54,7 +54,7 @@
 						<s:RichText width="190" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
 							<s:content><s:p><s:span>이름</s:span></s:p></s:content>
 						</s:RichText>
-						<s:List id="nameList" width="100%" height="353" itemRenderer="skin.address.NameRenderer" skinClass="skin.compnent.ListSkin01"/>
+						<s:List id="nameList" width="100%" height="353" itemRenderer="skin.address.NameRenderer" skinClass="skin.compnent.ListSkin02"/>
 						<s:RichText whiteSpaceCollapse="preserve" fontFamily="NGD" color="#515151" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" kerning="off">
 							<s:content><s:p><s:span id="nameCount">0</s:span><s:span kerning="auto"> </s:span><s:span fontSize="12" lineHeight="166.65%" kerning="auto">명</s:span></s:p></s:content>
 						</s:RichText>
