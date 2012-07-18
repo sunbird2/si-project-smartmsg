@@ -31,7 +31,7 @@
 					<s:List id="groupList"
 							width="200"
 							height="500"
-							skinClass="skin.compnent.ListSkin01"
+							skinClass="skin.compnent.ListSkin02"
 							itemRenderer="skin.log.GroupListRenderer" />
 				</s:VGroup>
 				<s:VGroup>
@@ -40,12 +40,13 @@
 						<mx:PieChart id="chart" width="300" height="150" fontFamily="Dotum" >
 						</mx:PieChart>
 					</s:HGroup>
+					
 					<s:DataGrid id="detailList"
 								width="500"	height="400"
 								fontFamily="Dotum"
 								skinClass="skin.log.DetailListSkin" chromeColor="0xffffff">
-						<s:columns>
-							<s:ArrayList>
+						<!--<s:columns>
+							<s:ArrayList id="alDetailColumn">
 								<s:GridColumn headerText="번호" width="50"/>
 								<s:GridColumn dataField="phone" headerText="전화번호"/>
 								<s:GridColumn dataField="name" headerText="이름"/>
@@ -53,7 +54,7 @@
 								<s:GridColumn dataField="rsltDate" headerText="결과시간"/>
 								<s:GridColumn dataField="callback" headerText="회신번호"/>
 							</s:ArrayList>
-						</s:columns>
+						</s:columns>-->
 					</s:DataGrid>
 				</s:VGroup>
 			</s:HGroup>

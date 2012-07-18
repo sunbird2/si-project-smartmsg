@@ -12,8 +12,8 @@
 		<s:State name="actionSend"/>
 		<s:State name="actionAddress"/>
 	</s:states>
-	
-	<s:VGroup>
+	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('/assets/titleWindow.png', scaleGridTop='42', scaleGridBottom='138', scaleGridLeft='11', scaleGridRight='118')" />
+	<s:VGroup paddingTop="50" paddingLeft="10" paddingRight="10" paddingBottom="10">
 		<s:RichText id="helpText" text="엑셀열기 를 클릭하세요." />
 		<s:HGroup verticalAlign="middle">
 			<s:Button id="openBtn" includeIn="normal" label="엑셀열기" />
@@ -36,7 +36,7 @@
 			</s:List>
 		</s:HGroup>
 	</s:VGroup>
-	<s:RichText id="close" text="X" top="-26" right="-26" fontSize="26" fontFamily="NGD" />
+	<s:Button id="close" width="16" height="16" right="10" top="7" skinClass="skin.compnent.ButtonCloseSkin" />
 	
 	
 </s:Skin>

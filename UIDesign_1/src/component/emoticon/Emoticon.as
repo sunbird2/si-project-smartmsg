@@ -17,6 +17,7 @@ package component.emoticon
 	
 	import skin.emoticon.EmoticonSkin;
 	
+	import spark.components.Button;
 	import spark.components.ButtonBar;
 	import spark.components.List;
 	import spark.components.RichText;
@@ -47,7 +48,7 @@ package component.emoticon
 		[SkinPart(required="true")] public var msgBox:List;
 		[SkinPart(required="true")] public var paging:Paging
 		[SkinPart(required="true")] public var specialCharGroup:TileGroup;
-		[SkinPart(required="true")] public var close:RichText;
+		[SkinPart(required="true")] public var close:Button;
 		
 		private var _state:String;
 		private var acGubun:ArrayCollection = new ArrayCollection(["테마문자","업종별문자"]);

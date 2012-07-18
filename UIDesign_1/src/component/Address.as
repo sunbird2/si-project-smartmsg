@@ -33,6 +33,8 @@ package component
 	import mx.managers.PopUpManager;
 	import mx.rpc.events.ResultEvent;
 	
+	import skin.AddressSkin;
+	
 	import spark.components.Button;
 	import spark.components.Group;
 	import spark.components.Image;
@@ -101,7 +103,8 @@ package component
 		public function Address() {
 			super();
 			
-			acGroup.addEventListener(CollectionEvent.COLLECTION_CHANGE, acGroup_changeHandler);
+			setStyle("skinClass", AddressSkin);
+			
 			addEventListener(Event.ADDED_TO_STAGE, addedtostage_handler, false, 0, true);
 			addEventListener(Event.REMOVED_FROM_STAGE, removedfromstage_handler, false, 0, true);
 		}
@@ -112,11 +115,12 @@ package component
 		
 		public function removedfromstage_handler(event:Event):void {
 			
-			Object(groupList.dataProvider).removeAll();
-			Object(nameList.dataProvider).removeAll();
+			removeEventListener(Event.REMOVED_FROM_STAGE, removedfromstage_handler);
+			removeEventListener(Event.ADDED_TO_STAGE, addedtostage_handler);
+			
 			removeExcel();
-			acGroup.removeAll();
-			acName.removeAll();
+			//detachSkin();
+			//destory();
 		}
 		
 		public function get activeAddressVO():AddressVO { return _activeAddressVO; }
@@ -180,6 +184,8 @@ package component
 		{
 			super.partAdded(partName, instance);
 			if (instance == groupList) {
+				
+				acGroup.addEventListener(CollectionEvent.COLLECTION_CHANGE, acGroup_changeHandler, false, 0, true);
 				groupList.dataProvider = acGroup;
 				groupList.doubleClickEnabled = true;
 				groupList.dropEnabled = true;
@@ -187,6 +193,8 @@ package component
 				groupList.addEventListener(KeyboardEvent.KEY_UP, groupList_keyUpHandler);
 				groupList.addEventListener(DragEvent.DRAG_DROP, groupList_dragDropHandler);
 				groupList.addEventListener(DragEvent.DRAG_OVER, groupList_dragOverHandler);
+				
+				groupList = null;
 			}
 			else if (instance == nameList) {
 				nameList.dataProvider = acName;
@@ -212,10 +220,37 @@ package component
 		override protected function partRemoved(partName:String, instance:Object) : void
 		{
 			super.partRemoved(partName, instance);
+			
+			if (instance == groupList) {
+				acGroup.removeEventListener(CollectionEvent.COLLECTION_CHANGE, acGroup_changeHandler);
+				Object(groupList.dataProvider).removeAll();
+				
+
+				groupList.removeEventListener(IndexChangeEvent.CHANGE, groupList_changeHandler);
+				groupList.removeEventListener(KeyboardEvent.KEY_UP, groupList_keyUpHandler);
+				groupList.removeEventListener(DragEvent.DRAG_DROP, groupList_dragDropHandler);
+				groupList.removeEventListener(DragEvent.DRAG_OVER, groupList_dragOverHandler);
+				
+				acGroup.removeAll();
+				
+			}
+			else if (instance == nameList) {
+				Object(nameList.dataProvider).removeAll();
+
+				nameList.removeEventListener(IndexChangeEvent.CHANGE, nameList_changeHandler);
+				nameList.removeEventListener(KeyboardEvent.KEY_UP, namepList_keyUpHandler);
+			}
+			else if (instance == groupAddBtn) groupAddBtn.removeEventListener(FlowElementMouseEvent.CLICK, groupAddBtn_clickHandler);
+			else if (instance == nameAddBtn) nameAddBtn.removeEventListener(FlowElementMouseEvent.CLICK, nameAddBtn_clickHandler);
+			else if (instance == cardBtn) cardBtn.removeEventListener(MouseEvent.CLICK, cardBtn_clickHandler);
+			else if (instance == addressFromExcel) addressFromExcel.removeEventListener(FlowElementMouseEvent.CLICK, addressFromExcel_clickHandler);
+			
 			if (instance is LinkElement) {
 				instance.removeEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
 				instance.removeEventListener(FlowElementMouseEvent.ROLL_OUT, tooltip_outHandler);
 			}
+			
+			
 		}
 		
 		
@@ -524,6 +559,7 @@ package component
 		}
 		private function moveGroup_resultHandler(event:CustomEvent):void {
 			
+			RemoteSingleManager.getInstance.removeEventListener("modifyManyAddr", moveGroup_resultHandler);
 		}
 		
 		private function addressFromExcel_clickHandler(event:FlowElementMouseEvent):void {
@@ -556,6 +592,7 @@ package component
 			
 			if (excel != null) {
 				excel.removeEventListener("saveAddress", excel_saveAddressHandler);
+				excel.removeEventListener("close", excel_closeHandler);
 				this.contentGroup.removeElement(excel);
 				excel = null;
 			}
@@ -584,7 +621,58 @@ package component
 		
 		public function destory():void {
 			
-			acGroup.removeEventListener(CollectionEvent.COLLECTION_CHANGE, acGroup_changeHandler);
+			if (acGroup != null)
+				acGroup.removeEventListener(CollectionEvent.COLLECTION_CHANGE, acGroup_changeHandler);
+			
+			removeEventListener(Event.ADDED_TO_STAGE, addedtostage_handler);
+			removeEventListener(Event.REMOVED_FROM_STAGE, removedfromstage_handler);
+			
+			contentGroup = null;
+			
+			groupList = null;
+			
+			groupAddBtn = null;
+			
+			// name
+			if (nameList != null) {
+				Object(nameList.dataProvider).removeAll();
+				nameList = null;
+			}
+			nameAddBtn = null;
+			nameCount = null;
+			
+			
+			
+			// card
+			photo = null;
+			nameL = null;
+			phone = null;
+			memo = null;
+			cardBtn = null;
+			
+			// function
+			addressFromExcel = null;
+			
+			excel = null;
+			
+			if (acGroup != null) {
+				acGroup.removeAll();
+				acGroup = null;
+			}
+			
+			if (acName != null) {
+				acName.removeAll();
+				acName = null;
+			}
+
+			
+			currentGroupName = null
+			
+			
+			confirmAlert = null;
+			customToolTip = null;
+
+			_activeAddressVO = null;
 		}
 		
 	}

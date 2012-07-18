@@ -37,7 +37,7 @@ package component.paste
 		[SkinPart(required="true")] public var ta:TextArea;
 		[SkinPart(required="true")] public var phones:TextArea;
 		[SkinPart(required="true")] public var send:Button;
-		[SkinPart(required="true")] public var close:RichText;
+		[SkinPart(required="true")] public var close:Button;
 		
 		private var state:String = "normal";
 		private var arrPhone:Array;

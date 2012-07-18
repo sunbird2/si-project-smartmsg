@@ -43,8 +43,8 @@ package component.send
 			else return callback.selectedItem.phone as String;
 		}
 
-		public function clean():void {
-			
+		public function init():void {
+			_alReturnPhone = new ArrayCollection;
 		}
 		
 		public function getReturnPhone():void {
@@ -56,6 +56,8 @@ package component.send
 			}
 		}
 		private function getReturnPhone_resultHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("getReturnPhone", getReturnPhone_resultHandler);
 			
 			alReturnPhone.removeAll();
 			var data:ArrayCollection = event.result as ArrayCollection;
@@ -87,6 +89,9 @@ package component.send
 			}
 		}
 		public function callbackSave_resultHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("setReturnPhone", callbackSave_resultHandler);
+			
 			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bvo.bResult) {
 				SLibrary.alert("저장되었습니다.");
@@ -105,6 +110,8 @@ package component.send
 			}
 		}
 		public function callbackUp_resultHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("setReturnPhoneTimeWrite", callbackUp_resultHandler);
 			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bvo.bResult) {
 				SLibrary.alert("설정되었습니다.");
@@ -123,6 +130,8 @@ package component.send
 			}
 		}
 		public function callbackDelete_resultHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("deleteReturnPhone", callbackDelete_resultHandler);
 			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bvo.bResult) {
 				SLibrary.alert("삭제되었습니다.");
@@ -130,6 +139,14 @@ package component.send
 			}else {
 				SLibrary.alert("실패");
 			}
+		}
+		
+		public function destory():void {
+			
+			ArrayCollection(_callback.dataProvider).removeAll();
+			_alReturnPhone.removeAll();
+			_alReturnPhone = null;
+			callback = null
 		}
 		
 	}

@@ -13,11 +13,19 @@
 	<fx:Style source="assets/style/styles.css"/>
 	<fx:Script>
 		<![CDATA[
+			import component.Address;
+			import component.Bill;
 			import component.Join;
+			import component.Log;
+			import component.Send;
 			
 			import mx.events.FlexEvent;
 			
 			private var join:Join;
+			public var send:Send;
+			public var address:Address;
+			public var bill:Bill;
+			public var log:Log;
 			
 			// login check
 			public function login_check():void {
@@ -52,8 +60,82 @@
 			
 			protected function application_stateChangeCompleteHandler(event:FlexEvent):void
 			{
-				if (currentCSSState != "join" && join != null) {
+				// join create
+				if (currentState != "join" && join != null) {
 					join_remove();
+				}
+				
+				
+				// send create
+				if (send == null && currentState == "send") {
+					send = new Send();
+					send.minWidth = 1024;
+					send.minHeight = 420;
+					send.horizontalCenter = 0;
+					main_group.addElement(send);
+				} else if (send != null) {
+					main_group.removeElement(send);
+					send.destroy(null);
+					send = null;
+				}
+				
+				// Address create
+				if (address == null && currentState == "address") {
+					address = new Address();
+					address.minWidth = 1024;
+					address.minHeight = 420;
+					address.horizontalCenter = 0;
+					main_group.addElement(address);
+				} else if (address != null) {
+					main_group.removeElement(address);
+					address.destory();
+					address = null;
+				}
+				
+				// <component:Bill id="bill" includeIn="bill" horizontalCenter="0" minWidth="1024" minHeight="420" width="100%" />
+				// Address create
+				if (bill == null && currentState == "bill") {
+					bill = new Bill();
+					bill.minWidth = 1024;
+					bill.minHeight = 420;
+					bill.horizontalCenter = 0;
+					main_group.addElement(bill);
+				} else if (bill != null) {
+					main_group.removeElement(bill);
+					bill = null;
+				}
+				
+				//<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" minWidth="1024" minHeight="420" horizontalCenter="0" />
+				// log create
+				if (log == null && currentState == "log") {
+					log = new Log();
+					log.minWidth = 1024;
+					log.minHeight = 420;
+					log.horizontalCenter = 0;
+					main_group.addElement(log);
+				} else if (log != null) {
+					main_group.removeElement(log);
+					log.destroy();
+					
+					log = null;
+				}
+				
+				
+			}
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				if (log == null) {
+					log = new Log();
+					log.minWidth = 1024;
+					log.minHeight = 420;
+					log.horizontalCenter = 0;
+					main_group.addElement(log);
+				} else if (log != null) {
+					main_group.removeElement(log);
+					log.destroy();
+					
+					log = null;
 				}
 			}
 			
@@ -71,14 +153,14 @@
 	<fx:Declarations>
 		<s:Bounce id="bounceEasing"/>
 	</fx:Declarations>
-	<s:transitions>
+	<!--<s:transitions>
 		<s:Transition id="t1">
 			<s:Wipe id="wipe"
 					direction="right"
 					target="{main_group}"
 					duration="300" />
 		</s:Transition>
-	</s:transitions>
+	</s:transitions>-->
 	<!--<s:transitions>
 		<s:Transition id="transition" fromState="*" toState="*">
 			<s:Parallel id="t1" targets="{[send, address, bill, log]}">
@@ -115,7 +197,7 @@
 					 horizontalCenter="0" y="0"
 					 change="{this.currentState = event.result as String}"/>
 	
-	
+	<s:Button label="logs" click="button1_clickHandler(event)" />
 	
 	<s:VGroup width="1140" paddingTop="100" horizontalCenter="0" horizontalAlign="center">
 		<s:Group id="main_group" width="1024">
@@ -157,10 +239,7 @@
 			
 			
 			<component:Home id="home" includeIn="home" left="0" right="0" top="0" bottom="0" minWidth="1024" minHeight="420" horizontalCenter="0" />
-			<component:Send id="send" includeIn="send" skinClass="skin.SendSkin" minWidth="1024" minHeight="420" horizontalCenter="0"/>
-			<component:Address id="address" includeIn="address" skinClass="skin.AddressSkin" minWidth="1024" minHeight="420" horizontalCenter="0" />
-			<component:Bill id="bill" includeIn="bill" horizontalCenter="0" minWidth="1024" minHeight="420" width="100%" />
-			<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" minWidth="1024" minHeight="420" horizontalCenter="0" />
+			
 			
 		</s:Group>
 		
@@ -174,7 +253,6 @@
 			</s:RichText>
 		</s:Group>
 	</s:VGroup>
-	
 
 	
 	
