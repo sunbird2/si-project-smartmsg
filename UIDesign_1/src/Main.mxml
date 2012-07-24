@@ -123,22 +123,6 @@
 				
 			}
 			
-			protected function button1_clickHandler(event:MouseEvent):void
-			{
-				if (log == null) {
-					log = new Log();
-					log.minWidth = 1024;
-					log.minHeight = 420;
-					log.horizontalCenter = 0;
-					main_group.addElement(log);
-				} else if (log != null) {
-					main_group.removeElement(log);
-					log.destroy();
-					
-					log = null;
-				}
-			}
-			
 		]]>
 	</fx:Script>
 	
@@ -196,8 +180,6 @@
 	<component:Menus id="menus" skinClass="skin.MenuSkin"
 					 horizontalCenter="0" y="0"
 					 change="{this.currentState = event.result as String}"/>
-	
-	<s:Button label="logs" click="button1_clickHandler(event)" />
 	
 	<s:VGroup width="1140" paddingTop="100" horizontalCenter="0" horizontalAlign="center">
 		<s:Group id="main_group" width="1024">

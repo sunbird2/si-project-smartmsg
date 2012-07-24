@@ -63,7 +63,7 @@ package component
 		[SkinPart(required="false")]public var chart:PieChart;
 		
 		[SkinPart(required="false")]public var groupList:List;
-		[SkinPart(required="false")]public var detailList:DataGrid;
+		[SkinPart(required="false")]public var detailList:List;
 		
 		
 		private var _yyyymm:String;
@@ -141,8 +141,8 @@ package component
 			}
 			else if (instance == detailList) {
 				detailList.dataProvider = acDetail;
-				setColumn();
-				detailList.columns = alDetailColumn;
+				//setColumn();
+				//detailList.columns = alDetailColumn;
 				//var gc:GridColumn = ArrayList(detailList.columns).getItemAt(0) as GridColumn;
 				//gc.labelFunction = detailListLabelFunction;
 			}
@@ -201,8 +201,9 @@ package component
 			else if (instance == detailList) {
 				
 				Object(detailList.dataProvider).removeAll();
-				detailList.columns = null;
-				
+				//detailList.columns = null
+				//detailList.columns.removeAll();
+				//alDetailColumn.removeAll(); 
 				acDetail.removeAll();
 				acDetail = null;
 			}
