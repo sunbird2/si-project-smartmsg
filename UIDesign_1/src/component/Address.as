@@ -409,6 +409,8 @@ package component
 		
 		private function nameList_changeHandler(event:IndexChangeEvent):void {
 			
+			if (bEdite) bEdite = false;
+			
 			viewCard();
 		}
 		

@@ -209,7 +209,7 @@ package component
 		override protected function partAdded(partName:String, instance:Object) : void {
 			
 			super.partAdded(partName, instance);
-			trace("partAdded " + partName);
+			//trace("partAdded " + partName);
 			if (instance == specialChar) specialChar.addEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler );
 			else if (instance == message) message.addEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
 			else if (instance == sendListInput)	sendListInput.addEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
@@ -253,7 +253,7 @@ package component
 		override protected function partRemoved(partName:String, instance:Object) : void {
 			
 			super.partRemoved(partName, instance);
-			trace("partRemoved " + partName);
+			//trace("partRemoved " + partName);
 			if (instance == specialChar) specialChar.removeEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler );
 			else if (instance == message) message.removeEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
 			else if (instance == sendListInput)	sendListInput.removeEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
@@ -408,7 +408,8 @@ package component
 				}
 				
 			}
-			alPhone = arr;
+			alPhone.removeAll();
+			alPhone.addAll(arr);
 			setTotalCount();
 			SLibrary.alert(dupCnt + " 건의 중복번호가 제거 되었습니다.");
 		}
@@ -425,8 +426,8 @@ package component
 		}
 		private function createExcel():void {
 			excel = new Excel();
-			excel.horizontalCenter = 0;
-			excel.verticalCenter = 0;
+			excel.left = 0;
+			excel.y = 300;
 			excel.bFromAddress = false;
 			excel.addEventListener("send", excel_sendHandler);
 			excel.addEventListener("close", excel_closeHandler);
@@ -539,8 +540,8 @@ package component
 		}
 		private function createSendModeAddress():void {
 			sma = new SendModeAddress();
-			sma.horizontalCenter = 0;
-			sma.verticalCenter = 0;
+			sma.left = 0;
+			sma.y = 300;
 			sma.addEventListener("sendAddress", sma_sendHandler);
 			sma.addEventListener("close", sma_closeHandler);
 			this.contentGroup.addElement(sma);
@@ -575,8 +576,8 @@ package component
 		}
 		private function createSendModeLog():void {
 			sml = new SendModeLog();
-			sml.horizontalCenter = 0;
-			sml.verticalCenter = 0;
+			sml.left = 0;
+			sml.y = 300;
 			sml.addEventListener("getPhone", sml_sendHandler);
 			sml.addEventListener("close", sml_closeHandler);
 			this.contentGroup.addElement(sml);
@@ -619,8 +620,8 @@ package component
 		}
 		private function createPaste():void {
 			paste = new Paste();
-			paste.horizontalCenter = 0;
-			paste.verticalCenter = 0;
+			paste.left = 0;
+			paste.y = 300;
 			paste.addEventListener("getPhone", paste_sendHandler);
 			paste.addEventListener("close", paste_closeHandler);
 			this.contentGroup.addElement(paste);
@@ -664,8 +665,8 @@ package component
 		}
 		private function createEmoticon(state:String):void {
 			emoticonBox = new Emoticon(state);
-			emoticonBox.horizontalCenter = 0;
-			emoticonBox.verticalCenter = 0;
+			emoticonBox.right = 0;
+			emoticonBox.y = 300;
 			emoticonBox.addEventListener("message", emoticonBox_messageHandler);
 			emoticonBox.addEventListener("specialChar", emoticonBox_specialCharHandler);
 			emoticonBox.addEventListener("close", emoticonBox_closeHandler);
@@ -710,8 +711,8 @@ package component
 			
 			if (reservation == null) {
 				reservation = new ReservationCalendar();
-				reservation.horizontalCenter = 0;
-				reservation.verticalCenter = 0;
+				reservation.left = 20;
+				reservation.y = 780;
 				reservation.addEventListener("setReservation", reservation_setReservationHandler);
 				reservation.addEventListener("cancelReservation", reservation_cancelReservationHandler);
 				this.contentGroup.addElement(reservation);
@@ -727,7 +728,6 @@ package component
 			
 			sendReservation.selected = false;
 			sendReservation.dispatchEvent(new Event("change"));
-			
 		}
 		
 		private function removeReaervation():void {
@@ -757,8 +757,8 @@ package component
 			
 			if (interval == null) {
 				interval = new Interval();
-				interval.horizontalCenter = 0;
-				interval.verticalCenter = 0;
+				interval.left = 20;
+				interval.y = 780;
 				interval.addEventListener("setInterval", interval_setintervalHandler);
 				interval.addEventListener("cancelInterval", interval_cancelintervalHandler);
 				this.contentGroup.addElement(interval);

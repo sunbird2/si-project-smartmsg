@@ -16,18 +16,18 @@
 	<s:VGroup paddingTop="50" paddingLeft="10" paddingRight="10" paddingBottom="10">
 		<s:ButtonBar id="gubunBar" includeIn="emoticon" fontFamily="NGD"/>
 		<s:List id="category" includeIn="emoticon"
-				width="500" height="50" itemRenderer="skin.emoticon.CategoryRenderer"  fontFamily="NGD" >
+				width="435" height="50" itemRenderer="skin.emoticon.CategoryRenderer"  fontFamily="NGD" >
 			<s:layout><lib:FlowLayout /></s:layout>
 		</s:List>
-		<s:List id="msgBox" includeIn="emoticon, myMessage, sentMessage" width="500" 
+		<s:List id="msgBox" includeIn="emoticon, myMessage, sentMessage" width="435" 
 				fontFamily="Dotum"
 				itemRenderer="skin.emoticon.EmoticonRenderer" >
-			<s:layout><s:TileLayout horizontalGap="32" verticalGap="10"/></s:layout>
+			<s:layout><s:TileLayout horizontalGap="10" verticalGap="10"/></s:layout>
 		</s:List>
 		<lib:Paging id="paging" includeIn="emoticon, myMessage, sentMessage" />
 		
-		<s:Scroller includeIn="specialChar" skinClass="skin.scroller.ThinScrooller" width="500" height="200">
-			<s:TileGroup id="specialCharGroup" width="500"  fontFamily="NGD"/>	
+		<s:Scroller includeIn="specialChar" skinClass="skin.scroller.ThinScrooller" width="435" height="200">
+			<s:TileGroup id="specialCharGroup" width="435"  fontFamily="NGD"/>	
 		</s:Scroller>
 	</s:VGroup>
 	<s:Button id="close" width="16" height="16" right="10" top="7" skinClass="skin.compnent.ButtonCloseSkin" />

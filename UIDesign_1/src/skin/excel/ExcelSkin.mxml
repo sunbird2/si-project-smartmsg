@@ -28,10 +28,10 @@
 			
 		</s:HGroup>
 		<s:HGroup>
-			<s:DataGrid id="excelView" width="200" height="100">
+			<s:DataGrid id="excelView" width="300" height="200">
 				
 			</s:DataGrid>
-			<s:List id="resultList" height="100">
+			<s:List id="resultList" height="200">
 				
 			</s:List>
 		</s:HGroup>
