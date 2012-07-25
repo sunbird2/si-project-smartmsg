@@ -45,6 +45,8 @@ package component
 		public function get clickStat():String{	return _clickStat;	}
 		public function set clickStat(value:String):void {	
 			_clickStat = value;	
+			dispatchEvent(new CustomEvent("change",_clickStat));
+			callLater(invalidateMenusState);
 		}
 
 		override protected function getCurrentSkinState():String
@@ -76,8 +78,8 @@ package component
 			else if (event.currentTarget == labelBill) clickStat = "bill";
 			else if (event.currentTarget == labelLog) clickStat = "log";
 			
-			dispatchEvent(new CustomEvent("change",clickStat));
-			callLater(invalidateMenusState);
+			
+			
 
 		}
 		

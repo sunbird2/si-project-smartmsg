@@ -10,7 +10,7 @@
 			   skinClass="skin.AppSkin"
 			   preloader="lib.AppProgressBar"
 			   stateChangeComplete="application_stateChangeCompleteHandler(event)"
-			   creationCompleteEffect="{rotateEffect}"
+			   creationCompleteEffect="{fadeEffect}"
 			   >
 	<fx:Style source="assets/style/styles.css"/>
 	<fx:Script>
@@ -137,15 +137,7 @@
 		<s:State name="join"/>
 	</s:states>
 	<fx:Declarations>
-		<s:Bounce id="bounceEasing"/>
-		<s:Rotate3D id="rotateEffect" 
-					angleXFrom="0.0" angleXTo="0.0" 
-					angleYFrom="0.0" angleYTo="360.0" 
-					angleZFrom="0.0" angleZTo="0.0"
-					duration="500"
-					repeatCount="1"
-					easer="{bounceEasing}"
-					/>
+		<s:Fade id="fadeEffect" alphaFrom="0" alphaTo="1"/>
 	</fx:Declarations>
 	<!--<s:transitions>
 		<s:Transition id="t1">
@@ -209,14 +201,14 @@
 					<s:BitmapImage source="@Embed('/assets/category_dot.png')"
 								   top="12" smooth="true"  />
 					<s:VGroup left="16" top="10" gap="16" >
-						<s:Label text="단문( SMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-						<s:Label text="장문( LMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-						<s:Label text="사진( MMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-						<s:Label text="엑셀 업로드 발송" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-						<s:Label text="주소록 관리" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-						<s:Label text="결제하기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-						<s:Label text="발송내역 ( 통계 )" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
-						<s:Label text="고객센터" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true"/>
+						<s:Label text="단문( SMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='send'}"/>
+						<s:Label text="장문( LMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='send'}"/>
+						<s:Label text="사진( MMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='send'}"/>
+						<s:Label text="엑셀 업로드 발송" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='send'}"/>
+						<s:Label text="주소록 관리" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='address'}"/>
+						<s:Label text="결제하기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='bill'}"/>
+						<s:Label text="발송내역 ( 통계 )" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='log'}"/>
+						<s:Label text="고객센터" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='send'}"/>
 					</s:VGroup>
 				</s:Group>
 				<s:Spacer height="20"/>

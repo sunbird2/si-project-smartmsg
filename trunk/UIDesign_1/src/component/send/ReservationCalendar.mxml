@@ -96,7 +96,7 @@
 	<fx:Declarations>
 		<mx:DateFormatter id="df" formatString="YYYY년 MM월 DD일"/>
 	</fx:Declarations>
-	
+	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('/assets/titleWindow.png', scaleGridTop='42', scaleGridBottom='138', scaleGridLeft='11', scaleGridRight='118')" />
 	<s:Group top="50" left="15" bottom="0" right="10">
 		<s:layout><s:VerticalLayout horizontalAlign="center"/></s:layout>
 		<mx:DateChooser width="190" id="dateChooser"
@@ -104,23 +104,23 @@
 						useHandCursor="true" buttonMode="true" headerColors="#000000"
 						creationComplete="dateChooser_creationCompleteHandler(event)"/>
 		
-		<s:VGroup width="181" horizontalAlign="center" gap="5">
+		<s:VGroup width="181" horizontalAlign="center" gap="5" height="120">
 			<s:Label id="fullYear" text="{df.format(dateChooser.selectedDate)}" color="#ffffff" fontSize="12"/>
 			<s:HGroup verticalAlign="middle">
 				<s:NumericStepper id="time" height="20" color="#000000"
 								  contentBackgroundColor="#ffffff" fontSize="12" maximum="23"
-								  valueFormatFunction="numericFormat"/><s:Label text="시" color="#FFFFFF"/>
+								  valueFormatFunction="numericFormat"/><s:Label text="시" fontFamily="Dotum"/>
 				<s:NumericStepper id="min" height="20" color="#000000"
 								  contentBackgroundColor="#ffffff" fontSize="12" maximum="59"
-								  valueFormatFunction="numericFormat"/><s:Label text="분" color="#FFFFFF"/>
+								  valueFormatFunction="numericFormat"/><s:Label text="분" fontFamily="Dotum"/>
 			</s:HGroup>
-			<s:Label text="24시간제를 사용 합니다" color="#ed6c1f"/>
+			<s:Label text="24시간제를 사용 합니다" color="#ed6c1f" fontFamily="Dotum"/>
 			<s:HGroup>
-				<s:Image source="images/btn_group_confirm.gif" click="confirm()" useHandCursor="true" buttonMode="true"/>
-				<s:Image source="images/btn_group_cancle.gif" click="image1_clickHandler(event)" useHandCursor="true" buttonMode="true"/>
+				<s:Button label="적용" click="confirm()" fontFamily="NGD" skinClass="skin.compnent.ButtonSkin01" />
+				<s:Button label="취소" click="image1_clickHandler(event)" fontFamily="NGD"  skinClass="skin.compnent.ButtonSkin01" />
 			</s:HGroup>
 		</s:VGroup>
 	</s:Group>
-	
+	<s:Button id="close" width="16" height="16" right="10" top="7" click="image1_clickHandler(event)" skinClass="skin.compnent.ButtonCloseSkin" />
 	
 </s:Group>

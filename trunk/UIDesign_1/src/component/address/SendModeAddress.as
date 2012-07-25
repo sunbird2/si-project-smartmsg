@@ -129,9 +129,13 @@ package component.address
 					
 					ac.addItem( getPhoneVO(element.@phone,element.@label) )
 				}
+				if (ac.length > 0) {
+					confirmAlert = new AlertManager(element.@group+" 그룹 "+String(ac.length)+"명을 전송에 추가 하시겠습니까?","전송추가", 1|8, Sprite(parentApplication), ac);
+					confirmAlert.addEventListener("yes",addressTree_sendGroupConfirmHandler, false, 0, true);
+				}else {
+					SLibrary.alert("빈 그룹입니다.");
+				}
 				
-				confirmAlert = new AlertManager(element.@group+" 그룹 "+String(ac.length)+"명을 전송에 추가 하시겠습니까?","전송추가", 1|8, Sprite(parentApplication), ac);
-				confirmAlert.addEventListener("yes",addressTree_sendGroupConfirmHandler, false, 0, true);
 				
 			}else if (type == "all" && searchTextInput.text == "") {
 				confirmAlert = new AlertManager(element.@group+"모두를 전송에 추가 하시겠습니까?","전송추가", 1|8, Sprite(parentApplication), ac);

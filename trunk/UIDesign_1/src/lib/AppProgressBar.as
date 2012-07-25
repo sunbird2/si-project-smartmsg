@@ -76,7 +76,7 @@ package lib
 		// the height of the progressbar
 		private var barHeight:int = 30;
 		// the loading text font
-		private var textFont:String = "Tahoma"; // "Verdana";
+		private var textFont:String = "Dotum"; // "Verdana";
 		// the loading text color
 		private var textColor:uint = 0xffffff;
 		
