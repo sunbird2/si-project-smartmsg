@@ -8,7 +8,9 @@
 			   width="100%" height="100%"
 			   frameRate="45"
 			   skinClass="skin.AppSkin"
+			   preloader="lib.AppProgressBar"
 			   stateChangeComplete="application_stateChangeCompleteHandler(event)"
+			   creationCompleteEffect="{rotateEffect}"
 			   >
 	<fx:Style source="assets/style/styles.css"/>
 	<fx:Script>
@@ -136,6 +138,14 @@
 	</s:states>
 	<fx:Declarations>
 		<s:Bounce id="bounceEasing"/>
+		<s:Rotate3D id="rotateEffect" 
+					angleXFrom="0.0" angleXTo="0.0" 
+					angleYFrom="0.0" angleYTo="360.0" 
+					angleZFrom="0.0" angleZTo="0.0"
+					duration="500"
+					repeatCount="1"
+					easer="{bounceEasing}"
+					/>
 	</fx:Declarations>
 	<!--<s:transitions>
 		<s:Transition id="t1">

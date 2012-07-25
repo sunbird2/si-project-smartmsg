@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="700" height="300" xmlns:bill="component.bill.*"
+		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:bill="component.bill.*"
 		 stateChangeComplete="bill_stateChangeCompleteHandler(event)">
 	<fx:Script>
 		<![CDATA[
@@ -59,7 +59,7 @@
 				<s:Group horizontalCenter="0">
 					<s:BitmapImage source="@Embed('assets/message_help2.png')" smooth="true"/>
 					<s:RichText id="helpText" left="30" top="24"
-								text="결제 방싱을 선택해 주세요." color="0xFFFFFF" fontFamily="NGDB" fontSize="42"/>
+								text="결제 방식을 선택해 주세요." color="0xFFFFFF" fontFamily="NGDB" fontSize="42"/>
 					<s:RichText id="subHelpText" left="30" top="69" width="630"
 								text="방식을 선택 하면 금액 선택 창이 나타납니다." color="0xCCCCCC" fontFamily="NGD" fontSize="20"/>
 				</s:Group>
