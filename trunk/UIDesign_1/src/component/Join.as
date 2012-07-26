@@ -112,6 +112,7 @@ package component
 			}
 			else if (instance == next2) next2.addEventListener(MouseEvent.CLICK, next2_clickHandler);
 			else if (instance == sec) autoIn();
+			else if (instance == cancel2) cancel2.addEventListener(MouseEvent.CLICK, cancel2_clickHandler);
 			
 			
 		}
@@ -330,6 +331,10 @@ package component
 			
 		}
 		
+		private function cancel2_clickHandler(event:MouseEvent):void {
+			parentApplication.currentState = "home";
+		}
+		
 		
 		private function autoIn():void {
 			inTimer = new Timer(1000, 5);
@@ -373,8 +378,8 @@ package component
 			cancel2 = null;
 			
 			sv = null;
-			
-			inTimer.removeEventListener("timer", timerHandler);
+			if (inTimer)
+				inTimer.removeEventListener("timer", timerHandler);
 		}
 		
 		

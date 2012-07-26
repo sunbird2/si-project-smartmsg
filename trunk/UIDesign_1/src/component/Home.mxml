@@ -6,7 +6,7 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<s:HGroup>
+	<s:HGroup gap="32">
 		<s:VGroup gap="10">
 			<s:BitmapImage source="@Embed('/assets/logo.png')" smooth="true"/>
 		</s:VGroup>
@@ -78,7 +78,7 @@
 			</s:Group><!-- service & preview -->
 			
 			<s:Group width="100%" height="305">
-				<s:BitmapImage source="@Embed('/assets/main_box.png')" top="10" left="0" right="0" bottom="0" smooth="true"/>
+				<s:BitmapImage source="@Embed('/assets/main_box.png', scaleGridTop='10', scaleGridBottom='290', scaleGridLeft='10', scaleGridRight='320')" top="10" width="100%" bottom="0" smooth="true"/>
 				<s:BitmapImage source="@Embed('/assets/portfolio icon.png')" left="10" smooth="true"/>
 				<s:Label text="PREVIEW" left="60" top="20" color="#4f5254" fontSize="24" />
 				<s:Label text="our preview works" left="60" top="50" color="#6a6e70" fontSize="16" fontStyle="italic" />
