@@ -31,7 +31,7 @@ public class VbyP {
 		return arrEncode;
 	}
 	/**
-	 * sql.properties ÆÄÀÏÀÇ key ÀÇ °ªÀ» ¹ÝÈ¯
+	 * sql.properties ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ key ï¿½ï¿½ ï¿½ï¿½; ï¿½ï¿½È¯
 	 * @param key
 	 * @return
 	 */
@@ -49,7 +49,7 @@ public class VbyP {
 	}
 	
 	/**
-	 * common.properties ÆÄÀÏÀÇ key ÀÇ °ªÀ» ¹ÝÈ¯
+	 * common.properties ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ key ï¿½ï¿½ ï¿½ï¿½; ï¿½ï¿½È¯
 	 * @param key
 	 * @return
 	 */
@@ -69,7 +69,7 @@ public class VbyP {
 	}
 	
 	/**
-	 * common.properties ÆÄÀÏÀÇ key , value ¸¦ ¼³Á¤
+	 * common.properties ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ key , value ï¿½ï¿½ ï¿½ï¿½d
 	 * @param key
 	 * @param value
 	 */
@@ -90,7 +90,7 @@ public class VbyP {
 	}
 	
 	/**
-	 * HTTP GET ¹æ½ÄÀÇ °ªÀ» ÀÎÄÚµù
+	 * HTTP GET ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½; ï¿½ï¿½ï¿½Úµï¿½
 	 * @param GET
 	 * @return
 	 */
@@ -108,7 +108,7 @@ public class VbyP {
 	}
 	
 	/**
-	 * HTTP POST ¹æ½ÄÀÇ °ªÀ» ÀÎÄÚµù
+	 * HTTP POST ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½; ï¿½ï¿½ï¿½Úµï¿½
 	 * @param POST
 	 * @return
 	 */
@@ -126,7 +126,7 @@ public class VbyP {
 	}
 	
 	/**
-	 * FILE ´Ù¿î·Îµå½Ã ÆÄÀÏ¸í ÀÎÄÚµù
+	 * FILE ï¿½Ù¿ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½Úµï¿½
 	 * @param FILE
 	 * @return
 	 */
@@ -143,7 +143,7 @@ public class VbyP {
 	}
 	
 	/**
-	 * µð¹ö±×¿ë ·Î±×¸¦ ±â·Ï ÇÑ´Ù.
+	 * ï¿½ï¿½ï¿½×¿ï¿½ ï¿½Î±×¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	 * @param log
 	 */
 	public static void debugLog( String log ) {
@@ -157,7 +157,7 @@ public class VbyP {
 					if (path == null || path.equals(""))
 						path = rp.getPath();
 					log = (arrEncode.length == 2)?new String(log.getBytes(arrEncode[0]), arrEncode[1]):log;
-					System.out.println(Log.getInstance().logDate()+" : "+log);
+					//System.out.println(Log.getInstance().logDate()+" : "+log);
 					Log.getInstance().println(path+"degug.log", log );
 				}
 	
@@ -166,7 +166,7 @@ public class VbyP {
 	}
 	
 	/**
-	 * Á¢¼Ó ·Î±×¸¦ ±â·Ï ÇÑ´Ù.
+	 * bï¿½ï¿½ ï¿½Î±×¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	 * @param log
 	 */
 	public static void accessLog( String log ) {				
@@ -183,7 +183,7 @@ public class VbyP {
 				if (path == null || path.equals(""))
 					path = rp.getPath();
 				log = (arrEncode.length == 2)?new String(log.getBytes(arrEncode[0]), arrEncode[1]):log;
-				System.out.println(Log.getInstance().logDate()+" : "+log);
+				//System.out.println(Log.getInstance().logDate()+" : "+log);
 				Log.getInstance().println(path+"access_"+sdf.format(cal.getTime()).toString()+".log", log );
 			}
 
@@ -191,7 +191,7 @@ public class VbyP {
 	}
 	
 	/**
-	 * ¿¡·¯¿ë ·Î±×¸¦ ±â·Ï ÇÑ´Ù.
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±×¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	 * @param log
 	 */
 	public static void errorLog( String log ) {
@@ -208,7 +208,7 @@ public class VbyP {
 				if (path == null || path.equals(""))
 					path = rp.getPath();
 				log = (arrEncode.length == 2)?new String(log.getBytes(arrEncode[0]), arrEncode[1]):log;
-				System.out.println(Log.getInstance().logDate()+" : "+log);
+				//System.out.println(Log.getInstance().logDate()+" : "+log);
 				Log.getInstance().println(path+"error.log", log  );
 			}
 
@@ -216,7 +216,7 @@ public class VbyP {
 	}
 	
 	/**
-	 * ¿¡·¯¿ë ·Î±×¸¦ ±â·Ï ÇÑ´Ù.
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±×¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 	 * @param log
 	 */
 	public static void errorLogDaily( String log ) {
@@ -235,7 +235,7 @@ public class VbyP {
 				if (path == null || path.equals(""))
 					path = rp.getPath();
 				log = (arrEncode.length == 2)?new String(log.getBytes(arrEncode[0]), arrEncode[1]):log;
-				System.out.println(Log.getInstance().logDate()+" : "+log);
+				//System.out.println(Log.getInstance().logDate()+" : "+log);
 				Log.getInstance().println(path+"error_"+sdf.format(cal.getTime()).toString()+".log", log );
 			}
 
@@ -243,7 +243,7 @@ public class VbyP {
 	}
 	
 	/**
-	 * DB Connection °´Ã¼¸¦ ¹ÝÈ¯ÇÑ´Ù.
+	 * DB Connection ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 * @return
 	 */
 	public static Connection getDB() {
@@ -256,7 +256,7 @@ public class VbyP {
 			if (rp.getValue("was").equals("weblogic")){
 				
 				try {conn = ConnectionFactory.getInstance().getConnectionWeblogic(rp.getValue("DataSource"));
-				}catch(Exception e){errorLog("weblogic DB ¿¬°á¿¡·¯ :"+e.toString());}
+				}catch(Exception e){errorLog("weblogic DB ï¿½ï¿½ï¿½á¿¡ï¿½ï¿½ :"+e.toString());}
 				
 			}else if (rp.getValue("was").equals("tomcat")){
 				
@@ -264,16 +264,16 @@ public class VbyP {
 					conn = ConnectionFactory.getInstance().getConnectionTomcat(rp.getValue("JNDI"), rp.getValue("web"));					
 					conn.setAutoCommit(true);
 					
-				}catch(Exception e){errorLog("tomcat DB ¿¬°á¿¡·¯ :"+e.toString());}
+				}catch(Exception e){errorLog("tomcat DB ï¿½ï¿½ï¿½á¿¡ï¿½ï¿½ :"+e.toString());}
 			}
 			
-		}catch(Exception e){errorLog("¼³Á¤ÆÄÀÏ ¿¬°á ¿¡·¯ :"+e.toString());}
+		}catch(Exception e){errorLog("ï¿½ï¿½dï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ :"+e.toString());}
 		
 		return conn;
 	}
 	
 	/**
-	 * DB Connection °´Ã¼¸¦ ¹ÝÈ¯ÇÑ´Ù.
+	 * DB Connection ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 * @return
 	 */
 	public static Connection getDB(String key) {
@@ -286,7 +286,7 @@ public class VbyP {
 			if (rp.getValue("was").equals("weblogic")){
 				
 				try {conn = ConnectionFactory.getInstance().getConnectionWeblogic(rp.getValue(key));
-				}catch(Exception e){errorLog("weblogic DB ¿¬°á¿¡·¯ :"+e.toString());}
+				}catch(Exception e){errorLog("weblogic DB ï¿½ï¿½ï¿½á¿¡ï¿½ï¿½ :"+e.toString());}
 				
 			}else if (rp.getValue("was").equals("tomcat")){
 				
@@ -294,16 +294,16 @@ public class VbyP {
 					conn = ConnectionFactory.getInstance().getConnectionTomcat(rp.getValue("JNDI"), rp.getValue(key));					
 					conn.setAutoCommit(true);
 					
-				}catch(Exception e){errorLog("tomcat DB ¿¬°á¿¡·¯ :"+e.toString());}
+				}catch(Exception e){errorLog("tomcat DB ï¿½ï¿½ï¿½á¿¡ï¿½ï¿½ :"+e.toString());}
 			}
 			
-		}catch(Exception e){errorLog("¼³Á¤ÆÄÀÏ ¿¬°á ¿¡·¯ :"+e.toString());}
+		}catch(Exception e){errorLog("ï¿½ï¿½dï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ :"+e.toString());}
 		
 		return conn;
 	}
 	
 	/**
-	 * ¹®ÀÚ¿­¿¡ Object¹è¿­À» FormatÇÏ¿© ¹ÝÈ¯ÇÑ´Ù.
+	 * ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ Objectï¿½è¿­; Formatï¿½Ï¿ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 * */
 	public static String messageFormat(String pattern , Object[] obj) {
 		
