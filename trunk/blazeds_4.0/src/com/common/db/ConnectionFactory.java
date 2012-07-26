@@ -1,6 +1,6 @@
 /**
  *  Class Name, ConnectionFactor
- *  Class Description, DB연결 객체를 반환 한다.
+ *  Class Description, DB
  *  Version Information, 0.1
  *  Make date, 2008.07.08
  *  Author, si hoon park
@@ -25,8 +25,8 @@ public class ConnectionFactory {
 		return cf;
 	}
 	/**
-	 * Weblogic -매개변수 datasource 를 통해 Connection 을 반환
-	 * @param datasource - 연결 구분
+	 * Weblogic
+	 * @param datasource - 
 	 * @return Connection
 	 */
 	public Connection getConnectionWeblogic(String datasource) throws  Exception{
@@ -40,8 +40,8 @@ public class ConnectionFactory {
 	}
 	
 	/**
-	 * Tomcat -매개변수 datasource 를 통해 Connection 을 반환
-	 * @param datasource - 연결 구분
+	 * Tomcat
+	 * @param datasource - 
 	 * @return Connection
 	 */
 	public Connection getConnectionTomcat(String jndi , String datasource)  throws  Exception{
