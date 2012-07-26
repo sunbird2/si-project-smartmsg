@@ -4,6 +4,7 @@ package component
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	import component.excel.Excel;
 	import component.util.CustomToolTip;
+	import component.util.TextInputSearch;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
@@ -36,6 +37,7 @@ package component
 	import skin.AddressSkin;
 	
 	import spark.components.Button;
+	import spark.components.ComboBox;
 	import spark.components.Group;
 	import spark.components.Image;
 	import spark.components.List;
@@ -63,6 +65,7 @@ package component
 		
 		
 		[SkinPart(required="true")]public var contentGroup:Group;
+		[SkinPart(required="false")]public var search:TextInputSearch;
 		
 		// group
 		[SkinPart(required="false")]public var groupList:List;
@@ -76,7 +79,7 @@ package component
 		
 		
 		// card
-		[SkinPart(required="false")]public var photo:Image;
+		[SkinPart(required="true")]public var groupName:ComboBox;
 		[SkinPart(required="true")]public var nameL:TextInput;
 		[SkinPart(required="true")]public var phone:TextInput;
 		[SkinPart(required="false")]public var memo:TextArea;
@@ -208,6 +211,12 @@ package component
 			else if (instance == nameAddBtn) nameAddBtn.addEventListener(FlowElementMouseEvent.CLICK, nameAddBtn_clickHandler);
 			else if (instance == cardBtn) cardBtn.addEventListener(MouseEvent.CLICK, cardBtn_clickHandler);
 			else if (instance == addressFromExcel) addressFromExcel.addEventListener(FlowElementMouseEvent.CLICK, addressFromExcel_clickHandler);
+			else if (instance == search) search.addEventListener("search" , search_clickHandler);
+			else if (instance == groupName) {
+				groupName.dataProvider = acGroup;
+				groupName.labelField = "grpName";
+			}
+			
 			
 			if (instance is LinkElement) {
 				instance.addEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
@@ -244,6 +253,7 @@ package component
 			else if (instance == nameAddBtn) nameAddBtn.removeEventListener(FlowElementMouseEvent.CLICK, nameAddBtn_clickHandler);
 			else if (instance == cardBtn) cardBtn.removeEventListener(MouseEvent.CLICK, cardBtn_clickHandler);
 			else if (instance == addressFromExcel) addressFromExcel.removeEventListener(FlowElementMouseEvent.CLICK, addressFromExcel_clickHandler);
+			else if (instance == search) search.removeEventListener("search" , search_clickHandler);
 			
 			if (instance is LinkElement) {
 				instance.removeEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
@@ -251,6 +261,21 @@ package component
 			}
 			
 			
+		}
+		
+		private function search_clickHandler(event:CustomEvent):void {
+			
+			if (Gv.bLogin) {
+				var s:String = String(event.result);
+				if (s != null && s != "") {
+					RemoteSingleManager.getInstance.addEventListener("getAddrList", getNameList_resultHandler, false, 0, true);
+					RemoteSingleManager.getInstance.callresponderToken 
+						= RemoteSingleManager.getInstance.service.getAddrList(2, String(event.result));	
+				}else {
+					SLibrary.alert("검색 내용을 입력하세요.");
+				}
+				
+			}
 		}
 		
 		
@@ -343,9 +368,12 @@ package component
 			
 			var data:ArrayCollection = event.result as ArrayCollection;
 			
-			acName.removeAll();
-			acName.addAll(data);
-			nameCount.text = String(acName.length);
+			if (data != null) {
+				acName.removeAll();
+				acName.addAll(data);
+				nameCount.text = String(acName.length);
+			}
+			
 			viewCard();
 			bEdite = false;
 			
@@ -381,7 +409,8 @@ package component
 				var avo:AddressVO = AddressVO( acName.getItemAt( nameList.selectedIndex ) );
 				
 				avo.grp = 1;
-				avo.grpName = currentGroupName;
+				//avo.grpName = currentGroupName;
+				avo.grpName = AddressVO(groupName.selectedItem).grpName;
 				avo.name = nameL.text;
 				avo.phone = phone.text;
 				avo.memo = memo.text;
@@ -393,12 +422,14 @@ package component
 			if (nameList.selectedIndex >= 0) {
 				var avo:AddressVO = AddressVO( acName.getItemAt( nameList.selectedIndex ) );
 				if (avo != null) {
+					groupName.selectedItem = avo;
 					nameL.text = avo.name;
 					phone.text = avo.phone;
 					memo.text = avo.memo;
 				}
 			}
 			else {
+				groupName.selectedIndex = -1;
 				nameL.text = "";
 				phone.text = "";
 				memo.text = "";
@@ -646,7 +677,6 @@ package component
 			
 			
 			// card
-			photo = null;
 			nameL = null;
 			phone = null;
 			memo = null;

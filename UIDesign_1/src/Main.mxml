@@ -15,6 +15,7 @@
 	<fx:Style source="assets/style/styles.css"/>
 	<fx:Script>
 		<![CDATA[
+			import component.util.TextInputSearch;
 			import component.Address;
 			import component.Bill;
 			import component.Join;
@@ -30,6 +31,8 @@
 			public var log:Log;
 			
 			// login check
+			
+			private var component_util_TextInputSearch_obj:component.util.TextInputSearch;
 			public function login_check():void {
 				login.login_check();
 			}
@@ -38,14 +41,14 @@
 			public function joinView():void {
 				
 				this.currentState = "join";
-				join = new Join();
+				/* join = new Join();
 				join.addEventListener("complete", join_completeHandler);
-				this.main_group.addElement(join);
+				this.main_group.addElement(join); */
 			}
 			
 			private function join_completeHandler(event:Event):void {
 				
-				join_remove();
+				//join_remove();
 				this.currentState = "home";
 				
 			}
@@ -63,8 +66,19 @@
 			protected function application_stateChangeCompleteHandler(event:FlexEvent):void
 			{
 				// join create
-				if (currentState != "join" && join != null) {
-					join_remove();
+				if (join == null && currentState == "join") {
+					
+					join = new Join();
+					join.minWidth = 1024;
+					join.minHeight = 420;
+					join.horizontalCenter = 0;
+					join.addEventListener("complete", join_completeHandler);
+					main_group.addElement(join);
+				} else if (join != null) {
+					join.removeEventListener("complete", join_completeHandler);
+					this.main_group.removeElement(join);
+					join = null;
+					login.login_check();	
 				}
 				
 				
@@ -140,45 +154,45 @@
 		<s:Fade id="fadeEffect" alphaFrom="0" alphaTo="1"/>
 	</fx:Declarations>
 	<!--<s:transitions>
-		<s:Transition id="t1">
-			<s:Wipe id="wipe"
-					direction="right"
-					target="{main_group}"
-					duration="300" />
-		</s:Transition>
+	<s:Transition id="t1">
+	<s:Wipe id="wipe"
+	direction="right"
+	target="{main_group}"
+	duration="300" />
+	</s:Transition>
 	</s:transitions>-->
 	<!--<s:transitions>
-		<s:Transition id="transition" fromState="*" toState="*">
-			<s:Parallel id="t1" targets="{[send, address, bill, log]}">
-				<s:Rotate3D id="rotateEffect" 
-							angleXFrom="0.0" angleXTo="0.0" 
-							angleYFrom="0.0" angleYTo="360.0" 
-							angleZFrom="0.0" angleZTo="0.0"
-							duration="1000"
-							repeatCount="1"
-							easer="{bounceEasing}"
-							/>
-			</s:Parallel>
-			<s:Sequence id="t1" targets="{[main_group]}"> 
-				<s:Animate id="a" duration="500" easer="{bounceEasing}">
-					<s:SimpleMotionPath valueFrom="1024"
-										valueTo="100"
-										property="top" />
-					<s:SimpleMotionPath valueFrom="100"
-										valueTo="100"
-										property="bottom" />
-					<s:SimpleMotionPath valueFrom="{this.width/2}"
-										valueTo="0"
-										property="left" />
-					<s:SimpleMotionPath valueFrom="{this.width/2}"
-										valueTo="0"
-										property="right" />
-				</s:Animate>
-			</s:Sequence> 
-
-		</s:Transition>
+	<s:Transition id="transition" fromState="*" toState="*">
+	<s:Parallel id="t1" targets="{[send, address, bill, log]}">
+	<s:Rotate3D id="rotateEffect" 
+	angleXFrom="0.0" angleXTo="0.0" 
+	angleYFrom="0.0" angleYTo="360.0" 
+	angleZFrom="0.0" angleZTo="0.0"
+	duration="1000"
+	repeatCount="1"
+	easer="{bounceEasing}"
+	/>
+	</s:Parallel>
+	<s:Sequence id="t1" targets="{[main_group]}"> 
+	<s:Animate id="a" duration="500" easer="{bounceEasing}">
+	<s:SimpleMotionPath valueFrom="1024"
+	valueTo="100"
+	property="top" />
+	<s:SimpleMotionPath valueFrom="100"
+	valueTo="100"
+	property="bottom" />
+	<s:SimpleMotionPath valueFrom="{this.width/2}"
+	valueTo="0"
+	property="left" />
+	<s:SimpleMotionPath valueFrom="{this.width/2}"
+	valueTo="0"
+	property="right" />
+	</s:Animate>
+	</s:Sequence> 
+	
+	</s:Transition>
 	</s:transitions>-->
-
+	
 	<component:Menus id="menus" skinClass="skin.MenuSkin"
 					 horizontalCenter="0" y="0"
 					 change="{this.currentState = event.result as String}"/>
@@ -237,7 +251,7 @@
 			</s:RichText>
 		</s:Group>
 	</s:VGroup>
-
+	
 	
 	
 	
