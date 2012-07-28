@@ -609,7 +609,7 @@ package component
 			excel = new Excel();
 			excel.horizontalCenter = 0;
 			excel.verticalCenter = 0;
-			excel.bFromAddress = false;
+			excel.bFromAddress = true;
 			excel.addEventListener("saveAddress", excel_saveAddressHandler);
 			excel.addEventListener("close", excel_closeHandler);
 			this.contentGroup.addElement(excel);

@@ -85,7 +85,10 @@ package component.excel
 		public function set bFromAddress(value:Boolean):void { _bFromAddress = value; }
 
 		public function get currStat():String { return _currStat; }
-		public function set currStat(value:String):void { _currStat = value; }
+		public function set currStat(value:String):void { 
+			_currStat = value;
+			invalidateSkinState();
+		}
 
 		override protected function getCurrentSkinState():String {
 				
@@ -369,14 +372,18 @@ package component.excel
 					currStat = "upload";
 					break;
 				case SELPHONE:
-					helpText.text = "주소록 저장 또는 전송을 크릭하세요.";
-					if (bFromAddress)
+					
+					if (bFromAddress) {
+						helpText.text = "그룹을 선택 후 저장버튼을 클릭하세요.";
 						currStat = "actionAddress";
-					else
+					}
+					else {
+						helpText.text = "전송 추가 버튼을 클릭하세요.";
 						currStat = "actionSend";
+					}
+						
 					break;
 			}
-			invalidateSkinState();
 		}
 		
 		private function addressBtn_clickHandler(event:MouseEvent):void {
