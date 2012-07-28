@@ -84,13 +84,13 @@
         {
             if (getStyle("borderVisible") == true)
             {
-                border.visible = true;
+               // border.visible = true;
                 background.left = background.top = background.right = background.bottom = 1;
                 scroller.minViewportInset = 1;
             }
             else
             {
-                border.visible = false;
+                //border.visible = false;
                 background.left = background.top = background.right = background.bottom = 0;
                 scroller.minViewportInset = 0;
             }
@@ -134,11 +134,11 @@
         </fx:Component>
     </fx:Declarations>
 
-	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('assets/textarea_input.png')" smooth="true" fillMode="scale" alpha="0.5"/>
+	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('assets/textarea_input.png', scaleGridTop='10', scaleGridBottom='212', scaleGridLeft='10', scaleGridRight='222')" smooth="true" fillMode="scale" alpha="0.5"/>
 	
     <!-- border -->
     <!--- @private -->
-    <s:Rect left="0" right="0" top="0" bottom="0" id="border">
+    <!--<s:Rect left="0" right="0" top="0" bottom="0" id="border">
 		<s:stroke>
 			<s:LinearGradientStroke rotation="90" weight="1">
 				<s:GradientEntry color="0xAAAAAA" 
@@ -147,7 +147,7 @@
 								 alpha="0.75"/>
 			</s:LinearGradientStroke>
 		</s:stroke>
-    </s:Rect>
+    </s:Rect>-->
     
     <!-- fill -->
     <!--- Defines the background appearance of the list-based component. -->

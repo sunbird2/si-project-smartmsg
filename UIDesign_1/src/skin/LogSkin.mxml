@@ -31,7 +31,7 @@
 					<s:List id="groupList"
 							width="200"
 							height="500"
-							skinClass="skin.compnent.ListSkin02"
+							skinClass="skin.compnent.ListSkin01"
 							itemRenderer="skin.log.GroupListRenderer" />
 				</s:VGroup>
 				<s:VGroup>
@@ -44,6 +44,7 @@
 					<s:List id="detailList"
 							width="500"	height="400"
 							fontFamily="Dotum"
+							skinClass="skin.compnent.ListSkin01"
 							itemRenderer="skin.log.LogDetailItemRenderer"/>
 					<!--<s:DataGrid id="detailList"
 								width="500"	height="400"

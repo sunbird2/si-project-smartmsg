@@ -15,6 +15,7 @@
 	<fx:Style source="assets/style/styles.css"/>
 	<fx:Script>
 		<![CDATA[
+			import component.util.ButtonSpinner;
 			import component.util.TextInputSearch;
 			import component.Address;
 			import component.Bill;
@@ -33,6 +34,8 @@
 			// login check
 			
 			private var component_util_TextInputSearch_obj:component.util.TextInputSearch;
+			
+			private var component_util_ButtonSpinner_obj:component.util.ButtonSpinner;
 			public function login_check():void {
 				login.login_check();
 			}
