@@ -25,5 +25,13 @@
 
 s|List {
 	border-color : #DDDDDD;
+	focus-color : #DDDDDD;
+	rollOverColor : #DDDDDD;
+	selectionColor : #DDDDDD;
+	alternatingItemColors : #FFFFFF,#FBFBFB;
+	
+}
 
+s|TextInput, s|TextArea, s|ComboBox, s|Button  {
+	focus-color : #DDDDDD;
 }

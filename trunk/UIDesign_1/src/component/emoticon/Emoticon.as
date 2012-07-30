@@ -55,7 +55,7 @@ package component.emoticon
 		private var acCate:ArrayCollection = new ArrayCollection();
 		private var acEmt:ArrayCollection = new ArrayCollection();
 		private var currTotalCount:int = 0;
-		private var viewDataCount:int = 6;
+		private var viewDataCount:int = 9;
 		
 		public function Emoticon(defaultState:String) {
 			super();

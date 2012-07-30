@@ -67,9 +67,6 @@
 								width="380" height="180" 
 								itemRenderer="component.send.SendListRenderer"
 								
-								alternatingItemColors="{[0xFFFFFF,0xEEEEEE]}"
-								alpha="0.8"
-								rollOverColor="0xDDDDDD"
 								 />
 						
 						

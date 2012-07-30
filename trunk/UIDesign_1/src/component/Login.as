@@ -142,7 +142,10 @@ package component
 			
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {
-				
+				if (Main(parentApplication).currentState == "send")
+					Main(parentApplication).menus.clickStat ="home";
+				else
+					Main(parentApplication).menus.clickStat ="send";
 				callLater(login_check);
 				
 			} else {
