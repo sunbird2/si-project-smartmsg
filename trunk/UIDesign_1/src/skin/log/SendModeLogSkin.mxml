@@ -7,11 +7,12 @@
 		[HostComponent("component.log.SendModeLog")]
 	</fx:Metadata>
 	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('/assets/titleWindow.png', scaleGridTop='42', scaleGridBottom='138', scaleGridLeft='11', scaleGridRight='118')" />
+	<s:Label top="15" left="15" text="최근발송목록" fontFamily="NGDB" fontSize="20" />
 	<s:VGroup paddingTop="50" paddingLeft="10" paddingRight="10" paddingBottom="10">
-		<s:HGroup>
-			<s:Label id="preMonth" text="이전달" fontFamily="NGD" />
-			<s:Label id="month" text="" fontSize="26" fontFamily="NGD" />
-			<s:Label id="nextMonth" text="다음달" fontFamily="NGD" />
+		<s:HGroup verticalAlign="middle">
+			<s:Label id="preMonth" text="이전달" fontFamily="NGD" buttonMode="true" color="0x999999"  />
+			<s:Label id="month" text="" fontSize="26" fontFamily="NGD" buttonMode="true" color="0x000000"  />
+			<s:Label id="nextMonth" text="다음달" fontFamily="NGD" buttonMode="true" color="0x999999"  />
 		</s:HGroup>
 		<s:HSlider id="monthSlider" width="100%" />
 		<s:List id="groupList"

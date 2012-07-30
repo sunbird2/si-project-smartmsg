@@ -1,6 +1,8 @@
 package component.excel
 {
 	
+	import component.util.ButtonSpinner;
+	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.net.FileReference;
@@ -48,7 +50,7 @@ package component.excel
 		[SkinPart(required="false")]public var nameCombo:ComboBox;
 		[SkinPart(required="false")]public var memoCombo:ComboBox;
 		[SkinPart(required="false")]public var addressCombo:ComboBox;
-		[SkinPart(required="false")]public var addressBtn:Button;
+		[SkinPart(required="false")]public var addressBtn:ButtonSpinner;
 		[SkinPart(required="false")]public var sendBtn:Button;
 		[SkinPart(required="false")]public var excelView:DataGrid;
 		[SkinPart(required="false")]public var resultList:List;
@@ -388,6 +390,7 @@ package component.excel
 		
 		private function addressBtn_clickHandler(event:MouseEvent):void {
 			
+			addressBtn.bLoading = true;
 			RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", addressBtn_resultHandler, false, 0, true);
 			RemoteSingleManager.getInstance.callresponderToken 
 				= RemoteSingleManager.getInstance.service.modifyManyAddr(31, acRslt, addressCombo.selectedItem as String);
@@ -400,6 +403,8 @@ package component.excel
 				this.dispatchEvent( new CustomEvent("saveAddress", String(addressCombo.selectedItem) ));
 			}
 			else SLibrary.alert("저장 되지 않았습니다.");
+			
+			addressBtn.bLoading = false;
 		}
 		private function close_clickHandler(event:MouseEvent):void {
 			this.dispatchEvent(new Event("close"));

@@ -47,7 +47,7 @@
 							<s:content><s:p><s:span id="byte">0</s:span><s:span kerning="auto"> </s:span><s:span fontSize="12" lineHeight="166.65%" kerning="auto">byte</s:span></s:p></s:content>
 						</s:RichText>
 						<s:RichEditableText editable="false" focusEnabled="false"  width="225" height="201" textDecoration="none" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%">
-							<s:content><s:p><s:span>발송할 메시지를 직접 입력하거나,   </s:span><s:a id="myMessage" href="내메시지 창을 열어봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">내메시지</s:span></s:a><s:span>, </s:span><s:a id="sentMessage" href="최근발솓메시지 창을 열어봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">최근발송메시지</s:span></s:a><s:span>, </s:span><s:a id="emoticon" href="이모티콘 창을 열어 봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">이모티콘</s:span></s:a><s:span>, </s:span><s:a id="specialChar" href="특수문자창을 열어 봅니다." color="#008cc4" fontFamily="NGD" ><s:span color="#008cc4" textDecoration="none">특수문자</s:span></s:a><s:span>에서 추가할 수 있으며, 90byte 이상을 입력하면 LMS(장문), 이미지를 </s:span><s:a id="addImage" color="#008cc4" href="이미지를 첨부 합니다." fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">첨부</s:span></s:a><s:span> 하면 MMS(사진)를 발송할 수 있습니다. 또한 입력한 내용을 내메시지에 </s:span><s:a id="messageSaveBtn" href="입력된 메시지를 내메시지에 저장 합니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">저장</s:span></s:a><s:span> 하여 재사용 가능 합니다.</s:span></s:p></s:content>
+							<s:content><s:p><s:span>발송할 메시지를 직접 입력하거나,   </s:span><s:a id="myMessage" href="내메시지 창을 열어봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">내메시지</s:span></s:a><s:span>, </s:span><s:a id="sentMessage" href="최근발송메시지 창을 열어봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">최근발송메시지</s:span></s:a><s:span>, </s:span><s:a id="emoticon" href="이모티콘 창을 열어 봅니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">이모티콘</s:span></s:a><s:span>, </s:span><s:a id="specialChar" href="특수문자창을 열어 봅니다." color="#008cc4" fontFamily="NGD" ><s:span color="#008cc4" textDecoration="none">특수문자</s:span></s:a><s:span>에서 추가할 수 있으며, 90byte 이상을 입력하면 LMS(장문), 이미지를 </s:span><s:a id="addImage" color="#008cc4" href="이미지를 첨부 합니다." fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">첨부</s:span></s:a><s:span> 하면 MMS(사진)를 발송할 수 있습니다. 또한 입력한 내용을 내메시지에 </s:span><s:a id="messageSaveBtn" href="입력된 메시지를 내메시지에 저장 합니다." color="#008cc4" fontFamily="NGD"><s:span color="#008cc4" textDecoration="none">저장</s:span></s:a><s:span> 하여 재사용 가능 합니다.</s:span></s:p></s:content>
 						</s:RichEditableText>
 						
 					</s:VGroup>
@@ -64,9 +64,9 @@
 						</s:HGroup>
 						
 						<s:List id="sendList" 
-								width="380" height="230" 
+								width="380" height="180" 
 								itemRenderer="component.send.SendListRenderer"
-								skinClass="skin.compnent.ListSkin01"
+								
 								alternatingItemColors="{[0xFFFFFF,0xEEEEEE]}"
 								alpha="0.8"
 								rollOverColor="0xDDDDDD"

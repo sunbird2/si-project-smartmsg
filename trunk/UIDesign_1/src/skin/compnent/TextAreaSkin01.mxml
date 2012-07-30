@@ -261,18 +261,19 @@
     
     <!-- fill -->
     <!--- Defines the appearance of the TextArea component's background. -->
-    <s:Rect id="background" left="1" right="1" top="1" bottom="1" radiusX="3" visible="false">
+    <s:Rect id="background" left="1" right="1" top="1" bottom="1" radiusX="3">
         <s:fill>
             <!--- @private Defines the background fill color. -->
-            <s:SolidColor id="bgFill" color="0xFFFFFF" alpha="0" />
+            <s:SolidColor id="bgFill" color="0xFFFFFF" />
         </s:fill>
     </s:Rect>
 	
-	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('assets/textarea_input.png', scaleGridTop='10', scaleGridBottom='212', scaleGridLeft='10', scaleGridRight='222')" smooth="true" fillMode="scale" alpha="0.5"/>
-	
+	<!--<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('assets/textarea_input.png', scaleGridTop='10', scaleGridBottom='212', scaleGridLeft='10', scaleGridRight='222')" smooth="true" fillMode="scale" alpha="0.5"/>-->
+	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('assets/TextInput_bg.png', scaleGridTop='10', scaleGridBottom='22', scaleGridLeft='10', scaleGridRight='195')"
+				   smooth="true" fillMode="scale"/>
     <!-- shadow -->
     <!--- @private -->
-    <s:Rect id="shadow" left="1" top="1" right="1" height="1" radiusX="3" visible="false">
+    <s:Rect id="shadow" left="1" top="1" right="1" height="1" radiusX="3">
         <s:fill>
             <s:SolidColor color="0x000000" alpha="0" />
         </s:fill>

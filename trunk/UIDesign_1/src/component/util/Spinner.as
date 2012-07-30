@@ -7,6 +7,7 @@ package component.util
 	import flash.geom.Matrix;
 	import flash.utils.Timer;
 	
+	import mx.core.FlexGlobals;
 	import mx.core.UIComponent;
 	import mx.styles.CSSStyleDeclaration;
 	import mx.styles.StyleManager;
@@ -72,7 +73,7 @@ package component.util
 	 *  &lt;ui:Spinner
 	 *   <strong>Properties</strong>
 	 *   delay="100"
-	 *      startImmediately="false"
+	 * 	 startImmediately="false"
 	 *   <strong>Styles</strong>
 	 *   backgroundAlpha="1"
 	 *   backgroundColor="NaN"
@@ -94,16 +95,18 @@ package component.util
 	public class Spinner extends UIComponent
 	{
 		
-		// setup the default styles
-		private static var classConstructed:Boolean = classConstruct(); 
+		/*private static var classConstructed:Boolean = classConstruct(); 
 		private static function classConstruct():Boolean {
-			var style:CSSStyleDeclaration = StyleManager.getStyleDeclaration("Spinner");
+			
+			//var style:CSSStyleDeclaration = StyleManager.getStyleDeclaration("Spinner");
+			var style:CSSStyleDeclaration = FlexGlobals.topLevelApplication.styleManager.getStyleDeclaration("Spinner"); 
+			
 			if (!style) {
 				style = new CSSStyleDeclaration();
 			}
 			style.defaultFactory = function():void {
 				this.backgroundAlpha = 1;
-				this.backgroundColor = NaN;        // no default
+				this.backgroundColor = NaN;		// no default
 				this.spinnerAlpha = 1;
 				this.spinnerColor = 0x829AD1;
 				this.spinnerHighlightColor = 0x001A8E;
@@ -111,18 +114,19 @@ package component.util
 				this.spinnerLineThickness = 2;
 				this.spinnerType = GRADIENT_CIRCLE;
 			};
-			StyleManager.setStyleDeclaration("Spinner", style, true);          
+			
+			FlexGlobals.topLevelApplication.styleManager.setStyleDeclaration("Spinner", style, true);
 			return true;
-		};
+		};*/
 		
 		public static const GRADIENT_CIRCLE:String = "gradientcircle";
 		public static const CIRCLES:String = "circles";
 		public static const LINES:String = "lines";
 		public static const GRADIENT_LINES:String = "gradientlines";
 		
-		private static const MAX_ANGLE:Number = 2 * Math.PI;    // 360 degrees
+		private static const MAX_ANGLE:Number = 2 * Math.PI;	// 360 degrees
 		private static const POSITIONS:int = 8;
-		private static const ANGLE_INCR:Number = MAX_ANGLE / POSITIONS;    // 45 degrees
+		private static const ANGLE_INCR:Number = MAX_ANGLE / POSITIONS;	// 45 degrees
 		
 		private var currentPosition:int;
 		private var timer:Timer;
@@ -130,19 +134,31 @@ package component.util
 		
 		private var _startImmediately:Boolean;
 		
+		private var spinnerDelay:uint = 100;
+		
 		public function Spinner(spinnerWidth:Number = 16, spinnerHeight:Number = 16, 
 								spinnerDelay:uint = 100) {
 			super();
+			
+			this.setStyle("backgroundAlpha", 1);
+			this.setStyle("backgroundColor", NaN);
+			this.setStyle("spinnerAlpha", 1);
+			this.setStyle("spinnerColor", 0x829AD1);
+			//this.setStyle("spinnerColor", 0xFFFFFF);
+			this.setStyle("spinnerHighlightColor", 0x001A8E);
+			this.setStyle("spinnerThickness", 3);
+			this.setStyle("spinnerLineThickness", 2);
+			this.setStyle("spinnerType", GRADIENT_CIRCLE);
+			
 			this.width = spinnerWidth;
 			this.height = spinnerHeight;
 			this._startImmediately = false;
 			currentPosition = 0;
-			timer = new Timer(spinnerDelay);
-			timer.addEventListener(TimerEvent.TIMER, timerHandler);
+			this.spinnerDelay = spinnerDelay;
 			
 			// these listeners start and stop the timer
-			addEventListener(Event.ADDED, addedToParent);
-			addEventListener(Event.REMOVED, removedFromParent);
+			addEventListener(Event.ADDED_TO_STAGE, addedToParent);
+			
 		}
 		
 		[Bindable(event="delayChanged")]
@@ -152,7 +168,7 @@ package component.util
 		}
 		
 		public function set delay(ms:Number):void {
-			if ((ms >= 0) && (ms != timer.delay)) {
+			if (timer && (ms >= 0) && (ms != timer.delay)) {
 				timer.delay = ms;
 				dispatchEvent(new Event("delayChanged"));
 			}
@@ -169,12 +185,25 @@ package component.util
 		
 		private function addedToParent(event:Event):void {
 			if (startImmediately) {
+				
+				timer = new Timer(spinnerDelay);
+				timer.addEventListener(TimerEvent.TIMER, timerHandler);
+				addEventListener(Event.REMOVED_FROM_STAGE, removedFromParent);
+
 				start();
 			}
 		}
 		
 		private function removedFromParent(event:Event):void {
+			
 			stop();
+			
+			timer.removeEventListener(TimerEvent.TIMER, timerHandler);
+			
+			// these listeners start and stop the timer
+			removeEventListener(Event.ADDED, addedToParent);
+			removeEventListener(Event.REMOVED, removedFromParent);
+			timer = null;
 		}
 		
 		private function timerHandler(event:TimerEvent):void {
@@ -183,11 +212,15 @@ package component.util
 		}
 		
 		public function get running():Boolean {
-			return timer.running;
+			
+			if (timer)
+				return timer.running;
+			else
+				return false;
 		}
 		
 		public function set running(run:Boolean):void {
-			if (run != timer.running) {
+			if (timer && run != timer.running) {
 				if (run) {
 					timer.start();
 				} else {
@@ -197,13 +230,13 @@ package component.util
 		}
 		
 		public function stop():void {
-			if (timer.running) {
+			if (timer && timer.running) {
 				timer.stop();
 			}
 		}
 		
 		public function start():void {
-			if (!timer.running) {
+			if (timer && !timer.running) {
 				timer.start();
 			}
 		}
@@ -267,7 +300,7 @@ package component.util
 					
 					angle += ANGLE_INCR;
 					count++;
-				}    
+				}	
 			} else if (spinnerType == GRADIENT_LINES) {
 				drawGradientLines(g, normal, highlight, midX, midY, radius, lineThickness, spinnerAlpha);
 			} else {
@@ -283,7 +316,7 @@ package component.util
 		protected function drawCircle(g:Graphics, color:uint, midX:Number, midY:Number, radius:Number, 
 									  circleAlpha:Number = 1):void {
 			if ((radius > 0) && (circleAlpha > 0)) {
-				g.lineStyle(0, 0, 0);    // no border
+				g.lineStyle(0, 0, 0);	// no border
 				g.beginFill(color, circleAlpha);
 				g.drawCircle(midX, midY, radius);
 				g.endFill();
@@ -334,7 +367,7 @@ package component.util
 					g.lineTo(x2, y2);
 					
 					angle += incr;
-				}    
+				}	
 				
 			}
 		}
@@ -408,6 +441,10 @@ package component.util
 		
 		public static function getBlue(rgb:uint):uint {
 			return (rgb & 0xFF);
+		}
+		
+		public function destory():void {
+			
 		}
 		
 	}

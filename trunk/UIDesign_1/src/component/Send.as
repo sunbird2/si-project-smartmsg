@@ -380,7 +380,7 @@ package component
 			
 			return pvo;
 		}
-		public function removePhone(pvo:PhoneVO):void {	this.alPhone.removeItemAt( this.alPhone.getItemIndex(pvo) ); }
+		public function removePhone(pvo:PhoneVO):void {	this.alPhone.removeItemAt( this.alPhone.getItemIndex(pvo) );setTotalCount(); }
 		public function phoneFormat(ph:String):String {	return Kpf.format(ph);	}
 		private function setTotalCount():void { 
 			this.countPhone.text = new String(this.alPhone.length);
@@ -712,7 +712,7 @@ package component
 			if (reservation == null) {
 				reservation = new ReservationCalendar();
 				reservation.left = 20;
-				reservation.y = 780;
+				reservation.y = 770;
 				reservation.addEventListener("setReservation", reservation_setReservationHandler);
 				reservation.addEventListener("cancelReservation", reservation_cancelReservationHandler);
 				this.contentGroup.addElement(reservation);
@@ -758,7 +758,7 @@ package component
 			if (interval == null) {
 				interval = new Interval();
 				interval.left = 20;
-				interval.y = 780;
+				interval.y = 770;
 				interval.addEventListener("setInterval", interval_setintervalHandler);
 				interval.addEventListener("cancelInterval", interval_cancelintervalHandler);
 				this.contentGroup.addElement(interval);
