@@ -134,7 +134,6 @@
         </fx:Component>
     </fx:Declarations>
 
-	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('assets/textarea_input.png', scaleGridTop='10', scaleGridBottom='212', scaleGridLeft='10', scaleGridRight='222')" smooth="true" fillMode="scale" alpha="0.5"/>
 	
     <!-- border -->
     <!--- @private -->
@@ -151,12 +150,15 @@
     
     <!-- fill -->
     <!--- Defines the background appearance of the list-based component. -->
-    <s:Rect id="background" left="1" right="1" top="1" bottom="1" visible="false" >
+    <s:Rect id="background" left="1" right="1" top="1" bottom="1" >
         <s:fill>
         <!--- Defines the color of the background. The default color is 0xFFFFFF. -->
             <s:SolidColor id="bgFill" color="0xFFFFFF" alpha="0.35" />
         </s:fill>
     </s:Rect>
+	
+	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('assets/textarea_input.png', scaleGridTop='10', scaleGridBottom='212', scaleGridLeft='10', scaleGridRight='222')" smooth="true" fillMode="scale" alpha="0.5"/>
+	
 
     <!--- The Scroller component to add scroll bars to the list. -->
     <s:Scroller left="0" top="0" right="0" bottom="0" id="scroller" minViewportInset="1" hasFocusableChildren="false">

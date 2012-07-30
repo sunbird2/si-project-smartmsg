@@ -10,13 +10,15 @@
 		<s:State name="normal"/>
 		<s:State name="phones"/>
 	</s:states>
+	
 	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('/assets/titleWindow.png', scaleGridTop='42', scaleGridBottom='138', scaleGridLeft='11', scaleGridRight='118')" />
+	<s:Label top="15" left="15" text="대량입력" fontFamily="NGDB" fontSize="20" />
 	<s:HGroup paddingTop="50" paddingLeft="10" paddingRight="10" paddingBottom="10">
-		<s:TextArea id="ta" width="100" height="150" prompt="전화번호를 입력하거나 붙여넣으세요." />
-		<s:TextArea id="phones" includeIn="phones" width="100" height="150" prompt="입력된 내용에서 추출한 전화번호가 보여집니다." 
+		<s:TextArea id="ta" width="200" height="150" prompt="전화번호를 입력하거나 붙여넣으세요." fontFamily="Gulim" />
+		<s:TextArea id="phones" includeIn="phones" width="100" height="150" prompt="입력된 내용에서 추출한 전화번호가 보여집니다."  fontFamily="Gulim" 
 					borderVisible="false"/>
 		
-		<s:Button id="send" includeIn="phones" label="넣기" height="150" />	
+		<s:Button id="send" includeIn="phones" fontFamily="NGD" label="추가" height="150" skinClass="skin.compnent.ButtonSkin01" />	
 	</s:HGroup>
 	<s:Button id="close" width="16" height="16" right="10" top="7" skinClass="skin.compnent.ButtonCloseSkin" />
 	

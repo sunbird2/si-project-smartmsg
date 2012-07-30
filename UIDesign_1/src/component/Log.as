@@ -121,7 +121,7 @@ package component
 			
 			super.partAdded(partName, instance);
 			
-			trace("partAdded " + partName);
+			//trace("partAdded " + partName);
 			
 			if (instance == preMonth) preMonth.addEventListener(MouseEvent.CLICK, preMonth_clickHandler);
 			else if (instance == month) yyyymm = yyyymm;
@@ -181,7 +181,7 @@ package component
 		/* Implement the partRemoved() method to remove the even handlers added in partAdded() */
 		override protected function partRemoved(partName:String, instance:Object) : void
 		{
-			trace("partRemoved " + partName);
+			//trace("partRemoved " + partName);
 			
 			if (instance == preMonth) preMonth.removeEventListener(MouseEvent.CLICK, preMonth_clickHandler);
 			else if (instance == nextMonth) nextMonth.removeEventListener(MouseEvent.CLICK, nextMonth_clickHandler);

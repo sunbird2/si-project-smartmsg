@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
-		xmlns:mx="library://ns.adobe.com/flex/mx">
+		xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:util="component.util.*">
 	<!-- host component -->
 	<fx:Metadata>
 		[HostComponent("component.excel.Excel")]
@@ -13,6 +13,7 @@
 		<s:State name="actionAddress"/>
 	</s:states>
 	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('/assets/titleWindow.png', scaleGridTop='42', scaleGridBottom='138', scaleGridLeft='11', scaleGridRight='118')" />
+	<s:Label top="15" left="15" text="엑셀" fontFamily="NGDB" fontSize="20" />
 	<s:VGroup paddingTop="50" paddingLeft="10" paddingRight="10" paddingBottom="10">
 		<s:RichText id="helpText" text="엑셀열기 를 클릭하세요." fontFamily="NGD" />
 		<s:HGroup verticalAlign="middle">
@@ -23,14 +24,14 @@
 			<s:Button id="sendBtn" includeIn="actionSend" label="전송추가" />
 			
 			<s:ComboBox id="addressCombo" includeIn="actionAddress" width="80" />
-			<s:Button id="addressBtn" includeIn="actionAddress" label="그룹에 저장" skinClass="skin.compnent.ButtonSkin01" fontFamily="NGD" />	
+			<util:ButtonSpinner id="addressBtn" includeIn="actionAddress" label="그룹에 저장" skinClass="skin.compnent.ButtonSkin01" fontFamily="NGD" />	
 			
 		</s:HGroup>
 		<s:HGroup>
 			<s:DataGrid id="excelView" width="400" height="200">
 				
 			</s:DataGrid>
-			<s:List id="resultList" width="300" height="200"></s:List>
+			<s:List id="resultList" width="250" height="200" skinClass="skin.compnent.ListSkin01"></s:List>
 		</s:HGroup>
 	</s:VGroup>
 	<s:Button id="close" width="16" height="16" right="10" top="7" skinClass="skin.compnent.ButtonCloseSkin" />

@@ -23,15 +23,15 @@
 			<s:HGroup gap="20"  top="100" horizontalCenter="0">
 				<s:VGroup width="200" height="100%">
 					<s:HGroup verticalAlign="middle">
-						<s:Label id="preMonth" text="이전달" fontFamily="NGD" />
-						<s:Label id="month" text="" fontSize="20" fontFamily="NGD" />
-						<s:Label id="nextMonth" text="다음달" fontFamily="NGD" />
+						<s:Label id="preMonth" text="이전달" fontFamily="NGD" buttonMode="true" color="0x999999" />
+						<s:Label id="month" text="" fontSize="20" fontFamily="NGD" buttonMode="true" color="0x000000" />
+						<s:Label id="nextMonth" text="다음달" fontFamily="NGD" buttonMode="true" color="0x999999" />
 					</s:HGroup>
 					<s:HSlider id="monthSlider" width="100%" />
 					<s:List id="groupList"
 							width="200"
 							height="500"
-							skinClass="skin.compnent.ListSkin01"
+							
 							itemRenderer="skin.log.GroupListRenderer" />
 				</s:VGroup>
 				<s:VGroup>
@@ -42,9 +42,9 @@
 					</s:HGroup>
 					
 					<s:List id="detailList"
-							width="500"	height="400"
+							width="500"	height="390"
 							fontFamily="Dotum"
-							skinClass="skin.compnent.ListSkin01"
+							
 							itemRenderer="skin.log.LogDetailItemRenderer"/>
 					<!--<s:DataGrid id="detailList"
 								width="500"	height="400"

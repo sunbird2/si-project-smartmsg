@@ -163,7 +163,6 @@ package component
 						if (event.items[i] is PropertyChangeEvent
 							&& PropertyChangeEvent(event.items[i]) != null
 							&& PropertyChangeEvent(event.items[i]).property == "grpName") { 
-							trace("update!!");
 							activeAddress(
 								(AddressVO(PropertyChangeEvent(event.items[i]).source).idx == 0)? 10 : 11,
 								AddressVO(PropertyChangeEvent(event.items[i]).source)
@@ -196,8 +195,6 @@ package component
 				groupList.addEventListener(KeyboardEvent.KEY_UP, groupList_keyUpHandler);
 				groupList.addEventListener(DragEvent.DRAG_DROP, groupList_dragDropHandler);
 				groupList.addEventListener(DragEvent.DRAG_OVER, groupList_dragOverHandler);
-				
-				groupList = null;
 			}
 			else if (instance == nameList) {
 				nameList.dataProvider = acName;
@@ -242,12 +239,15 @@ package component
 				
 				acGroup.removeAll();
 				
+				groupList = null;
+				
 			}
 			else if (instance == nameList) {
 				Object(nameList.dataProvider).removeAll();
 
 				nameList.removeEventListener(IndexChangeEvent.CHANGE, nameList_changeHandler);
 				nameList.removeEventListener(KeyboardEvent.KEY_UP, namepList_keyUpHandler);
+				nameList = null;
 			}
 			else if (instance == groupAddBtn) groupAddBtn.removeEventListener(FlowElementMouseEvent.CLICK, groupAddBtn_clickHandler);
 			else if (instance == nameAddBtn) nameAddBtn.removeEventListener(FlowElementMouseEvent.CLICK, nameAddBtn_clickHandler);
@@ -307,7 +307,7 @@ package component
 			if (event.keyCode == 46
 				&& AddressVO(groupList.selectedItem).grpName != "모두") {
 				
-				confirmAlert = new AlertManager("그룹의 전화번호도 지워 집니다.\n 삭제 하시겠습니까?","그룹삭제", 1|8, Sprite(parentApplication), groupList.selectedIndex);
+				confirmAlert = new AlertManager("["+AddressVO(groupList.selectedItem).grpName+"] 그룹의 주소도 모두 삭제 됩니다.\n 삭제 하시겠습니까?","그룹삭제", 1|8, Sprite(parentApplication), groupList.selectedIndex);
 				confirmAlert.addEventListener("yes",deleteGroup_confirmHandler, false, 0, true);
 			}
 				
@@ -343,6 +343,7 @@ package component
 			confirmAlert.removeEventListener("yes",deleteGroup_confirmHandler);
 			confirmAlert = null;
 			acGroup.removeItemAt( int(event.result) );
+			acName.removeAll();
 		}
 		
 		/**
@@ -513,6 +514,8 @@ package component
 				}
 				default: { break; }
 			}
+			
+			setGvGroup();
 			
 			
 		}

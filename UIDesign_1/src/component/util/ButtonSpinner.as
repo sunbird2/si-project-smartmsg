@@ -4,19 +4,20 @@ package component.util
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	
 	import spark.components.Button;
-	
-	
-	/* A component must identify the view states that its skin supports. 
-	Use the [SkinState] metadata tag to define the view states in the component class. 
-	[SkinState("normal")] */
+
+	[SkinState("up")]
+	[SkinState("over")]
+	[SkinState("down")]
+	[SkinState("disabled")]
+	[SkinState("loading")]
 	
 	public class ButtonSpinner extends Button
 	{
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
 		[SkinPart(required="true")] */
+		[SkinPart(required="true")]	public var sp:Spinner;
 		
 		private var _bLoading:Boolean = false;
-		private var spinner:Spinner = null;
 		
 		public function ButtonSpinner()
 		{
@@ -29,14 +30,15 @@ package component.util
 		public function get bLoading():Boolean{	return _bLoading; }
 		public function set bLoading(value:Boolean):void {
 			_bLoading = value;
-			super.enabled = value;
-			if (!super.enabled) createSpinner();
-			else removeSpinner();
+			super.enabled = !value;
 		}
 
 		override protected function getCurrentSkinState():String
 		{
-			return super.getCurrentSkinState();
+			var s:String = "down";
+			if (bLoading) s =  "loading";
+			else s =  super.getCurrentSkinState();
+			return s;
 		} 
 		
 		/* Implement the partAdded() method to attach event handlers to a skin part, 
@@ -44,30 +46,26 @@ package component.util
 		override protected function partAdded(partName:String, instance:Object) : void
 		{
 			super.partAdded(partName, instance);
+			if (instance == sp) {
+				sp.visible = true;
+				sp.start();
+			}
 		}
 		
 		/* Implement the partRemoved() method to remove the even handlers added in partAdded() */
 		override protected function partRemoved(partName:String, instance:Object) : void
 		{
+			if (instance == sp) {
+				sp.stop();
+			}
 			super.partRemoved(partName, instance);
 		}
 		
-		private function createSpinner():void {
-			
-			spinner = new Spinner;
-			spinner.delay = 100;
-			spinner.startImmediately = true;
-			spinner.verticalCenter = 0;
-			spinner.horizontalCenter = 0;
-			this.addChild( spinner );
+		override public function stylesInitialized():void
+		{
+			super.stylesInitialized();
+			setStyle("skinClass", ButtonSpinnerSkin);
 		}
-		
-		private function removeSpinner():void {
-			
-			this.removeChild(spinner);
-			spinner = null;
-		}
-		
 		
 		
 	}

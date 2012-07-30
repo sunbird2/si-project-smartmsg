@@ -219,7 +219,7 @@ in accordance with the terms of the license agreement accompanying it.
 		</s:fill>
 	</s:Rect>
 	
-	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('assets/TextInput_bg.png', scaleGridTop='10', scaleGridBottom='24', scaleGridLeft='10', scaleGridRight='195')"
+	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('assets/TextInput_bg.png', scaleGridTop='10', scaleGridBottom='22', scaleGridLeft='10', scaleGridRight='195')"
 				   smooth="true" fillMode="scale"/>
 	
 	<!-- shadow -->
