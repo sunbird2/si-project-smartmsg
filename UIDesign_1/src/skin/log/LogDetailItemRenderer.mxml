@@ -21,13 +21,13 @@
 			
 		]]>
 	</fx:Script>
-	<s:HGroup>
-		<s:Label id="no" />
-		<s:Label id="phone"/>
-		<s:Label id="names"/>
-		<s:Label id="rslt"/>
-		<s:Label id="rsltDate"/>
-		<s:Label id="callback"/>
+	<s:HGroup top="5" bottom="5" left="10" right="10" verticalAlign="middle" >
+		<s:RichText id="no" fontFamily="Gulim" width="50" height="14" />
+		<s:RichText id="phone" fontFamily="Gulim" width="80" height="14"/>
+		<s:RichText id="names" fontFamily="Gulim" width="80" height="14"/>
+		<s:RichText id="rslt" fontFamily="Gulim" width="50" height="14"/>
+		<s:RichText id="rsltDate" fontFamily="Gulim" width="90" height="14"/>
+		<s:RichText id="callback" fontFamily="Gulim" width="80" height="14"/>
 	</s:HGroup>
 	
 </s:ItemRenderer>

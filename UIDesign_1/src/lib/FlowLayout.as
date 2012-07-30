@@ -10,7 +10,7 @@ package lib
 	{
 		
 		private var _horizontalGap:Number = 6;
-		private var _verticalGap:Number = 0;
+		private var _verticalGap:Number = 2;
 		
 		public function set horizontalGap(value:Number):void
 		{
