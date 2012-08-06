@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"
+		xmlns:mx="library://ns.adobe.com/flex/mx">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("component.Log")]
+	</fx:Metadata>
+	
+	<s:HGroup>
+		<s:VGroup gap="2" horizontalAlign="right">
+			<s:RichText width="254" whiteSpaceCollapse="preserve" fontFamily="NGDB" color="#3e3e3e" fontSize="50" lineHeight="80%" trackingRight="-3.5%">
+				<s:content><s:p><s:span>내역관리</s:span></s:p></s:content>
+			</s:RichText>
+			<s:RichText width="181" height="27" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#8d8d8d" fontSize="24" lineHeight="166.65%" trackingRight="-3.5%">
+				<s:content><s:p><s:span>전송결과 확인</s:span></s:p></s:content>
+			</s:RichText>
+			
+		</s:VGroup>
+		
+		<s:Group>
+			<s:HGroup gap="20"  top="100" horizontalCenter="0">
+				<s:VGroup width="200" height="100%">
+					<s:HGroup verticalAlign="middle">
+						<s:Label id="preMonth" text="이전달" fontFamily="NGD" buttonMode="true" color="0x999999" />
+						<s:Label id="month" text="" fontSize="20" fontFamily="NGD" buttonMode="true" color="0x000000" />
+						<s:Label id="nextMonth" text="다음달" fontFamily="NGD" buttonMode="true" color="0x999999" />
+					</s:HGroup>
+					<s:HSlider id="monthSlider" width="100%" />
+					<s:List id="groupList"
+							width="200"
+							height="500"
+							
+							itemRenderer="skin.log.GroupListRenderer" />
+				</s:VGroup>
+				<s:VGroup>
+					<s:HGroup>
+						<s:RichText id="message" width="225" height="150" fontFamily="Dotum" />
+						<mx:PieChart id="chart" width="300" height="150" fontFamily="Dotum" >
+						</mx:PieChart>
+					</s:HGroup>
+					
+					<s:List id="detailList"
+							width="500"	height="390"
+							fontFamily="Dotum"
+							
+							itemRenderer="skin.log.LogDetailItemRenderer"/>
+					<!--<s:DataGrid id="detailList"
+								width="500"	height="400"
+								fontFamily="Dotum"
+								skinClass="skin.log.DetailListSkin" chromeColor="0xffffff">
+						<s:columns>
+							<s:ArrayList id="alDetailColumn">
+								<s:GridColumn headerText="번호" width="50"/>
+								<s:GridColumn dataField="phone" headerText="전화번호"/>
+								<s:GridColumn dataField="name" headerText="이름"/>
+								<s:GridColumn dataField="rslt" headerText="결과"/>
+								<s:GridColumn dataField="rsltDate" headerText="결과시간"/>
+								<s:GridColumn dataField="callback" headerText="회신번호"/>
+							</s:ArrayList>
+						</s:columns>
+					</s:DataGrid>-->
+				</s:VGroup>
+			</s:HGroup>
+		</s:Group>
+		
+	</s:HGroup>
+	
+</s:Skin>

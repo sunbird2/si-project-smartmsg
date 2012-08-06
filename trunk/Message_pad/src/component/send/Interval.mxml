@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="250" height="150">
+	<fx:Metadata>
+		[Event(name="setInterval", type="lib.CustomEvent")]
+		[Event(name="cancelInterval", type="flash.events.Event")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import lib.CustomEvent;
+			import lib.SLibrary;
+			
+			private function confirm():void
+			{
+				var obj:Object = new Object();
+				obj.cnt = cnt.text;
+				obj.minute = minute.text;
+				
+				if (obj.cnt == "") SLibrary.alert("건수를 입력하세요.");
+				else if (obj.minute == "") SLibrary.alert("분을 입력하세요.");
+				else {
+					this.dispatchEvent(new CustomEvent("setInterval", obj));
+					this.visible=false;	
+				}
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+	</fx:Declarations>
+	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('/assets/titleWindow.png', scaleGridTop='42', scaleGridBottom='138', scaleGridLeft='11', scaleGridRight='118')" />
+	<s:Label top="15" left="15" text="간격설정" fontFamily="NGDB" fontSize="20" />
+	<s:Group top="50" left="15" bottom="20" right="10">
+		<s:layout><s:VerticalLayout verticalAlign="middle" horizontalAlign="left" paddingLeft="30"/></s:layout>
+		<s:HGroup verticalAlign="middle"><s:TextInput id="cnt" width="50" restrict="0-9" skinClass="skin.compnent.TextInputSkin01" /><s:Label text="건 마다" fontFamily="Dotum" /></s:HGroup>
+		<s:HGroup verticalAlign="middle"><s:TextInput id="minute" width="50" restrict="0-9" skinClass="skin.compnent.TextInputSkin01" /><s:Label text="분 간격으로 전송" fontFamily="Dotum" /></s:HGroup>
+		<s:HGroup>
+			<s:Button label="적용" click="confirm()" fontFamily="NGD" skinClass="skin.compnent.ButtonSkin01" />
+			<s:Button label="취소" click="{this.visible = false;this.dispatchEvent(new Event('cancelInterval'))}" fontFamily="NGD"  skinClass="skin.compnent.ButtonSkin01" />
+		</s:HGroup>
+		
+	</s:Group>
+	<s:Button id="close" width="16" height="16" right="10" top="7" click="{this.visible = false;this.dispatchEvent(new Event('cancelInterval'))}" skinClass="skin.compnent.ButtonCloseSkin" />
+</s:Group>
