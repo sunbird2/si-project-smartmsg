@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:component="component.*"
+			   xmlns:services="services.*"
+			   xmlns:excel="component.excel.*"
+			   width="100%" height="100%"
+			   frameRate="45"
+			   preloader="SparkDownloadProgressBarSubClassMin"
+			   stateChangeComplete="application_stateChangeCompleteHandler(event)"
+			   creationCompleteEffect="{fadeEffect}"
+			   >
+	<!-- preloader="lib.AppProgressBar" -->
+	<fx:Style source="assets/style/styles.css"/>
+	<fx:Script>
+		<![CDATA[
+			import component.util.ButtonSpinner;
+			import component.util.TextInputSearch;
+			import component.Address;
+			import component.Bill;
+			import component.Join;
+			import component.Log;
+			import component.Send;
+			
+			import mx.events.FlexEvent;
+			
+			private var join:Join;
+			public var send:Send;
+			public var address:Address;
+			public var bill:Bill;
+			public var log:Log;
+			
+			// login check
+			
+			private var component_util_TextInputSearch_obj:component.util.TextInputSearch;
+			
+			private var component_util_ButtonSpinner_obj:component.util.ButtonSpinner;
+			public function login_check():void {
+				login.login_check();
+			}
+			
+			
+			public function joinView():void {
+				
+				this.currentState = "join";
+				/* join = new Join();
+				join.addEventListener("complete", join_completeHandler);
+				this.main_group.addElement(join); */
+			}
+			
+			private function join_completeHandler(event:Event):void {
+				
+				//join_remove();
+				this.currentState = "home";
+				
+			}
+			private function join_remove():void {
+				
+				if (join != null) {
+					join.removeEventListener("complete", join_completeHandler);
+					this.main_group.removeElement(join);
+					join = null;
+					login.login_check();	
+				}
+				
+			}
+			
+			protected function application_stateChangeCompleteHandler(event:FlexEvent):void
+			{
+				// join create
+				if (join == null && currentState == "join") {
+					join = new Join();
+					join.minWidth = 1024;
+					join.minHeight = 420;
+					join.horizontalCenter = 0;
+					join.addEventListener("complete", join_completeHandler);
+					main_group.addElement(join);
+				} else if (join != null) {
+					join.removeEventListener("complete", join_completeHandler);
+					this.main_group.removeElement(join);
+					join = null;
+					login.login_check();	
+				}
+				
+				
+				// send create
+				if (send == null && currentState == "send") {
+					send = new Send();
+					send.minWidth = 1024;
+					send.minHeight = 420;
+					send.horizontalCenter = 0;
+					main_group.addElement(send);
+				} else if (send != null) {
+					main_group.removeElement(send);
+					send.destroy(null);
+					send = null;
+				}
+				
+				// Address create
+				if (address == null && currentState == "address") {
+					address = new Address();
+					address.minWidth = 1024;
+					address.minHeight = 420;
+					address.horizontalCenter = 0;
+					main_group.addElement(address);
+				} else if (address != null) {
+					main_group.removeElement(address);
+					address.destory();
+					address = null;
+				}
+				
+				// <component:Bill id="bill" includeIn="bill" horizontalCenter="0" minWidth="1024" minHeight="420" width="100%" />
+				// Address create
+				if (bill == null && currentState == "bill") {
+					bill = new Bill();
+					bill.minWidth = 1024;
+					bill.minHeight = 420;
+					bill.horizontalCenter = 0;
+					main_group.addElement(bill);
+				} else if (bill != null) {
+					main_group.removeElement(bill);
+					bill = null;
+				}
+				
+				//<component:Log id="log" includeIn="log" skinClass="skin.LogSkin" minWidth="1024" minHeight="420" horizontalCenter="0" />
+				// log create
+				if (log == null && currentState == "log") {
+					log = new Log();
+					log.minWidth = 1024;
+					log.minHeight = 420;
+					log.horizontalCenter = 0;
+					main_group.addElement(log);
+				} else if (log != null) {
+					main_group.removeElement(log);
+					log.destroy();
+					
+					log = null;
+				}
+				
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="home"/>
+		<s:State name="send"/>
+		<s:State name="address"/>
+		<s:State name="bill"/>
+		<s:State name="log"/>
+		<s:State name="join"/>
+	</s:states>
+	<fx:Declarations>
+		<s:Fade id="fadeEffect" alphaFrom="0" alphaTo="1"/>
+	</fx:Declarations>
+	<!--<s:transitions>
+	<s:Transition id="t1">
+	<s:Wipe id="wipe"
+	direction="right"
+	target="{main_group}"
+	duration="300" />
+	</s:Transition>
+	</s:transitions>-->
+	<!--<s:transitions>
+	<s:Transition id="transition" fromState="*" toState="*">
+	<s:Parallel id="t1" targets="{[send, address, bill, log]}">
+	<s:Rotate3D id="rotateEffect" 
+	angleXFrom="0.0" angleXTo="0.0" 
+	angleYFrom="0.0" angleYTo="360.0" 
+	angleZFrom="0.0" angleZTo="0.0"
+	duration="1000"
+	repeatCount="1"
+	easer="{bounceEasing}"
+	/>
+	</s:Parallel>
+	<s:Sequence id="t1" targets="{[main_group]}"> 
+	<s:Animate id="a" duration="500" easer="{bounceEasing}">
+	<s:SimpleMotionPath valueFrom="1024"
+	valueTo="100"
+	property="top" />
+	<s:SimpleMotionPath valueFrom="100"
+	valueTo="100"
+	property="bottom" />
+	<s:SimpleMotionPath valueFrom="{this.width/2}"
+	valueTo="0"
+	property="left" />
+	<s:SimpleMotionPath valueFrom="{this.width/2}"
+	valueTo="0"
+	property="right" />
+	</s:Animate>
+	</s:Sequence> 
+	
+	</s:Transition>
+	</s:transitions>-->
+	
+	<component:Menus id="menus" skinClass="skin.MenuSkin"
+					 horizontalCenter="0" y="0"
+					 change="{this.currentState = event.result as String}"/>
+	
+	<s:VGroup width="1140" paddingTop="100" horizontalCenter="0" horizontalAlign="center">
+		<s:Group id="main_group" width="1024">
+			
+			<component:Login id="login" left="260" skinClass="skin.LoginSkin" excludeFrom="join" />
+			
+			<!-- category && frash news -->
+			<s:VGroup top="100" excludeFrom="join">
+				<s:RichText width="199" height="20" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase" x="130" y="650">
+					<s:content><s:p><s:span>Categories</s:span></s:p></s:content>
+				</s:RichText>
+				
+				<s:Group width="220" top="80">
+					<s:BitmapImage source="@Embed('/assets/category_line.png')"
+								   top="30"
+								   smooth="true" alpha="0.2"/>
+					<s:BitmapImage source="@Embed('/assets/category_dot.png')"
+								   top="12" smooth="true"  />
+					<s:VGroup left="16" top="10" gap="16" >
+						<s:Label text="단문( SMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='send'}"/>
+						<s:Label text="장문( LMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='send'}"/>
+						<s:Label text="사진( MMS ) 보내기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='send'}"/>
+						<s:Label text="엑셀 업로드 발송" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='send'}"/>
+						<s:Label text="주소록 관리" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='address'}"/>
+						<s:Label text="결제하기" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='bill'}"/>
+						<s:Label text="발송내역 ( 통계 )" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='log'}"/>
+						<s:Label text="고객센터" fontFamily="NGD" color="#008cc4" fontSize="14" buttonMode="true" click="{menus.clickStat ='send'}"/>
+					</s:VGroup>
+				</s:Group>
+				<s:Spacer height="20"/>
+				<s:RichText width="199" height="20" whiteSpaceCollapse="preserve" fontWeight="bold" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
+					<s:content><s:p><s:span>Fresh</s:span><s:span color="#8d8d8d"> News</s:span></s:p></s:content>
+				</s:RichText>
+				<s:RichText width="220" height="416" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="12" lineHeight="166.65%">
+					<s:content><s:p><s:span fontFamily="Dotum" fontWeight="bold">June 30, 2012</s:span></s:p><s:p><s:span color="#008cc4" fontSize="14" lineHeight="142.85%">[이벤트] 회원가입 무료건 제공</s:span></s:p><s:p><s:span fontSize="14">저희 서비스에 관심을 가져주시고 새로 가입하신 모든 분들께 100건의 체험 건수를 무료로 드립니다.</s:span></s:p><s:p><s:span fontFamily="Dotum" fontWeight="bold">June 14, 2012</s:span></s:p><s:p><s:span color="#008cc4" fontSize="14" lineHeight="142.85%">[점검] 정기 시스템</s:span></s:p><s:p><s:span fontSize="14" lineHeight="178.55%">보다 안정적이고 신속한 서비스를 위해 00:00 ~ 00:30까지 시스템을 점검 합니다.</s:span></s:p><s:p><s:span fontFamily="Dotum" fontWeight="bold">May 29, 2012</s:span></s:p><s:p><s:span color="#008cc4" fontSize="14" lineHeight="142.85%">[공징] 2012년 3분기 세금계산서</s:span></s:p><s:p><s:span fontSize="14" lineHeight="178.55%">3분기 세금계산서 발행을 마감 합니다. 확인하시고 신청하시기 바랍니다.</s:span></s:p>
+					</s:content>
+				</s:RichText>
+			</s:VGroup><!-- category && frash news -->
+			
+			
+			<component:Home id="home" includeIn="home" left="0" right="0" top="0" bottom="0" minWidth="1024" minHeight="420" horizontalCenter="0" />
+			
+			
+		</s:Group>
+		
+		<s:Group width="1140">
+			<s:Rect width="100%" height="118"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
+			<s:RichText width="220" height="66"  x="129" verticalCenter="0" whiteSpaceCollapse="preserve" fontFamily="NGDB" color="#454545" fontSize="20" lineHeight="170%" typographicCase="uppercase">
+				<s:content><s:p><s:span>Customer Service</s:span></s:p><s:p><s:span fontFamily="Times New Roman" color="#008cc4" fontSize="36" lineHeight="94.45%">070.9445.7837</s:span></s:p></s:content>
+			</s:RichText>
+			<s:RichText width="331" height="34" x="559" verticalCenter="0" whiteSpaceCollapse="preserve" fontFamily="Arial" color="#ff7b01" fontSize="14" lineHeight="142.85%" textDecoration="underline">
+				<s:content><s:p><s:span>Website template</s:span><s:span color="#454545" textDecoration="none"> designed by TemplateMonster.com</s:span></s:p><s:p><s:span color="#454545" trackingRight="1%" textDecoration="none">         </s:span><s:span trackingRight="1%" textDecoration="none"> </s:span><s:span>3D Models</s:span><s:span color="#454545" textDecoration="none"> provided by Templates.com</s:span></s:p></s:content>
+			</s:RichText>
+		</s:Group>
+	</s:VGroup>
+	
+	
+	
+	
+</s:Application>

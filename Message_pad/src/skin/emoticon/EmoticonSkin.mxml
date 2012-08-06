@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:lib="lib.*">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("component.emoticon.Emoticon")]
+	</fx:Metadata>
+	<s:states>
+		<s:State name="specialChar"/>
+		<s:State name="myMessage"/>
+		<s:State name="emoticon"/>
+		<s:State name="sentMessage"/>
+	</s:states>
+	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('/assets/titleWindow.png', scaleGridTop='42', scaleGridBottom='138', scaleGridLeft='11', scaleGridRight='118')" />
+	<s:Label top="15" left="15" text="메시지추가" fontFamily="NGDB" fontSize="20" />
+	<s:VGroup top="50" left="10" right="10" bottom="50">
+		<s:ButtonBar id="gubunBar" includeIn="emoticon" fontFamily="NGD"/>
+		<s:List id="category" includeIn="emoticon"
+				width="480" height="50" itemRenderer="skin.emoticon.CategoryRenderer"  fontFamily="Gulim" >
+			<s:layout><lib:FlowLayout verticalGap="3" /></s:layout>
+		</s:List>
+		<s:List id="msgBox" includeIn="emoticon, myMessage, sentMessage" width="480" 
+				fontFamily="Dotum"
+				itemRenderer="skin.emoticon.EmoticonRenderer"
+				>
+			<s:layout><s:TileLayout horizontalGap="5" verticalGap="5"/></s:layout>
+		</s:List>
+		
+		<s:Scroller includeIn="specialChar" skinClass="skin.scroller.ThinScrooller" width="435" height="200">
+			<s:TileGroup id="specialCharGroup" width="435"  fontFamily="NGD"/>	
+		</s:Scroller>
+	</s:VGroup>
+	<lib:Paging id="paging" includeIn="emoticon, myMessage, sentMessage" bottom="10" horizontalCenter="0" />
+	<s:Button id="close" width="16" height="16" right="10" top="7" skinClass="skin.compnent.ButtonCloseSkin" />
+</s:Skin>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		>
+	<fx:Metadata>[HostComponent("component.Menus")]</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import mx.effects.easing.Bounce;
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:Bounce id="bounceEasing"/>
+		<s:Animate id="a" 
+				   duration="300" >
+			<s:SimpleMotionPath valueFrom="64"
+								valueTo="128"
+								property="width" />
+			<s:SimpleMotionPath valueFrom="64"
+								valueTo="128"
+								property="height" />
+		</s:Animate>
+		<s:Animate id="b" 
+				   duration="0" >
+			<s:SimpleMotionPath valueFrom="128"
+								valueTo="64"
+								property="width" />
+			<s:SimpleMotionPath valueFrom="128"
+								valueTo="64"
+								property="height" />
+		</s:Animate>
+		
+	</fx:Declarations>
+	<s:states>
+		<s:State name="home"/>
+		<s:State name="send"/>
+		<s:State name="address"/>
+		<s:State name="bill"/>
+		<s:State name="log"/>
+	</s:states>
+
+	<s:HGroup gap="100" width="840" height="128" verticalAlign="bottom" horizontalAlign="center">
+		<s:Group id="labelHome" 
+				 rollOverEffect="a" rollOutEffect="b" 
+				 width="64" height="64" >
+			<s:Image source="assets/home_icon.png" left="0" right="0" top="0" bottom="0" fillMode="scale"/>
+			<s:RichText text="HOME"
+						bottom="0"
+						horizontalCenter="0"
+						color.home="0x6A635F" fontSize="20" fontFamily="NGD"/>
+		</s:Group>
+		
+		<s:Group id="labelSend" 
+				 rollOverEffect="a" rollOutEffect="b" 
+				 width="64" height="64" >
+			<s:Image source="assets/message_icon.png" width="100%" height="100%" />
+			<s:RichText text="메시지" 
+						bottom="0"
+						horizontalCenter="0"
+						color.send="0xD66F74" fontSize="20" fontFamily="NGD"/>
+		</s:Group>
+		
+		<s:Group id="labelAddress" 
+				 rollOverEffect="a" rollOutEffect="b" 
+				 width="64" height="64" >
+			<s:Image source="assets/address_icon.png" width="100%" height="100%" />
+			<s:RichText text="주소록"
+						bottom="0"
+						horizontalCenter="0"
+						color.address="0x309EBC" fontSize="20" fontFamily="NGD"/>
+		</s:Group>
+			
+		<s:Group id="labelBill" 
+				 rollOverEffect="a" rollOutEffect="b" 
+				 width="64" height="64" >
+			<s:Image source="assets/billing_icon.png" width="100%" height="100%" />
+			<s:RichText text="결제"
+						bottom="0"
+						horizontalCenter="0"
+						buttonMode="true"
+						color.bill="0x91C368" fontSize="20" fontFamily="NGD"/>
+		</s:Group>
+			
+		<s:Group id="labelLog" 
+				 rollOverEffect="a" rollOutEffect="b" 
+				 width="64" height="64" >
+			<s:Image source="assets/sent_icon.png" width="100%" height="100%" />
+			<s:RichText text="내역" 
+						bottom="0"
+						horizontalCenter="0"
+						color.log="0x91C368" fontSize="20" fontFamily="NGD"/>
+		</s:Group>
+	</s:HGroup>
+	
+</s:Skin>

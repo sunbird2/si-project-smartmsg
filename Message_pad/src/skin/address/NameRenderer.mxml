@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			import valueObjects.AddressVO;
+			
+			override public function set data(value:Object):void
+			{
+				// TODO Auto Generated method stub
+				super.data = value;
+				if (super.data != null) {
+					var avo:AddressVO = super.data as AddressVO;
+					viewName.text = (avo.name != "") ? avo.name : avo.phone;	
+				}
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Label id="viewName"
+			 fontFamily="Dotum"
+			 top="7" bottom="5" left="5" right="3"/>
+	
+</s:ItemRenderer>

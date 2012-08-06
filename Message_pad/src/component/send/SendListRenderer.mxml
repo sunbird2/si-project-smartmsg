@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			import component.Send;
+			
+			import valueObjects.PhoneVO;
+			
+			override public function set data(value:Object):void
+			{
+				// TODO Auto Generated method stub
+				super.data = value;
+				if (data) {
+					var obj:Send = parentApplication.send as Send;
+					idx.text = String(obj.alPhone.getItemIndex(data)+1);
+					pna.text = data.pName;
+					pno.text = obj.phoneFormat( data.pNo );
+				}
+					
+			}
+			
+			protected function del_clickHandler(event:MouseEvent):void
+			{
+				var obj:Send = parentApplication.send as Send;
+				obj.removePhone(this.data as PhoneVO);
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Group width="100%" height="20">
+		<s:Label id="idx" left="5" verticalCenter="0" fontFamily="Gulim" fontSize="12"/>
+		<s:Label id="pno" left="50" verticalCenter="0" fontFamily="Gulim" fontSize="12"/>
+		<s:Label id="pna" left="170" verticalCenter="0" fontFamily="Gulim" fontSize="12"/>
+		<s:Button label="x" click="del_clickHandler(event)" verticalCenter="0" right="5" />
+	</s:Group>
+</s:ItemRenderer>

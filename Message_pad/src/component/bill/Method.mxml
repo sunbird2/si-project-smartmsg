@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Metadata>
+		[Event(name="selected", type="flash.events.Event")]
+		[Event(name="select", type="flash.events.Event")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			[Bindable]
+			public var method:String = "";
+			
+			protected function select_clickHandler(event:MouseEvent):void
+			{
+				this.currentState = "selected";
+				method = Label(event.currentTarget).text;
+				dispatchEvent(new Event("selected"));
+			}
+			
+			protected function selected_clickHandler(event:MouseEvent):void
+			{
+				this.currentState = "select";
+				dispatchEvent(new Event("select"));
+			}
+		]]>
+	</fx:Script>
+	
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:states>
+		<s:State name="select" />
+		<s:State name="selected" />
+	</s:states>
+	<s:HGroup includeIn="select" gap="70" horizontalCenter="0">
+		<s:Label text="신용카드" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />
+		<s:Label text="핸드폰" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true"/>
+		<s:Label text="계좌이체" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />
+		<s:Label text="가상계좌" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />	
+	</s:HGroup>
+	<s:Label id="methodLabel" includeIn="selected" fontFamily="NGDB" fontSize="26"  text="{method}" click="selected_clickHandler(event)" buttonMode="true" />
+	
+</s:Group>

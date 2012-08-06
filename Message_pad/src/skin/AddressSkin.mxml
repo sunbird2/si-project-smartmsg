@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" xmlns:util="component.util.*">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("component.Address")]
+	</fx:Metadata>
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="nameEdit" />
+	</s:states>
+	<s:HGroup>
+		<s:VGroup gap="2" horizontalAlign="right">
+			<s:RichText width="254" whiteSpaceCollapse="preserve" fontFamily="NGDB" color="#3e3e3e" fontSize="50" lineHeight="80%" trackingRight="-3.5%">
+				<s:content><s:p><s:span>주소록관리</s:span></s:p></s:content>
+			</s:RichText>
+			<s:RichText width="181" height="27" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#8d8d8d" fontSize="24" lineHeight="166.65%" trackingRight="-3.5%">
+				<s:content><s:p><s:span>그룹별 주소관리</s:span></s:p></s:content>
+			</s:RichText>
+			
+		</s:VGroup>
+	
+		<s:Group id="contentGroup">
+			
+			<s:Group top="100" horizontalCenter="0">
+				<s:BitmapImage source="@Embed('assets/message_help2.png')" smooth="true"/>
+				<s:RichText id="helpText" left="30" top="24"
+							text="그룹을 추가하세요." color="0xFFFFFF" fontFamily="NGDB" fontSize="42"/>
+				<s:RichText id="subHelpText" left="30" top="69" width="630"
+							text="그룹 및의 추가 글씨를 클릭 하여 추가 할 수 있습니다." color="0xCCCCCC" fontFamily="NGD" fontSize="20"/>
+			</s:Group>
+			
+			
+			<s:VGroup top="240" horizontalAlign="right"><!-- address Box -->
+				<util:TextInputSearch id="search" prompt="이름 or 전화번호" fontFamily="Dotum" fontSize="14" color="#888888" />
+				<s:HGroup width="100%">
+					<!-- group -->
+					<s:VGroup width="210">
+						<s:RichText width="199" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase" x="378" y="364">
+							<s:content><s:p><s:span>그룹</s:span></s:p></s:content>
+						</s:RichText>
+						<s:List id="groupList" width="100%" height="353"
+								itemRenderer="skin.address.GroupRenderer"
+								 />
+						<s:Spacer height="24" />
+						<s:RichEditableText editable="false" focusEnabled="false" width="210" height="201" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%">
+							<s:content><s:p><s:span>그룹을 선택 하면 해당 그룹의 이름이 오른쪽에 보여 집니다.</s:span></s:p><s:p><s:span>그룹을 </s:span><s:a id="groupAddBtn" href="클릭시 위에 입력창이 나타납니다." color="#008cc4"><s:span color="#008cc4" textDecoration="none">추가</s:span></s:a><s:span> 하거나 그룹이름을 더블 클릭 하여 수정 할 수 있습니다.</s:span></s:p><s:p><s:span> 그룹삭제는 선택 후 키보드의 Delete 누르시기바랍니다. </s:span></s:p></s:content>
+						</s:RichEditableText>
+					</s:VGroup>
+					
+					
+					<!-- name -->
+					<s:VGroup width="190">
+						<s:RichText width="190" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
+							<s:content><s:p><s:span>이름</s:span></s:p></s:content>
+						</s:RichText>
+						<s:List id="nameList" width="100%" height="353" itemRenderer="skin.address.NameRenderer"/>
+						<s:RichText whiteSpaceCollapse="preserve" fontFamily="NGD" color="#515151" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" kerning="off">
+							<s:content><s:p><s:span id="nameCount">0</s:span><s:span kerning="auto"> </s:span><s:span fontSize="12" lineHeight="166.65%" kerning="auto">명</s:span></s:p></s:content>
+						</s:RichText>
+						<s:RichEditableText editable="false" focusEnabled="false" width="190" height="224" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%">
+							<s:content><s:p><s:span>이름을 선택 하면 해당 이름의 주소가 오른쪽에 보여 집니다.</s:span></s:p><s:p><s:span>이름을 </s:span><s:a id="nameAddBtn" href="클릭시 주소에 입력 창이 나타 납니다." color="#008cc4"><s:span color="#008cc4" textDecoration="none">추가</s:span></s:a><s:span> 할 수 있으며,  삭제는 이름을 선택 후 키보드의 Delete 누르시기 바랍니다.</s:span></s:p><s:p><s:span>Search에 이름 또는 전화번호를 입력하여 찾을 수 있으며, 이름을 클릭 한 상태에서 오른쪽 그룹으로 옮기면 이동됩니다.  </s:span></s:p></s:content>
+						</s:RichEditableText>
+					</s:VGroup>
+					
+					
+					<!-- card -->
+					<s:VGroup width="274">
+						<s:RichText width="199" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase" x="791" y="364">
+							<s:content><s:p><s:span>주소</s:span></s:p></s:content>
+						</s:RichText>
+						<s:ComboBox id="groupName" fontFamily="Dotum" enabled.normal="false" enabled.nameEdit="true" />
+						<s:TextInput id="nameL" prompt="이름"
+									 fontFamily="Dotum"
+									 skinClass="skin.compnent.TextInputSkin01"
+									 editable.nameEdit="true" editable.normal="false" 
+									 borderVisible.nameEdit="true" borderVisible.normal="false"/>
+						<s:TextInput id="phone" prompt="전화번호" 
+									 fontFamily="Dotum"
+									 skinClass="skin.compnent.TextInputSkin01"
+									 editable.nameEdit="true" editable.normal="false"
+									 borderVisible.nameEdit="true" borderVisible.normal="false"/>
+						<s:TextArea id="memo" prompt="메모" 
+									fontFamily="Dotum"
+									skinClass="skin.compnent.TextAreaSkin01"
+									width="100%" height="260"
+									editable.nameEdit="true" editable.normal="false"
+									borderVisible.nameEdit="true" borderVisible.normal="false"/>
+						
+						<s:Button id="cardBtn" fontSize="16" fontFamily="NGD" label.nameEdit="저장" label.normal="편집" skinClass="skin.compnent.ButtonSkin01" />
+						<s:Spacer height="24" />
+						<s:RichEditableText editable="false" focusEnabled="false" width="274" height="201" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%" x="795" y="787">
+							<s:content><s:p><s:span>왼쪽에서 선택한 이름의 주소가 보여 집니다. </s:span><s:span>편집 버튼을 클릭후 내용을 수정 후 할 수 있습니다.</s:span></s:p><s:p><s:span> 삭제는 왼쪽의 이름을 선택 후 키보드의 Delete 누르시기 바랍니다. </s:span></s:p></s:content>
+						</s:RichEditableText>
+					</s:VGroup>
+				</s:HGroup>
+				<s:VGroup>
+					<s:RichText width="199" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
+						<s:content><s:p><s:span>부가기능</s:span></s:p></s:content>
+					</s:RichText>
+					<s:RichEditableText editable="false" focusEnabled="false"  width="690" height="115" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="14" lineHeight="178.55%">
+						<s:content><s:p><s:span> </s:span><s:a id="addressFromExcel" href="엑셀 업로드하는 창이 보여 집니다." color="#008cc4"><s:span color="#008cc4" textDecoration="none">엑셀 업로드</s:span></s:a><s:span>를 통해 대량의 주소를 추가 할 수있습니다. </s:span></s:p><s:p><s:span>해당 주소록을 전송하시려면 메시지 발송 메뉴에서 주소록을 선택 후 발송 하시기 바랍니다.</s:span></s:p></s:content>
+					</s:RichEditableText>
+				</s:VGroup>
+			</s:VGroup><!-- address Box -->
+			
+			
+			
+			
+			
+		</s:Group><!--content group-->
+	</s:HGroup>
+	
+	
+	
+	
+</s:Skin>

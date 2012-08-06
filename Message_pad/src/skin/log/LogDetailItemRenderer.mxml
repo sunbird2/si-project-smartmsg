@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			
+			override public function set data(value:Object):void
+			{
+				// TODO Auto Generated method stub
+				super.data = value;
+				no.text = String(this.itemIndex +1);
+				phone.text = data.phone;
+				names.text = data.name;
+				rslt.text = data.rslt;
+				rsltDate.text = data.rsltDate;
+				callback.text = data.callback;
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<s:HGroup top="5" bottom="5" left="10" right="10" verticalAlign="middle" >
+		<s:RichText id="no" fontFamily="Gulim" width="50" height="14" />
+		<s:RichText id="phone" fontFamily="Gulim" width="80" height="14"/>
+		<s:RichText id="names" fontFamily="Gulim" width="80" height="14"/>
+		<s:RichText id="rslt" fontFamily="Gulim" width="50" height="14"/>
+		<s:RichText id="rsltDate" fontFamily="Gulim" width="90" height="14"/>
+		<s:RichText id="callback" fontFamily="Gulim" width="80" height="14"/>
+	</s:HGroup>
+	
+</s:ItemRenderer>

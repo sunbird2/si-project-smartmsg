@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:home="component.home.*">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:HGroup gap="32">
+		<s:VGroup gap="10">
+			<s:BitmapImage source="@Embed('/assets/logo.png')" smooth="true"/>
+		</s:VGroup>
+		
+		<s:VGroup paddingTop="80">
+			<s:BitmapImage source="@Embed('/assets/ad_img01.png')" smooth="true"/>
+			<!-- service & preview -->
+			<s:Group width="100%">
+				
+				<s:Group left="0" width="330" height="305">
+					<s:BitmapImage source="@Embed('/assets/main_box.png')" top="10" smooth="true"/>
+					<s:BitmapImage source="@Embed('/assets/services icon.png')" left="10" smooth="true"/>
+					<s:Label text="SERVICES" left="60" top="20" color="#4f5254" fontSize="24" />
+					<s:Label text="What we can do" left="60" top="50" color="#6a6e70" fontSize="16" fontStyle="italic" />
+					<s:Scroller left="20" top="80" right="5" bottom="0" skinClass="skin.scroller.ThinScrooller">
+						<s:VGroup gap="30">
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/web icon.png')" smooth="true"/>
+								<s:Label text="SMS, LMS, MMS 대량 발송" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18" />
+							</s:Group>
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/seo icon.png')" smooth="true"/>
+								<s:Label text="대량 주소록 관리" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18"  />
+							</s:Group>
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/logo icon.png')" smooth="true"/>
+								<s:Label text="실시간 발송 결과 및 통계" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18"  />
+							</s:Group>
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/app icon.png')" smooth="true"/>
+								<s:Label text="이미지 편집 및 발송" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18"  />
+							</s:Group>
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/web icon.png')" smooth="true"/>
+								<s:Label text="SMS, LMS, MMS 대량 발송" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18" />
+							</s:Group>
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/seo icon.png')" smooth="true"/>
+								<s:Label text="대량 주소록 관리" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18"  />
+							</s:Group>
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/logo icon.png')" smooth="true"/>
+								<s:Label text="실시간 발송 결과 및 통계" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18"  />
+							</s:Group>
+							<s:Group width="100%">
+								<s:BitmapImage source="@Embed('/assets/app icon.png')" smooth="true"/>
+								<s:Label text="이미지 편집 및 발송" left="50" verticalCenter="0" fontFamily="NGD" color="#6a6e70" fontSize="18"  />
+							</s:Group>
+						</s:VGroup>
+					</s:Scroller>
+				</s:Group>
+				
+				<s:Group right="0" width="330" height="305">
+					<s:BitmapImage source="@Embed('/assets/main_box.png')" top="10" smooth="true"/>
+					<s:BitmapImage source="@Embed('/assets/portfolio icon.png')" left="10" smooth="true"/>
+					<s:Label text="PREVIEW" left="60" top="20" color="#4f5254" fontSize="24" />
+					<s:Label text="our preview works" left="60" top="50" color="#6a6e70" fontSize="16" fontStyle="italic" />
+					<s:Scroller left="20" top="80" right="5" bottom="0" skinClass="skin.scroller.ThinScrooller">
+						<s:TileGroup>
+							<s:Image source="assets/image_1.png"/>
+							<s:Image source="assets/image_2.png"/>
+							<s:Image source="assets/image_3.png"/>
+							<s:Image source="assets/image_4.png"/>
+							<s:Image source="assets/image_5.png"/>
+						</s:TileGroup>
+					</s:Scroller>
+				</s:Group>
+				
+			</s:Group><!-- service & preview -->
+			
+			<s:Group width="100%" height="305">
+				<s:BitmapImage source="@Embed('/assets/main_box.png', scaleGridTop='10', scaleGridBottom='290', scaleGridLeft='10', scaleGridRight='320')" top="10" width="100%" bottom="0" smooth="true"/>
+				<s:BitmapImage source="@Embed('/assets/portfolio icon.png')" left="10" smooth="true"/>
+				<s:Label text="PREVIEW" left="60" top="20" color="#4f5254" fontSize="24" />
+				<s:Label text="our preview works" left="60" top="50" color="#6a6e70" fontSize="16" fontStyle="italic" />
+				<s:Scroller left="20" top="80" right="5" bottom="0" skinClass="skin.scroller.ThinScrooller">
+					<s:TileGroup>
+						<s:Image source="assets/image_1.png"/>
+						<s:Image source="assets/image_2.png"/>
+						<s:Image source="assets/image_3.png"/>
+						<s:Image source="assets/image_4.png"/>
+						<s:Image source="assets/image_5.png"/>
+					</s:TileGroup>
+				</s:Scroller>
+			</s:Group>
+			
+		</s:VGroup>
+		
+	</s:HGroup>
+	
+	
+	<!--<home:TagCloud howElliptical="1.5" left="10" right="10" top="10" bottom="10" url="assets/home.xml" />-->
+</s:Group>
