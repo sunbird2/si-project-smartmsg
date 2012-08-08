@@ -16,7 +16,7 @@
 	</fx:Declarations>
 	
 	<s:Group width="1024" height="768" top="20" horizontalCenter="0">
-		<ice:ActionBar width="100%" depth="4" iconSource="component/ice/assets/cut dark1.png" title="Message" titleSub="로그인 후 이용 가능 합니다." />
+		<ice:ActionBar width="100%" depth="4" iconSource="component/ice/assets/ICSIcons/MDPI/ic_launcher_smsmms.png" title="Message" titleSub="로그인 후 이용 가능 합니다." />
 		<s:HGroup width="100%" top="56" depth="0" gap="0" height="712">
 			<ice:ListParent width="200" height="100%" >
 				<ice:dataProvider>
