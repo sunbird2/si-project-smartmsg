@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:ice="component.ice.*">
+	<fx:Style source="Main.css"/>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:Group width="1024" height="768" top="20" horizontalCenter="0">
+		<ice:ActionBar width="100%" depth="4" iconSource="component/ice/assets/dark/icon/6-social-group.png" title="Address" titleSub="로그인 후 이용 가능 합니다." />
+		<s:HGroup width="100%" top="56" depth="0" gap="0" height="712">
+			<s:VGroup gap="0" width="200" height="100%">
+				<s:SkinnableContainer skinClass="component.ice.skin.ActionBarContext_white" width="100%" height="40">
+					<s:Label text="그룹" color="#222222" verticalCenter="0" left="5" />
+					<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="15">
+						<s:Image source="component/ice/assets/light/icon/6-social-add-group.png" />
+					</s:HGroup>
+				</s:SkinnableContainer>
+				
+				<ice:ListParent width="100%" height="100%" >
+					<ice:dataProvider>
+						<s:ArrayCollection>
+							<fx:String  >test1</fx:String>
+							<fx:String  >test2</fx:String>
+							<fx:String  >test3</fx:String>
+							<fx:String  >test4</fx:String>
+						</s:ArrayCollection>
+					</ice:dataProvider>
+				</ice:ListParent>
+			</s:VGroup>
+			
+			
+			<s:VGroup gap="0" width="300" height="100%">
+				<s:SkinnableContainer skinClass="component.ice.skin.ActionBarContext_white" width="100%" height="40">
+					<s:Label text="전화번호" color="#222222" verticalCenter="0" left="5" />
+					<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="15">
+						<s:Image source="component/ice/assets/light/icon/6-social-add-person.png" />
+					</s:HGroup>
+				</s:SkinnableContainer>
+				
+				<ice:ListParent width="100%" height="100%" >
+					<ice:dataProvider>
+						<s:ArrayCollection>
+							<fx:String  >test1</fx:String>
+							<fx:String  >test2</fx:String>
+							<fx:String  >test3</fx:String>
+							<fx:String  >test4</fx:String>
+							<fx:String  >test1</fx:String>
+							<fx:String  >test2</fx:String>
+							<fx:String  >test3</fx:String>
+							<fx:String  >test4</fx:String>
+							<fx:String  >test1</fx:String>
+							<fx:String  >test2</fx:String>
+							<fx:String  >test3</fx:String>
+							<fx:String  >test4</fx:String>
+							<fx:String  >test1</fx:String>
+							<fx:String  >test2</fx:String>
+							<fx:String  >test3</fx:String>
+							<fx:String  >test4</fx:String>
+							<fx:String  >test1</fx:String>
+							<fx:String  >test2</fx:String>
+							<fx:String  >test3</fx:String>
+							<fx:String  >test4</fx:String>
+							<fx:String  >test1</fx:String>
+							<fx:String  >test2</fx:String>
+							<fx:String  >test3</fx:String>
+							<fx:String  >test4</fx:String>
+							<fx:String  >test1</fx:String>
+							<fx:String  >test2</fx:String>
+							<fx:String  >test3</fx:String>
+							<fx:String  >test4</fx:String>
+							<fx:String  >test1</fx:String>
+							<fx:String  >test2</fx:String>
+							<fx:String  >test3</fx:String>
+							<fx:String  >test4</fx:String>
+						</s:ArrayCollection>
+					</ice:dataProvider>
+				</ice:ListParent>
+			</s:VGroup>
+			
+			<s:VGroup gap="0" width="524" height="100%">
+				<s:SkinnableContainer skinClass="component.ice.skin.ActionBarContext_white" width="100%" height="40">
+					<s:Label text="상세" color="#222222" verticalCenter="0" left="5" />
+					<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="15">
+						<s:Image source="component/ice/assets/light/icon/5-content-edit.png" />
+					</s:HGroup>
+				</s:SkinnableContainer>
+				
+				<s:List width="100%" height="150" contentBackgroundColor="#FFFFFF" borderVisible="false">
+					<s:dataProvider>
+						<s:ArrayCollection>
+							<fx:String  >test1</fx:String>
+							<fx:String  >test2</fx:String>
+							<fx:String  >test3</fx:String>
+							<fx:String  >test4</fx:String>
+						</s:ArrayCollection>
+					</s:dataProvider>
+				</s:List>
+			</s:VGroup>
+			
+			<s:Group width="524" height="100%">
+				<s:Rect left="0" right="0" top="0" bottom="0" ><s:fill><s:SolidColor color="0xFFFFFF" /></s:fill></s:Rect>
+				<s:Label text="기능" />
+				
+			</s:Group>
+		</s:HGroup>
+	</s:Group>
+</s:Application>
