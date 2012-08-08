@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:ice="component.ice.*"
+			   skinClass="component.ice.skin.ApplicationSkin_black">
+	<fx:Style source="Main.css"/>
+	<fx:Script>
+		<![CDATA[
+			import component.ice.ActionBar;
+			
+			private var component_ice_ActionBar_obj:component.ice.ActionBar;
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:Group width="1024" height="768" top="20" horizontalCenter="0">
+		<ice:ActionBar width="100%" depth="4" iconSource="component/ice/assets/cut dark1.png" title="Message" titleSub="로그인 후 이용 가능 합니다." />
+		<s:HGroup width="100%" top="56" depth="0" gap="0" height="712">
+			<ice:ListParent width="200" height="100%" >
+				<ice:dataProvider>
+					<s:ArrayCollection>
+						<fx:String  >test1</fx:String>
+						<fx:String  >test2</fx:String>
+						<fx:String  >test3</fx:String>
+						<fx:String  >test4</fx:String>
+					</s:ArrayCollection>
+				</ice:dataProvider>
+			</ice:ListParent>
+			
+			<s:Group width="524" height="100%">
+				<s:Rect left="0" right="0" top="0" bottom="0" ><s:fill><s:SolidColor color="0xFFFFFF" /></s:fill></s:Rect>
+				<s:Label text="기능" />
+				
+			</s:Group>
+			
+			<s:Group width="300" height="100%">
+				<s:Rect left="0" right="0" top="0" bottom="0" ><s:fill><s:SolidColor color="0xFFFFFF" /></s:fill></s:Rect>
+				<s:Rect left="-1" top="0" bottom="0" width="1" ><s:fill><s:SolidColor color="0xDDDDDD" /></s:fill></s:Rect>
+				
+				<s:VGroup left="0" right="0" top="0" bottom="0"
+						  gap="5" paddingLeft="15" paddingRight="15"
+						  horizontalAlign="center">
+					
+					<s:SkinnableContainer skinClass="component.ice.skin.ActionBarContext_white" width="100%" height="40">
+						<s:Label text="0 byte" color="#222222" verticalCenter="0" left="5" />
+						<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="15">
+							<s:Image source="component/ice/assets/light/icon/5-content-picture.png" />
+							<s:Image source="component/ice/assets/light/icon/5-content-new-email.png" />
+							<s:Image source="component/ice/assets/light/icon/5-content-remove.png" />
+						</s:HGroup>
+					</s:SkinnableContainer>
+					<s:TextArea width="100%" height="200" contentBackgroundColor="#FFFFFF" borderColor="#DDDDDD" prompt="메시지를 입력하세요." />
+					
+					<s:HGroup verticalAlign="middle" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
+						<s:Label text="수신 : " color="#222222" />
+						<ice:TextInputLine_white prompt="전화번호입력.." width="200" />
+						<s:Image source="@Embed('/component/ice/assets/light/icon/5-content-new.png')" buttonMode="true"
+								 width="20" height="20"	   
+								 alpha="0.6" fillMode="scale" />
+					</s:HGroup>
+					
+					<s:List width="100%" height="150" contentBackgroundColor="#FFFFFF" borderVisible="false">
+						<s:dataProvider>
+							<s:ArrayCollection>
+								<fx:String  >test1</fx:String>
+								<fx:String  >test2</fx:String>
+								<fx:String  >test3</fx:String>
+								<fx:String  >test4</fx:String>
+							</s:ArrayCollection>
+						</s:dataProvider>
+					</s:List>
+					
+					<s:HGroup verticalAlign="middle" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
+						<s:Label text="회신 : " color="#222222" />
+						<ice:TextInputLine_white prompt="회신번호 입력.." width="200" />
+						<s:Image source="@Embed('/component/ice/assets/light/icon/5-content-new-event.png')" buttonMode="true"
+								 width="20" height="20"	   
+								 alpha="0.6" fillMode="scale" />
+					</s:HGroup>
+					
+					<s:Button label="Send" width="100%" skinClass="component.ice.skin.ButtonSkin_white" enabled="false" />
+					<s:HGroup width="100%">
+						<s:CheckBox label="예약설정" skinClass="component.ice.skin.CheckBoxSkin_white" />
+						<s:CheckBox label="간격설정" skinClass="component.ice.skin.CheckBoxSkin_white" />
+					</s:HGroup>
+				</s:VGroup>
+				
+			</s:Group>
+		</s:HGroup>
+	</s:Group>
+	
+	<!--<s:VGroup left="20" gap="10" right="20">
+	<ice:ActionBar width="100%" iconSource="component/ice/assets/cut dark1.png" title="Message" titleSub="로그인 후 이용 가능 합니다." />
+	<ice:ActionBar width="100%" skinClass="component.ice.skin.ActionBar_white" iconSource="component/ice/assets/cut dark1.png" title="Message" titleSub="로그인 후 이용 가능 합니다." />
+	
+	<ice:TextInputLine prompt="아이디를 입력하세요." width="120" />
+	<s:Button label="로그인" width="146" height="42" skinClass="component.ice.skin.ButtonSkin" />
+	
+	<s:HGroup gap="0">
+	<ice:ListParent >
+	<ice:dataProvider>
+	<s:ArrayCollection>
+	<fx:String  >test1</fx:String>
+	<fx:String  >test2</fx:String>
+	<fx:String  >test3</fx:String>
+	<fx:String  >test4</fx:String>
+	</s:ArrayCollection>
+	</ice:dataProvider>
+	</ice:ListParent>
+	<s:Group width="100" height="100%">
+	<s:Rect width="100" height="100%">
+	<s:fill>
+	<s:SolidColor color="0xFFFFFF" />
+	</s:fill>
+	</s:Rect>
+	</s:Group>
+	
+	</s:HGroup>
+	
+	
+	</s:VGroup>-->
+	
+</s:Application>
