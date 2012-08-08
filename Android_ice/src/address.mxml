@@ -8,7 +8,7 @@
 	</fx:Declarations>
 	
 	<s:Group width="1024" height="768" top="20" horizontalCenter="0">
-		<ice:ActionBar width="100%" depth="4" iconSource="component/ice/assets/ICSIcons/MDPI/ic_launcher_contacts.png" title="Address" titleSub="로그인 후 이용 가능 합니다." />
+		<ice:ActionBar skinClass="component.ice.skin.ActionBar_white" width="100%" depth="4" iconSource="component/ice/assets/ICSIcons/MDPI/ic_launcher_contacts.png" title="Address" titleSub="로그인 후 이용 가능 합니다." />
 		<s:HGroup width="100%" top="56" depth="0" gap="0" height="712">
 			<s:VGroup gap="0" width="200" height="100%">
 				<s:SkinnableContainer skinClass="component.ice.skin.ActionBarContext_white" width="100%" height="40">
@@ -90,8 +90,11 @@
 				<s:VGroup width="100%"  paddingLeft="20" paddingRight="20" paddingTop="20" paddingBottom="20" gap="20">
 					<s:Image source="component/ice/assets/light/icon/6-social-person.png" fillMode="scale" width="100" height="100" smooth="true"/>
 					
+					<s:Label text="이름" color="#222222" />
 					<ice:TextInputLine_white width="200" disable="true" />
+					<s:Label text="전화번호" color="#222222" />
 					<ice:TextInputLine_white width="200" disable="true" />
+					<s:Label text="메모" color="#222222" />
 					<s:TextArea width="100%" height="200" contentBackgroundColor="#FFFFFF" borderColor="#DDDDDD" enabled="false" />
 				</s:VGroup>
 				
