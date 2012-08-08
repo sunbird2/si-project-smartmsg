@@ -2,7 +2,7 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:ice="component.ice.*"
-			   skinClass="component.ice.skin.ApplicationSkin_black">
+			   >
 	<fx:Style source="Main.css"/>
 	<fx:Script>
 		<![CDATA[
@@ -16,7 +16,7 @@
 	</fx:Declarations>
 	
 	<s:Group width="1024" height="768" top="20" horizontalCenter="0">
-		<ice:ActionBar width="100%" depth="4" iconSource="component/ice/assets/ICSIcons/MDPI/ic_launcher_smsmms.png" title="Message" titleSub="로그인 후 이용 가능 합니다." />
+		<ice:ActionBar skinClass="component.ice.skin.ActionBar_white" width="100%" depth="4" iconSource="component/ice/assets/ICSIcons/MDPI/ic_launcher_smsmms.png" title="Message" titleSub="로그인 후 이용 가능 합니다." />
 		<s:HGroup width="100%" top="56" depth="0" gap="0" height="712">
 			<ice:ListParent width="200" height="100%" >
 				<ice:dataProvider>
@@ -31,7 +31,7 @@
 			
 			<s:Group width="524" height="100%">
 				<s:Rect left="0" right="0" top="0" bottom="0" ><s:fill><s:SolidColor color="0xFFFFFF" /></s:fill></s:Rect>
-				<s:Label text="기능" />
+				
 				
 			</s:Group>
 			
