@@ -89,20 +89,20 @@
     <s:Group verticalCenter="0" width="13" height="13" layoutDirection="ltr">
        
         <!-- fill -->
-		<s:Rect left="1" top="1" right="1" bottom="1">
-			<s:fill>
-				<s:LinearGradient rotation="90">
-					<s:GradientEntry color="0xFFFFFF" 
-									 color.overStates="0xBBBDBD" 
-									 color.downStates="0xAAAAAA" 
-									 alpha="0.45" />
-					<s:GradientEntry color="0xD8D8D8" 
-									 color.overStates="0x9FA0A1" 
-									 color.downStates="0x929496" 
-									 alpha="0.45" />
-				</s:LinearGradient>
-			</s:fill>
-		</s:Rect>
+        <s:Rect left="1" top="1" right="1" bottom="1">
+            <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="0xFFFFFF" 
+                                   color.overStates="0xBBBDBD" 
+                                   color.downStates="0xAAAAAA" 
+                                   alpha="0.45" />
+                    <s:GradientEntry color="0xD8D8D8" 
+                                   color.overStates="0x9FA0A1" 
+                                   color.downStates="0x929496" 
+                                   alpha="0.45" />
+                </s:LinearGradient>
+            </s:fill>
+        </s:Rect>
      
         
         <!-- layer 6: highlight stroke (down state only) -->
@@ -117,10 +117,10 @@
         <s:Rect left="0" top="0" right="0" bottom="0">
             <s:stroke>
                 <s:LinearGradientStroke rotation="90" weight="1">
-                    <s:GradientEntry color="0x000000" 
+                    <s:GradientEntry color="0xFFFFFF" 
                                    alpha="0.5625"
                                    alpha.downStates="0.6375" />
-                    <s:GradientEntry color="0x000000" 
+                    <s:GradientEntry color="0xFFFFFF" 
                                    alpha="0.75"
                                    alpha.downStates="0.85" />
                 </s:LinearGradientStroke>
@@ -150,7 +150,6 @@
     <!-- Label -->
     <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
     <s:Label id="labelDisplay"
-			 color="#222222"
              textAlign="start"
              verticalAlign="middle"
              maxDisplayedLines="1"

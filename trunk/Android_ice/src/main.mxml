@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:ice="component.ice.*">
+	<fx:Style source="Main.css"/>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:VGroup id="pad" width="1024" height="768" gap="0">
+		
+		
+		<s:Group id="statusBar" width="100%" height="24">
+			<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#000000"/></s:fill></s:Rect>
+			
+			<s:Label text="MessageYo" verticalCenter="0" left="10" />
+			
+			<s:HGroup right="0" verticalCenter="0" >
+				<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#FF0000"/></s:fill></s:Rect>
+				<s:Image source="component/ice/assets/signal.png"/>
+				<ice:Battery percent="10"/>
+				<ice:CurrentTime />
+			</s:HGroup>
+			
+		</s:Group>
+		
+		<s:Group id="context" width="100%" height="696">
+			<s:Image source="component/ice/assets/bg.jpg" width="100%" height="100%" fillMode="repeat" />
+			
+			<s:SkinnableContainer skinClass="component.ice.skin.WidgetSkin" top="10" horizontalCenter="0" width="220" height="250">
+				
+				
+				<s:Label text="Login" left="10" height="48" verticalAlign="middle" fontSize="18" />
+				
+				<s:VGroup top="60" horizontalCenter="0">
+					<ice:TextInputLine prompt="아이디" width="150" />
+					<ice:TextInputLine prompt="비밀번호" width="150" />
+					<s:HGroup>
+						<s:CheckBox label="아이디기억" skinClass="component.ice.skin.CheckBoxSkin" fontSize="12" />
+						<s:CheckBox label="보안접속" skinClass="component.ice.skin.CheckBoxSkin" fontSize="12" />
+					</s:HGroup>
+				</s:VGroup>
+				
+				<s:HGroup width="100%" bottom="0" gap="0">
+					<s:Button label="로그인" skinClass="component.ice.skin.ButtonFirstSkin" width="50%" height="40" />
+					<s:Button label="회원가입" skinClass="component.ice.skin.ButtonLastSkin" width="50%" height="40" />	
+				</s:HGroup>
+				
+				
+				
+			</s:SkinnableContainer>
+			
+			<s:Group id="service" right="20" top="10" width="250" height="500" >
+				<ice:ActionBar skinClass="component.ice.skin.ActionBar_white" alpha="0.6" width="100%" height="48" depth="4" iconSource="component/ice/assets/service_icon.png" title="서비스" />
+			</s:Group>
+			
+			
+			<ice:Menu bottom="10" horizontalCenter="0" />
+		</s:Group>
+		
+		
+		
+		<s:Group id="navigationBar" width="100%" height="48" >
+			<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#000000"/></s:fill></s:Rect>
+			<s:HGroup top="12" left="20" gap="20" verticalAlign="bottom">
+				<s:Image source="component/ice/assets/back.png" alpha="0.4" smooth="true" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4" />
+				<s:Image source="component/ice/assets/home.png" alpha="0.4" smooth="true" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4" />
+				<s:Image source="component/ice/assets/menus.png" alpha="0.4" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4"/>
+			</s:HGroup>
+			
+		</s:Group>
+	</s:VGroup>
+	
+</s:Application>
