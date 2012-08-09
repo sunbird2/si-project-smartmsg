@@ -18,7 +18,7 @@
 		<s:BitmapImage id="back" source="@Embed('/component/ice/assets/light/icon/1-navigation-previous-item.png')" smooth="true" alpha="0.6"
 					   width="20" height="20"/>
 		
-		<s:BitmapImage id="icon" fillMode="scale" alpha="0.6" width="36" height="36" smooth="true">
+		<s:BitmapImage id="icon" fillMode="scale" alpha="0.8" width="36" height="36" smooth="true">
 			
 		</s:BitmapImage>
 		<s:HGroup verticalAlign="bottom">
