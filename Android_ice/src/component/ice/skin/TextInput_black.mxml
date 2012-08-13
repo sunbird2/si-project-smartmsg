@@ -21,7 +21,6 @@ in accordance with the terms of the license agreement accompanying it.
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
 			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009" 
 			 alpha.disabledStates="0.5" blendMode="normal"
-			 focusEnabled="false"
 			 >
 	
 	<fx:Metadata>
@@ -242,47 +241,19 @@ in accordance with the terms of the license agreement accompanying it.
 		</s:fill>
 	</s:Rect>
 	
-	<s:BitmapImage source="@Embed('/component/ice/assets/active.png', scaleGridTop='2', scaleGridBottom='3', scaleGridLeft='4', scaleGridRight='325')"
+	<s:BitmapImage includeIn="normal" source="@Embed('/component/ice/assets/dark/textinput_normal.png', scaleGridTop='1', scaleGridBottom='2', scaleGridLeft='5', scaleGridRight='35')"
+				   left="0" right="0"
+				   bottom="0" height="4" smooth="true"
+				   />
+	
+	<s:BitmapImage source="@Embed('/component/ice/assets/dark/textinput_active.png', scaleGridTop='1', scaleGridBottom='2', scaleGridLeft='5', scaleGridRight='35')"
 				   left="0" right="0"
 				   bottom="0" height="5" smooth="true"
-				   visible="{textDisplay?true:false}">
-		<s:mask>
-			<s:Group x="0" y="0">
-				<s:Path winding="evenOdd" data="M 0.95 0 L 3 0 L 3 2.95 L 326.95 2.95 L 326.95 0 L 328.95 0 L 328.95 4.95 L 0.95 4.95 L 0.95 0">
-					<s:fill>
-						<s:SolidColor color="#ff0000"/>
-					</s:fill>
-				</s:Path>
-			</s:Group>
-		</s:mask>
-	</s:BitmapImage>
-	
-	<s:BitmapImage includeIn="normal, normalWithPrompt" source="@Embed('/component/ice/assets/normal.png', scaleGridTop='1', scaleGridBottom='2', scaleGridLeft='3', scaleGridRight='326')"
+				   />
+	<s:BitmapImage includeIn="disabledStates" source="@Embed('/component/ice/assets/dark/textinput_disabled.png', scaleGridTop='1', scaleGridBottom='2', scaleGridLeft='5', scaleGridRight='35')"
 				   left="0" right="0"
-				   bottom="0" height="4" smooth="true" alpha="0.3">
-		<s:mask>
-			<s:Group x="0" y="0">
-				<s:Path winding="evenOdd" data="M 0.9 0 L 1.95 0 L 1.95 2.95 L 328 2.95 L 328 0 L 329 0 L 329 3.95 L 0.9 3.95 L 0.9 0">
-					<s:fill>
-						<s:SolidColor color="#ff0000"/>
-					</s:fill>
-				</s:Path>
-			</s:Group>
-		</s:mask>
-	</s:BitmapImage>
-	<s:BitmapImage includeIn="disabledStates" source="@Embed('/component/ice/assets/disabled.png', scaleGridTop='1', scaleGridBottom='2', scaleGridLeft='3', scaleGridRight='326')"
-				   left="0" right="0"
-				   bottom="0" height="4" smooth="true" alpha="0.15">
-		<s:mask>
-			<s:Group x="0" y="0">
-				<s:Path winding="evenOdd" data="M 0.9 0 L 1.95 0 L 1.95 2.95 L 327.95 2.95 L 327.95 0 L 328.95 0 L 328.95 3.95 L 0.9 3.95 L 0.9 0">
-					<s:fill>
-						<s:SolidColor color="#ff0000"/>
-					</s:fill>
-				</s:Path>
-			</s:Group>
-		</s:mask>
-	</s:BitmapImage>
+				   bottom="0" height="5" smooth="true"
+				   />
 	
 	
 	
