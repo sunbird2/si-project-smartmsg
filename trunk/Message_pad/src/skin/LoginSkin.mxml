@@ -10,34 +10,54 @@
 		<s:State name="logout"/>
 		<s:State name="login"/>
 	</s:states>
-	<s:BitmapImage source="@Embed('assets/bar.png')" smooth="true" alpha="0.14" verticalCenter="0"/>
-	<s:VGroup left="10" includeIn="logout" gap="2">
-		<s:HGroup verticalAlign="middle" gap="5">
-			<s:TextInput id="user_id" fontFamily="NGD" prompt="id" width="150" height="30" fontSize="20" skinClass="skin.compnent.TextInputSkin01" />
-			<s:TextInput id="user_pw" fontFamily="NGD" displayAsPassword="true" prompt="password" width="150" height="30" fontSize="20" skinClass="skin.compnent.TextInputSkin01" />
-			<s:Button id="login" label="로그인" fontFamily="NGD" fontSize="16" width="105" height="35" skinClass="skin.compnent.ButtonSkin01" />
-			<s:Spacer width="10"/>
-			<s:Button id="join" label="회원가입" fontFamily="NGD" fontSize="16" width="105" height="35" skinClass="skin.compnent.Button_member"/>
-		</s:HGroup>
-		<s:Group width="100%">
-			<s:CheckBox left="0" verticalCenter="0" label="아이디기억" fontFamily="NGD"  />
-		</s:Group>
-	</s:VGroup>
 	
-	<s:Group left="10" width="600" includeIn="login">
-		<s:RichEditableText editable="false" focusEnabled="false" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#008cc4" fontSize="20" lineHeight="170%" kerning="off">
-			<s:content><s:p><s:a kerning="auto" href="정보 수정 페이지로 이동합니다." id="login_id"></s:a><s:span color="#8d8d8d" kerning="auto"> 님 안녕하세요. </s:span></s:p><s:p><s:span color="#8d8d8d" kerning="auto">현재                를 </s:span><s:a color="#ff7b01" href="MyPage 로 이동 합니다." kerning="auto" id="point"></s:a><s:span color="#8d8d8d" kerning="auto">건 발송하실 수 있습니다. </s:span></s:p></s:content>
-		</s:RichEditableText>
-		<s:ComboBox id="combo" left="50" bottom="0" width="70" fontFamily="NGD"
-					selectedIndex="0" skinClass="skin.compnent.ComboSkin01">
+	<s:BitmapImage includeIn="logout"
+				   width="220" height="250"
+				   source="@Embed('/skin/ics/assets/widget_dark.png', scaleGridTop='10', scaleGridBottom='320', scaleGridLeft='10', scaleGridRight='314')"
+				   fillMode="scale" alpha="0.9"/>
+	
+	<s:Rect includeIn="logout" width="100%" top="53" left="8" right="8"><s:stroke><s:SolidColorStroke color="#33B5E5" weight="2" /></s:stroke></s:Rect>
+	
+	<s:Group includeIn="logout" left="8" right="8" top="8" bottom="8" minWidth="0" minHeight="0">
+		<s:Label text="Login" left="10" height="48" verticalAlign="middle" fontSize="18" color="#D6D6D6" />
+		
+		<s:VGroup top="60" horizontalCenter="0" gap="20">
+			<s:TextInput id="user_id" styleName="textinput_dark" prompt="아이디" width="150" />
+			<s:TextInput id="user_pw" styleName="textinput_dark" prompt="비밀번호" width="150" displayAsPassword="true" />
+			<s:HGroup>
+				<s:CheckBox label="아이디기억" styleName="checkbox_dark" fontSize="12" color="#D6D6D6" />
+				<s:CheckBox label="보안접속" styleName="checkbox_dark" fontSize="12" color="#D6D6D6" />
+			</s:HGroup>
+		</s:VGroup>
+		
+		<s:HGroup width="100%" bottom="0" gap="0">
+			<s:Button id="login" label="로그인" styleName="button_first_dark" height="40" color="#D6D6D6" />
+			<s:Button id="join" label="회원가입" styleName="button_last_dark" width="50%" height="40" color="#D6D6D6" />	
+		</s:HGroup>
+	</s:Group>
+	
+	
+	<s:Group left="10" top="-1" includeIn="login">
+		<s:HGroup verticalCenter="0" verticalAlign="middle">
+			<s:RichEditableText editable="false" focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="12" kerning="auto" color="#D6D6D6">
+				<s:content><s:p><s:a id="login_id" href="정보 수정 페이지로 이동합니다."></s:a><s:span> 님 안녕하세요. </s:span><s:span>현재                    를 </s:span><s:a  href="MyPage 로 이동 합니다." id="point"></s:a><s:span>건 발송하실 수 있습니다. </s:span></s:p></s:content>
+			</s:RichEditableText>
+			<s:Button label="로그아웃" fontSize="12" width="100" height="24" styleName="button_dark" color="#D6D6D6"/>
+		</s:HGroup>
+		
+		<s:ComboBox id="combo" left="168" width="54" fontSize="12"
+					focusEnabled="false"
+					styleName="comboBox_dark"
+					selectedIndex="0">
 			<s:ArrayCollection>
 				<fx:Object label="SMS" data="SMS"/>
 				<fx:Object label="LMS" data="LMS"/>
 				<fx:Object label="MMS" data="MMS"/>
 			</s:ArrayCollection>
 		</s:ComboBox>
-		<s:Button label="로그아웃" right="0" bottom="0" fontFamily="NGD" fontSize="16" width="105" height="35" skinClass="skin.compnent.ButtonSkin01" />
+		
 	</s:Group>
+	
 	
 	
 </s:Skin>

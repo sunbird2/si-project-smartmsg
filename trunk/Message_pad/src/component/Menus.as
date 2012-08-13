@@ -7,6 +7,8 @@ package component
 	
 	import lib.CustomEvent;
 	
+	import mx.core.UIComponent;
+	
 	import spark.components.Group;
 	import spark.components.RichText;
 	import spark.components.supportClasses.SkinnableComponent;
@@ -26,11 +28,11 @@ package component
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
 		[SkinPart(required="true")] */
 		
-		[SkinPart(required="true")]public var labelHome:RichText;
-		[SkinPart(required="true")]public var labelSend:RichText;
-		[SkinPart(required="true")]public var labelAddress:RichText;
-		[SkinPart(required="true")]public var labelBill:RichText;
-		[SkinPart(required="true")]public var labelLog:RichText;
+		[SkinPart(required="false")]public var labelHome:UIComponent;
+		[SkinPart(required="true")]public var labelSend:UIComponent;
+		[SkinPart(required="true")]public var labelAddress:UIComponent;
+		[SkinPart(required="true")]public var labelBill:UIComponent;
+		[SkinPart(required="true")]public var labelLog:UIComponent;
 		
 		private var _clickStat:String;
 		
@@ -60,7 +62,7 @@ package component
 		{
 			super.partAdded(partName, instance);
 			
-			var m:RichText = instance as RichText;
+			var m:UIComponent = instance as UIComponent;
 			m.addEventListener(MouseEvent.CLICK, changeState);
 		}
 		

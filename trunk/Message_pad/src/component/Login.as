@@ -82,6 +82,7 @@ package component
 			super.partAdded(partName, instance);
 			if (instance == join) join.addEventListener(MouseEvent.CLICK, join_clickHandler);
 			else if (instance == login) login.addEventListener(MouseEvent.CLICK, login_clickHandler);
+			//else if (instance == user_id) user_id.addEventListener("tab", user_id_tabHandler);
 			else if (instance == login_id) {
 				login_id.addEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
 				login_id.addEventListener(FlowElementMouseEvent.ROLL_OUT, tooltip_outHandler);
@@ -89,6 +90,7 @@ package component
 				
 				var l:SpanElement = new SpanElement();
 				l.text = Gv.user_id;
+				l.color =  0x33B5E5;
 				l.textDecoration = "none";
 				login_id.addChild(l);
 			}
@@ -98,7 +100,7 @@ package component
 
 				var p:SpanElement = new SpanElement();
 				p.text =  SLibrary.addComma( String(Gv.point) );
-				p.color = 0xff7b01;
+				p.color =  0xFFBB33;
 				p.textDecoration = "none";
 				point.addChild(p);
 			}
@@ -111,7 +113,13 @@ package component
 			super.partRemoved(partName, instance);
 			if (instance == join) join.removeEventListener(MouseEvent.CLICK, join_clickHandler);
 			else if (instance == login) login.removeEventListener(MouseEvent.CLICK, login_clickHandler);
+			//else if (instance == user_id) user_id.removeEventListener("tab", user_id_tabHandler);
 			else if (instance == user_pw) user_pw.removeEventListener(FlexEvent.ENTER, login_clickHandler); 
+		}
+		
+		private function user_id_tabHandler(event:Event):void {
+			
+			user_pw.setFocus();
 		}
 		
 		/**
@@ -162,6 +170,7 @@ package component
 			var uvo:UserInformationVO = event.result as UserInformationVO;
 			if (uvo != null) {
 				cstat = "login";
+				this.top = 2;
 				Gv.bLogin = true;
 				Gv.user_id = uvo.user_id;
 				Gv.point = uint( uvo.point );

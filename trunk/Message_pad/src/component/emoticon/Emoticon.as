@@ -48,7 +48,7 @@ package component.emoticon
 		[SkinPart(required="true")] public var msgBox:List;
 		[SkinPart(required="true")] public var paging:Paging
 		[SkinPart(required="true")] public var specialCharGroup:TileGroup;
-		[SkinPart(required="true")] public var close:Button;
+
 		
 		private var _state:String;
 		private var acGubun:ArrayCollection = new ArrayCollection(["테마문자","업종별문자"]);
@@ -96,17 +96,7 @@ package component.emoticon
 			return c;
 		}
 		
-		public function pagingInit():void {
-			
-			if (acEmt != null && acEmt.length > 0 && paging) {
-				
-				if (paging.totalDataCount != Object(acEmt.getItemAt(0)).cnt) {
-					paging.totalDataCount = Object(acEmt.getItemAt(0)).cnt;
-					paging.init();	
-				}
-				
-			}
-		}
+		
 
 		/* Implement the getCurrentSkinState() method to set the view state of the skin class. */
 		override protected function getCurrentSkinState():String
@@ -141,7 +131,7 @@ package component.emoticon
 			else if (instance == specialCharGroup) {
 				createSpecialChar();
 			}
-			else if (instance == close)	close.addEventListener(MouseEvent.CLICK, close_clickHandler);
+
 			
 			
 		}
@@ -161,9 +151,21 @@ package component.emoticon
 			}
 			else if (instance == paging) paging.removeEventListener("clickPage", paging_clickPageHandler);
 			else if (instance == specialCharGroup) removeSpecialChar();
-			else if (instance == close)	close.removeEventListener(MouseEvent.CLICK, close_clickHandler);
+
 		}
 		
+		public function pagingInit():void {
+			
+			if (acEmt != null && acEmt.length > 0 && paging) {
+				
+				if (paging.totalDataCount != Object(acEmt.getItemAt(0)).cnt) {
+					paging.totalDataCount = Object(acEmt.getItemAt(0)).cnt;
+					
+				}else {
+					paging.init();
+				}
+			}
+		}
 		
 		private function gubunBar_changeHandler(event:IndexChangeEvent):void {
 

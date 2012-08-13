@@ -11,6 +11,8 @@
 			import mx.controls.Button;
 			import mx.events.ItemClickEvent;
 			
+			import spark.events.IndexChangeEvent;
+			
 			[Bindable] public var bar:ArrayCollection = new ArrayCollection();
 			/* Records per page */
 			private var _viewDataCount:uint = 15; 
@@ -28,7 +30,11 @@
 			private var currPageBlock:int = -1;
 			
 			public function set viewDataCount(u:uint):void {_viewDataCount = u;createPageBar();}
-			public function set totalDataCount(u:uint):void {_totalDataCount = u; pageCount = Math.ceil(totalDataCount/viewDataCount);createPageBar();}
+			public function set totalDataCount(u:uint):void {
+				_totalDataCount = u; 
+				pageCount = Math.ceil(totalDataCount/viewDataCount);
+				createPageBar();
+			}
 			
 			private function set currPage(u:uint):void {_currPage = u; pageBlock = Math.ceil((_currPage+1)/pageBlockViewCount)-1}
 			private function set pageBlockViewCount(u:uint):void {_pageBlockViewCount = u;}
@@ -48,11 +54,6 @@
 			}
 			private function selItem(i:int):void {
 				
-				var arr:Array = pageBar.getChildren();
-				for (var c:int = 0; c < arr.length; c++) {
-					if (c == i)	Button(pageBar.getChildAt(c)).enabled = false;
-					else Button(pageBar.getChildAt(c)).enabled = true;
-				}
 				
 			}
 			
@@ -94,12 +95,35 @@
 			
 			
 			
+			protected function pageBar_changeHandler(event:IndexChangeEvent):void
+			{
+				if (event.newIndex >= 0 && currPage != bar.getItemAt( event.newIndex ) as uint) {
+					currPage = bar.getItemAt( event.newIndex ) as uint;
+					dispatchEvent(new CustomEvent("clickPage",currPage));
+					var arr:Array = new Array();
+					arr.push(event.newIndex);
+					callLater(selItem, arr);
+				} else {
+					event.stopImmediatePropagation();
+					event.preventDefault();
+					trace("stop");
+				}
+				
+			}
+			
+			protected function pageBar_changingHandler(event:IndexChangeEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<mx:LinkBar id="pageBar" itemClick="clickPage(event)" dataProvider="{bar}" contentBackgroundAlpha="0"
-				horizontalGap="1" 
-				width="100%" height="25"/>
+	<s:TabBar  id="pageBar" changing="pageBar_changeHandler(event)" dataProvider="{bar}"
+				  chromeColor="#FFFFFF"
+				  color="#222222"
+				  width="100%" height="25"/>
 </s:Group>

@@ -46,7 +46,6 @@ package component.address
 		[SkinPart(required="true")] */
 		[SkinPart(required="false")]public var searchTextInput:TextInput;
 		[SkinPart(required="false")]public var addressTree:Tree;
-		[SkinPart(required="true")] public var close:Button;
 		
 		private var xml:XMLListCollection = new XMLListCollection;
 		private var pvo:PhoneVO = null;
@@ -79,7 +78,6 @@ package component.address
 				
 			}
 			else if (instance == searchTextInput) searchTextInput.addEventListener(KeyboardEvent.KEY_UP, search_keyUpHandler);
-			else if (instance == close)	close.addEventListener(MouseEvent.CLICK, close_clickHandler);
 			
 		}
 		
@@ -93,7 +91,6 @@ package component.address
 				
 			}
 			else if (instance == searchTextInput) searchTextInput.removeEventListener(KeyboardEvent.KEY_UP, search_keyUpHandler);
-			else if (instance == close)	close.removeEventListener(MouseEvent.CLICK, close_clickHandler);
 		}
 		
 		private function getAddress():void {

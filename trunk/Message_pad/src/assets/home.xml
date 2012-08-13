@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tags>
+  <tag>
+    <name>상담</name>
+    <val>module/ModuleConsult.swf</val>
+    <size>300</size>
+  </tag>
+  <tag>
+    <name>비밀번호초기화</name>
+    <val>module/ModuleConsult.swf</val>
+    <size>100</size>
+  </tag>
+  <tag>
+    <name>상담이력</name>
+    <val>module/ModuleConsult.swf</val>
+    <size>100</size>
+  </tag>
+  <tag>
+    <name>결제내역</name>
+    <val>module/ModuleConsult.swf</val>
+    <size>100</size>
+  </tag>
+  <tag>
+    <name>포인트내역</name>
+    <val>module/ModuleConsult.swf</val>
+    <size>100</size>
+  </tag>
+  <tag>
+    <name>전송내역</name>
+    <val>module/ModuleConsult.swf</val>
+    <size>100</size>
+  </tag>
+  <tag>
+    <name>정보변경내역</name>
+    <val>module/ModuleConsult.swf</val>
+    <size>100</size>
+  </tag>
+  <tag>
+    <name>공지사항</name>
+    <val>module/ModuleConsult.swf</val>
+    <size>100</size>
+  </tag>
+  <tag>
+    <name>1:1문의</name>
+    <val>module/ModuleConsult.swf</val>
+    <size>100</size>
+  </tag>
+  
+  <tag>
+    <name>통계</name>
+    <val>module/ModuleStatus.swf</val>
+    <size>300</size>
+  </tag>
+  <tag>
+    <name>발송통계</name>
+    <val>module/ModuleStatus.swf</val>
+    <size>100</size>
+  </tag>
+  <tag>
+    <name>결제통계</name>
+    <val>module/ModuleStatus.swf</val>
+    <size>100</size>
+  </tag>
+  <tag>
+    <name>메시지별통계</name>
+    <val>module/ModuleStatus.swf</val>
+    <size>100</size>
+  </tag>
+  <tag>
+    <name>발송순위</name>
+    <val>module/ModuleStatus.swf</val>
+    <size>100</size>
+  </tag>
+  
+  
+  
+  <tag>
+    <name>시스템</name>
+    <val>module/ModuleSystem.swf</val>
+    <size>300</size>
+  </tag>
+  
+  
+  <tag>
+    <name>회계 및 정산</name>
+    <val>module/ModuleAccounts.swf</val>
+    <size>300</size>
+  </tag>
+  <tag>
+    <name>자료생성</name>
+    <val>module/ModuleAccounts.swf</val>
+    <size>100</size>
+  </tag>
+  <tag>
+    <name>사용자별 월정산자료</name>
+    <val>module/ModuleAccounts.swf</val>
+    <size>100</size>
+  </tag>
+  
+  <tag>
+    <name>운영자 관리</name>
+    <val>module/ModuleStaffs.swf</val>
+    <size>300</size>
+  </tag>
+  <tag>
+    <name>이모티콘 관리</name>
+    <val>module/ModuleEmoticon.swf</val>
+    <size>300</size>
+  </tag> 
+</tags>

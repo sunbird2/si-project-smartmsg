@@ -37,6 +37,8 @@ package lib
 		
 		public static var addressGroupList:ArrayCollection = new ArrayCollection;
 		
+		public static var appState:String = "home";
+		
 		public function Gv(){}
 		
 	}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Skin xmlns:s="library://ns.adobe.com/flex/spark"
-		xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:ics="skin.ics.*"
 		>
 	<fx:Metadata>[HostComponent("component.Menus")]</fx:Metadata>
 	<fx:Script>
@@ -9,101 +9,46 @@
 		]]>
 	</fx:Script>
 	<fx:Declarations>
-		<s:Bounce id="bounceEasing"/>
-		<s:Animate id="a" 
-				   duration="550" >
-			<s:SimpleMotionPath valueFrom="26"
-								valueTo="30"
-								property="fontSize" />
-		</s:Animate>
-		<s:Animate id="b" 
-				   duration="550" >
-			<s:SimpleMotionPath valueFrom="30"
-								valueTo="26"
-								property="fontSize" />
-		</s:Animate>
-		
-		<s:Rotate3D id="rotateEffect" 
-					angleXFrom="0.0" angleXTo="0.0" 
-					angleYFrom="0.0" angleYTo="360.0" 
-					angleZFrom="0.0" angleZTo="0.0"
-					duration="1000"
-					repeatCount="1"
-					easer="{bounceEasing}"
-					/>
+
 	</fx:Declarations>
 	<s:states>
 		<s:State name="home"/>
-		<s:State name="send"/>
-		<s:State name="address"/>
-		<s:State name="bill"/>
-		<s:State name="log"/>
+		<s:State name="send" stateGroups="small"/>
+		<s:State name="address" stateGroups="small"/>
+		<s:State name="bill" stateGroups="small"/>
+		<s:State name="log" stateGroups="small"/>
 	</s:states>
 	
-	
-	<s:HGroup gap="0" horizontalCenter="0" width="1140" height="57">
-		<s:Rect width="98" height="57"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
-		<s:Group width="180" height="57">
-			<s:Rect width="100%" height="57" visible="true" visible.home="false"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
-			<s:RichText id="labelHome" text="HOME" y="21" horizontalCenter="0"
-						buttonMode="true"
-						mouseDownEffect="{rotateEffect}"
-						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
-						color.home="#008cc4" />
+	<s:Image source="skin/ics/assets/dock.png" includeIn="home" horizontalCenter="0" bottom="0" alpha="0.8" />
+	<s:HGroup horizontalCenter="0" gap="50" bottom.home="-30">
+		<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#FF0000"/></s:fill></s:Rect>
+		<s:Group id="labelSend" buttonMode="true">
+			<ics:BitmapImageReflection source="@Embed('skin/ics/assets/ic_launcher_smsmms.png')" 
+									   imageWidth="72" imageHeight="72" imageWidth.small="32" imageHeight.small="32"  reflectionVisible.small="false"
+									   gap="-5"/>
+			<s:RichText text="메시지" includeIn="home" color="#DDDDDD" horizontalCenter="0" top="76" />
 		</s:Group>
 		
-		<s:Group width="180" height="57">
-			<s:Rect width="100%" height="57" visible="true" visible.send="false"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
-			<s:RichText id="labelSend" text="메시지" y="21"  horizontalCenter="0"
-						buttonMode="true"
-						mouseDownEffect="{rotateEffect}"
-						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
-						color.send="#008cc4"/>
+		<s:Group id="labelAddress" buttonMode="true">
+			<ics:BitmapImageReflection source="@Embed('skin/ics/assets/ic_launcher_contacts.png')" 
+									   imageWidth="72" imageHeight="72" imageWidth.small="32" imageHeight.small="32" reflectionVisible.small="false"
+									   gap="-17"/>
+			<s:RichText text="주소록" includeIn="home" color="#DDDDDD" horizontalCenter="0" top="76" />
 		</s:Group>
 		
-		<s:Group width="209" height="57">
-			<s:Rect visible="true" width="100%" height="57"	visible.address="false"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
-			<s:RichText id="labelAddress" text="주소록" y="21" horizontalCenter="0"
-						buttonMode="true"
-						mouseDownEffect="{rotateEffect}"
-						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
-						color.address="#008cc4"/>
+		<s:Group id="labelBill" buttonMode="true">
+			<ics:BitmapImageReflection source="@Embed('skin/ics/assets/ic_launcher_calculator.png')" 
+									   imageWidth="72" imageHeight="72" imageWidth.small="32" imageHeight.small="32" reflectionVisible.small="false"
+									   gap="-9"/>
+			<s:RichText text="결제" includeIn="home" color="#DDDDDD" horizontalCenter="0" top="76" />
 		</s:Group>
 		
-		<s:Group width="197" height="57">
-			<s:Rect visible="true" width="100%" height="57" visible.bill="false"
-					><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
-			<s:RichText id="labelBill" text="결제" y="21" horizontalCenter="0"
-						buttonMode="true"
-						mouseDownEffect="{rotateEffect}"
-						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
-						color.bill="#008cc4"/>
+		<s:Group id="labelLog" buttonMode="true">
+			<ics:BitmapImageReflection source="@Embed('skin/ics/assets/ic_launcher_calendar.png')" 
+									   imageWidth="72" imageHeight="72" imageWidth.small="32" imageHeight.small="32" reflectionVisible.small="false"
+									   gap="-13"/>
+			<s:RichText text="내역" includeIn="home" color="#DDDDDD" horizontalCenter="0" top="76" />
 		</s:Group>
-		
-		<s:Group width="180" height="57">
-			<s:Rect width="100%" height="57" visible="true" visible.log="false"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
-			<s:RichText id="labelLog" text="내역" y="21" horizontalCenter="0" 
-						buttonMode="true"
-						mouseDownEffect="{rotateEffect}"
-						color="#454545" fontSize="18" fontFamily="NGD"  lineHeight="222.2%"
-						color.log="#008cc4"/>
-		</s:Group>
-		
-		<s:Rect width="90" height="57"><s:fill><s:SolidColor color="0x999999" alpha="0.15" /></s:fill></s:Rect>
-	</s:HGroup>
-	<s:BitmapImage source="@Embed('/assets/menu_div.png')" horizontalCenter="0" smooth="true" alpha="0.14" y="5"/>
-	
-	
-	<s:HGroup gap="150" horizontalCenter="0" y="21">
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	</s:HGroup>
 	
 </s:Skin>
