@@ -21,6 +21,7 @@ package component.ice
 		[SkinPart(required="false")] public var icon:BitmapImage;
 		[SkinPart(required="false")] public var title_text:TextBase;
 		[SkinPart(required="false")] public var titleSub_text:TextBase;
+		[SkinPart(required="false")] public var back:BitmapImage;
 		
 		
 		private var _iconSource:String;
@@ -34,6 +35,10 @@ package component.ice
 		private var _titleSub:String;
 		public function get titleSub():String { return _titleSub; }
 		public function set titleSub(value:String):void { _titleSub = value; }
+		
+		private var _backEnable:Boolean = true;;
+		public function get backEnable():Boolean{ return _backEnable; }
+		public function set backEnable(value:Boolean):void { _backEnable = value; }
 		
 		public function ActionBar()
 		{
@@ -58,6 +63,10 @@ package component.ice
 			if (instance == icon) icon.source = iconSource;
 			else if (instance == title_text) title_text.text = title ;
 			else if (instance == titleSub_text) titleSub_text.text = titleSub ;
+			else if (instance == back) {
+				if (backEnable) back.visible = true;
+				else back.visible = false;
+			}
 		}
 		
 		/* Implement the partRemoved() method to remove the even handlers added in partAdded() */
