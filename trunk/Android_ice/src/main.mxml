@@ -51,7 +51,9 @@
 			</s:SkinnableContainer>
 			
 			<s:Group id="service" right="20" top="10" width="250" height="500" >
-				<ice:ActionBar skinClass="component.ice.skin.ActionBar_white" alpha="0.6" width="100%" height="48" depth="4" iconSource="component/ice/assets/service_icon.png" title="서비스" />
+				<ice:ActionBar skinClass="component.ice.skin.ActionBar_white" width="100%" height="40" depth="4" 
+							   iconSource="component/ice/assets/service_icon.png" title="서비스"
+							   backEnable="false"/>
 			</s:Group>
 			
 			

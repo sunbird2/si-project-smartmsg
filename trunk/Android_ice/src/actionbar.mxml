@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:VGroup top="10" left="200">
+		<s:SkinnableContainer width="200" skinClass="skin.ics.ActionBar" backgroundColor="#222222" height="48">
+			
+		</s:SkinnableContainer>
+		
+		<s:SkinnableContainer width="200" skinClass="skin.ics.ActionBar" backgroundColor="#DDDDDD" height="48">
+			
+		</s:SkinnableContainer>
+		
+		<s:SkinnableContainer width="200" skinClass="skin.ics.ActionBar" backgroundColor="#33B5E5" height="48">
+			
+		</s:SkinnableContainer>
+		
+		
+		<s:SkinnableContainer width="200" skinClass="skin.ics.ActionBar_contextuar" backgroundColor="#222222" height="48">
+			
+		</s:SkinnableContainer>
+		
+		<s:SkinnableContainer width="200" skinClass="skin.ics.ActionBar_contextuar" backgroundColor="#DDDDDD" height="48">
+			
+		</s:SkinnableContainer>
+		
+		<s:SkinnableContainer width="200" skinClass="skin.ics.ActionBar_contextuar" backgroundColor="#33B5E5" height="48">
+			
+		</s:SkinnableContainer>
+		
+		<s:ButtonBar />
+	</s:VGroup>
+	
+</s:Application>
