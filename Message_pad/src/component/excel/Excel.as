@@ -54,7 +54,6 @@ package component.excel
 		[SkinPart(required="false")]public var sendBtn:Button;
 		[SkinPart(required="false")]public var excelView:DataGrid;
 		[SkinPart(required="false")]public var resultList:List;
-		[SkinPart(required="true")] public var close:Button;
 		
 		
 		private const NONE:int = 0;
@@ -127,7 +126,6 @@ package component.excel
 				}
 			}
 			else if (instance == addressBtn) addressBtn.addEventListener(MouseEvent.CLICK, addressBtn_clickHandler);
-			else if (instance == close)	close.addEventListener(MouseEvent.CLICK, close_clickHandler);
 			
 			
 			
@@ -144,7 +142,6 @@ package component.excel
 			else if (instance == sendBtn) sendBtn.removeEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
 			else if (instance == addressCombo) addressCombo.dataProvider = null;
 			else if (instance == addressBtn) addressBtn.removeEventListener(MouseEvent.CLICK, addressBtn_clickHandler);
-			else if (instance == close)	close.removeEventListener(MouseEvent.CLICK, close_clickHandler);
 		}
 		
 		

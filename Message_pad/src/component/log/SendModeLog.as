@@ -48,7 +48,6 @@ package component.log
 		[SkinPart(required="false")]public var monthSlider:HSlider;
 		
 		[SkinPart(required="false")]public var groupList:List;
-		[SkinPart(required="true")] public var close:Button;
 		
 		private var _yyyymm:String;
 		private var acGroup:ArrayCollection = new ArrayCollection();
@@ -96,7 +95,6 @@ package component.log
 				groupList.dataProvider = acGroup;
 				groupList.addEventListener(IndexChangeEvent.CHANGE, groupList_changeHandler);
 			}
-			else if (instance == close)	close.addEventListener(MouseEvent.CLICK, close_clickHandler);
 		}
 		
 		/* Implement the partRemoved() method to remove the even handlers added in partAdded() */
@@ -115,7 +113,6 @@ package component.log
 				ArrayCollection(groupList.dataProvider).removeAll();
 				groupList.removeEventListener(IndexChangeEvent.CHANGE, groupList_changeHandler);
 			}
-			else if (instance == close)	close.removeEventListener(MouseEvent.CLICK, close_clickHandler);
 		}
 		
 		private function preMonth_clickHandler(event:MouseEvent):void { --monthSlider.value; }

@@ -36,6 +36,7 @@ package component
 	import spark.components.CheckBox;
 	import spark.components.ComboBox;
 	import spark.components.Group;
+	import spark.components.Image;
 	import spark.components.Label;
 	import spark.components.List;
 	import spark.components.RichEditableText;
@@ -50,11 +51,6 @@ package component
 	import valueObjects.PhoneVO;
 	import valueObjects.SendMessageVO;
 	
-	
-	[SkinState("message")]
-	[SkinState("sendList")]
-	[SkinState("send")]
-	
 	public class Send extends SkinnableComponent
 	{
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
@@ -62,35 +58,32 @@ package component
 		
 		[SkinPart(reqired='true')]public var contentGroup:Group;
 		
+		// function
+		[SkinPart(required="false")]public var functionList:List;
+		
+		
 		// message
 		[SkinPart(required="false")]public var message:TextArea;
 		[SkinPart(required="false")]public var byte:SpanElement;
-		[SkinPart(required="false")]public var messageSaveBtn:LinkElement;
-		[SkinPart(required="false")]public var specialChar:LinkElement;
-		[SkinPart(required="false")]public var myMessage:LinkElement;
-		[SkinPart(required="false")]public var sentMessage:LinkElement;
-		[SkinPart(required="false")]public var emoticon:LinkElement;
-		[SkinPart(required="false")]public var addImage:LinkElement;
+
+		[SkinPart(required="false")]public var addImage:Image;
+		[SkinPart(required="false")]public var messageSaveBtn:Image;
 		
 		
 		
 		// phones
 		[SkinPart(required="false")]public var sendListInput:TextInput;
-		[SkinPart(required="false")]public var sendListInputBtn:Button;
+		[SkinPart(required="false")]public var sendListInputBtn:Image;
 		[SkinPart(required="false")]public var sendList:List;
 		[SkinPart(required="false")]public var countPhone:SpanElement;
-		[SkinPart(required="false")]public var sendListFromAddress:LinkElement;
-		[SkinPart(required="false")]public var sendListFromExcel:LinkElement;
-		[SkinPart(required="false")]public var sendListFromSent:LinkElement;
-		[SkinPart(required="false")]public var sendListFromCopy:LinkElement;
-		[SkinPart(required="false")]public var dupleDelete:LinkElement;
-		[SkinPart(required="false")]public var phoneRemoveAll:LinkElement;
+		[SkinPart(required="false")]public var dupleDelete:Image;
+		[SkinPart(required="false")]public var phoneRemoveAll:Image;
 		
 		
 		
 		// callback
 		[SkinPart(required="false")]public var callback:ComboBox;
-		[SkinPart(required="false")]public var callbackSave:LinkElement;
+		[SkinPart(required="false")]public var callbackSave:Image;
 		
 		
 		
@@ -105,11 +98,21 @@ package component
 		[SkinPart(required="false")]public var confirm_delay:SpanElement;
 		
 		
+		[SkinPart(required="false")]public var title_text:RichText;
+		[SkinPart(required="false")]public var titleSub_text:RichText;
 		
-		
-		[SkinPart(required="false")]public var helpText:RichText;
-		[SkinPart(required="false")]public var subHelpText:RichText;
-		
+		private var acFunction:ArrayCollection =  new ArrayCollection([
+			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"내메시지", name:"myMessage"},
+			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"최근발송메시지", name:"sentMessage"},
+			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"이모티콘", name:"emoticon"},
+			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"특수문자", name:"specialChar"},
+			
+			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"복사,붙여넣거나 대량입력", name:"sendListFromCopy"},
+			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"주소록 발송", name:"sendListFromAddress"},
+			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"엑셀을 업로드 발송", name:"sendListFromExcel"},
+			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"최근발송 목록 재발송", name:"sendListFromSent"}
+		]);
+
 		public var reservation:ReservationCalendar;
 		public var interval:Interval;
 		
@@ -210,7 +213,10 @@ package component
 			
 			super.partAdded(partName, instance);
 			//trace("partAdded " + partName);
-			if (instance == specialChar) specialChar.addEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler );
+			if (instance == functionList) {
+				functionList.dataProvider = acFunction;
+				functionList.addEventListener(IndexChangeEvent.CHANGE, functionList_changeHandler );
+			}
 			else if (instance == message) message.addEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
 			else if (instance == sendListInput)	sendListInput.addEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
 			else if (instance == sendListInputBtn) sendListInputBtn.addEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
@@ -225,18 +231,11 @@ package component
 				callback.addEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
 			}
 			else if (instance == sendBtn) sendBtn.addEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
-			else if (instance == emoticon) emoticon.addEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
-			else if (instance == myMessage) myMessage.addEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
 			else if (instance == messageSaveBtn) messageSaveBtn.addEventListener(FlowElementMouseEvent.CLICK, messageSaveBtn_clickHandler);
-			else if (instance == sentMessage) sentMessage.addEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
 			else if (instance == callbackSave) {
 				if (rt == null)	rt = new ReturnPhone();
 				callbackSave.addEventListener(FlowElementMouseEvent.CLICK, rt.callbackSave_clickHandler);
 			}
-			else if (instance == sendListFromExcel) sendListFromExcel.addEventListener(FlowElementMouseEvent.CLICK, sendListFromExcel_clickHandler);
-			else if (instance == sendListFromAddress) sendListFromAddress.addEventListener(FlowElementMouseEvent.CLICK, sendListFromAddress_clickHandler);
-			else if (instance == sendListFromSent) sendListFromSent.addEventListener(FlowElementMouseEvent.CLICK, sendListFromSent_clickHandler);
-			else if (instance == sendListFromCopy) sendListFromCopy.addEventListener(FlowElementMouseEvent.CLICK, sendListFromCopy_clickHandler);
 			else if (instance == phoneRemoveAll) phoneRemoveAll.addEventListener(FlowElementMouseEvent.CLICK, phoneRemoveAll_clickHandler);
 			
 			else if (instance == sendReservation) sendReservation.addEventListener(Event.CHANGE, sendReservation_changeHandler);
@@ -252,28 +251,26 @@ package component
 		}
 		override protected function partRemoved(partName:String, instance:Object) : void {
 			
-			super.partRemoved(partName, instance);
-			//trace("partRemoved " + partName);
-			if (instance == specialChar) specialChar.removeEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler );
+			if (instance == functionList) {
+				functionList.removeEventListener(IndexChangeEvent.CHANGE, functionList_changeHandler );
+				functionList.dataProvider.removeAll();
+				acFunction.removeAll();
+				acFunction = null;
+			}
 			else if (instance == message) message.removeEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
 			else if (instance == sendListInput)	sendListInput.removeEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
 			else if (instance == sendListInputBtn) sendListInputBtn.removeEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
 			else if (instance == dupleDelete) dupleDelete.removeEventListener(FlowElementMouseEvent.CLICK, dupleDelete_clickHandler);
-			else if (instance == sendList) sendList.dataProvider = alPhone;
 			else if (instance == callback) {
 				rt.destory();
 				callback.removeEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
 			}
 			else if (instance == sendBtn) sendBtn.removeEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
-			else if (instance == emoticon) emoticon.removeEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
-			else if (instance == myMessage) myMessage.removeEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
 			else if (instance == messageSaveBtn) messageSaveBtn.removeEventListener(FlowElementMouseEvent.CLICK, messageSaveBtn_clickHandler);
-			else if (instance == sentMessage) sentMessage.removeEventListener(FlowElementMouseEvent.CLICK, emoticonView_clickHandler);
-			else if (instance == callbackSave) callbackSave.removeEventListener(FlowElementMouseEvent.CLICK, rt.callbackSave_clickHandler);
-			else if (instance == sendListFromExcel) sendListFromExcel.removeEventListener(FlowElementMouseEvent.CLICK, sendListFromExcel_clickHandler);
-			else if (instance == sendListFromAddress) sendListFromAddress.removeEventListener(FlowElementMouseEvent.CLICK, sendListFromAddress_clickHandler);
-			else if (instance == sendListFromSent) sendListFromSent.removeEventListener(FlowElementMouseEvent.CLICK, sendListFromSent_clickHandler);
-			else if (instance == sendListFromCopy) sendListFromCopy.removeEventListener(FlowElementMouseEvent.CLICK, sendListFromCopy_clickHandler);
+			else if (instance == callbackSave) {
+				if (rt == null)	rt = new ReturnPhone();
+				callbackSave.removeEventListener(FlowElementMouseEvent.CLICK, rt.callbackSave_clickHandler);
+			}
 			else if (instance == phoneRemoveAll) phoneRemoveAll.removeEventListener(FlowElementMouseEvent.CLICK, phoneRemoveAll_clickHandler);
 				
 			else if (instance == sendReservation) sendReservation.removeEventListener(Event.CHANGE, sendReservation_changeHandler);
@@ -285,6 +282,8 @@ package component
 				instance.removeEventListener(FlowElementMouseEvent.ROLL_OUT, tooltip_outHandler);
 			}
 			
+			super.partRemoved(partName, instance);
+			
 			
 		}
 		
@@ -295,7 +294,36 @@ package component
 			isValid();
 		}
 		
-		
+		private var viewFunction:String = "";
+		private function functionList_changeHandler(event:IndexChangeEvent):void {
+			
+			var item:Object = functionList.selectedItem;
+
+			// remove
+			if (viewFunction == "myMessage") emoticonView("myMessage");
+			else if (viewFunction == "specialChar") emoticonView("specialChar");
+			else if (viewFunction == "emoticon") emoticonView("emoticon");
+			else if (viewFunction == "sentMessage") emoticonView("sentMessage");
+				
+			else if (viewFunction == "sendListFromExcel")toggleExcel(); 
+			else if (viewFunction == "sendListFromAddress") toggleSendModeAddress();
+			else if (viewFunction == "sendListFromSent") toggleSendModeLog();
+			else if (viewFunction == "sendListFromCopy") togglePaste();
+			
+			
+			// create
+			if (item.name == "myMessage") emoticonView("myMessage");
+			else if (item.name == "specialChar") emoticonView("specialChar");
+			else if (item.name == "emoticon") emoticonView("emoticon");
+			else if (item.name == "sentMessage") emoticonView("sentMessage");
+			
+			else if (item.name == "sendListFromExcel")toggleExcel(); 
+			else if (item.name == "sendListFromAddress") toggleSendModeAddress();
+			else if (item.name == "sendListFromSent") toggleSendModeLog();
+			else if (item.name == "sendListFromCopy") togglePaste();
+			
+			viewFunction = item.name;
+		}
 		
 		
 		/**
@@ -326,8 +354,8 @@ package component
 				subMessage = "예약 설정 또는 간격설정을 하실 수 있습니다.";
 				sendBtn.enabled = true;
 			}
-			helpText.text = validMessage;
-			subHelpText.text = subMessage;
+			title_text.text = validMessage;
+			titleSub_text.text = subMessage;
 			
 		}
 		
@@ -414,11 +442,7 @@ package component
 			SLibrary.alert(dupCnt + " 건의 중복번호가 제거 되었습니다.");
 		}
 		
-		private function sendListFromExcel_clickHandler(event:FlowElementMouseEvent):void {
-			event.stopImmediatePropagation();
-			event.preventDefault();
-			toggleExcel();
-		}
+		
 		public function toggleExcel():void {
 			
 			if (excel == null) createExcel();
@@ -426,8 +450,6 @@ package component
 		}
 		private function createExcel():void {
 			excel = new Excel();
-			excel.left = 0;
-			excel.y = 300;
 			excel.bFromAddress = false;
 			excel.addEventListener("send", excel_sendHandler);
 			excel.addEventListener("close", excel_closeHandler);
@@ -528,11 +550,7 @@ package component
 		}
 		
 		
-		private function sendListFromAddress_clickHandler(event:FlowElementMouseEvent):void {
-			event.stopImmediatePropagation();
-			event.preventDefault();
-			toggleSendModeAddress();
-		}
+	
 		private function toggleSendModeAddress():void {
 			
 			if (sma == null) createSendModeAddress();
@@ -540,8 +558,6 @@ package component
 		}
 		private function createSendModeAddress():void {
 			sma = new SendModeAddress();
-			sma.left = 0;
-			sma.y = 300;
 			sma.addEventListener("sendAddress", sma_sendHandler);
 			sma.addEventListener("close", sma_closeHandler);
 			this.contentGroup.addElement(sma);
@@ -564,11 +580,7 @@ package component
 		}
 		
 		
-		private function sendListFromSent_clickHandler(event:FlowElementMouseEvent):void {
-			event.stopImmediatePropagation();
-			event.preventDefault();
-			toggleSendModeLog();
-		}
+		
 		private function toggleSendModeLog():void {
 			
 			if (sml == null) createSendModeLog();
@@ -576,8 +588,6 @@ package component
 		}
 		private function createSendModeLog():void {
 			sml = new SendModeLog();
-			sml.left = 0;
-			sml.y = 300;
 			sml.addEventListener("getPhone", sml_sendHandler);
 			sml.addEventListener("close", sml_closeHandler);
 			this.contentGroup.addElement(sml);
@@ -608,11 +618,7 @@ package component
 		}
 		
 		
-		private function sendListFromCopy_clickHandler(event:FlowElementMouseEvent):void {
-			event.stopImmediatePropagation();
-			event.preventDefault();
-			togglePaste();
-		}
+		
 		private function togglePaste():void {
 			
 			if (paste == null) createPaste();
@@ -620,8 +626,6 @@ package component
 		}
 		private function createPaste():void {
 			paste = new Paste();
-			paste.left = 0;
-			paste.y = 300;
 			paste.addEventListener("getPhone", paste_sendHandler);
 			paste.addEventListener("close", paste_closeHandler);
 			this.contentGroup.addElement(paste);
@@ -645,31 +649,21 @@ package component
 		}
 		
 		
-		private function emoticonView_clickHandler(event:FlowElementMouseEvent):void {
-			event.stopImmediatePropagation();
-			event.preventDefault();
-			var state:String = "emoticon";
-			if (event.flowElement == emoticon) state="emoticon";
-			else if (event.flowElement == specialChar) state="specialChar";
-			else if (event.flowElement == myMessage) state="myMessage";
-			else if (event.flowElement == sentMessage) state="sentMessage";
+		private function emoticonView(mode:String):void {
 			
 			if (emoticonBox == null) {
-				createEmoticon(state);
+				createEmoticon(mode);
 			}else {
-				if (emoticonBox.state == state )
+				if (emoticonBox.state == mode )
 					removeEmoticon();
 				else
-					emoticonBox.state = state;
+					emoticonBox.state = mode;
 			}
 		}
 		private function createEmoticon(state:String):void {
 			emoticonBox = new Emoticon(state);
-			emoticonBox.right = 0;
-			emoticonBox.y = 300;
 			emoticonBox.addEventListener("message", emoticonBox_messageHandler);
 			emoticonBox.addEventListener("specialChar", emoticonBox_specialCharHandler);
-			emoticonBox.addEventListener("close", emoticonBox_closeHandler);
 			this.contentGroup.addElement(emoticonBox);
 		}
 		private function emoticonBox_messageHandler(event:CustomEvent):void {
@@ -678,15 +672,11 @@ package component
 		private function emoticonBox_specialCharHandler(event:CustomEvent):void {
 			msg += event.result as String;
 		}
-		private function emoticonBox_closeHandler(event:Event):void {
-			removeEmoticon();
-		}
 		public function removeEmoticon():void {
 			
 			if (emoticonBox != null) {
 				emoticonBox.removeEventListener("message", emoticonBox_messageHandler);
 				emoticonBox.removeEventListener("specialChar", emoticonBox_specialCharHandler);
-				emoticonBox.removeEventListener("close", emoticonBox_closeHandler);
 				this.contentGroup.removeElement(emoticonBox);
 				emoticonBox = null;
 			}
@@ -816,10 +806,6 @@ package component
 			message = null;
 			byte = null;
 			messageSaveBtn = null;
-			specialChar = null;
-			myMessage = null;
-			sentMessage = null;
-			emoticon = null;
 			addImage = null;
 			
 			
@@ -829,10 +815,6 @@ package component
 			sendListInputBtn = null;
 			sendList = null;
 			countPhone = null;
-			sendListFromAddress = null;
-			sendListFromExcel = null;
-			sendListFromSent = null;
-			sendListFromCopy = null;
 			dupleDelete = null;
 			phoneRemoveAll = null;
 			
@@ -855,10 +837,8 @@ package component
 			confirm_delay = null;
 			
 			
-			
-			
-			helpText = null;
-			subHelpText = null;
+			title_text = null;
+			titleSub_text = null;
 			
 			if (alPhone != null) {
 				alPhone.removeAll();

@@ -37,7 +37,6 @@ package component.paste
 		[SkinPart(required="true")] public var ta:TextArea;
 		[SkinPart(required="true")] public var phones:TextArea;
 		[SkinPart(required="true")] public var send:Button;
-		[SkinPart(required="true")] public var close:Button;
 		
 		private var state:String = "normal";
 		private var arrPhone:Array;
@@ -67,7 +66,6 @@ package component.paste
 				phones.text = arrPhone.join("\n");
 			}
 			else if (instance == send) send.addEventListener(MouseEvent.CLICK, send_clickHandler);
-			else if (instance == close)	close.addEventListener(MouseEvent.CLICK, close_clickHandler);
 		}
 		
 		/* Implement the partRemoved() method to remove the even handlers added in partAdded() */
@@ -76,7 +74,6 @@ package component.paste
 			super.partRemoved(partName, instance);
 			if (instance == ta) ta.removeEventListener(KeyboardEvent.KEY_UP, ta_keyboardUpHandler);
 			else if (instance == send) send.removeEventListener(MouseEvent.CLICK, send_clickHandler);
-			else if (instance == close)	close.removeEventListener(MouseEvent.CLICK, close_clickHandler);
 		}
 		
 		private function ta_keyboardUpHandler(event:KeyboardEvent):void {
