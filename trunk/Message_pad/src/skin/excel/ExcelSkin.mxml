@@ -13,25 +13,28 @@
 		<s:State name="actionAddress"/>
 	</s:states>
 
-	<s:Label top="15" left="15" text="엑셀" fontFamily="NGDB" fontSize="20" />
-	<s:VGroup paddingTop="50" paddingLeft="10" paddingRight="10" paddingBottom="10">
-		<s:RichText id="helpText" text="엑셀열기 를 클릭하세요." fontFamily="NGD" />
+	<s:VGroup gap="10">
+		<s:SkinnableContainer styleName="actionBar_contextuar_light" backgroundColor="#EEEEEE" width="100%" height="40">
+			<s:RichText id="helpText" text="엑셀열기 를 클릭하세요." color="#33B5E5" verticalCenter="0" left="10" />
+			<s:BitmapImage source="@Embed('skin/ics/assets/light/icon/1-navigation-next-item.png')" verticalCenter="0" right="5" smooth="true" width="20" height="20"/>
+		</s:SkinnableContainer>
+		
 		<s:HGroup verticalAlign="middle">
-			<s:Button id="openBtn" includeIn="normal" label="엑셀열기" skinClass="skin.compnent.ButtonSkin01" fontFamily="NGD" />
-			<s:ComboBox id="phoneCombo" includeIn="upload, actionSend, actionAddress" width="80" fontFamily="NGD" />
-			<s:ComboBox id="nameCombo" includeIn="upload, actionSend, actionAddress" width="80" fontFamily="NGD" />
-			<s:ComboBox id="memoCombo" includeIn="upload, actionAddress" width="80" />
-			<s:Button id="sendBtn" includeIn="actionSend" label="전송추가" />
+			<s:Button id="openBtn" includeIn="normal" label="엑셀열기" styleName="button_light" width="100" height="26" />
+			<s:ComboBox id="phoneCombo" includeIn="upload, actionSend, actionAddress" width="80" styleName="comboBox_light"/>
+			<s:ComboBox id="nameCombo" includeIn="upload, actionSend, actionAddress" width="80" styleName="comboBox_light"/>
+			<s:ComboBox id="memoCombo" includeIn="upload, actionAddress" width="80" styleName="comboBox_light" />
+			<s:Button id="sendBtn" includeIn="actionSend" label="전송추가" styleName="button_light" width="100" height="26" />
 			
-			<s:ComboBox id="addressCombo" includeIn="actionAddress" width="80" />
-			<util:ButtonSpinner id="addressBtn" includeIn="actionAddress" label="그룹에 저장" skinClass="skin.compnent.ButtonSkin01" fontFamily="NGD" />	
+			<s:ComboBox id="addressCombo" includeIn="actionAddress" width="80" styleName="comboBox_light" />
+			<util:ButtonSpinner id="addressBtn" includeIn="actionAddress" label="그룹에 저장" styleName="button_light" />	
 			
 		</s:HGroup>
 		<s:HGroup>
-			<s:DataGrid id="excelView" width="400" height="200">
+			<s:DataGrid id="excelView" width="300" height="550">
 				
 			</s:DataGrid>
-			<s:List id="resultList" width="250" height="200" skinClass="skin.compnent.ListSkin01"></s:List>
+			<s:List id="resultList" width="160" height="550"></s:List>
 		</s:HGroup>
 	</s:VGroup>
 

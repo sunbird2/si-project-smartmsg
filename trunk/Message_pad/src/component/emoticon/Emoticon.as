@@ -21,6 +21,7 @@ package component.emoticon
 	import spark.components.ButtonBar;
 	import spark.components.List;
 	import spark.components.RichText;
+	import spark.components.TabBar;
 	import spark.components.TileGroup;
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
@@ -43,7 +44,7 @@ package component.emoticon
 	{
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
 		[SkinPart(required="true")] */
-		[SkinPart(required="true")] public var gubunBar:ButtonBar;
+		[SkinPart(required="true")] public var gubunBar:TabBar;
 		[SkinPart(required="true")] public var category:List;
 		[SkinPart(required="true")] public var msgBox:List;
 		[SkinPart(required="true")] public var paging:Paging

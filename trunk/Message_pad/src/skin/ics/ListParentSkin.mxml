@@ -48,10 +48,12 @@
 	
 	<s:Rect left="0" right="0" top="0" bottom="0"  >
 		<s:fill>
-			<s:LinearGradient rotation="90">
-				<s:GradientEntry color="0xE8E8E8" />
-				<s:GradientEntry color="0xE7E7E7" />
-			</s:LinearGradient>
+			<s:SolidColor color="0xEEEEEE" />
+		</s:fill>
+	</s:Rect>
+	<s:Rect right="0" top="0" bottom="0" width="1"  >
+		<s:fill>
+			<s:SolidColor color="0xFFFFFF" />
 		</s:fill>
 	</s:Rect>
 	
@@ -62,7 +64,7 @@
     <s:Scroller left="0" top="0" right="0" bottom="0" id="scroller" minViewportInset="1" hasFocusableChildren="false"
 				skinClass="skin.ics.scroller.ThinScrooller">
         <!--- @copy spark.components.SkinnableDataContainer#dataGroup -->
-        <s:DataGroup id="dataGroup">
+        <s:DataGroup id="dataGroup"  itemRenderer="spark.skins.spark.DefaultItemRenderer">
             <s:layout>
                 <!--- The default layout is vertical and measures at least for 5 rows.  
                 When switching to a different layout, HorizontalLayout for example,

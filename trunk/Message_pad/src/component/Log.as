@@ -35,6 +35,7 @@ package component
 	import spark.components.Label;
 	import spark.components.List;
 	import spark.components.RichText;
+	import spark.components.TextArea;
 	import spark.components.gridClasses.GridColumn;
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
@@ -59,7 +60,7 @@ package component
 		[SkinPart(required="false")]public var nextMonth:Label;
 		[SkinPart(required="false")]public var monthSlider:HSlider;
 		
-		[SkinPart(required="false")]public var message:RichText;
+		[SkinPart(required="false")]public var message:TextArea;
 		[SkinPart(required="false")]public var chart:PieChart;
 		
 		[SkinPart(required="false")]public var groupList:List;
@@ -298,6 +299,7 @@ package component
 			
 			var vo:LogVO = acGroup.getItemAt(event.newIndex) as LogVO;
 			if (vo != null) {
+				message.visible = true;
 				message.text = vo.message;
 				RemoteSingleManager.getInstance.addEventListener("getSentListDetail", groupList_resultHandler, false, 0, true);
 				RemoteSingleManager.getInstance.callresponderToken 

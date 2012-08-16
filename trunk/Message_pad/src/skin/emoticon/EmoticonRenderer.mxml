@@ -16,8 +16,14 @@
 			
 		]]>
 	</fx:Script>
-	<s:BitmapImage width="155" height="155" source="@Embed('assets/TextInput_bg.png', scaleGridTop='10', scaleGridBottom='14', scaleGridLeft='10', scaleGridRight='195')"
-				   smooth="true" fillMode="scale"/>
+	<s:Rect width="155" height="155">
+		<s:stroke>
+			<s:SolidColorStroke color="0xDDDDDD" weight="1" />
+		</s:stroke>
+	</s:Rect>
+	
+	
+	
 	<s:RichText id="emt" width="145" height="145" fontSize="12" verticalCenter="0" horizontalCenter="0" />
 	
 </s:ItemRenderer>

@@ -13,13 +13,17 @@
 		<s:State name="sentMessage"/>
 	</s:states>
 
-	<s:VGroup width="100%" height="100%">
-		<s:ButtonBar id="gubunBar" includeIn="emoticon" chromeColor="#FFFFFF"/>
+	<s:VGroup width="100%" height="100%" gap="0">
+		<s:TabBar id="gubunBar" includeIn="emoticon" styleName="tabbar_light"/>
 		<s:List id="category" includeIn="emoticon"
-				contentBackgroundColor="#FFFFFF"
-				width="480" height="50" itemRenderer="skin.emoticon.CategoryRenderer" >
-			<s:layout><lib:FlowLayout verticalGap="3" /></s:layout>
+				borderColor="#DDDDDD"
+				color="#999999"
+				contentBackgroundColor="#EEEEEE"
+				width="480" height="70"
+				itemRenderer="skin.emoticon.CategoryRenderer" >
+			<s:layout><lib:FlowLayout verticalGap="3" horizontalGap="5" paddingTop="4" paddingLeft="4" /></s:layout>
 		</s:List>
+		<s:Spacer height="5" />
 		<s:List id="msgBox" includeIn="emoticon, myMessage, sentMessage" width="480" 
 				contentBackgroundColor="#FFFFFF"
 				itemRenderer="skin.emoticon.EmoticonRenderer"
@@ -31,7 +35,7 @@
 		<s:Scroller includeIn="specialChar" skinClass="skin.scroller.ThinScrooller" width="100%" height="100%">
 			<s:TileGroup id="specialCharGroup" width="435" contentBackgroundColor="#FFFFFF"/>	
 		</s:Scroller>
-		
+		<s:Spacer height="5" />
 		<lib:Paging id="paging" includeIn="emoticon, myMessage, sentMessage" bottom="10" horizontalCenter="0" />
 	</s:VGroup>
 	

@@ -36,11 +36,11 @@
 		<s:State name="selected" />
 	</s:states>
 	<s:HGroup includeIn="select" gap="70" horizontalCenter="0">
-		<s:Label text="신용카드" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />
-		<s:Label text="핸드폰" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true"/>
-		<s:Label text="계좌이체" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />
-		<s:Label text="가상계좌" fontFamily="NGD" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />	
+		<s:Label text="신용카드" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />
+		<s:Label text="핸드폰" fontSize="26" click="select_clickHandler(event)" buttonMode="true"/>
+		<s:Label text="계좌이체" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />
+		<s:Label text="가상계좌" fontSize="26" click="select_clickHandler(event)" buttonMode="true" />	
 	</s:HGroup>
-	<s:Label id="methodLabel" includeIn="selected" fontFamily="NGDB" fontSize="26"  text="{method}" click="selected_clickHandler(event)" buttonMode="true" />
+	<s:Label id="methodLabel" includeIn="selected" fontSize="26"  text="{method}" click="selected_clickHandler(event)" buttonMode="true" />
 	
 </s:Group>

@@ -102,15 +102,15 @@ package component
 		[SkinPart(required="false")]public var titleSub_text:RichText;
 		
 		private var acFunction:ArrayCollection =  new ArrayCollection([
-			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"내메시지", name:"myMessage"},
-			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"최근발송메시지", name:"sentMessage"},
-			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"이모티콘", name:"emoticon"},
-			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"특수문자", name:"specialChar"},
+			{icon:"skin/ics/assets/light/icon/3-rating-important.png", label:"내메시지", label_sub:"저장된 메시지 발송", name:"myMessage"},
+			{icon:"skin/ics/assets/light/icon/5-content-email.png", label:"최근발송메시지", label_sub:"죄근발송한 메시지 발송", name:"sentMessage"},
+			{icon:"skin/ics/assets/light/icon/4-collections-view-as-grid.png", label:"이모티콘", label_sub:"다양한 무료 이모티콘 발송", name:"emoticon"},
+			{icon:"skin/ics/assets/light/icon/12-hardware-keyboard.png", label:"특수문자", label_sub:"특수문자 입력", name:"specialChar"},
 			
-			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"복사,붙여넣거나 대량입력", name:"sendListFromCopy"},
-			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"주소록 발송", name:"sendListFromAddress"},
-			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"엑셀을 업로드 발송", name:"sendListFromExcel"},
-			{icon:"skin/ics/assets/light/icon/3-rating-good.png", label:"최근발송 목록 재발송", name:"sendListFromSent"}
+			{icon:"skin/ics/assets/light/icon/5-content-cut.png", label:"복사&붙여넣거,대량입력", label_sub:"복사한 전화번호 발송 및 입력", name:"sendListFromCopy"},
+			{icon:"skin/ics/assets/light/icon/6-social-group.png", label:"주소록 발송", label_sub:"주소록 선택 발송", name:"sendListFromAddress"},
+			{icon:"skin/ics/assets/light/icon/5-content-import-export.png", label:"엑셀을 업로드 발송", label_sub:"엑셀을 업로드 발송", name:"sendListFromExcel"},
+			{icon:"skin/ics/assets/light/icon/9-av-repeat.png", label:"최근발송 목록 재발송", label_sub:"최근발송 전화번호 발송", name:"sendListFromSent"}
 		]);
 
 		public var reservation:ReservationCalendar;

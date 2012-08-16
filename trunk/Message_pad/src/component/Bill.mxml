@@ -38,56 +38,51 @@
 	<s:transitions>
 		<s:Transition id="transition" fromState="*" toState="*">
 			<s:Parallel id="t1" targets="{[method, amount, charge]}">
-				<s:Move  duration="400"/>
-				<s:Resize duration="400"/>
+				<s:Move  duration="200"/>
+				<s:Resize duration="200"/>
 			</s:Parallel>
 		</s:Transition>
 	</s:transitions>
 	
-	<s:HGroup>
-		<s:VGroup gap="2" horizontalAlign="right">
-			<s:RichText width="254" whiteSpaceCollapse="preserve" fontFamily="NGDB" color="#3e3e3e" fontSize="50" lineHeight="80%" trackingRight="-3.5%">
-				<s:content><s:p><s:span>결제센터</s:span></s:p></s:content>
-			</s:RichText>
-			<s:RichText width="181" height="27" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#8d8d8d" fontSize="24" lineHeight="166.65%" trackingRight="-3.5%">
-				<s:content><s:p><s:span>건수충전하기</s:span></s:p></s:content>
-			</s:RichText>
+	<s:Group width="1024" height="696" horizontalCenter="0">
+		<!-- actionbar -->
+		<s:SkinnableContainer styleName="actionBar_red" width="100%" height="48" depth="4">
+			<s:layout>
+				<s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" />
+			</s:layout>
+			<s:BitmapImage id="back" source="@Embed('skin/ics/assets/light/icon/1-navigation-previous-item.png')" smooth="true" alpha="0.6" width="20" height="20"/>
+			<s:BitmapImage id="icon" source="skin/ics/assets/ic_launcher_calculator.png" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:VGroup gap="4">
+				<s:RichText id="helpText" color="#FFFFFF" text="결제 방식을 선택해 주세요." fontSize="14"/>
+				<s:RichText id="subHelpText" color="#DFDFDF" text="방식을 선택 하면 금액 선택 창이 나타납니다." fontSize="12"/>
+			</s:VGroup>
 			
-		</s:VGroup>
-		<s:HGroup paddingTop="100" width="100%" >
-			<s:Group width="100%" height="100%">
-				<s:Group horizontalCenter="0">
-					<s:BitmapImage source="@Embed('assets/message_help2.png')" smooth="true"/>
-					<s:RichText id="helpText" left="30" top="24"
-								text="결제 방식을 선택해 주세요." color="0xFFFFFF" fontFamily="NGDB" fontSize="42"/>
-					<s:RichText id="subHelpText" left="30" top="69" width="630"
-								text="방식을 선택 하면 금액 선택 창이 나타납니다." color="0xCCCCCC" fontFamily="NGD" fontSize="20"/>
-				</s:Group>
-				
-				<s:Group top="150" left="20"  height="500" right="0">
-					<bill:Method id="method"
-								 x.method="30" y.method="120"
-								 x="0" y="0"
-								 select="{this.currentState='method'}"
-								 selected="{this.currentState='amount';amount.currentState='select'}"/>
-					
-					<bill:Amount id="amount"
-								 includeIn="amount, charge" 
-								 x.amount="50" y.amount="120"
-								 x="160" y="0"
-								 select="{this.currentState='amount'}"
-								 selected="{this.currentState='charge'}"/>
-					
-					<bill:Charge id="charge"
-								 includeIn="charge"
-								 verticalCenter="0" horizontalCenter="0"/>
-				</s:Group>
-				
-				
-			</s:Group>
-	
-		</s:HGroup>
-			
+		</s:SkinnableContainer>
 		
-	</s:HGroup>
+		<s:Group top="48" left="0" right="0" height="100%">
+			<bill:Method id="method"
+						 verticalCenter.method="0"
+						 horizontalCenter.method="0"
+						 verticalCenter="-250"
+						 horizontalCenter="-150"
+						 select="{this.currentState='method'}"
+						 selected="{this.currentState='amount';amount.currentState='select'}"/>
+			
+			<bill:Amount id="amount"
+						 includeIn="amount, charge" 
+						 verticalCenter.amount="0"
+						 horizontalCenter.amount="0"
+						 verticalCenter="-250"
+						 horizontalCenter="150"
+						 select="{this.currentState='amount'}"
+						 selected="{this.currentState='charge'}"/>
+			
+			<bill:Charge id="charge"
+						 includeIn="charge"
+						 verticalCenter="0" horizontalCenter="0"/>
+		</s:Group>
+		
+	</s:Group>
+	
+	
 </s:Group>

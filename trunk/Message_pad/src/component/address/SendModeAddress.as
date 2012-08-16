@@ -21,6 +21,7 @@ package component.address
 	import mx.collections.XMLListCollection;
 	import mx.controls.Tree;
 	import mx.controls.treeClasses.ITreeDataDescriptor;
+	import mx.events.FlexEvent;
 	import mx.events.ListEvent;
 	import mx.rpc.events.ResultEvent;
 	
@@ -46,10 +47,15 @@ package component.address
 		[SkinPart(required="true")] */
 		[SkinPart(required="false")]public var searchTextInput:TextInput;
 		[SkinPart(required="false")]public var addressTree:Tree;
+		[SkinPart(required="false")]public var searchButton:Button;
+		[SkinPart(required="false")]public var allButton:Button;
+		
+		
 		
 		private var xml:XMLListCollection = new XMLListCollection;
 		private var pvo:PhoneVO = null;
 		private var confirmAlert:AlertManager;
+		private var bSearch:Boolean = false;
 		
 		public function SendModeAddress()
 		{
@@ -57,7 +63,7 @@ package component.address
 			setStyle("skinClass", SendModeAddressSkin);
 			addEventListener(Event.REMOVED_FROM_STAGE, destroy, false, 0, true);
 			
-			getAddress();
+			getAddress(null);
 		}
 		
 		/* Implement the getCurrentSkinState() method to set the view state of the skin class. */
@@ -77,7 +83,11 @@ package component.address
 				addressTree.addEventListener(ListEvent.CHANGE, addressTree_changeHandler);
 				
 			}
-			else if (instance == searchTextInput) searchTextInput.addEventListener(KeyboardEvent.KEY_UP, search_keyUpHandler);
+			else if (instance == searchTextInput) searchTextInput.addEventListener(FlexEvent.ENTER, getAddress);
+			else if (instance == searchButton) searchButton.addEventListener(MouseEvent.CLICK, getAddress);
+			else if (instance == allButton) allButton.addEventListener(MouseEvent.CLICK, getAddressAll);
+			
+			//else if (instance == searchTextInput) searchTextInput.addEventListener(KeyboardEvent.KEY_UP, search_keyUpHandler);
 			
 		}
 		
@@ -90,15 +100,36 @@ package component.address
 				addressTree.removeEventListener(ListEvent.CHANGE, addressTree_changeHandler);
 				
 			}
-			else if (instance == searchTextInput) searchTextInput.removeEventListener(KeyboardEvent.KEY_UP, search_keyUpHandler);
+			else if (instance == searchTextInput) searchTextInput.removeEventListener(FlexEvent.ENTER, getAddress);
+			else if (instance == searchButton) searchButton.removeEventListener(MouseEvent.CLICK, getAddress);
+			else if (instance == allButton) allButton.removeEventListener(MouseEvent.CLICK, getAddressAll);
+			//else if (instance == searchTextInput) searchTextInput.removeEventListener(KeyboardEvent.KEY_UP, search_keyUpHandler);
 		}
 		
-		private function getAddress():void {
+		private function getAddress(event:Event):void {
+			
+			var s:String = "";
+			if (searchTextInput) {
+				bSearch = true;
+				s = searchTextInput.text;
+			} else bSearch = false;
 			
 			RemoteSingleManager.getInstance.addEventListener("getAddrTree", getAddrList_resultHandler, false, 0, true);
 			RemoteSingleManager.getInstance.callresponderToken 
-				= RemoteSingleManager.getInstance.service.getAddrTree();
+				= RemoteSingleManager.getInstance.service.getAddrTree( s );
 		}
+		
+		private function getAddressAll(event:Event):void {
+			
+			var s:String = "";
+			if (searchTextInput) {
+				searchTextInput.text = "";
+			}
+			getAddress(null);
+			
+		}
+		
+		
 		private function getAddrList_resultHandler(event:CustomEvent):void {
 			
 			RemoteSingleManager.getInstance.removeEventListener("getAddrTree", getAddrList_resultHandler);
@@ -110,7 +141,11 @@ package component.address
 			}
 			else {
 				xml.removeAll();
-				xml.addAll(new XMLListCollection(xlData.elements("addrs")));
+				
+				if (bSearch)
+					xml.addAll(new XMLListCollection(xlData.elements("addr")));
+				else
+					xml.addAll(new XMLListCollection(xlData.elements("addrs")));
 			}
 		}
 		
@@ -155,6 +190,14 @@ package component.address
 			pvo.pNo = pno;
 			pvo.pName = pname;
 			return pvo;
+		}
+		
+		/**
+		 * search
+		 * */
+		private function search_Handler():void {
+			
+			searchTextInput.text;
 		}
 		
 		

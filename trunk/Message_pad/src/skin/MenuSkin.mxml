@@ -19,33 +19,35 @@
 		<s:State name="log" stateGroups="small"/>
 	</s:states>
 	
-	<s:Image source="skin/ics/assets/dock.png" includeIn="home" horizontalCenter="0" bottom="0" alpha="0.8" />
-	<s:HGroup horizontalCenter="0" gap="50" bottom.home="-30">
+	<s:BitmapImage source="@Embed('skin/ics/assets/dock.png')" includeIn="home"
+			 fillMode="scale" width="543" height="44" smooth="true"
+			 horizontalCenter="0" bottom="0" alpha="0.8" />
+	<s:HGroup horizontalCenter="-20" gap="5" gap.home="50" bottom.home="-20">
 		<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#FF0000"/></s:fill></s:Rect>
-		<s:Group id="labelSend" buttonMode="true">
+		<s:Group id="labelSend" buttonMode="true" excludeFrom="send">
 			<ics:BitmapImageReflection source="@Embed('skin/ics/assets/ic_launcher_smsmms.png')" 
-									   imageWidth="72" imageHeight="72" imageWidth.small="32" imageHeight.small="32"  reflectionVisible.small="false"
+									   imageWidth="48" imageHeight="48" imageWidth.small="32" imageHeight.small="32"  reflectionVisible.small="false"
 									   gap="-5"/>
 			<s:RichText text="메시지" includeIn="home" color="#DDDDDD" horizontalCenter="0" top="76" />
 		</s:Group>
 		
-		<s:Group id="labelAddress" buttonMode="true">
+		<s:Group id="labelAddress" buttonMode="true" excludeFrom="address">
 			<ics:BitmapImageReflection source="@Embed('skin/ics/assets/ic_launcher_contacts.png')" 
-									   imageWidth="72" imageHeight="72" imageWidth.small="32" imageHeight.small="32" reflectionVisible.small="false"
+									   imageWidth="48" imageHeight="48" imageWidth.small="32" imageHeight.small="32" reflectionVisible.small="false"
 									   gap="-17"/>
 			<s:RichText text="주소록" includeIn="home" color="#DDDDDD" horizontalCenter="0" top="76" />
 		</s:Group>
 		
-		<s:Group id="labelBill" buttonMode="true">
+		<s:Group id="labelBill" buttonMode="true" excludeFrom="bill">
 			<ics:BitmapImageReflection source="@Embed('skin/ics/assets/ic_launcher_calculator.png')" 
-									   imageWidth="72" imageHeight="72" imageWidth.small="32" imageHeight.small="32" reflectionVisible.small="false"
+									   imageWidth="48" imageHeight="48" imageWidth.small="32" imageHeight.small="32" reflectionVisible.small="false"
 									   gap="-9"/>
 			<s:RichText text="결제" includeIn="home" color="#DDDDDD" horizontalCenter="0" top="76" />
 		</s:Group>
 		
-		<s:Group id="labelLog" buttonMode="true">
+		<s:Group id="labelLog" buttonMode="true" excludeFrom="log">
 			<ics:BitmapImageReflection source="@Embed('skin/ics/assets/ic_launcher_calendar.png')" 
-									   imageWidth="72" imageHeight="72" imageWidth.small="32" imageHeight.small="32" reflectionVisible.small="false"
+									   imageWidth="48" imageHeight="48" imageWidth.small="32" imageHeight.small="32" reflectionVisible.small="false"
 									   gap="-13"/>
 			<s:RichText text="내역" includeIn="home" color="#DDDDDD" horizontalCenter="0" top="76" />
 		</s:Group>

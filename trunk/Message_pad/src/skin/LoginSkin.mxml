@@ -12,7 +12,7 @@
 	</s:states>
 	
 	<s:BitmapImage includeIn="logout"
-				   width="220" height="250"
+				   width="220" height="220"
 				   source="@Embed('/skin/ics/assets/widget_dark.png', scaleGridTop='10', scaleGridBottom='320', scaleGridLeft='10', scaleGridRight='314')"
 				   fillMode="scale" alpha="0.9"/>
 	
@@ -21,9 +21,9 @@
 	<s:Group includeIn="logout" left="8" right="8" top="8" bottom="8" minWidth="0" minHeight="0">
 		<s:Label text="Login" left="10" height="48" verticalAlign="middle" fontSize="18" color="#D6D6D6" />
 		
-		<s:VGroup top="60" horizontalCenter="0" gap="20">
-			<s:TextInput id="user_id" styleName="textinput_dark" prompt="아이디" width="150" />
-			<s:TextInput id="user_pw" styleName="textinput_dark" prompt="비밀번호" width="150" displayAsPassword="true" />
+		<s:VGroup top="60" horizontalCenter="0" gap="10">
+			<s:TextInput id="user_id" styleName="textinput_dark" prompt="아이디" width="150" height="26" fontSize="14"/>
+			<s:TextInput id="user_pw" styleName="textinput_dark" prompt="비밀번호" width="150" height="26" displayAsPassword="true" fontSize="14" />
 			<s:HGroup>
 				<s:CheckBox label="아이디기억" styleName="checkbox_dark" fontSize="12" color="#D6D6D6" />
 				<s:CheckBox label="보안접속" styleName="checkbox_dark" fontSize="12" color="#D6D6D6" />
@@ -31,7 +31,7 @@
 		</s:VGroup>
 		
 		<s:HGroup width="100%" bottom="0" gap="0">
-			<s:Button id="login" label="로그인" styleName="button_first_dark" height="40" color="#D6D6D6" />
+			<s:Button id="login" label="로그인" styleName="button_first_dark" width="50%" height="40" color="#D6D6D6" />
 			<s:Button id="join" label="회원가입" styleName="button_last_dark" width="50%" height="40" color="#D6D6D6" />	
 		</s:HGroup>
 	</s:Group>

@@ -25,6 +25,10 @@ global
 	fontSize : 12px;
 }
 
+s|Scroller {
+	skinClass : ClassReference("skin.ics.scroller.ThinScrooller");
+}
+
 /* actionbar */
 .actionBar_dark {
 	skinClass : ClassReference("skin.ics.ActionBar");
@@ -37,6 +41,22 @@ global
 .actionBar_blue {
 	skinClass : ClassReference("skin.ics.ActionBar");
 	backgroundColor : #33B5E5;
+}
+.actionBar_green {
+	skinClass : ClassReference("skin.ics.ActionBar");
+	backgroundColor : #99CC00;
+}
+.actionBar_purple {
+	skinClass : ClassReference("skin.ics.ActionBar");
+	backgroundColor : #AA66CC;
+}
+.actionBar_red {
+	skinClass : ClassReference("skin.ics.ActionBar");
+	backgroundColor : #FF4444;
+}
+.actionBar_orange {
+	skinClass : ClassReference("skin.ics.ActionBar");
+	backgroundColor : #FF8800;
 }
 .actionBar_contextuar_dark {
 	skinClass : ClassReference("skin.ics.ActionBar_contextuar");
@@ -54,6 +74,10 @@ global
 /* tabbar */
 .tabbar_dark {
 	skinClass : ClassReference("skin.ics.TabBarSkin");
+	focusAlpha : 0;
+}
+.tabbar_light {
+	skinClass : ClassReference("skin.ics.TabBarSkin_light");
 	focusAlpha : 0;
 }
 
@@ -130,7 +154,9 @@ global
 /* list */
 .list_parent {
 	skinClass : ClassReference("skin.ics.ListParentSkin");
-/*	itemRenderer : ClassReference("skin.ics.renderer.ListParentRender");*/
+}
+.list {
+	skinClass : ClassReference("skin.ics.ListSkin");
 }
 
 /* datagrid */

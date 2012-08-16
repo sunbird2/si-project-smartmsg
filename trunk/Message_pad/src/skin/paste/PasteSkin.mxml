@@ -11,15 +11,46 @@
 		<s:State name="phones"/>
 	</s:states>
 	
-
-	<s:Label top="15" left="15" text="대량입력" fontFamily="NGDB" fontSize="20" />
-	<s:HGroup paddingTop="50" paddingLeft="10" paddingRight="10" paddingBottom="10">
-		<s:TextArea id="ta" width="200" height="150" prompt="전화번호를 입력하거나 붙여넣으세요." fontFamily="Gulim" />
-		<s:TextArea id="phones" includeIn="phones" width="100" height="150" prompt="입력된 내용에서 추출한 전화번호가 보여집니다."  fontFamily="Gulim" 
-					borderVisible="false"/>
-		
-		<s:Button id="send" includeIn="phones" fontFamily="NGD" label="추가" height="150" skinClass="skin.compnent.ButtonSkin01" />	
-	</s:HGroup>
+	<s:VGroup horizontalCenter="0" width="500" height="100%" verticalAlign="bottom">
+		<s:HGroup horizontalCenter="0" gap="0" height="100%">
+			<s:Group height="100%">
+				<s:TextArea id="ta" top="40" width="200" height="560"  prompt="전화번호를 입력하거나 붙여넣으세요. ※입력시 자동으로 전화번호가 추출되어 보여 집니다." styleName="textarea_light"/>
+				
+				<s:SkinnableContainer styleName="actionBar_contextuar_light" backgroundColor="#EEEEEE" width="100%" height="40">
+					<s:Label color="#33B5E5" text="입력 또는 붙여넣기" verticalCenter="0" left="10" />
+					<s:BitmapImage source="@Embed('skin/ics/assets/light/icon/1-navigation-next-item.png')" verticalCenter="0" right="5" smooth="true" width="20" height="20"/>
+				</s:SkinnableContainer>
+				
+			</s:Group>
+			
+			<s:Group includeIn="phones" height="100%">
+				<s:TextArea id="phones" top="40" width="125"  height="560" prompt="입력된 내용에서 추출한 전화번호가 보여집니다." borderVisible="false"/>
+				
+				<s:SkinnableContainer styleName="actionBar_contextuar_light" backgroundColor="#EEEEEE" width="100%" height="40">
+					<s:Label color="#33B5E5" text="추출된 전화번호" verticalCenter="0" left="10" />
+					<s:BitmapImage source="@Embed('skin/ics/assets/light/icon/1-navigation-next-item.png')" verticalCenter="0" right="5" smooth="true" width="20" height="20"/>
+				</s:SkinnableContainer>
+				
+			</s:Group>
+			
+			<s:Group includeIn="phones" width="170" height="100%">
+				<s:VGroup top="50" horizontalCenter="0">
+					<s:CheckBox label="중복번호제거" styleName="checkbox_light" selected="true" />
+					<s:Button id="send" top="50" label="추가  >>" width="120" height="30" styleName="button_light"/>
+				</s:VGroup>
+				
+				
+				<s:SkinnableContainer styleName="actionBar_contextuar_light" backgroundColor="#EEEEEE" width="100%" height="40">
+					<s:Label color="#33B5E5" text="수신추가" verticalCenter="0" left="10" />
+					<s:BitmapImage source="@Embed('skin/ics/assets/light/icon/1-navigation-next-item.png')" verticalCenter="0" right="5" smooth="true" width="20" height="20"/>
+				</s:SkinnableContainer>
+				
+			</s:Group>
+			
+			
+		</s:HGroup>
+	</s:VGroup>
+	
 
 	
 </s:Skin>
