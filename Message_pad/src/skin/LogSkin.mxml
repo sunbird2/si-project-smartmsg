@@ -8,63 +8,67 @@
 		[HostComponent("component.Log")]
 	</fx:Metadata>
 	
-	<s:HGroup>
-		<s:VGroup gap="2" horizontalAlign="right">
-			<s:RichText width="254" whiteSpaceCollapse="preserve" fontFamily="NGDB" color="#3e3e3e" fontSize="50" lineHeight="80%" trackingRight="-3.5%">
-				<s:content><s:p><s:span>내역관리</s:span></s:p></s:content>
-			</s:RichText>
-			<s:RichText width="181" height="27" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#8d8d8d" fontSize="24" lineHeight="166.65%" trackingRight="-3.5%">
-				<s:content><s:p><s:span>전송결과 확인</s:span></s:p></s:content>
-			</s:RichText>
+	<s:Group width="1024" height="696" horizontalCenter="0">
+		
+		<!-- actionbar -->
+		<s:SkinnableContainer styleName="actionBar_purple" width="100%" height="48" depth="4">
+			<s:layout>
+				<s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" />
+			</s:layout>
+			<s:BitmapImage id="back" source="@Embed('skin/ics/assets/light/icon/1-navigation-previous-item.png')" smooth="true" alpha="0.6" width="20" height="20"/>
+			<s:BitmapImage id="icon" source="skin/ics/assets/ic_launcher_calendar.png" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:VGroup gap="4">
+				<s:RichText id="title_text" color="#FFFFFF" text="내역" fontSize="14"/>
+				<s:RichText id="titleSub_text" color="#DFDFDF" text="해당 월의 리스트를 클릭 하시면 상세내역을 확인 하실 수 있습니다." fontSize="12"/>
+			</s:VGroup>
 			
-		</s:VGroup>
+		</s:SkinnableContainer>
 		
-		<s:Group>
-			<s:HGroup gap="20"  top="100" horizontalCenter="0">
-				<s:VGroup width="200" height="100%">
-					<s:HGroup verticalAlign="middle">
-						<s:Label id="preMonth" text="이전달" fontFamily="NGD" buttonMode="true" color="0x999999" />
-						<s:Label id="month" text="" fontSize="20" fontFamily="NGD" buttonMode="true" color="0x000000" />
-						<s:Label id="nextMonth" text="다음달" fontFamily="NGD" buttonMode="true" color="0x999999" />
-					</s:HGroup>
-					<s:HSlider id="monthSlider" width="100%" />
-					<s:List id="groupList"
-							width="200"
-							height="500"
-							
-							itemRenderer="skin.log.GroupListRenderer" />
-				</s:VGroup>
-				<s:VGroup>
-					<s:HGroup>
-						<s:RichText id="message" width="225" height="150" fontFamily="Dotum" />
-						<mx:PieChart id="chart" width="300" height="150" fontFamily="Dotum" >
-						</mx:PieChart>
-					</s:HGroup>
+		<s:HGroup width="100%" top="48" depth="0" gap="0" height="100%">
+			<s:VGroup width="300" height="100%" gap="0">
+				<s:Group width="100%">
 					
-					<s:List id="detailList"
-							width="500"	height="390"
-							fontFamily="Dotum"
-							
-							itemRenderer="skin.log.LogDetailItemRenderer"/>
-					<!--<s:DataGrid id="detailList"
-								width="500"	height="400"
-								fontFamily="Dotum"
-								skinClass="skin.log.DetailListSkin" chromeColor="0xffffff">
-						<s:columns>
-							<s:ArrayList id="alDetailColumn">
-								<s:GridColumn headerText="번호" width="50"/>
-								<s:GridColumn dataField="phone" headerText="전화번호"/>
-								<s:GridColumn dataField="name" headerText="이름"/>
-								<s:GridColumn dataField="rslt" headerText="결과"/>
-								<s:GridColumn dataField="rsltDate" headerText="결과시간"/>
-								<s:GridColumn dataField="callback" headerText="회신번호"/>
-							</s:ArrayList>
-						</s:columns>
-					</s:DataGrid>-->
-				</s:VGroup>
-			</s:HGroup>
-		</s:Group>
-		
-	</s:HGroup>
+					<s:Rect left="0" right="0" top="0" bottom="0"  ><s:fill><s:SolidColor color="0xEEEEEE" /></s:fill></s:Rect>
+					<s:Rect right="0" top="0" bottom="0" width="1"  ><s:fill><s:SolidColor color="0xFFFFFF" /></s:fill></s:Rect>
+					<s:BitmapImage id="noSel" source="@Embed('/skin/ics/assets/list_normal.png', scaleGridTop='1', scaleGridBottom='37', scaleGridLeft='1', scaleGridRight='17')" smooth="true"
+								   width="18" right="1" top="0" bottom="0" visible="true"/>
+					
+					<s:VGroup width="100%" horizontalAlign="center" paddingBottom="10" paddingTop="10" paddingLeft="10" paddingRight="10">
+						<s:HGroup width="100%" horizontalAlign="center" verticalAlign="middle">
+							<s:Label id="preMonth" text="이전달" color="0x999999" buttonMode="true" useHandCursor="true" />
+							<s:Label id="month" text="" fontSize="20" color="0x222222" buttonMode="true" useHandCursor="true" />
+							<s:Label id="nextMonth" text="다음달" color="0x999999" buttonMode="true" useHandCursor="true" />
+						</s:HGroup>
+						<s:HSlider id="monthSlider" width="100%" />
+					</s:VGroup>
+					
+					
+				</s:Group>
+				
+				
+				<s:List id="groupList"
+						width="300"
+						height="100%"
+						styleName="list_parent"
+						itemRenderer="skin.log.GroupListRenderer" />
+			</s:VGroup>
+			
+			<s:VGroup width="100%"
+					  horizontalAlign="center"
+					  gap="10"
+					  paddingBottom="10" paddingTop="10" paddingLeft="10" paddingRight="10">
+				<s:HGroup width="100%">
+					<s:TextArea id="message" width="225" height="200" styleName="textarea_light" editable="false" visible="false" />
+					<mx:PieChart id="chart" width="300" height="200" fontFamily="Dotum" ></mx:PieChart>
+				</s:HGroup>
+				
+				<s:List id="detailList"
+						width="100%" height="428"
+						borderVisible="false"
+						itemRenderer="skin.log.LogDetailItemRenderer"/>
+			</s:VGroup>
+			
+		</s:HGroup>
+	</s:Group>
 	
 </s:Skin>

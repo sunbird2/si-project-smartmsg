@@ -5,5 +5,5 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Button label="결제하기" fontSize="26" width="200" height="100" fontFamily="NGDB" skinClass="skin.compnent.ButtonSkin01" />
+	<s:Button label="결제하기" fontSize="26" width="200" height="100" styleName="button_light" />
 </s:Group>

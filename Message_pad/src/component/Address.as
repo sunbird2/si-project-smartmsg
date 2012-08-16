@@ -20,12 +20,15 @@ package component
 	import lib.AlertManager;
 	import lib.CustomEvent;
 	import lib.Gv;
+	import lib.IconItemRenderer;
 	import lib.RemoteSingleManager;
 	import lib.SLibrary;
 	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ArrayList;
 	import mx.controls.Alert;
+	import mx.core.ClassFactory;
+	import mx.core.IFactory;
 	import mx.events.CloseEvent;
 	import mx.events.CollectionEvent;
 	import mx.events.CollectionEventKind;
@@ -39,6 +42,7 @@ package component
 	import spark.components.Button;
 	import spark.components.ComboBox;
 	import spark.components.Group;
+	import spark.components.IconPlacement;
 	import spark.components.Image;
 	import spark.components.List;
 	import spark.components.RichText;
@@ -69,11 +73,11 @@ package component
 		
 		// group
 		[SkinPart(required="false")]public var groupList:List;
-		[SkinPart(required="false")]public var groupAddBtn:LinkElement;
+		[SkinPart(required="false")]public var groupAddBtn:Image;
 		
 		// name
 		[SkinPart(required="false")]public var nameList:List;
-		[SkinPart(required="false")]public var nameAddBtn:LinkElement;
+		[SkinPart(required="false")]public var nameAddBtn:Image;
 		[SkinPart(required="false")]public var nameCount:SpanElement;
 		
 		
@@ -83,10 +87,10 @@ package component
 		[SkinPart(required="true")]public var nameL:TextInput;
 		[SkinPart(required="true")]public var phone:TextInput;
 		[SkinPart(required="false")]public var memo:TextArea;
-		[SkinPart(required="false")]public var cardBtn:Button;
+		[SkinPart(required="false")]public var cardBtn:Image;
 		
 		// function
-		[SkinPart(required="false")]public var addressFromExcel:LinkElement;
+		[SkinPart(required="false")]public var addressFromExcel:Image;
 		
 		private var excel:Excel;
 		
@@ -201,13 +205,22 @@ package component
 				nameList.dragEnabled = true;
 				nameList.dragMoveEnabled = true;
 				nameList.allowMultipleSelection = true;
+				
+				var irFactory:ClassFactory = new ClassFactory(IconItemRenderer);
+				irFactory.properties = {
+					icon:"skin/ics/assets/light/icon/6-social-person.png",
+					labelTitle:"name",
+					labelSub:"phone"};
+				nameList.itemRenderer = irFactory;
+				
+				//nameList.labelFunction = nameLabelFunction;
 				nameList.addEventListener(IndexChangeEvent.CHANGE, nameList_changeHandler);
 				nameList.addEventListener(KeyboardEvent.KEY_UP, namepList_keyUpHandler);
 			}
-			else if (instance == groupAddBtn) groupAddBtn.addEventListener(FlowElementMouseEvent.CLICK, groupAddBtn_clickHandler);
-			else if (instance == nameAddBtn) nameAddBtn.addEventListener(FlowElementMouseEvent.CLICK, nameAddBtn_clickHandler);
+			else if (instance == groupAddBtn) groupAddBtn.addEventListener(MouseEvent.CLICK, groupAddBtn_clickHandler);
+			else if (instance == nameAddBtn) nameAddBtn.addEventListener(MouseEvent.CLICK, nameAddBtn_clickHandler);
 			else if (instance == cardBtn) cardBtn.addEventListener(MouseEvent.CLICK, cardBtn_clickHandler);
-			else if (instance == addressFromExcel) addressFromExcel.addEventListener(FlowElementMouseEvent.CLICK, addressFromExcel_clickHandler);
+			else if (instance == addressFromExcel) addressFromExcel.addEventListener(MouseEvent.CLICK, addressFromExcel_clickHandler);
 			else if (instance == search) search.addEventListener("search" , search_clickHandler);
 			else if (instance == groupName) {
 				groupName.dataProvider = acGroup;
@@ -249,10 +262,10 @@ package component
 				nameList.removeEventListener(KeyboardEvent.KEY_UP, namepList_keyUpHandler);
 				nameList = null;
 			}
-			else if (instance == groupAddBtn) groupAddBtn.removeEventListener(FlowElementMouseEvent.CLICK, groupAddBtn_clickHandler);
-			else if (instance == nameAddBtn) nameAddBtn.removeEventListener(FlowElementMouseEvent.CLICK, nameAddBtn_clickHandler);
+			else if (instance == groupAddBtn) groupAddBtn.removeEventListener(MouseEvent.CLICK, groupAddBtn_clickHandler);
+			else if (instance == nameAddBtn) nameAddBtn.removeEventListener(MouseEvent.CLICK, nameAddBtn_clickHandler);
 			else if (instance == cardBtn) cardBtn.removeEventListener(MouseEvent.CLICK, cardBtn_clickHandler);
-			else if (instance == addressFromExcel) addressFromExcel.removeEventListener(FlowElementMouseEvent.CLICK, addressFromExcel_clickHandler);
+			else if (instance == addressFromExcel) addressFromExcel.removeEventListener(MouseEvent.CLICK, addressFromExcel_clickHandler);
 			else if (instance == search) search.removeEventListener("search" , search_clickHandler);
 			
 			if (instance is LinkElement) {
@@ -380,6 +393,12 @@ package component
 			
 		}
 		
+		private function nameLabelFunction(item:Object):String {
+			
+			var avo:AddressVO = item as AddressVO;
+			return (avo.name != "") ? avo.name : avo.phone;
+		}
+		
 		private function cardBtn_clickHandler(event:MouseEvent):void {
 			
 			if (bEdite) {
@@ -468,7 +487,7 @@ package component
 		/**
 		 * add Group
 		 * */
-		private function groupAddBtn_clickHandler(event:FlowElementMouseEvent):void {
+		private function groupAddBtn_clickHandler(event:MouseEvent):void {
 			
 			event.stopImmediatePropagation();
 			event.preventDefault();
@@ -523,7 +542,7 @@ package component
 		/**
 		 * name method
 		 * */
-		private function nameAddBtn_clickHandler(event:FlowElementMouseEvent):void {
+		private function nameAddBtn_clickHandler(event:MouseEvent):void {
 			
 			event.stopImmediatePropagation();
 			event.preventDefault();
@@ -598,7 +617,7 @@ package component
 			RemoteSingleManager.getInstance.removeEventListener("modifyManyAddr", moveGroup_resultHandler);
 		}
 		
-		private function addressFromExcel_clickHandler(event:FlowElementMouseEvent):void {
+		private function addressFromExcel_clickHandler(event:MouseEvent):void {
 			event.stopImmediatePropagation();
 			event.preventDefault();
 			toggleExcel();

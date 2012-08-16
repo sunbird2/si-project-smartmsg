@@ -21,14 +21,6 @@
 					
 			}
 			
-			override public function set selected(value:Boolean):void
-			{
-				// TODO Auto Generated method stub
-				super.selected = value;
-				
-				sel.visible = value;
-			}
-			
 		]]>
 	</fx:Script>
 	
@@ -37,8 +29,6 @@
 		<s:Label id="main" fontSize="12" color="#222222"/>
 		<s:Label id="sub" fontSize="10" color="0x999999" />
 	</s:VGroup>
-	
-	<s:BitmapImage id="sel" source="@Embed('skin/ics/assets/list_select.png')" smooth="true" right="0" visible="false"/>
 	
 	<s:Rect width="100%" bottom="0" height="0.5">
 		<s:stroke>

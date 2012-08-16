@@ -202,10 +202,10 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
       *
       * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
       */
-    public function getAddrTree() : mx.rpc.AsyncToken
+    public function getAddrTree(arg0:String) : mx.rpc.AsyncToken
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getAddrTree");
-		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send() ;
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
         return _internal_token;
     }
      

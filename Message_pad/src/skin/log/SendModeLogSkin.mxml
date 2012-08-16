@@ -6,19 +6,17 @@
 	<fx:Metadata>
 		[HostComponent("component.log.SendModeLog")]
 	</fx:Metadata>
-
-	<s:Label top="15" left="15" text="최근발송목록" fontFamily="NGDB" fontSize="20" />
-	<s:VGroup paddingTop="50" paddingLeft="10" paddingRight="10" paddingBottom="10">
+	<s:VGroup left="0">
 		<s:HGroup verticalAlign="middle">
-			<s:Label id="preMonth" text="이전달" fontFamily="NGD" buttonMode="true" color="0x999999"  />
-			<s:Label id="month" text="" fontSize="26" fontFamily="NGD" buttonMode="true" color="0x000000"  />
-			<s:Label id="nextMonth" text="다음달" fontFamily="NGD" buttonMode="true" color="0x999999"  />
+			<s:Label id="preMonth" text="이전달" buttonMode="true" color="0x999999"  />
+			<s:Label id="month" text="" fontSize="26" buttonMode="true" color="0x000000"  />
+			<s:Label id="nextMonth" text="다음달" buttonMode="true" color="0x999999"  />
 		</s:HGroup>
 		<s:HSlider id="monthSlider" width="100%" />
 		<s:List id="groupList"
 				width="250"
-				height="400"
-				itemRenderer="skin.log.GroupListRenderer" />
+				height="560"
+				itemRenderer="skin.log.GroupListRendererNoSel" />
 	</s:VGroup>
 
 	

@@ -18,11 +18,12 @@
 				// TODO Auto Generated method stub
 				super.data = value;
 				bSelected = selected;
-				if (this.itemIndex == List(this.owner).dataProvider.length-1)
-					bLast = true;
+			/* 	if (this.itemIndex == List(this.owner).dataProvider.length-1)
+					bLast = true; */
 				
 				if (data.icon) icon.source = data.icon;
 				if (data.label) txt.text = data.label;
+				if (data.label_sub) txt_sub.text = data.label_sub;
 				
 			}
 			
@@ -37,16 +38,18 @@
 			
 		]]>
 	</fx:Script>
-	<s:HGroup verticalCenter="0" verticalAlign="middle">
-		<s:Image id="icon" />
-		<s:Label id="txt" color="#222222"/>
+	<s:HGroup verticalCenter="0" verticalAlign="middle" paddingLeft="4">
+		<s:Image id="icon" alpha="0.6" />
+		<s:VGroup gap="4">
+			<s:Label id="txt" color="#222222" fontSize="12"/>
+			<s:Label id="txt_sub" color="#999999" fontSize="10"/>
+		</s:VGroup>
+		
 	</s:HGroup>
-	
-	
 	
 	<s:BitmapImage id="sel" source="@Embed('skin/ics/assets/list_select.png')" smooth="true" right="0" visible="false"/>	
 
-	<s:Rect width="100%" bottom="0" height="0.5" visible="{!bLast}">
+	<s:Rect width="100%" bottom="0" height="0.5">
 		<s:stroke>
 			<s:SolidColorStroke color="#D9D9D9" />
 		</s:stroke>

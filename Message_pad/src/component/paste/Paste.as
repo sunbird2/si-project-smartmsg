@@ -78,8 +78,8 @@ package component.paste
 		
 		private function ta_keyboardUpHandler(event:KeyboardEvent):void {
 			var onlyNumber:RegExp = /[^\d]/g;
-			var number:String = ta.text.replace(onlyNumber, '');
-			var chkPhoneNum:RegExp = /0[17][016789]-?\d{3,4}-?\d{4}/g;
+			var number:String = ta.text.replace(onlyNumber, '-');
+			var chkPhoneNum:RegExp = /0[17][016789]-*\d{3,4}-*\d{4}/g;
 			var nextStat:String;
 			
 			arrPhone = number.match(chkPhoneNum);

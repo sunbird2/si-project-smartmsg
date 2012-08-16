@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			private var hgap:Number = 10;
+			
+			private var _icon:String;
+			private var _labelTitle:String;
+			private var _labelSub:String;
+			
+			public function set icon(value:String):void {
+				_icon = value;
+			}
+			public function set labelTitle(value:String):void {
+				_labelTitle = value;
+			}
+			public function set labelSub(value:String):void {
+				_labelSub = value;
+			}
+			
+			override public function set data(value:Object):void
+			{
+				// TODO Auto Generated method stub
+				super.data = value;
+				if (_icon) {
+					icon_image.source = _icon;
+					title.left = icon_image.width + hgap;
+					sub.left = icon_image.width + hgap;
+				}
+				if (_labelSub) {
+					sub.text = data[_labelSub];
+					sub.bottom = 2;
+					title.top = 2;
+				}else {
+					title.verticalCenter = 0;
+				}
+				
+				if (_labelTitle) title.text = data[_labelTitle];
+				
+			}
+			
+			
+			
+		]]>
+	</fx:Script>
+	<s:Image id="icon_image" width="32" height="32" fillMode="scale"  />
+	<s:Label id="title" fontSize="14" color="#222222" />
+	<s:Label id="sub" fontSize="12" color="#999999"/>
+	
+	<s:Rect width="100%" bottom="0" height="0.5">
+		<s:stroke>
+			<s:SolidColorStroke color="#D9D9D9" />
+		</s:stroke>
+	</s:Rect>
+	
+</s:ItemRenderer>

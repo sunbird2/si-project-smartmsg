@@ -12,6 +12,11 @@ package lib
 		private var _horizontalGap:Number = 6;
 		private var _verticalGap:Number = 2;
 		
+		private var _paddingLeft:Number = 2;
+		private var _paddingTop:Number = 2;
+		
+	
+		
 		public function set horizontalGap(value:Number):void
 		{
 			_horizontalGap = value;
@@ -31,6 +36,26 @@ package lib
 			if (layoutTarget)
 				layoutTarget.invalidateDisplayList();
 		}
+		
+		public function set paddingLeft(value:Number):void
+		{
+			_paddingLeft = value;
+			
+			// We must invalidate the layout
+			var layoutTarget:GroupBase = target;
+			if (layoutTarget)
+				layoutTarget.invalidateDisplayList();
+		}
+		
+		public function set paddingTop(value:Number):void
+		{
+			_paddingTop = value;
+			
+			// We must invalidate the layout
+			var layoutTarget:GroupBase = target;
+			if (layoutTarget)
+				layoutTarget.invalidateDisplayList();
+		}
 
 		//---------------------------------------------------------------
 		//
@@ -42,8 +67,8 @@ package lib
 												   containerHeight:Number):void
 		{
 			// The position for the current element
-			var x:Number = 0;
-			var y:Number = 0;
+			var x:Number = _paddingLeft;
+			var y:Number = _paddingTop;
 			var maxWidth:Number = 0;
 			var maxHeight:Number = 0;
 			
@@ -78,7 +103,7 @@ package lib
 				if (x + elementWidth > containerWidth)
 				{
 					// Start from the left side
-					x = 0;
+					x = _paddingLeft;
 					
 					// Move down by elementHeight, we're assuming all 
 					// elements are of equal height
