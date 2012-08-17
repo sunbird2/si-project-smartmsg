@@ -16,7 +16,7 @@
 				<s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" />
 			</s:layout>
 			<s:BitmapImage id="back" source="@Embed('skin/ics/assets/light/icon/1-navigation-previous-item.png')" smooth="true" alpha="0.6" width="20" height="20"/>
-			<s:BitmapImage id="icon" source="skin/ics/assets/ic_launcher_smsmms.png" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:BitmapImage id="icon" source="@Embed('skin/ics/assets/icon.png')" fillMode="scale" width="36" height="36" smooth="true" />
 			<s:VGroup gap="4">
 				<s:RichText id="title_text" color="#FFFFFF" fontSize="14"/>
 				<s:RichText id="titleSub_text" color="#DFDFDF" fontSize="12"/>
@@ -27,15 +27,10 @@
 		<s:HGroup width="100%" top="48" depth="0" gap="0" height="100%">
 			
 			<s:List id="functionList" width="200" height="100%" styleName="list_parent" focusEnabled="false" itemRenderer="skin.ics.renderer.ListParentRender">
-				
 			</s:List>
 			
-			<s:VGroup id="contentGroup" width="524" height="100%"
-					  horizontalAlign="center"
-					  paddingBottom="10" paddingTop="10" paddingLeft="10" paddingRight="10">
-				
-				
-			</s:VGroup>
+			<!-- contentGroup -->
+			<s:Group id="contentGroup" width="524" height="100%"></s:Group>
 			
 			<s:Group width="300" height="100%">
 				<s:Rect left="0" right="0" top="0" bottom="0" ><s:fill><s:SolidColor color="0xEEEEEE" /></s:fill></s:Rect>
@@ -49,7 +44,7 @@
 					
 					<s:SkinnableContainer styleName="actionBar_contextuar_light" backgroundColor="#EEEEEE" width="100%" height="40">
 						<s:RichText color="#33B5E5" verticalCenter="0" left="5">
-							<s:content><s:p><s:span id="byte">0</s:span><s:span kerning="auto"> </s:span><s:span>byte</s:span></s:p></s:content>
+							<s:content><s:p><s:span id="byte" fontSize="16">0</s:span><s:span kerning="auto"> </s:span><s:span color="#999999">byte</s:span></s:p></s:content>
 						</s:RichText>
 						<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="15">
 							<s:Image id="addImage" source="skin/ics/assets/light/icon/5-content-picture.png" />
@@ -70,16 +65,9 @@
 					
 					<s:List  id="sendList"
 							 focusEnabled="false"
+							 borderColor="#DDDDDD"
 							 itemRenderer="component.send.SendListRenderer"
-							 width="100%" height="50">
-						<s:dataProvider>
-							<s:ArrayCollection>
-								<fx:String  >test1</fx:String>
-								<fx:String  >test2</fx:String>
-								<fx:String  >test3</fx:String>
-								<fx:String  >test4</fx:String>
-							</s:ArrayCollection>
-						</s:dataProvider>
+							 width="100%" height="150">
 					</s:List>
 					
 					<s:HGroup width="100%" horizontalAlign="right" verticalAlign="middle">

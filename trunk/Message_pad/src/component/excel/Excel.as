@@ -369,6 +369,7 @@ package component.excel
 				case UPLOADED:
 					helpText.text = "전화번호 열을 선택 하세요.";
 					currStat = "upload";
+					excelView.visible = true;
 					break;
 				case SELPHONE:
 					
@@ -380,6 +381,7 @@ package component.excel
 						helpText.text = "전송 추가 버튼을 클릭하세요.";
 						currStat = "actionSend";
 					}
+					resultList.visible = true;
 						
 					break;
 			}

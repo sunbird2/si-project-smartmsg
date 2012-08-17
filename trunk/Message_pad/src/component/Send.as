@@ -107,7 +107,7 @@ package component
 			{icon:"skin/ics/assets/light/icon/4-collections-view-as-grid.png", label:"이모티콘", label_sub:"다양한 무료 이모티콘 발송", name:"emoticon"},
 			{icon:"skin/ics/assets/light/icon/12-hardware-keyboard.png", label:"특수문자", label_sub:"특수문자 입력", name:"specialChar"},
 			
-			{icon:"skin/ics/assets/light/icon/5-content-cut.png", label:"복사&붙여넣거,대량입력", label_sub:"복사한 전화번호 발송 및 입력", name:"sendListFromCopy"},
+			{icon:"skin/ics/assets/light/icon/5-content-cut.png", label:"복사붙여넣거,대량입력", label_sub:"복사한 전화번호 발송 및 입력", name:"sendListFromCopy"},
 			{icon:"skin/ics/assets/light/icon/6-social-group.png", label:"주소록 발송", label_sub:"주소록 선택 발송", name:"sendListFromAddress"},
 			{icon:"skin/ics/assets/light/icon/5-content-import-export.png", label:"엑셀을 업로드 발송", label_sub:"엑셀을 업로드 발송", name:"sendListFromExcel"},
 			{icon:"skin/ics/assets/light/icon/9-av-repeat.png", label:"최근발송 목록 재발송", label_sub:"최근발송 전화번호 발송", name:"sendListFromSent"}
@@ -220,7 +220,7 @@ package component
 			else if (instance == message) message.addEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
 			else if (instance == sendListInput)	sendListInput.addEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
 			else if (instance == sendListInputBtn) sendListInputBtn.addEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
-			else if (instance == dupleDelete) dupleDelete.addEventListener(FlowElementMouseEvent.CLICK, dupleDelete_clickHandler);
+			else if (instance == dupleDelete) dupleDelete.addEventListener(MouseEvent.CLICK, dupleDelete_clickHandler);
 			else if (instance == sendList) sendList.dataProvider = alPhone;
 			else if (instance == callback) {
 				
@@ -231,12 +231,12 @@ package component
 				callback.addEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
 			}
 			else if (instance == sendBtn) sendBtn.addEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
-			else if (instance == messageSaveBtn) messageSaveBtn.addEventListener(FlowElementMouseEvent.CLICK, messageSaveBtn_clickHandler);
+			else if (instance == messageSaveBtn) messageSaveBtn.addEventListener(MouseEvent.CLICK, messageSaveBtn_clickHandler);
 			else if (instance == callbackSave) {
 				if (rt == null)	rt = new ReturnPhone();
-				callbackSave.addEventListener(FlowElementMouseEvent.CLICK, rt.callbackSave_clickHandler);
+				callbackSave.addEventListener(MouseEvent.CLICK, rt.callbackSave_clickHandler);
 			}
-			else if (instance == phoneRemoveAll) phoneRemoveAll.addEventListener(FlowElementMouseEvent.CLICK, phoneRemoveAll_clickHandler);
+			else if (instance == phoneRemoveAll) phoneRemoveAll.addEventListener(MouseEvent.CLICK, phoneRemoveAll_clickHandler);
 			
 			else if (instance == sendReservation) sendReservation.addEventListener(Event.CHANGE, sendReservation_changeHandler);
 			else if (instance == sendInterval) sendInterval.addEventListener(Event.CHANGE, sendInterval_changeHandler);
@@ -260,18 +260,18 @@ package component
 			else if (instance == message) message.removeEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
 			else if (instance == sendListInput)	sendListInput.removeEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
 			else if (instance == sendListInputBtn) sendListInputBtn.removeEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
-			else if (instance == dupleDelete) dupleDelete.removeEventListener(FlowElementMouseEvent.CLICK, dupleDelete_clickHandler);
+			else if (instance == dupleDelete) dupleDelete.removeEventListener(MouseEvent.CLICK, dupleDelete_clickHandler);
 			else if (instance == callback) {
 				rt.destory();
 				callback.removeEventListener(IndexChangeEvent.CHANGE, callback_changeHandler);
 			}
 			else if (instance == sendBtn) sendBtn.removeEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
-			else if (instance == messageSaveBtn) messageSaveBtn.removeEventListener(FlowElementMouseEvent.CLICK, messageSaveBtn_clickHandler);
+			else if (instance == messageSaveBtn) messageSaveBtn.removeEventListener(MouseEvent.CLICK, messageSaveBtn_clickHandler);
 			else if (instance == callbackSave) {
 				if (rt == null)	rt = new ReturnPhone();
-				callbackSave.removeEventListener(FlowElementMouseEvent.CLICK, rt.callbackSave_clickHandler);
+				callbackSave.removeEventListener(MouseEvent.CLICK, rt.callbackSave_clickHandler);
 			}
-			else if (instance == phoneRemoveAll) phoneRemoveAll.removeEventListener(FlowElementMouseEvent.CLICK, phoneRemoveAll_clickHandler);
+			else if (instance == phoneRemoveAll) phoneRemoveAll.removeEventListener(MouseEvent.CLICK, phoneRemoveAll_clickHandler);
 				
 			else if (instance == sendReservation) sendReservation.removeEventListener(Event.CHANGE, sendReservation_changeHandler);
 			else if (instance == sendInterval) sendInterval.removeEventListener(Event.CHANGE, sendInterval_changeHandler);
@@ -476,7 +476,7 @@ package component
 		/**
 		 * save message
 		 * */
-		public function messageSaveBtn_clickHandler(event:FlowElementMouseEvent):void {
+		public function messageSaveBtn_clickHandler(event:MouseEvent):void {
 			event.stopImmediatePropagation();
 			event.preventDefault();
 			if (message.text != "") {
@@ -610,7 +610,7 @@ package component
 		}
 		
 		
-		private function phoneRemoveAll_clickHandler(event:FlowElementMouseEvent):void {
+		private function phoneRemoveAll_clickHandler(event:MouseEvent):void {
 			event.stopImmediatePropagation();
 			event.preventDefault();
 			Object(sendList.dataProvider).removeAll();

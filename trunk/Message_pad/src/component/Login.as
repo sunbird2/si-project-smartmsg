@@ -45,12 +45,16 @@ package component
 		[SkinPart(required="false")]public var join:Button;
 		[SkinPart(required="false")]public var login_id:LinkElement;
 		[SkinPart(required="false")]public var point:LinkElement;
+		[SkinPart(required="false")]public var logoutBtn:Button;
+		
 		
 		private var _cstat:String = "logout";
 		public function get cstat():String { return _cstat; }
 		public function set cstat(value:String):void { _cstat = value; }
 		
 		private var customToolTip:CustomToolTip;
+		
+		public var bOnceAutoMoveSend:Boolean = false;
 		
 		
 		public function Login()
@@ -104,7 +108,9 @@ package component
 				p.textDecoration = "none";
 				point.addChild(p);
 			}
-			else if (instance == user_pw) user_pw.addEventListener(FlexEvent.ENTER, login_clickHandler); 
+			else if (instance == user_pw) user_pw.addEventListener(FlexEvent.ENTER, login_clickHandler);
+			else if (instance == logoutBtn) logoutBtn.addEventListener(MouseEvent.CLICK, logout_clickHandler); 
+			
 		}
 		
 		/* Implement the partRemoved() method to remove the even handlers added in partAdded() */
@@ -150,11 +156,41 @@ package component
 			
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {
-				if (Main(parentApplication).currentState == "send")
+				bOnceAutoMoveSend = true;
+				login_check();
+				/*if (Main(parentApplication).currentState == "send")
 					Main(parentApplication).menus.clickStat ="home";
 				else
 					Main(parentApplication).menus.clickStat ="send";
-				callLater(login_check);
+				callLater(login_check);*/
+				
+			} else {
+				SLibrary.alert("로그인 실패");
+			}
+		}
+		
+		/**
+		 * logout Handler
+		 * */
+		private function logout_clickHandler(event:Event):void {
+			
+			if (user_id.text == "") SLibrary.alert("아이디를 입력 하세요");
+			else if (user_pw.text == "") SLibrary.alert("비밀번호를 입력 하세요");
+			else {
+				RemoteSingleManager.getInstance.addEventListener("login", logout_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.login(user_id.text, user_pw.text);
+			}
+		}
+		/**
+		 * login resultHandler
+		 * */
+		private function logout_resultHandler(event:CustomEvent):void {
+			
+			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+			if (bVO.bResult) {
+				bOnceAutoMoveSend = true;
+				login_check();
 				
 			} else {
 				SLibrary.alert("로그인 실패");
@@ -174,10 +210,18 @@ package component
 				Gv.bLogin = true;
 				Gv.user_id = uvo.user_id;
 				Gv.point = uint( uvo.point );
+				if (bOnceAutoMoveSend) {
+					bOnceAutoMoveSend = false;
+					callLater(moveSend);
+				}
 			} else {
 				cstat = "logout";
+				callLater(moveHome);
 			}
 			invalidateSkinState();
+			
+			
+				
 		}
 		
 		
@@ -203,6 +247,22 @@ package component
 			event.preventDefault();
 			trace("click!!!!");
 			
+		}
+		
+		private function moveSend():void {
+			
+			if (Main(parentApplication).currentState != "send") {
+				Main(parentApplication).menus.clickStat ="send";
+				//Main(parentApplication).currentState ="send";
+			}
+		}
+		
+		private function moveHome():void {
+			
+			if (Main(parentApplication).currentState != "home") {
+				Main(parentApplication).menus.clickStat ="home";
+				//Main(parentApplication).currentState ="send";
+			}
 		}
 		
 	}

@@ -167,7 +167,9 @@ package component
 		 * cancel
 		 * */
 		private function cancel1_clickHandler(event:MouseEvent):void {
-			this.visible = false;
+			Main(parentApplication).menus.clickStat = "home";
+			Main(parentApplication).currentState = "home";
+			//this.visible = false;
 		}
 		
 		
@@ -332,7 +334,8 @@ package component
 		}
 		
 		private function cancel2_clickHandler(event:MouseEvent):void {
-			parentApplication.currentState = "home";
+			Main(parentApplication).menus.clickStat = "home";
+			Main(parentApplication).currentState = "home";
 		}
 		
 		

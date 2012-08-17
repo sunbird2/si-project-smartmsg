@@ -22,6 +22,7 @@ package component
 	[SkinState("address")]
 	[SkinState("bill")]
 	[SkinState("log")]
+	[SkinState("join")]
 	
 	public class Menus extends SkinnableComponent
 	{
@@ -47,8 +48,10 @@ package component
 		public function get clickStat():String{	return _clickStat;	}
 		public function set clickStat(value:String):void {	
 			_clickStat = value;	
+			invalidateMenusState();
 			dispatchEvent(new CustomEvent("change",_clickStat));
-			callLater(invalidateMenusState);
+			//callLater(invalidateMenusState);
+			
 		}
 
 		override protected function getCurrentSkinState():String
@@ -70,6 +73,8 @@ package component
 		override protected function partRemoved(partName:String, instance:Object) : void
 		{
 			super.partRemoved(partName, instance);
+			var m:UIComponent = instance as UIComponent;
+			m.removeEventListener(MouseEvent.CLICK, changeState);
 		}
 		
 		private function changeState(event:MouseEvent):void {
@@ -79,9 +84,7 @@ package component
 			else if (event.currentTarget == labelAddress) clickStat = "address";
 			else if (event.currentTarget == labelBill) clickStat = "bill";
 			else if (event.currentTarget == labelLog) clickStat = "log";
-			
-			
-			
+			else  clickStat = "etc";
 
 		}
 		

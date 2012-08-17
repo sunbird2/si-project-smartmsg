@@ -12,21 +12,22 @@
 	</s:states>
 	
 	<s:BitmapImage includeIn="logout"
-				   width="220" height="220"
+				   width="200" height="190"
 				   source="@Embed('/skin/ics/assets/widget_dark.png', scaleGridTop='10', scaleGridBottom='320', scaleGridLeft='10', scaleGridRight='314')"
 				   fillMode="scale" alpha="0.9"/>
 	
-	<s:Rect includeIn="logout" width="100%" top="53" left="8" right="8"><s:stroke><s:SolidColorStroke color="#33B5E5" weight="2" /></s:stroke></s:Rect>
+	<s:Rect includeIn="logout" width="100%" top="40" left="8" right="8"><s:stroke><s:SolidColorStroke color="#33B5E5" weight="2" /></s:stroke></s:Rect>
 	
-	<s:Group includeIn="logout" left="8" right="8" top="8" bottom="8" minWidth="0" minHeight="0">
-		<s:Label text="Login" left="10" height="48" verticalAlign="middle" fontSize="18" color="#D6D6D6" />
+	<s:Group includeIn="logout" left="8" right="8" top="0" bottom="8" minWidth="0" minHeight="0">
+		<s:Label text="Login" left="10" height="48" verticalAlign="middle" fontSize="16" color="#D6D6D6" />
+		<s:BitmapImage top="6" right="10" source="@Embed('skin/ics/assets/dark/icon/10-device-access-secure.png')" alpha="0.6" />
 		
-		<s:VGroup top="60" horizontalCenter="0" gap="10">
-			<s:TextInput id="user_id" styleName="textinput_dark" prompt="아이디" width="150" height="26" fontSize="14"/>
-			<s:TextInput id="user_pw" styleName="textinput_dark" prompt="비밀번호" width="150" height="26" displayAsPassword="true" fontSize="14" />
+		<s:VGroup top="50" horizontalCenter="0" gap="10">
+			<s:TextInput id="user_id" styleName="textinput_dark" prompt="아이디" width="150" height="24" fontSize="12"/>
+			<s:TextInput id="user_pw" styleName="textinput_dark" prompt="비밀번호" width="150" height="24" displayAsPassword="true" fontSize="12" />
 			<s:HGroup>
-				<s:CheckBox label="아이디기억" styleName="checkbox_dark" fontSize="12" color="#D6D6D6" />
-				<s:CheckBox label="보안접속" styleName="checkbox_dark" fontSize="12" color="#D6D6D6" />
+				<s:CheckBox label="아이디기억" styleName="checkbox_dark" fontSize="10" color="#D6D6D6" />
+				<s:CheckBox label="보안접속" styleName="checkbox_dark" fontSize="10" color="#D6D6D6" selected="true" enabled="false" />
 			</s:HGroup>
 		</s:VGroup>
 		
@@ -39,22 +40,24 @@
 	
 	<s:Group left="10" top="-1" includeIn="login">
 		<s:HGroup verticalCenter="0" verticalAlign="middle">
-			<s:RichEditableText editable="false" focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="12" kerning="auto" color="#D6D6D6">
-				<s:content><s:p><s:a id="login_id" href="정보 수정 페이지로 이동합니다."></s:a><s:span> 님 안녕하세요. </s:span><s:span>현재                    를 </s:span><s:a  href="MyPage 로 이동 합니다." id="point"></s:a><s:span>건 발송하실 수 있습니다. </s:span></s:p></s:content>
-			</s:RichEditableText>
-			<s:Button label="로그아웃" fontSize="12" width="100" height="24" styleName="button_dark" color="#D6D6D6"/>
+			<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="12" kerning="auto" color="#D6D6D6">
+				<s:content><s:p><s:a id="login_id" href="정보 수정 페이지로 이동합니다."></s:a><s:span> 님 안녕하세요. </s:span><s:span>현재 </s:span></s:p></s:content>
+			</s:RichText>
+			<s:ComboBox id="combo" left="168" width="54" fontSize="12"
+						focusEnabled="false"
+						styleName="comboBox_dark"
+						selectedIndex="0">
+				<s:ArrayCollection>
+					<fx:Object label="SMS" data="SMS"/>
+					<fx:Object label="LMS" data="LMS"/>
+					<fx:Object label="MMS" data="MMS"/>
+				</s:ArrayCollection>
+			</s:ComboBox>
+			<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="12" kerning="auto" color="#D6D6D6">
+				<s:content><s:p><s:span>를 </s:span><s:a  href="MyPage 로 이동 합니다." id="point"></s:a><s:span>건 발송하실 수 있습니다. </s:span></s:p></s:content>
+			</s:RichText>
+			<s:Button id="logoutBtn" label="로그아웃" fontSize="12" width="100" height="24" styleName="button_dark" color="#D6D6D6"/>
 		</s:HGroup>
-		
-		<s:ComboBox id="combo" left="168" width="54" fontSize="12"
-					focusEnabled="false"
-					styleName="comboBox_dark"
-					selectedIndex="0">
-			<s:ArrayCollection>
-				<fx:Object label="SMS" data="SMS"/>
-				<fx:Object label="LMS" data="LMS"/>
-				<fx:Object label="MMS" data="MMS"/>
-			</s:ArrayCollection>
-		</s:ComboBox>
 		
 	</s:Group>
 	
