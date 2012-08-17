@@ -25,6 +25,7 @@ package component.emoticon
 	import spark.components.TileGroup;
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
+	import spark.primitives.BitmapImage;
 	
 	import valueObjects.BooleanAndDescriptionVO;
 	
@@ -44,6 +45,10 @@ package component.emoticon
 	{
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
 		[SkinPart(required="true")] */
+		[SkinPart(required="false")] public var icon:BitmapImage;
+		[SkinPart(required="false")] public var title_text:RichText;
+		[SkinPart(required="false")] public var titleSub_text:RichText;
+		
 		[SkinPart(required="true")] public var gubunBar:TabBar;
 		[SkinPart(required="true")] public var category:List;
 		[SkinPart(required="true")] public var msgBox:List;
@@ -132,6 +137,9 @@ package component.emoticon
 			else if (instance == specialCharGroup) {
 				createSpecialChar();
 			}
+			else if (instance == icon)	icon.source = getTitleIcon();
+			else if (instance == title_text)	title_text.text = getTitle();
+			else if (instance == titleSub_text)	titleSub_text.text = "메시지를 클릭하시면 적용됩니다.";
 
 			
 			
@@ -153,6 +161,23 @@ package component.emoticon
 			else if (instance == paging) paging.removeEventListener("clickPage", paging_clickPageHandler);
 			else if (instance == specialCharGroup) removeSpecialChar();
 
+		}
+		
+		private function getTitleIcon():String {
+			
+			if (state == "myMessage") return "skin/ics/assets/light/icon/3-rating-important.png";
+			else if (state == "emoticon") return "skin/ics/assets/light/icon/4-collections-view-as-grid.png";
+			else if (state == "specialChar") return "skin/ics/assets/light/icon/12-hardware-keyboard.png";
+			else return "skin/ics/assets/light/icon/5-content-email.png";
+
+		}
+		private function getTitle():String {
+			
+			if (state == "myMessage") return "내메시지";
+			else if (state == "emoticon") return "이모티콘";
+			else if (state == "specialChar") return "특수문자";
+			else return "최근발송메시지";
+			
 		}
 		
 		public function pagingInit():void {

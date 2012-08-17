@@ -18,134 +18,136 @@
 				duration="300" />
 		</s:Transition>
 	</s:transitions>
-	<s:Group width="1024">
-		<s:HGroup verticalAlign="middle" gap="80">
-			<s:BitmapImage source="@Embed('/assets/logo.png')" smooth="true"/>
-			<s:RichText width="600" whiteSpaceCollapse="preserve" fontFamily="NGDB" color="#000000" fontSize="40" lineHeight="133.35%">
-				<s:content><s:p><s:span>Welcome to Our </s:span><s:span color="#006cab">Message Yo</s:span><s:span>!</s:span></s:p></s:content>
-			</s:RichText>
-			
-		</s:HGroup>
+	<s:Group width="1024" height="696" horizontalCenter="0">
 		
-		<s:Group top="90" width="1024">
-			
-			<s:VGroup id="step1" includeIn="step1" left="0" right="0" top="80" bottom="0" horizontalAlign="center">
-				<s:RichText width="402" horizontalCenter="0" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
-					<s:content><s:p><s:span>약관에 </s:span><s:span color="#8d8d8d"> 동의해 주세요.</s:span></s:p></s:content>
-				</s:RichText>
-				<s:Group>
-					<s:BitmapImage source="@Embed('assets/Base_s Outer Glow.png')"/>
-					<s:BitmapImage source="@Embed('assets/Base.png')" x="4" y="4"/>
-					<s:BitmapImage x="12" y="37" width="662" height="2" smooth="true"
-								   source="@Embed('assets/Divider.png')"/>
-					<s:Label x="16" y="19" text="이용약관" fontFamily="NGD"/>
-					<s:RichEditableText x="12" top="47" bottom="10" width="662" fontFamily="NGD">
-						<s:text>
-							제 1 장 총 칙
-							
-							제 1조 목적
-						</s:text>        
-					</s:RichEditableText >
-					<s:CheckBox id="agree1" x="706" y="38" label="이용약관에 동의 합니다." fontFamily="NGD"/>
-				</s:Group>
-				
-				<s:Group>
-					<s:BitmapImage source="@Embed('assets/Base_s Outer Glow.png')"/>
-					<s:BitmapImage source="@Embed('assets/Base.png')" x="4" y="4"/>
-					<s:BitmapImage x="12" y="37" width="662" height="2" smooth="true"
-								   source="@Embed('assets/Divider.png')"/>
-					<s:Label x="16" y="19" text="개인정보보호약관" fontFamily="NGD"/>
-					<s:RichEditableText x="12" top="47" bottom="10" width="662" fontFamily="NGD">
-						<s:text>
-							'한소프트'은 (이하 '회사'는)
-							고객님의 개인정보를 중요시하며, "정보통신망 이용촉진 및 정보보호"에 관한 법률을 준수하고 있습니다.
-							
-							회사는 개인정보취급방침을 통하여 고객님께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며,
-							개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.
-						</s:text>    
-					</s:RichEditableText >
-					<s:CheckBox id="agree2" x="706" y="38"  label="개인정보에 동의 합니다." fontFamily="NGD"/>
-				</s:Group>
-				<s:HGroup width="100%" horizontalAlign="center">
-					<s:Button id="next1" label="다음단계" fontFamily="NGDB" skinClass="skin.compnent.ButtonSkin01"/>
-					<s:Button id="cancel1" label="취소"  fontFamily="NGD" skinClass="skin.compnent.ButtonSkin01"/>
-				</s:HGroup>
+		<!-- actionbar -->
+		<s:SkinnableContainer styleName="actionBar_dark" width="100%" height="48" depth="4">
+			<s:layout>
+				<s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" />
+			</s:layout>
+			<s:VGroup gap="4">
+				<s:RichText id="title_text" color="#FFFFFF" fontSize="14" text="회원가입"/>
+				<s:RichText id="titleSub_text" color="#DFDFDF" fontSize="12" text="messageYo의 회원이 되기 위한 절차 입니다. "/>
 			</s:VGroup>
 			
-			<s:VGroup id="step2" includeIn="step2" left="0" right="0" top="80" height="500" horizontalAlign="center">
-				<s:RichText horizontalCenter="0" whiteSpaceCollapse="preserve" fontFamily="NGD" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
-					<s:content><s:p><s:span>사용자정보를</s:span><s:span color="#8d8d8d"> 입력해주세요.</s:span></s:p></s:content>
-				</s:RichText>
-				<s:Form width="402">
-					<s:layout>
-						<s:FormLayout gap="0"/>
-					</s:layout>
-					<s:FormHeading/>
-					<s:FormItem label="" required="true" fontFamily="NGD">
-						<s:TextInput id="userid" prompt="아이디" skinClass="skin.compnent.TextInputSkin01" height="35" fontSize="16" fontFamily="NGD"/>
-						<s:helpContent>
-							<s:Label id="useridh" text="아이디를 입력하세요." fontFamily="Gulim" />
-						</s:helpContent>
-					</s:FormItem>
-					
-					<s:FormItem label="" required="true" fontFamily="NGD">
-						<s:TextInput id="userpw" prompt="비밀번호" displayAsPassword="true" skinClass="skin.compnent.TextInputSkin01" height="35" fontSize="16" fontFamily="NGD" />
-						<s:helpContent>
-							<s:Label id="userpwh" text="비밀번호를 입력하세요." fontFamily="Gulim" />
-						</s:helpContent>
-					</s:FormItem>
-					
-					<s:FormItem label="" required="true" fontFamily="NGD">
-						<s:TextInput id="userrepw" prompt="비밀번호확인" displayAsPassword="true" skinClass="skin.compnent.TextInputSkin01" height="35" fontSize="16" fontFamily="NGD" />
-						<s:helpContent>
-							<s:Label id="userrepwh" text="비밀번호확인을 입력하세요." fontFamily="Gulim" />
-						</s:helpContent>
-					</s:FormItem>
-					
-					<s:FormItem label="" required="true" fontFamily="NGD">
-						<s:HGroup gap="9">
-							<s:ComboBox id="userhp1" selectedIndex="0" width="60" skinClass="skin.compnent.ComboSkin01" height="35" fontSize="16" fontFamily="NGD">
-								<s:ArrayCollection>
-									<fx:Object label="010" data="010"/>
-									<fx:Object label="011" data="011"/>
-									<fx:Object label="016" data="016"/>
-									<fx:Object label="017" data="017"/>
-									<fx:Object label="018" data="018"/>
-									<fx:Object label="019" data="019"/>
-								</s:ArrayCollection>
-							</s:ComboBox>
-							<s:TextInput id="userhp2" width="65" skinClass="skin.compnent.TextInputSkin01" fontFamily="NGD" height="35" fontSize="16" />
-							<s:TextInput id="userhp3" width="65" skinClass="skin.compnent.TextInputSkin01" fontFamily="NGD" height="35" fontSize="16" />
-						</s:HGroup>
+		</s:SkinnableContainer>
+		
+		<!--step1-->
+		<s:VGroup id="step1" includeIn="step1" left="0" right="0" horizontalAlign="center" verticalCenter="0">
+			<s:RichText width="402" horizontalCenter="0" whiteSpaceCollapse="preserve" color="#454545" fontSize="24">
+				<s:content><s:p><s:span>약관에 </s:span><s:span color="#8d8d8d"> 동의해 주세요.</s:span></s:p></s:content>
+			</s:RichText>
+			<s:Group>
+				<s:BitmapImage source="@Embed('assets/Base_s Outer Glow.png')"/>
+				<s:BitmapImage source="@Embed('assets/Base.png')" x="4" y="4"/>
+				<s:BitmapImage x="12" y="37" width="662" height="2" smooth="true"
+							   source="@Embed('assets/Divider.png')"/>
+				<s:Label x="16" y="19" text="이용약관"/>
+				<s:RichText x="12" top="47" bottom="10" width="662">
+					<s:text>
+						제 1 장 총 칙
 						
-						<s:helpContent>
-							<s:VGroup>
-								<s:Label id="userhph" text="휴대폰번호를 입력하세요." fontFamily="Gulim" />
-								<s:Label text="비밀번호찾기시 이용됩니다." fontFamily="Gulim" />
-								<s:Label text="정확히 입력하세요." fontFamily="Gulim" />
-							</s:VGroup>
-							
-						</s:helpContent>
-					</s:FormItem>
-				</s:Form>
-				<s:HGroup>
-					<s:Button id="next2" label="가입하기" color="0x2DB149" fontSize="16" fontFamily="NGDB" skinClass="skin.compnent.ButtonSkin01" />
-					<s:Button id="cancel2" label="취소" fontSize="16" fontFamily="NGDB" skinClass="skin.compnent.ButtonSkin01" />
-				</s:HGroup>
-			</s:VGroup>
+						제 1조 목적
+					</s:text>        
+				</s:RichText >
+				<s:CheckBox id="agree1" x="706" y="38" label="이용약관에 동의 합니다." styleName="checkbox_light"/>
+			</s:Group>
 			
-			<s:VGroup id="step3" includeIn="step3" left="0" right="0" top="80" height="500" horizontalAlign="center">
-				<s:Label text="가입을 환영합니다."  fontSize="40" fontFamily="NGDB"/>
-				<s:Label text="체험 건수 5건이 주어졌습니다."  fontSize="16" fontFamily="NGD"/>
-				<s:HGroup>
-					<s:Label id="sec" text="5"  fontSize="16" fontFamily="NGD"/>
-					<s:Label text="초 후 서비스로 자동 입장 합니다." fontSize="16" fontFamily="NGD" />
-				</s:HGroup>
-			</s:VGroup>
-			
-		</s:Group>
+			<s:Group>
+				<s:BitmapImage source="@Embed('assets/Base_s Outer Glow.png')"/>
+				<s:BitmapImage source="@Embed('assets/Base.png')" x="4" y="4"/>
+				<s:BitmapImage x="12" y="37" width="662" height="2" smooth="true"
+							   source="@Embed('assets/Divider.png')"/>
+				<s:Label x="16" y="19" text="개인정보보호약관"/>
+				<s:RichText x="12" top="47" bottom="10" width="662">
+					<s:text>
+						'한소프트'은 (이하 '회사'는)
+						고객님의 개인정보를 중요시하며, "정보통신망 이용촉진 및 정보보호"에 관한 법률을 준수하고 있습니다.
+						
+						회사는 개인정보취급방침을 통하여 고객님께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며,
+						개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.
+					</s:text>    
+				</s:RichText >
+				<s:CheckBox id="agree2" x="706" y="38"  label="개인정보에 동의 합니다." styleName="checkbox_light"/>
+			</s:Group>
+			<s:HGroup width="100%" horizontalAlign="center">
+				<s:Button id="next1" label="다음단계" styleName="button_light"/>
+				<s:Button id="cancel1" label="취소" styleName="button_light"/>
+			</s:HGroup>
+		</s:VGroup>
+		
+		<!--step2-->
+		<s:VGroup id="step2" includeIn="step2" left="0" right="0" top="80" height="500" horizontalAlign="center">
+			<s:RichText horizontalCenter="0" whiteSpaceCollapse="preserve" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
+				<s:content><s:p><s:span>사용자 정보를</s:span><s:span color="#8d8d8d"> 입력해주세요.</s:span></s:p></s:content>
+			</s:RichText>
+			<s:Form width="402">
+				<s:layout>
+					<s:FormLayout gap="0"/>
+				</s:layout>
+				<s:FormHeading/>
+				<s:FormItem label="" required="true">
+					<s:TextInput id="userid" prompt="아이디" styleName="textinput_light" height="35" fontSize="16"/>
+					<s:helpContent>
+						<s:Label id="useridh" text="아이디를 입력하세요."/>
+					</s:helpContent>
+				</s:FormItem>
+				
+				<s:FormItem label="" required="true">
+					<s:TextInput id="userpw" prompt="비밀번호" displayAsPassword="true" styleName="textinput_light" height="35" fontSize="16" />
+					<s:helpContent>
+						<s:Label id="userpwh" text="비밀번호를 입력하세요."/>
+					</s:helpContent>
+				</s:FormItem>
+				
+				<s:FormItem label="" required="true">
+					<s:TextInput id="userrepw" prompt="비밀번호확인" displayAsPassword="true" styleName="textinput_light" height="35" fontSize="16" />
+					<s:helpContent>
+						<s:Label id="userrepwh" text="비밀번호확인을 입력하세요."/>
+					</s:helpContent>
+				</s:FormItem>
+				
+				<s:FormItem label="" required="true">
+					<s:HGroup gap="9">
+						<s:ComboBox id="userhp1" selectedIndex="0" width="60" styleName="comboBox_light" height="35" fontSize="16">
+							<s:ArrayCollection>
+								<fx:Object label="010" data="010"/>
+								<fx:Object label="011" data="011"/>
+								<fx:Object label="016" data="016"/>
+								<fx:Object label="017" data="017"/>
+								<fx:Object label="018" data="018"/>
+								<fx:Object label="019" data="019"/>
+							</s:ArrayCollection>
+						</s:ComboBox>
+						<s:TextInput id="userhp2" width="65" styleName="textinput_light" height="35" fontSize="16" />
+						<s:TextInput id="userhp3" width="65" styleName="textinput_light" height="35" fontSize="16" />
+					</s:HGroup>
+					
+					<s:helpContent>
+						<s:VGroup>
+							<s:Label id="userhph" text="휴대폰번호를 입력하세요."/>
+							<s:Label text="비밀번호찾기시 이용됩니다."/>
+							<s:Label text="정확히 입력하세요."/>
+						</s:VGroup>
+						
+					</s:helpContent>
+				</s:FormItem>
+			</s:Form>
+			<s:HGroup>
+				<s:Button id="next2" label="가입하기" color="0x2DB149" fontSize="16" styleName="button_light" />
+				<s:Button id="cancel2" label="취소" fontSize="16" styleName="button_light" />
+			</s:HGroup>
+		</s:VGroup>
+		
+		<!--step3-->
+		<s:VGroup id="step3" includeIn="step3" left="0" right="0" top="80" height="500" horizontalAlign="center">
+			<s:Label text="가입을 환영합니다."  fontSize="40"/>
+			<s:Label text="체험 건수 5건이 주어졌습니다."  fontSize="16"/>
+			<s:HGroup>
+				<s:Label id="sec" text="5"  fontSize="16"/>
+				<s:Label text="초 후 서비스로 자동 입장 합니다." fontSize="16" />
+			</s:HGroup>
+		</s:VGroup>
 	</s:Group>
-	
-	
 	
 </s:Skin>

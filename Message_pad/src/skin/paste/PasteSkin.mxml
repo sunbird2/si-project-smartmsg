@@ -11,7 +11,19 @@
 		<s:State name="phones"/>
 	</s:states>
 	
-	<s:VGroup horizontalCenter="0" width="500" height="100%" verticalAlign="bottom">
+	<s:VGroup width="524" height="100%" gap="0">
+		<!-- actionbar -->
+		<s:SkinnableContainer styleName="actionBar_contextuar_white" width="100%" height="48" depth="4">
+			<s:layout><s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" /></s:layout>
+			<s:BitmapImage id="icon" source="skin/ics/assets/light/icon/5-content-cut.png" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:VGroup gap="4">
+				<s:RichText id="title_text" color="#222222" fontSize="14" text="복사붙여넣거,대량입력"/>
+				<s:RichText id="titleSub_text" color="#999999" fontSize="12" text="전화번호를 복사하여 붙여 넣으시거나, 직접 전화번호를 입력 후 추가 하시기 바랍니다."/>
+			</s:VGroup>
+			
+		</s:SkinnableContainer>
+		
+		
 		<s:HGroup horizontalCenter="0" gap="0" height="100%">
 			<s:Group height="100%">
 				<s:TextArea id="ta" top="40" width="200" height="560"  prompt="전화번호를 입력하거나 붙여넣으세요. ※입력시 자동으로 전화번호가 추출되어 보여 집니다." styleName="textarea_light"/>
@@ -24,7 +36,7 @@
 			</s:Group>
 			
 			<s:Group includeIn="phones" height="100%">
-				<s:TextArea id="phones" top="40" width="125"  height="560" prompt="입력된 내용에서 추출한 전화번호가 보여집니다." borderVisible="false"/>
+				<s:TextArea id="phones" top="40" width="154"  height="560" prompt="입력된 내용에서 추출한 전화번호가 보여집니다." borderVisible="false"/>
 				
 				<s:SkinnableContainer styleName="actionBar_contextuar_light" backgroundColor="#EEEEEE" width="100%" height="40">
 					<s:Label color="#33B5E5" text="추출된 전화번호" verticalCenter="0" left="10" />

@@ -70,6 +70,10 @@ s|Scroller {
 	skinClass : ClassReference("skin.ics.ActionBar_contextuar");
 	backgroundColor : #33B5E5;
 }
+.actionBar_contextuar_white {
+	skinClass : ClassReference("skin.ics.ActionBar_contextuar");
+	backgroundColor : #FFFFFF;
+}
 
 /* tabbar */
 .tabbar_dark {

@@ -11,16 +11,26 @@
 	name=searchTextInput, type=spark.components.TextInput, required=false
 	name=addressTree, type=mx.controls.Tree, required=false
 	-->
-	<s:VGroup>
+	<s:VGroup width="524" height="100%" gap="10">
+		<!-- actionbar -->
+		<s:SkinnableContainer styleName="actionBar_contextuar_white" width="100%" height="48" depth="4">
+			<s:layout><s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" /></s:layout>
+			<s:BitmapImage id="icon" source="skin/ics/assets/light/icon/6-social-group.png" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:VGroup gap="4">
+				<s:RichText id="title_text" color="#222222" fontSize="14" text="주소록 발송"/>
+				<s:RichText id="titleSub_text" color="#999999" fontSize="12" text="주소록의 그룹 또는 전화번호를 클릭 하시면 추가 됩니다."/>
+			</s:VGroup>
+			
+		</s:SkinnableContainer>
 		<s:HGroup verticalAlign="middle">
 			<s:TextInput id="searchTextInput" styleName="textinput_light" prompt="이름 or 전화번호"/>
-			<s:Button id="searchButton" label="검색" width="80" height="24" styleName="button_light" />
-			<s:Button id="allButton" label="전체보기" width="100" height="24" styleName="button_light" />
+			<s:Button id="searchButton" label="검색" width="80" height="28" styleName="button_light" />
+			<s:Button id="allButton" label="전체보기" width="100" height="28" styleName="button_light" />
 		</s:HGroup>
 		
 		<mx:Tree id="addressTree" 
-				 width="500" height="560"
-				 defaultLeafIcon="@Embed('skin/ics/assets/light/icon/6-social-person.png')"
+				 width="100%" height="550"
+				 borderVisible="false"
 				 itemRenderer="skin.address.SendModeAddressRenderer"
 				 fontFamily="Gulim"/>
 	</s:VGroup>	
