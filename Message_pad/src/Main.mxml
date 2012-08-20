@@ -183,7 +183,6 @@
 						 left="200"
 						 top.home="10"
 						 top="710"
-						
 						 skinClass="skin.LoginSkin" excludeFrom="join" />
 		
 		<s:VGroup width="1024" height="696" gap="0" depth="0">
