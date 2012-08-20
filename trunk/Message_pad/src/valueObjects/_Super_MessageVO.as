@@ -60,11 +60,11 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
      */
     private var _internal_sendDate : String;
     private var _internal_sendMode : String;
-    private var _internal_phone : String;
     private var _internal_rsltDate : String;
+    private var _internal_phone : String;
     private var _internal_imagePath : String;
-    private var _internal_groupKey : int;
     private var _internal_rslt : String;
+    private var _internal_groupKey : int;
     private var _internal_name : String;
     private var _internal_callback : String;
     private var _internal_user_id : String;
@@ -106,15 +106,15 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get phone() : String
-    {
-        return _internal_phone;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get rsltDate() : String
     {
         return _internal_rsltDate;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get phone() : String
+    {
+        return _internal_phone;
     }
 
     [Bindable(event="propertyChange")]
@@ -124,15 +124,15 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get groupKey() : int
-    {
-        return _internal_groupKey;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get rslt() : String
     {
         return _internal_rslt;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get groupKey() : int
+    {
+        return _internal_groupKey;
     }
 
     [Bindable(event="propertyChange")]
@@ -193,16 +193,6 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set phone(value:String) : void
-    {
-        var oldValue:String = _internal_phone;
-        if (oldValue !== value)
-        {
-            _internal_phone = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "phone", oldValue, _internal_phone));
-        }
-    }
-
     public function set rsltDate(value:String) : void
     {
         var oldValue:String = _internal_rsltDate;
@@ -210,6 +200,16 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
         {
             _internal_rsltDate = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "rsltDate", oldValue, _internal_rsltDate));
+        }
+    }
+
+    public function set phone(value:String) : void
+    {
+        var oldValue:String = _internal_phone;
+        if (oldValue !== value)
+        {
+            _internal_phone = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "phone", oldValue, _internal_phone));
         }
     }
 
@@ -223,16 +223,6 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set groupKey(value:int) : void
-    {
-        var oldValue:int = _internal_groupKey;
-        if (oldValue !== value)
-        {
-            _internal_groupKey = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "groupKey", oldValue, _internal_groupKey));
-        }
-    }
-
     public function set rslt(value:String) : void
     {
         var oldValue:String = _internal_rslt;
@@ -240,6 +230,16 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
         {
             _internal_rslt = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "rslt", oldValue, _internal_rslt));
+        }
+    }
+
+    public function set groupKey(value:int) : void
+    {
+        var oldValue:int = _internal_groupKey;
+        if (oldValue !== value)
+        {
+            _internal_groupKey = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "groupKey", oldValue, _internal_groupKey));
         }
     }
 

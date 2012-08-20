@@ -52,7 +52,7 @@ package component.emoticon
 		[SkinPart(required="true")] public var gubunBar:TabBar;
 		[SkinPart(required="true")] public var category:List;
 		[SkinPart(required="true")] public var msgBox:List;
-		[SkinPart(required="true")] public var paging:Paging
+		[SkinPart(required="true")] public var paging:Paging;
 		[SkinPart(required="true")] public var specialCharGroup:TileGroup;
 
 		

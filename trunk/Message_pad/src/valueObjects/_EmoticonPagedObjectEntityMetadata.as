@@ -9,8 +9,6 @@ import com.adobe.fiber.styles.Style;
 import com.adobe.fiber.valueobjects.AbstractEntityMetadata;
 import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 import com.adobe.fiber.valueobjects.IPropertyIterator;
-import mx.collections.ArrayCollection;
-import valueObjects.PhoneVO;
 import com.adobe.fiber.core.model_internal;
 import com.adobe.fiber.valueobjects.IModelType;
 import mx.events.PropertyChangeEvent;
@@ -18,31 +16,31 @@ import mx.events.PropertyChangeEvent;
 use namespace model_internal;
 
 [ExcludeClass]
-internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects.AbstractEntityMetadata
+internal class _EmoticonPagedObjectEntityMetadata extends com.adobe.fiber.valueobjects.AbstractEntityMetadata
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("message", "al", "itMinute", "imagePath", "itCount", "bMerge", "bReservation", "returnPhone", "bInterval", "reservationDate", "reqIP");
+    model_internal static var allProperties:Array = new Array("message", "index");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("message", "al", "itMinute", "imagePath", "itCount", "bMerge", "bReservation", "returnPhone", "bInterval", "reservationDate", "reqIP");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("message", "index");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("message", "al", "itMinute", "imagePath", "itCount", "bMerge", "bReservation", "returnPhone", "bInterval", "reservationDate", "reqIP");
+    model_internal static var dataProperties:Array = new Array("message", "index");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("message", "al", "itMinute", "imagePath", "itCount", "bMerge", "bReservation", "returnPhone", "bInterval", "reservationDate", "reqIP");
+    model_internal static var nonDerivedProperties:Array = new Array("message", "index");
     model_internal static var derivedProperties:Array = new Array();
-    model_internal static var collectionProperties:Array = new Array("al");
+    model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
-    model_internal static var entityName:String = "SendMessageVO";
+    model_internal static var entityName:String = "EmoticonPagedObject";
     model_internal static var dependentsOnMap:Object;
     model_internal static var dependedOnServices:Array = new Array();
     model_internal static var propertyTypeMap:Object;
 
 
-    model_internal var _instance:_Super_SendMessageVO;
+    model_internal var _instance:_Super_EmoticonPagedObject;
     model_internal static var _nullStyle:com.adobe.fiber.styles.Style = new com.adobe.fiber.styles.Style();
 
-    public function _SendMessageVOEntityMetadata(value : _Super_SendMessageVO)
+    public function _EmoticonPagedObjectEntityMetadata(value : _Super_EmoticonPagedObject)
     {
         // initialize property maps
         if (model_internal::dependentsOnMap == null)
@@ -50,35 +48,16 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
             // dependents map
             model_internal::dependentsOnMap = new Object();
             model_internal::dependentsOnMap["message"] = new Array();
-            model_internal::dependentsOnMap["al"] = new Array();
-            model_internal::dependentsOnMap["itMinute"] = new Array();
-            model_internal::dependentsOnMap["imagePath"] = new Array();
-            model_internal::dependentsOnMap["itCount"] = new Array();
-            model_internal::dependentsOnMap["bMerge"] = new Array();
-            model_internal::dependentsOnMap["bReservation"] = new Array();
-            model_internal::dependentsOnMap["returnPhone"] = new Array();
-            model_internal::dependentsOnMap["bInterval"] = new Array();
-            model_internal::dependentsOnMap["reservationDate"] = new Array();
-            model_internal::dependentsOnMap["reqIP"] = new Array();
+            model_internal::dependentsOnMap["index"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
-            model_internal::collectionBaseMap["al"] = "valueObjects.PhoneVO";
         }
 
         // Property type Map
         model_internal::propertyTypeMap = new Object();
         model_internal::propertyTypeMap["message"] = "String";
-        model_internal::propertyTypeMap["al"] = "ArrayCollection";
-        model_internal::propertyTypeMap["itMinute"] = "int";
-        model_internal::propertyTypeMap["imagePath"] = "String";
-        model_internal::propertyTypeMap["itCount"] = "int";
-        model_internal::propertyTypeMap["bMerge"] = "Boolean";
-        model_internal::propertyTypeMap["bReservation"] = "Boolean";
-        model_internal::propertyTypeMap["returnPhone"] = "String";
-        model_internal::propertyTypeMap["bInterval"] = "Boolean";
-        model_internal::propertyTypeMap["reservationDate"] = "String";
-        model_internal::propertyTypeMap["reqIP"] = "String";
+        model_internal::propertyTypeMap["index"] = "int";
 
         model_internal::_instance = value;
     }
@@ -131,7 +110,7 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
     override public function getDependants(propertyName:String):Array
     {
        if (model_internal::nonDerivedProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a data property of entity SendMessageVO");
+            throw new Error(propertyName + " is not a data property of entity EmoticonPagedObject");
             
        return model_internal::dependentsOnMap[propertyName] as Array;  
     }
@@ -149,7 +128,7 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
     override public function getCollectionBase(propertyName:String):String
     {
         if (model_internal::collectionProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a collection property of entity SendMessageVO");
+            throw new Error(propertyName + " is not a collection property of entity EmoticonPagedObject");
 
         return model_internal::collectionBaseMap[propertyName];
     }
@@ -157,7 +136,7 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
     override public function getPropertyType(propertyName:String):String
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a property of SendMessageVO");
+            throw new Error(propertyName + " is not a property of EmoticonPagedObject");
 
         return model_internal::propertyTypeMap[propertyName];
     }
@@ -171,7 +150,7 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " does not exist for entity SendMessageVO");
+            throw new Error(propertyName + " does not exist for entity EmoticonPagedObject");
         }
 
         return model_internal::_instance[propertyName];
@@ -181,7 +160,7 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
     {
         if (model_internal::nonDerivedProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " is not a modifiable property of entity SendMessageVO");
+            throw new Error(propertyName + " is not a modifiable property of entity EmoticonPagedObject");
         }
 
         model_internal::_instance[propertyName] = value;
@@ -213,7 +192,7 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " does not exist for entity SendMessageVO");
+            throw new Error(propertyName + " does not exist for entity EmoticonPagedObject");
         }
 
         if (model_internal::allAlwaysAvailableProperties.indexOf(propertyName) != -1)
@@ -314,61 +293,7 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
     }
 
     [Bindable(event="propertyChange")]
-    public function get isAlAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isItMinuteAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isImagePathAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isItCountAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isBMergeAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isBReservationAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isReturnPhoneAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isBIntervalAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isReservationDateAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isReqIPAvailable():Boolean
+    public function get isIndexAvailable():Boolean
     {
         return true;
     }
@@ -390,61 +315,7 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
     }
 
     [Bindable(event="propertyChange")]   
-    public function get alStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get itMinuteStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get imagePathStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get itCountStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get bMergeStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get bReservationStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get returnPhoneStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get bIntervalStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get reservationDateStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get reqIPStyle():com.adobe.fiber.styles.Style
+    public function get indexStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

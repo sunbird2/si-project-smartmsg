@@ -26,11 +26,11 @@
 		</s:SkinnableContainer>
 		
 		<s:VGroup gap="0" >
-			<s:TabBar id="gubunBar" includeIn="emoticon" styleName="tabbar_light"/>	
+			<s:TabBar id="gubunBar" includeIn="emoticon" styleName="tabbar_dark"/>	
 			<s:List id="category" includeIn="emoticon"
-					borderColor="#DDDDDD"
-					color="#999999"
-					contentBackgroundColor="#EEEEEE"
+					borderColor="#333333"
+					color="#FFFFFF"
+					contentBackgroundColor="#333333"
 					width="480" height="70"
 					itemRenderer="skin.emoticon.CategoryRenderer" >
 				<s:layout><lib:FlowLayout verticalGap="3" horizontalGap="5" paddingTop="4" paddingLeft="4" /></s:layout>

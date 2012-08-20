@@ -1,6 +1,6 @@
 /**
  * This is a generated class and is not intended for modification.  To customize behavior
- * of this value object you may modify the generated sub-class of this class - UserInformationVO.as.
+ * of this value object you may modify the generated sub-class of this class - EmoticonPagedObject.as.
  */
 
 package valueObjects
@@ -20,20 +20,20 @@ import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 use namespace model_internal;
 
 [ExcludeClass]
-public class _Super_UserInformationVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
+public class _Super_EmoticonPagedObject extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
 {
     model_internal static function initRemoteClassAliasSingle(cz:Class) : void
     {
         try
         {
-            if (flash.net.getClassByAlias("com.m.member.UserInformationVO") == null)
+            if (flash.net.getClassByAlias("com.m.emoticon.EmoticonPagedObject") == null)
             {
-                flash.net.registerClassAlias("com.m.member.UserInformationVO", cz);
+                flash.net.registerClassAlias("com.m.emoticon.EmoticonPagedObject", cz);
             }
         }
         catch (e:Error)
         {
-            flash.net.registerClassAlias("com.m.member.UserInformationVO", cz);
+            flash.net.registerClassAlias("com.m.emoticon.EmoticonPagedObject", cz);
         }
     }
 
@@ -41,7 +41,7 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
     {
     }
 
-    model_internal var _dminternal_model : _UserInformationVOEntityMetadata;
+    model_internal var _dminternal_model : _EmoticonPagedObjectEntityMetadata;
     model_internal var _changedObjects:mx.collections.ArrayCollection = new ArrayCollection();
 
     public function getChangedObjects() : Array
@@ -58,12 +58,8 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
     /**
      * properties
      */
-    private var _internal_point : String;
-    private var _internal_hp : String;
-    private var _internal_levaeYN : String;
-    private var _internal_unit_cost : int;
-    private var _internal_line : String;
-    private var _internal_user_id : String;
+    private var _internal_message : String;
+    private var _internal_index : int;
 
     private static var emptyArray:Array = new Array();
 
@@ -75,9 +71,9 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
 
     model_internal var _changeWatcherArray:Array = new Array();
 
-    public function _Super_UserInformationVO()
+    public function _Super_EmoticonPagedObject()
     {
-        _model = new _UserInformationVOEntityMetadata(this);
+        _model = new _EmoticonPagedObjectEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
 
@@ -88,39 +84,15 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
      */
 
     [Bindable(event="propertyChange")]
-    public function get point() : String
+    public function get message() : String
     {
-        return _internal_point;
+        return _internal_message;
     }
 
     [Bindable(event="propertyChange")]
-    public function get hp() : String
+    public function get index() : int
     {
-        return _internal_hp;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get levaeYN() : String
-    {
-        return _internal_levaeYN;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get unit_cost() : int
-    {
-        return _internal_unit_cost;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get line() : String
-    {
-        return _internal_line;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get user_id() : String
-    {
-        return _internal_user_id;
+        return _internal_index;
     }
 
     public function clearAssociations() : void
@@ -131,63 +103,23 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
      * data/source property setters
      */
 
-    public function set point(value:String) : void
+    public function set message(value:String) : void
     {
-        var oldValue:String = _internal_point;
+        var oldValue:String = _internal_message;
         if (oldValue !== value)
         {
-            _internal_point = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "point", oldValue, _internal_point));
+            _internal_message = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "message", oldValue, _internal_message));
         }
     }
 
-    public function set hp(value:String) : void
+    public function set index(value:int) : void
     {
-        var oldValue:String = _internal_hp;
+        var oldValue:int = _internal_index;
         if (oldValue !== value)
         {
-            _internal_hp = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "hp", oldValue, _internal_hp));
-        }
-    }
-
-    public function set levaeYN(value:String) : void
-    {
-        var oldValue:String = _internal_levaeYN;
-        if (oldValue !== value)
-        {
-            _internal_levaeYN = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "levaeYN", oldValue, _internal_levaeYN));
-        }
-    }
-
-    public function set unit_cost(value:int) : void
-    {
-        var oldValue:int = _internal_unit_cost;
-        if (oldValue !== value)
-        {
-            _internal_unit_cost = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "unit_cost", oldValue, _internal_unit_cost));
-        }
-    }
-
-    public function set line(value:String) : void
-    {
-        var oldValue:String = _internal_line;
-        if (oldValue !== value)
-        {
-            _internal_line = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "line", oldValue, _internal_line));
-        }
-    }
-
-    public function set user_id(value:String) : void
-    {
-        var oldValue:String = _internal_user_id;
-        if (oldValue !== value)
-        {
-            _internal_user_id = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_id", oldValue, _internal_user_id));
+            _internal_index = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "index", oldValue, _internal_index));
         }
     }
 
@@ -251,14 +183,14 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
 
     [Transient]
     [Bindable(event="propertyChange")]
-    public function get _model() : _UserInformationVOEntityMetadata
+    public function get _model() : _EmoticonPagedObjectEntityMetadata
     {
         return model_internal::_dminternal_model;
     }
 
-    public function set _model(value : _UserInformationVOEntityMetadata) : void
+    public function set _model(value : _EmoticonPagedObjectEntityMetadata) : void
     {
-        var oldValue : _UserInformationVOEntityMetadata = model_internal::_dminternal_model;
+        var oldValue : _EmoticonPagedObjectEntityMetadata = model_internal::_dminternal_model;
         if (oldValue !== value)
         {
             model_internal::_dminternal_model = value;
