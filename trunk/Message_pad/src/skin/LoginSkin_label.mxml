@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("component.Login")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="logout" />
+		<s:State name="login" />
+	</s:states>
+	
+	<!-- SkinParts
+	name=login_id, type=flashx.textLayout.elements.LinkElement, required=false
+	name=user_pw, type=spark.components.TextInput, required=false
+	name=point, type=flashx.textLayout.elements.LinkElement, required=false
+	name=logoutBtn, type=spark.components.Button, required=false
+	name=login, type=spark.components.Button, required=false
+	name=user_id, type=spark.components.TextInput, required=false
+	name=join, type=spark.components.Button, required=false
+	-->
+	
+	<s:HGroup includeIn="logout" verticalAlign="middle" minWidth="0" minHeight="0">
+		<!--<s:Label text="Login" left="10" height="48" verticalAlign="middle" fontSize="16" color="#D6D6D6" />-->
+		<s:Label text="MessageYo" fontSize="16" color="#D6D6D6" />
+		<s:BitmapImage source="@Embed('skin/ics/assets/dark/icon/10-device-access-secure.png')" alpha="0.6" />
+		<s:HGroup gap="5" verticalAlign="middle">
+			<s:TextInput id="user_id" styleName="textinput_dark" prompt="아이디" width="80" height="24" fontSize="12" color="#FFFFFF"/>
+			<s:TextInput id="user_pw" styleName="textinput_dark" prompt="비밀번호" width="80" height="24" displayAsPassword="true" fontSize="12" color="#FFFFFF" />
+			<s:HGroup gap="0" verticalAlign="middle">
+				<s:Button id="login" label="로그인" styleName="button_label" height="40" color="#FFFFFF" />
+				<s:Button id="join" label="회원가입" styleName="button_label" height="40" color="#FFFFFF" />
+				<s:CheckBox label="아이디기억" styleName="checkbox_dark" fontSize="10" color="#FFFFFF" />
+				<s:CheckBox label="보안접속" styleName="checkbox_dark" fontSize="10" color="#FFFFFF" selected="true" enabled="false" />
+			</s:HGroup>
+		</s:HGroup>
+		
+		
+	</s:HGroup>
+	
+	
+	<s:Group left="10" top="-1" includeIn="login">
+		<s:HGroup verticalCenter="0" verticalAlign="middle">
+			<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="12" kerning="auto" color="#D6D6D6">
+				<s:content><s:p><s:a id="login_id" href="정보 수정 페이지로 이동합니다."></s:a><s:span> 님 안녕하세요. </s:span><s:span>현재 </s:span></s:p></s:content>
+			</s:RichText>
+			<s:ComboBox id="combo" left="168" width="54" fontSize="12"
+						focusEnabled="false"
+						styleName="comboBox_dark"
+						selectedIndex="0">
+				<s:ArrayCollection>
+					<fx:Object label="SMS" data="SMS"/>
+					<fx:Object label="LMS" data="LMS"/>
+					<fx:Object label="MMS" data="MMS"/>
+				</s:ArrayCollection>
+			</s:ComboBox>
+			<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="12" kerning="auto" color="#D6D6D6">
+				<s:content><s:p><s:span>를 </s:span><s:a  href="MyPage 로 이동 합니다." id="point"></s:a><s:span>건 발송하실 수 있습니다. </s:span></s:p></s:content>
+			</s:RichText>
+			<s:Button id="logoutBtn" label="로그아웃" fontSize="12" width="100" height="24" styleName="button_dark" color="#D6D6D6"/>
+		</s:HGroup>
+		
+	</s:Group>
+</s:Skin>

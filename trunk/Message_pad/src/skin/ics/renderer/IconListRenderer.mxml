@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true" height="40">
+	<fx:Script>
+		<![CDATA[
+			override public function set data(value:Object):void
+			{
+				// TODO Auto Generated method stub
+				super.data = value;
+				
+				if (data.icon) icon.source = data.icon;
+				if (data.label) txt.text = data.label;
+				if (data.label_sub) txt_sub.text = data.label_sub;
+				
+			}
+		]]>
+	</fx:Script>
+	
+	<s:HGroup verticalCenter="0" verticalAlign="middle" paddingLeft="4">
+		<s:Image id="icon" alpha="0.6" smooth="true" fillMode="scale" width="20" height="20" />
+		<s:VGroup gap="0">
+			<s:Label id="txt" color="#FFFFFF" fontSize="12"/>
+			<s:Label id="txt_sub" color="#999999" fontSize="10"/>
+		</s:VGroup>
+		
+	</s:HGroup>
+	<s:Rect width="100%" bottom="0" height="1">
+		<s:fill>
+			<s:SolidColor color="#333333" />
+		</s:fill>
+	</s:Rect>
+</s:ItemRenderer>

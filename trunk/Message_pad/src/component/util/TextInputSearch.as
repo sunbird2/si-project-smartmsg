@@ -10,6 +10,7 @@ package component.util
 	import skin.compnent.TextInputSearchSkin;
 	
 	import spark.components.Group;
+	import spark.components.Image;
 	import spark.components.TextInput;
 	
 	
@@ -22,7 +23,7 @@ package component.util
 	{
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
 		[SkinPart(required="true")] */
-		[SkinPart(required="true")] public var search:Group;
+		[SkinPart(required="true")] public var search:Image;
 		
 		public function TextInputSearch()
 		{

@@ -71,7 +71,7 @@
         </s:fill>
     </s:Rect>
 	
-	<s:Image width="1200" height="100%" horizontalCenter="0" source="assets/bg1200.jpg" fillMode="repeat" alpha="0.5" />
+	<!--<s:Image width="1200" height="100%" horizontalCenter="0" source="assets/bg1200.jpg" fillMode="repeat" alpha="0.5" />-->
         
     <s:Group left="0" right="0" top="0" bottom="0">
         <s:layout>

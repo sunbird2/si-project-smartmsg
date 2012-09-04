@@ -87,7 +87,7 @@
          */
         override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
         {
-            if (getStyle("borderVisible") == true)
+            /* if (getStyle("borderVisible") == true)
             {
                 border.visible = true;
                 shadow.visible = true;
@@ -100,17 +100,17 @@
                 }
             }
             else
-            {
+            { */
                 border.visible = false;
                 shadow.visible = false;
-                background.left = background.top = background.right = background.bottom = 0;
-                textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 0;
+               /*  background.left = background.top = background.right = background.bottom = 0;
+                textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 0; */
                 if (promptDisplay)
                 {
                     promptDisplay.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
                     promptDisplay.setLayoutBoundsPosition(0, 0);
                 }
-            }
+            //}
             
          
             
@@ -203,75 +203,61 @@
         <s:State name="disabledWithPrompt" stateGroups="disabledStates"/>
     </s:states>
     
+	<!-- border --> 
+	<!--- @private -->
+	<s:Rect left="0" right="0" top="0" bottom="0" id="border">
+		<s:stroke>     
+			<!--- @private -->
+			<s:SolidColorStroke id="borderStroke" weight="1" />
+		</s:stroke>
+	</s:Rect>
+	
 	<!-- fill -->
 	<!--- Defines the appearance of the TextInput component's background. -->
-	<s:Rect id="background" left="1" right="1" top="1" bottom="1" radiusX="3">
+	<s:Rect id="background" left="1" right="1" top="1" bottom="1" alpha="0">
 		<s:fill>
 			<!--- @private Defines the background fill color. -->
 			<s:SolidColor id="bgFill" color="0xFFFFFF" />
 		</s:fill>
 	</s:Rect>
 	
-	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('assets/TextInput_bg.png', scaleGridTop='10', scaleGridBottom='24', scaleGridLeft='10', scaleGridRight='195')"
-				   smooth="true" fillMode="scale"/>
-	
 	<!-- shadow -->
 	<!--- @private -->
-	<s:Rect left="1" top="1" right="1" height="1" id="shadow" radiusX="3">
+	<s:Rect left="1" top="1" right="1" height="1" id="shadow">
 		<s:fill>
 			<s:SolidColor color="0x000000" alpha="0.12" />
 		</s:fill>
 	</s:Rect>
 	
-	<!-- border --> 
-	<!--- @private -->
-	<s:Rect left="0" right="0" top="0" bottom="0" id="border" radiusX="3">
-		<s:stroke>
-			<s:LinearGradientStroke rotation="90" weight="1">
-				<s:GradientEntry color="0x888888" 
-								 alpha="0.75"/>
-				<s:GradientEntry color="0xAAAAAA" 
-								 alpha="0.5625" />
-			</s:LinearGradientStroke>
-		</s:stroke>
-	</s:Rect>
+	
+	
+	<s:BitmapImage includeIn="disabledStates" source="@Embed('/skin/ics/assets/light/textinput_disabled.png', scaleGridTop='1', scaleGridBottom='2', scaleGridLeft='5', scaleGridRight='35')"
+				   left="0" right="0"
+				   bottom="0" height="5" smooth="true"
+				   />
+	
+	<s:BitmapImage includeIn="normal, normalWithPrompt" source="@Embed('/skin/ics/assets/light/textinput_normal.png', scaleGridTop='1', scaleGridBottom='2', scaleGridLeft='5', scaleGridRight='35')"
+				   left="0" right="0"
+				   bottom="0" height="4" smooth="true"
+				   />
     
     <!-- text -->
     <!--- @copy spark.components.supportClasses.SkinnableTextBase#textDisplay -->
     <s:RichEditableText id="textDisplay"
               verticalAlign="middle"
               widthInChars="10"
-              left="1" right="25" top="1" bottom="1" />
+              left="1" right="32" top="1" bottom="1" />
     <!--- Defines the Label that is used for prompt text. The includeInLayout property is false so the prompt text does not affect measurement. -->
     <s:Label id="promptDisplay" maxDisplayedLines="1"
                 verticalAlign="middle"
                 mouseEnabled="false" mouseChildren="false"
                 includeIn="normalWithPrompt,disabledWithPrompt" 
                 includeInLayout="false"
-				right="25"
+				right="32"
                 />
 	
-	<s:Path right="20" top="2" bottom="2" data="M 0 0 L 0 1 Z M 0 2 L 0 3 Z M 0 4 L 0 5 Z M 0 6 L 0 7 Z M 0 8 L 0 9 Z M 0 10 L 0 11 Z">
-		<s:stroke>
-			<s:SolidColorStroke color="0xDDDDDD" weight="1" caps="round" 
-								scaleMode="none"
-								joints="round"/>
-		</s:stroke>
-	</s:Path>
-	
 	<!-- magnifying glass -->
-	<s:Group id="search" buttonMode="true" mouseChildren="false" right="0" top="0" bottom="0">
-		<s:Ellipse right="7" width="6" height="7" top="6">
-			<s:stroke>
-				<s:SolidColorStroke color="0x999999"  weight="2" />
-			</s:stroke>
-		</s:Ellipse>
-		
-		<s:Line  right="5" top="12" xFrom="0" xTo="2" yFrom="2" yTo="4" >
-			<s:stroke>
-				<s:SolidColorStroke color="0x999999" weight="2" />
-			</s:stroke>
-		</s:Line>
-	</s:Group>
+	<s:Image id="search" buttonMode="true" mouseChildren="false" right="0" top="0" bottom="0"
+			 source="@Embed('/skin/ics/assets/light/icon/2-action-search.png')"/>
 
 </s:SparkSkin>

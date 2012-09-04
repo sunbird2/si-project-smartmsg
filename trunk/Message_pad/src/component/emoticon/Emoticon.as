@@ -14,6 +14,12 @@ package component.emoticon
 	import lib.SLibrary;
 	
 	import mx.collections.ArrayCollection;
+	import mx.collections.AsyncListView;
+	import mx.rpc.CallResponder;
+	import mx.rpc.events.FaultEvent;
+	import mx.rpc.events.ResultEvent;
+	
+	import services.Smt;
 	
 	import skin.emoticon.EmoticonSkin;
 	
@@ -52,7 +58,7 @@ package component.emoticon
 		[SkinPart(required="true")] public var gubunBar:TabBar;
 		[SkinPart(required="true")] public var category:List;
 		[SkinPart(required="true")] public var msgBox:List;
-		[SkinPart(required="true")] public var paging:Paging;
+		//[SkinPart(required="true")] public var paging:Paging;
 		[SkinPart(required="true")] public var specialCharGroup:TileGroup;
 
 		
@@ -63,12 +69,19 @@ package component.emoticon
 		private var currTotalCount:int = 0;
 		private var viewDataCount:int = 9;
 		
+		// paging
+		[Bindable] public var asyncListView:AsyncListView = new AsyncListView();
+		[Bindable] public var callResponder:CallResponder =  new CallResponder();
+		public var smt:Smt;
+		
 		public function Emoticon(defaultState:String) {
 			super();
+			PagedFilterSmtInit();
 			setStyle("skinClass", EmoticonSkin);
 			state = defaultState;
 			addEventListener(Event.REMOVED_FROM_STAGE, destroy, false, 0, true);
 		}
+		
 		
 		
 
@@ -79,7 +92,7 @@ package component.emoticon
 			
 			if (state == "emoticon") emoticonCateAndMsg();
 			else if (state == "myMessage") getEmotiList();
-			else if (state == "sentMessage") getSentMessage();
+			else if (state == "sentMessage") getEmotiList();
 			
 			this.invalidateSkinState();
 		}
@@ -91,6 +104,7 @@ package component.emoticon
 				else return "테마문자";
 			}
 			else if (state == "myMessage")  return "my";
+			else if (state == "sentMessage")  return "sent";
 			else return "테마문자"; 
 			
 		}
@@ -125,15 +139,15 @@ package component.emoticon
 				category.addEventListener(IndexChangeEvent.CHANGE, category_changeHandler);
 			}
 			else if (instance == msgBox) {
-				msgBox.dataProvider = acEmt;
+				msgBox.dataProvider = asyncListView;
 				msgBox.addEventListener(IndexChangeEvent.CHANGE, msgBox_changeHandler);
 				msgBox.addEventListener(KeyboardEvent.KEY_UP, msgBox_keyboardUpHandler);
 			}
-			else if (instance == paging) {
+			/*else if (instance == paging) {
 				paging.viewDataCount = viewDataCount;
 				pagingInit();
 				paging.addEventListener("clickPage", paging_clickPageHandler);
-			}
+			}*/
 			else if (instance == specialCharGroup) {
 				createSpecialChar();
 			}
@@ -157,11 +171,23 @@ package component.emoticon
 			else if (instance == msgBox) {
 				ArrayCollection(msgBox.dataProvider).removeAll();
 				msgBox.removeEventListener(IndexChangeEvent.CHANGE, msgBox_changeHandler);
+				smt.removeEventListener("fault", smt_fault);
 			}
-			else if (instance == paging) paging.removeEventListener("clickPage", paging_clickPageHandler);
+			//else if (instance == paging) paging.removeEventListener("clickPage", paging_clickPageHandler);
 			else if (instance == specialCharGroup) removeSpecialChar();
 
 		}
+		
+		private function PagedFilterSmtInit():void {
+			if (smt == null) {
+				smt = new services.Smt();
+				smt.showBusyCursor = true;
+				smt.addEventListener("fault", smt_fault);
+				smt.initialized(this, "smt")
+			}
+			
+		}
+		public function smt_fault(event:FaultEvent):void { SLibrary.alert(event.fault.faultString + '\n' + event.fault.faultDetail); }
 		
 		private function getTitleIcon():String {
 			
@@ -180,7 +206,7 @@ package component.emoticon
 			
 		}
 		
-		public function pagingInit():void {
+		/*public function pagingInit():void {
 			
 			if (acEmt != null && acEmt.length > 0 && paging) {
 				
@@ -191,7 +217,7 @@ package component.emoticon
 					paging.init();
 				}
 			}
-		}
+		}*/
 		
 		private function gubunBar_changeHandler(event:IndexChangeEvent):void {
 
@@ -230,9 +256,18 @@ package component.emoticon
 		
 		private function getEmotiList():void {
 			
-			RemoteSingleManager.getInstance.addEventListener("getEmotiListPage", emoticon_resultHandler, false, 0, true);
+			callResponder.addEventListener(ResultEvent.RESULT, callResponder_resultHandler);
+			callResponder.token = smt.getEmotiList_pagedFiltered(gubun, cate);
+			/*RemoteSingleManager.getInstance.addEventListener("getEmotiListPage", emoticon_resultHandler, false, 0, true);
 			RemoteSingleManager.getInstance.callresponderToken 
-				= RemoteSingleManager.getInstance.service.getEmotiListPage(gubun, cate, 0, viewDataCount);
+				= RemoteSingleManager.getInstance.service.getEmotiListPage(gubun, cate, 0, viewDataCount);*/
+		}
+		private function callResponder_resultHandler(event:ResultEvent):void {
+			
+			callResponder.removeEventListener(ResultEvent.RESULT, callResponder_resultHandler);
+			//if (asyncListView.list)	asyncListView.list.removeAll();
+			asyncListView.list = callResponder.lastResult;
+			
 		}
 		
 		private function emoticon_resultHandler(event:CustomEvent):void {
@@ -242,7 +277,7 @@ package component.emoticon
 			var ac:ArrayCollection = event.result as ArrayCollection;
 			if (ac != null)
 				acEmt.addAll(ac);
-			pagingInit();
+			//pagingInit();
 		}
 		private function sent_resultHandler(event:CustomEvent):void {
 			
@@ -251,7 +286,7 @@ package component.emoticon
 			var ac:ArrayCollection = event.result as ArrayCollection;
 			if (ac != null)
 				acEmt.addAll(ac);
-			pagingInit();
+			//pagingInit();
 		}
 		
 		
@@ -293,7 +328,7 @@ package component.emoticon
 		
 		private function msgBox_changeHandler(event:IndexChangeEvent):void {
 			var obj:Object = msgBox.selectedItem as Object;
-			this.dispatchEvent(new CustomEvent("message", obj.msg));
+			this.dispatchEvent(new CustomEvent("message", obj.message));
 			
 		}
 		protected function charClickHandler(e:MouseEvent):void { 
@@ -340,6 +375,7 @@ package component.emoticon
 		
 		public function destroy(event:Event):void {
 			
+			
 			acGubun.removeAll();
 			acCate.removeAll();
 			acEmt.removeAll();
@@ -351,7 +387,7 @@ package component.emoticon
 			gubunBar = null;
 			category = null;
 			msgBox = null;
-			paging = null;
+			//paging = null;
 			specialCharGroup = null;
 		}
 		

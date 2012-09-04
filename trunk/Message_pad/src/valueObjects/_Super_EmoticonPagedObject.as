@@ -19,6 +19,7 @@ import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 
 use namespace model_internal;
 
+[Managed]
 [ExcludeClass]
 public class _Super_EmoticonPagedObject extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
 {
@@ -109,7 +110,6 @@ public class _Super_EmoticonPagedObject extends flash.events.EventDispatcher imp
         if (oldValue !== value)
         {
             _internal_message = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "message", oldValue, _internal_message));
         }
     }
 
@@ -119,7 +119,6 @@ public class _Super_EmoticonPagedObject extends flash.events.EventDispatcher imp
         if (oldValue !== value)
         {
             _internal_index = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "index", oldValue, _internal_index));
         }
     }
 

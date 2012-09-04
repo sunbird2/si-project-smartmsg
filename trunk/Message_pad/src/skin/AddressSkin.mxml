@@ -25,7 +25,8 @@
 			</s:VGroup>
 			
 		</s:SkinnableContainer>
-		<util:TextInputSearch id="search" prompt="이름 or 전화번호" fontSize="14" color="#888888" />
+		<util:TextInputSearch id="search" right="10" top="5" prompt="이름 or 전화번호" depth="5"
+							  focusSkin="skin.ics.TextInputFocus" color="#FFFFFF" fontSize="12" />
 		
 		<s:HGroup width="100%" top="48" depth="0" gap="0" height="648">
 			

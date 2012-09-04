@@ -10,7 +10,7 @@ package
 		}
 		
 		// Embed the background image.     
-		[Embed(source="/assets/logo8.png")]
+		/*[Embed(source="/assets/logo8.png")]
 		[Bindable]
 		public var imgCls:Class;
 		
@@ -35,7 +35,7 @@ package
 		override protected function showDisplayForDownloading(
 			elapsedTime:int, event:ProgressEvent):Boolean {
 			return false;
-		}
+		}*/
 	}
 
 }

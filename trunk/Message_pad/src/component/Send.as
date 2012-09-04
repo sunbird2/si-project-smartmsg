@@ -20,6 +20,8 @@ package component
 	import flashx.textLayout.events.FlowElementMouseEvent;
 	
 	import lib.CustomEvent;
+	import lib.FileUploadByRemoteObject;
+	import lib.FileUploadByRemoteObjectEvent;
 	import lib.Gv;
 	import lib.KoreaPhoneNumberFormatter;
 	import lib.Paging;
@@ -44,6 +46,7 @@ package component
 	import spark.components.TextArea;
 	import spark.components.TextInput;
 	import spark.components.TileGroup;
+	import spark.components.VGroup;
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
 	
@@ -68,9 +71,11 @@ package component
 
 		[SkinPart(required="false")]public var addImage:Image;
 		[SkinPart(required="false")]public var messageSaveBtn:Image;
+		[SkinPart(required="false")]public var removeMsg:Image;
+		[SkinPart(required="false")]public var mBox:VGroup;
 		
 		
-		
+
 		// phones
 		[SkinPart(required="false")]public var sendListInput:TextInput;
 		[SkinPart(required="false")]public var sendListInputBtn:Image;
@@ -148,6 +153,10 @@ package component
 		
 		public function get currentByte():int {	return _currentByte; }
 		public function set currentByte(value:int):void	{ _currentByte = value; this.byte.text = String( value ); }
+		
+		private var fur:FileUploadByRemoteObject; // upload
+		public var arrImage:Array = new Array;
+		public function get mmsImage():String { return (arrImage)?arrImage.join(";"):""; }
 		
 		
 		/**
@@ -240,6 +249,8 @@ package component
 			
 			else if (instance == sendReservation) sendReservation.addEventListener(Event.CHANGE, sendReservation_changeHandler);
 			else if (instance == sendInterval) sendInterval.addEventListener(Event.CHANGE, sendInterval_changeHandler);
+			else if (instance == addImage) addImage.addEventListener(MouseEvent.CLICK, addImage_clickHandler);
+			else if (instance == removeMsg) removeMsg.addEventListener(MouseEvent.CLICK, removeMsg_clickHandler);
 			
 			
 			if (instance is LinkElement) {
@@ -365,11 +376,17 @@ package component
 		protected function message_keyUpHandlerAutoMode(event:KeyboardEvent):void {
 			
 			msg_ByteCheck();
-			if ( currentByte > Gv.SMS_BYTE ) sendMode = "LMS";
+			if ( currentByte > Gv.SMS_BYTE ) {
+				if (arrImage && arrImage.length > 0) sendMode = "MMS";
+				else sendMode = "LMS";
+			}
 			if ( currentByte > Gv.LMS_BYTE) {
 				//trace("cutByte!!"+currentByte+"/"+this.maxByte);
 				this.msg = SLibrary.cutByteTo(this.msg, this.maxByte);
 			}
+		}
+		private function removeMsg_clickHandler(event:MouseEvent):void {
+			this.msg = "";
 		}
 		
 		
@@ -526,6 +543,7 @@ package component
 				smvo.itMinute = int(arr[1]);
 			}else smvo.bInterval = false;
 			
+			smvo.imagePath = this.mmsImage; 
 			smvo.message = msg;
 			smvo.returnPhone = rt.returnPhone;
 			smvo.al = alPhone;
@@ -798,7 +816,98 @@ package component
 			customToolTip = null;
 		}
 		
+		/**
+		 * MMS image
+		 * */
+		public function allDelImage():void {
+			arrImage = new Array;
+			if (mBox.numElements > 1) {
+				var cnt:int = mBox.numElements;
+				for (var i:int = 0; i < cnt-1; i++ )
+					mBox.removeElementAt(0);
+			}
+		}
+		public function setPhoto(source:String):void {
+			
+			removeImage();
+			var img:Image = new Image();
+			img.source = source;
+			img.buttonMode = true;
+			img.useHandCursor = true;
+			mBox.addElementAt(img,mBox.numElements-1);
+			arrImage.push(source);
+			trace(arrImage.join(";"));
+			
+			sendMode = "MMS";
+		}
+		
+		private function removeImage():void {
+			
+			if (arrImage.length > 2) {
+				arrImage.pop();
+				SLibrary.alert("3개까지만 추가 가능 합니다. 마지막 이미지가 지워졌습니다.");
+				trace(arrImage.join(";"));
+			}
+			
+			if (mBox.numElements == 4) {
+				mBox.removeElementAt(0);
+			}
+		}
+		
+		/**
+		 * upload
+		 * */
+		private function addImage_clickHandler(event:MouseEvent):void {
+			
+			// 업로드 초기화
+			this.fur = new FileUploadByRemoteObject("smt");
+			this.fur.addEventListener(FileUploadByRemoteObjectEvent.COMPLETE, FileUploadByRemoteObjectCOMPLETEHandler);
+			this.fur.addEventListener(FileUploadByRemoteObjectEvent.RESULT, FileUploadByRemoteObjectRESULTHandler);
+			this.fur.addEventListener(FileUploadByRemoteObjectEvent.FAULT, FileUploadByRemoteObjectFAULTHandler);
+			
+			this.fur.addFiles();
+		}
+		
+		private function FileUploadByRemoteObjectCOMPLETEHandler(e:FileUploadByRemoteObjectEvent):void {
+			
+			if ( Number(this.fur.UploadFiles[this.fur.UploadFiles.length -1].realsize) > Number(1024*1024*1) ) {
+				this.fur.UploadFiles.pop();
+				destoryUpload();
+				SLibrary.alert("1MB 이상의 파일은 사용 하실 수 없습니다.");
+			}else {
+				this.fur.remoteObject.setMMSUpload( e.data, e.fileName );
+			}
+		}
+		private function FileUploadByRemoteObjectRESULTHandler(e:FileUploadByRemoteObjectEvent):void {
+			
+			var bvo:BooleanAndDescriptionVO = e.result as BooleanAndDescriptionVO;
+			
+			if (bvo.bResult) this.setPhoto(bvo.strDescription as String);
+			else SLibrary.alert(bvo.strDescription);
+			
+			destoryUpload();
+			
+		}
+		private function FileUploadByRemoteObjectFAULTHandler(e:FileUploadByRemoteObjectEvent):void { SLibrary.alert(e.fault.toString());destoryUpload(); }
+		
+		private function destoryUpload():void {
+			
+			if (this.fur) {
+				this.fur.removeEventListener(FileUploadByRemoteObjectEvent.COMPLETE, FileUploadByRemoteObjectCOMPLETEHandler);
+				this.fur.removeEventListener(FileUploadByRemoteObjectEvent.RESULT, FileUploadByRemoteObjectRESULTHandler);
+				this.fur.removeEventListener(FileUploadByRemoteObjectEvent.FAULT, FileUploadByRemoteObjectFAULTHandler);
+				this.fur.destroy();
+				this.fur = null;
+			}
+		}
+		
+		
+		/**
+		 * destroy
+		 * */
 		public function destroy(event:Event):void {
+			
+			destoryUpload();
 			
 			contentGroup = null;
 			

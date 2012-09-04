@@ -38,18 +38,18 @@
 		</s:VGroup>
 		
 		<s:Spacer height="5" />
-		<s:List id="msgBox" includeIn="emoticon, myMessage, sentMessage" width="480" 
+		<s:List id="msgBox" includeIn="emoticon, myMessage, sentMessage" width="480" height.emoticon="490" height="590"
 				contentBackgroundColor="#FFFFFF"
 				itemRenderer="skin.emoticon.EmoticonRenderer"
 				borderVisible="false"
 				>
-			<s:layout><s:TileLayout horizontalGap="5" verticalGap="5"/></s:layout>
+			<s:layout><s:TileLayout horizontalGap="3" verticalGap="5" requestedColumnCount="3"/></s:layout>
 		</s:List>
 		
 		<s:TileGroup id="specialCharGroup" includeIn="specialChar" width="435" contentBackgroundColor="#FFFFFF"/>	
 		
 		<s:Spacer height="5" />
-		<lib:Paging id="paging" includeIn="emoticon, myMessage, sentMessage" bottom="10" horizontalCenter="0" />
+		<!--<lib:Paging id="paging" includeIn="emoticon, myMessage, sentMessage" bottom="10" horizontalCenter="0" />-->
 	</s:VGroup>
 	
 
