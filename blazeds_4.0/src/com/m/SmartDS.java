@@ -6,14 +6,18 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.common.VbyP;
 import com.common.util.SLibrary;
+import com.common.util.Thumbnail;
 import com.m.address.Address;
 import com.m.address.AddressVO;
 import com.m.address.IAddress;
 import com.m.common.BooleanAndDescriptionVO;
+import com.m.common.FileUtils;
 import com.m.common.PointManager;
+import com.m.emoticon.EmoticonPagedObject;
 import com.m.emoticon.Emotion;
 import com.m.excel.ExcelLoader;
 import com.m.excel.ExcelLoaderResultVO;
@@ -186,6 +190,92 @@ public class SmartDS extends SessionManagement {
 		
 		return arr;
 	}
+	
+	public Integer count() {
+
+		return 100;
+	}
+	
+	public List<EmoticonPagedObject> getEmotiList_paged(Integer startIndex, Integer numItems){
+		
+
+        List<EmoticonPagedObject> returnList = new ArrayList<EmoticonPagedObject>();
+        
+        Connection conn = null;
+		Emotion em = null;
+		
+		String gubun ="테마문자";
+		String category = "";
+
+		try {
+			conn = VbyP.getDB();
+			em = Emotion.getInstance();
+			returnList = em.getEmotiCate(conn, getSession(), gubun, category, startIndex, numItems);
+			
+		}catch (Exception e) {}	finally {			
+			close(conn);
+		}
+		
+		return returnList;
+    }
+	
+	/**
+	 * paging emoticon
+	 * 
+	 * @param gubun
+	 * @param category
+	 * @param startIndex
+	 * @param numItems
+	 * @return
+	 */
+	public List<EmoticonPagedObject> getEmotiList_pagedFiltered(String gubun, String category, int startIndex, int numItems) {
+		
+		Connection conn = null;
+		Emotion em = null;
+		List<EmoticonPagedObject> returnList = new ArrayList<EmoticonPagedObject>();
+		System.out.println(gubun+" "+category+" "+startIndex+" "+numItems);
+		try {
+			conn = VbyP.getDB();
+			em = Emotion.getInstance();
+			if (gubun.equals("sent")) {
+				returnList = em.getSentPage(conn, getSession(), startIndex, numItems);
+			}else {
+				returnList = em.getEmotiCatePagedFiltered(conn, getSession(), gubun, category, startIndex, numItems);
+			}
+			
+			
+		}catch (Exception e) {}	finally {			
+			close(conn);
+		}
+		
+		return returnList;
+	}
+	/**
+	 * paging emoticon count
+	 * @param gubun
+	 * @param category
+	 * @return
+	 */
+	public Integer getEmotiList_countFiltered(String gubun, String category) {
+		System.out.println(gubun+" "+category);
+		Connection conn = null;
+		Emotion em = null;
+		Integer cnt = 0;
+		try {
+			conn = VbyP.getDB();
+			em = Emotion.getInstance();
+			if (gubun.equals("sent")) {
+				cnt = em.getSentPage_count(conn, getSession());
+			}else {
+				cnt = em.getEmotiCatePaged_count(conn, getSession(), gubun, category);
+			}
+		}catch (Exception e) {}	finally {			
+			close(conn);
+		}
+		System.out.println(cnt);
+		return cnt;
+	}
+	
 	public ArrayList<HashMap<String, String>> getEmotiListPage(String gubun, String category, int page, int count) {
 		
 		Connection conn = null;
@@ -242,22 +332,22 @@ public class SmartDS extends SessionManagement {
 		
 		return bvo;
 	}
-	public ArrayList<HashMap<String, String>> getSentListPage(int page, int count) {
-		
-		Connection conn = null;
-		Emotion em = null;
-		ArrayList<HashMap<String, String>> al = null;
-		try {
-			conn = VbyP.getDB();
-			em = Emotion.getInstance();
-			al = em.getSentPage(conn, getSession(), page, count);
-			
-		}catch (Exception e) {}	finally {			
-			close(conn);
-		}
-		
-		return al;
-	}
+//	public ArrayList<HashMap<String, String>> getSentListPage(int page, int count) {
+//		
+//		Connection conn = null;
+//		Emotion em = null;
+//		ArrayList<HashMap<String, String>> al = null;
+//		try {
+//			conn = VbyP.getDB();
+//			em = Emotion.getInstance();
+//			al = em.getSentPage(conn, getSession(), page, count);
+//			
+//		}catch (Exception e) {}	finally {			
+//			close(conn);
+//		}
+//		
+//		return al;
+//	}
 	
 	
 	/*###############################
@@ -345,6 +435,40 @@ public class SmartDS extends SessionManagement {
 	/*###############################
 	#	send						#
 	###############################*/
+	public static HashMap<String, String> STATE = new HashMap<String, String>();
+	
+	public static int getState(String user_id) { return SLibrary.parseInt( SmartDS.STATE.get(user_id) ); }
+	public static void setState(String user_id , int cnt) { SmartDS.STATE.put(user_id, Integer.toString(cnt)); }
+	public static void removeState(String user_id) { SmartDS.STATE.remove(user_id); }
+	
+	
+	public BooleanAndDescriptionVO setMMSUpload(byte[] bytes, String fileName){
+		
+		VbyP.accessLog(" >> MMS 업로드 요청 ");
+		String path = VbyP.getValue("mmsOrgPath");
+		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		bvo.setbResult(false);
+		
+		try {
+			FileUtils fu = new FileUtils();
+			//파일 확장자가 대분자일경우를 대비해서 소문자로 변환
+			fileName = fileName.toLowerCase();
+			fileName.endsWith(".jpg");
+			if ( !fileName.endsWith(".jpg") ) throw new Exception("jpg 확장자만 지원 합니다.");
+			
+			String uploadName = fu.doUploadRename(bytes, path, fileName);
+			Thumbnail tmb = new Thumbnail();
+			tmb.createThumbnail(path+uploadName, VbyP.getValue("mmsPath")+ uploadName, 176);
+			bvo.setstrDescription( VbyP.getValue("mmsURL")+uploadName );
+			bvo.setbResult(true);
+			
+		}catch(Exception e){
+			bvo.setbResult(false);
+			bvo.setstrDescription("이미지 파일이 업로드 되지 않았습니다.\r\n"+e.getMessage());
+		}
+	    
+		return bvo;
+	}
 	public BooleanAndDescriptionVO sendSMSconf( SendMessageVO smvo ) {
 		
 		Connection conn = null;
@@ -575,7 +699,7 @@ public class SmartDS extends SessionManagement {
 		return al;
 	}
 	
-	public String getAddrTree() {
+	public String getAddrTree(String search) {
 		
 		Connection conn = null;
 		Address address = null;
@@ -589,7 +713,10 @@ public class SmartDS extends SessionManagement {
 			
 			address = Address.getInstance();
 			
-			buf = address.getTreeData(conn, getSession());
+			if (SLibrary.IfNull( search ).equals(""))
+				buf = address.getTreeData(conn, getSession());
+			else
+				buf = address.getTreeData(conn, getSession(), search);
 			
 		}catch (Exception e) { VbyP.errorLogDaily("getAddrTree >>"+e.toString()); }	
 		finally {			
@@ -673,8 +800,6 @@ public class SmartDS extends SessionManagement {
 		
 		return result;
 	}
-	
-	
 	
 	
 	
