@@ -8,7 +8,7 @@
     </adapters>
 
     <default-channels>
-        <channel ref="my-polling-amf"/>
+        <channel ref="messageyo-polling-amf"/>
     </default-channels>
 
 </service>
