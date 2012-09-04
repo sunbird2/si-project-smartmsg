@@ -58,8 +58,8 @@ public class _Super_PhoneVO extends flash.events.EventDispatcher implements com.
     /**
      * properties
      */
-    private var _internal_pName : String;
     private var _internal_pNo : String;
+    private var _internal_pName : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -84,15 +84,15 @@ public class _Super_PhoneVO extends flash.events.EventDispatcher implements com.
      */
 
     [Bindable(event="propertyChange")]
-    public function get pName() : String
-    {
-        return _internal_pName;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get pNo() : String
     {
         return _internal_pNo;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get pName() : String
+    {
+        return _internal_pName;
     }
 
     public function clearAssociations() : void
@@ -103,16 +103,6 @@ public class _Super_PhoneVO extends flash.events.EventDispatcher implements com.
      * data/source property setters
      */
 
-    public function set pName(value:String) : void
-    {
-        var oldValue:String = _internal_pName;
-        if (oldValue !== value)
-        {
-            _internal_pName = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "pName", oldValue, _internal_pName));
-        }
-    }
-
     public function set pNo(value:String) : void
     {
         var oldValue:String = _internal_pNo;
@@ -120,6 +110,16 @@ public class _Super_PhoneVO extends flash.events.EventDispatcher implements com.
         {
             _internal_pNo = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "pNo", oldValue, _internal_pNo));
+        }
+    }
+
+    public function set pName(value:String) : void
+    {
+        var oldValue:String = _internal_pName;
+        if (oldValue !== value)
+        {
+            _internal_pName = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "pName", oldValue, _internal_pName));
         }
     }
 
