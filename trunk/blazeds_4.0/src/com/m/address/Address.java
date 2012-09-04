@@ -96,6 +96,27 @@ public class Address implements IAddress {
 		
 		return buf;
 	}
+	
+	@Override
+	public StringBuffer getTreeData(Connection conn, String user_id, String search) {
+		
+		StringBuffer buf = null;
+		
+		ArrayList<HashMap<String, String>> al = null;
+		
+		String SQL = VbyP.getSQL( "address_tree_xml_search" );
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		pq.setPrepared(conn, SQL);
+		pq.setString(1, user_id);
+		pq.setString(2, "%"+SLibrary.IfNull( search )+"%");
+		pq.setString(3, "%"+SLibrary.IfNull( search )+"%");
+		al = pq.ExecuteQueryArrayList();
+		
+		buf = makeXML(al);
+		
+		
+		return buf;
+	}
 
 	@Override
 	public int insertGroup(Connection conn, AddressVO vo) {
