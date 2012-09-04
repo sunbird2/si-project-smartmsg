@@ -54,6 +54,12 @@ package component
 	import valueObjects.PhoneVO;
 	import valueObjects.SendMessageVO;
 	
+	/* A component must identify the view states that its skin supports. 
+	Use the [SkinState] metadata tag to define the view states in the component class. 
+	[SkinState("normal")] 
+	[SkinState("send")]
+	[SkinState("sending")]*/
+	
 	public class Send extends SkinnableComponent
 	{
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
@@ -568,7 +574,9 @@ package component
 		}
 		
 		
-	
+		/**
+		 * SendModeAddress
+		 * */
 		private function toggleSendModeAddress():void {
 			
 			if (sma == null) createSendModeAddress();
@@ -598,7 +606,9 @@ package component
 		}
 		
 		
-		
+		/**
+		 * SendModeLog
+		 * */
 		private function toggleSendModeLog():void {
 			
 			if (sml == null) createSendModeLog();
@@ -627,7 +637,9 @@ package component
 		
 		}
 		
-		
+		/**
+		 * remove phones
+		 * */
 		private function phoneRemoveAll_clickHandler(event:MouseEvent):void {
 			event.stopImmediatePropagation();
 			event.preventDefault();
@@ -636,7 +648,9 @@ package component
 		}
 		
 		
-		
+		/**
+		 * Copy & Paste
+		 * */
 		private function togglePaste():void {
 			
 			if (paste == null) createPaste();
@@ -666,7 +680,9 @@ package component
 			
 		}
 		
-		
+		/**
+		 * Emoticon
+		 * */
 		private function emoticonView(mode:String):void {
 			
 			if (emoticonBox == null) {
@@ -701,7 +717,9 @@ package component
 			
 		}
 		
-		
+		/**
+		 * Reservation
+		 * */
 		private function sendReservation_changeHandler(event:Event):void {
 			
 			if (sendReservation.selected) {
@@ -749,6 +767,10 @@ package component
 			
 		}
 		
+		
+		/**
+		 * Interval
+		 * */
 		private function sendInterval_changeHandler(event:Event):void {
 			
 			if (sendInterval.selected) {
@@ -785,7 +807,6 @@ package component
 			sendInterval.dispatchEvent(new Event("change"));
 			
 		}
-		
 		private function removeInterval():void {
 			
 			if (interval != null) {
@@ -899,6 +920,29 @@ package component
 				this.fur.destroy();
 				this.fur = null;
 			}
+		}
+		
+		/**
+		 * Send Status
+		 * */
+		private function toggleSendStatus():void {
+			
+			if (paste == null) createPaste();
+			else removePaste();
+		}
+		private function createSendStatus():void {
+			paste = new Paste();
+			
+			this.contentGroup.addElement(paste);
+		}
+		
+		private function removeSendStatus():void {
+			
+			if (paste != null) {
+				this.contentGroup.removeElement(paste);
+				paste = null;
+			}
+			
 		}
 		
 		

@@ -241,7 +241,7 @@ package component.emoticon
 			
 			getEmotiList();
 		}
-		private function getSentMessage():void {
+		/*private function getSentMessage():void {
 			
 			if (Gv.bLogin) {
 				RemoteSingleManager.getInstance.addEventListener("getSentListPage", sent_resultHandler, false, 0, true);
@@ -252,7 +252,7 @@ package component.emoticon
 				SLibrary.alert("로그인 후 이용가능 합니다.");
 			}
 			
-		}
+		}*/
 		
 		private function getEmotiList():void {
 			

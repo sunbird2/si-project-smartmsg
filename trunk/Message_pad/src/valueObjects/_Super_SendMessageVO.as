@@ -64,11 +64,11 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
     private var _internal_al : ArrayCollection;
     model_internal var _internal_al_leaf:valueObjects.PhoneVO;
     private var _internal_itMinute : int;
-    private var _internal_bMerge : Boolean;
-    private var _internal_imagePath : String;
     private var _internal_itCount : int;
-    private var _internal_returnPhone : String;
+    private var _internal_imagePath : String;
+    private var _internal_bMerge : Boolean;
     private var _internal_bReservation : Boolean;
+    private var _internal_returnPhone : String;
     private var _internal_reservationDate : String;
     private var _internal_bInterval : Boolean;
     private var _internal_reqIP : String;
@@ -114,9 +114,9 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
     }
 
     [Bindable(event="propertyChange")]
-    public function get bMerge() : Boolean
+    public function get itCount() : int
     {
-        return _internal_bMerge;
+        return _internal_itCount;
     }
 
     [Bindable(event="propertyChange")]
@@ -126,21 +126,21 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
     }
 
     [Bindable(event="propertyChange")]
-    public function get itCount() : int
+    public function get bMerge() : Boolean
     {
-        return _internal_itCount;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get returnPhone() : String
-    {
-        return _internal_returnPhone;
+        return _internal_bMerge;
     }
 
     [Bindable(event="propertyChange")]
     public function get bReservation() : Boolean
     {
         return _internal_bReservation;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get returnPhone() : String
+    {
+        return _internal_returnPhone;
     }
 
     [Bindable(event="propertyChange")]
@@ -214,13 +214,13 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
         }
     }
 
-    public function set bMerge(value:Boolean) : void
+    public function set itCount(value:int) : void
     {
-        var oldValue:Boolean = _internal_bMerge;
+        var oldValue:int = _internal_itCount;
         if (oldValue !== value)
         {
-            _internal_bMerge = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "bMerge", oldValue, _internal_bMerge));
+            _internal_itCount = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "itCount", oldValue, _internal_itCount));
         }
     }
 
@@ -234,23 +234,13 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
         }
     }
 
-    public function set itCount(value:int) : void
+    public function set bMerge(value:Boolean) : void
     {
-        var oldValue:int = _internal_itCount;
+        var oldValue:Boolean = _internal_bMerge;
         if (oldValue !== value)
         {
-            _internal_itCount = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "itCount", oldValue, _internal_itCount));
-        }
-    }
-
-    public function set returnPhone(value:String) : void
-    {
-        var oldValue:String = _internal_returnPhone;
-        if (oldValue !== value)
-        {
-            _internal_returnPhone = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "returnPhone", oldValue, _internal_returnPhone));
+            _internal_bMerge = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "bMerge", oldValue, _internal_bMerge));
         }
     }
 
@@ -261,6 +251,16 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
         {
             _internal_bReservation = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "bReservation", oldValue, _internal_bReservation));
+        }
+    }
+
+    public function set returnPhone(value:String) : void
+    {
+        var oldValue:String = _internal_returnPhone;
+        if (oldValue !== value)
+        {
+            _internal_returnPhone = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "returnPhone", oldValue, _internal_returnPhone));
         }
     }
 
