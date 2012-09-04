@@ -2,63 +2,25 @@
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
-	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here 
-		
-		33B5E5
-		AA66CC
-		99CC00
-		FFBB33
-		FF4444
-		0099CC
-		9933CC
-		669900
-		FF8800
-		CC0000-->
-	</fx:Declarations>
-	<s:HGroup>
-		<s:Group>
-			<s:Rect width="50" height="50"><s:fill><s:SolidColor color="#33B5E5" /></s:fill></s:Rect>
-			<s:Label text="#33B5E5" verticalCenter="0" horizontalCenter="0"/>
-		</s:Group>
-		<s:Group>
-			<s:Rect width="50" height="50"><s:fill><s:SolidColor color="#AA66CC" /></s:fill></s:Rect>
-			<s:Label text="#AA66CC" verticalCenter="0" horizontalCenter="0"/>
-		</s:Group>
-		<s:Group>
-			<s:Rect width="50" height="50"><s:fill><s:SolidColor color="#99CC00" /></s:fill></s:Rect>
-			<s:Label text="#99CC00" verticalCenter="0" horizontalCenter="0"/>
-		</s:Group>
-		<s:Group>
-			<s:Rect width="50" height="50"><s:fill><s:SolidColor color="#FFBB33" /></s:fill></s:Rect>
-			<s:Label text="#FFBB33" verticalCenter="0" horizontalCenter="0"/>
-		</s:Group>
-		<s:Group>
-			<s:Rect width="50" height="50"><s:fill><s:SolidColor color="#FF4444" /></s:fill></s:Rect>
-			<s:Label text="#FF4444" verticalCenter="0" horizontalCenter="0"/>
-		</s:Group>
-		<s:Group>
-			<s:Rect width="50" height="50"><s:fill><s:SolidColor color="#0099CC" /></s:fill></s:Rect>
-			<s:Label text="#0099CC" verticalCenter="0" horizontalCenter="0"/>
-		</s:Group>
-		<s:Group>
-			<s:Rect width="50" height="50"><s:fill><s:SolidColor color="#9933CC" /></s:fill></s:Rect>
-			<s:Label text="#9933CC" verticalCenter="0" horizontalCenter="0"/>
-		</s:Group>
-		<s:Group>
-			<s:Rect width="50" height="50"><s:fill><s:SolidColor color="#669900" /></s:fill></s:Rect>
-			<s:Label text="#669900" verticalCenter="0" horizontalCenter="0"/>
-		</s:Group>
-		<s:Group>
-			<s:Rect width="50" height="50"><s:fill><s:SolidColor color="#FF8800" /></s:fill></s:Rect>
-			<s:Label text="#FF8800" verticalCenter="0" horizontalCenter="0"/>
-		</s:Group>
-		<s:Group>
-			<s:Rect width="50" height="50"><s:fill><s:SolidColor color="#CC0000" /></s:fill></s:Rect>
-			<s:Label text="#CC0000" verticalCenter="0" horizontalCenter="0"/>
-		</s:Group>
-		
-		
-				
-	</s:HGroup>
+	<s:controlBarContent>
+		<s:CheckBox id="chckBx"
+					label="clipAndEnableScrolling"
+					change="pnl.contentGroup.clipAndEnableScrolling = chckBx.selected;" />
+	</s:controlBarContent>
+	
+	<s:Panel id="pnl"
+			 title="Spark Panel title"
+			 width="300" height="200"
+			 horizontalCenter="0" top="50">
+		<s:Rect width="400" height="300">
+			<s:fill>
+				<s:LinearGradient rotation="45">
+					<s:GradientEntry color="red" />
+					<s:GradientEntry color="white" />
+					<s:GradientEntry color="blue" />
+				</s:LinearGradient>
+			</s:fill>
+		</s:Rect>
+	</s:Panel>
+	
 </s:Application>

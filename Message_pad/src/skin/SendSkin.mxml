@@ -47,12 +47,18 @@
 							<s:content><s:p><s:span id="byte" fontSize="16">0</s:span><s:span kerning="auto"> </s:span><s:span color="#999999">byte</s:span></s:p></s:content>
 						</s:RichText>
 						<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="15">
-							<s:Image id="addImage" source="skin/ics/assets/light/icon/5-content-picture.png" />
-							<s:Image id="messageSaveBtn" source="skin/ics/assets/light/icon/5-content-new-email.png" />
-							<s:Image source="skin/ics/assets/light/icon/5-content-remove.png" />
+							<s:Image id="addImage" source="skin/ics/assets/light/icon/5-content-picture.png" buttonMode="true" />
+							<s:Image id="messageSaveBtn" source="skin/ics/assets/light/icon/5-content-new-email.png" buttonMode="true" />
+							<s:Image id="removeMsg" source="skin/ics/assets/light/icon/5-content-remove.png" buttonMode="true" />
 						</s:HGroup>
 					</s:SkinnableContainer>
-					<s:TextArea id="message" width="100%" height="200" styleName="textarea_light" prompt="메시지를 입력하세요." />
+					<s:Scroller width="100%" height="200">
+						<s:VGroup id="mBox" width="100%">
+							<s:TextArea id="message" width="100%" height="200" styleName="textarea_light" prompt="메시지를 입력하세요." />	
+						</s:VGroup>
+					</s:Scroller>
+					
+					
 					
 					<s:HGroup verticalAlign="middle" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
 						<s:Label text="수신 : " color="#33B5E5" />

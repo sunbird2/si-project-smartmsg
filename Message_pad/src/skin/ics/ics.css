@@ -148,6 +148,9 @@ s|Scroller {
 	skinClass : ClassReference("skin.ics.ButtonSkin_light");
 	color:#222222;
 }
+.button_label {
+	skinClass : ClassReference("skin.ics.ButtonLabel");
+}
 .button_first_dark {
 	skinClass : ClassReference("skin.ics.ButtonFirstSkin");
 }

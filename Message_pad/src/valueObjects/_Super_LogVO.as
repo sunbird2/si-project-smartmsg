@@ -63,13 +63,13 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     private var _internal_idx : int;
     private var _internal_timeWrite : String;
     private var _internal_line : String;
-    private var _internal_user_id : String;
     private var _internal_method : String;
+    private var _internal_user_id : String;
     private var _internal_timeSend : String;
     private var _internal_timeDel : String;
-    private var _internal_delType : String;
     private var _internal_user_ip : String;
     private var _internal_mode : String;
+    private var _internal_delType : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -124,15 +124,15 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     }
 
     [Bindable(event="propertyChange")]
-    public function get user_id() : String
-    {
-        return _internal_user_id;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get method() : String
     {
         return _internal_method;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get user_id() : String
+    {
+        return _internal_user_id;
     }
 
     [Bindable(event="propertyChange")]
@@ -148,12 +148,6 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     }
 
     [Bindable(event="propertyChange")]
-    public function get delType() : String
-    {
-        return _internal_delType;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get user_ip() : String
     {
         return _internal_user_ip;
@@ -163,6 +157,12 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     public function get mode() : String
     {
         return _internal_mode;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get delType() : String
+    {
+        return _internal_delType;
     }
 
     public function clearAssociations() : void
@@ -223,16 +223,6 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         }
     }
 
-    public function set user_id(value:String) : void
-    {
-        var oldValue:String = _internal_user_id;
-        if (oldValue !== value)
-        {
-            _internal_user_id = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_id", oldValue, _internal_user_id));
-        }
-    }
-
     public function set method(value:String) : void
     {
         var oldValue:String = _internal_method;
@@ -240,6 +230,16 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         {
             _internal_method = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "method", oldValue, _internal_method));
+        }
+    }
+
+    public function set user_id(value:String) : void
+    {
+        var oldValue:String = _internal_user_id;
+        if (oldValue !== value)
+        {
+            _internal_user_id = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_id", oldValue, _internal_user_id));
         }
     }
 
@@ -263,16 +263,6 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         }
     }
 
-    public function set delType(value:String) : void
-    {
-        var oldValue:String = _internal_delType;
-        if (oldValue !== value)
-        {
-            _internal_delType = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "delType", oldValue, _internal_delType));
-        }
-    }
-
     public function set user_ip(value:String) : void
     {
         var oldValue:String = _internal_user_ip;
@@ -290,6 +280,16 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         {
             _internal_mode = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "mode", oldValue, _internal_mode));
+        }
+    }
+
+    public function set delType(value:String) : void
+    {
+        var oldValue:String = _internal_delType;
+        if (oldValue !== value)
+        {
+            _internal_delType = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "delType", oldValue, _internal_delType));
         }
     }
 

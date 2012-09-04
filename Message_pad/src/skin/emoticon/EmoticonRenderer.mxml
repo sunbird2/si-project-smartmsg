@@ -11,7 +11,7 @@
 				// TODO Auto Generated method stub
 				super.data = value;
 				if (data != null)
-					emt.text = data.msg;
+					emt.text = data.message;
 			}
 			
 		]]>
