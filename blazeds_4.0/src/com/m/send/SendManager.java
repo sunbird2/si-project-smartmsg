@@ -94,7 +94,7 @@ public class SendManager implements ISend {
 				
 				pq.addBatch();								
 
-				Gv.setCOUNT(uvo.getUser_id(), i+1);
+				Gv.setStatus(uvo.getUser_id(), Integer.toString(i+1));
 				
 				if (i >= maxBatch && (i%maxBatch) == 0 ) {
 					
@@ -117,7 +117,7 @@ public class SendManager implements ISend {
 
 	
 	@Override
-	public int send(Connection conn, UserInformationVO uvo, SendMessageVO smvo)
+	public LogVO send(Connection conn, UserInformationVO uvo, SendMessageVO smvo)
 			throws Exception {
 		
 		LogVO lvo = null;
@@ -126,26 +126,33 @@ public class SendManager implements ISend {
 		int rslt = 0;
 		
 		checkSendMessageVO(smvo);
+		Gv.setStatus(uvo.getUser_id(), "message check..");
 		checkAuth(conn, uvo, smvo);
+		Gv.setStatus(uvo.getUser_id(), "auth check..");
 		
 		lvo = makeLogVO(uvo, smvo);
 		idx = insertLog(conn, lvo);
+		
+		Gv.setStatus(uvo.getUser_id(), "save log..");
 		
 		int point = smvo.getAl().size() * SLibrary.intValue(VbyP.getValue(getMode(smvo)+"_COUNT"));
 		
 		if (idx > 0)
 			rslt = updatePoint(conn, uvo, lvo.getMode(), point);
 		else throw new Exception("insertLog Error!!");
+		Gv.setStatus(uvo.getUser_id(), "update point");
 		
 		if (rslt > 0){
 			al = makeMessageVOArrayList(uvo, smvo, idx);
+			Gv.setStatus(uvo.getUser_id(), "list make");
 			rslt = insertData(conn, lvo.getMode(), uvo, al, uvo.getLine());
+			Gv.setStatus(uvo.getUser_id(), "Success!!");
 		}
 		else throw new Exception("insertData Error!!");
 		
+		lvo.setIdx(idx);
 		
-		
-		return rslt;
+		return lvo;
 	}
 	
 	private ILineSet getLineInstance(String line) throws Exception {
