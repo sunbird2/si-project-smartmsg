@@ -9,6 +9,7 @@ package component
 	import component.send.Interval;
 	import component.send.ReservationCalendar;
 	import component.send.ReturnPhone;
+	import component.send.Sending;
 	import component.util.CustomToolTip;
 	
 	import flash.events.Event;
@@ -51,6 +52,7 @@ package component
 	import spark.events.IndexChangeEvent;
 	
 	import valueObjects.BooleanAndDescriptionVO;
+	import valueObjects.LogVO;
 	import valueObjects.PhoneVO;
 	import valueObjects.SendMessageVO;
 	
@@ -66,6 +68,7 @@ package component
 		[SkinPart(required="true")] */
 		
 		[SkinPart(reqired='true')]public var contentGroup:Group;
+		[SkinPart(reqired='true')]public var functionGroup:Group;
 		
 		// function
 		[SkinPart(required="false")]public var functionList:List;
@@ -175,6 +178,7 @@ package component
 		private var sma:SendModeAddress;
 		private var sml:SendModeLog;
 		private var paste:Paste;
+		private var sending:Sending;
 		
 		
 		/**
@@ -214,6 +218,7 @@ package component
 			removeSendModeLog();
 			removePaste();
 			removeEmoticon();
+			removeSending();
 			
 			destroy(null);
 		
@@ -476,7 +481,7 @@ package component
 			excel.bFromAddress = false;
 			excel.addEventListener("send", excel_sendHandler);
 			excel.addEventListener("close", excel_closeHandler);
-			this.contentGroup.addElement(excel);
+			this.functionGroup.addElement(excel);
 		}
 		private function excel_sendHandler(event:CustomEvent):void {
 			addPhoneList( event.result as ArrayCollection );
@@ -490,7 +495,7 @@ package component
 			if (excel != null) {
 				excel.removeEventListener("send", excel_sendHandler);
 				excel.removeEventListener("close", excel_closeHandler);
-				this.contentGroup.removeElement(excel);
+				this.functionGroup.removeElement(excel);
 				excel = null;
 			}
 			
@@ -532,6 +537,8 @@ package component
 		 * */
 		private function sendBtn_clickHandler(event:MouseEvent):void {
 			
+			removeSending();
+			
 			var smvo:SendMessageVO = new SendMessageVO();
 			
 			smvo.bInterval = false;
@@ -553,24 +560,51 @@ package component
 			smvo.message = msg;
 			smvo.returnPhone = rt.returnPhone;
 			smvo.al = alPhone;
-			 
+			
+			
 			RemoteSingleManager.getInstance.addEventListener("sendSMSconf", sendBtn_resultHandler, false, 0, true);
 			RemoteSingleManager.getInstance.callresponderToken 
 				= RemoteSingleManager.getInstance.service.sendSMSconf(smvo);
+			
+			createSending();			
 		}
 		private function sendBtn_resultHandler(event:CustomEvent):void {
 			
-			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bVO.bResult) {
-				
-				isValid();
-				SLibrary.alert( bVO.strDescription+" 건 전송 요청이 완료 되었습니다." );
-				
+			var lvo:LogVO = event.result as LogVO;
+			if (lvo.idx != 0) {
+				sending.sendingCompleted(lvo);
 			} else {
-				
-				isValid();
-				SLibrary.alert(bVO.strDescription);
+				removeSending();
+				SLibrary.alert(lvo.message);
 			}
+			isValid();
+		}
+		
+		/**
+		 * Sending
+		 * */
+		/*private function toggleSending():void {
+			
+			if (sending == null) createSending();
+			else removeSending();
+		}*/
+		private function createSending():void {
+			if (sending == null) 
+				sending = new Sending();
+			
+			sending.horizontalCenter = 0;
+			sending.verticalCenter = 0;
+			this.contentGroup.addElement(sending);
+		}
+		
+		private function removeSending():void {
+			
+			if (sending != null) {
+				this.contentGroup.removeElement(sending);
+				sending.destroy();
+				sending = null;
+			}
+			
 		}
 		
 		
@@ -586,7 +620,7 @@ package component
 			sma = new SendModeAddress();
 			sma.addEventListener("sendAddress", sma_sendHandler);
 			sma.addEventListener("close", sma_closeHandler);
-			this.contentGroup.addElement(sma);
+			this.functionGroup.addElement(sma);
 		}
 		private function sma_sendHandler(event:CustomEvent):void {
 			addPhoneList( event.result as ArrayCollection );
@@ -599,7 +633,7 @@ package component
 			if (sma != null) {
 				sma.removeEventListener("sendAddress", sma_sendHandler);
 				sma.removeEventListener("close", sma_closeHandler);
-				this.contentGroup.removeElement(sma);
+				this.functionGroup.removeElement(sma);
 				sma = null;
 			}
 			
@@ -618,7 +652,7 @@ package component
 			sml = new SendModeLog();
 			sml.addEventListener("getPhone", sml_sendHandler);
 			sml.addEventListener("close", sml_closeHandler);
-			this.contentGroup.addElement(sml);
+			this.functionGroup.addElement(sml);
 		}
 		private function sml_sendHandler(event:CustomEvent):void {
 			addPhoneList( event.result as ArrayCollection );
@@ -631,7 +665,7 @@ package component
 			if (sml != null) {
 				sml.removeEventListener("getPhone", sml_sendHandler);
 				sml.removeEventListener("close", sml_closeHandler);
-				this.contentGroup.removeElement(sml);
+				this.functionGroup.removeElement(sml);
 				sml = null;
 			}
 		
@@ -660,7 +694,7 @@ package component
 			paste = new Paste();
 			paste.addEventListener("getPhone", paste_sendHandler);
 			paste.addEventListener("close", paste_closeHandler);
-			this.contentGroup.addElement(paste);
+			this.functionGroup.addElement(paste);
 		}
 		private function paste_sendHandler(event:CustomEvent):void {
 			addPhoneList( event.result as ArrayCollection );
@@ -674,7 +708,7 @@ package component
 			if (paste != null) {
 				paste.removeEventListener("getPhone", paste_sendHandler);
 				paste.removeEventListener("close", paste_closeHandler);
-				this.contentGroup.removeElement(paste);
+				this.functionGroup.removeElement(paste);
 				paste = null;
 			}
 			
@@ -698,7 +732,7 @@ package component
 			emoticonBox = new Emoticon(state);
 			emoticonBox.addEventListener("message", emoticonBox_messageHandler);
 			emoticonBox.addEventListener("specialChar", emoticonBox_specialCharHandler);
-			this.contentGroup.addElement(emoticonBox);
+			this.functionGroup.addElement(emoticonBox);
 		}
 		private function emoticonBox_messageHandler(event:CustomEvent):void {
 			msg = event.result as String;
@@ -711,7 +745,7 @@ package component
 			if (emoticonBox != null) {
 				emoticonBox.removeEventListener("message", emoticonBox_messageHandler);
 				emoticonBox.removeEventListener("specialChar", emoticonBox_specialCharHandler);
-				this.contentGroup.removeElement(emoticonBox);
+				this.functionGroup.removeElement(emoticonBox);
 				emoticonBox = null;
 			}
 			
@@ -741,7 +775,7 @@ package component
 				reservation.y = 770;
 				reservation.addEventListener("setReservation", reservation_setReservationHandler);
 				reservation.addEventListener("cancelReservation", reservation_cancelReservationHandler);
-				this.contentGroup.addElement(reservation);
+				this.functionGroup.addElement(reservation);
 			}
 			
 		}
@@ -761,7 +795,7 @@ package component
 			if (reservation != null) {
 				reservation.removeEventListener("setReservation", reservation_setReservationHandler);
 				reservation.removeEventListener("cancelReservation", reservation_cancelReservationHandler);
-				this.contentGroup.removeElement(reservation);
+				this.functionGroup.removeElement(reservation);
 				reservation = null;
 			}
 			
@@ -791,7 +825,7 @@ package component
 				interval.y = 770;
 				interval.addEventListener("setInterval", interval_setintervalHandler);
 				interval.addEventListener("cancelInterval", interval_cancelintervalHandler);
-				this.contentGroup.addElement(interval);
+				this.functionGroup.addElement(interval);
 			}
 			
 		}
@@ -812,7 +846,7 @@ package component
 			if (interval != null) {
 				interval.removeEventListener("setInterval", interval_setintervalHandler);
 				interval.removeEventListener("cancelInterval", interval_cancelintervalHandler);
-				this.contentGroup.removeElement(interval);
+				this.functionGroup.removeElement(interval);
 				interval = null;
 			}
 			
@@ -922,28 +956,7 @@ package component
 			}
 		}
 		
-		/**
-		 * Send Status
-		 * */
-		private function toggleSendStatus():void {
-			
-			if (paste == null) createPaste();
-			else removePaste();
-		}
-		private function createSendStatus():void {
-			paste = new Paste();
-			
-			this.contentGroup.addElement(paste);
-		}
 		
-		private function removeSendStatus():void {
-			
-			if (paste != null) {
-				this.contentGroup.removeElement(paste);
-				paste = null;
-			}
-			
-		}
 		
 		
 		/**
@@ -953,7 +966,7 @@ package component
 			
 			destoryUpload();
 			
-			contentGroup = null;
+			functionGroup = null;
 			
 			// message
 			message = null;

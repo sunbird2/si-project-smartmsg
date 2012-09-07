@@ -30,6 +30,7 @@ import valueObjects.ExcelLoaderResultVO;
 import valueObjects.LogVO;
 import valueObjects.MessageVO;
 import valueObjects.SendMessageVO;
+import valueObjects.SentStatusVO;
 import valueObjects.UserInformationVO;
 
 import mx.collections.ItemResponder;
@@ -38,15 +39,19 @@ import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 [ExcludeClass]
 internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectServiceWrapper
 {
+    private var _messageVORPCDataManager : mx.data.RPCDataManager;
     private var _emoticonPagedObjectRPCDataManager : mx.data.RPCDataManager;
     private var managersArray : Array = new Array();
 
+    public const DATA_MANAGER_MESSAGEVO : String = "MessageVO";
     public const DATA_MANAGER_EMOTICONPAGEDOBJECT : String = "EmoticonPagedObject";
 
     public function getDataManager(dataManagerName:String) : mx.data.RPCDataManager
     {
         switch (dataManagerName)
         {
+             case (DATA_MANAGER_MESSAGEVO):
+                return _messageVORPCDataManager;
              case (DATA_MANAGER_EMOTICONPAGEDOBJECT):
                 return _emoticonPagedObjectRPCDataManager;
             default:
@@ -83,7 +88,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
      */
     public function commit(itemsOrCollections:Array=null, cascadeCommit:Boolean=false):mx.rpc.AsyncToken
     {
-        return _emoticonPagedObjectRPCDataManager.dataStore.commit(itemsOrCollections, cascadeCommit);
+        return _messageVORPCDataManager.dataStore.commit(itemsOrCollections, cascadeCommit);
     }
 
     /**
@@ -111,7 +116,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         if (itemsOrCollections == null)
         {
             // Revert all changes
-            return _emoticonPagedObjectRPCDataManager.dataStore.revertChanges();
+            return _messageVORPCDataManager.dataStore.revertChanges();
         }
         else
         {
@@ -128,7 +133,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
                 }
                 else if (changeItem is mx.collections.ListCollectionView)
                 {
-                    anyChangeItemReverted ||= _emoticonPagedObjectRPCDataManager.dataStore.revertChangesForCollection(mx.collections.ListCollectionView(changeItem));
+                    anyChangeItemReverted ||= _messageVORPCDataManager.dataStore.revertChangesForCollection(mx.collections.ListCollectionView(changeItem));
                 }
                 else
                 {
@@ -208,12 +213,24 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         operation = new mx.rpc.remoting.Operation(null, "getSentList");
          operation.resultElementType = valueObjects.LogVO;
         operations["getSentList"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "getSentListDetail_countFiltered");
+         operation.resultType = int;
+        operations["getSentListDetail_countFiltered"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "getSentListDetail_pagedFiltered");
+         operation.resultElementType = valueObjects.MessageVO;
+        operations["getSentListDetail_pagedFiltered"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "getSentListDetail");
          operation.resultElementType = valueObjects.MessageVO;
         operations["getSentListDetail"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "getSentResultStatus");
+         operation.resultType = valueObjects.SentStatusVO;
+        operations["getSentResultStatus"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "getSession");
          operation.resultType = String;
         operations["getSession"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "getState");
+         operation.resultType = String;
+        operations["getState"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "getUserInformation");
          operation.resultType = valueObjects.UserInformationVO;
         operations["getUserInformation"] = operation;
@@ -241,11 +258,13 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         operation = new mx.rpc.remoting.Operation(null, "modifyManyAddr");
          operation.resultType = int;
         operations["modifyManyAddr"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "run");
+        operations["run"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "saveMymsg");
          operation.resultType = valueObjects.BooleanAndDescriptionVO;
         operations["saveMymsg"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "sendSMSconf");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.LogVO;
         operations["sendSMSconf"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "session_logout");
         operations["session_logout"] = operation;
@@ -261,18 +280,23 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         operation = new mx.rpc.remoting.Operation(null, "test");
          operation.resultType = String;
         operations["test"] = operation;
-        operation = new mx.rpc.remoting.Operation(null, "getState");
-         operation.resultType = int;
-        operations["getState"] = operation;
-        operation = new mx.rpc.remoting.Operation(null, "setState");
-        operations["setState"] = operation;
-        operation = new mx.rpc.remoting.Operation(null, "removeState");
-        operations["removeState"] = operation;
 
         _serviceControl.operations = operations;
         _serviceControl.convertResultHandler = com.adobe.serializers.utility.TypeUtility.convertResultHandler;
         var managedAssociation : mx.data.ManagedAssociation;
         var managedAssocsArray : Array;
+        // initialize MessageVO data manager
+        _messageVORPCDataManager = new mx.data.RPCDataManager();
+        managersArray.push(_messageVORPCDataManager);
+
+        managedAssocsArray = new Array();
+
+        _messageVORPCDataManager.destination = "messageVORPCDataManager";
+        _messageVORPCDataManager.service = _serviceControl;        
+        _messageVORPCDataManager.identities =  "idx";      
+        _messageVORPCDataManager.itemClass = valueObjects.MessageVO; 
+
+
         // initialize EmoticonPagedObject data manager
         _emoticonPagedObjectRPCDataManager = new mx.data.RPCDataManager();
         managersArray.push(_emoticonPagedObjectRPCDataManager);
@@ -297,6 +321,15 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         dmQuery.pageSize = 9;
         dmQuery.parameters = "arg0,arg1,arg2,arg3";
         _emoticonPagedObjectRPCDataManager.addManagedOperation(dmQuery);
+
+        dmQuery = new mx.data.ManagedQuery("getSentListDetail_pagedFiltered");
+        dmQuery.propertySpecifier = "sendMode,phone,rsltDate,idx,imagePath,rslt,msg,stat,sendDate,groupKey,name,callback,user_id";
+		dmQuery.countOperation = "getSentListDetail_countFiltered";
+        dmQuery.pagingEnabled = true;
+        dmQuery.positionalPagingParameters = true;
+        dmQuery.pageSize = 20;
+        dmQuery.parameters = "arg0,arg1,arg2";
+        _messageVORPCDataManager.addManagedOperation(dmQuery);
 
         _serviceControl.managers = managersArray;
 
@@ -637,6 +670,42 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
     }
      
     /**
+      * This method is a generated wrapper used to call the 'getSentListDetail_countFiltered' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function getSentListDetail_countFiltered(arg0:valueObjects.LogVO) : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getSentListDetail_countFiltered");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'getSentListDetail_pagedFiltered' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function getSentListDetail_pagedFiltered(arg0:valueObjects.LogVO) : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getSentListDetail_pagedFiltered");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
+        return _internal_token;
+    }
+     
+    /**
       * This method is a generated wrapper used to call the 'getSentListDetail' operation. It returns an mx.rpc.AsyncToken whose 
       * result property will be populated with the result of the operation when the server response is received. 
       * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
@@ -655,6 +724,24 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
     }
      
     /**
+      * This method is a generated wrapper used to call the 'getSentResultStatus' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function getSentResultStatus(arg0:valueObjects.LogVO) : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getSentResultStatus");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
+        return _internal_token;
+    }
+     
+    /**
       * This method is a generated wrapper used to call the 'getSession' operation. It returns an mx.rpc.AsyncToken whose 
       * result property will be populated with the result of the operation when the server response is received. 
       * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
@@ -668,6 +755,24 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
     public function getSession() : mx.rpc.AsyncToken
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getSession");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send() ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'getState' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function getState() : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getState");
 		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send() ;
         return _internal_token;
     }
@@ -835,6 +940,24 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
     }
      
     /**
+      * This method is a generated wrapper used to call the 'run' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function run() : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("run");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send() ;
+        return _internal_token;
+    }
+     
+    /**
       * This method is a generated wrapper used to call the 'saveMymsg' operation. It returns an mx.rpc.AsyncToken whose 
       * result property will be populated with the result of the operation when the server response is received. 
       * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
@@ -957,60 +1080,6 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("test");
 		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send() ;
-        return _internal_token;
-    }
-     
-    /**
-      * This method is a generated wrapper used to call the 'getState' operation. It returns an mx.rpc.AsyncToken whose 
-      * result property will be populated with the result of the operation when the server response is received. 
-      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
-      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
-      *
-      * @see mx.rpc.AsyncToken
-      * @see mx.rpc.CallResponder 
-      *
-      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
-      */
-    public function getState(arg0:String) : mx.rpc.AsyncToken
-    {
-        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getState");
-		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
-        return _internal_token;
-    }
-     
-    /**
-      * This method is a generated wrapper used to call the 'setState' operation. It returns an mx.rpc.AsyncToken whose 
-      * result property will be populated with the result of the operation when the server response is received. 
-      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
-      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
-      *
-      * @see mx.rpc.AsyncToken
-      * @see mx.rpc.CallResponder 
-      *
-      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
-      */
-    public function setState(arg0:String, arg1:int) : mx.rpc.AsyncToken
-    {
-        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("setState");
-		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1) ;
-        return _internal_token;
-    }
-     
-    /**
-      * This method is a generated wrapper used to call the 'removeState' operation. It returns an mx.rpc.AsyncToken whose 
-      * result property will be populated with the result of the operation when the server response is received. 
-      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
-      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
-      *
-      * @see mx.rpc.AsyncToken
-      * @see mx.rpc.CallResponder 
-      *
-      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
-      */
-    public function removeState(arg0:String) : mx.rpc.AsyncToken
-    {
-        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("removeState");
-		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
         return _internal_token;
     }
      

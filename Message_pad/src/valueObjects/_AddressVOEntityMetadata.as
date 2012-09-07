@@ -20,14 +20,14 @@ internal class _AddressVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("grpName", "writedate", "phone", "grp", "idx", "memo", "name", "user_id", "etcInfo");
+    model_internal static var allProperties:Array = new Array("writedate", "grpName", "phone", "grp", "idx", "memo", "name", "user_id", "etcInfo");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("grpName", "writedate", "phone", "grp", "idx", "memo", "name", "user_id", "etcInfo");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("writedate", "grpName", "phone", "grp", "idx", "memo", "name", "user_id", "etcInfo");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("grpName", "writedate", "phone", "grp", "idx", "memo", "name", "user_id", "etcInfo");
+    model_internal static var dataProperties:Array = new Array("writedate", "grpName", "phone", "grp", "idx", "memo", "name", "user_id", "etcInfo");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("grpName", "writedate", "phone", "grp", "idx", "memo", "name", "user_id", "etcInfo");
+    model_internal static var nonDerivedProperties:Array = new Array("writedate", "grpName", "phone", "grp", "idx", "memo", "name", "user_id", "etcInfo");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -47,8 +47,8 @@ internal class _AddressVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
         {
             // dependents map
             model_internal::dependentsOnMap = new Object();
-            model_internal::dependentsOnMap["grpName"] = new Array();
             model_internal::dependentsOnMap["writedate"] = new Array();
+            model_internal::dependentsOnMap["grpName"] = new Array();
             model_internal::dependentsOnMap["phone"] = new Array();
             model_internal::dependentsOnMap["grp"] = new Array();
             model_internal::dependentsOnMap["idx"] = new Array();
@@ -63,8 +63,8 @@ internal class _AddressVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
 
         // Property type Map
         model_internal::propertyTypeMap = new Object();
-        model_internal::propertyTypeMap["grpName"] = "String";
         model_internal::propertyTypeMap["writedate"] = "String";
+        model_internal::propertyTypeMap["grpName"] = "String";
         model_internal::propertyTypeMap["phone"] = "String";
         model_internal::propertyTypeMap["grp"] = "int";
         model_internal::propertyTypeMap["idx"] = "int";
@@ -301,13 +301,13 @@ internal class _AddressVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]
-    public function get isGrpNameAvailable():Boolean
+    public function get isWritedateAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isWritedateAvailable():Boolean
+    public function get isGrpNameAvailable():Boolean
     {
         return true;
     }
@@ -365,13 +365,13 @@ internal class _AddressVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]   
-    public function get grpNameStyle():com.adobe.fiber.styles.Style
+    public function get writedateStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get writedateStyle():com.adobe.fiber.styles.Style
+    public function get grpNameStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

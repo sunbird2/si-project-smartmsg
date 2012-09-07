@@ -74,16 +74,16 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
     private var _internal_holdability : int;
     private var _internal_last : Boolean;
     private var _internal_beforeFirst : Boolean;
-    private var _internal_type : int;
     private var _internal_cursorName : String;
+    private var _internal_type : int;
     private var _internal_row : int;
     private var _internal_statement : valueObjects.Statement;
     private var _internal_fetchDirection : int;
     private var _internal_afterLast : Boolean;
     private var _internal_concurrency : int;
     private var _internal_closed : Boolean;
-    private var _internal_warnings : valueObjects.SQLWarning;
     private var _internal_first : Boolean;
+    private var _internal_warnings : valueObjects.SQLWarning;
     private var _internal_metaData : valueObjects.ResultSetMetaData;
 
     private static var emptyArray:Array = new Array();
@@ -133,15 +133,15 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get type() : int
-    {
-        return _internal_type;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get cursorName() : String
     {
         return _internal_cursorName;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get type() : int
+    {
+        return _internal_type;
     }
 
     [Bindable(event="propertyChange")]
@@ -181,15 +181,15 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get warnings() : valueObjects.SQLWarning
-    {
-        return _internal_warnings;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get first() : Boolean
     {
         return _internal_first;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get warnings() : valueObjects.SQLWarning
+    {
+        return _internal_warnings;
     }
 
     [Bindable(event="propertyChange")]
@@ -246,16 +246,6 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set type(value:int) : void
-    {
-        var oldValue:int = _internal_type;
-        if (oldValue !== value)
-        {
-            _internal_type = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "type", oldValue, _internal_type));
-        }
-    }
-
     public function set cursorName(value:String) : void
     {
         var oldValue:String = _internal_cursorName;
@@ -263,6 +253,16 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
         {
             _internal_cursorName = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "cursorName", oldValue, _internal_cursorName));
+        }
+    }
+
+    public function set type(value:int) : void
+    {
+        var oldValue:int = _internal_type;
+        if (oldValue !== value)
+        {
+            _internal_type = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "type", oldValue, _internal_type));
         }
     }
 
@@ -326,16 +326,6 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set warnings(value:valueObjects.SQLWarning) : void
-    {
-        var oldValue:valueObjects.SQLWarning = _internal_warnings;
-        if (oldValue !== value)
-        {
-            _internal_warnings = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "warnings", oldValue, _internal_warnings));
-        }
-    }
-
     public function set first(value:Boolean) : void
     {
         var oldValue:Boolean = _internal_first;
@@ -343,6 +333,16 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
         {
             _internal_first = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "first", oldValue, _internal_first));
+        }
+    }
+
+    public function set warnings(value:valueObjects.SQLWarning) : void
+    {
+        var oldValue:valueObjects.SQLWarning = _internal_warnings;
+        if (oldValue !== value)
+        {
+            _internal_warnings = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "warnings", oldValue, _internal_warnings));
         }
     }
 
