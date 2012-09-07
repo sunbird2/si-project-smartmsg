@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			import valueObjects.MessageVO;
+			
+			override public function set data(value:Object):void
+			{
+				// TODO Auto Generated method stub
+				super.data = value;
+				
+				if (data != null) {
+					var mvo:MessageVO = data as MessageVO;
+					phone.text = mvo.phone;
+					nameText.text = mvo.name;
+					result.text = mvo.rslt;
+					
+					if (mvo.rslt == "성공") result.setStyle("color",0x079DD0);
+					else if (mvo.rslt == "대기" || mvo.rslt == "전송중") result.setStyle("color",0xD6D6D6);
+					else result.setStyle("color",0xD30A0A);
+				}
+					
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:Group width="100%" height="20">
+		<s:Label id="phone" left="4" verticalCenter="0"/>
+		<s:Label id="nameText" horizontalCenter="0" verticalCenter="0"/>
+		<s:Label id="result" right="4" verticalCenter="0"/>	
+	</s:Group>
+	
+	
+	<s:Rect width="100%" bottom="0" height="1">
+		<s:fill>
+			<s:SolidColor color="#D9D9D9" />
+		</s:fill>
+	</s:Rect>
+</s:ItemRenderer>

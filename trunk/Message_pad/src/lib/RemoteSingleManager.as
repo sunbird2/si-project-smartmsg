@@ -23,8 +23,8 @@ package lib
 		
 		public function RemoteSingleManager(){
 			
-			if (_instance)
-				throw new Error("no create");
+			/*if (_instance)
+				throw new Error("no create");*/
 
 			service.addEventListener(FaultEvent.FAULT, failResult);
 			_callResponder.addEventListener(ResultEvent.RESULT, callResponder_ResultHandler);
@@ -51,6 +51,15 @@ package lib
 		
 		private function failResult(event:FaultEvent):void {
 			SLibrary.alert(event.fault.faultString + '\n' + event.fault.faultDetail);
+		}
+		
+		public function destroy():void {
+			
+			service.removeEventListener(FaultEvent.FAULT, failResult);
+			_callResponder.removeEventListener(ResultEvent.RESULT, callResponder_ResultHandler);
+			
+			_callResponder = null;
+			_smt = null;
 		}
 		
 		

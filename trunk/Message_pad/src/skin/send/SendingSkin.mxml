@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("component.send.Sending")]
+	</fx:Metadata>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+		.label {
+			paddingBottom : 5;
+			paddingLeft : 5;
+			paddingRight : 5;
+			paddingTop : 8;
+			color : #FFFFFF;
+			verticalAlign: middle;
+		}
+	</fx:Style>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="sending" />
+		<s:State name="result" stateGroups="rslt" />
+		<s:State name="result_list" stateGroups="rslt" />
+		<s:State name="result_mini" />
+	</s:states>
+	<s:BitmapImage width="300" height.result_list="300" height="200"
+				   source="@Embed('/skin/ics/assets/widget_dark.png', scaleGridTop='10', scaleGridBottom='320', scaleGridLeft='10', scaleGridRight='314')"
+				   fillMode="scale" alpha="0.9"/>
+	<s:Rect includeIn="rslt, sending" width="100%" top="40" left="8" right="8"><s:stroke><s:SolidColorStroke color="#33B5E5" weight="2" /></s:stroke></s:Rect>
+	<s:VGroup horizontalCenter="0" horizontalAlign="center">
+		<s:Spacer height="10" />
+		<s:Label id="title" fontSize="16" color="#D6D6D6" />
+		<s:Spacer height="10" />
+		<!-- sending -->
+		<s:Label id="sendingCnt" includeIn="sending" text="0" fontSize="42" color="#FFFFFF" />
+		
+		<!-- result -->
+		<s:Group>
+			<s:Rect width="100%" height="100%"><s:stroke><s:SolidColorStroke color="#999999"/></s:stroke></s:Rect>
+			<s:HGroup includeIn="rslt" gap="0">
+				<s:VGroup horizontalAlign="center" gap="2">
+					<s:Label text="MessageYo(대기)" styleName="label"/>
+					<s:Rect width="100%" height="1"><s:fill><s:SolidColor color="#999999"/></s:fill></s:Rect>
+					<s:Label id="resultLocalCnt" text="0" fontSize="16" styleName="label"/>	
+				</s:VGroup>
+				
+				<s:Rect width="1" height="100%"><s:fill><s:SolidColor color="#999999"/></s:fill></s:Rect>
+				
+				<s:VGroup horizontalAlign="center" gap="2">
+					<s:Label text="이통사(전송중)" styleName="label"/>
+					<s:Rect width="100%" height="1"><s:fill><s:SolidColor color="#999999"/></s:fill></s:Rect>
+					<s:Label id="resultTelecomCnt" text="0" fontSize="16" styleName="label" />	
+				</s:VGroup>
+				
+				<s:Rect width="1" height="100%"><s:fill><s:SolidColor color="#999999"/></s:fill></s:Rect>
+				
+				<s:VGroup horizontalAlign="center"  gap="2">
+					<s:Label text="휴대폰(완료)" styleName="label"/>
+					<s:Rect width="100%" height="1"><s:fill><s:SolidColor color="#999999"/></s:fill></s:Rect>
+					<s:Label id="resultPhoneCnt" text="0" fontSize="16" styleName="label" />
+				</s:VGroup>
+			</s:HGroup>
+		</s:Group>
+		
+		
+		<s:Spacer height="10" />
+		<s:HGroup includeIn="rslt" verticalAlign="middle">
+			<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="12" kerning="auto" color="#D6D6D6">
+				<s:content><s:p><s:span>실시간결과(성공/실패) : </s:span><s:span id="succ" color="#079DD0"></s:span><s:span> / </s:span><s:span id="fail" color="#D30A0A"></s:span></s:p></s:content>
+			</s:RichText>
+			<s:Image id="resultViewBtn" top="6" right="10" source="skin/ics/assets/dark/icon/2-action-search.png" source.result_list="skin/ics/assets/dark/icon/1-navigation-refresh.png" alpha="0.6" buttonMode="true" />
+		</s:HGroup>
+		
+		<s:List id="resultList" width="100%" height="100" 
+				includeIn="result_list" styleName="list"
+				itemRenderer="skin.send.SendingListSkin"/>
+		<!--<s:Button id="testBtn" label="run" />-->
+	</s:VGroup>
+</s:Skin>

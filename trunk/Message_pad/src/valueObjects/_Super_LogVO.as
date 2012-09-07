@@ -67,9 +67,9 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     private var _internal_method : String;
     private var _internal_timeSend : String;
     private var _internal_timeDel : String;
-    private var _internal_user_ip : String;
-    private var _internal_delType : String;
     private var _internal_mode : String;
+    private var _internal_delType : String;
+    private var _internal_user_ip : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -148,9 +148,9 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     }
 
     [Bindable(event="propertyChange")]
-    public function get user_ip() : String
+    public function get mode() : String
     {
-        return _internal_user_ip;
+        return _internal_mode;
     }
 
     [Bindable(event="propertyChange")]
@@ -160,9 +160,9 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     }
 
     [Bindable(event="propertyChange")]
-    public function get mode() : String
+    public function get user_ip() : String
     {
-        return _internal_mode;
+        return _internal_user_ip;
     }
 
     public function clearAssociations() : void
@@ -263,13 +263,13 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         }
     }
 
-    public function set user_ip(value:String) : void
+    public function set mode(value:String) : void
     {
-        var oldValue:String = _internal_user_ip;
+        var oldValue:String = _internal_mode;
         if (oldValue !== value)
         {
-            _internal_user_ip = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_ip", oldValue, _internal_user_ip));
+            _internal_mode = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "mode", oldValue, _internal_mode));
         }
     }
 
@@ -283,13 +283,13 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         }
     }
 
-    public function set mode(value:String) : void
+    public function set user_ip(value:String) : void
     {
-        var oldValue:String = _internal_mode;
+        var oldValue:String = _internal_user_ip;
         if (oldValue !== value)
         {
-            _internal_mode = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "mode", oldValue, _internal_mode));
+            _internal_user_ip = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_ip", oldValue, _internal_user_ip));
         }
     }
 

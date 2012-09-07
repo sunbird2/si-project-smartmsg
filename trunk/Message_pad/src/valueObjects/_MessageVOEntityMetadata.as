@@ -20,14 +20,14 @@ internal class _MessageVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("sendDate", "sendMode", "rsltDate", "phone", "imagePath", "groupKey", "rslt", "name", "callback", "user_id", "msg", "stat");
+    model_internal static var allProperties:Array = new Array("sendMode", "phone", "rsltDate", "idx", "imagePath", "rslt", "msg", "stat", "sendDate", "groupKey", "name", "callback", "user_id");
     model_internal static var allAssociationProperties:Array = new Array();
-    model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("sendDate", "sendMode", "rsltDate", "phone", "imagePath", "groupKey", "rslt", "name", "callback", "user_id", "msg", "stat");
+    model_internal static var allRequiredProperties:Array = new Array("idx");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("sendMode", "phone", "rsltDate", "idx", "imagePath", "rslt", "msg", "stat", "sendDate", "groupKey", "name", "callback", "user_id");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("sendDate", "sendMode", "rsltDate", "phone", "imagePath", "groupKey", "rslt", "name", "callback", "user_id", "msg", "stat");
+    model_internal static var dataProperties:Array = new Array("sendMode", "phone", "rsltDate", "idx", "imagePath", "rslt", "msg", "stat", "sendDate", "groupKey", "name", "callback", "user_id");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("sendDate", "sendMode", "rsltDate", "phone", "imagePath", "groupKey", "rslt", "name", "callback", "user_id", "msg", "stat");
+    model_internal static var nonDerivedProperties:Array = new Array("sendMode", "phone", "rsltDate", "idx", "imagePath", "rslt", "msg", "stat", "sendDate", "groupKey", "name", "callback", "user_id");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -47,18 +47,19 @@ internal class _MessageVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
         {
             // dependents map
             model_internal::dependentsOnMap = new Object();
-            model_internal::dependentsOnMap["sendDate"] = new Array();
             model_internal::dependentsOnMap["sendMode"] = new Array();
-            model_internal::dependentsOnMap["rsltDate"] = new Array();
             model_internal::dependentsOnMap["phone"] = new Array();
+            model_internal::dependentsOnMap["rsltDate"] = new Array();
+            model_internal::dependentsOnMap["idx"] = new Array();
             model_internal::dependentsOnMap["imagePath"] = new Array();
-            model_internal::dependentsOnMap["groupKey"] = new Array();
             model_internal::dependentsOnMap["rslt"] = new Array();
+            model_internal::dependentsOnMap["msg"] = new Array();
+            model_internal::dependentsOnMap["stat"] = new Array();
+            model_internal::dependentsOnMap["sendDate"] = new Array();
+            model_internal::dependentsOnMap["groupKey"] = new Array();
             model_internal::dependentsOnMap["name"] = new Array();
             model_internal::dependentsOnMap["callback"] = new Array();
             model_internal::dependentsOnMap["user_id"] = new Array();
-            model_internal::dependentsOnMap["msg"] = new Array();
-            model_internal::dependentsOnMap["stat"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
@@ -66,18 +67,19 @@ internal class _MessageVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
 
         // Property type Map
         model_internal::propertyTypeMap = new Object();
-        model_internal::propertyTypeMap["sendDate"] = "String";
         model_internal::propertyTypeMap["sendMode"] = "String";
-        model_internal::propertyTypeMap["rsltDate"] = "String";
         model_internal::propertyTypeMap["phone"] = "String";
+        model_internal::propertyTypeMap["rsltDate"] = "String";
+        model_internal::propertyTypeMap["idx"] = "int";
         model_internal::propertyTypeMap["imagePath"] = "String";
-        model_internal::propertyTypeMap["groupKey"] = "int";
         model_internal::propertyTypeMap["rslt"] = "String";
+        model_internal::propertyTypeMap["msg"] = "String";
+        model_internal::propertyTypeMap["stat"] = "String";
+        model_internal::propertyTypeMap["sendDate"] = "String";
+        model_internal::propertyTypeMap["groupKey"] = "int";
         model_internal::propertyTypeMap["name"] = "String";
         model_internal::propertyTypeMap["callback"] = "String";
         model_internal::propertyTypeMap["user_id"] = "String";
-        model_internal::propertyTypeMap["msg"] = "String";
-        model_internal::propertyTypeMap["stat"] = "String";
 
         model_internal::_instance = value;
     }
@@ -232,6 +234,7 @@ internal class _MessageVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     override public function getIdentityMap():Object
     {
         var returnMap:Object = new Object();
+        returnMap["idx"] = model_internal::_instance.idx;
 
         return returnMap;
     }
@@ -307,19 +310,7 @@ internal class _MessageVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]
-    public function get isSendDateAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get isSendModeAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isRsltDateAvailable():Boolean
     {
         return true;
     }
@@ -331,19 +322,49 @@ internal class _MessageVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]
+    public function get isRsltDateAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isIdxAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
     public function get isImagePathAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isGroupKeyAvailable():Boolean
+    public function get isRsltAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isRsltAvailable():Boolean
+    public function get isMsgAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isStatAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isSendDateAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isGroupKeyAvailable():Boolean
     {
         return true;
     }
@@ -366,18 +387,6 @@ internal class _MessageVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
         return true;
     }
 
-    [Bindable(event="propertyChange")]
-    public function get isMsgAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isStatAvailable():Boolean
-    {
-        return true;
-    }
-
 
     /**
      * derived property recalculation
@@ -389,19 +398,7 @@ internal class _MessageVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]   
-    public function get sendDateStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
     public function get sendModeStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get rsltDateStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
@@ -413,19 +410,49 @@ internal class _MessageVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]   
+    public function get rsltDateStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get idxStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
     public function get imagePathStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get groupKeyStyle():com.adobe.fiber.styles.Style
+    public function get rsltStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get rsltStyle():com.adobe.fiber.styles.Style
+    public function get msgStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get statStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get sendDateStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get groupKeyStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
@@ -444,18 +471,6 @@ internal class _MessageVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
 
     [Bindable(event="propertyChange")]   
     public function get user_idStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get msgStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get statStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

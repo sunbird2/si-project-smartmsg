@@ -9,9 +9,6 @@ import com.adobe.fiber.styles.Style;
 import com.adobe.fiber.valueobjects.AbstractEntityMetadata;
 import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 import com.adobe.fiber.valueobjects.IPropertyIterator;
-import valueObjects.ResultSetMetaData;
-import valueObjects.SQLWarning;
-import valueObjects.Statement;
 import com.adobe.fiber.core.model_internal;
 import com.adobe.fiber.valueobjects.IModelType;
 import mx.events.PropertyChangeEvent;
@@ -19,52 +16,41 @@ import mx.events.PropertyChangeEvent;
 use namespace model_internal;
 
 [ExcludeClass]
-internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.AbstractEntityMetadata
+internal class _SentStatusVOEntityMetadata extends com.adobe.fiber.valueobjects.AbstractEntityMetadata
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("fetchSize", "holdability", "last", "beforeFirst", "cursorName", "type", "row", "statement", "fetchDirection", "afterLast", "concurrency", "closed", "first", "warnings", "metaData");
+    model_internal static var allProperties:Array = new Array("fail", "telecom", "local", "success");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("fetchSize", "holdability", "last", "beforeFirst", "cursorName", "type", "row", "statement", "fetchDirection", "afterLast", "concurrency", "closed", "first", "warnings", "metaData");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("fail", "telecom", "local", "success");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("fetchSize", "holdability", "last", "beforeFirst", "cursorName", "type", "row", "statement", "fetchDirection", "afterLast", "concurrency", "closed", "first", "warnings", "metaData");
+    model_internal static var dataProperties:Array = new Array("fail", "telecom", "local", "success");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("fetchSize", "holdability", "last", "beforeFirst", "cursorName", "type", "row", "statement", "fetchDirection", "afterLast", "concurrency", "closed", "first", "warnings", "metaData");
+    model_internal static var nonDerivedProperties:Array = new Array("fail", "telecom", "local", "success");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
-    model_internal static var entityName:String = "ResultSet";
+    model_internal static var entityName:String = "SentStatusVO";
     model_internal static var dependentsOnMap:Object;
     model_internal static var dependedOnServices:Array = new Array();
     model_internal static var propertyTypeMap:Object;
 
 
-    model_internal var _instance:_Super_ResultSet;
+    model_internal var _instance:_Super_SentStatusVO;
     model_internal static var _nullStyle:com.adobe.fiber.styles.Style = new com.adobe.fiber.styles.Style();
 
-    public function _ResultSetEntityMetadata(value : _Super_ResultSet)
+    public function _SentStatusVOEntityMetadata(value : _Super_SentStatusVO)
     {
         // initialize property maps
         if (model_internal::dependentsOnMap == null)
         {
             // dependents map
             model_internal::dependentsOnMap = new Object();
-            model_internal::dependentsOnMap["fetchSize"] = new Array();
-            model_internal::dependentsOnMap["holdability"] = new Array();
-            model_internal::dependentsOnMap["last"] = new Array();
-            model_internal::dependentsOnMap["beforeFirst"] = new Array();
-            model_internal::dependentsOnMap["cursorName"] = new Array();
-            model_internal::dependentsOnMap["type"] = new Array();
-            model_internal::dependentsOnMap["row"] = new Array();
-            model_internal::dependentsOnMap["statement"] = new Array();
-            model_internal::dependentsOnMap["fetchDirection"] = new Array();
-            model_internal::dependentsOnMap["afterLast"] = new Array();
-            model_internal::dependentsOnMap["concurrency"] = new Array();
-            model_internal::dependentsOnMap["closed"] = new Array();
-            model_internal::dependentsOnMap["first"] = new Array();
-            model_internal::dependentsOnMap["warnings"] = new Array();
-            model_internal::dependentsOnMap["metaData"] = new Array();
+            model_internal::dependentsOnMap["fail"] = new Array();
+            model_internal::dependentsOnMap["telecom"] = new Array();
+            model_internal::dependentsOnMap["local"] = new Array();
+            model_internal::dependentsOnMap["success"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
@@ -72,21 +58,10 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
 
         // Property type Map
         model_internal::propertyTypeMap = new Object();
-        model_internal::propertyTypeMap["fetchSize"] = "int";
-        model_internal::propertyTypeMap["holdability"] = "int";
-        model_internal::propertyTypeMap["last"] = "Boolean";
-        model_internal::propertyTypeMap["beforeFirst"] = "Boolean";
-        model_internal::propertyTypeMap["cursorName"] = "String";
-        model_internal::propertyTypeMap["type"] = "int";
-        model_internal::propertyTypeMap["row"] = "int";
-        model_internal::propertyTypeMap["statement"] = "valueObjects.Statement";
-        model_internal::propertyTypeMap["fetchDirection"] = "int";
-        model_internal::propertyTypeMap["afterLast"] = "Boolean";
-        model_internal::propertyTypeMap["concurrency"] = "int";
-        model_internal::propertyTypeMap["closed"] = "Boolean";
-        model_internal::propertyTypeMap["first"] = "Boolean";
-        model_internal::propertyTypeMap["warnings"] = "valueObjects.SQLWarning";
-        model_internal::propertyTypeMap["metaData"] = "valueObjects.ResultSetMetaData";
+        model_internal::propertyTypeMap["fail"] = "int";
+        model_internal::propertyTypeMap["telecom"] = "int";
+        model_internal::propertyTypeMap["local"] = "int";
+        model_internal::propertyTypeMap["success"] = "int";
 
         model_internal::_instance = value;
     }
@@ -139,7 +114,7 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     override public function getDependants(propertyName:String):Array
     {
        if (model_internal::nonDerivedProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a data property of entity ResultSet");
+            throw new Error(propertyName + " is not a data property of entity SentStatusVO");
             
        return model_internal::dependentsOnMap[propertyName] as Array;  
     }
@@ -157,7 +132,7 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     override public function getCollectionBase(propertyName:String):String
     {
         if (model_internal::collectionProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a collection property of entity ResultSet");
+            throw new Error(propertyName + " is not a collection property of entity SentStatusVO");
 
         return model_internal::collectionBaseMap[propertyName];
     }
@@ -165,7 +140,7 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     override public function getPropertyType(propertyName:String):String
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a property of ResultSet");
+            throw new Error(propertyName + " is not a property of SentStatusVO");
 
         return model_internal::propertyTypeMap[propertyName];
     }
@@ -179,7 +154,7 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " does not exist for entity ResultSet");
+            throw new Error(propertyName + " does not exist for entity SentStatusVO");
         }
 
         return model_internal::_instance[propertyName];
@@ -189,7 +164,7 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     {
         if (model_internal::nonDerivedProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " is not a modifiable property of entity ResultSet");
+            throw new Error(propertyName + " is not a modifiable property of entity SentStatusVO");
         }
 
         model_internal::_instance[propertyName] = value;
@@ -221,7 +196,7 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " does not exist for entity ResultSet");
+            throw new Error(propertyName + " does not exist for entity SentStatusVO");
         }
 
         if (model_internal::allAlwaysAvailableProperties.indexOf(propertyName) != -1)
@@ -316,91 +291,25 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]
-    public function get isFetchSizeAvailable():Boolean
+    public function get isFailAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isHoldabilityAvailable():Boolean
+    public function get isTelecomAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isLastAvailable():Boolean
+    public function get isLocalAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isBeforeFirstAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isCursorNameAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isTypeAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isRowAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isStatementAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isFetchDirectionAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isAfterLastAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isConcurrencyAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isClosedAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isFirstAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isWarningsAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isMetaDataAvailable():Boolean
+    public function get isSuccessAvailable():Boolean
     {
         return true;
     }
@@ -416,91 +325,25 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]   
-    public function get fetchSizeStyle():com.adobe.fiber.styles.Style
+    public function get failStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get holdabilityStyle():com.adobe.fiber.styles.Style
+    public function get telecomStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get lastStyle():com.adobe.fiber.styles.Style
+    public function get localStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get beforeFirstStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get cursorNameStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get typeStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get rowStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get statementStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get fetchDirectionStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get afterLastStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get concurrencyStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get closedStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get firstStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get warningsStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get metaDataStyle():com.adobe.fiber.styles.Style
+    public function get successStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

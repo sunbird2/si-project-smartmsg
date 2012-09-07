@@ -1,6 +1,6 @@
 /**
  * This is a generated class and is not intended for modification.  To customize behavior
- * of this value object you may modify the generated sub-class of this class - MessageVO.as.
+ * of this value object you may modify the generated sub-class of this class - SentStatusVO.as.
  */
 
 package valueObjects
@@ -19,22 +19,21 @@ import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 
 use namespace model_internal;
 
-[Managed]
 [ExcludeClass]
-public class _Super_MessageVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
+public class _Super_SentStatusVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
 {
     model_internal static function initRemoteClassAliasSingle(cz:Class) : void
     {
         try
         {
-            if (flash.net.getClassByAlias("com.m.send.MessageVO") == null)
+            if (flash.net.getClassByAlias("com.m.log.SentStatusVO") == null)
             {
-                flash.net.registerClassAlias("com.m.send.MessageVO", cz);
+                flash.net.registerClassAlias("com.m.log.SentStatusVO", cz);
             }
         }
         catch (e:Error)
         {
-            flash.net.registerClassAlias("com.m.send.MessageVO", cz);
+            flash.net.registerClassAlias("com.m.log.SentStatusVO", cz);
         }
     }
 
@@ -42,7 +41,7 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
     {
     }
 
-    model_internal var _dminternal_model : _MessageVOEntityMetadata;
+    model_internal var _dminternal_model : _SentStatusVOEntityMetadata;
     model_internal var _changedObjects:mx.collections.ArrayCollection = new ArrayCollection();
 
     public function getChangedObjects() : Array
@@ -59,19 +58,10 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
     /**
      * properties
      */
-    private var _internal_sendMode : String;
-    private var _internal_phone : String;
-    private var _internal_rsltDate : String;
-    private var _internal_idx : int;
-    private var _internal_imagePath : String;
-    private var _internal_rslt : String;
-    private var _internal_msg : String;
-    private var _internal_stat : String;
-    private var _internal_sendDate : String;
-    private var _internal_groupKey : int;
-    private var _internal_name : String;
-    private var _internal_callback : String;
-    private var _internal_user_id : String;
+    private var _internal_fail : int;
+    private var _internal_telecom : int;
+    private var _internal_local : int;
+    private var _internal_success : int;
 
     private static var emptyArray:Array = new Array();
 
@@ -83,9 +73,9 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
 
     model_internal var _changeWatcherArray:Array = new Array();
 
-    public function _Super_MessageVO()
+    public function _Super_SentStatusVO()
     {
-        _model = new _MessageVOEntityMetadata(this);
+        _model = new _SentStatusVOEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
 
@@ -96,81 +86,27 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
      */
 
     [Bindable(event="propertyChange")]
-    public function get sendMode() : String
+    public function get fail() : int
     {
-        return _internal_sendMode;
+        return _internal_fail;
     }
 
     [Bindable(event="propertyChange")]
-    public function get phone() : String
+    public function get telecom() : int
     {
-        return _internal_phone;
+        return _internal_telecom;
     }
 
     [Bindable(event="propertyChange")]
-    public function get rsltDate() : String
+    public function get local() : int
     {
-        return _internal_rsltDate;
+        return _internal_local;
     }
 
     [Bindable(event="propertyChange")]
-    public function get idx() : int
+    public function get success() : int
     {
-        return _internal_idx;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get imagePath() : String
-    {
-        return _internal_imagePath;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get rslt() : String
-    {
-        return _internal_rslt;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get msg() : String
-    {
-        return _internal_msg;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get stat() : String
-    {
-        return _internal_stat;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get sendDate() : String
-    {
-        return _internal_sendDate;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get groupKey() : int
-    {
-        return _internal_groupKey;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get name() : String
-    {
-        return _internal_name;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get callback() : String
-    {
-        return _internal_callback;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get user_id() : String
-    {
-        return _internal_user_id;
+        return _internal_success;
     }
 
     public function clearAssociations() : void
@@ -181,120 +117,43 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
      * data/source property setters
      */
 
-    public function set sendMode(value:String) : void
+    public function set fail(value:int) : void
     {
-        var oldValue:String = _internal_sendMode;
+        var oldValue:int = _internal_fail;
         if (oldValue !== value)
         {
-            _internal_sendMode = value;
+            _internal_fail = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "fail", oldValue, _internal_fail));
         }
     }
 
-    public function set phone(value:String) : void
+    public function set telecom(value:int) : void
     {
-        var oldValue:String = _internal_phone;
+        var oldValue:int = _internal_telecom;
         if (oldValue !== value)
         {
-            _internal_phone = value;
+            _internal_telecom = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "telecom", oldValue, _internal_telecom));
         }
     }
 
-    public function set rsltDate(value:String) : void
+    public function set local(value:int) : void
     {
-        var oldValue:String = _internal_rsltDate;
+        var oldValue:int = _internal_local;
         if (oldValue !== value)
         {
-            _internal_rsltDate = value;
+            _internal_local = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "local", oldValue, _internal_local));
         }
     }
 
-    public function set idx(value:int) : void
+    public function set success(value:int) : void
     {
-        var oldValue:int = _internal_idx;
+        var oldValue:int = _internal_success;
         if (oldValue !== value)
         {
-            _internal_idx = value;
-        }
-    }
-
-    public function set imagePath(value:String) : void
-    {
-        var oldValue:String = _internal_imagePath;
-        if (oldValue !== value)
-        {
-            _internal_imagePath = value;
-        }
-    }
-
-    public function set rslt(value:String) : void
-    {
-        var oldValue:String = _internal_rslt;
-        if (oldValue !== value)
-        {
-            _internal_rslt = value;
-        }
-    }
-
-    public function set msg(value:String) : void
-    {
-        var oldValue:String = _internal_msg;
-        if (oldValue !== value)
-        {
-            _internal_msg = value;
-        }
-    }
-
-    public function set stat(value:String) : void
-    {
-        var oldValue:String = _internal_stat;
-        if (oldValue !== value)
-        {
-            _internal_stat = value;
-        }
-    }
-
-    public function set sendDate(value:String) : void
-    {
-        var oldValue:String = _internal_sendDate;
-        if (oldValue !== value)
-        {
-            _internal_sendDate = value;
-        }
-    }
-
-    public function set groupKey(value:int) : void
-    {
-        var oldValue:int = _internal_groupKey;
-        if (oldValue !== value)
-        {
-            _internal_groupKey = value;
-        }
-    }
-
-    public function set name(value:String) : void
-    {
-        var oldValue:String = _internal_name;
-        if (oldValue !== value)
-        {
-            _internal_name = value;
-        }
-    }
-
-    public function set callback(value:String) : void
-    {
-        var oldValue:String = _internal_callback;
-        if (oldValue !== value)
-        {
-            _internal_callback = value;
-        }
-    }
-
-    public function set user_id(value:String) : void
-    {
-        var oldValue:String = _internal_user_id;
-        if (oldValue !== value)
-        {
-            _internal_user_id = value;
+            _internal_success = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "success", oldValue, _internal_success));
         }
     }
 
@@ -358,14 +217,14 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
 
     [Transient]
     [Bindable(event="propertyChange")]
-    public function get _model() : _MessageVOEntityMetadata
+    public function get _model() : _SentStatusVOEntityMetadata
     {
         return model_internal::_dminternal_model;
     }
 
-    public function set _model(value : _MessageVOEntityMetadata) : void
+    public function set _model(value : _SentStatusVOEntityMetadata) : void
     {
-        var oldValue : _MessageVOEntityMetadata = model_internal::_dminternal_model;
+        var oldValue : _SentStatusVOEntityMetadata = model_internal::_dminternal_model;
         if (oldValue !== value)
         {
             model_internal::_dminternal_model = value;
