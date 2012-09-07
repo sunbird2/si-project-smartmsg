@@ -15,6 +15,8 @@ import flex.messaging.FlexContext;
 
 public class SessionManagement {
 	
+	private Boolean bTest = true;
+	
 	private final String SESSION = "user_id";
 	private final String SESSION_ADMIN = "admin_id";
 	
@@ -86,12 +88,19 @@ public class SessionManagement {
 	
 	public String getSession() {
 		
-		FlexSession session = FlexContext.getFlexSession();
+		if (bTest) return "starwarssi";
+		else {
+			FlexSession session = FlexContext.getFlexSession();
+			
+			if ( session.getAttribute(SESSION) == null )
+				return null;
+			else
+				return session.getAttribute(SESSION).toString();
+		}
+
 		
-		if ( session.getAttribute(SESSION) == null )
-			return null;
-		else
-			return session.getAttribute(SESSION).toString();
+		
+		
 
 	}
 	
@@ -108,11 +117,14 @@ public class SessionManagement {
 	
 	public boolean bSession() {
 		
-		String user_id = getSession();
-		if (user_id != null && !user_id.equals(""))
-			return true;
-		else
-			return false;
+		if (bTest) return true;
+		else {
+			String user_id = getSession();
+			if (user_id != null && !user_id.equals(""))
+				return true;
+			else
+				return false;
+		}
 	}
 	
 	public boolean bAdminSession() {

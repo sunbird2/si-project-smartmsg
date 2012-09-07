@@ -6,6 +6,7 @@ public class MessageVO implements Serializable {
 
 	private static final long serialVersionUID = 7905344874851686980L;
 	
+	int idx;
 	String sendDate;
 	String user_id = "";
 	String stat = "0";
@@ -19,6 +20,13 @@ public class MessageVO implements Serializable {
 	String imagePath = "";
 	String rsltDate;
 	
+	
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 	public String getSendDate() {
 		return sendDate;
 	}

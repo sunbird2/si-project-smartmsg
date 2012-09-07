@@ -16,6 +16,7 @@ import com.m.address.AddressVO;
 import com.m.address.IAddress;
 import com.m.common.BooleanAndDescriptionVO;
 import com.m.common.FileUtils;
+import com.m.common.Gv;
 import com.m.common.PointManager;
 import com.m.emoticon.EmoticonPagedObject;
 import com.m.emoticon.Emotion;
@@ -24,6 +25,7 @@ import com.m.excel.ExcelLoaderResultVO;
 import com.m.log.ISent;
 import com.m.log.ISentData;
 import com.m.log.SentManager;
+import com.m.log.SentStatusVO;
 import com.m.log.telecom.LGSent;
 import com.m.member.Join;
 import com.m.member.JoinVO;
@@ -40,6 +42,7 @@ import flex.messaging.FlexContext;
 import flex.messaging.FlexSession;
 
 public class SmartDS extends SessionManagement {
+	
 	
 	public SmartDS() {}
 	public String test() {
@@ -435,11 +438,21 @@ public class SmartDS extends SessionManagement {
 	/*###############################
 	#	send						#
 	###############################*/
-	public static HashMap<String, String> STATE = new HashMap<String, String>();
+	public String getState() {
+		System.out.println(Gv.getStatus(getSession()));
+		return Gv.getStatus(getSession());
+	}
 	
-	public static int getState(String user_id) { return SLibrary.parseInt( SmartDS.STATE.get(user_id) ); }
-	public static void setState(String user_id , int cnt) { SmartDS.STATE.put(user_id, Integer.toString(cnt)); }
-	public static void removeState(String user_id) { SmartDS.STATE.remove(user_id); }
+	
+	/**
+	 * Test Run
+	 */
+	public void run() {
+		
+		for (int i = 0; i < 100000; i++) {
+			Gv.setStatus("starwarssi", Integer.toString(i));
+		}
+	}
 	
 	
 	public BooleanAndDescriptionVO setMMSUpload(byte[] bytes, String fileName){
@@ -469,13 +482,12 @@ public class SmartDS extends SessionManagement {
 	    
 		return bvo;
 	}
-	public BooleanAndDescriptionVO sendSMSconf( SendMessageVO smvo ) {
+	public LogVO sendSMSconf( SendMessageVO smvo ) {
 		
 		Connection conn = null;
 		ISend send = SendManager.getInstance();
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
 		UserInformationVO uvo = null;
-		int rslt = 0;
+		LogVO lvo = null;
 		try {
 			if (!bSession()) throw new Exception("no login");
 			conn = VbyP.getDB();
@@ -483,21 +495,21 @@ public class SmartDS extends SessionManagement {
 			
 			smvo.setReqIP(FlexContext.getHttpRequest().getRemoteAddr());
 			
-			rslt = send.send(conn, uvo, smvo);
-			if (rslt > 0) {
-				rvo.setbResult(true);
-				rvo.setstrDescription(Integer.toString(rslt));
-			}
-				
-
+			lvo = send.send(conn, uvo, smvo);
+			
+			Gv.removeStatus(uvo.getUser_id());
+			
 		}catch (Exception e) {
-			rvo.setbResult(false);
-			rvo.setstrDescription(e.getMessage());
+			
+			if (lvo == null) lvo = new LogVO();
+			lvo.setIdx(0);
+			lvo.setMessage(e.getMessage());
+			
 			System.out.println(e.toString());
 		}
 		finally { close(conn); }
 		
-		return rvo;
+		return lvo;
 	}
 	
 	/*###############################
@@ -520,6 +532,78 @@ public class SmartDS extends SessionManagement {
 		
 		return al;
 	}
+	
+	
+	/**
+	 * Sent Status
+	 * @param idx
+	 * @return
+	 */
+	public SentStatusVO getSentResultStatus(LogVO lvo) {
+		
+		SentStatusVO ssvo = new SentStatusVO();
+		
+		Connection conn = null;
+		ISentData sentData = null;
+
+		try {
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			
+			if (lvo.getLine().equals("lg")) sentData = LGSent.getInstance();
+			
+			lvo.setUser_id(getSession());
+			ssvo = sentData.getListDetail_status(conn, lvo);
+			
+		}catch (Exception e) {}	finally {			
+			close(conn);
+		}
+		
+		return ssvo;
+	}
+	
+	public Integer getSentListDetail_countFiltered(LogVO slvo) {
+		
+		Connection conn = null;
+		ISentData sentData = null;
+		Integer cnt = 0;
+		try {
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			
+			if (slvo.getLine().equals("lg")) sentData = LGSent.getInstance();
+			
+			slvo.setUser_id(getSession());
+			cnt = sentData.getListDetail_pagedCnt(conn, slvo);
+			
+		}catch (Exception e) {}	finally {			
+			close(conn);
+		}
+		System.out.println(cnt);
+		return cnt;
+	}
+	public ArrayList<MessageVO> getSentListDetail_pagedFiltered(LogVO slvo, int startIndex, int numItems) {
+		
+		System.out.println("->"+startIndex+" / "+ numItems);
+		Connection conn = null;
+		ISentData sentData = null;
+		ArrayList<MessageVO> al = null;
+		try {
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			
+			if (slvo.getLine().equals("lg")) sentData = LGSent.getInstance();
+			
+			slvo.setUser_id(getSession());
+			al = sentData.getListDetail(conn, slvo, startIndex, numItems);
+				
+
+		}catch (Exception e) { System.out.println(e.toString()); }
+		finally { close(conn); }
+		
+		return al;
+	}
+	
 	
 	public ArrayList<MessageVO> getSentListDetail(LogVO slvo) {
 		

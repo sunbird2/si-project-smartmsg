@@ -296,7 +296,7 @@ public class Address implements IAddress {
 				
 				pq.addBatch();
 				
-				Gv.setCOUNT(user_id, i+1);
+				Gv.setStatus(user_id, Integer.toString(i+1));
 				
 				if (i >= maxBatch && (i%maxBatch) == 0 ) {
 					
@@ -345,7 +345,7 @@ public class Address implements IAddress {
 				
 				pq.addBatch();
 				
-				Gv.setCOUNT(user_id, i+1);
+				Gv.setStatus(user_id, Integer.toString(i+1));
 				
 				if (i >= maxBatch && (i%maxBatch) == 0 ) {
 					
@@ -396,7 +396,7 @@ public class Address implements IAddress {
 				
 				pq.addBatch();
 				
-				Gv.setCOUNT(user_id, i+1);
+				Gv.setStatus(user_id, Integer.toString(i+1));
 				
 				if (i >= maxBatch && (i%maxBatch) == 0 ) {
 					
@@ -439,7 +439,7 @@ public class Address implements IAddress {
 				
 				pq.addBatch();
 				
-				Gv.setCOUNT(user_id, i+1);
+				Gv.setStatus(user_id, Integer.toString(i+1));
 				
 				if (i >= maxBatch && (i%maxBatch) == 0 ) {
 					
