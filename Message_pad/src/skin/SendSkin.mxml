@@ -15,8 +15,8 @@
 			<s:layout>
 				<s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" />
 			</s:layout>
-			<s:BitmapImage id="back" source="@Embed('skin/ics/assets/light/icon/1-navigation-previous-item.png')" smooth="true" alpha="0.6" width="20" height="20"/>
-			<s:BitmapImage id="icon" source="@Embed('skin/ics/assets/icon.png')" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:BitmapImage id="back" source="@Embed('/skin/ics/assets/light/icon/1-navigation-previous-item.png')" smooth="true" alpha="0.6" width="20" height="20"/>
+			<s:BitmapImage id="icon" source="@Embed('/skin/ics/assets/icon.png')" fillMode="scale" width="36" height="36" smooth="true" />
 			<s:VGroup gap="4">
 				<s:RichText id="title_text" color="#FFFFFF" fontSize="14"/>
 				<s:RichText id="titleSub_text" color="#DFDFDF" fontSize="12"/>
@@ -64,7 +64,7 @@
 						<s:Label text="수신 : " color="#33B5E5" />
 						<s:TextInput id="sendListInput" styleName="textinput_light" prompt="전화번호입력.." width="200" />
 						<s:Image id="sendListInputBtn"
-								 source="@Embed('skin/ics/assets/light/icon/5-content-new.png')" buttonMode="true"
+								 source="@Embed('/skin/ics/assets/light/icon/5-content-new.png')" buttonMode="true"
 								 width="20" height="20"	   
 								 alpha="0.6" fillMode="scale" />
 					</s:HGroup>
@@ -78,10 +78,10 @@
 					
 					<s:HGroup width="100%" horizontalAlign="right" verticalAlign="middle">
 						<s:Image id="phoneRemoveAll"
-								 source="@Embed('skin/ics/assets/light/icon/5-content-discard.png')" buttonMode="true"
+								 source="@Embed('/skin/ics/assets/light/icon/5-content-discard.png')" buttonMode="true"
 								 alpha="0.6"/>
 						<s:Image id="dupleDelete"
-								 source="@Embed('skin/ics/assets/light/icon/10-device-access-storage.png')" buttonMode="true"   
+								 source="@Embed('/skin/ics/assets/light/icon/10-device-access-storage.png')" buttonMode="true"   
 								 alpha="0.6"/>
 						<s:RichText whiteSpaceCollapse="preserve">
 							<s:content><s:p><s:span id="countPhone">0</s:span><s:span kerning="auto"> </s:span><s:span fontSize="12" lineHeight="166.65%" kerning="auto">명</s:span></s:p></s:content>
@@ -94,7 +94,7 @@
 									itemRenderer="component.send.ReturnPhoneRenderer" 
 									styleName="comboBox_light"/>
 						<s:Image id="callbackSave"
-								 source="@Embed('skin/ics/assets/light/icon/5-content-new-event.png')" buttonMode="true"
+								 source="@Embed('/skin/ics/assets/light/icon/5-content-new-event.png')" buttonMode="true"
 								 width="20" height="20"	   
 								 alpha="0.6" fillMode="scale" />
 					</s:HGroup>

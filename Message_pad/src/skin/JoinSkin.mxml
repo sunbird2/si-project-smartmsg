@@ -38,10 +38,10 @@
 				<s:content><s:p><s:span>약관에 </s:span><s:span color="#8d8d8d"> 동의해 주세요.</s:span></s:p></s:content>
 			</s:RichText>
 			<s:Group>
-				<s:BitmapImage source="@Embed('assets/Base_s Outer Glow.png')"/>
-				<s:BitmapImage source="@Embed('assets/Base.png')" x="4" y="4"/>
+				<s:BitmapImage source="@Embed('/assets/Base_s Outer Glow.png')"/>
+				<s:BitmapImage source="@Embed('/assets/Base.png')" x="4" y="4"/>
 				<s:BitmapImage x="12" y="37" width="662" height="2" smooth="true"
-							   source="@Embed('assets/Divider.png')"/>
+							   source="@Embed('/assets/Divider.png')"/>
 				<s:Label x="16" y="19" text="이용약관"/>
 				<s:RichText x="12" top="47" bottom="10" width="662">
 					<s:text>
@@ -54,10 +54,10 @@
 			</s:Group>
 			
 			<s:Group>
-				<s:BitmapImage source="@Embed('assets/Base_s Outer Glow.png')"/>
-				<s:BitmapImage source="@Embed('assets/Base.png')" x="4" y="4"/>
+				<s:BitmapImage source="@Embed('/assets/Base_s Outer Glow.png')"/>
+				<s:BitmapImage source="@Embed('/assets/Base.png')" x="4" y="4"/>
 				<s:BitmapImage x="12" y="37" width="662" height="2" smooth="true"
-							   source="@Embed('assets/Divider.png')"/>
+							   source="@Embed('/assets/Divider.png')"/>
 				<s:Label x="16" y="19" text="개인정보보호약관"/>
 				<s:RichText x="12" top="47" bottom="10" width="662">
 					<s:text>

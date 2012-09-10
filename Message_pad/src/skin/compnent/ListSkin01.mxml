@@ -157,7 +157,7 @@
         </s:fill>
     </s:Rect>
 	
-	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('assets/textarea_input.png', scaleGridTop='10', scaleGridBottom='212', scaleGridLeft='10', scaleGridRight='222')" smooth="true" fillMode="scale" alpha="0.5"/>
+	<s:BitmapImage left="0" right="0" top="0" bottom="0" source="@Embed('/assets/textarea_input.png', scaleGridTop='10', scaleGridBottom='212', scaleGridLeft='10', scaleGridRight='222')" smooth="true" fillMode="scale" alpha="0.5"/>
 	
 
     <!--- The Scroller component to add scroll bars to the list. -->
