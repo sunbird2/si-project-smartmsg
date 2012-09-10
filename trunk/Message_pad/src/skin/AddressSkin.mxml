@@ -17,8 +17,8 @@
 			<s:layout>
 				<s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" />
 			</s:layout>
-			<s:BitmapImage id="back" source="@Embed('skin/ics/assets/light/icon/1-navigation-previous-item.png')" smooth="true" alpha="0.6" width="20" height="20"/>
-			<s:BitmapImage id="icon" source="@Embed('skin/ics/assets/menu_address.png')" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:BitmapImage id="back" source="@Embed('/skin/ics/assets/light/icon/1-navigation-previous-item.png')" smooth="true" alpha="0.6" width="20" height="20"/>
+			<s:BitmapImage id="icon" source="@Embed('/skin/ics/assets/menu_address.png')" fillMode="scale" width="36" height="36" smooth="true" />
 			<s:VGroup gap="4">
 				<s:RichText id="title_text" color="#FFFFFF" text="주소록" fontSize="14"/>
 				<s:RichText id="titleSub_text" color="#DFDFDF" text="그룹을 클릭 하시면 해당 주소를 확인 할 수 있습니다. ※ 삭제는 그룹 또는 전화번호를 선택 후 키보드의 Delete를 누르시기 바랍니다." fontSize="12"/>
