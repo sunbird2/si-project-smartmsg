@@ -177,7 +177,7 @@ s|Scroller {
 
 
 
-mx|Alert {
+mx|Alert, mx|ToolTip, mx|DataTip, mx|UIComponent {
 	fontFamily : "Dotum";
 }
 

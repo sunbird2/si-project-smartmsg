@@ -2,7 +2,7 @@
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
 		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009"
-		xmlns:mx="library://ns.adobe.com/flex/mx">
+		xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:util="component.util.*">
 	<!-- host component -->
 	<fx:Metadata>
 		[HostComponent("component.Log")]
@@ -26,8 +26,16 @@
 		
 		<s:HGroup width="100%" top="48" depth="0" gap="0" height="100%">
 			<s:VGroup width="300" height="100%" gap="0">
+				<!-- actionbar -->
+				<s:SkinnableContainer styleName="actionBar_contextuar_light" width="100%" height="40" depth="4">
+					<s:Label text="그룹내역" color="#222222" verticalCenter="0" left="5" />
+					<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="0">
+						<s:Image id="listMultSelectBtn" source="skin/ics/assets/light/icon/1-navigation-accept.png" alpha="0.4" buttonMode="true" toolTip="여러개 선택하기" />
+						<s:Image id="listDelBtn" source="skin/ics/assets/light/icon/5-content-discard.png" buttonMode="true" toolTip="삭제 or 예약취소" />
+					</s:HGroup>
+				</s:SkinnableContainer>
+				<!-- month -->
 				<s:Group width="100%">
-					
 					<s:Rect left="0" right="0" top="0" bottom="0"  ><s:fill><s:SolidColor color="0xEEEEEE" /></s:fill></s:Rect>
 					<s:Rect right="0" top="0" bottom="0" width="1"  ><s:fill><s:SolidColor color="0xFFFFFF" /></s:fill></s:Rect>
 					<s:BitmapImage id="noSel" source="@Embed('/skin/ics/assets/list_normal.png', scaleGridTop='1', scaleGridBottom='37', scaleGridLeft='1', scaleGridRight='17')" smooth="true"
@@ -44,27 +52,32 @@
 					
 					
 				</s:Group>
-				
-				
-				<s:List id="groupList"
+				<!-- list -->
+				<util:ListCheckAble id="groupList"
 						width="300"
 						height="100%"
 						styleName="list_parent"
 						itemRenderer="skin.log.GroupListRenderer" />
 			</s:VGroup>
 			
-			<s:VGroup width="100%"
-					  horizontalAlign="center"
-					  gap="10"
-					  paddingBottom="10" paddingTop="10" paddingLeft="10" paddingRight="10">
-				<s:HGroup width="100%">
+			<s:VGroup width="100%" horizontalAlign="center" gap="0">
+				<!-- actionbar -->
+				<s:SkinnableContainer styleName="actionBar_contextuar_light" width="100%" height="40" depth="4">
+					<s:Label text="상세내역" color="#222222" verticalCenter="0" left="5" />
+					<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="0">
+						<s:Image id="excelDownBtn" source="skin/ics/assets/light/icon/5-content-import-export.png" buttonMode="true" toolTip="엑셀다운로드" />
+					</s:HGroup>
+				</s:SkinnableContainer>
+				<s:Spacer height="10" />
+				<s:HGroup>
 					<s:TextArea id="message" width="225" height="200" styleName="textarea_light" editable="false" visible="false" />
 					<mx:PieChart id="chart" width="300" height="200" fontFamily="Dotum" ></mx:PieChart>
 				</s:HGroup>
-				
+				<s:Spacer height="10" />
 				<s:List id="detailList"
-						width="100%" height="428"
-						borderVisible="false"
+						width="100%" height="378"
+						borderVisible="true"
+						borderColor="#DDDDDD"
 						itemRenderer="skin.log.LogDetailItemRenderer"/>
 			</s:VGroup>
 			

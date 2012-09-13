@@ -34,6 +34,7 @@ package component.send
 	import valueObjects.SentStatusVO;
 	
 	
+	[Event(name="close", type="flash.events.Event")]
 	/* A component must identify the view states that its skin supports. 
 	Use the [SkinState] metadata tag to define the view states in the component class. 
 	[SkinState("normal")] */
@@ -56,6 +57,7 @@ package component.send
 		
 		[SkinPart(required="true")]public var resultViewBtn:Image;
 		[SkinPart(required="true")]public var resultList:List;
+		[SkinPart(required="true")]public var close:Image;
 		
 		
 		[SkinPart(required="false")]public var testBtn:Button;
@@ -133,6 +135,7 @@ package component.send
 				resultList.dataProvider = asyncListView;
 				getResultList();
 			}
+			else if (instance == close) close.addEventListener(MouseEvent.CLICK, close_clickHandler);
 			
 			else if (instance == testBtn) testBtn.addEventListener(MouseEvent.CLICK, testBtn_clickHandler);
 		}
@@ -304,6 +307,12 @@ package component.send
 			
 			if (smt != null) smt.removeEventListener("fault", smt_fault);
 			if (callResponder != null) callResponder.removeEventListener(ResultEvent.RESULT, callResponder_resultHandler);
+		}
+		
+		private function close_clickHandler(event:MouseEvent):void {
+			
+			this.dispatchEvent(new Event("close"));
+			
 		}
 		
 		

@@ -3,6 +3,8 @@ package component
 	/* For guidance on writing an ActionScript Skinnable Component please refer to the Flex documentation: 
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	
+	import component.util.ListCheckAble;
+	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -32,6 +34,7 @@ package component
 	import spark.components.Button;
 	import spark.components.DataGrid;
 	import spark.components.HSlider;
+	import spark.components.Image;
 	import spark.components.Label;
 	import spark.components.List;
 	import spark.components.RichText;
@@ -63,8 +66,13 @@ package component
 		[SkinPart(required="false")]public var message:TextArea;
 		[SkinPart(required="false")]public var chart:PieChart;
 		
-		[SkinPart(required="false")]public var groupList:List;
+		[SkinPart(required="false")]public var groupList:ListCheckAble;
+		[SkinPart(required="false")]public var listMultSelectBtn:Image;
+		[SkinPart(required="false")]public var listDelBtn:Image;
+		
+		
 		[SkinPart(required="false")]public var detailList:List;
+		[SkinPart(required="false")]public var excelDownBtn:Image;
 		
 		
 		private var _yyyymm:String;
@@ -154,6 +162,10 @@ package component
 				chart.showDataTips = true;
 				chart.dataProvider = acChart;
 			}
+			else if (instance == listMultSelectBtn) listMultSelectBtn.addEventListener(MouseEvent.CLICK, listMultSelectBtn_clickHandler);
+			else if (instance == listDelBtn) listDelBtn.addEventListener(MouseEvent.CLICK, listDelBtn_clickHandler);
+			else if (instance == excelDownBtn) excelDownBtn.addEventListener(MouseEvent.CLICK, excelDownBtn_clickHandler);
+			
 			
 		}
 		
@@ -278,7 +290,7 @@ package component
 			getSentList();
 	
 		}
-		private function getSentList():void {
+		public function getSentList():void {
 			
 			if (Gv.bLogin) {
 				RemoteSingleManager.getInstance.addEventListener("getSentList", getSentList_resultHandler, false, 0, true);
@@ -349,20 +361,77 @@ package component
 		
 		private function groupList_keyUpHandler(event:KeyboardEvent):void {
 			
-			if (event.keyCode == 46) {
-				
-				confirmAlert = new AlertManager("삭제 하시겠습니까?","내역삭제", 1|8, Sprite(parentApplication), groupList.selectedIndex);
-				confirmAlert.addEventListener("yes",deleteGroupList_confirmHandler, false, 0, true);
-			}
+			if (event.keyCode == 46) deleteGroupList();
+		}
+		private function deleteGroupList():void {
+			confirmAlert = new AlertManager("선택한 그룹 내역을 삭제 하시겠습니까?","내역삭제", 1|8, Sprite(parentApplication), groupList.selectedIndex);
+			confirmAlert.addEventListener("yes",deleteGroupList_confirmHandler, false, 0, true);
 		}
 		
 		private function deleteGroupList_confirmHandler(event:CustomEvent):void {
 			
 			confirmAlert.removeEventListener("yes",deleteGroupList_confirmHandler);
+			confirmAlert = null;
 			
-			RemoteSingleManager.getInstance.addEventListener("deleteSent", deleteSent_resultHandler, false, 0, true);
-			RemoteSingleManager.getInstance.callresponderToken 
-				= RemoteSingleManager.getInstance.service.deleteSent( LogVO(acGroup.getItemAt(event.result as int)) );
+			if (groupList.allowMultipleSelection) {
+				
+				
+				var act:Vector.<Object> = groupList.selectedItems;
+				var cnt:int = act.length;
+				var ac:ArrayCollection = new ArrayCollection();
+				var i:int = 0;
+				for(i = 0; i < cnt; i++) {
+					ac.addItem( LogVO( groupList.selectedItems[i] ) );
+				}
+				
+				if (ac.length == 0) {
+					SLibrary.alert("선택된 그룹내역이 없습니다.");
+				}else {
+					
+					RemoteSingleManager.getInstance.addEventListener("deleteManySent", deleteManySent_resultHandler, false, 0, true);
+					RemoteSingleManager.getInstance.callresponderToken 
+						= RemoteSingleManager.getInstance.service.deleteManySent( ac );
+				}
+				
+				
+			}else {
+				RemoteSingleManager.getInstance.addEventListener("deleteSent", deleteSent_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.deleteSent( LogVO(acGroup.getItemAt(event.result as int)) );
+			}
+			
+		}
+		private function deleteManySent_resultHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("deleteManySent", deleteManySent_resultHandler);
+			var data:ArrayCollection = event.result as ArrayCollection;
+			if (data && data.length > 0) {
+				var suc:String = "";
+				var fail:String = "";
+				var bvo:BooleanAndDescriptionVO = null;
+				var cnt:int = data.length;
+				var line:String = "\\r\\n";;
+				for (var i:int = 0; i < cnt; i++) {
+					
+					bvo = data.getItemAt(i) as BooleanAndDescriptionVO;
+					if (bvo.bResult == true) {
+						suc +=bvo.strDescription+line;
+					}else {
+						fail +=bvo.strDescription+line;
+					}
+					
+				}
+			}
+			
+			getSentList();
+			if (fail == "")
+				SLibrary.alert( "처리 내역"+line+line+" - 삭제(취소)완료"+line+suc );
+			else 
+				SLibrary.alert( "처리 내역"+line+line+" - 삭제(취소)완료"+line+suc+line+line+" - 삭제실패"+line+fail );
+			
+			// 상세보기 지우기
+			acDetail.removeAll();
+			setChartData();
 		}
 		private function deleteSent_resultHandler(event:CustomEvent):void {
 			
@@ -373,7 +442,7 @@ package component
 			
 			SLibrary.alert( BooleanAndDescriptionVO(event.result).strDescription );
 			
-			Main(parentApplication).login_check();
+			
 		}
 		
 		private function detailListLabelFunction(item:Object, column:GridColumn):String {
@@ -381,6 +450,26 @@ package component
 			return (acDetail.length - acDetail.getItemIndex(item)).toString();
 		}
 		
+		
+		// option
+		private function listMultSelectBtn_clickHandler(event:MouseEvent):void {
+			
+			if (groupList.allowMultipleSelection) {
+				groupList.allowMultipleSelection = false;
+				listMultSelectBtn.alpha = 0.4;
+			}else {
+				groupList.allowMultipleSelection = true;
+				listMultSelectBtn.alpha = 1;
+				SLibrary.alert("여러개의 그룹내역을 선택 하실 수 있습니다.");
+			}
+		}
+		private function listDelBtn_clickHandler(event:MouseEvent):void {
+			deleteGroupList();
+		}
+		private function excelDownBtn_clickHandler(event:MouseEvent):void {
+			
+		}
+
 		
 		public function destroy():void {
 			

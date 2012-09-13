@@ -25,20 +25,24 @@
 			{
 				// TODO Auto Generated method stub
 				super.data = value;
-				if (_icon) {
-					icon_image.source = _icon;
-					title.left = icon_image.width + hgap;
-					sub.left = icon_image.width + hgap;
-				}
-				if (_labelSub) {
-					sub.text = data[_labelSub];
-					sub.bottom = 2;
-					title.top = 2;
-				}else {
-					title.verticalCenter = 0;
+				if (data != null) {
+					
+					if (_icon) {
+						icon_image.source = _icon;
+						title.left = icon_image.width + hgap;
+						sub.left = icon_image.width + hgap;
+					}
+					if (_labelSub) {
+						sub.text = data[_labelSub];
+						sub.bottom = 2;
+						title.top = 2;
+					}else {
+						title.verticalCenter = 0;
+					}
+					
+					if (_labelTitle) title.text = data[_labelTitle];
 				}
 				
-				if (_labelTitle) title.text = data[_labelTitle];
 				
 			}
 			
