@@ -629,6 +629,55 @@ public class SmartDS extends SessionManagement {
 	public BooleanAndDescriptionVO deleteSent(LogVO slvo) {
 		
 		Connection conn = null;
+		
+		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		rvo.setbResult(false);
+		
+		try {
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			
+			rvo = sentDelete(conn, slvo);
+
+		}catch (Exception e) { 
+			rvo.setbResult(false);
+			rvo.setstrDescription("실패 하였습니다.");
+			
+		}
+		finally { close(conn); }
+		
+		return rvo;
+	}
+	
+	public ArrayList<BooleanAndDescriptionVO> deleteManySent(ArrayList<LogVO> al ) {
+		
+		Connection conn = null;
+		
+		ArrayList<BooleanAndDescriptionVO> rslt = new ArrayList<BooleanAndDescriptionVO>();
+		
+		try {
+			if (!bSession()) throw new Exception("no login");
+			if (al == null) throw new Exception("al is null");
+			conn = VbyP.getDB();
+			
+			int cnt = al.size();
+			if (cnt > 0) {
+				for (int i = 0; i < cnt; i++) {
+					rslt.add( sentDelete(conn, al.get(i)) );
+				}
+			}
+
+		}catch (Exception e) {
+			rslt.add(new BooleanAndDescriptionVO(false, "실패 하였습니다."+e.getMessage()));
+			
+		}
+		finally { close(conn); }
+		
+		return rslt;
+	}
+	
+	private BooleanAndDescriptionVO sentDelete(Connection conn, LogVO slvo) {
+		
 		ISent sent = SentManager.getInstance();
 		ISentData sentData = null;
 		UserInformationVO uvo = null;
@@ -639,10 +688,7 @@ public class SmartDS extends SessionManagement {
 		
 		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
 		rvo.setbResult(false);
-		
 		try {
-			if (!bSession()) throw new Exception("no login");
-			conn = VbyP.getDB();
 			
 			if (slvo.getLine().equals("lg")) sentData = LGSent.getInstance();
 			
@@ -665,9 +711,9 @@ public class SmartDS extends SessionManagement {
 					slvo.setDelType("cancel");
 					sent.updateLog(conn, slvo);
 					rvo.setbResult(true);
-					rvo.setstrDescription(cancelCnt + "건이 취소 되었습니다.");
+					rvo.setstrDescription(cancelCnt + "건이 취소 및 보상 후 그룹 내역이 삭제 되었습니다.");
 				} else {
-					rvo.setstrDescription("총 "+ sentCnt + " 건 중 미발송된 "+ cancelCnt + "건이  취소 되었습니다.");
+					rvo.setstrDescription("총 "+ sentCnt + " 건 중 미발송된 "+ cancelCnt + "건이  취소 및 보상 되었으나 그룹내역이 삭제 되진 않았습니다.");
 				}
 				
 				
@@ -675,8 +721,8 @@ public class SmartDS extends SessionManagement {
 				int code = 0;
 				int point = 0;
 				if (slvo.getMode().equals("LMS")) { code = 46; point = cancelCnt*SLibrary.intValue(VbyP.getValue("LMS_COUNT")); }
-				else if (slvo.getMode().equals("MMS")) { code = 26; point = cancelCnt*SLibrary.intValue(VbyP.getValue("LMS_COUNT")); }
-				else { code = 16; point = cancelCnt*SLibrary.intValue(VbyP.getValue("LMS_COUNT")); }
+				else if (slvo.getMode().equals("MMS")) { code = 26; point = cancelCnt*SLibrary.intValue(VbyP.getValue("MMS_COUNT")); }
+				else { code = 16; point = cancelCnt*SLibrary.intValue(VbyP.getValue("SMS_COUNT")); }
 
 				if ( PointManager.getInstance().insertUserPoint(conn, uvo, code, point) <= 0 )
 					rvo.setstrDescription("총 "+ sentCnt + " 건 중 미발송된 "+ cancelCnt + "건이  취소 되었으나, 보상이 이루어 지지 않았습니다. 관리자에게 문의 하세요.");
@@ -689,11 +735,11 @@ public class SmartDS extends SessionManagement {
 				cancelCnt = sent.updateLog(conn, slvo);
 				if (cancelCnt > 0) {
 					rvo.setbResult(true);
-					rvo.setstrDescription("삭제 되었습니다.");
+					rvo.setstrDescription("그룹내역이 삭제 되었습니다.");
 				}
 					
 				else {
-					rvo.setstrDescription("삭제가 적용되지 않았습니다.");
+					rvo.setstrDescription(cancelCnt+"건 그룹내역 삭제가 적용되지 않았습니다.");
 				}
 					
 			}
@@ -701,10 +747,9 @@ public class SmartDS extends SessionManagement {
 
 		}catch (Exception e) { 
 			rvo.setbResult(false);
-			rvo.setstrDescription("실패 하였습니다.");
+			rvo.setstrDescription("그굽 내역 삭제에 실패 하였습니다."+e.getMessage());
 			
 		}
-		finally { close(conn); }
 		
 		return rvo;
 	}
