@@ -207,8 +207,6 @@ package component
 		
 		public function removedfromstage_handler(event:Event):void {
 			
-			
-			Object(sendList.dataProvider).removeAll();
 			alPhone.removeAll();
 			removeReaervation();
 			removeInterval();
@@ -355,11 +353,7 @@ package component
 			
 			var validMessage:String = "";
 			var subMessage:String = "";
-			if ( Gv.bLogin == false ) {
-				validMessage = "로그인 후 이용 가능 합니다.";
-				subMessage = "회원 가입은 상단의 회원가입 버튼을 클릭하세요.";
-			}
-			else if ( msg == "" ) {
+			if ( msg == "" ) {
 				validMessage = "메시지를 입력 하세요.";
 				subMessage = "90Byte 이상 입력시 LMS로 자동 전환됩니다.";
 			}
@@ -594,12 +588,17 @@ package component
 			
 			sending.horizontalCenter = 0;
 			sending.verticalCenter = 0;
+			sending.addEventListener("close", sending_closeHandler);
 			this.contentGroup.addElement(sending);
+		}
+		private function sending_closeHandler(event:Event):void {
+			removeSending();
 		}
 		
 		private function removeSending():void {
 			
 			if (sending != null) {
+				sending.removeEventListener("close", sending_closeHandler);
 				this.contentGroup.removeElement(sending);
 				sending.destroy();
 				sending = null;

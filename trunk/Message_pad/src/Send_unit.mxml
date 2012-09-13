@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
-			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:component="component.*">
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="1024" minHeight="744" xmlns:component="component.*" xmlns:ics="component.ics.*">
+	<fx:Script>
+		<![CDATA[
+			import spark.components.NavigatorContent;
+		]]>
+	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<component:Send 
-		minWidth = "1024"
-		minHeight = "420"
-		horizontalCenter = "0"/>
+	<fx:Style source="/skin/ics/ics.css"/>
+	<s:VGroup gap="0" horizontalCenter="0">
+		<component:Send 
+			minWidth = "1024"
+			minHeight = "696"
+			horizontalCenter = "0"/>
+		
+		<s:Group id="navigationBar" width="100%" height="40" >
+			<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#000000"/></s:fill></s:Rect>
+			<s:HGroup top="12" left="20" gap="20" verticalAlign="bottom">
+				<s:Image source="skin/ics/assets/back.png" alpha="0.4" smooth="true" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4" />
+				<s:Image source="skin/ics/assets/home.png" alpha="0.4" smooth="true" buttonMode="true"
+						 mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4" />
+				<s:Image source="skin/ics/assets/menus.png" alpha="0.4" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4"/>
+			</s:HGroup>
+			<s:HGroup right="4" verticalCenter="0" >
+				<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#FF0000"/></s:fill></s:Rect>
+				<s:Image source="skin/ics/assets/signal.png"/>
+				<ics:Battery percent="10"/>
+				<ics:CurrentTime />
+			</s:HGroup>
+		</s:Group><!-- navigationBar -->
+	</s:VGroup>
+	
 </s:Application>

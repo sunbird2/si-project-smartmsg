@@ -4,6 +4,7 @@ package component
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	import component.excel.Excel;
 	import component.util.CustomToolTip;
+	import component.util.ListCheckAble;
 	import component.util.TextInputSearch;
 	
 	import flash.display.DisplayObject;
@@ -38,6 +39,7 @@ package component
 	import mx.rpc.events.ResultEvent;
 	
 	import skin.AddressSkin;
+	import skin.address.GroupRenderer;
 	
 	import spark.components.Button;
 	import spark.components.ComboBox;
@@ -74,11 +76,17 @@ package component
 		// group
 		[SkinPart(required="false")]public var groupList:List;
 		[SkinPart(required="false")]public var groupAddBtn:Image;
+		[SkinPart(required="false")]public var groupModifyBtn:Image;
+		[SkinPart(required="false")]public var groupDelBtn:Image;
 		
 		// name
-		[SkinPart(required="false")]public var nameList:List;
+		[SkinPart(required="false")]public var nameList:ListCheckAble;
+		[SkinPart(required="false")]public var nameMultSelectBtn:Image;
 		[SkinPart(required="false")]public var nameAddBtn:Image;
+		[SkinPart(required="false")]public var nameDelBtn:Image;
 		[SkinPart(required="false")]public var nameCount:SpanElement;
+		
+		
 		
 		
 		
@@ -204,7 +212,7 @@ package component
 				nameList.dataProvider = acName;
 				nameList.dragEnabled = true;
 				nameList.dragMoveEnabled = true;
-				nameList.allowMultipleSelection = true;
+				//nameList.allowMultipleSelection = true;
 				
 				var irFactory:ClassFactory = new ClassFactory(IconItemRenderer);
 				irFactory.properties = {
@@ -218,7 +226,12 @@ package component
 				nameList.addEventListener(KeyboardEvent.KEY_UP, namepList_keyUpHandler);
 			}
 			else if (instance == groupAddBtn) groupAddBtn.addEventListener(MouseEvent.CLICK, groupAddBtn_clickHandler);
+			else if (instance == groupModifyBtn) groupModifyBtn.addEventListener(MouseEvent.CLICK, groupModifyBtn_clickHandler);
+			else if (instance == groupDelBtn) groupDelBtn.addEventListener(MouseEvent.CLICK, groupDelBtn_clickHandler);
+			
+			else if (instance == nameMultSelectBtn) nameMultSelectBtn.addEventListener(MouseEvent.CLICK, nameMultSelectBtn_clickHandler);
 			else if (instance == nameAddBtn) nameAddBtn.addEventListener(MouseEvent.CLICK, nameAddBtn_clickHandler);
+			else if (instance == nameDelBtn) nameDelBtn.addEventListener(MouseEvent.CLICK, nameDelBtn_clickHandler);
 			else if (instance == cardBtn) cardBtn.addEventListener(MouseEvent.CLICK, cardBtn_clickHandler);
 			else if (instance == addressFromExcel) addressFromExcel.addEventListener(MouseEvent.CLICK, addressFromExcel_clickHandler);
 			else if (instance == search) search.addEventListener("search" , search_clickHandler);
@@ -263,7 +276,12 @@ package component
 				nameList = null;
 			}
 			else if (instance == groupAddBtn) groupAddBtn.removeEventListener(MouseEvent.CLICK, groupAddBtn_clickHandler);
+			else if (instance == groupModifyBtn) groupModifyBtn.removeEventListener(MouseEvent.CLICK, groupModifyBtn_clickHandler);
+			else if (instance == groupDelBtn) groupDelBtn.removeEventListener(MouseEvent.CLICK, groupDelBtn_clickHandler);
+				
+			else if (instance == nameMultSelectBtn) nameMultSelectBtn.removeEventListener(MouseEvent.CLICK, nameMultSelectBtn_clickHandler);
 			else if (instance == nameAddBtn) nameAddBtn.removeEventListener(MouseEvent.CLICK, nameAddBtn_clickHandler);
+			else if (instance == nameDelBtn) nameDelBtn.removeEventListener(MouseEvent.CLICK, nameDelBtn_clickHandler);
 			else if (instance == cardBtn) cardBtn.removeEventListener(MouseEvent.CLICK, cardBtn_clickHandler);
 			else if (instance == addressFromExcel) addressFromExcel.removeEventListener(MouseEvent.CLICK, addressFromExcel_clickHandler);
 			else if (instance == search) search.removeEventListener("search" , search_clickHandler);
@@ -319,11 +337,14 @@ package component
 			
 			if (event.keyCode == 46
 				&& AddressVO(groupList.selectedItem).grpName != "모두") {
+				delGroup();
 				
-				confirmAlert = new AlertManager("["+AddressVO(groupList.selectedItem).grpName+"] 그룹의 주소도 모두 삭제 됩니다.\n 삭제 하시겠습니까?","그룹삭제", 1|8, Sprite(parentApplication), groupList.selectedIndex);
-				confirmAlert.addEventListener("yes",deleteGroup_confirmHandler, false, 0, true);
 			}
 				
+		}
+		private function delGroup():void {
+			confirmAlert = new AlertManager("["+AddressVO(groupList.selectedItem).grpName+"] 그룹의 전화번호도 모두 삭제 됩니다.\n 삭제 하시겠습니까?","그룹삭제", 1|8, Sprite(parentApplication), groupList.selectedIndex);
+			confirmAlert.addEventListener("yes",deleteGroup_confirmHandler, false, 0, true);
 		}
 		private function allAddressGroupVO():AddressVO {
 			
@@ -404,6 +425,7 @@ package component
 			if (bEdite) {
 				setCard();
 				activeName();
+				
 			}else {
 				bEdite = true;
 			}
@@ -439,6 +461,7 @@ package component
 		}
 		private function viewCard():void {
 			
+			cardBtn.visible = true;
 			if (nameList.selectedIndex >= 0) {
 				var avo:AddressVO = AddressVO( acName.getItemAt( nameList.selectedIndex ) );
 				if (avo != null) {
@@ -460,7 +483,9 @@ package component
 		
 		private function nameList_changeHandler(event:IndexChangeEvent):void {
 			
-			if (bEdite) bEdite = false;
+			if (bEdite) {
+				bEdite = false;
+			}
 			
 			viewCard();
 		}
@@ -468,8 +493,15 @@ package component
 		private function namepList_keyUpHandler(event:KeyboardEvent):void {
 			
 			if (event.keyCode == 46) {
-				
-				confirmAlert = new AlertManager("삭제 하시겠습니까?","카드삭제", 1|8, Sprite(parentApplication), nameList.selectedIndex);
+				nameListDel();
+			}
+			
+		}
+		private function nameListDel():void {
+			
+			var cnt:int = nameList.selectedItems.length;
+			if (nameList.selectedItems) {
+				confirmAlert = new AlertManager("선택된 "+String(nameList.selectedItems.length)+"건의 전화번호를 삭제 하시겠습니까?","전화번호삭제", 1|8, Sprite(parentApplication), nameList.selectedIndex);
 				confirmAlert.addEventListener("yes",deleteName_confirmHandler, false, 0, true);
 			}
 			
@@ -478,9 +510,33 @@ package component
 			
 			confirmAlert.removeEventListener("yes",deleteName_confirmHandler);
 			confirmAlert = null;
-			activeAddress(22, AddressVO( acName.getItemAt(int(event.result)) ) ); 
-			acName.removeItemAt( int(event.result) );
+			
+			var act:Vector.<Object> = nameList.selectedItems;
+			var cnt:int = act.length;
+			var ac:ArrayCollection = new ArrayCollection();
+			var i:int = 0;
+			for(i = 0; i < cnt; i++) {
+				ac.addItem( AddressVO( nameList.selectedItems[i] ) );
+			}
+			
+			if (ac.length == 0) {
+				SLibrary.alert("선택된 전화번호가 없습니다.");
+			}else {
+				
+				RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", deleteName_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.modifyManyAddr(33, ac, "");	
+			}
+			
+			for( i = 0; i < cnt; i++) {
+				acName.removeItemAt( acName.getItemIndex( act[i] as AddressVO ) );
+			}
+			nameCount.text = String(acName.length);
 			viewCard();
+		}
+		private function deleteName_resultHandler(event:CustomEvent):void {
+			
+			SLibrary.alert( String(event.result) +"건의 전화번호가 삭제 되었습니다." );
 		}
 		
 		
@@ -535,13 +591,44 @@ package component
 			}
 			
 			setGvGroup();
+		}
+		private function groupModifyBtn_clickHandler(event:MouseEvent):void {
+			
+			var idx:int = groupList.selectedIndex;
+			if (idx < 0 ) SLibrary.alert("그룹을 선택 하세요.");
+			else if (idx == 0) SLibrary.alert("모두는 수정 할 수 없습니다.");
+			else {
+				var obj:GroupRenderer = groupList.dataGroup.getElementAt(idx) as GroupRenderer;
+				obj.onEdit(null); 
+			}
 			
 			
 		}
+		private function groupDelBtn_clickHandler(event:MouseEvent):void {
+			
+			var idx:int = groupList.selectedIndex;
+			if (idx < 0 ) SLibrary.alert("그룹을 선택 하세요.");
+			else {
+				delGroup();
+			}
+		}
+		
 		
 		/**
 		 * name method
 		 * */
+		private function nameMultSelectBtn_clickHandler(event:MouseEvent):void {
+			
+			if (nameList.allowMultipleSelection) {
+				nameList.allowMultipleSelection = false;
+				nameMultSelectBtn.alpha = 0.4;
+			}else {
+				nameList.allowMultipleSelection = true;
+				nameMultSelectBtn.alpha = 1;
+				SLibrary.alert("여러개의 전화번호를 선택 하실 수 있습니다.");
+			}
+		}
+		
 		private function nameAddBtn_clickHandler(event:MouseEvent):void {
 			
 			event.stopImmediatePropagation();
@@ -551,6 +638,11 @@ package component
 			nameCount.text = String(acName.length);
 			callLater(editeSelect);
 		}
+		private function nameDelBtn_clickHandler(event:MouseEvent):void {
+			
+			nameListDel();
+		}
+		
 		private function editeSelect():void {
 			nameList.selectedIndex = 0;
 			nameList.dispatchEvent( new IndexChangeEvent(IndexChangeEvent.CHANGE) );
@@ -630,7 +722,7 @@ package component
 		private function createExcel():void {
 			excel = new Excel();
 			excel.horizontalCenter = 0;
-			excel.verticalCenter = 0;
+			excel.top = 48;
 			excel.bFromAddress = true;
 			excel.addEventListener("saveAddress", excel_saveAddressHandler);
 			excel.addEventListener("close", excel_closeHandler);

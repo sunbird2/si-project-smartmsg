@@ -22,13 +22,15 @@ package component
 	
 	import spark.components.Button;
 	import spark.components.Label;
+	import spark.components.SkinnableContainer;
 	import spark.components.TextInput;
 	import spark.components.supportClasses.SkinnableComponent;
 	
 	import valueObjects.BooleanAndDescriptionVO;
 	import valueObjects.UserInformationVO;
 	
-	
+	[Event(name="login", type="flash.events.Event")]
+	[Event(name="logout", type="flash.events.Event")]
 	/* A component must identify the view states that its skin supports. 
 	Use the [SkinState] metadata tag to define the view states in the component class. 
 	[SkinState("normal")] */
@@ -133,7 +135,7 @@ package component
 		 * */
 		private function join_clickHandler(event:MouseEvent):void {
 			
-			Main(parentApplication).joinView();
+			parentApplication.joinView();
 		}
 		
 		/**
@@ -156,13 +158,8 @@ package component
 			
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {
-				bOnceAutoMoveSend = true;
+				user_pw.text = "";
 				login_check();
-				/*if (Main(parentApplication).currentState == "send")
-					Main(parentApplication).menus.clickStat ="home";
-				else
-					Main(parentApplication).menus.clickStat ="send";
-				callLater(login_check);*/
 				
 			} else {
 				SLibrary.alert("로그인 실패");
@@ -174,13 +171,10 @@ package component
 		 * */
 		private function logout_clickHandler(event:Event):void {
 			
-			if (user_id.text == "") SLibrary.alert("아이디를 입력 하세요");
-			else if (user_pw.text == "") SLibrary.alert("비밀번호를 입력 하세요");
-			else {
-				RemoteSingleManager.getInstance.addEventListener("login", logout_resultHandler, false, 0, true);
-				RemoteSingleManager.getInstance.callresponderToken 
-					= RemoteSingleManager.getInstance.service.login(user_id.text, user_pw.text);
-			}
+			RemoteSingleManager.getInstance.addEventListener("logout_session", logout_resultHandler, false, 0, true);
+			RemoteSingleManager.getInstance.callresponderToken 
+				= RemoteSingleManager.getInstance.service.logout_session();
+			
 		}
 		/**
 		 * login resultHandler
@@ -189,11 +183,12 @@ package component
 			
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {
-				bOnceAutoMoveSend = true;
-				login_check();
+				cstat = "logout";
+				invalidateSkinState();
+				dispatchEvent(new Event("logout"));
 				
 			} else {
-				SLibrary.alert("로그인 실패");
+				SLibrary.alert("로그아웃 실패");
 			}
 		}
 		
@@ -206,17 +201,18 @@ package component
 			var uvo:UserInformationVO = event.result as UserInformationVO;
 			if (uvo != null) {
 				cstat = "login";
-				this.top = 2;
 				Gv.bLogin = true;
 				Gv.user_id = uvo.user_id;
 				Gv.point = uint( uvo.point );
+				
 				if (bOnceAutoMoveSend) {
 					bOnceAutoMoveSend = false;
 					callLater(moveSend);
 				}
+				dispatchEvent(new Event("login"));
 			} else {
 				cstat = "logout";
-				callLater(moveHome);
+				dispatchEvent(new Event("logout"));
 			}
 			invalidateSkinState();
 			
@@ -251,17 +247,17 @@ package component
 		
 		private function moveSend():void {
 			
-			if (Main(parentApplication).currentState != "send") {
-				Main(parentApplication).menus.clickStat ="send";
-				//Main(parentApplication).currentState ="send";
+			if (SkinnableContainer(parentApplication).currentState != "send") {
+				parentApplication.menus.clickStat ="send";
+				//SkinnableContainer(parentApplication).currentState ="send";
 			}
 		}
 		
 		private function moveHome():void {
 			
-			if (Main(parentApplication).currentState != "home") {
-				Main(parentApplication).menus.clickStat ="home";
-				//Main(parentApplication).currentState ="send";
+			if (SkinnableContainer(parentApplication).currentState != "home") {
+				parentApplication.menus.clickStat ="home";
+				//SkinnableContainer(parentApplication).currentState ="send";
 			}
 		}
 		

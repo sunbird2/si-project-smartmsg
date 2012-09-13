@@ -58,8 +58,8 @@ public class _Super_AddressVO extends flash.events.EventDispatcher implements co
     /**
      * properties
      */
-    private var _internal_writedate : String;
     private var _internal_grpName : String;
+    private var _internal_writedate : String;
     private var _internal_phone : String;
     private var _internal_grp : int;
     private var _internal_idx : int;
@@ -91,15 +91,15 @@ public class _Super_AddressVO extends flash.events.EventDispatcher implements co
      */
 
     [Bindable(event="propertyChange")]
-    public function get writedate() : String
-    {
-        return _internal_writedate;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get grpName() : String
     {
         return _internal_grpName;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get writedate() : String
+    {
+        return _internal_writedate;
     }
 
     [Bindable(event="propertyChange")]
@@ -152,16 +152,6 @@ public class _Super_AddressVO extends flash.events.EventDispatcher implements co
      * data/source property setters
      */
 
-    public function set writedate(value:String) : void
-    {
-        var oldValue:String = _internal_writedate;
-        if (oldValue !== value)
-        {
-            _internal_writedate = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "writedate", oldValue, _internal_writedate));
-        }
-    }
-
     public function set grpName(value:String) : void
     {
         var oldValue:String = _internal_grpName;
@@ -169,6 +159,16 @@ public class _Super_AddressVO extends flash.events.EventDispatcher implements co
         {
             _internal_grpName = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "grpName", oldValue, _internal_grpName));
+        }
+    }
+
+    public function set writedate(value:String) : void
+    {
+        var oldValue:String = _internal_writedate;
+        if (oldValue !== value)
+        {
+            _internal_writedate = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "writedate", oldValue, _internal_writedate));
         }
     }
 

@@ -23,6 +23,7 @@ package component.excel
 	import spark.components.Button;
 	import spark.components.ComboBox;
 	import spark.components.DataGrid;
+	import spark.components.Image;
 	import spark.components.List;
 	import spark.components.RichText;
 	import spark.components.gridClasses.GridColumn;
@@ -54,6 +55,8 @@ package component.excel
 		[SkinPart(required="false")]public var sendBtn:Button;
 		[SkinPart(required="false")]public var excelView:DataGrid;
 		[SkinPart(required="false")]public var resultList:List;
+		[SkinPart(required="false")]public var close:Image;
+		
 		
 		
 		private const NONE:int = 0;
@@ -126,6 +129,14 @@ package component.excel
 				}
 			}
 			else if (instance == addressBtn) addressBtn.addEventListener(MouseEvent.CLICK, addressBtn_clickHandler);
+			else if (instance == close) {
+				if (bFromAddress) {
+					close.visible = true;
+					close.addEventListener(MouseEvent.CLICK, close_clickHandler);
+				}
+				else close.visible = false;
+			}
+			
 			
 			
 			
@@ -142,6 +153,11 @@ package component.excel
 			else if (instance == sendBtn) sendBtn.removeEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
 			else if (instance == addressCombo) addressCombo.dataProvider = null;
 			else if (instance == addressBtn) addressBtn.removeEventListener(MouseEvent.CLICK, addressBtn_clickHandler);
+			else if (instance == close) {
+				if (bFromAddress) {
+					close.removeEventListener(MouseEvent.CLICK, close_clickHandler);
+				}
+			}
 		}
 		
 		
