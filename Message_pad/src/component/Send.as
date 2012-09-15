@@ -171,8 +171,7 @@ package component
 		/**
 		 * phones properties
 		 * */
-		[Bindable]
-		public var alPhone:ArrayCollection;
+		public var alPhone:ArrayCollection = new ArrayCollection();
 		private var Kpf:KoreaPhoneNumberFormatter;
 		private var excel:Excel;
 		private var sma:SendModeAddress;
@@ -201,7 +200,6 @@ package component
 		
 		public function addedtostage_handler(event:Event):void {
 			
-			alPhone = new ArrayCollection();
 			Kpf = new KoreaPhoneNumberFormatter();
 		}
 		
@@ -676,7 +674,7 @@ package component
 		private function phoneRemoveAll_clickHandler(event:MouseEvent):void {
 			event.stopImmediatePropagation();
 			event.preventDefault();
-			Object(sendList.dataProvider).removeAll();
+			//Object(sendList.dataProvider).removeAll();
 			alPhone.removeAll();
 		}
 		

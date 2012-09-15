@@ -69,11 +69,11 @@
 								 alpha="0.6" fillMode="scale" />
 					</s:HGroup>
 					
-					<s:List  id="sendList"
-							 focusEnabled="false"
-							 borderColor="#DDDDDD"
-							 itemRenderer="component.send.SendListRenderer"
-							 width="100%" height="150">
+					<s:List id="sendList"
+							focusEnabled="false"
+							borderColor="#DDDDDD"
+							itemRenderer="component.send.SendListRenderer"
+							width="100%" height="150">
 					</s:List>
 					
 					<s:HGroup width="100%" horizontalAlign="right" verticalAlign="middle">

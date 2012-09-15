@@ -90,8 +90,8 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     private var _internal_searchStringEscape : String;
     private var _internal_databaseMinorVersion : int;
     private var _internal_maxProcedureNameLength : int;
-    private var _internal_maxTablesInSelect : int;
     private var _internal_maxTableNameLength : int;
+    private var _internal_maxTablesInSelect : int;
     private var _internal_driverMinorVersion : int;
     private var _internal_maxCharLiteralLength : int;
     private var _internal_maxIndexLength : int;
@@ -101,8 +101,8 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     private var _internal_URL : String;
     private var _internal_clientInfoProperties : valueObjects.ResultSet;
     private var _internal_maxStatementLength : int;
-    private var _internal_maxConnections : int;
     private var _internal_schemas : valueObjects.ResultSet;
+    private var _internal_maxConnections : int;
     private var _internal_maxUserNameLength : int;
     private var _internal_rowIdLifetime : String;
     private var _internal_resultSetHoldability : int;
@@ -310,15 +310,15 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     }
 
     [Bindable(event="propertyChange")]
-    public function get maxTablesInSelect() : int
-    {
-        return _internal_maxTablesInSelect;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get maxTableNameLength() : int
     {
         return _internal_maxTableNameLength;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get maxTablesInSelect() : int
+    {
+        return _internal_maxTablesInSelect;
     }
 
     [Bindable(event="propertyChange")]
@@ -376,15 +376,15 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     }
 
     [Bindable(event="propertyChange")]
-    public function get maxConnections() : int
-    {
-        return _internal_maxConnections;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get schemas() : valueObjects.ResultSet
     {
         return _internal_schemas;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get maxConnections() : int
+    {
+        return _internal_maxConnections;
     }
 
     [Bindable(event="propertyChange")]
@@ -765,16 +765,6 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         }
     }
 
-    public function set maxTablesInSelect(value:int) : void
-    {
-        var oldValue:int = _internal_maxTablesInSelect;
-        if (oldValue !== value)
-        {
-            _internal_maxTablesInSelect = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "maxTablesInSelect", oldValue, _internal_maxTablesInSelect));
-        }
-    }
-
     public function set maxTableNameLength(value:int) : void
     {
         var oldValue:int = _internal_maxTableNameLength;
@@ -782,6 +772,16 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         {
             _internal_maxTableNameLength = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "maxTableNameLength", oldValue, _internal_maxTableNameLength));
+        }
+    }
+
+    public function set maxTablesInSelect(value:int) : void
+    {
+        var oldValue:int = _internal_maxTablesInSelect;
+        if (oldValue !== value)
+        {
+            _internal_maxTablesInSelect = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "maxTablesInSelect", oldValue, _internal_maxTablesInSelect));
         }
     }
 
@@ -875,16 +875,6 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         }
     }
 
-    public function set maxConnections(value:int) : void
-    {
-        var oldValue:int = _internal_maxConnections;
-        if (oldValue !== value)
-        {
-            _internal_maxConnections = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "maxConnections", oldValue, _internal_maxConnections));
-        }
-    }
-
     public function set schemas(value:valueObjects.ResultSet) : void
     {
         var oldValue:valueObjects.ResultSet = _internal_schemas;
@@ -892,6 +882,16 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         {
             _internal_schemas = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "schemas", oldValue, _internal_schemas));
+        }
+    }
+
+    public function set maxConnections(value:int) : void
+    {
+        var oldValue:int = _internal_maxConnections;
+        if (oldValue !== value)
+        {
+            _internal_maxConnections = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "maxConnections", oldValue, _internal_maxConnections));
         }
     }
 

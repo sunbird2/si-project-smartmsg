@@ -43,16 +43,16 @@
 			<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="12" kerning="auto" color="#D6D6D6">
 				<s:content><s:p><s:a id="login_id" href="정보 수정 페이지로 이동합니다."></s:a><s:span> 님 안녕하세요. </s:span><s:span>현재 </s:span></s:p></s:content>
 			</s:RichText>
-			<s:ComboBox id="combo" left="168" width="54" fontSize="12"
+			<s:DropDownList id="combo" left="168" width="54" fontSize="12"
 						focusEnabled="false"
-						styleName="comboBox_dark"
+						styleName="dropDownList_dark"
 						selectedIndex="0">
 				<s:ArrayCollection>
 					<fx:Object label="SMS" data="SMS"/>
 					<fx:Object label="LMS" data="LMS"/>
 					<fx:Object label="MMS" data="MMS"/>
 				</s:ArrayCollection>
-			</s:ComboBox>
+			</s:DropDownList>
 			<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="12" kerning="auto" color="#D6D6D6">
 				<s:content><s:p><s:span>를 </s:span><s:a  href="MyPage 로 이동 합니다." id="point"></s:a><s:span>건 발송하실 수 있습니다. </s:span></s:p></s:content>
 			</s:RichText>

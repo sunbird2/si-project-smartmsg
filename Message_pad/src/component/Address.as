@@ -50,6 +50,7 @@ package component
 	import spark.components.RichText;
 	import spark.components.TextArea;
 	import spark.components.TextInput;
+	import spark.components.VGroup;
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
 	import spark.layouts.VerticalLayout;
@@ -61,8 +62,6 @@ package component
 	/* A component must identify the view states that its skin supports. 
 	Use the [SkinState] metadata tag to define the view states in the component class. 
 	[SkinState("normal")] */
-	[SkinState("normal")]
-	[SkinState("nameEdit")]
 	
 	public class Address extends SkinnableComponent
 	{
@@ -91,11 +90,16 @@ package component
 		
 		
 		// card
+		[SkinPart(required="true")]public var cardGroup:VGroup;
 		[SkinPart(required="true")]public var groupName:ComboBox;
 		[SkinPart(required="true")]public var nameL:TextInput;
 		[SkinPart(required="true")]public var phone:TextInput;
 		[SkinPart(required="false")]public var memo:TextArea;
+		[SkinPart(required="false")]public var cardAddBtn:Image;
 		[SkinPart(required="false")]public var cardBtn:Image;
+		[SkinPart(required="false")]public var commitBtn:Button;
+		
+		
 		
 		// function
 		[SkinPart(required="false")]public var addressFromExcel:Image;
@@ -144,14 +148,6 @@ package component
 		public function get activeCode():Number { return _activeCode; }
 		public function set activeCode(value:Number):void { _activeCode = value; }
 
-		public function get bEdite():Boolean { return _bEdite; }
-		public function set bEdite(value:Boolean):void {
-			if (_bEdite != value) {
-				_bEdite = value;
-				invalidateSkinState();
-			}
-		}
-
 		/**
 		 * group collection change
 		 * */
@@ -186,11 +182,6 @@ package component
 				case CollectionEventKind.RESET: break; 
 			} 
 		}
-		/* Implement the getCurrentSkinState() method to set the view state of the skin class. */
-		override protected function getCurrentSkinState():String
-		{
-			return (bEdite)?"nameEdit":"normal";
-		} 
 		
 		/* Implement the partAdded() method to attach event handlers to a skin part, 
 		configure a skin part, or perform other actions when a skin part is added. */	
@@ -230,15 +221,17 @@ package component
 			else if (instance == groupDelBtn) groupDelBtn.addEventListener(MouseEvent.CLICK, groupDelBtn_clickHandler);
 			
 			else if (instance == nameMultSelectBtn) nameMultSelectBtn.addEventListener(MouseEvent.CLICK, nameMultSelectBtn_clickHandler);
-			else if (instance == nameAddBtn) nameAddBtn.addEventListener(MouseEvent.CLICK, nameAddBtn_clickHandler);
+			else if (instance == nameAddBtn) nameAddBtn.addEventListener(MouseEvent.CLICK, cardAddBtn_clickHandler);
 			else if (instance == nameDelBtn) nameDelBtn.addEventListener(MouseEvent.CLICK, nameDelBtn_clickHandler);
-			else if (instance == cardBtn) cardBtn.addEventListener(MouseEvent.CLICK, cardBtn_clickHandler);
+			else if (instance == cardAddBtn) cardAddBtn.addEventListener(MouseEvent.CLICK, cardAddBtn_clickHandler);
 			else if (instance == addressFromExcel) addressFromExcel.addEventListener(MouseEvent.CLICK, addressFromExcel_clickHandler);
 			else if (instance == search) search.addEventListener("search" , search_clickHandler);
 			else if (instance == groupName) {
 				groupName.dataProvider = acGroup;
 				groupName.labelField = "grpName";
 			}
+			else if (instance == cardGroup) cardGroup.visible = false;
+			else if (instance == commitBtn) commitBtn.addEventListener(MouseEvent.CLICK, commitBtn_clickHandler); 
 			
 			
 			if (instance is LinkElement) {
@@ -280,11 +273,12 @@ package component
 			else if (instance == groupDelBtn) groupDelBtn.removeEventListener(MouseEvent.CLICK, groupDelBtn_clickHandler);
 				
 			else if (instance == nameMultSelectBtn) nameMultSelectBtn.removeEventListener(MouseEvent.CLICK, nameMultSelectBtn_clickHandler);
-			else if (instance == nameAddBtn) nameAddBtn.removeEventListener(MouseEvent.CLICK, nameAddBtn_clickHandler);
+			else if (instance == nameAddBtn) nameAddBtn.removeEventListener(MouseEvent.CLICK, cardAddBtn_clickHandler);
 			else if (instance == nameDelBtn) nameDelBtn.removeEventListener(MouseEvent.CLICK, nameDelBtn_clickHandler);
-			else if (instance == cardBtn) cardBtn.removeEventListener(MouseEvent.CLICK, cardBtn_clickHandler);
+			else if (instance == cardAddBtn) cardAddBtn.removeEventListener(MouseEvent.CLICK, cardAddBtn_clickHandler);
 			else if (instance == addressFromExcel) addressFromExcel.removeEventListener(MouseEvent.CLICK, addressFromExcel_clickHandler);
 			else if (instance == search) search.removeEventListener("search" , search_clickHandler);
+			else if (instance == commitBtn) commitBtn.removeEventListener(MouseEvent.CLICK, commitBtn_clickHandler); 
 			
 			if (instance is LinkElement) {
 				instance.removeEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
@@ -385,7 +379,7 @@ package component
 		 * */
 		private function groupList_changeHandler(event:IndexChangeEvent):void {
 			
-			var vo:AddressVO = acGroup.getItemAt(event.newIndex) as AddressVO;
+			var vo:AddressVO = acGroup.getItemAt(groupList.selectedIndex) as AddressVO;
 			if (vo != null) {
 				var gName:String = (vo.idx == 0)? "":vo.grpName;
 				currentGroupName = gName;
@@ -410,7 +404,6 @@ package component
 			}
 			
 			viewCard();
-			bEdite = false;
 			
 		}
 		
@@ -420,73 +413,82 @@ package component
 			return (avo.name != "") ? avo.name : avo.phone;
 		}
 		
-		private function cardBtn_clickHandler(event:MouseEvent):void {
+		private function commitBtn_clickHandler(event:MouseEvent):void {
 			
-			if (bEdite) {
-				setCard();
-				activeName();
-				
-			}else {
-				bEdite = true;
-			}
-				
+			setCard();
+			activeCommit();
 		}
-		private function activeName():void {
+		
+		
+		private function activeCommit():void {
 			
-			var avo:AddressVO = AddressVO( acName.getItemAt( nameList.selectedIndex ) );
-			if (avo.idx == 0) {// insert
-				if (currentGroupName == "") SLibrary.alert("그룹 선택 후 저장하세요.");
-				else {
-					activeAddress(20, avo);
-				}
-				
-			}else {// update
-				activeAddress(21, avo);
+			if (groupName.selectedIndex < 0) { // group insert and cart insert
+				activeAddress(23, activeAddressVO);
+			}
+			else if (activeAddressVO.idx == 0) {// insert
+				activeAddress(20, activeAddressVO);
+			}
+			else {// update
+				activeAddress(21, activeAddressVO);
 			}
 		}
 		private function setCard():void {
 			
+			var idx:int = 0;
 			if (nameList.selectedIndex >= 0) {
 				
 				var avo:AddressVO = AddressVO( acName.getItemAt( nameList.selectedIndex ) );
-				
-				avo.grp = 1;
-				//avo.grpName = currentGroupName;
+				idx = avo.idx;
+				/*avo.grp = 1;
 				avo.grpName = AddressVO(groupName.selectedItem).grpName;
 				avo.name = nameL.text;
 				avo.phone = phone.text;
-				avo.memo = memo.text;
+				avo.memo = memo.text;*/
 			}
+			
+			activeAddressVO = new AddressVO(); 
+			activeAddressVO.idx = idx;
+			activeAddressVO.grp = 1;
+			if (groupName.selectedItem is AddressVO)
+				activeAddressVO.grpName = AddressVO(groupName.selectedItem).grpName;
+			else 
+				activeAddressVO.grpName = groupName.selectedItem;
+			activeAddressVO.name = nameL.text;
+			activeAddressVO.phone = phone.text;
+			activeAddressVO.memo = memo.text;
 			
 		}
 		private function viewCard():void {
 			
-			cardBtn.visible = true;
 			if (nameList.selectedIndex >= 0) {
 				var avo:AddressVO = AddressVO( acName.getItemAt( nameList.selectedIndex ) );
-				if (avo != null) {
-					groupName.selectedItem = avo;
-					nameL.text = avo.name;
-					phone.text = avo.phone;
-					memo.text = avo.memo;
-				}
+
+				if (avo.grpName) groupName.selectedItem = avo;
+				nameL.text = avo.name;
+				phone.text = avo.phone;
+				memo.text = avo.memo;
+				cardGroup.visible = true;
 			}
 			else {
-				groupName.selectedIndex = -1;
-				nameL.text = "";
-				phone.text = "";
-				memo.text = "";
+				cardGroup.visible = false;
 			}
-				
+		}
+		private function viewCreatCard():void {
 			
+			cardGroup.visible = true;
+			if (groupList.selectedIndex > 0) {
+				var avo:AddressVO = AddressVO( acGroup.getItemAt( groupList.selectedIndex ) );
+				if (avo.grpName) groupName.selectedItem = avo;
+			}
+			else
+				groupName.selectedIndex = -1;
+			
+			nameL.text = "";
+			phone.text = "";
+			memo.text = "";
 		}
 		
 		private function nameList_changeHandler(event:IndexChangeEvent):void {
-			
-			if (bEdite) {
-				bEdite = false;
-			}
-			
 			viewCard();
 		}
 		
@@ -560,6 +562,9 @@ package component
 			
 			if (avo.grpName == "") {
 				SLibrary.alert("그룹이름이 없습니다.");
+			} 
+			else if (avo.phone == ""){
+				SLibrary.alert("전화번호를 입력 하세요.");
 			}else {
 				activeCode = code;
 				activeAddressVO = avo;
@@ -583,15 +588,33 @@ package component
 				
 				case 10:
 				case 20:
-				{
+				case 21: {
+					
 					activeAddressVO.idx = i;
+					groupList.selectedIndex = getGroupSelectedIndex(activeAddressVO.grpName);
+					
+					groupList.dispatchEvent( new IndexChangeEvent(IndexChangeEvent.CHANGE) );
 					break;
+				}
+				case 23: {
+					getGroup();
 				}
 				default: { break; }
 			}
 			
 			setGvGroup();
 		}
+		
+		private function getGroupSelectedIndex(grp:String):int {
+			
+			var cnt:int = acGroup.length;
+			var i:int = 0;
+			for ( i = 0; i < cnt; i++) {
+				if (AddressVO(acGroup.getItemAt(i)).grpName == grp) break;
+			}
+			return i;
+		}
+		
 		private function groupModifyBtn_clickHandler(event:MouseEvent):void {
 			
 			var idx:int = groupList.selectedIndex;
@@ -629,15 +652,6 @@ package component
 			}
 		}
 		
-		private function nameAddBtn_clickHandler(event:MouseEvent):void {
-			
-			event.stopImmediatePropagation();
-			event.preventDefault();
-			bEdite = true;
-			acName.addItemAt(new AddressVO(), 0);
-			nameCount.text = String(acName.length);
-			callLater(editeSelect);
-		}
 		private function nameDelBtn_clickHandler(event:MouseEvent):void {
 			
 			nameListDel();
@@ -646,8 +660,14 @@ package component
 		private function editeSelect():void {
 			nameList.selectedIndex = 0;
 			nameList.dispatchEvent( new IndexChangeEvent(IndexChangeEvent.CHANGE) );
-			nameL.setFocus();
+			
 		}
+		
+		private function cardAddBtn_clickHandler(event:MouseEvent):void {
+			
+			viewCreatCard();
+		}
+		
 		
 		
 		/**

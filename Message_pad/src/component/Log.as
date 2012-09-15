@@ -4,6 +4,7 @@ package component
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	
 	import component.util.ListCheckAble;
+	import component.util.TextInputSearch;
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -21,6 +22,7 @@ package component
 	import mx.charts.series.PieSeries;
 	import mx.collections.ArrayCollection;
 	import mx.collections.ArrayList;
+	import mx.collections.AsyncListView;
 	import mx.controls.DateField;
 	import mx.controls.dataGridClasses.DataGridColumn;
 	import mx.core.mx_internal;
@@ -28,11 +30,17 @@ package component
 	import mx.formatters.DateFormatter;
 	import mx.graphics.SolidColor;
 	import mx.graphics.SolidColorStroke;
+	import mx.rpc.CallResponder;
+	import mx.rpc.events.FaultEvent;
+	import mx.rpc.events.ResultEvent;
+	
+	import services.Smt;
 	
 	import skin.LogSkin;
 	
 	import spark.components.Button;
 	import spark.components.DataGrid;
+	import spark.components.DropDownList;
 	import spark.components.HSlider;
 	import spark.components.Image;
 	import spark.components.Label;
@@ -47,11 +55,14 @@ package component
 	import valueObjects.BooleanAndDescriptionVO;
 	import valueObjects.LogVO;
 	import valueObjects.MessageVO;
+	import valueObjects.SentStatusVO;
 	
 	
 	/* A component must identify the view states that its skin supports. 
 	Use the [SkinState] metadata tag to define the view states in the component class. 
 	[SkinState("normal")] */
+	[SkinState("normal")]
+	[SkinState("detail")]
 	
 	public class Log extends SkinnableComponent
 	{
@@ -73,15 +84,32 @@ package component
 		
 		[SkinPart(required="false")]public var detailList:List;
 		[SkinPart(required="false")]public var excelDownBtn:Image;
+		[SkinPart(required="false")]public var searchType:DropDownList;
+		[SkinPart(required="false")]public var search:TextInputSearch;
+		
 		
 		
 		private var _yyyymm:String;
 		private var acGroup:ArrayCollection = new ArrayCollection();
 		private var acDetail:ArrayCollection = new ArrayCollection();
-		private var alDetailColumn:ArrayList = new ArrayList();
 		private var acChart:ArrayCollection = new ArrayCollection();
+		private var arrSearch:ArrayCollection = new ArrayCollection([{label:"전체"},{label:"성공"},{label:"실패"},{label:"전송중"},{label:"대기"}]);
 		
 		private var confirmAlert:AlertManager;
+		
+		// state
+		private var _cstat:String = "normal";
+		public function get cstat():String { return _cstat; }
+		public function set cstat(value:String):void { 
+			_cstat = value;
+			invalidateSkinState();
+		}
+		
+		// paging
+		[Bindable] public var asyncListView:AsyncListView = new AsyncListView();
+		[Bindable] public var callResponder:CallResponder =  new CallResponder();
+		public var smt:Smt;
+		private var detailVO:LogVO;
 		
 		public function Log()
 		{
@@ -117,12 +145,9 @@ package component
 			if (month != null && _yyyymm.length >= 6)
 				month.text = _yyyymm.substring(0,4)+"년 "+_yyyymm.substring(4,6)+"월";
 		}
-
-		override protected function getCurrentSkinState():String
-		{
-			return super.getCurrentSkinState();
-		} 
 		
+		override protected function getCurrentSkinState():String { return cstat; }
+
 		/* Implement the partAdded() method to attach event handlers to a skin part, 
 		configure a skin part, or perform other actions when a skin part is added. */	
 		override protected function partAdded(partName:String, instance:Object) : void
@@ -148,13 +173,7 @@ package component
 				groupList.addEventListener(IndexChangeEvent.CHANGE, groupList_changeHandler, false, 0, true);
 				groupList.addEventListener(KeyboardEvent.KEY_UP, groupList_keyUpHandler, false, 0, true);
 			}
-			else if (instance == detailList) {
-				detailList.dataProvider = acDetail;
-				//setColumn();
-				//detailList.columns = alDetailColumn;
-				//var gc:GridColumn = ArrayList(detailList.columns).getItemAt(0) as GridColumn;
-				//gc.labelFunction = detailListLabelFunction;
-			}
+			else if (instance == detailList) detailList.dataProvider = asyncListView;
 			else if (instance == chart) {
 				
 				chart.series = [getPieSeries()];
@@ -165,30 +184,18 @@ package component
 			else if (instance == listMultSelectBtn) listMultSelectBtn.addEventListener(MouseEvent.CLICK, listMultSelectBtn_clickHandler);
 			else if (instance == listDelBtn) listDelBtn.addEventListener(MouseEvent.CLICK, listDelBtn_clickHandler);
 			else if (instance == excelDownBtn) excelDownBtn.addEventListener(MouseEvent.CLICK, excelDownBtn_clickHandler);
+			else if (instance == message) {
+				
+				if (groupList && groupList.selectedIndex > 0 ) {
+					var vo:LogVO = acGroup.getItemAt(groupList.selectedIndex) as LogVO;
+					message.text = vo.message;
+				}
+				
+			}
+			else if (instance == searchType) searchType.dataProvider = arrSearch;
+			else if (instance == search) search.addEventListener("search" , search_clickHandler);
 			
 			
-		}
-		
-		private function setColumn():void {
-			
-			var gc0:GridColumn = new GridColumn();
-			gc0.headerText = "번호";
-			var gc1:GridColumn = new GridColumn("phone");
-			gc0.headerText = "전화번호";
-			var gc2:GridColumn = new GridColumn("name");
-			gc0.headerText = "이름";
-			var gc3:GridColumn = new GridColumn("rslt");
-			gc0.headerText = "결과";
-			var gc4:GridColumn = new GridColumn("rsltDate");
-			gc0.headerText = "결과시간";
-			var gc5:GridColumn = new GridColumn("callback");
-			gc0.headerText = "회신번호";
-			alDetailColumn.addItem(gc0);
-			alDetailColumn.addItem(gc1);
-			alDetailColumn.addItem(gc2);
-			alDetailColumn.addItem(gc3);
-			alDetailColumn.addItem(gc4);
-			alDetailColumn.addItem(gc5);
 		}
 		
 		/* Implement the partRemoved() method to remove the even handlers added in partAdded() */
@@ -212,17 +219,21 @@ package component
 				//groupList.dataProvider = null;
 			}
 			else if (instance == detailList) {
-				
-				Object(detailList.dataProvider).removeAll();
+				//asyncListView.list.removeAll();
+				//asyncListView.removeAll();
 				//detailList.columns = null
 				//detailList.columns.removeAll();
 				//alDetailColumn.removeAll(); 
-				acDetail.removeAll();
-				acDetail = null;
+				//acDetail.removeAll();
+				//acDetail = null;
 			}
 			else if (instance == chart) {
 				Object(chart.dataProvider).removeAll();
 			}
+			else if (instance == listMultSelectBtn) listMultSelectBtn.removeEventListener(MouseEvent.CLICK, listMultSelectBtn_clickHandler);
+			else if (instance == listDelBtn) listDelBtn.removeEventListener(MouseEvent.CLICK, listDelBtn_clickHandler);
+			else if (instance == excelDownBtn) excelDownBtn.removeEventListener(MouseEvent.CLICK, excelDownBtn_clickHandler);
+			else if (instance == searchType) searchType.dataProvider = null;
 			
 			super.partRemoved(partName, instance);
 		}
@@ -306,20 +317,71 @@ package component
 			acGroup.addAll(data);
 		}
 		
+		private function getDetailStatus():void {
+			
+			if (detailVO) {
+				RemoteSingleManager.getInstance.addEventListener("getSentResultStatus", getDetailStatus_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.getSentResultStatus(detailVO);
+			}
+			
+		}
+		private function getDetailStatus_resultHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("getSentResultStatus", getDetailStatus_resultHandler);
+			var ssvo:SentStatusVO = event.result as SentStatusVO;
+			if (ssvo) {
+				
+				acChart.removeAll();
+				acChart.addItem({result:"대기중",cnt:ssvo.local});
+				acChart.addItem({result:"전송중",cnt:ssvo.telecom});
+				acChart.addItem({result:"성공",cnt:ssvo.success});
+				acChart.addItem({result:"실패",cnt:ssvo.fail});
+			}
+			if (message)
+				message.text = detailVO.message;
+			getDetailList();
+			
+		}
+		
 		
 		private function groupList_changeHandler(event:IndexChangeEvent):void {
 			
 			var vo:LogVO = acGroup.getItemAt(event.newIndex) as LogVO;
+			
 			if (vo != null) {
-				message.visible = true;
-				message.text = vo.message;
-				RemoteSingleManager.getInstance.addEventListener("getSentListDetail", groupList_resultHandler, false, 0, true);
+				cstat = "detail";
+				detailVO = vo;
+				getDetailStatus(); // later getDetailList()
+				//message.visible = true;
+				
+				
+				/*RemoteSingleManager.getInstance.addEventListener("getSentListDetail", groupList_resultHandler, false, 0, true);
 				RemoteSingleManager.getInstance.callresponderToken 
-					= RemoteSingleManager.getInstance.service.getSentListDetail(vo);
+					= RemoteSingleManager.getInstance.service.getSentListDetail(vo);*/
+			}else {
+				cstat = "normal";
 			}
 		}
 		
-		private function groupList_resultHandler(event:CustomEvent):void {
+		private function getDetailList():void {
+			
+			if (detailVO) {
+				//groupList.visible = true;
+				PagedFilterSmtInit();
+				callResponder.addEventListener(ResultEvent.RESULT, callResponder_resultHandler);
+				callResponder.token = smt.getSentListDetail_pagedFiltered(detailVO);
+			}
+			
+		}
+		private function callResponder_resultHandler(event:ResultEvent):void {
+			
+			callResponder.removeEventListener(ResultEvent.RESULT, callResponder_resultHandler);
+			asyncListView.list = callResponder.lastResult;
+		}
+		
+		
+		/*private function groupList_resultHandler(event:CustomEvent):void {
 			
 			RemoteSingleManager.getInstance.removeEventListener("getSentListDetail", groupList_resultHandler);
 			var data:ArrayCollection = event.result as ArrayCollection;
@@ -356,7 +418,7 @@ package component
 			acChart.addItem({result:"실패",cnt:fail});
 			acChart.addItem({result:"없는번호",cnt:noNum});
 			
-		}
+		}*/
 		
 		
 		private function groupList_keyUpHandler(event:KeyboardEvent):void {
@@ -429,9 +491,10 @@ package component
 			else 
 				SLibrary.alert( "처리 내역"+line+line+" - 삭제(취소)완료"+line+suc+line+line+" - 삭제실패"+line+fail );
 			
-			// 상세보기 지우기
-			acDetail.removeAll();
-			setChartData();
+			
+			cstat = "normal";
+			acChart.removeAll();
+			
 		}
 		private function deleteSent_resultHandler(event:CustomEvent):void {
 			
@@ -442,13 +505,11 @@ package component
 			
 			SLibrary.alert( BooleanAndDescriptionVO(event.result).strDescription );
 			
+			cstat = "normal";
+			acChart.removeAll();
 			
 		}
 		
-		private function detailListLabelFunction(item:Object, column:GridColumn):String {
-			
-			return (acDetail.length - acDetail.getItemIndex(item)).toString();
-		}
 		
 		
 		// option
@@ -468,6 +529,44 @@ package component
 		}
 		private function excelDownBtn_clickHandler(event:MouseEvent):void {
 			
+		}
+		
+		/**
+		 * paging
+		 * */
+		private function PagedFilterSmtInit():void {
+			if (smt == null) {
+				smt = new services.Smt();
+				smt.showBusyCursor = true;
+				smt.addEventListener("fault", smt_fault);
+				smt.initialized(this, "smt")
+			}
+			
+		}
+		public function smt_fault(event:FaultEvent):void { SLibrary.alert(event.fault.faultString + '\n' + event.fault.faultDetail); }
+		
+		
+		private function search_clickHandler(event:CustomEvent):void {
+			
+			if (detailVO) {
+				
+				detailVO.search = searchType.selectedIndex + "/"+search.text;
+				//groupList.visible = true;
+				callResponder.token = smt.getSentListDetail_pagedFiltered(detailVO);
+			} else {
+				SLibrary.alert("그룹내역을 선택 하세요");
+			}
+			/*if (Gv.bLogin) {
+				var s:String = String(event.result);
+				if (s != null && s != "") {
+					RemoteSingleManager.getInstance.addEventListener("getAddrList", getNameList_resultHandler, false, 0, true);
+					RemoteSingleManager.getInstance.callresponderToken 
+						= RemoteSingleManager.getInstance.service.getAddrList(2, String(event.result));	
+				}else {
+					SLibrary.alert("검색 내용을 입력하세요.");
+				}
+				
+			}*/
 		}
 
 		
@@ -495,11 +594,21 @@ package component
 				acDetail = null;
 			}
 			
-			if (alDetailColumn != null) {
-				alDetailColumn.removeAll();
-				alDetailColumn = null;
+			
+			if (asyncListView != null) {
+				//asyncListView.removeAll();
+				//asyncListView.list.removeAll();
+				asyncListView = null;
 			}
 			
+			if (callResponder != null) {
+				callResponder.removeEventListener(ResultEvent.RESULT, callResponder_resultHandler);
+				callResponder = null
+			}
+			if (smt != null) {
+				smt.removeEventListener("fault", smt_fault);
+			}
+			if (detailVO != null) detailVO = null;
 			
 			confirmAlert = null;
 			
