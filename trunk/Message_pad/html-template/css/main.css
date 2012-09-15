@@ -1,0 +1,64 @@
+.hand {cursor:pointer}
+
+#wrap {width:1200px;margin:0 auto;}
+#header {margin:0 auto;width:1024px;height:80px;}
+#header #top_right {float:right;margin-bottom:15px;height:30px;}
+#logo {clear:right; float:left; width:203px;height:35px;}
+#header #navi {float:right}
+#header #navi ul li {float:left;margin-right:20px;}
+#header #navi ul li a {display:block;height:35px; text-indent:-10000px}
+#header #navi ul li a.m01 {width:77px;background:url("../images/m01.png") 0 0 no-repeat;}
+#header #navi ul li a.m02 {width:51px;background:url("../images/m02.png") 0 0 no-repeat;}
+#header #navi ul li a.m03 {width:35px;background:url("../images/m03.png") 0 0 no-repeat;}
+#header #navi ul li a.m04 {width:36px;background:url("../images/m04.png") 0 0 no-repeat;}
+#header #navi ul li a.m04 {width:36px;background:url("../images/m04.png") 0 0 no-repeat;}
+#header #navi ul li a.m04 {width:36px;background:url("../images/m04.png") 0 0 no-repeat;}
+#header #navi ul li a:hover {background-position: 0 -35px;}
+
+#bar {clear:both;width:1200px;height:15px; background-image:url("../images/top_shade.png")}
+
+#main-image {margin:0 auto;width:1024px;height:740px;}
+#main-image1 {width:1024px;height:740px;background:url("../images/main01.png") 0 0 no-repeat;}
+
+#function-navi {margin:0 auto;width:1024px;height:194px;margin-top:15px;}
+#function-navi ul li {float:left;width:174px;height:194px;margin-right:29px;}
+#function-navi ul li .nomargin {margin-right:0px;}
+#function-navi ul li a {display:block;clear:both;width:174px;text-indent:-10000px}
+#function-navi ul li.f01 a {background:url("../images/f01.png") 0 0 no-repeat;}
+#function-navi ul li.f02 a {background:url("../images/f02.png") 0 0 no-repeat;}
+#function-navi ul li.f03 a {background:url("../images/f03.png") 0 0 no-repeat;}
+#function-navi ul li.f04 a {background:url("../images/f04.png") 0 0 no-repeat;}
+#function-navi ul li.f05 a {background:url("../images/f05.png") 0 0 no-repeat;}
+#function-navi ul li a.title {float:left;height:80px;background-position:0 0 no-repeat;}
+#function-navi ul li a.title:hover {background-position: 0 -194px;}
+
+#function-navi ul li a.sub1 {height:18px;background-position:0 -80px;}
+#function-navi ul li a.sub2 {height:18px;background-position:0 -98px;}
+#function-navi ul li a.sub3 {height:18px;background-position:0 -116px;}
+#function-navi ul li a.sub4 {height:18px;background-position:0 -134px;}
+#function-navi ul li a.sub5 {height:18px;background-position:0 -152px;}
+
+#function-navi ul li a.sub1:hover {background-position:0 -274px;}
+#function-navi ul li a.sub2:hover {background-position:0 -292px;}
+#function-navi ul li a.sub3:hover {background-position:0 -310px;}
+#function-navi ul li a.sub4:hover {background-position:0 -328px;}
+#function-navi ul li a.sub5:hover {background-position:0 -346px;}
+
+#bar1 {clear:both;margin:0 auto; width:1024px; height:1px; background-color:#e8e8e8;font-size:1px;}
+
+#etc {margin:0 auto; width:1024px;height:143px; margin-top:15px;margin-bottom:30px;}
+#etc #custom { float:left;margin-right:15px;width:203px;height:143px;background:url("../images/custom_center.png")}
+#etc #notic { float:left;margin-right:15px;width:300px;height:143px;}
+#etc #bank { float:left;margin-right:15px;width:248px;height:143px;background:url("../images/bank.png")}
+#etc #cost { float:left;width:210px;height:143px;background:url("../images/cost.png")}
+
+#footer {margin:0 auto; width:1024px;height:51px; margin-top:15px;margin-bottom:30px;}
+#info {float:left;width:406px;height:51px;}
+#info ul li {float:left;}
+#info ul li a {display:block;height:14px;text-indent:-10000px}
+#info ul li a.i01 {width:49px;background:url("../images/bottom_company.png") 0 0 no-repeat;}
+#info ul li a.i02 {width:87px;background:url("../images/bottom_personal.png") 0 0 no-repeat;}
+#info ul li a.i03 {width:48px;background:url("../images/bottom_use.png") 0 0 no-repeat;}
+#info ul li a.i04 {width:57px;background:url("../images/bottom__spam.png") 0 0 no-repeat;}
+#copy {float:right;height:81px;}
+#copy .address {float:left;margin-right:15px;width:316px; height:51px;background:url("../images/bottom_copyright.png") 0 0 no-repeat;}
