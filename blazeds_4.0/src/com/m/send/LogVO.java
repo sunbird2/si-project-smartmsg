@@ -21,6 +21,7 @@ public class LogVO implements Serializable {
 	String ynDel = "N";
 	String delType = "";
 	String timeDel = "";
+	String search = "";
 	
 	public LogVO(){}
 	
@@ -112,6 +113,14 @@ public class LogVO implements Serializable {
 	}
 	public void setMethod(String method) {
 		this.method = method;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
 	}
 	
 	

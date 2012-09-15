@@ -21,6 +21,7 @@ public class Address implements IAddress {
 	public static final int NAME_INSERT = 20;
 	public static final int NAME_UPDATE = 21;
 	public static final int NAME_DELETE = 22;
+	public static final int GROUPNAME_INSERT = 23;
 	
 	public static final int NAMES_INSERT = 30;
 	public static final int NAMES_INSERT_GROUP = 31;

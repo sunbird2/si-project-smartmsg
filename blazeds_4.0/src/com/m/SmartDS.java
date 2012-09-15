@@ -550,7 +550,7 @@ public class SmartDS extends SessionManagement {
 			if (!bSession()) throw new Exception("no login");
 			conn = VbyP.getDB();
 			
-			if (lvo.getLine().equals("lg")) sentData = LGSent.getInstance();
+			sentData = getSentInstance(lvo.getLine());
 			
 			lvo.setUser_id(getSession());
 			ssvo = sentData.getListDetail_status(conn, lvo);
@@ -562,6 +562,7 @@ public class SmartDS extends SessionManagement {
 		return ssvo;
 	}
 	
+	
 	public Integer getSentListDetail_countFiltered(LogVO slvo) {
 		
 		Connection conn = null;
@@ -571,7 +572,7 @@ public class SmartDS extends SessionManagement {
 			if (!bSession()) throw new Exception("no login");
 			conn = VbyP.getDB();
 			
-			if (slvo.getLine().equals("lg")) sentData = LGSent.getInstance();
+			sentData = getSentInstance(slvo.getLine());
 			
 			slvo.setUser_id(getSession());
 			cnt = sentData.getListDetail_pagedCnt(conn, slvo);
@@ -592,7 +593,7 @@ public class SmartDS extends SessionManagement {
 			if (!bSession()) throw new Exception("no login");
 			conn = VbyP.getDB();
 			
-			if (slvo.getLine().equals("lg")) sentData = LGSent.getInstance();
+			sentData = getSentInstance(slvo.getLine());
 			
 			slvo.setUser_id(getSession());
 			al = sentData.getListDetail(conn, slvo, startIndex, numItems);
@@ -614,7 +615,7 @@ public class SmartDS extends SessionManagement {
 			if (!bSession()) throw new Exception("no login");
 			conn = VbyP.getDB();
 			
-			if (slvo.getLine().equals("lg")) sentData = LGSent.getInstance();
+			sentData = getSentInstance(slvo.getLine());
 			
 			slvo.setUser_id(getSession());
 			al = sentData.getListDetail(conn, slvo);
@@ -690,7 +691,7 @@ public class SmartDS extends SessionManagement {
 		rvo.setbResult(false);
 		try {
 			
-			if (slvo.getLine().equals("lg")) sentData = LGSent.getInstance();
+			sentData = getSentInstance(slvo.getLine());
 			
 			slvo.setUser_id(getSession());
 			
@@ -887,6 +888,10 @@ public class SmartDS extends SessionManagement {
 			case Address.NAME_DELETE:
 				result = addr.deleteName(conn, avo);
 				break;
+			case Address.GROUPNAME_INSERT:
+				if (addr.insertGroup(conn, avo) > 0)
+					result = addr.insertName(conn, avo);
+				break;
 			
 			}
 			
@@ -930,6 +935,12 @@ public class SmartDS extends SessionManagement {
 		return result;
 	}
 	
+	
+	private ISentData getSentInstance(String line) {
+		
+		if (line.equals("lg")) return LGSent.getInstance();
+		else return null;
+	}
 	
 	
 	
