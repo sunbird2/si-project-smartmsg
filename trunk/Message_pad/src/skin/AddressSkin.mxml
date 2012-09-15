@@ -6,10 +6,6 @@
 	<fx:Metadata>
 		[HostComponent("component.Address")]
 	</fx:Metadata>
-	<s:states>
-		<s:State name="normal" />
-		<s:State name="nameEdit" />
-	</s:states>
 	<s:Group id="contentGroup" width="1024" height="696" horizontalCenter="0" >
 		
 		<!-- actionbar -->
@@ -77,36 +73,33 @@
 					<s:SkinnableContainer styleName="actionBar_contextuar_light" width="100%" height="40" depth="4">
 						<s:Label text="상세" color="#222222" verticalCenter="0" left="5" />
 						<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="15">
-							<s:Image id="cardBtn" visible="false" source="skin/ics/assets/light/icon/5-content-edit.png" source.nameEdit="skin/ics/assets/light/icon/9-av-upload.png" buttonMode="true" toolTip="수정 or 저장" />
+							<!--<s:Image id="cardBtn" visible="false" source="skin/ics/assets/light/icon/5-content-edit.png" source.nameEdit="skin/ics/assets/light/icon/9-av-upload.png" buttonMode="true" toolTip="수정 or 저장" />-->
+							<s:Image id="cardAddBtn" source="skin/ics/assets/light/icon/6-social-add-person.png" buttonMode="true" toolTip="전화번호 추가" />
 						</s:HGroup>
 					</s:SkinnableContainer>
 					
-					<s:VGroup width="100%"  paddingLeft="20" paddingRight="20" paddingTop="20" paddingBottom="20" gap="20">
+					<s:VGroup id="cardGroup" width="100%"  paddingLeft="20" paddingRight="20" paddingTop="20" paddingBottom="20" gap="20">
 						<s:Image source="skin/ics/assets/light/icon/6-social-person.png" fillMode="scale" width="100" height="100" smooth="true"/>
 						
-						
 						<s:Label text="그룹" color="#222222" />
-						<s:ComboBox id="groupName" styleName="comboBox_light" enabled.normal="false" enabled.nameEdit="true" />
+						<s:ComboBox id="groupName" styleName="comboBox_light" prompt="그룹선택 or 입력" />
 						
 						<s:Label text="이름" color="#222222" />
 						<s:TextInput id="nameL" prompt="이름"
 									 styleName="textinput_light"
-									 editable.nameEdit="true" editable.normal="false" 
-									 borderVisible.nameEdit="true" borderVisible.normal="false"/>
+									/>
 						
 						<s:Label text="전화번호" color="#222222" />
 						<s:TextInput id="phone" prompt="전화번호" 
 									 styleName="textinput_light"
-									 editable.nameEdit="true" editable.normal="false"
-									 borderVisible.nameEdit="true" borderVisible.normal="false"/>
+									 />
 						
 						<s:Label text="메모" color="#222222" />
 						<s:TextArea id="memo" prompt="메모" 
 									styleName="textarea_light"
 									width="100%" height="120"
-									editable.nameEdit="true" editable.normal="false"
-									borderVisible.nameEdit="true" borderVisible.normal="false"/>
-						
+									/>
+						<s:Button id="commitBtn" label="저장" styleName="button_light"/>
 					</s:VGroup>
 				</s:VGroup>
 				

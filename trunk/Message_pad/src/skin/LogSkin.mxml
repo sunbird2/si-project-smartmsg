@@ -7,7 +7,10 @@
 	<fx:Metadata>
 		[HostComponent("component.Log")]
 	</fx:Metadata>
-	
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="detail"/>
+	</s:states>
 	<s:Group width="1024" height="696" horizontalCenter="0">
 		
 		<!-- actionbar -->
@@ -60,26 +63,36 @@
 						itemRenderer="skin.log.GroupListRenderer" />
 			</s:VGroup>
 			
-			<s:VGroup width="100%" horizontalAlign="center" gap="0">
+			<s:VGroup width="100%" horizontalAlign="center" gap="10">
 				<!-- actionbar -->
 				<s:SkinnableContainer styleName="actionBar_contextuar_light" width="100%" height="40" depth="4">
 					<s:Label text="상세내역" color="#222222" verticalCenter="0" left="5" />
-					<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="0">
+					<s:HGroup includeIn="detail" verticalCenter="0" verticalAlign="middle" right="5" gap="0">
+						<s:DropDownList id="searchType" styleName="dropDownList_light" />
+						<util:TextInputSearch id="search" prompt="이름 or 전화번호" focusSkin="skin.ics.TextInputFocus" color="#222222" fontSize="12" />
 						<s:Image id="excelDownBtn" source="skin/ics/assets/light/icon/5-content-import-export.png" buttonMode="true" toolTip="엑셀다운로드" />
 					</s:HGroup>
 				</s:SkinnableContainer>
-				<s:Spacer height="10" />
-				<s:HGroup>
-					<s:TextArea id="message" width="225" height="200" styleName="textarea_light" editable="false" visible="false" />
-					<mx:PieChart id="chart" width="300" height="200" fontFamily="Dotum" ></mx:PieChart>
-				</s:HGroup>
-				<s:Spacer height="10" />
-				<s:List id="detailList"
-						width="100%" height="378"
-						borderVisible="true"
-						borderColor="#DDDDDD"
-						itemRenderer="skin.log.LogDetailItemRenderer"/>
+				
+				<s:VGroup includeIn="detail" width="100%" horizontalAlign="center" gap="10">
+					<s:HGroup>
+						<s:TextArea id="message" width="225" height="200" styleName="textarea_light" editable="false" />
+						<mx:PieChart id="chart" width="300" height="200" fontFamily="Dotum" ></mx:PieChart>
+					</s:HGroup>
+					<s:List id="detailList"
+							width="100%" height="378"
+							borderVisible="false"
+							borderColor="#DDDDDD"
+							itemRenderer="skin.log.LogDetailItemRenderer"/>
+				</s:VGroup>
+				
+				<s:Group includeIn="normal" width="100%" height="100%">
+					<s:Label horizontalCenter="0" verticalCenter="0" text="선택된 그룹 내역이 없습니다." />
+				</s:Group> 
+				
 			</s:VGroup>
+			
+			
 			
 		</s:HGroup>
 	</s:Group>

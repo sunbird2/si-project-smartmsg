@@ -130,6 +130,25 @@ s|Scroller {
 	paddingBottom : 5;
 }
 
+.dropDownList_dark {
+	skinClass : ClassReference("skin.ics.DropDownListSkin");
+	dropShadowVisible : false;
+	focusAlpha : 0;
+	color:#DDDDDD;
+	paddingLeft : 5;
+	paddingBottom : 5;
+}
+
+
+.dropDownList_light {
+	skinClass : ClassReference("skin.ics.DropDownListSkin");
+	dropShadowVisible : false;
+	focusAlpha : 0;
+	color:#222222;
+	paddingLeft : 5;
+	paddingBottom : 5;
+}
+
 /* checkbox */
 .checkbox_dark {
 	skinClass : ClassReference("skin.ics.CheckBoxSkin_dark");

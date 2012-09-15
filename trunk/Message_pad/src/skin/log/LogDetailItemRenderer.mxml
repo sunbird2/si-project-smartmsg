@@ -5,29 +5,50 @@
 				autoDrawBackground="true">
 	<fx:Script>
 		<![CDATA[
+			import valueObjects.MessageVO;
 			
 			override public function set data(value:Object):void
 			{
 				// TODO Auto Generated method stub
 				super.data = value;
-				no.text = String(this.itemIndex +1);
-				phone.text = data.phone;
-				names.text = data.name;
-				rslt.text = data.rslt;
-				rsltDate.text = data.rsltDate;
-				callback.text = data.callback;
+				if (data) {
+					var mvo:MessageVO = data as MessageVO;
+					no.text = String(this.itemIndex +1);
+					phone.text = data.phone;
+					names.text = data.name;
+					rslt.text = data.rslt;
+					rsltDate.text = data.rsltDate;
+					callback.text = data.callback;
+					
+					if (mvo.rslt == "대기") this.currentState = "def";
+					else if (mvo.rslt == "전송중") this.currentState = "sending";
+					else if (mvo.rslt == "성공") this.currentState = "suc";
+					else this.currentState = "fail";
+				}
+				
 				
 			}
 			
 		]]>
 	</fx:Script>
+	<s:states>
+		<s:State name="def" />
+		<s:State name="sending" />
+		<s:State name="suc" />
+		<s:State name="fail" />
+	</s:states>
+	<s:Rect left="0" right="0" top="0" bottom="0">
+		<s:fill>
+			<s:SolidColor color.def="#808080" color.sending="#000000" color.suc="#0000FF" color.fail="#FF0000" alpha="0.1" />
+		</s:fill>
+	</s:Rect>
 	<s:HGroup top="5" bottom="5" left="10" right="10" verticalAlign="middle" >
-		<s:RichText id="no" fontFamily="Gulim" width="50" height="14" />
-		<s:RichText id="phone" fontFamily="Gulim" width="80" height="14"/>
-		<s:RichText id="names" fontFamily="Gulim" width="80" height="14"/>
-		<s:RichText id="rslt" fontFamily="Gulim" width="50" height="14"/>
-		<s:RichText id="rsltDate" fontFamily="Gulim" width="90" height="14"/>
-		<s:RichText id="callback" fontFamily="Gulim" width="80" height="14"/>
+		<s:RichText id="no" width="50" height="14" />
+		<s:RichText id="phone" width="80" height="14"/>
+		<s:RichText id="names" width="80" height="14"/>
+		<s:RichText id="rslt" width="50" height="14"/>
+		<s:RichText id="rsltDate" width="90" height="14"/>
+		<s:RichText id="callback" width="80" height="14"/>
 	</s:HGroup>
 	
 </s:ItemRenderer>

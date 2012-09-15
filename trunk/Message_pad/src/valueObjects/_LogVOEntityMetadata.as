@@ -20,14 +20,14 @@ internal class _LogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abstrac
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("message", "ynDel", "idx", "timeWrite", "line", "user_id", "method", "timeSend", "timeDel", "mode", "delType", "user_ip");
+    model_internal static var allProperties:Array = new Array("ynDel", "idx", "line", "timeSend", "mode", "user_ip", "message", "search", "timeWrite", "user_id", "method", "timeDel", "delType");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("message", "ynDel", "idx", "timeWrite", "line", "user_id", "method", "timeSend", "timeDel", "mode", "delType", "user_ip");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("ynDel", "idx", "line", "timeSend", "mode", "user_ip", "message", "search", "timeWrite", "user_id", "method", "timeDel", "delType");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("message", "ynDel", "idx", "timeWrite", "line", "user_id", "method", "timeSend", "timeDel", "mode", "delType", "user_ip");
+    model_internal static var dataProperties:Array = new Array("ynDel", "idx", "line", "timeSend", "mode", "user_ip", "message", "search", "timeWrite", "user_id", "method", "timeDel", "delType");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("message", "ynDel", "idx", "timeWrite", "line", "user_id", "method", "timeSend", "timeDel", "mode", "delType", "user_ip");
+    model_internal static var nonDerivedProperties:Array = new Array("ynDel", "idx", "line", "timeSend", "mode", "user_ip", "message", "search", "timeWrite", "user_id", "method", "timeDel", "delType");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -47,18 +47,19 @@ internal class _LogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abstrac
         {
             // dependents map
             model_internal::dependentsOnMap = new Object();
-            model_internal::dependentsOnMap["message"] = new Array();
             model_internal::dependentsOnMap["ynDel"] = new Array();
             model_internal::dependentsOnMap["idx"] = new Array();
-            model_internal::dependentsOnMap["timeWrite"] = new Array();
             model_internal::dependentsOnMap["line"] = new Array();
+            model_internal::dependentsOnMap["timeSend"] = new Array();
+            model_internal::dependentsOnMap["mode"] = new Array();
+            model_internal::dependentsOnMap["user_ip"] = new Array();
+            model_internal::dependentsOnMap["message"] = new Array();
+            model_internal::dependentsOnMap["search"] = new Array();
+            model_internal::dependentsOnMap["timeWrite"] = new Array();
             model_internal::dependentsOnMap["user_id"] = new Array();
             model_internal::dependentsOnMap["method"] = new Array();
-            model_internal::dependentsOnMap["timeSend"] = new Array();
             model_internal::dependentsOnMap["timeDel"] = new Array();
-            model_internal::dependentsOnMap["mode"] = new Array();
             model_internal::dependentsOnMap["delType"] = new Array();
-            model_internal::dependentsOnMap["user_ip"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
@@ -66,18 +67,19 @@ internal class _LogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abstrac
 
         // Property type Map
         model_internal::propertyTypeMap = new Object();
-        model_internal::propertyTypeMap["message"] = "String";
         model_internal::propertyTypeMap["ynDel"] = "String";
         model_internal::propertyTypeMap["idx"] = "int";
-        model_internal::propertyTypeMap["timeWrite"] = "String";
         model_internal::propertyTypeMap["line"] = "String";
+        model_internal::propertyTypeMap["timeSend"] = "String";
+        model_internal::propertyTypeMap["mode"] = "String";
+        model_internal::propertyTypeMap["user_ip"] = "String";
+        model_internal::propertyTypeMap["message"] = "String";
+        model_internal::propertyTypeMap["search"] = "String";
+        model_internal::propertyTypeMap["timeWrite"] = "String";
         model_internal::propertyTypeMap["user_id"] = "String";
         model_internal::propertyTypeMap["method"] = "String";
-        model_internal::propertyTypeMap["timeSend"] = "String";
         model_internal::propertyTypeMap["timeDel"] = "String";
-        model_internal::propertyTypeMap["mode"] = "String";
         model_internal::propertyTypeMap["delType"] = "String";
-        model_internal::propertyTypeMap["user_ip"] = "String";
 
         model_internal::_instance = value;
     }
@@ -307,12 +309,6 @@ internal class _LogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abstrac
     }
 
     [Bindable(event="propertyChange")]
-    public function get isMessageAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get isYnDelAvailable():Boolean
     {
         return true;
@@ -325,13 +321,43 @@ internal class _LogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abstrac
     }
 
     [Bindable(event="propertyChange")]
-    public function get isTimeWriteAvailable():Boolean
+    public function get isLineAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isLineAvailable():Boolean
+    public function get isTimeSendAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isModeAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isUser_ipAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isMessageAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isSearchAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isTimeWriteAvailable():Boolean
     {
         return true;
     }
@@ -349,31 +375,13 @@ internal class _LogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abstrac
     }
 
     [Bindable(event="propertyChange")]
-    public function get isTimeSendAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get isTimeDelAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isModeAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get isDelTypeAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isUser_ipAvailable():Boolean
     {
         return true;
     }
@@ -389,12 +397,6 @@ internal class _LogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abstrac
     }
 
     [Bindable(event="propertyChange")]   
-    public function get messageStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
     public function get ynDelStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
@@ -407,13 +409,43 @@ internal class _LogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abstrac
     }
 
     [Bindable(event="propertyChange")]   
-    public function get timeWriteStyle():com.adobe.fiber.styles.Style
+    public function get lineStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get lineStyle():com.adobe.fiber.styles.Style
+    public function get timeSendStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get modeStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get user_ipStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get messageStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get searchStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get timeWriteStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
@@ -431,31 +463,13 @@ internal class _LogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abstrac
     }
 
     [Bindable(event="propertyChange")]   
-    public function get timeSendStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
     public function get timeDelStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get modeStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
     public function get delTypeStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get user_ipStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

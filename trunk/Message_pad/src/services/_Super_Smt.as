@@ -151,11 +151,11 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         _serviceControl = new mx.rpc.remoting.RemoteObject();
 
         // initialize RemoteClass alias for all entities returned by functions of this service
+        valueObjects.BooleanAndDescriptionVO._initRemoteClassAlias();
         valueObjects.AddressVO._initRemoteClassAlias();
         valueObjects.EmoticonPagedObject._initRemoteClassAlias();
         valueObjects.LogVO._initRemoteClassAlias();
         valueObjects.MessageVO._initRemoteClassAlias();
-        valueObjects.BooleanAndDescriptionVO._initRemoteClassAlias();
 
         var operations:Object = new Object();
         var operation:mx.rpc.remoting.Operation;
@@ -172,6 +172,9 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         operation = new mx.rpc.remoting.Operation(null, "count");
          operation.resultType = int;
         operations["count"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "deleteManySent");
+         operation.resultElementType = valueObjects.BooleanAndDescriptionVO;
+        operations["deleteManySent"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "deleteReturnPhone");
          operation.resultType = valueObjects.BooleanAndDescriptionVO;
         operations["deleteReturnPhone"] = operation;
@@ -281,9 +284,6 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         operation = new mx.rpc.remoting.Operation(null, "test");
          operation.resultType = String;
         operations["test"] = operation;
-        operation = new mx.rpc.remoting.Operation(null, "deleteManySent");
-         operation.resultElementType = valueObjects.BooleanAndDescriptionVO;
-        operations["deleteManySent"] = operation;
 
         _serviceControl.operations = operations;
         _serviceControl.convertResultHandler = com.adobe.serializers.utility.TypeUtility.convertResultHandler;
@@ -318,7 +318,6 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         var dmQuery : mx.data.ManagedQuery;
 
         dmQuery = new mx.data.ManagedQuery("getEmotiList_pagedFiltered");
-        dmQuery.propertySpecifier = "message,index";
         dmQuery.countOperation = "getEmotiList_countFiltered";
         dmQuery.pagingEnabled = true;
         dmQuery.positionalPagingParameters = true;
@@ -327,7 +326,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         _emoticonPagedObjectRPCDataManager.addManagedOperation(dmQuery);
 
         dmQuery = new mx.data.ManagedQuery("getSentListDetail_pagedFiltered");
-        dmQuery.propertySpecifier = "sendMode,rsltDate,phone,idx,imagePath,rslt,msg,stat,sendDate,groupKey,name,callback,user_id";
+		dmQuery.countOperation = "getSentListDetail_countFiltered";
         dmQuery.pagingEnabled = true;
         dmQuery.positionalPagingParameters = true;
         dmQuery.pageSize = 20;
@@ -417,6 +416,24 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("count");
 		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send() ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'deleteManySent' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function deleteManySent(arg0:ArrayCollection) : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("deleteManySent");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
         return _internal_token;
     }
      
@@ -1083,24 +1100,6 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("test");
 		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send() ;
-        return _internal_token;
-    }
-     
-    /**
-      * This method is a generated wrapper used to call the 'deleteManySent' operation. It returns an mx.rpc.AsyncToken whose 
-      * result property will be populated with the result of the operation when the server response is received. 
-      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
-      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
-      *
-      * @see mx.rpc.AsyncToken
-      * @see mx.rpc.CallResponder 
-      *
-      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
-      */
-    public function deleteManySent(arg0:ArrayCollection) : mx.rpc.AsyncToken
-    {
-        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("deleteManySent");
-		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
         return _internal_token;
     }
      

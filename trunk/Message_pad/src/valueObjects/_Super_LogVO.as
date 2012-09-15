@@ -58,18 +58,19 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     /**
      * properties
      */
-    private var _internal_message : String;
     private var _internal_ynDel : String;
     private var _internal_idx : int;
-    private var _internal_timeWrite : String;
     private var _internal_line : String;
+    private var _internal_timeSend : String;
+    private var _internal_mode : String;
+    private var _internal_user_ip : String;
+    private var _internal_message : String;
+    private var _internal_search : String;
+    private var _internal_timeWrite : String;
     private var _internal_user_id : String;
     private var _internal_method : String;
-    private var _internal_timeSend : String;
     private var _internal_timeDel : String;
-    private var _internal_mode : String;
     private var _internal_delType : String;
-    private var _internal_user_ip : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -94,12 +95,6 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
      */
 
     [Bindable(event="propertyChange")]
-    public function get message() : String
-    {
-        return _internal_message;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get ynDel() : String
     {
         return _internal_ynDel;
@@ -112,15 +107,45 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     }
 
     [Bindable(event="propertyChange")]
-    public function get timeWrite() : String
-    {
-        return _internal_timeWrite;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get line() : String
     {
         return _internal_line;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get timeSend() : String
+    {
+        return _internal_timeSend;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get mode() : String
+    {
+        return _internal_mode;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get user_ip() : String
+    {
+        return _internal_user_ip;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get message() : String
+    {
+        return _internal_message;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get search() : String
+    {
+        return _internal_search;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get timeWrite() : String
+    {
+        return _internal_timeWrite;
     }
 
     [Bindable(event="propertyChange")]
@@ -136,33 +161,15 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     }
 
     [Bindable(event="propertyChange")]
-    public function get timeSend() : String
-    {
-        return _internal_timeSend;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get timeDel() : String
     {
         return _internal_timeDel;
     }
 
     [Bindable(event="propertyChange")]
-    public function get mode() : String
-    {
-        return _internal_mode;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get delType() : String
     {
         return _internal_delType;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get user_ip() : String
-    {
-        return _internal_user_ip;
     }
 
     public function clearAssociations() : void
@@ -172,16 +179,6 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     /**
      * data/source property setters
      */
-
-    public function set message(value:String) : void
-    {
-        var oldValue:String = _internal_message;
-        if (oldValue !== value)
-        {
-            _internal_message = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "message", oldValue, _internal_message));
-        }
-    }
 
     public function set ynDel(value:String) : void
     {
@@ -203,16 +200,6 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         }
     }
 
-    public function set timeWrite(value:String) : void
-    {
-        var oldValue:String = _internal_timeWrite;
-        if (oldValue !== value)
-        {
-            _internal_timeWrite = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timeWrite", oldValue, _internal_timeWrite));
-        }
-    }
-
     public function set line(value:String) : void
     {
         var oldValue:String = _internal_line;
@@ -220,6 +207,66 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         {
             _internal_line = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "line", oldValue, _internal_line));
+        }
+    }
+
+    public function set timeSend(value:String) : void
+    {
+        var oldValue:String = _internal_timeSend;
+        if (oldValue !== value)
+        {
+            _internal_timeSend = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timeSend", oldValue, _internal_timeSend));
+        }
+    }
+
+    public function set mode(value:String) : void
+    {
+        var oldValue:String = _internal_mode;
+        if (oldValue !== value)
+        {
+            _internal_mode = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "mode", oldValue, _internal_mode));
+        }
+    }
+
+    public function set user_ip(value:String) : void
+    {
+        var oldValue:String = _internal_user_ip;
+        if (oldValue !== value)
+        {
+            _internal_user_ip = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_ip", oldValue, _internal_user_ip));
+        }
+    }
+
+    public function set message(value:String) : void
+    {
+        var oldValue:String = _internal_message;
+        if (oldValue !== value)
+        {
+            _internal_message = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "message", oldValue, _internal_message));
+        }
+    }
+
+    public function set search(value:String) : void
+    {
+        var oldValue:String = _internal_search;
+        if (oldValue !== value)
+        {
+            _internal_search = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "search", oldValue, _internal_search));
+        }
+    }
+
+    public function set timeWrite(value:String) : void
+    {
+        var oldValue:String = _internal_timeWrite;
+        if (oldValue !== value)
+        {
+            _internal_timeWrite = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timeWrite", oldValue, _internal_timeWrite));
         }
     }
 
@@ -243,16 +290,6 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         }
     }
 
-    public function set timeSend(value:String) : void
-    {
-        var oldValue:String = _internal_timeSend;
-        if (oldValue !== value)
-        {
-            _internal_timeSend = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timeSend", oldValue, _internal_timeSend));
-        }
-    }
-
     public function set timeDel(value:String) : void
     {
         var oldValue:String = _internal_timeDel;
@@ -263,16 +300,6 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         }
     }
 
-    public function set mode(value:String) : void
-    {
-        var oldValue:String = _internal_mode;
-        if (oldValue !== value)
-        {
-            _internal_mode = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "mode", oldValue, _internal_mode));
-        }
-    }
-
     public function set delType(value:String) : void
     {
         var oldValue:String = _internal_delType;
@@ -280,16 +307,6 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         {
             _internal_delType = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "delType", oldValue, _internal_delType));
-        }
-    }
-
-    public function set user_ip(value:String) : void
-    {
-        var oldValue:String = _internal_user_ip;
-        if (oldValue !== value)
-        {
-            _internal_user_ip = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_ip", oldValue, _internal_user_ip));
         }
     }
 
