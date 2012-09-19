@@ -2,18 +2,17 @@
 
 #wrap {width:1200px;margin:0 auto;}
 #header {margin:0 auto;width:1024px;height:80px;}
-#header #top_right {float:right;margin-bottom:15px;height:30px;}
+#header #top_right {width:1024px;margin-bottom:15px;height:30px;text-align:right;}
 #logo {clear:right; float:left; width:203px;height:35px;}
 #header #navi {float:right}
 #header #navi ul li {float:left;margin-right:20px;}
 #header #navi ul li a {display:block;height:35px; text-indent:-10000px}
-#header #navi ul li a.m01 {width:77px;background:url("../images/m01.png") 0 0 no-repeat;}
-#header #navi ul li a.m02 {width:51px;background:url("../images/m02.png") 0 0 no-repeat;}
-#header #navi ul li a.m03 {width:35px;background:url("../images/m03.png") 0 0 no-repeat;}
-#header #navi ul li a.m04 {width:36px;background:url("../images/m04.png") 0 0 no-repeat;}
-#header #navi ul li a.m04 {width:36px;background:url("../images/m04.png") 0 0 no-repeat;}
-#header #navi ul li a.m04 {width:36px;background:url("../images/m04.png") 0 0 no-repeat;}
+#header #navi ul li a.send {width:77px;background:url("../images/m01.png") 0 0 no-repeat;}
+#header #navi ul li a.address {width:51px;background:url("../images/m02.png") 0 0 no-repeat;}
+#header #navi ul li a.bill {width:35px;background:url("../images/m03.png") 0 0 no-repeat;}
+#header #navi ul li a.log {width:36px;background:url("../images/m04.png") 0 0 no-repeat;}
 #header #navi ul li a:hover {background-position: 0 -35px;}
+#header #navi ul li a.on {background-position:0 -35px;}
 
 #bar {clear:both;width:1200px;height:15px; background-image:url("../images/top_shade.png")}
 
