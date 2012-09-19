@@ -5,7 +5,9 @@
 			   xmlns:ics="component.ics.*"
 			   width="1024" height="740" 
 			   frameRate="45"
+			   initialize="app_initializeHandler(event)"
 			   creationComplete="app_creationCompleteHandler(event)"
+			   focusIn="app_focusInHandler(event)"
 			   stateChangeComplete="app_stateChangeCompleteHandler(event)" xmlns:component="component.*">
 	<fx:Style source="/skin/ics/ics.css"/>
 	<fx:Script>
@@ -18,6 +20,7 @@
 			
 			import lib.Gv;
 			
+			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
 			
 			private var join:Join;
@@ -26,11 +29,14 @@
 			public var bill:Bill;
 			public var log:Log;
 			
+			protected function app_initializeHandler(event:FlexEvent):void { this.currentState = FlexGlobals.topLevelApplication.parameters.menu; }
+			
 			protected function app_creationCompleteHandler(event:FlexEvent):void { 
 				
 				ExternalInterface.addCallback("flexFunction",flexFunction_callback);
 				ExternalInterface.call("flexCreateComplete");
 			}
+			protected function app_focusInHandler(event:FocusEvent):void { if(Capabilities.hasIME && !IME.enabled) IME.enabled = true; }
 			
 			private function flexFunction_callback(key:String, value:String):String {
 				
@@ -39,20 +45,30 @@
 				return re;
 			}
 			
-			private function join_completeHandler(event:Event):void { this.currentState = "send"; }
+			private function join_completeHandler(event:Event):void { 
+				this.currentState = "send";
+				if (login) login.login_check();
+			}
 			
 			protected function app_stateChangeCompleteHandler(event:FlexEvent):void
 			{
 				Gv.appState = currentState;
+				
+				if (!Gv.bLogin) bg.visible = true;
+				else bg.visible = false;
+				
 				// join create
 				if (join == null && currentState == "join") {
+					bg.visible = false;
 					join = new Join();
 					join.minWidth = 1024;
 					join.minHeight = 420;
 					join.horizontalCenter = 0;
+					join.addEventListener("cancel", join_completeHandler);
 					join.addEventListener("complete", join_completeHandler);
 					main_group.addElement(join);
 				} else if (join != null) {
+					join.removeEventListener("cancel", join_completeHandler);
 					join.removeEventListener("complete", join_completeHandler);
 					this.main_group.removeElement(join);
 					join = null;
@@ -114,14 +130,14 @@
 				
 			}
 			
-			
-			
 			protected function login_loginHandler(event:Event):void	{
 				
-				bg.visible = false;
 				ap.valueFrom = 0;
 				ap.valueTo = 350;
 				a.play();
+				
+				if (!Gv.bLogin) bg.visible = true;
+				else bg.visible = false;
 				
 				if (address != null)
 					address.addedtostage_handler(null);
@@ -131,13 +147,16 @@
 			
 			protected function login_logoutHandler(event:Event):void {
 				
-				bg.visible = true;
 				ap.valueFrom = 350;
 				ap.valueTo = 0;
 				a.play();
 				login.user_id.setFocus();
 				
+				if (!Gv.bLogin) bg.visible = true;
+				else bg.visible = false;
 			}
+		
+			protected function login_joinHandler(event:Event):void { this.currentState = "join"; }
 			
 		]]>
 	</fx:Script>
@@ -180,15 +199,16 @@
 		
 	</s:VGroup>
 	
-	<s:Rect id="bg" visible="true" width="1024" height="740">
+	<s:Rect id="bg" visible="false" width="1024" height="740">
 		<s:fill>
 			<s:SolidColor color="#999999" alpha="0.5" />
 		</s:fill>
 	</s:Rect> 
 	
-	<component:Login id="login"
+	<component:Login id="login" excludeFrom="join"
 					 login="login_loginHandler(event)"
 					 logout="login_logoutHandler(event)"
+					 join="login_joinHandler(event)"
 					 verticalCenter="0" horizontalCenter="0"
 					 skinClass="skin.LoginSkin" />
 	

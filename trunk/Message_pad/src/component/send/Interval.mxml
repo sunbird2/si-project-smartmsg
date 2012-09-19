@@ -42,10 +42,10 @@
 		<s:HGroup verticalAlign="middle"><s:TextInput id="cnt" width="50" restrict="0-9" styleName="textinput_light" /><s:Label text="건 마다" fontFamily="Dotum" /></s:HGroup>
 		<s:HGroup verticalAlign="middle"><s:TextInput id="minute" width="50" restrict="0-9" styleName="textinput_light" /><s:Label text="분 간격으로 전송" fontFamily="Dotum" /></s:HGroup>
 		<s:HGroup>
-			<s:Button label="적용" click="confirm()" skinClass="skin.compnent.ButtonSkin01" />
-			<s:Button label="취소" click="{this.visible = false;this.dispatchEvent(new Event('cancelInterval'))}"  styleName="button_light" />
+			<s:Button label="적용" click="confirm()"  styleName="button_light" width="80"/>
+			<s:Button label="취소" click="{this.visible = false;this.dispatchEvent(new Event('cancelInterval'))}"  styleName="button_light" width="80" />
 		</s:HGroup>
 		
 	</s:Group>
-	<s:Button id="close" width="16" height="16" right="10" top="7" click="{this.visible = false;this.dispatchEvent(new Event('cancelInterval'))}" styleName="button_light" />
+	<s:Image source="/skin/ics/assets/light/1-navigation-cancel.png" id="close"  right="5" top="5" click="{this.visible = false;this.dispatchEvent(new Event('cancelInterval'))}" buttonMode="true"  />
 </s:Group>

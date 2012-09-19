@@ -13,7 +13,6 @@
 			<s:layout>
 				<s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" />
 			</s:layout>
-			<s:BitmapImage id="back" source="@Embed('/skin/ics/assets/dark/icon/1-navigation-previous-item.png')" smooth="true" alpha="0.6" width="20" height="20"/>
 			<s:BitmapImage id="icon" source="@Embed('/skin/ics/assets/menu_address.png')" fillMode="scale" width="36" height="36" smooth="true" />
 			<s:VGroup gap="4">
 				<s:RichText id="title_text" color="#FFFFFF" text="주소록" fontSize="14"/>

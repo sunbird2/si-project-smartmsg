@@ -18,19 +18,23 @@ package component
 	import lib.SLibrary;
 	
 	import mx.events.FlexEvent;
+	import mx.events.IndexChangedEvent;
 	import mx.managers.PopUpManager;
 	
 	import spark.components.Button;
+	import spark.components.DropDownList;
 	import spark.components.Label;
 	import spark.components.SkinnableContainer;
 	import spark.components.TextInput;
 	import spark.components.supportClasses.SkinnableComponent;
+	import spark.events.IndexChangeEvent;
 	
 	import valueObjects.BooleanAndDescriptionVO;
 	import valueObjects.UserInformationVO;
 	
 	[Event(name="login", type="flash.events.Event")]
 	[Event(name="logout", type="flash.events.Event")]
+	[Event(name="join", type="flash.events.Event")]
 	/* A component must identify the view states that its skin supports. 
 	Use the [SkinState] metadata tag to define the view states in the component class. 
 	[SkinState("normal")] */
@@ -45,9 +49,11 @@ package component
 		[SkinPart(required="false")]public var user_pw:TextInput;
 		[SkinPart(required="false")]public var login:Button;
 		[SkinPart(required="false")]public var join:Button;
-		[SkinPart(required="false")]public var login_id:LinkElement;
-		[SkinPart(required="false")]public var point:LinkElement;
+		[SkinPart(required="false")]public var login_id:SpanElement;
+		[SkinPart(required="false")]public var point:SpanElement;
 		[SkinPart(required="false")]public var logoutBtn:Button;
+		[SkinPart(required="false")]public var mType:DropDownList;
+		
 		
 		
 		private var _cstat:String = "logout";
@@ -90,28 +96,16 @@ package component
 			else if (instance == login) login.addEventListener(MouseEvent.CLICK, login_clickHandler);
 			//else if (instance == user_id) user_id.addEventListener("tab", user_id_tabHandler);
 			else if (instance == login_id) {
-				login_id.addEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
-				login_id.addEventListener(FlowElementMouseEvent.ROLL_OUT, tooltip_outHandler);
-				login_id.addEventListener(FlowElementMouseEvent.CLICK, login_id_clickHandler);
 				
-				var l:SpanElement = new SpanElement();
-				l.text = Gv.user_id;
-				l.color =  0x33B5E5;
-				l.textDecoration = "none";
-				login_id.addChild(l);
+				login_id.text = Gv.user_id;
 			}
 			else if (instance == point) {
-				point.addEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
-				point.addEventListener(FlowElementMouseEvent.ROLL_OUT, tooltip_outHandler);
-
-				var p:SpanElement = new SpanElement();
-				p.text =  SLibrary.addComma( String(Gv.point) );
-				p.color =  0xFFBB33;
-				p.textDecoration = "none";
-				point.addChild(p);
+				
+				setPoint();
 			}
 			else if (instance == user_pw) user_pw.addEventListener(FlexEvent.ENTER, login_clickHandler);
-			else if (instance == logoutBtn) logoutBtn.addEventListener(MouseEvent.CLICK, logout_clickHandler); 
+			else if (instance == logoutBtn) logoutBtn.addEventListener(MouseEvent.CLICK, logout_clickHandler);
+			else if (instance == mType) mType.addEventListener(IndexChangeEvent.CHANGE, mType_changeHandler);
 			
 		}
 		
@@ -121,8 +115,9 @@ package component
 			super.partRemoved(partName, instance);
 			if (instance == join) join.removeEventListener(MouseEvent.CLICK, join_clickHandler);
 			else if (instance == login) login.removeEventListener(MouseEvent.CLICK, login_clickHandler);
-			//else if (instance == user_id) user_id.removeEventListener("tab", user_id_tabHandler);
 			else if (instance == user_pw) user_pw.removeEventListener(FlexEvent.ENTER, login_clickHandler); 
+			else if (instance == logoutBtn) logoutBtn.removeEventListener(MouseEvent.CLICK, logout_clickHandler);
+			else if (instance == mType) mType.removeEventListener(IndexChangeEvent.CHANGE, mType_changeHandler);
 		}
 		
 		private function user_id_tabHandler(event:Event):void {
@@ -135,7 +130,7 @@ package component
 		 * */
 		private function join_clickHandler(event:MouseEvent):void {
 			
-			parentApplication.joinView();
+			this.dispatchEvent(new Event("join"));
 		}
 		
 		/**
@@ -259,6 +254,26 @@ package component
 				parentApplication.menus.clickStat ="home";
 				//SkinnableContainer(parentApplication).currentState ="send";
 			}
+		}
+		
+		private function mType_changeHandler(event:IndexChangeEvent):void {
+			setPoint();
+		}
+		
+		private function setPoint():void {
+			var p:SpanElement = new SpanElement();
+			var unit:int = 1;
+			
+			var t:String = "SMS";
+			if (mType.selectedIndex >= 0)
+				t = mType.selectedItem.label;
+			
+			if (t == "LMS") unit = 3;
+			else if (t == "MMS") unit = 15;
+			else unit = 1;
+			
+			
+			point.text =  SLibrary.addComma( String(Math.floor( Gv.point/unit ) ) );
 		}
 		
 	}
