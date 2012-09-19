@@ -127,6 +127,6 @@
 			</s:HGroup>
 		</s:VGroup>
 	</s:Group>
-	<s:Button id="close" width="16" height="16" right="10" top="7" click="image1_clickHandler(event)" styleName="button_light" />
+	<s:Image source="/skin/ics/assets/light/1-navigation-cancel.png" id="close"  right="5" top="5" click="image1_clickHandler(event)" buttonMode="true"  />
 	
 </s:Group>

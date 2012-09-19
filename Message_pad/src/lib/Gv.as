@@ -8,6 +8,10 @@ package lib
 		public static const LMS_BYTE:uint = 2000;
 		public static const MMS_BYTE:uint = 2000;
 		
+		public static const SMS_COUNT:uint = 1;
+		public static const LMS_COUNT:uint = 3;
+		public static const MMS_COUNT:uint = 15;
+		
 		public static const spcData:Array = new Array(
 			"＃","＆","＊","＠","※","☆","★","○","●","◎","◇","◆","§",
 			"□","■","△","▲","▽","▼","→","←","↑","↓","↔","〓","◁",

@@ -769,7 +769,7 @@ package component
 			if (reservation == null) {
 				reservation = new ReservationCalendar();
 				reservation.left = 20;
-				reservation.y = 770;
+				reservation.y = 400;
 				reservation.addEventListener("setReservation", reservation_setReservationHandler);
 				reservation.addEventListener("cancelReservation", reservation_cancelReservationHandler);
 				this.functionGroup.addElement(reservation);
@@ -819,7 +819,7 @@ package component
 			if (interval == null) {
 				interval = new Interval();
 				interval.left = 20;
-				interval.y = 770;
+				interval.y = 400;
 				interval.addEventListener("setInterval", interval_setintervalHandler);
 				interval.addEventListener("cancelInterval", interval_cancelintervalHandler);
 				this.functionGroup.addElement(interval);

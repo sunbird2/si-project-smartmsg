@@ -30,6 +30,7 @@ package component
 	
 	
 	[Event(name="complete", type="flash.events.Event")]
+	[Event(name="cancel", type="flash.events.Event")]
 	/* A component must identify the view states that its skin supports. 
 	Use the [SkinState] metadata tag to define the view states in the component class. 
 	[SkinState("normal")] */
@@ -96,9 +97,9 @@ package component
 			
 			super.partAdded(partName, instance);
 			if (instance == next1) next1.addEventListener( MouseEvent.CLICK, next1_clickHandler );
-			else if (instance == agree1) agree1.addEventListener( Event.CHANGE, autoNext1 );
-			else if (instance == agree2) agree2.addEventListener( Event.CHANGE, autoNext1 );
-			else if (instance == cancel1) cancel1.addEventListener( MouseEvent.CLICK, cancel1_clickHandler );
+			/*else if (instance == agree1) agree1.addEventListener( Event.CHANGE, autoNext1 );
+			else if (instance == agree2) agree2.addEventListener( Event.CHANGE, autoNext1 );*/
+			else if (instance == cancel1) cancel1.addEventListener( MouseEvent.CLICK, cancel_clickHandler );
 			else if (instance == userid) userid.addEventListener(KeyboardEvent.KEY_UP, userid_keyUpHandler );
 			else if (instance == userpw) userpw.addEventListener(KeyboardEvent.KEY_UP, userpw_keyUpHandler);
 			else if (instance == userrepw) userrepw.addEventListener(KeyboardEvent.KEY_UP, userrepw_keyUpHandler);
@@ -112,7 +113,7 @@ package component
 			}
 			else if (instance == next2) next2.addEventListener(MouseEvent.CLICK, next2_clickHandler);
 			else if (instance == sec) autoIn();
-			else if (instance == cancel2) cancel2.addEventListener(MouseEvent.CLICK, cancel2_clickHandler);
+			else if (instance == cancel2) cancel2.addEventListener(MouseEvent.CLICK, cancel_clickHandler);
 			
 			
 		}
@@ -120,9 +121,9 @@ package component
 		override protected function partRemoved(partName:String, instance:Object) : void {
 			super.partRemoved(partName, instance);
 			if (instance == next1) next1.removeEventListener( MouseEvent.CLICK, next1_clickHandler );
-			else if (instance == agree1) agree1.removeEventListener( Event.CHANGE, autoNext1 );
-			else if (instance == agree2) agree2.removeEventListener( Event.CHANGE, autoNext1 );
-			else if (instance == cancel1) cancel1.removeEventListener( MouseEvent.CLICK, cancel1_clickHandler );
+			/*else if (instance == agree1) agree1.removeEventListener( Event.CHANGE, autoNext1 );
+			else if (instance == agree2) agree2.removeEventListener( Event.CHANGE, autoNext1 );*/
+			else if (instance == cancel1) cancel1.removeEventListener( MouseEvent.CLICK, cancel_clickHandler );
 			else if (instance == userid) userid.removeEventListener(KeyboardEvent.KEY_UP, userid_keyUpHandler );
 			else if (instance == userpw) userpw.removeEventListener(KeyboardEvent.KEY_UP, userpw_keyUpHandler);
 			else if (instance == userrepw) userrepw.removeEventListener(KeyboardEvent.KEY_UP, userrepw_keyUpHandler);
@@ -135,7 +136,11 @@ package component
 				userhp3.removeEventListener(KeyboardEvent.KEY_UP, tiHp_keyUpHandler);
 			}
 			else if (instance == next2) next2.removeEventListener(MouseEvent.CLICK, next2_clickHandler);
-			else if (instance == sec) autoIn();
+			else if (instance == sec) {
+				inTimer.stop();
+				inTimer.removeEventListener("timer", timerHandler);
+			}
+			else if (instance == cancel2) cancel2.removeEventListener(MouseEvent.CLICK, cancel_clickHandler);
 		}
 		
 		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void	{
@@ -166,11 +171,7 @@ package component
 		/**
 		 * cancel
 		 * */
-		private function cancel1_clickHandler(event:MouseEvent):void {
-			Main(parentApplication).menus.clickStat = "home";
-			Main(parentApplication).currentState = "home";
-			//this.visible = false;
-		}
+		private function cancel_clickHandler(event:MouseEvent):void { dispatchEvent(new Event("cancel")); }
 		
 		
 		/**
@@ -333,10 +334,6 @@ package component
 			
 		}
 		
-		private function cancel2_clickHandler(event:MouseEvent):void {
-			Main(parentApplication).menus.clickStat = "home";
-			Main(parentApplication).currentState = "home";
-		}
 		
 		
 		private function autoIn():void {

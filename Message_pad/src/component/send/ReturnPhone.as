@@ -1,7 +1,7 @@
 package component.send
 {
 	
-	import flashx.textLayout.events.FlowElementMouseEvent;
+	import flash.events.MouseEvent;
 	
 	import lib.CustomEvent;
 	import lib.Gv;
@@ -77,7 +77,7 @@ package component.send
 			}
 		}
 		
-		public function callbackSave_clickHandler(event:FlowElementMouseEvent):void {
+		public function callbackSave_clickHandler(event:MouseEvent):void {
 			event.stopImmediatePropagation();
 			event.preventDefault();
 			if (Gv.bLogin) {
