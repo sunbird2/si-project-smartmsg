@@ -46,32 +46,46 @@
             attributes.align = "middle";
            
             
-            function embedSWF() {
+            function embedSWF(m) {
+            	flashvars.menu = m;
           		swfobject.embedSWF(
-                       "${swf}.swf", "main-image1", 
-                       "${width}", "${height}", 
+                       "${application}.swf", "main-image1", 
+                       "1024", "740", 
                        swfVersionStr, xiSwfUrlStr, 
                        flashvars, params, attributes);
                    // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
                 swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+                
                 return false;
              }
                
              var menu = "send";
              function changeMenu(str) {
+
+                document.getElementById(menu).className = menu;
              	menu = str;
              	var MunjaNote = document.getElementById("${application}");
              	if (MunjaNote) {
              		MunjaNote.flexFunction("menu", menu);
              	} else {
-             		embedSWF();
+             		embedSWF(menu);
              	}
+                document.getElementById(menu).className = menu + " on";
+                document.${application}.focus();
              }
 
              function flexCreateComplete() {
              	//alert("complete:"+menu);
-             	changeMenu(menu);
+             	//changeMenu(menu);
              }
+             
+             function join() {
+                 var MunjaNote = document.getElementById("MunjaNote");
+                 if (MunjaNote) MunjaNote.flexFunction("menu", "join");
+              	else embedSWF("join");
+
+                 document.MunjaNote.focus();
+              }
         </script>
        <link rel="stylesheet" type="text/css" href="css/base.css" />
        <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -82,18 +96,18 @@
 <!-- header-->
 <div id="header">
 		<div id="top_right">
-			<a href="javascript:" onclick="embedSWF()" title="로그인"><img src="images/top_login.gif" alt="로그인"></a>
-			<a href="javascript:" onclick="embedSWF()" title="회원가입"><img src="images/top_join.gif" alt="회원가입"></a>
-			<a href="javascript:" onclick="embedSWF()" title="즐겨찾기"><img src="images/top_add.gif" alt="즐겨찾기"></a>
+			<a href="javascript:" onclick="changeMenu('send')" title="로그인"><img src="images/top_login.gif" alt="로그인" onfocus="this.blur()"></a>
+			<a href="javascript:" onclick="join()" title="회원가입"><img src="images/top_join.gif" alt="회원가입" onfocus="this.blur()"></a>
+			<a href="javascript:" onclick="embedSWF()" title="즐겨찾기"><img src="images/top_add.gif" alt="즐겨찾기" onfocus="this.blur()"></a>
 		</div><!-- top_right -->
-		<div id="logo"><a href="javascript:" onclick="window.loction.href=''" title="MunjaNote"><img src="images/logo.gif" alt="MunjaNOte"></a></div>
+		<div id="logo"><a href="javascript:" onclick="window.location.href='MunjaNote.html'" title="MunjaNote"><img src="images/logo.gif" alt="MunjaNOte"></a></div>
 		<div id="navi">
 			<ul>
-				<li><a href="javascript:" onclick="changeMenu('send')" class="m01" title="전송서비스">전송서비스</a></li>
-				<li><a href="javascript:" onclick="changeMenu('address')" class="m02" title="주소록">주소록</a></li>
-				<li><a href="javascript:" onclick="changeMenu('bill')" class="m03" title="결제">결제</a></li>
-				<li><a href="javascript:" onclick="changeMenu('log')" class="m04" title="내역">내역</a></li>
-				<li><img src="images/useage.png" class="hand" alt="사용방법"></li>
+				<li><a href="javascript:" id="send" onclick="changeMenu('send')" class="send" title="전송서비스" onfocus="this.blur()">전송서비스</a></li>
+				<li><a href="javascript:" id="address" onclick="changeMenu('address')" class="address" title="주소록" onfocus="this.blur()">주소록</a></li>
+				<li><a href="javascript:" id="bill" onclick="changeMenu('bill')" class="bill" title="결제" onfocus="this.blur()">결제</a></li>
+				<li><a href="javascript:" id="log" onclick="changeMenu('log')" class="log" title="내역" onfocus="this.blur()">내역</a></li>
+				<li><img src="images/useage.png" class="hand" alt="사용방법" onfocus="this.blur()"></li>
 			</ul>
 		</div><!-- navi -->
 		
