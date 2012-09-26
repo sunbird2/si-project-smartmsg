@@ -15,7 +15,7 @@ import flex.messaging.FlexContext;
 
 public class SessionManagement {
 	
-	private Boolean bTest = true;
+	private Boolean bTest = false;
 	
 	private final String SESSION = "user_id";
 	private final String SESSION_ADMIN = "admin_id";
@@ -44,10 +44,18 @@ public class SessionManagement {
 		if (rslt == 0)
 			VbyP.accessLog(user_id+" >> loginUpdateTime fail");
 		
-		FlexSession session =  FlexContext.getFlexSession();
-		session.setAttribute(SESSION, user_id);
-		VbyP.accessLog(user_id+" Login");
+		createSession(user_id);
 		
+		
+	}
+	
+	public void createSession(String user_id) {
+		
+		UserSession us = new UserSession();
+		us.setUser_id(user_id);
+		FlexSession session =  FlexContext.getFlexSession();
+		session.setAttribute(SESSION, us);
+		VbyP.accessLog(user_id+" Login");
 	}
 	
 	private void setSessionAdmin(String user_id) {
@@ -88,14 +96,17 @@ public class SessionManagement {
 	
 	public String getSession() {
 		
-		if (bTest) return "starwarssi";
+		if (bTest) return VbyP.getValue("test_id");
 		else {
 			FlexSession session = FlexContext.getFlexSession();
 			
 			if ( session.getAttribute(SESSION) == null )
 				return null;
-			else
-				return session.getAttribute(SESSION).toString();
+			else {
+				UserSession us = (UserSession)session.getAttribute(SESSION);
+				return us.getUser_id();
+			}
+				 
 		}
 
 		

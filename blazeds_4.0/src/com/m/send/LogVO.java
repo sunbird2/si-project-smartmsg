@@ -15,6 +15,7 @@ public class LogVO implements Serializable {
 	String mode = "";
 	String method = "";
 	String message = "";
+	int cnt = 0;
 	String user_ip = "";
 	String timeSend = "";
 	String timeWrite = "";
@@ -33,6 +34,7 @@ public class LogVO implements Serializable {
 			setMode(SLibrary.IfNull(hm, "mode"));
 			setMethod(SLibrary.IfNull(hm, "method"));
 			setMessage(SLibrary.IfNull(hm, "message"));
+			setCnt(SLibrary.intValue(SLibrary.IfNull(hm, "cnt")));
 			setUser_ip(SLibrary.IfNull(hm, "user_ip"));
 			setTimeSend(SLibrary.IfNull(hm, "timeSend"));
 			setTimeWrite(SLibrary.IfNull(hm, "timeWrite"));
@@ -66,6 +68,15 @@ public class LogVO implements Serializable {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
 	public String getUser_ip() {
 		return user_ip;
 	}

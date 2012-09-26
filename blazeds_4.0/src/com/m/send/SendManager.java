@@ -32,15 +32,15 @@ public class SendManager implements ISend {
 		
 		int rslt = 0;
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
-		//insertSendLog=INSERT INTO sent_log(user_id, line, mode, method, message, user_ip, timeSend, timeWrite) VALUES (?, ?, ?, ?, ?, ?, ?, now());
 		pq.setPrepared( conn, VbyP.getSQL("insertSendLog"));
 		pq.setString(1, lvo.getUser_id());
 		pq.setString(2, lvo.getLine());
 		pq.setString(3, lvo.getMode());
 		pq.setString(4, lvo.getMethod());
 		pq.setString(5, lvo.getMessage());
-		pq.setString(6, lvo.getUser_ip());
-		pq.setString(7, lvo.getTimeSend());
+		pq.setInt(6, lvo.getCnt());
+		pq.setString(7, lvo.getUser_ip());
+		pq.setString(8, lvo.getTimeSend());
 		rslt = pq.executeUpdate();
 		
 		if (rslt <= 0) return 0;
@@ -223,6 +223,7 @@ public class SendManager implements ISend {
 		lvo.setMode( getMode(smvo) );
 		lvo.setMethod( getMethod(smvo) );
 		lvo.setMessage( smvo.getMessage() );
+		lvo.setCnt( smvo.getAl().size() );
 		lvo.setUser_ip( smvo.getReqIP() );
 		lvo.setTimeSend( smvo.isbReservation()? smvo.getReservationDate() : SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss") );
 		lvo.setTimeWrite( SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss") );
