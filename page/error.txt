@@ -1,0 +1,11 @@
+TypeError: Error #1009: null 객체 참조의 속성이나 메서드에 액세스할 수 없습니다.
+	at component.send::Sending/getResult()
+	at Function/http://adobe.com/AS3/2006/builtin::apply()
+	at SetIntervalTimer/onTimer()
+	at flash.utils::Timer/_timerDispatch()
+	at flash.utils::Timer/tick()
+
+
+전송 후 건수 업데이트
+
+전송 컨펌 메시지 SMS.LMS 변환
