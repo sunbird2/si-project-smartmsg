@@ -1,5 +1,5 @@
 .hand {cursor:pointer}
-
+/*body {background:url("../images/bg.png")}*/
 #wrap {width:1200px;margin:0 auto;}
 #header {margin:0 auto;width:1024px;height:80px;}
 #header #top_right {width:1024px;margin-bottom:15px;height:30px;text-align:right;}
@@ -16,12 +16,13 @@
 
 #bar {clear:both;width:1200px;height:15px; background-image:url("../images/top_shade.png")}
 
-#main-image {margin:0 auto;width:1024px;height:740px;}
+#main-image {margin:0 auto;width:1024px;height:743px;}
 #main-image1 {width:1024px;height:740px;background:url("../images/main01.png") 0 0 no-repeat;}
 
-#function-navi {margin:0 auto;width:1024px;height:194px;margin-top:15px;}
+#function-navi {margin:0 auto;width:1024px;height:194px;margin-top:15px;text-align:center;}
+#function-navi ul {margin:0 auto;width:986px;height:194px;overflow:hidden;}
 #function-navi ul li {float:left;width:174px;height:194px;margin-right:29px;}
-#function-navi ul li .nomargin {margin-right:0px;}
+#function-navi ul li.nomargin {margin-right:0px;}
 #function-navi ul li a {display:block;clear:both;width:174px;text-indent:-10000px}
 #function-navi ul li.f01 a {background:url("../images/f01.png") 0 0 no-repeat;}
 #function-navi ul li.f02 a {background:url("../images/f02.png") 0 0 no-repeat;}
@@ -61,3 +62,13 @@
 #info ul li a.i04 {width:57px;background:url("../images/bottom__spam.png") 0 0 no-repeat;}
 #copy {float:right;height:81px;}
 #copy .address {float:left;margin-right:15px;width:316px; height:51px;background:url("../images/bottom_copyright.png") 0 0 no-repeat;}
+
+/*slider*/
+.clear {clear:both}
+#gallery { position:relative; height:743px }
+#gallery a {float:left;position:absolute;}
+#gallery a img {border:none;}
+#gallery a.show {z-index:500}
+#gallery .caption {z-index:600; background-color:#000; color:#ffffff; height:100px; width:100%; position:absolute;bottom:0;}
+#gallery .caption .content {margin:5px}
+#gallery .caption .content h3 {margin:0;padding:0;color:#1DCCEF;}
