@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<project default="deploy" basedir=".">
+
+	<property name="ftp.ip"  value="218.38.12.89" />
+    <property name="ftp.dir"  value="/home/web/webapps" />
+    <property name="ftp.userid"  value="web" />
+    <property name="ftp.pw"   value="1qkrtlgns_web" />
+	
+	<!-- 준비단계 -->
+	<target name="main"
+		    description="준비단계">
+        <tstamp>
+            <format property="DSTAMP" pattern="yyyy-MM-dd"></format>
+            <format property="TSTAMP" pattern="HH:mm"></format>
+        </tstamp>
+        <echo message="******************************************"></echo>
+        <echo message="* Build started at : ${DSTAMP} ${TSTAMP} *"></echo>
+        <echo message="******************************************"></echo>
+    </target>
+	
+	<target name="makeWar" depends="main">
+		<delete file="../war/ROOT.war" />
+        <war destfile="../war/ROOT.war" webxml="../WebContent/WEB-INF/web.xml">
+            <lib dir="../WebContent/WEB-INF/lib" />
+            <classes dir="../build/classes" />
+            <fileset dir="../WebContent" />
+        </war>
+		<echo message="complet!!"></echo>
+    </target>
+	
+	<target name="deploy" depends="makeWar">
+	    <ftp  
+	    	server="${ftp.ip}"
+	     	remotedir="${ftp.dir}"
+	     	userid="${ftp.userid}"
+	     	password="${ftp.pw}"
+	     	passive="false"
+	     	>
+	     	<fileset dir="../war/" casesensitive="yes"/>
+	    	
+	     </ftp>
+		<echo message="complet!!"></echo>
+	</target>
+	
+	
+	
+	
+	
+</project>
