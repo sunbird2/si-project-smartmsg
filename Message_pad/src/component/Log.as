@@ -192,7 +192,10 @@ package component
 				}
 				
 			}
-			else if (instance == searchType) searchType.dataProvider = arrSearch;
+			else if (instance == searchType)  {
+				searchType.dataProvider = arrSearch;
+				searchType.selectedIndex = 0;
+			}
 			else if (instance == search) search.addEventListener("search" , search_clickHandler);
 			
 			
@@ -370,7 +373,7 @@ package component
 				//groupList.visible = true;
 				PagedFilterSmtInit();
 				callResponder.addEventListener(ResultEvent.RESULT, callResponder_resultHandler);
-				callResponder.token = smt.getSentListDetail_pagedFiltered(detailVO);
+				callResponder.token = smt.getSentListDetail_pagedFiltered(detailVO );
 			}
 			
 		}
@@ -459,7 +462,7 @@ package component
 			}else {
 				RemoteSingleManager.getInstance.addEventListener("deleteSent", deleteSent_resultHandler, false, 0, true);
 				RemoteSingleManager.getInstance.callresponderToken 
-					= RemoteSingleManager.getInstance.service.deleteSent( LogVO(acGroup.getItemAt(event.result as int)) );
+					= RemoteSingleManager.getInstance.service.deleteSent( acGroup.getItemAt(event.result as int) as LogVO  );
 			}
 			
 		}

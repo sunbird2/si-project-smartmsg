@@ -178,6 +178,7 @@ package component
 			
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {
+				Gv.bLogin = false;
 				cstat = "logout";
 				invalidateSkinState();
 				dispatchEvent(new Event("logout"));
@@ -206,6 +207,7 @@ package component
 				}
 				dispatchEvent(new Event("login"));
 			} else {
+				Gv.bLogin = false;
 				cstat = "logout";
 				dispatchEvent(new Event("logout"));
 			}

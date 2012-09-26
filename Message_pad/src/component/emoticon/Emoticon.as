@@ -59,7 +59,7 @@ package component.emoticon
 		[SkinPart(required="true")] public var category:List;
 		[SkinPart(required="true")] public var msgBox:List;
 		//[SkinPart(required="true")] public var paging:Paging;
-		[SkinPart(required="true")] public var specialCharGroup:TileGroup;
+		[SkinPart(required="true")] public var specialCharGroup:List;
 
 		
 		private var _state:String;
@@ -149,7 +149,29 @@ package component.emoticon
 				paging.addEventListener("clickPage", paging_clickPageHandler);
 			}*/
 			else if (instance == specialCharGroup) {
-				createSpecialChar();
+				specialCharGroup.dataProvider = new ArrayCollection( new Array(
+					"＃","＆","＊","＠","※","☆","★","○","●","◎","◇","◆","§",
+					"□","■","△","▲","▽","▼","→","←","↑","↓","↔","〓","◁",
+					"◀","▷","▶","♤","♠","♡","♥","♧","♣","∠","◈","▣","◐",
+					"◑","▒","▤","▥","▨","▧","▦","▩","♨","☏","☎","☜","☞",
+					"¶","†","‡","↕","↗","↙","↖","↘","♭","♩","♪","♬","㉿",
+					"㈜","№","㏇","™","㏂","㏘","℡","®","ª","º","！","˝","＇",
+					"．","／","：","；","？","＾","＿","｀","｜","￣","、","。","·",
+					"」","『","』","【","】","＋","－","√","＝","∽","±","×","÷",
+					"≠","≤","≥","∞","♂","♀","∝","∵","∫","∬","∈","∋","⊆",
+					"⊇","⊂","⊃","∪","∩","∧","∨","￢","⇒","⇔","∀","∃","∮",
+					"∑","∏","＋","－","＜","＝","＞","±","×","÷","≠","≤","≥",
+					"∞","∴","♂","♀","∠","⊥","⌒","∂","∇","≡","≒","≡","≒",
+					"‥","¨","…","〃","⊥","⌒","∥","＼","∴","´","～","ˇ","˘",
+					"˚","˙","¸","˛","¡","¿","∂","，","＂","（","）","［","］",
+					"｛","｝","‘","’","“","”","〔","〕","〈","〉","《","》","「",
+					"㉠","㉡","㉢","㉣","㉤","㉥","㉦","㉧","㉨","㉩","㉪","㉫","㉬",
+					"㉭","㉮","㉯","㉰","㉱","㉲","㉳","㉴","㉵","㉶","㉷","㉸","㉹",
+					"㉺","㉻","ⓐ","ⓑ","ⓒ","ⓓ","ⓔ","ⓕ","ⓖ","ⓗ","ⓘ","ⓙ","ⓚ",
+					"ⓛ","ⓜ","ⓝ","ⓞ","ⓟ","ⓠ","ⓡ","ⓢ","ⓣ","ⓤ","ⓥ","ⓦ","ⓧ",
+					"ⓨ","ⓩ","①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩","½"
+				));
+				specialCharGroup.addEventListener(IndexChangeEvent.CHANGE, specialCharGroup_changeHandler);
 			}
 			else if (instance == icon)	icon.source = getTitleIcon();
 			else if (instance == title_text)	title_text.text = getTitle();
@@ -174,7 +196,10 @@ package component.emoticon
 				smt.removeEventListener("fault", smt_fault);
 			}
 			//else if (instance == paging) paging.removeEventListener("clickPage", paging_clickPageHandler);
-			else if (instance == specialCharGroup) removeSpecialChar();
+			else if (instance == specialCharGroup) {
+				removeSpecialChar();
+				specialCharGroup.removeEventListener(IndexChangeEvent.CHANGE, specialCharGroup_changeHandler);
+			}
 
 		}
 		
@@ -301,7 +326,7 @@ package component.emoticon
 				= RemoteSingleManager.getInstance.service.getEmotiListPage(gubun, cate, int(event.result), viewDataCount);
 		}
 		
-		private function createSpecialChar():void {
+		/*private function createSpecialChar():void {
 			
 			var cnt:uint = Gv.spcData.length;
 			var char:RichText = null;
@@ -315,25 +340,31 @@ package component.emoticon
 				char.addEventListener(MouseEvent.CLICK, charClickHandler);
 			}
 			
-		}
+		}*/
 		private function removeSpecialChar():void {
 			
-			var cnt:uint = Gv.spcData.length;
-			for ( var i:int = 0; i < cnt; i++) {
-				specialCharGroup.getElementAt(i).removeEventListener(MouseEvent.CLICK, charClickHandler);
-			}
-			specialCharGroup.removeAllElements();
-			
+			specialCharGroup.dataProvider.removeAll();
 		}
 		
 		private function msgBox_changeHandler(event:IndexChangeEvent):void {
 			var obj:Object = msgBox.selectedItem as Object;
-			this.dispatchEvent(new CustomEvent("message", obj.message));
+			if (obj && obj.message)
+				this.dispatchEvent(new CustomEvent("message", obj.message));
 			
 		}
 		protected function charClickHandler(e:MouseEvent):void { 
 			
 			this.dispatchEvent(new CustomEvent("specialChar", RichText(e.currentTarget).text));
+		}
+		
+		private function specialCharGroup_changeHandler(event:IndexChangeEvent):void {
+			
+			if (specialCharGroup.selectedItem)
+				this.dispatchEvent(new CustomEvent("specialChar", specialCharGroup.selectedItem ));
+			
+			
+			specialCharGroup.selectedIndex = -1;
+			
 		}
 		
 		/**

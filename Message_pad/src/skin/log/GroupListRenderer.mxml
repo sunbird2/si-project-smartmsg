@@ -14,9 +14,9 @@
 				// TODO Auto Generated method stub
 				super.data = value;
 				if (super.data != null) {
-
-					main.text = SLibrary.cutByteTo( LogVO(super.data).message.replace(/\n/g,"") , 20 );
-					sub.text = LogVO(super.data).mode + " " + LogVO(super.data).timeSend ;
+					var vo:LogVO = super.data as LogVO;
+					main.text = SLibrary.cutByteTo( LogVO(super.data).message.replace(/\n/g,"") , 40 );
+					sub.text = vo.mode + " " + vo.cnt + "건 " + vo.timeSend ;
 				}
 					
 			}
@@ -35,15 +35,11 @@
 	
 	<s:VGroup top="7" bottom="5" left="5" right="3">
 		<s:Label id="main" fontSize="12" color="#222222"/>
-		<s:Label id="sub" fontSize="10" color="0x999999" />
+		<s:Label id="sub" fontSize="10" color="#777777" />
 	</s:VGroup>
 	
 	<s:BitmapImage id="sel" source="@Embed('/skin/ics/assets/list_select.png')" smooth="true" right="0" visible="false"/>
 	
-	<s:Rect width="100%" bottom="0" height="0.5">
-		<s:stroke>
-			<s:SolidColorStroke color="#D9D9D9" />
-		</s:stroke>
-	</s:Rect>
+	<s:Rect width="100%" bottom="0" height="1"><s:fill><s:SolidColor color="#D9D9D9" /></s:fill></s:Rect>
 	
 </s:ItemRenderer>

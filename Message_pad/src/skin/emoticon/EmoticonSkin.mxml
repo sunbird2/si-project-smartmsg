@@ -46,7 +46,9 @@
 			<s:layout><s:TileLayout horizontalGap="3" verticalGap="5" requestedColumnCount="3"/></s:layout>
 		</s:List>
 		
-		<s:TileGroup id="specialCharGroup" includeIn="specialChar" width="435" contentBackgroundColor="#FFFFFF"/>	
+		<s:List id="specialCharGroup" includeIn="specialChar" width="435" borderVisible="false" contentBackgroundColor="#FFFFFF">
+			<s:layout><s:TileLayout /></s:layout>
+		</s:List>	
 		
 		<s:Spacer height="5" />
 		<!--<lib:Paging id="paging" includeIn="emoticon, myMessage, sentMessage" bottom="10" horizontalCenter="0" />-->
