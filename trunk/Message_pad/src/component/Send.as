@@ -372,6 +372,9 @@ package component
 			titleSub_text.text = subMessage;
 			
 		}
+		public function initReturnPhone():void {
+			rt.getReturnPhone();
+		}
 		
 		/**
 		 * message function

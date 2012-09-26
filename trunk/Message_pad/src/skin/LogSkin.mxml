@@ -67,7 +67,7 @@
 				<s:SkinnableContainer styleName="actionBar_contextuar_light" width="100%" height="40" depth="4">
 					<s:Label text="상세내역" color="#222222" verticalCenter="0" left="5" />
 					<s:HGroup includeIn="detail" verticalCenter="0" verticalAlign="middle" right="5" gap="0">
-						<s:DropDownList id="searchType" styleName="dropDownList_light" />
+						<s:DropDownList id="searchType" width="70" styleName="dropDownList_light" />
 						<util:TextInputSearch id="search" prompt="이름 or 전화번호" focusSkin="skin.ics.TextInputFocus" color="#222222" fontSize="12" />
 						<s:Image id="excelDownBtn" source="skin/ics/assets/light/icon/5-content-import-export.png" buttonMode="true" toolTip="엑셀다운로드" />
 					</s:HGroup>

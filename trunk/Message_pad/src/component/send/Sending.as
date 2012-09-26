@@ -224,7 +224,7 @@ package component.send
 				if (ssvo.local == 0 && ssvo.telecom == 0) {
 					resultCompleted();
 				}
-				resultCompleted();
+				
 			}
 			
 		}
