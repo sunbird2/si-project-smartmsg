@@ -10,7 +10,7 @@
 	<!-- 준비단계 -->
 	<target name="main"
 		    description="준비단계">
-        <tstamp>
+        <tstamp>`
             <format property="DSTAMP" pattern="yyyy-MM-dd"></format>
             <format property="TSTAMP" pattern="HH:mm"></format>
         </tstamp>
@@ -29,7 +29,7 @@
 		<echo message="complet!!"></echo>
     </target>
 	
-	<target name="deploy" depends="makeWar">
+	<target name="ftp" depends="makeWar">
 	    <ftp  
 	    	server="${ftp.ip}"
 	     	remotedir="${ftp.dir}"
@@ -40,6 +40,11 @@
 	     	<fileset dir="../war/" casesensitive="yes"/>
 	    	
 	     </ftp>
+		<echo message="complet!!"></echo>
+	</target>
+	
+	<target name="deploy" depends="ftp">
+		    
 		<echo message="complet!!"></echo>
 	</target>
 	
