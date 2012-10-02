@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="tomcat-demo" default="war" basedir=".">
+	<property file="build.properties" />
+	
+	<property name="server-home" value="/home/web/" />
+	<property name="war-file-name" value="${project-name}.war" />
+	<property name="source-directory" value="src" />
+	<property name="classes-directory" value="../build/classes" />
+	<property name="web-directory" value="../WebContent" />
+	<property name="web-xml-file" value="../WebContent/WEB-INF/web.xml" />
+	<tstamp prefix="build-info">
+		<format property="current-date" pattern="d-MMMM-yyyy" locale="en" />
+		<format property="current-time" pattern="hh:mm:ss a z" locale="en" />
+		<format property="year-month-day" pattern="yyyy-MM-dd" locale="en" />
+	</tstamp>
+	<property name="build-directory" value="release" />
+	<property name="ftp-remotedir" value="uploaded-wars/${project-name}/${build-info.year-month-day}" />
+	<property name="ftp-remotecopydir" value="webapps" />
+	
+	
+	<patternset id="commonJar">
+		<include name="mail.jar"/>
+	</patternset>
+
+	<taskdef name="start" classname="org.apache.catalina.ant.StartTask" classpath="catalina-ant.jar" />
+	<taskdef name="stop" classname="org.apache.catalina.ant.StopTask" classpath="catalina-ant.jar" />
+	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask" classpath="catalina-ant.jar" />
+	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask" classpath="catalina-ant.jar" />
+	<taskdef name="ssh" classname="com.sshtools.ant.Ssh" classpath="maverick-ant.jar" />
+
+	
+	<taskdef name="ftp" classname="org.apache.tools.ant.taskdefs.optional.net.FTP"> 
+	     <classpath> 
+	       <pathelement	location="catalina-ant.jar"/> 
+	       <pathelement location="commons-net-3.1.jar"/> 
+	     </classpath> 
+    </taskdef>
+	
+	<taskdef name="reload"    classname="org.apache.catalina.ant.ReloadTask" classpath="catalina-ant.jar"/>
+
+	<target name="stop" description="stop application in tomcat">
+		<stop url="${tomcat-manager-url}" username="${tomcat-manager-username}"
+			password="${tomcat-manager-password}" path="/" />
+		<echo message="tomcat 1 stop!!"></echo>
+		<stop url="${tomcat2-manager-url}" username="${tomcat2-manager-username}"
+					password="${tomcat-manager-password}" path="/" />
+		<echo message="tomcat 2 stop!!"></echo>
+	</target>
+	
+
+	<target name="start" description="start application in tomcat">
+		<start url="${tomcat-manager-url}" username="${tomcat-manager-username}"
+			password="${tomcat-manager-password}" path="/" />
+	</target>
+	
+	<target name="undeploy" description="undeploy from tomcat">
+		<undeploy 
+			failonerror="no"
+			url="${tomcat-manager-url}"
+			username="${tomcat-manager-username}"
+			password="${tomcat-manager-password}"
+			path="/"
+		/>
+		<undeploy 
+			failonerror="no"
+			url="${tomcat2-manager-url}"
+			username="${tomcat2-manager-username}"
+			password="${tomcat2-manager-password}"
+			path="/"
+		/>
+	</target>
+	
+	<target name="deploy" description="deploy to tomcat">
+		<echo>deploying from client file:${server-home}${ftp-remotedir}</echo>
+		<deploy 
+			url="${tomcat-manager-url}"
+			username="${tomcat-manager-username}"
+			password="${tomcat-manager-password}"
+			path="/"
+			localwar="file:${server-home}${ftp-remotedir}/${war-file-name}"
+		/>
+		<deploy 
+			url="${tomcat2-manager-url}"
+			username="${tomcat2-manager-username}"
+			password="${tomcat2-manager-password}"
+			path="/"
+			localwar="file:${server-home}${ftp-remotedir}/${war-file-name}"
+		/>
+	</target>
+	
+	<target name="reload" description="reload to tomcat">
+		<echo>reload from client</echo>
+		<reload  url="${tomcat-manager-url}" username="${tomcat-manager-username}" password="${tomcat-manager-password}"
+		        path="/"/>
+		<echo>reload tomcat from client ok!!</echo>
+		<reload  url="${tomcat2-manager-url}" username="${tomcat2-manager-username}" password="${tomcat2-manager-password}"
+				        path="/"/>
+		<echo>reload tomcat2 from client ok!!</echo>
+	</target>
+	
+	<target name="war" depends="">
+		<mkdir dir="${build-directory}" />
+		<delete file="${build-directory}/${war-file-name}" />
+		<war warfile="${build-directory}/${war-file-name}" webxml="${web-xml-file}">
+			<classes dir="${classes-directory}" />
+			<fileset dir="${web-directory}">
+				<!-- Need to exclude it since webxml is an attribute of the war tag above
+				<exclude name="WEB-INF/web.xml" /> -->
+			</fileset>
+			<manifest>
+				<attribute name="Built-By" value="${builder}" />
+				<attribute name="Built-On" value="${build-info.current-date}" />
+				<attribute name="Built-At" value="${build-info.current-time}" />
+			</manifest>
+		</war>
+	</target>
+	
+	<target name="ftp">
+		<echo message="cp -i ${ftp-remotedir}/${war-file-name} ${ftp-remotecopydir}"></echo>
+		
+        <ssh host="${ftp-server}" username="${ftp-userid}" password="${ftp-password}">
+        	<exec cmd="mkdir -p ${ftp-remotedir}"/>
+            <sftp action="put" remotedir="${ftp-remotedir}" verbose="true">
+            	<fileset file="${build-directory}/${war-file-name}" />
+            </sftp>
+            <exec cmd="cp ${ftp-remotedir}/${war-file-name} ${ftp-remotecopydir}"/>
+        	<exec cmd="cd was"/>
+        </ssh>
+    	
+    </target>
+	
+	<target name="cp">
+		<echo message="cp -i ${ftp-remotedir}/${war-file-name} ${ftp-remotecopydir}"></echo>
+		
+        <ssh host="${ftp-server}" username="${ftp-userid}" password="${ftp-password}">
+            <exec cmd="cp ${ftp-remotedir}/${war-file-name} ${ftp-remotecopydir}"/>
+        </ssh>
+    	
+    </target>
+	
+	<target name="restart">
+		
+        <ssh host="${ftp-server}" username="${ftp-userid}" password="${ftp-password}">
+        	<exec cmd="cd was"/>
+        	<exec cmd="./restart_all.sh"/>
+        </ssh>
+    	
+    </target>
+	
+	
+		
+	<!--
+	<target name="mail-upload-complete">
+		<mail from="si01094457837@gmail.com"
+		      tolist="si01094457837@gmail.com"
+		      subject="${war-file-name} was uploaded to the server"
+		      message="The ${war-file-name} file was uploaded to ${ftp-server} in ${ftp-remotedir}"/>
+	</target>
+	-->
+	<!--
+	<target name="ftp" depends="" description="upload war file to server">
+		<ftp 
+			server="${ftp-server}" remotedir="${ftp-remotedir}"
+			userid="${ftp-userid}" password="${ftp-password}"
+			action="mkdir" verbose="yes">
+		</ftp>
+		<ftp 
+			server="${ftp-server}" remotedir="${ftp-remotedir}"
+			userid="${ftp-userid}" password="${ftp-password}"
+			action="send" verbose="yes" depends="yes">
+			<fileset file="${build-directory}/${war-file-name}" />
+		</ftp>
+	</target>
+	-->
+	<target name="build-and-ftp-reload" depends="war,ftp,undeploy,deploy,restart" />
+	<!--<target name="build-and-deploy" depends="war,undeploy,deploy" />-->
+	
+</project>
