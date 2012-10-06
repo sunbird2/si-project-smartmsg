@@ -16,7 +16,7 @@
 
 #bar {clear:both;width:1200px;height:15px; background-image:url("../images/top_shade.png")}
 
-#main-image {margin:0 auto;width:1024px;height:743px;}
+#main-image {position:relative;margin:0 auto;width:1024px;height:743px;}
 #main-image1 {width:1024px;height:740px;background:url("../images/main01.png") 0 0 no-repeat;}
 
 #function-navi {margin:0 auto;width:1024px;height:194px;margin-top:15px;text-align:center;}
@@ -72,3 +72,8 @@
 #gallery .caption {z-index:600; background-color:#000; color:#ffffff; height:100px; width:100%; position:absolute;bottom:0;}
 #gallery .caption .content {margin:5px}
 #gallery .caption .content h3 {margin:0;padding:0;color:#1DCCEF;}
+
+#main-image a.left_arrow { position:absolute; top:340px; left:-60px; display:block;width:36px;height:53px; background:url("../images/l_arrow.png") 0 0 no-repeat;text-indent:-2500px;}
+#main-image a.left_arrow:hover {background-position: 0 -54px;}
+#main-image a.right_arrow { position:absolute; top:350px; left:1044px;display:block;width:40px;height:39px; background:url("../images/r_arrow.png") 0 0 no-repeat;text-indent:-2500px;}
+#main-image a.right_arrow:hover {background-position: 0 -39px;}

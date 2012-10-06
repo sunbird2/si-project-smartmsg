@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Script-Type" content="text/javascript" />
 	<meta http-equiv="Content-Style-Type" content="text/css" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>문자노트</title>
+	<title>문자노트- SMS, LMS, MMS</title>
         <!-- Include CSS to eliminate any default margins/padding and set the height of the html element and 
              the body element to 100%, because Firefox, or any Gecko based browser, interprets percentage as 
              the percentage of the height of its parent container, which has to be set explicitly.  Fix for
@@ -53,97 +53,167 @@
                 return false;
              }
                
-             var menu = "send";
-             function changeMenu(str) {
+            var menu = "send";
+            function changeMenu(str) {
 
-                document.getElementById(menu).className = menu;
-             	menu = str;
-             	var MunjaNote = document.getElementById("${application}");
-             	if (MunjaNote) {
-             		MunjaNote.flexFunction("menu", menu);
-             	} else {
-             		embedSWF(menu);
-             	}
-                document.getElementById(menu).className = menu + " on";
-                document.${application}.focus();
+               document.getElementById(menu).className = menu;
+            	menu = str;
+            	var MunjaNote = document.getElementById("MunjaNote");
+            	if (MunjaNote) {
+            		MunjaNote.flexFunction("menu", menu);
+            	} else {
+            		embedSWF(menu);
+            	}
+               document.getElementById(menu).className = menu + " on";
+               document.MunjaNote.focus();
+            }
+
+            function flexCreateComplete() {
+            	//alert("complete:"+menu);
+            	//changeMenu(menu);
+            }
+            
+            function join() {
+                var MunjaNote = document.getElementById("MunjaNote");
+                if (MunjaNote) MunjaNote.flexFunction("menu", "join");
+             	else embedSWF("join");
+
+                document.MunjaNote.focus();
              }
+            
+            var showIndex = 0;
+            var arrMain = ["<a href='#' class='show'><img src='images/main01.png' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_1.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_2.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_3.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_4.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_5.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_6.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_7.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_8.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_9.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_10.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_11.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_12.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_13.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_14.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+"<a href='#' class='show'><img src='images/munjanote_com_15.jpg' alt='Flowing Rock' width='1024' height='743' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>"];
+           var caption = "<div class='caption'><div class='content'></div></div>";
+           var interval;
+			var sec = 5000;
+            $(document).ready(function() { 
+               //slideShow();
+               showSlide();
+               interval = setInterval('showSlide()',sec);
+            });
+           
+           function stop() { if (interval) clearInterval(interval); }
 
-             function flexCreateComplete() {
-             	//alert("complete:"+menu);
-             	//changeMenu(menu);
-             }
-             
-             function join() {
-                 var MunjaNote = document.getElementById("MunjaNote");
-                 if (MunjaNote) MunjaNote.flexFunction("menu", "join");
-              	else embedSWF("join");
+           function showFunction(idx) {
+               stop();
+               showIndex = idx;
+               showSlide();
+               return false;
+           }
 
-                 document.MunjaNote.focus();
-              }
-             
-             $(document).ready(function() { slideShow(); });
+           function showSlide() {
 
-             function slideShow() {
+                $('#gallery').html( arrMain[showIndex]+ caption);
+                $('#gallery a:first').css({opacity: 0.0})
+                .addClass('show')
+                .animate({opacity: 1.0}, 800);
+                if (showIndex == arrMain.length -1) showIndex = 0;
+                else showIndex++;
 
-                 //Set the opacity of all images to 0
-                 $('#gallery a').css({opacity: 0.0});
-                 
-                 //Get the first image and display it (set it to full opacity)
-                 $('#gallery a:first').css({opacity: 1.0});
+                //$('#gallery .caption').animate({opacity: 0.0}, { queue:false, duration:0 }).animate({height: '1px'}, { queue:true, duration:300 });	
+                
+                //Animate the caption, opacity to 0.7 and heigth to 100px, a slide up effect
+                $('#gallery .caption').css({height: '0px'}).animate({opacity: 0.7},100 ).animate({height: '70px'},500 );
+                
+                //Display the content
+                //$('#gallery .content').html(caption);
 
-                 //Set the caption background to semi-transparent
-                 $('#gallery .caption').css({opacity: 0.7});
+                $('#gallery .caption').css({opacity: 0.7});
+                $('#gallery .caption').css({width: $('#gallery a').find('img').css('width')});
+                $('#gallery .content').html($('#gallery a:first').find('img').attr('rel'))
+                .animate({opacity: 0.7}, 400);
+           }
 
-                 //Resize the width of the caption according to the image width
-                 $('#gallery .caption').css({width: $('#gallery a').find('img').css('width')});
-                 
-                 //Get the caption of the first image from REL attribute and display it
-                 $('#gallery .content').html($('#gallery a:first').find('img').attr('rel'))
-                 .animate({opacity: 0.7}, 400);
-                 
-                 //Call the gallery function to run the slideshow, 6000 = change to next image after 6 seconds
-                 setInterval('gallery()',6000);
-                 
-             }
+			function showNextAndPrev(val) {
+				stop();
+               showIndex += val;
+				if (showIndex < 0) showIndex = 0;
+				else if (showIndex == arrMain.length -1) showIndex = arrMain.length -1;
+				
+				showSlide();
 
-             function gallery() {
-                 
-                 //if no IMGs have the show class, grab the first image
-                 var current = ($('#gallery a.show')?  $('#gallery a.show') : $('#gallery a:first'));
+				interval = setInterval('showSlide()',sec);
+               return false;
+			}
 
-                 //Get next image, if it reached the end of the slideshow, rotate it back to the first image
-                 var next = ((current.next().length) ? ((current.next().hasClass('caption'))? $('#gallery a:first') :current.next()) : $('#gallery a:first'));	
-                 
-                 //Get next image caption
-                 var caption = next.find('img').attr('rel');	
-                 
-                 //Set the fade in effect for the next image, show class has higher z-index
-                 next.css({opacity: 0.0})
-                 .addClass('show')
-                 .animate({opacity: 1.0}, 1000);
+/*
+            function slideShow() {
 
-                 //Hide the current image
-                 current.animate({opacity: 0.0}, 1000)
-                 .removeClass('show');
-                 
-                 //Set the opacity to 0 and height to 1px
-                 $('#gallery .caption').animate({opacity: 0.0}, { queue:false, duration:0 }).animate({height: '1px'}, { queue:true, duration:300 });	
-                 
-                 //Animate the caption, opacity to 0.7 and heigth to 100px, a slide up effect
-                 $('#gallery .caption').animate({opacity: 0.7},100 ).animate({height: '100px'},500 );
-                 
-                 //Display the content
-                 $('#gallery .content').html(caption);
-                 
-                 
-             }
-        </script>
-       <link rel="stylesheet" type="text/css" href="css/base.css" />
-       <link rel="stylesheet" type="text/css" href="css/main.css">
-    </head>
-   <body class="main">
-   
-   <div id="wrap">
+                //Set the opacity of all images to 0
+                $('#gallery a').css({opacity: 0.0});
+                
+                //Get the first image and display it (set it to full opacity)
+                $('#gallery a:first').css({opacity: 1.0});
+
+                //Set the caption background to semi-transparent
+                $('#gallery .caption').css({opacity: 0.7});
+
+                //Resize the width of the caption according to the image width
+                $('#gallery .caption').css({width: $('#gallery a').find('img').css('width')});
+                
+                //Get the caption of the first image from REL attribute and display it
+                $('#gallery .content').html($('#gallery a:first').find('img').attr('rel'))
+                .animate({opacity: 0.7}, 400);
+                
+                //Call the gallery function to run the slideshow, 6000 = change to next image after 6 seconds
+                setInterval('gallery()',6000);
+            }
+
+            function gallery() {
+                
+                //if no IMGs have the show class, grab the first image
+                var current = ($('#gallery a.show')?  $('#gallery a.show') : $('#gallery a:first'));
+
+                //Get next image, if it reached the end of the slideshow, rotate it back to the first image
+                var next = ((current.next().length) ? ((current.next().hasClass('caption'))? $('#gallery a:first') :current.next()) : $('#gallery a:first'));	
+                
+                //Get next image caption
+                var caption = next.find('img').attr('rel');	
+                
+                //Set the fade in effect for the next image, show class has higher z-index
+                next.css({opacity: 0.0})
+                .addClass('show')
+                .animate({opacity: 1.0}, 1000);
+
+                //Hide the current image
+                current.animate({opacity: 0.0}, 1000)
+                .removeClass('show');
+                
+                //Set the opacity to 0 and height to 1px
+                $('#gallery .caption').animate({opacity: 0.0}, { queue:false, duration:0 }).animate({height: '1px'}, { queue:true, duration:300 });	
+                
+                //Animate the caption, opacity to 0.7 and heigth to 100px, a slide up effect
+                $('#gallery .caption').animate({opacity: 0.7},100 ).animate({height: '100px'},500 );
+                
+                //Display the content
+                $('#gallery .content').html(caption);
+                
+                
+            }
+
+*/
+       </script>
+      <link rel="stylesheet" type="text/css" href="css/base.css" />
+      <link rel="stylesheet" type="text/css" href="css/main.css">
+   </head>
+  <body class="main">
+  
+  <div id="wrap">
 <!-- header-->
 <div id="header">
 		<div id="top_right">
@@ -169,20 +239,60 @@
 <!-- contents -->
 	<div id="main-image">
 		<div id="gallery">
-            <a href="#" class="show">
-                <img src="images/main01.png" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>Flowing Rock</h3>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "/>
-            </a>
-            
-            <a href="#">
-                <img src="images/main01.png" alt="Grass Blades" width="1024" height="743" title="" alt="" rel="<h3>Grass Blades</h3>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "/>
-            </a>
-            
-            <a href="#">
-                <img src="images/main01.png" alt="Ladybug" width="1024" height="743" title="" alt="" rel="<h3>Ladybug</h3>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."/>
-            </a>
-
-            <div class="caption"><div class="content"></div></div>
-        </div><!-- gallery -->
+       <!--
+           <a href="#" class="show">
+               <img src="images/main01.png" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_1.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_2.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_3.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_4.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_5.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_6.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_7.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_8.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_9.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_10.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_11.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_12.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_13.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_14.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           <a href="#" class="show">
+               <img src="images/munjanote_com_15.jpg" alt="Flowing Rock" width="1024" height="743" title="" alt="" rel="<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. "/>
+           </a>
+           
+           <div class="caption"><div class="content"></div></div>-->
+       </div><!-- gallery -->
+		<a href="javascript:" class="left_arrow" onclick="showNextAndPrev(-2)" >이전</a>
+		<a href="javascript:" class="right_arrow" onclick="showNextAndPrev(0)" >다음</a>
 	</div>
 <!-- //contents -->
 	<div id="bar"></div>
@@ -190,41 +300,41 @@
 	<div id="function-navi">
 		<ul>
 			<li class="f01">
-				<a href="javascript:" class="title">다양한 메시지 발송</a>
-				<a href="javascript:" class="sub1">단문, 장문, 멀티(자동전환)</a>
-				<a href="javascript:" class="sub2">업종별 다양한 메시지 제공</a>
-				<a href="javascript:" class="sub3">예약설정</a>
-				<a href="javascript:" class="sub4">건별 시간차 발송</a>
-				<a href="javascript:" class="sub5">전화번호별 다른메시지 발송</a>
+				<a href="javascript:" class="title" onclick="showFunction(0);">다양한 메시지 발송</a>
+				<a href="javascript:#" class="sub1" onclick="showFunction(1);">단문, 장문, 멀티(자동전환)</a>
+				<a href="javascript:#" class="sub2" onclick="showFunction(2);">업종별 다양한 메시지 제공</a>
+				<a href="javascript:#" class="sub3" onclick="showFunction(3);">예약설정</a>
+				<a href="javascript:#" class="sub4" onclick="showFunction(4);">건별 시간차 발송</a>
+				<a href="javascript:#" class="sub5" onclick="showFunction(5);">전화번호별 다른메시지 발송</a>
 			</li>
 			<li class="f02">
-				<a href="javascript:" class="title">대용량 일괄발송</a>
-				<a href="javascript:" class="sub1">1회 최대 50만건 발송</a>
-				<a href="javascript:" class="sub2">실시간 발송현황 확인</a>
-				<a href="javascript:" class="sub3">엑셀 업로드</a>
-				<a href="javascript:" class="sub4">외부문서 붙여넣기 발송</a>
+				<a href="javascript:#" class="title" onclick="showFunction(0);">대용량 일괄발송</a>
+				<a href="javascript:#" class="sub1" onclick="showFunction(0);">1회 최대 50만건 발송</a>
+				<a href="javascript:#" class="sub2" onclick="showFunction(0);">실시간 발송현황 확인</a>
+				<a href="javascript:#" class="sub3" onclick="showFunction(0);">엑셀 업로드</a>
+				<a href="javascript:showFunction(10);" class="sub4" onclick="showFunction(0);">외부문서 붙여넣기 발송</a>
 			</li>
 			<li class="f03">
-				<a href="javascript:" class="title">주소록 관리</a>
-				<a href="javascript:" class="sub1">그룹별 전화번호 관리</a>
-				<a href="javascript:" class="sub2">엑셀 업로드&다운로드</a>
-				<a href="javascript:" class="sub3">그룹 이동&복사</a>
-				<a href="javascript:" class="sub4">휴지통 기능</a>
+				<a href="javascript:#" class="title" onclick="showFunction(0);">주소록 관리</a>
+				<a href="javascript:#" class="sub1" onclick="showFunction(0);">그룹별 전화번호 관리</a>
+				<a href="javascript:#" class="sub2" onclick="showFunction(0);">엑셀 업로드&다운로드</a>
+				<a href="javascript:#" class="sub3" onclick="showFunction(0);">그룹 이동&복사</a>
+				<a href="javascript:#" class="sub4" onclick="showFunction(0);">휴지통 기능</a>
 			</li>
 			<li class="f04">
-				<a href="javascript:" class="title">발송내역 통계</a>
-				<a href="javascript:" class="sub1">월별내역관리</a>
-				<a href="javascript:" class="sub2">통계그래프</a>
-				<a href="javascript:" class="sub3">내역검색</a>
-				<a href="javascript:" class="sub4">내역별 엑셀 다운로드</a>
+				<a href="javascript:#" class="title" onclick="showFunction(0);">발송내역 통계</a>
+				<a href="javascript:#" class="sub1" onclick="showFunction(0);">월별내역관리</a>
+				<a href="javascript:#" class="sub2" onclick="showFunction(0);">통계그래프</a>
+				<a href="javascript:#" class="sub3" onclick="showFunction(0);">내역검색</a>
+				<a href="javascript:#" class="sub4" onclick="showFunction(0);">내역별 엑셀 다운로드</a>
 			</li>
 			<li class="f05 nomargin">
-				<a href="javascript:" class="title">사용자편의성</a>
-				<a href="javascript:" class="sub1">메시지 형식 자동전환</a>
-				<a href="javascript:" class="sub2">최근발송 재발송</a>
-				<a href="javascript:" class="sub3">사용자 메시지함</a>
-				<a href="javascript:" class="sub4">회신번호 여러개 저장</a>
-				<a href="javascript:" class="sub5">실패보상 미리 받기</a>
+				<a href="javascript:#" class="title" onclick="showFunction(0);">사용자편의성</a>
+				<a href="javascript:#" class="sub1" onclick="showFunction(0);">메시지 형식 자동전환</a>
+				<a href="javascript:#" class="sub2" onclick="showFunction(0);">최근발송 재발송</a>
+				<a href="javascript:#" class="sub3" onclick="showFunction(0);">사용자 메시지함</a>
+				<a href="javascript:#" class="sub4" onclick="showFunction(0);">회신번호 여러개 저장</a>
+				<a href="javascript:#" class="sub5" onclick="showFunction(0);">실패보상 미리 받기</a>
 			</li>
 		</ul>
 	</div><!-- function-navi -->
@@ -259,34 +369,35 @@
 <!-- //footer -->
 	
 </div><!-- wrap -->
-   
-        <noscript>
-            <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="${width}" height="${height}" id="${application}">
-                <param name="movie" value="${swf}.swf" />
-                <param name="quality" value="high" />
-                <param name="bgcolor" value="${bgcolor}" />
-                <param name="allowScriptAccess" value="sameDomain" />
-                <param name="allowFullScreen" value="true" />
-                <!--[if !IE]>-->
-                <object type="application/x-shockwave-flash" data="${swf}.swf" width="${width}" height="${height}">
-                    <param name="quality" value="high" />
-                    <param name="bgcolor" value="${bgcolor}" />
-                    <param name="allowScriptAccess" value="sameDomain" />
-                    <param name="allowFullScreen" value="true" />
-                <!--<![endif]-->
-                <!--[if gte IE 6]>-->
-                    <p> 
-                        Either scripts and active content are not permitted to run or Adobe Flash Player version
-                        ${version_major}.${version_minor}.${version_revision} or greater is not installed.
-                    </p>
-                <!--<![endif]-->
-                    <a href="http://www.adobe.com/go/getflashplayer">
-                        <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash Player" />
-                    </a>
-                <!--[if !IE]>-->
-                </object>
-                <!--<![endif]-->
-            </object>
-        </noscript>     
-   </body>
+  
+       <noscript>
+           <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="1024" height="740" id="MunjaNote">
+               <param name="movie" value="MunjaNote.swf" />
+               <param name="quality" value="high" />
+               <param name="bgcolor" value="#ffffff" />
+               <param name="allowScriptAccess" value="sameDomain" />
+               <param name="allowFullScreen" value="true" />
+               <!--[if !IE]>-->
+               <object type="application/x-shockwave-flash" data="MunjaNote.swf" width="1024" height="740">
+                   <param name="quality" value="high" />
+                   <param name="bgcolor" value="#ffffff" />
+                   <param name="allowScriptAccess" value="sameDomain" />
+                   <param name="allowFullScreen" value="true" />
+               <!--<![endif]-->
+               <!--[if gte IE 6]>-->
+                   <p> 
+                       Either scripts and active content are not permitted to run or Adobe Flash Player version
+                       11.1.0 or greater is not installed.
+                   </p>
+               <!--<![endif]-->
+                   <a href="http://www.adobe.com/go/getflashplayer">
+                       <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash Player" />
+                   </a>
+               <!--[if !IE]>-->
+               </object>
+               <!--<![endif]-->
+           </object>
+       </noscript>     
+  </body>
 </html>
+
