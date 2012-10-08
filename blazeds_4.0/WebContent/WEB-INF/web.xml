@@ -56,8 +56,11 @@
     </servlet-mapping>
 
     <welcome-file-list>
+        <welcome-file>MunjaNote.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
         <welcome-file>index.html</welcome-file>
         <welcome-file>index.htm</welcome-file>
+        
     </welcome-file-list>
 
     <!-- for WebSphere deployment, please uncomment -->
