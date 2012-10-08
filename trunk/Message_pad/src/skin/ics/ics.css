@@ -109,7 +109,7 @@ s|Scroller {
 .textarea_light {
 	contentBackgroundColor : #FFFFFF;
 	borderColor : #DDDDDD;
-	focusAlpha : 0;
+/*	focusAlpha : 0;*/
 }
 /* combobox */
 .comboBox_dark {

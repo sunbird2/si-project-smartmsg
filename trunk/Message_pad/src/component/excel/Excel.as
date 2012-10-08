@@ -16,8 +16,12 @@ package component.excel
 	import mx.collections.ArrayCollection;
 	import mx.collections.ArrayList;
 	import mx.controls.dataGridClasses.DataGridColumn;
+	import mx.core.ClassFactory;
+	import mx.data.ItemReference;
 	import mx.rpc.events.ResultEvent;
 	
+	import skin.excel.ExcelName_GridItemRenderer;
+	import skin.excel.ExcelPhone_GridItemRenderer;
 	import skin.excel.ExcelSkin;
 	
 	import spark.components.Button;
@@ -29,6 +33,7 @@ package component.excel
 	import spark.components.gridClasses.GridColumn;
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
+	import spark.skins.spark.DefaultGridItemRenderer;
 	
 	import valueObjects.AddressVO;
 	import valueObjects.ExcelLoaderResultVO;
@@ -54,7 +59,7 @@ package component.excel
 		[SkinPart(required="false")]public var addressBtn:ButtonSpinner;
 		[SkinPart(required="false")]public var sendBtn:Button;
 		[SkinPart(required="false")]public var excelView:DataGrid;
-		[SkinPart(required="false")]public var resultList:List;
+		//[SkinPart(required="false")]public var resultList:List;
 		[SkinPart(required="false")]public var close:Image;
 		
 		
@@ -117,10 +122,10 @@ package component.excel
 				memoCombo.addEventListener(IndexChangeEvent.CHANGE, memoCombo_changeHandler);
 			}
 			else if (instance == sendBtn) sendBtn.addEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
-			else if (instance == resultList) {
+			/*else if (instance == resultList) {
 				resultList.dataProvider = acRslt;
 				resultList.labelFunction = resultListLabelFunc;
-			}
+			}*/
 			else if (instance == excelView) excelView.dataProvider = acExcel;
 			else if (instance == addressCombo){
 				addressCombo.dataProvider = Gv.addressGroupList;
@@ -173,14 +178,19 @@ package component.excel
 		private function sendBtn_clickHandler(event:MouseEvent):void {
 			
 			if (acRslt != null && acRslt.length > 0)
-				dispatchEvent(new CustomEvent("send", resultList.dataProvider ) );
+				dispatchEvent(new CustomEvent("send", acRslt ) );
 			else
 				SLibrary.alert("전송할 전화번호가 없습니다.");
 		}
 		private function phoneCombo_changeHandler(event:IndexChangeEvent):void {
 			
-			if ( phoneCombo.selectedIndex >= 0 ) {
+			if (event.oldIndex > 0)
+				GridColumn( excelView.columns.getItemAt(event.oldIndex) ).itemRenderer = new ClassFactory(DefaultGridItemRenderer);	
+			
+			if ( event.newIndex > 0 ) {
 				
+				GridColumn( excelView.columns.getItemAt(event.newIndex) ).itemRenderer = new ClassFactory(ExcelPhone_GridItemRenderer);	
+		
 				convertPhoneAcFromExcel();
 				setStep(SELPHONE);
 				
@@ -191,7 +201,11 @@ package component.excel
 		
 		private function nameCombo_changeHandler(event:IndexChangeEvent):void {
 			
-			if ( nameCombo.selectedIndex >= 0 ) {
+			if (event.oldIndex > 0)
+				GridColumn( excelView.columns.getItemAt(event.oldIndex) ).itemRenderer = new ClassFactory(DefaultGridItemRenderer);	
+			
+			if ( event.newIndex > 0 ) {
+				GridColumn( excelView.columns.getItemAt(event.newIndex) ).itemRenderer = new ClassFactory(ExcelName_GridItemRenderer);
 				
 				convertPhoneAcFromExcel();
 			} 
@@ -212,8 +226,8 @@ package component.excel
 				var phone:String = "";
 				var name:String = "";
 				var memo:String = "";
-				var bName:Boolean = nameCombo.selectedIndex >= 0 ? true : false;
-				var bMemo:Boolean = memoCombo.selectedIndex >= 0 ? true : false;
+				var bName:Boolean = nameCombo.selectedIndex > 0 ? true : false;
+				var bMemo:Boolean = memoCombo.selectedIndex > 0 ? true : false;
 				var chkInvaildChar:RegExp = /[^0-9]/g;	
 				
 				acRslt.removeAll();
@@ -245,6 +259,12 @@ package component.excel
 							acRslt.addItem( getPhoneVO( phone, name ) );
 					}
 				}
+				
+				
+				
+				
+				
+				
 				
 			}
 		}
@@ -397,7 +417,7 @@ package component.excel
 						helpText.text = "전송 추가 버튼을 클릭하세요.";
 						currStat = "actionSend";
 					}
-					resultList.visible = true;
+					//resultList.visible = true;
 						
 					break;
 			}
@@ -454,12 +474,12 @@ package component.excel
 				excelView = null;
 			}
 				
-			if (resultList != null) {
+			/*if (resultList != null) {
 				resultList.labelFunction = null;
 				resultList.itemRenderer = null;
 				if (resultList.dataProvider) Object(resultList.dataProvider).removeAll();
 				resultList = null;
-			}
+			}*/
 			
 			if (acExcel != null) {
 				acExcel.removeAll();

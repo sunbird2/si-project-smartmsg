@@ -6,7 +6,12 @@
 	<fx:Metadata>
 		[HostComponent("component.Send")]
 	</fx:Metadata>
-
+	<s:states>
+		<s:State name="SMS"/>
+		<s:State name="LMS"/>
+		<s:State name="MMS"/>
+	</s:states>
+	
 	
 	<s:Group id="contentGroup" width="1024" height="696" horizontalCenter="0">
 		
@@ -53,7 +58,9 @@
 					</s:SkinnableContainer>
 					<s:Scroller width="100%" height="200">
 						<s:VGroup id="mBox" width="100%">
-							<s:TextArea id="message" width="100%" height="200" styleName="textarea_light" prompt="메시지를 입력하세요." />	
+							<s:TextArea id="message" width="100%" height="200" styleName="textarea_light" prompt="메시지를 입력하세요."
+										borderColor.LMS="0xFF8800"
+										borderColor.MMS="0xCC0000"/>	
 						</s:VGroup>
 					</s:Scroller>
 					
@@ -97,7 +104,8 @@
 								  fillMode="scale" />
 					</s:HGroup>
 					<s:RichText width="100%">
-						<s:content><s:p><s:span id="confirm_mode">SMS</s:span><s:span> 를 </s:span><s:span id="confirm_count">0</s:span><s:span> 명에게</s:span><s:span id="confirm_reservation" fontFamily="NGDB"></s:span><s:span id="confirm_delay" fontFamily="NGDB"></s:span></s:p><s:p><s:span>발송하시겠습니까?</s:span></s:p></s:content>
+						<s:content><s:p><s:span id="confirm_mode" color.LMS="#FF8800"
+												color.MMS="#CC0000">SMS</s:span><s:span> 를 </s:span><s:span id="confirm_count">0</s:span><s:span> 명에게</s:span><s:span id="confirm_reservation" fontFamily="NGDB"></s:span><s:span id="confirm_delay" fontFamily="NGDB"></s:span></s:p><s:p><s:span>발송하시겠습니까?</s:span></s:p></s:content>
 					</s:RichText>
 					<s:Button id="sendBtn" label="Send" width="100%" styleName="button_light" enabled="false" />
 					<s:HGroup width="100%">

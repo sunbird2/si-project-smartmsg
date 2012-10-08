@@ -83,8 +83,13 @@
 					send.minWidth = 1024;
 					send.minHeight = 420;
 					send.horizontalCenter = 0;
+					send.addEventListener(Send.SEND_COMPLET, loginCheck);
+					send.addEventListener(Send.CHANGE_MODE, sendModeChange_handler);
 					main_group.addElement(send);
+					
 				} else if (send != null) {
+					send.removeEventListener(Send.SEND_COMPLET, loginCheck);
+					send.removeEventListener(Send.CHANGE_MODE, sendModeChange_handler);
 					main_group.removeElement(send);
 					send.destroy(null);
 					send = null;
@@ -161,9 +166,24 @@
 		
 			protected function login_joinHandler(event:Event):void { this.currentState = "join"; }
 			
+			protected function sendModeChange_handler(event:Event):void {
+				if (send != null) loginMode(send.sendMode);
+			}
 			
 			
-			
+			public function loginCheck(event:Event=null):void {
+				login.login_check();
+			}
+			public function loginMode(mode:String):void {
+				
+				var index:int = 0;
+				if (mode == "LMS") index = 1;
+				else if (mode == "MMS") index = 2;
+				else index = 0;
+				
+				login.mType.selectedIndex = index;
+				login.setPoint();
+			}
 			
 			
 			

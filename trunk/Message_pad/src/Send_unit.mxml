@@ -1,28 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
-			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="1024" minHeight="744" xmlns:component="component.*" xmlns:ics="component.ics.*">
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:ics="component.ics.*"
+			   width="1024" height="740" 
+			   frameRate="45"
+			   creationComplete="app_creationCompleteHandler(event)"
+			   focusIn="app_focusInHandler(event)"
+			   xmlns:component="component.*" >
+	<fx:Style source="/skin/ics/ics.css"/>
 	<fx:Script>
 		<![CDATA[
-			import spark.components.NavigatorContent;
+			import component.Address;
+			import component.Bill;
+			import component.Join;
+			import component.Log;
+			import component.Send;
+			
+			import lib.GC;
+			import lib.Gv;
+			
+			import mx.collections.ArrayCollection;
+			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
+			
+			private var join:Join;
+			public var send:Send;
+			public var address:Address;
+			public var bill:Bill;
+			public var log:Log;
+			
+			protected function app_creationCompleteHandler(event:FlexEvent):void { 
+				
+				ExternalInterface.addCallback("flexFunction",flexFunction_callback);
+				ExternalInterface.call("flexCreateComplete");
+			}
+			protected function app_focusInHandler(event:FocusEvent):void { if(Capabilities.hasIME && !IME.enabled) IME.enabled = true; }
+			
+			private function flexFunction_callback(key:String, value:String):String {
+				
+				var re:String = "";
+				if (key == "menu") this.currentState = value;
+				return re;
+			}
+			
+			private function join_completeHandler(event:Event):void { 
+				this.currentState = "send";
+				if (login) login.login_check();
+			}
+			
+			protected function app_stateChangeCompleteHandler(event:FlexEvent):void
+			{
+				Gv.appState = currentState;
+				
+				if (!Gv.bLogin) bg.visible = true;
+				else bg.visible = false;
+				
+				
+				
+				GC.run();
+			}
+			
+			protected function login_loginHandler(event:Event):void	{
+				
+				ap.valueFrom = 0;
+				ap.valueTo = 350;
+				a.play();
+				
+				if (!Gv.bLogin) bg.visible = true;
+				else bg.visible = false;
+				
+				if (address != null)
+					address.addedtostage_handler(null);
+				else if (log != null) log.getSentList();
+				else if (send != null) send.initReturnPhone();
+				
+			}
+			
+			protected function login_logoutHandler(event:Event):void {
+				
+				ap.valueFrom = 350;
+				ap.valueTo = 0;
+				a.play();
+				login.user_id.setFocus();
+				
+				if (!Gv.bLogin) bg.visible = true;
+				else bg.visible = false;
+			}
+			
+			protected function login_joinHandler(event:Event):void { this.currentState = "join"; }
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			// Memory view
+			/* private var timer:Timer;
+			private static var pageSize:int = 50;
+			
+			[Bindable]
+			public var memoryValues:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]
+			public var pagesMaximumValues:ArrayCollection = new ArrayCollection();
+			private var max:Number = 0;
+			
+			private function memoryRun():void
+			{
+			timer = new Timer(1*1000);
+			timer.addEventListener(TimerEvent.TIMER, onTimerEvent);
+			timer.start();
+			
+			}
+			private function onTimerEvent(event:TimerEvent):void
+			{
+			if(memoryValues.length == 60)
+			{
+			memoryValues.removeItemAt(0);
+			pagesMaximumValues.removeItemAt(0);
+			}
+			
+			if (memoryValues.length > 10) memoryValues.removeItemAt(0);
+			if (pagesMaximumValues.length > 10) pagesMaximumValues.removeItemAt(0);
+			
+			var mem:Number = (System.totalMemory)/ 1024;
+			if (mem > max) max = mem;
+			memoryValues.addItem((System.totalMemory)/ 1024);
+			pagesMaximumValues.addItem(max);
+			
+			maxl.text = max.toString();
+			meml.text = mem.toString();
+			} */
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:Animate id="a" 
+				   duration="750"
+				   target="{login}">
+			<s:SimpleMotionPath id="ap" valueFrom="0"
+								valueTo="350"
+								property="verticalCenter" />
+		</s:Animate>
 	</fx:Declarations>
-	<fx:Style source="/skin/ics/ics.css"/>
-	<s:VGroup gap="0" horizontalCenter="0">
-		<component:Send 
-			minWidth = "1024"
-			minHeight = "696"
-			horizontalCenter = "0"/>
+	<s:VGroup width="1024" height="740" gap="0" depth="0">
 		
-		<s:Group id="navigationBar" width="100%" height="40" >
+		<s:Group id="main_group" width="100%" height="696">
+			<component:Send minWidth="1024" minHeight="420" horizontalCenter="0" />
+		</s:Group><!-- main_group -->
+		
+		<s:Group id="navigationBar" width="100%" height="44" >
 			<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#000000"/></s:fill></s:Rect>
 			<s:HGroup top="12" left="20" gap="20" verticalAlign="bottom">
 				<s:Image source="skin/ics/assets/back.png" alpha="0.4" smooth="true" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4" />
 				<s:Image source="skin/ics/assets/home.png" alpha="0.4" smooth="true" buttonMode="true"
-						 mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4" />
+						 mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4"/>
 				<s:Image source="skin/ics/assets/menus.png" alpha="0.4" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4"/>
 			</s:HGroup>
 			<s:HGroup right="4" verticalCenter="0" >
@@ -32,6 +168,20 @@
 				<ics:CurrentTime />
 			</s:HGroup>
 		</s:Group><!-- navigationBar -->
+		
 	</s:VGroup>
+	
+	<s:Rect id="bg" visible="false" width="1024" height="740">
+		<s:fill>
+			<s:SolidColor color="#999999" alpha="0.5" />
+		</s:fill>
+	</s:Rect> 
+	
+	<component:Login id="login"
+					 login="login_loginHandler(event)"
+					 logout="login_logoutHandler(event)"
+					 join="login_joinHandler(event)"
+					 verticalCenter="0" horizontalCenter="0"
+					 skinClass="skin.LoginSkin" />
 	
 </s:Application>
