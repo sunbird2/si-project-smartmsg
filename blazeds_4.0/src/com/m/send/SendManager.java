@@ -78,7 +78,8 @@ public class SendManager implements ISend {
 			PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
 			pq.setPrepared( conn, ls.getInsertQuery(mode) );
 			
-			
+			VbyP.accessLog(" - conn.getAutoCommit() : "+conn.getAutoCommit());
+		
 			for (int i = 0; i < count; i++) {
 				
 				vo = al.get(i);
@@ -92,20 +93,21 @@ public class SendManager implements ISend {
 					ls.insertClientPqSetter(mode, pq, vo);
 				}
 				
-				pq.addBatch();								
+				pq.addBatch();							
 
 				Gv.setStatus(uvo.getUser_id(), Integer.toString(i+1));
 				
 				if (i >= maxBatch && (i%maxBatch) == 0 ) {
 					
-					resultCount += pq.executeBatch();
+					resultCount += pq.executeBatchNoClose();
+					VbyP.accessLog(" - complete : "+resultCount);
 					
-					try { if ( conn != null ) conn.close(); } catch(Exception e) {System.out.println( "reconn close Error!!!!" + e.toString());}
-					
-					conn = VbyP.getDB();					
-					if (conn == null) System.out.println("reconn connection is NULL Error!!!!");
-					
-					pq.setPrepared( conn, ls.getInsertQuery(mode) );
+//					try { if ( conn != null ) conn.close(); } catch(Exception e) {System.out.println( "reconn close Error!!!!" + e.toString());}
+//					
+//					conn = VbyP.getDB();					
+//					if (conn == null) System.out.println("reconn connection is NULL Error!!!!");
+//					
+//					pq.setPrepared( conn, ls.getInsertQuery(mode) );
 				}
 				
 			}
