@@ -1,11 +1,11 @@
 /**
-*  Class Name, Å¬·¡½º ÀÌ¸§
-*  Class Description, Å¬·¡½º ¼³¸í
-*  Version Information, ¹öÀü Á¤º¸
-*  Make date, ÀÛ¼ºÀÏ
-*  Author, ÀÛ¼ºÀÚ
-*  Modify lists, ¼öÁ¤³»¿ª
-*  Copyright, ÀúÀÛ±Ç Á¤º¸
+*  Class Name, Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+*  Class Description, Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+*  Version Information, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+*  Make date, ï¿½Û¼ï¿½ï¿½ï¿½
+*  Author, ï¿½Û¼ï¿½ï¿½ï¿½
+*  Modify lists, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+*  Copyright, ï¿½ï¿½ï¿½Û±ï¿½ ï¿½ï¿½ï¿½ï¿½
 */
 package com.common.db;
 
@@ -104,7 +104,7 @@ public class RunPrepared implements RunPreparedAble {
     		
     	}catch(SQLException e){
     		
-        	VbyP.errorLog("RunPrepared : "+e.toString()+" setPrepared "+this.localSQL);
+        	VbyP.errorLog("RunPrepared : "+e.toString()+" setNull "+this.localSQL);
         	this.close();
     	}
         
@@ -116,7 +116,7 @@ public class RunPrepared implements RunPreparedAble {
         	this.setDataArrayList.add(index-1 , new Boolean(x));
 	    }catch(SQLException e){
 	    	
-        	VbyP.errorLog("RunPrepared : "+e.toString()+" setPrepared "+this.localSQL);
+        	VbyP.errorLog("RunPrepared : "+e.toString()+" setBoolean "+this.localSQL);
         	this.close();
 		}
     }
@@ -336,15 +336,15 @@ public class RunPrepared implements RunPreparedAble {
     		if (this.pstmt != null)
     			this.pstmt.close();
 	    	
-			//ÇöÀç ÀÎ½ºÅÏ½º¿¡¼­ ¿¬°áÀ» »ý¼º ÇÏ¿´À»°æ¿ì pstmt.executeQuery()
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ pstmt.executeQuery()
 	    	if (!bUserConnection && connection != null)
-				connection.close();		//conn °´Ã¼ ¹ÝÈ¯
+				connection.close();		//conn ï¿½ï¿½Ã¼ ï¿½ï¿½È¯
 	    }catch(Exception e){
 	    	try{
 	    		if (connection != null)
 	    			connection.close();
         	}catch(Exception s){VbyP.errorLog("CLOSEERROR : "+s.toString()+" setPrepared "+this.getResultQuery());}
-			VbyP.errorLog("RunPrepared : "+ "close ¿¡·¯ :"+e.toString());
+			VbyP.errorLog("RunPrepared : "+ "close ï¿½ï¿½ï¿½ï¿½ :"+e.toString());
 		}
     }
     

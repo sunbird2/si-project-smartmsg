@@ -256,15 +256,16 @@ public class VbyP {
 			if (rp.getValue("was").equals("weblogic")){
 				
 				try {conn = ConnectionFactory.getInstance().getConnectionWeblogic(rp.getValue("DataSource"));
-				}catch(Exception e){errorLog("weblogic DB ���ῡ�� :"+e.toString());}
+				}catch(Exception e){errorLog("weblogic DB :"+e.toString());}
 				
 			}else if (rp.getValue("was").equals("tomcat")){
 				
 				try {
-					conn = ConnectionFactory.getInstance().getConnectionTomcat(rp.getValue("JNDI"), rp.getValue("web"));					
+					conn = ConnectionFactory.getInstance().getConnectionTomcat(rp.getValue("JNDI"), rp.getValue("web"));
+					System.out.println(conn.getAutoCommit());
 					conn.setAutoCommit(true);
 					
-				}catch(Exception e){errorLog("tomcat DB ���ῡ�� :"+e.toString());}
+				}catch(Exception e){errorLog("tomcat DB  :"+e.toString());}
 			}
 			
 		}catch(Exception e){errorLog("��d���� ���� ���� :"+e.toString());}
