@@ -438,7 +438,6 @@ public class SmartDS extends SessionManagement {
 	#	send						#
 	###############################*/
 	public String getState() {
-		System.out.println(Gv.getStatus(getSession()));
 		return Gv.getStatus(getSession());
 	}
 	
@@ -483,6 +482,8 @@ public class SmartDS extends SessionManagement {
 	}
 	public LogVO sendSMSconf( SendMessageVO smvo ) {
 		
+		VbyP.accessLog("send Start");
+		
 		Connection conn = null;
 		ISend send = SendManager.getInstance();
 		UserInformationVO uvo = null;
@@ -491,6 +492,8 @@ public class SmartDS extends SessionManagement {
 			if (!bSession()) throw new Exception("no login");
 			conn = VbyP.getDB();
 			uvo = getInformation(conn, getSession());
+			
+			VbyP.accessLog(" - "+uvo.getUser_id());
 			
 			smvo.setReqIP(FlexContext.getHttpRequest().getRemoteAddr());
 			
