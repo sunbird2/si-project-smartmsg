@@ -56,14 +56,22 @@ package component
 	import valueObjects.PhoneVO;
 	import valueObjects.SendMessageVO;
 	
+	[Event(name="sendComplet", type="flash.events.Event")]
+	[Event(name="changeMode", type="flash.events.Event")]
 	/* A component must identify the view states that its skin supports. 
 	Use the [SkinState] metadata tag to define the view states in the component class. 
 	[SkinState("normal")] 
 	[SkinState("send")]
 	[SkinState("sending")]*/
 	
+	[SkinState("SMS")]
+	[SkinState("LMS")]
+	[SkinState("MMS")]
+	
 	public class Send extends SkinnableComponent
 	{
+		public static const SEND_COMPLET:String = "sendComplet";
+		public static const CHANGE_MODE:String = "changeMode";
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
 		[SkinPart(required="true")] */
 		
@@ -115,6 +123,10 @@ package component
 		[SkinPart(required="false")]public var title_text:RichText;
 		[SkinPart(required="false")]public var titleSub_text:RichText;
 		
+		private var _cstat:String = "SMS";
+		public function get cstat():String { return _cstat; }
+		public function set cstat(value:String):void { _cstat = value; invalidateSkinState(); }
+		
 		private var acFunction:ArrayCollection =  new ArrayCollection([
 			{icon:"skin/ics/assets/light/icon/3-rating-important.png", label:"내메시지", label_sub:"저장된 메시지 발송", name:"myMessage"},
 			{icon:"skin/ics/assets/light/icon/5-content-email.png", label:"최근발송메시지", label_sub:"죄근발송한 메시지 발송", name:"sentMessage"},
@@ -150,6 +162,7 @@ package component
 		public function set msg(value:String):void {
 			message.text = value; 
 			msg_ByteCheck();
+			messageCheck();
 		}
 		
 		public function msg_ByteCheck():void {			
@@ -158,7 +171,15 @@ package component
 		}
 		
 		public function get sendMode():String {	return _sendMode; }
-		public function set sendMode(value:String):void	{ _sendMode = value; confirm_mode.text = sendMode; }
+		public function set sendMode(value:String):void	{
+			
+			if (_sendMode != value) {
+				_sendMode = value;
+				confirm_mode.text = sendMode;
+				this.dispatchEvent( new Event(Send.CHANGE_MODE));
+			}
+			
+		}
 		
 		public function get currentByte():int {	return _currentByte; }
 		public function set currentByte(value:int):void	{ _currentByte = value; this.byte.text = String( value ); }
@@ -220,11 +241,7 @@ package component
 		
 		}
 		
-		
-		
-		
-		
-		override protected function getCurrentSkinState():String { return super.getCurrentSkinState(); } 
+		override protected function getCurrentSkinState():String { return cstat; } 
 		override protected function partAdded(partName:String, instance:Object) : void {
 			
 			super.partAdded(partName, instance);
@@ -380,17 +397,25 @@ package component
 		 * message function
 		 * */
 		protected function message_keyUpHandlerAutoMode(event:KeyboardEvent):void {
-			
 			msg_ByteCheck();
+			messageCheck();
+		}
+		
+		private function messageCheck():void {
+			
 			if ( currentByte > Gv.SMS_BYTE ) {
 				if (arrImage && arrImage.length > 0) sendMode = "MMS";
 				else sendMode = "LMS";
-			}
+			}else sendMode = "SMS";
+			
+			cstat = sendMode;
+			
 			if ( currentByte > Gv.LMS_BYTE) {
 				//trace("cutByte!!"+currentByte+"/"+this.maxByte);
 				this.msg = SLibrary.cutByteTo(this.msg, this.maxByte);
 			}
 		}
+		
 		private function removeMsg_clickHandler(event:MouseEvent):void {
 			this.msg = "";
 		}
@@ -568,6 +593,7 @@ package component
 			var lvo:LogVO = event.result as LogVO;
 			if (lvo.idx != 0) {
 				sending.sendingCompleted(lvo);
+				this.dispatchEvent(new Event(Send.SEND_COMPLET));
 			} else {
 				removeSending();
 				SLibrary.alert(lvo.message);

@@ -34,7 +34,7 @@
 			
 			protected function itemrenderer1_mouseDownHandler(event:MouseEvent):void
 			{
-				if ( event.target.id == "defBtn" || event.target.id == "deleteBtn" ) {
+				if ( event.target.hostComponent.id == "defBtn" || event.target.hostComponent.id == "deleteBtn" ) {
 					event.stopPropagation();
 					event.stopImmediatePropagation();
 				}
@@ -44,9 +44,17 @@
 		]]>
 	</fx:Script>
 	<s:Group width="100%" height="30">
-		<s:Label id="phone" left="2" verticalCenter="0" fontFamily="NGD" fontSize="16" />
-		<s:Button id="defBtn" width="70"  right="32" verticalCenter="0" click="def_clickHandler(event)" label="기본설정" fontFamily="NGD" fontSize="12"/>
-		<s:Button id="deleteBtn" width="30" right="1" verticalCenter="0" click="delete_clickHandler(event)" label="X" fontFamily="NGD" fontSize="12" />
+		<s:Label id="phone" left="2" verticalCenter="0" />
+		<s:Image id="defBtn" right="28" verticalCenter="0" width="25" height="25" 
+				 source="skin/ics/assets/light/icon/3-rating-good.png" smooth="true"
+				 buttonMode="true"
+				 toolTip="기본설정"
+				 click="def_clickHandler(event)" />
+		<s:Image id="deleteBtn" right="1" verticalCenter="0" width="25" height="25" 
+				 source="skin/ics/assets/light/icon/5-content-backspace.png" smooth="true"
+				 buttonMode="true"
+				 toolTip="삭제"
+				 click="delete_clickHandler(event)" />
 	</s:Group>
 	
 </s:ItemRenderer>

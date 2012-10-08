@@ -262,7 +262,7 @@ package component
 			setPoint();
 		}
 		
-		private function setPoint():void {
+		public function setPoint():void {
 			var p:SpanElement = new SpanElement();
 			var unit:int = 1;
 			
