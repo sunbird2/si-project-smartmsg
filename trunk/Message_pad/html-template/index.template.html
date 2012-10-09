@@ -109,7 +109,7 @@
 "<a href='#' class='show'><img src='images/m15.jpg' alt='Flowing Rock' title='' alt='' rel='<h3>사용자 메시지함</h3> 자주 발송 하거나 보관이 필요 한 경우 작성한 메시지를 저장 하실 수 있습니다. 저장된 메시지는 언제는 추가하여 발송 하실 수 있습니다.'/></a>",
 "<a href='#' class='show'><img src='images/main01.png' alt='Flowing Rock' title='' alt='' rel='<h3>회신번호 여러개 저장</h3> 회신번호를 여러개 사용하는데 매번 입력하는 번거로움이 사라졌습니다. 여러개를 저장 가능 하며,  자주사용하는 회신번호를 기본으로 설정하실 수 있습니다. '/></a>",
 "<a href='#' class='show'><img src='images/m12.jpg' alt='Flowing Rock' title='' alt='' rel='<h3>실패보상 미리받기</h3> 실패된 건은 보상 받아 마땅한데 3일기다려야 하나요? 기다리지 않고 직접 클릭하여 실패된 건은 보상받아 다시 쓰실 수 있습니다.'/></a>"];
-           var caption = "<div class='caption'><div class='content'></div></div>";
+           var caption = "<div class='caption'><div class='content' style='width:1018px;'></div></div>";
            var interval;
 			var sec = 5000;
             $(document).ready(function() { 
@@ -139,15 +139,17 @@
                 //$('#gallery .caption').animate({opacity: 0.0}, { queue:false, duration:0 }).animate({height: '1px'}, { queue:true, duration:300 });	
                 
                 //Animate the caption, opacity to 0.7 and heigth to 100px, a slide up effect
-                $('#gallery .caption').css({height: '0px'}).animate({opacity: 0.7},100 ).animate({height: '70px'},500 );
-                
-                //Display the content
-                //$('#gallery .content').html(caption);
-
+               
                 $('#gallery .caption').css({opacity: 0.7});
-                $('#gallery .caption').css({width: $('#gallery a').find('img').css('width')});
-                $('#gallery .content').html($('#gallery a:first').find('img').attr('rel'))
-                .animate({opacity: 0.7}, 400);
+                //$('#gallery .caption').css({width: $('#gallery a').find('img').css('width')});
+                $('#gallery .caption').css({width: "1024px"});
+               
+
+                 $('#gallery .caption').css({height: '0px'}).animate({opacity: 0.8},100 ).animate({height: '50px'},200 );
+                 $('#gallery .content').html($('#gallery a:first').find('img').attr('rel'));//.animate({opacity: 0.7}, 400);
+
+                
+                
            }
 
 			function showNextAndPrev(val) {
@@ -361,4 +363,6 @@
        </noscript>     
   </body>
 </html>
+
+
 
