@@ -2,7 +2,7 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 width="250" height="150">
+		 width="250" height="180">
 	<fx:Metadata>
 		[Event(name="setInterval", type="lib.CustomEvent")]
 		[Event(name="cancelInterval", type="flash.events.Event")]
@@ -37,15 +37,15 @@
 				   source="@Embed('/skin/ics/assets/widget_lite.png', scaleGridTop='10', scaleGridBottom='320', scaleGridLeft='10', scaleGridRight='314')"
 				   fillMode="scale" alpha="0.9"/>
 	<s:Label top="15" left="15" text="간격설정" fontSize="20" />
-	<s:Group top="50" left="15" bottom="20" right="10">
-		<s:layout><s:VerticalLayout verticalAlign="middle" horizontalAlign="left" paddingLeft="30"/></s:layout>
-		<s:HGroup verticalAlign="middle"><s:TextInput id="cnt" width="50" restrict="0-9" styleName="textinput_light" /><s:Label text="건 마다" fontFamily="Dotum" /></s:HGroup>
-		<s:HGroup verticalAlign="middle"><s:TextInput id="minute" width="50" restrict="0-9" styleName="textinput_light" /><s:Label text="분 간격으로 전송" fontFamily="Dotum" /></s:HGroup>
+	<s:Group top="50" horizontalCenter="0">
+		<s:layout><s:VerticalLayout verticalAlign="middle" horizontalAlign="left"/></s:layout>
+		<s:HGroup verticalAlign="middle"><s:TextInput id="cnt" width="50" restrict="0-9" styleName="textinput_light" /><s:Label text="건 마다" /></s:HGroup>
+		<s:HGroup verticalAlign="middle"><s:TextInput id="minute" width="50" restrict="0-9" styleName="textinput_light" /><s:Label text="분 간격으로 전송" /></s:HGroup>
 		<s:HGroup>
 			<s:Button label="적용" click="confirm()"  styleName="button_light" width="80"/>
 			<s:Button label="취소" click="{this.visible = false;this.dispatchEvent(new Event('cancelInterval'))}"  styleName="button_light" width="80" />
 		</s:HGroup>
 		
 	</s:Group>
-	<s:Image source="/skin/ics/assets/light/1-navigation-cancel.png" id="close"  right="5" top="5" click="{this.visible = false;this.dispatchEvent(new Event('cancelInterval'))}" buttonMode="true"  />
+	<s:Image source="skin/ics/assets/light/icon/1-navigation-cancel.png" id="close"  right="5" top="5" click="{this.visible = false;this.dispatchEvent(new Event('cancelInterval'))}" buttonMode="true"  />
 </s:Group>

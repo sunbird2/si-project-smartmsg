@@ -111,7 +111,7 @@
 						creationComplete="dateChooser_creationCompleteHandler(event)"/>
 		
 		<s:VGroup width="181" horizontalAlign="center" gap="5" height="120">
-			<s:Label id="fullYear" text="{df.format(dateChooser.selectedDate)}" fontWeight="bold"/>
+			<s:Label id="fullYear" text="{df.format(dateChooser.selectedDate)}"/>
 			<s:HGroup verticalAlign="middle">
 				<s:NumericStepper id="time" height="20" color="#000000"
 								  contentBackgroundColor="#ffffff" fontSize="12" maximum="23"
@@ -122,11 +122,11 @@
 			</s:HGroup>
 			<s:Label text="24시간제를 사용 합니다" color="#ed6c1f"/>
 			<s:HGroup>
-				<s:Button label="적용" click="confirm()" styleName="button_light" />
-				<s:Button label="취소" click="image1_clickHandler(event)"  styleName="button_light" />
+				<s:Button label="적용" click="confirm()" styleName="button_light" width="80" />
+				<s:Button label="취소" click="image1_clickHandler(event)"  styleName="button_light" width="80" />
 			</s:HGroup>
 		</s:VGroup>
 	</s:Group>
-	<s:Image source="/skin/ics/assets/light/1-navigation-cancel.png" id="close"  right="5" top="5" click="image1_clickHandler(event)" buttonMode="true"  />
+	<s:Image source="skin/ics/assets/light/icon/1-navigation-cancel.png" id="close"  right="5" top="5" click="image1_clickHandler(event)" buttonMode="true"  />
 	
 </s:Group>
