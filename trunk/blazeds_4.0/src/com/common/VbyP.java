@@ -262,8 +262,8 @@ public class VbyP {
 				
 				try {
 					conn = ConnectionFactory.getInstance().getConnectionTomcat(rp.getValue("JNDI"), rp.getValue("web"));
-					System.out.println(conn.getAutoCommit());
-					conn.setAutoCommit(true);
+					if (conn.getAutoCommit() == false)
+						conn.setAutoCommit(true);
 					
 				}catch(Exception e){errorLog("tomcat DB  :"+e.toString());}
 			}
