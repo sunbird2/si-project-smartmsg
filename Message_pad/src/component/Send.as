@@ -797,8 +797,8 @@ package component
 			
 			if (reservation == null) {
 				reservation = new ReservationCalendar();
-				reservation.left = 20;
-				reservation.y = 400;
+				reservation.right = 0;
+				reservation.bottom = 0;
 				reservation.addEventListener("setReservation", reservation_setReservationHandler);
 				reservation.addEventListener("cancelReservation", reservation_cancelReservationHandler);
 				this.functionGroup.addElement(reservation);
@@ -847,8 +847,8 @@ package component
 			
 			if (interval == null) {
 				interval = new Interval();
-				interval.left = 20;
-				interval.y = 400;
+				interval.right = 0;
+				interval.bottom = 0;
 				interval.addEventListener("setInterval", interval_setintervalHandler);
 				interval.addEventListener("cancelInterval", interval_cancelintervalHandler);
 				this.functionGroup.addElement(interval);

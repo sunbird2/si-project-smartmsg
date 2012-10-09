@@ -43,7 +43,7 @@
 				<s:Rect left="1" top="0" bottom="0" width="1" ><s:fill><s:SolidColor color="0xEAEAEA" /></s:fill></s:Rect>
 				
 				<s:VGroup horizontalCenter="0"
-						  gap="5"
+						  gap="2"
 						  horizontalAlign="center">
 					
 					<s:SkinnableContainer styleName="actionBar_contextuar_light" backgroundColor="#EEEEEE" width="100%" height="40">
@@ -103,10 +103,12 @@
 								 source="@Embed('/skin/ics/assets/light/icon/5-content-new-event.png')" buttonMode="true"								 
 								  fillMode="scale" />
 					</s:HGroup>
-					<s:RichText width="100%">
+					<s:Spacer height="4"/>
+					<s:RichText width="100%" fontSize="14">
 						<s:content><s:p><s:span id="confirm_mode" color.LMS="#FF8800"
-												color.MMS="#CC0000">SMS</s:span><s:span> 를 </s:span><s:span id="confirm_count">0</s:span><s:span> 명에게</s:span><s:span id="confirm_reservation" fontFamily="NGDB"></s:span><s:span id="confirm_delay" fontFamily="NGDB"></s:span></s:p><s:p><s:span>발송하시겠습니까?</s:span></s:p></s:content>
+												color.MMS="#CC0000">SMS</s:span><s:span> 를 </s:span><s:span id="confirm_count" backgroundColor="#33B5E5">0</s:span><s:span> 명에게 </s:span><s:span id="confirm_delay" backgroundColor="#FFBB33"></s:span></s:p><s:p><s:span id="confirm_reservation" backgroundColor="#99CC00"></s:span><s:span>발송하시겠습니까?</s:span></s:p></s:content>
 					</s:RichText>
+					<s:Spacer height="4"/>
 					<s:Button id="sendBtn" label="Send" width="100%" styleName="button_light" enabled="false" />
 					<s:HGroup width="100%">
 						<s:CheckBox id="sendReservation" label="예약설정" styleName="checkbox_light" />
