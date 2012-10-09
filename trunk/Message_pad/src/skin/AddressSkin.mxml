@@ -33,7 +33,7 @@
 					<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="0">
 						<s:Image id="groupAddBtn" source="skin/ics/assets/light/icon/6-social-add-group.png" buttonMode="true" toolTip="그룹추가" />
 						<s:Image id="groupModifyBtn" source="skin/ics/assets/light/icon/5-content-edit.png" buttonMode="true" toolTip="그룹수정" />
-						<s:Image id="groupDelBtn" source="skin/ics/assets/light/icon/5-content-discard.png" buttonMode="true" toolTip="선택 그룹 삭제" />
+						<s:Image id="groupDelBtn" source="@Embed('skin/ics/assets/light/icon/5-content-discard.png')" buttonMode="true" toolTip="선택 그룹 삭제" />
 					</s:HGroup>
 				</s:SkinnableContainer>
 				
@@ -52,7 +52,7 @@
 					<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="0">
 						<s:Image id="nameMultSelectBtn" source="skin/ics/assets/light/icon/1-navigation-accept.png" alpha="0.4" buttonMode="true" toolTip="여러개 선택하기" />
 						<s:Image id="nameAddBtn" source="skin/ics/assets/light/icon/6-social-add-person.png" buttonMode="true" toolTip="전화번호 추가" />
-						<s:Image id="nameDelBtn" source="skin/ics/assets/light/icon/5-content-discard.png" buttonMode="true" toolTip="선택 전화번호 삭제" />
+						<s:Image id="nameDelBtn" source="@Embed('skin/ics/assets/light/icon/5-content-discard.png')" buttonMode="true" toolTip="선택 전화번호 삭제" />
 					</s:HGroup>
 				</s:SkinnableContainer>
 				

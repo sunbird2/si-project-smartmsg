@@ -33,7 +33,7 @@
 					<s:Label text="그룹내역" color="#222222" verticalCenter="0" left="5" />
 					<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="0">
 						<s:Image id="listMultSelectBtn" source="skin/ics/assets/light/icon/1-navigation-accept.png" alpha="0.4" buttonMode="true" toolTip="여러개 선택하기" />
-						<s:Image id="listDelBtn" source="skin/ics/assets/light/icon/5-content-discard.png" buttonMode="true" toolTip="삭제 or 예약취소" />
+						<s:Image id="listDelBtn" source="@Embed('skin/ics/assets/light/icon/5-content-discard.png')" buttonMode="true" toolTip="삭제 or 예약취소" />
 					</s:HGroup>
 				</s:SkinnableContainer>
 				<!-- month -->

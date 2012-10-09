@@ -150,6 +150,14 @@
 					address.addedtostage_handler(null);
 				else if (log != null) log.getSentList();
 				else if (send != null) send.initReturnPhone();
+				
+				// battery
+				if (Gv.bLogin) {
+					var p:Number = Math.floor( (Gv.point / 10000)*100 );
+					if (p > 100) p = 100;
+					battery.percent = p;
+				}
+				
 					
 			}
 			
@@ -261,7 +269,7 @@
 			<s:HGroup right="4" verticalCenter="0" >
 				<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#FF0000"/></s:fill></s:Rect>
 				<s:Image source="skin/ics/assets/signal.png"/>
-				<ics:Battery percent="10"/>
+				<ics:Battery id="battery" percent="10"/>
 				<ics:CurrentTime />
 			</s:HGroup>
 		</s:Group><!-- navigationBar -->
