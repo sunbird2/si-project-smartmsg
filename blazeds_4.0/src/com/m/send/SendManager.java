@@ -76,42 +76,54 @@ public class SendManager implements ISend {
 			Hashtable<String, String> hashTable_duple = new Hashtable<String, String>();
 			
 			PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
-			pq.setPrepared( conn, ls.getInsertQuery(mode) );
 			
-			VbyP.accessLog(" - conn.getAutoCommit() : "+conn.getAutoCommit());
-		
-			for (int i = 0; i < count; i++) {
+			try {
 				
-				vo = al.get(i);
-
-				if (Refuse.isRefuse(hashTable_refuse, vo.getPhone())) // refuse
-					ls.insertClientPqSetter_fail(mode, pq, vo, VbyP.getValue("refuse_code"));
-				else if (hashTable_duple.containsKey(vo.getPhone())) // duple
-					ls.insertClientPqSetter_fail(mode, pq, vo, VbyP.getValue("duple_code"));
-				else {
-					hashTable_duple.put(vo.getPhone(), "");
-					ls.insertClientPqSetter(mode, pq, vo);
-				}
+				//conn.setAutoCommit(false);
+				pq.setPrepared( conn, ls.getInsertQuery(mode) );
 				
-				pq.addBatch();							
-
-				Gv.setStatus(uvo.getUser_id(), Integer.toString(i+1));
-				
-				if (i >= maxBatch && (i%maxBatch) == 0 ) {
+				VbyP.accessLog(" - conn.getAutoCommit() : "+conn.getAutoCommit());
+			
+				for (int i = 0; i < count; i++) {
 					
-					resultCount += pq.executeBatchNoClose();
-					VbyP.accessLog(" - complete : "+resultCount);
+					vo = al.get(i);
+	
+					if (Refuse.isRefuse(hashTable_refuse, vo.getPhone())) // refuse
+						ls.insertClientPqSetter_fail(mode, pq, vo, VbyP.getValue("refuse_code"));
+					else if (hashTable_duple.containsKey(vo.getPhone())) // duple
+						ls.insertClientPqSetter_fail(mode, pq, vo, VbyP.getValue("duple_code"));
+					else {
+						hashTable_duple.put(vo.getPhone(), "");
+						ls.insertClientPqSetter(mode, pq, vo);
+					}
 					
-//					try { if ( conn != null ) conn.close(); } catch(Exception e) {System.out.println( "reconn close Error!!!!" + e.toString());}
-//					
-//					conn = VbyP.getDB();					
-//					if (conn == null) System.out.println("reconn connection is NULL Error!!!!");
-//					
-//					pq.setPrepared( conn, ls.getInsertQuery(mode) );
+					pq.addBatch();							
+	
+					Gv.setStatus(uvo.getUser_id(), Integer.toString(i+1));
+					
+					if (i >= maxBatch && (i%maxBatch) == 0 ) {
+						
+						resultCount += pq.executeBatchNoClose();
+						VbyP.accessLog(" - complete : "+resultCount);
+						
+	//					try { if ( conn != null ) conn.close(); } catch(Exception e) {System.out.println( "reconn close Error!!!!" + e.toString());}
+	//					
+	//					conn = VbyP.getDB();					
+	//					if (conn == null) System.out.println("reconn connection is NULL Error!!!!");
+	//					
+	//					pq.setPrepared( conn, ls.getInsertQuery(mode) );
+					}
+					
 				}
+				resultCount += pq.executeBatch();
 				
+				
+			
+			} catch (Exception e) {
+				
+			} finally {
+				pq.close();
 			}
-			resultCount += pq.executeBatch();		
 		}
 		
 		return resultCount;

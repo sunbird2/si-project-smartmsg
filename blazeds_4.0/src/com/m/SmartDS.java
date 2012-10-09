@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.common.VbyP;
 import com.common.util.SLibrary;
+import com.common.util.StopWatch;
 import com.common.util.Thumbnail;
 import com.m.address.Address;
 import com.m.address.AddressVO;
@@ -483,6 +484,8 @@ public class SmartDS extends SessionManagement {
 	public LogVO sendSMSconf( SendMessageVO smvo ) {
 		
 		VbyP.accessLog("send Start");
+		StopWatch sw = new StopWatch();
+		sw.play();
 		
 		Connection conn = null;
 		ISend send = SendManager.getInstance();
@@ -510,7 +513,7 @@ public class SmartDS extends SessionManagement {
 			System.out.println(e.toString());
 		}
 		finally { close(conn); }
-		
+		VbyP.accessLog("send End : "+sw.getTime()+" sec, "+lvo.getUser_id()+", "+lvo.getMode()+", "+lvo.getCnt()+" count");
 		return lvo;
 	}
 	
