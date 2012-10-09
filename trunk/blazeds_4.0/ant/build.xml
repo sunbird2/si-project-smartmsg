@@ -103,10 +103,11 @@
 		<delete file="${build-directory}/${war-file-name}" />
 		<war warfile="${build-directory}/${war-file-name}" webxml="${web-xml-file}">
 			<classes dir="${classes-directory}" />
+			
 			<fileset dir="${web-directory}">
 				<!-- Need to exclude it since webxml is an attribute of the war tag above
-				<exclude name="WEB-INF/web.xml" /> 
-				<exclude name="${web-directory}/Message_pad-debug" />-->
+				<exclude name="WEB-INF/web.xml" /> -->
+				<exclude name="Message_pad-debug/**" />
 			</fileset>
 			<lib dir="${web-directory}/WEB-INF/lib">
 				<exclude name="servlet-api*.jar"/>
