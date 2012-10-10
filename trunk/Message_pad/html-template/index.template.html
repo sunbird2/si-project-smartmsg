@@ -88,7 +88,7 @@
              }
             
             var showIndex = 0;
-            var arrMain = ["<a href='#' class='show'><img src='images/main01.png' alt='Flowing Rock' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
+            var arrMain = ["<a href='#' class='show'><img src='images/main01.png' style='margin-top:0px;' alt='Flowing Rock' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
 "<a href='#' class='show'><img src='images/munjanote_com_1.jpg' alt='Flowing Rock' title='' alt='' rel='<h3>단문, 장문, 멀티 (자동전환)</h3> 기본 입력시 단문(SMS)으로 작성되며, 90Byte 초과 입력시 자동으로 장문(LMS)으로 전환됩니다. 그리고 사진 추가시 멀티(MMS) 전송으로 전환 됩니다. '/></a>",
 "<a href='#' class='show'><img src='images/m6.jpg' alt='Flowing Rock' title='' alt='' rel='<h3>업종별 다양한 메시지 제공</h3> 이모티콘 기능에서 약 30분류의 업종에 대한 메시지가 무료로 제공 됩니다. 테마문자는 기본 이모티콘들이 제공 됩니다. '/></a>",
 "<a href='#' class='show'><img src='images/m6.jpg' alt='Flowing Rock' title='' alt='' rel='<h3>예약 설정</h3> 모든 메시지에 대해 설정한 시간으로 예약 발송이 가능 합니다. 예약은 내역에서 취소 가능하며 해당 건수는 재충전 됩니다.'/></a>",
@@ -134,6 +134,9 @@
            }
 
            function showSlide() {
+
+				if (showIndex == 0) viewPopBlock(false);					
+				else viewPopBlock(true);
 
                 $('#gallery').html( arrMain[showIndex]+ caption);
                 $('#gallery a:first').css({opacity: 0.0})
