@@ -59,13 +59,19 @@
                document.getElementById(menu).className = menu;
             	menu = str;
             	var MunjaNote = document.getElementById("MunjaNote");
-            	if (MunjaNote) {
-            		MunjaNote.flexFunction("menu", menu);
-            	} else {
-            		embedSWF(menu);
-            	}
+
+                if (str == "bill") {
+                    $("#nobody").attr("src", "/bill/");
+                }else {
+
+                    if (MunjaNote) MunjaNote.flexFunction("menu", menu);
+                    else embedSWF(menu);
+
+                     document.MunjaNote.focus();
+                }
+            	
                document.getElementById(menu).className = menu + " on";
-               document.MunjaNote.focus();
+              
             }
 
             function flexCreateComplete() {
@@ -164,62 +170,24 @@
                return false;
 			}
 
-/*
-            function slideShow() {
-
-                //Set the opacity of all images to 0
-                $('#gallery a').css({opacity: 0.0});
-                
-                //Get the first image and display it (set it to full opacity)
-                $('#gallery a:first').css({opacity: 1.0});
-
-                //Set the caption background to semi-transparent
-                $('#gallery .caption').css({opacity: 0.7});
-
-                //Resize the width of the caption according to the image width
-                $('#gallery .caption').css({width: $('#gallery a').find('img').css('width')});
-                
-                //Get the caption of the first image from REL attribute and display it
-                $('#gallery .content').html($('#gallery a:first').find('img').attr('rel'))
-                .animate({opacity: 0.7}, 400);
-                
-                //Call the gallery function to run the slideshow, 6000 = change to next image after 6 seconds
-                setInterval('gallery()',6000);
+            function showBill( htm ) {
+                stop();
+                $('#gallery').html( htm );
+                viewPopBlock(false);
             }
 
-            function gallery() {
-                
-                //if no IMGs have the show class, grab the first image
-                var current = ($('#gallery a.show')?  $('#gallery a.show') : $('#gallery a:first'));
+            function viewPopBlock( b ) {
+                var c = "";
+                if (b) c = "block";
+                else c = "none";
 
-                //Get next image, if it reached the end of the slideshow, rotate it back to the first image
-                var next = ((current.next().length) ? ((current.next().hasClass('caption'))? $('#gallery a:first') :current.next()) : $('#gallery a:first'));	
-                
-                //Get next image caption
-                var caption = next.find('img').attr('rel');	
-                
-                //Set the fade in effect for the next image, show class has higher z-index
-                next.css({opacity: 0.0})
-                .addClass('show')
-                .animate({opacity: 1.0}, 1000);
+                $('#pop1').css({display:c})
+                $('#pop2').css({display:c})
+                $('#pop3').css({display:c})
+                $('#pop4').css({display:c})
 
-                //Hide the current image
-                current.animate({opacity: 0.0}, 1000)
-                .removeClass('show');
-                
-                //Set the opacity to 0 and height to 1px
-                $('#gallery .caption').animate({opacity: 0.0}, { queue:false, duration:0 }).animate({height: '1px'}, { queue:true, duration:300 });	
-                
-                //Animate the caption, opacity to 0.7 and heigth to 100px, a slide up effect
-                $('#gallery .caption').animate({opacity: 0.7},100 ).animate({height: '100px'},500 );
-                
-                //Display the content
-                $('#gallery .content').html(caption);
-                
-                
             }
 
-*/
        </script>
       <link rel="stylesheet" type="text/css" href="css/base.css" />
       <link rel="stylesheet" type="text/css" href="css/main.css">
@@ -254,10 +222,10 @@
 		<div id="gallery">
 
        </div><!-- gallery -->
-       <img src="images/cop.png" style="display:block;position:absolute; top:662px; left:242px;" />
-		<img src="images/title.png" style="display:block;position:absolute; top:40px; left:5px;" />
-		<a href="javascript:" class="left_arrow" onclick="showNextAndPrev(-2)"  onfocus='this.blur()'>이전</a>
-		<a href="javascript:" class="right_arrow" onclick="showNextAndPrev(0)"  onfocus='this.blur()'>다음</a>
+       <img id="pop1" src="images/cop.png" style="display:block;position:absolute; top:662px; left:242px;" />
+		<img id="pop2" src="images/title.png" style="display:block;position:absolute; top:40px; left:5px;" />
+		<a id="pop3" href="javascript:" class="left_arrow" onclick="showNextAndPrev(-2)"  onfocus='this.blur()'>이전</a>
+		<a id="pop4" href="javascript:" class="right_arrow" onclick="showNextAndPrev(0)"  onfocus='this.blur()'>다음</a>
 	</div>
 <!-- //contents -->
 	<div id="bar"></div>
@@ -336,9 +304,8 @@
 <!-- //footer -->
 	
 </div><!-- wrap -->
-  
+
+<iframe src="" id="nobody" name="nobody" frameborder="0" width="0" height="0" style="display:none"></iframe>
   </body>
 </html>
-
-
 
