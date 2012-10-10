@@ -108,6 +108,7 @@
 				<!-- Need to exclude it since webxml is an attribute of the war tag above
 				<exclude name="WEB-INF/web.xml" /> -->
 				<exclude name="Message_pad-debug/**" />
+				<exclude name="**/.svn/**" />
 			</fileset>
 			<lib dir="${web-directory}/WEB-INF/lib">
 				<exclude name="servlet-api*.jar"/>
