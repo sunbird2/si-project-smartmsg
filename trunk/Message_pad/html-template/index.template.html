@@ -127,6 +127,7 @@
            function stop() { if (interval) clearInterval(interval); }
 
            function showFunction(idx) {
+			   removeFlash();
                stop();
                showIndex = idx;
                showSlide();
@@ -163,7 +164,7 @@
 
 			function showNextAndPrev(val) {
 				stop();
-               showIndex += val;
+                showIndex += val;
 				if (showIndex < 0) showIndex = 0;
 				else if (showIndex == arrMain.length -1) showIndex = arrMain.length -1;
 				
@@ -174,6 +175,8 @@
 			}
 
             function showBill( htm ) {
+				
+				removeFlash();
                 stop();
                 $('#gallery').html( htm );
                 viewPopBlock(false);
@@ -190,6 +193,13 @@
                 $('#pop4').css({display:c})
 
             }
+
+			function removeFlash() { 
+				if ( $('#MunjaNote') ) {
+					swfobject.removeSWF("MunjaNote");
+					if ( $('#gallery').length == 0 ) $('#main-image').prepend('<div id="gallery"></div>'); 
+				}
+			}
 
        </script>
       <link rel="stylesheet" type="text/css" href="css/base.css" />
@@ -223,7 +233,7 @@
 <!-- contents -->
 	<div id="main-image">
 		<div id="gallery">
-
+			
        </div><!-- gallery -->
        <img id="pop1" src="images/cop.png" style="display:block;position:absolute; top:662px; left:242px;" />
 		<img id="pop2" src="images/title.png" style="display:block;position:absolute; top:40px; left:5px;" />
