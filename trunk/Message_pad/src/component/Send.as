@@ -418,6 +418,7 @@ package component
 		
 		private function removeMsg_clickHandler(event:MouseEvent):void {
 			this.msg = "";
+			allDelImage();
 		}
 		
 		
@@ -913,11 +914,12 @@ package component
 			removeImage();
 			var img:Image = new Image();
 			img.source = source;
+			img.smooth = true;
 			img.buttonMode = true;
-			img.useHandCursor = true;
-			mBox.addElementAt(img,mBox.numElements-1);
+			mBox.addElementAt(img, mBox.numElements-1);
+			mBox.gap = 0;
 			arrImage.push(source);
-			trace(arrImage.join(";"));
+			
 			
 			sendMode = "MMS";
 		}

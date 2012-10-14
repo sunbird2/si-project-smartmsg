@@ -56,8 +56,8 @@
 							<s:Image id="removeMsg" source="skin/ics/assets/light/icon/5-content-remove.png" buttonMode="true" />
 						</s:HGroup>
 					</s:SkinnableContainer>
-					<s:Scroller width="100%" height="200">
-						<s:VGroup id="mBox" width="100%">
+					<s:Scroller width="275" height="200">
+						<s:VGroup id="mBox" width="100%" gap="0">
 							<s:TextArea id="message" width="100%" height="200" styleName="textarea_light" prompt="메시지를 입력하세요."
 										borderColor.LMS="0xFF8800"
 										borderColor.MMS="0xCC0000"/>	
