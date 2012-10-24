@@ -53,7 +53,7 @@
 #etc #cost { float:left;width:210px;height:143px;background:url("../images/cost.png")}
 
 #footer {margin:0 auto; width:1024px;height:51px; margin-top:15px;margin-bottom:30px;}
-#info {float:left;width:406px;height:51px;}
+#info {float:left;width:356px;height:auto;}
 #info ul li {float:left;}
 #info ul li a {display:block;height:14px;text-indent:-10000px}
 #info ul li a.i01 {width:49px;background:url("../images/bottom_company.png") 0 0 no-repeat;}
@@ -61,7 +61,7 @@
 #info ul li a.i03 {width:48px;background:url("../images/bottom_use.png") 0 0 no-repeat;}
 #info ul li a.i04 {width:57px;background:url("../images/bottom__spam.png") 0 0 no-repeat;}
 #copy {float:right;height:81px;}
-#copy .address {float:left;margin-right:15px;width:316px; height:51px;background:url("../images/bottom_copyright.png") 0 0 no-repeat;}
+#copy .address {float:left;margin-right:15px;width:406px; height:51px;background:url("../images/bottom_copyright.png") 0 0 no-repeat;}
 
 /*slider*/
 .clear {clear:both}
