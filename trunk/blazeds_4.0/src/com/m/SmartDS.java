@@ -498,13 +498,13 @@ public class SmartDS extends SessionManagement {
 			
 			VbyP.accessLog(" - "+uvo.getUser_id());
 			
-			if ( getMode(smvo).equals("SMS") &&  SLibrary.isNull( VbyP.getValue("useOnlySMSLine") )) { 
+			if ( getMode(smvo).equals("SMS") &&  !SLibrary.isNull( VbyP.getValue("useOnlySMSLine") )) { 
 				uvo.setLine(VbyP.getValue("useOnlySMSLine"));
 				VbyP.accessLog(" - change line : "+VbyP.getValue("useOnlySMSLine"));
-			}else if ( getMode(smvo).equals("LMS") &&  SLibrary.isNull( VbyP.getValue("useOnlyLMSLine") )) {
+			}else if ( getMode(smvo).equals("LMS") &&  !SLibrary.isNull( VbyP.getValue("useOnlyLMSLine") )) {
 				uvo.setLine(VbyP.getValue("useOnlyLMSLine"));
 				VbyP.accessLog(" - change line : "+VbyP.getValue("useOnlyLMSLine"));
-			}else if  ( getMode(smvo).equals("MMS") &&  SLibrary.isNull( VbyP.getValue("useOnlyMMSLine") )) {
+			}else if  ( getMode(smvo).equals("MMS") &&  !SLibrary.isNull( VbyP.getValue("useOnlyMMSLine") )) {
 				uvo.setLine(VbyP.getValue("useOnlyMMSLine"));
 				VbyP.accessLog(" - change line : "+VbyP.getValue("useOnlyMMSLine"));
 			}
