@@ -498,6 +498,17 @@ public class SmartDS extends SessionManagement {
 			
 			VbyP.accessLog(" - "+uvo.getUser_id());
 			
+			if ( getMode(smvo).equals("SMS") &&  SLibrary.isNull( VbyP.getValue("useOnlySMSLine") )) { 
+				uvo.setLine(VbyP.getValue("useOnlySMSLine"));
+				VbyP.accessLog(" - change line : "+VbyP.getValue("useOnlySMSLine"));
+			}else if ( getMode(smvo).equals("LMS") &&  SLibrary.isNull( VbyP.getValue("useOnlyLMSLine") )) {
+				uvo.setLine(VbyP.getValue("useOnlyLMSLine"));
+				VbyP.accessLog(" - change line : "+VbyP.getValue("useOnlyLMSLine"));
+			}else if  ( getMode(smvo).equals("MMS") &&  SLibrary.isNull( VbyP.getValue("useOnlyMMSLine") )) {
+				uvo.setLine(VbyP.getValue("useOnlyMMSLine"));
+				VbyP.accessLog(" - change line : "+VbyP.getValue("useOnlyMMSLine"));
+			}
+			
 			smvo.setReqIP(FlexContext.getHttpRequest().getRemoteAddr());
 			
 			lvo = send.send(conn, uvo, smvo);
@@ -515,6 +526,16 @@ public class SmartDS extends SessionManagement {
 		finally { close(conn); }
 		VbyP.accessLog("send End : "+sw.getTime()+" sec, "+lvo.getUser_id()+", "+lvo.getMode()+", "+lvo.getCnt()+" count");
 		return lvo;
+	}
+	
+	private String getMode(SendMessageVO smvo) {
+
+		String mode = "SMS";
+		if (!SLibrary.isNull(smvo.getImagePath()))
+			mode = "MMS";
+		else if ( SLibrary.getByte( smvo.getMessage() ) > SendManager.SMS_BYTE)
+			mode = "LMS";
+		return mode;
 	}
 	
 	/*###############################
