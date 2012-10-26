@@ -13,6 +13,7 @@ import com.m.common.PointManager;
 import com.m.common.Refuse;
 import com.m.member.UserInformationVO;
 import com.m.send.telecom.LG;
+import com.m.send.telecom.PP;
 
 public class SendManager implements ISend {
 
@@ -26,6 +27,46 @@ public class SendManager implements ISend {
 		return send;
 	}
 	private SendManager(){}
+	
+	@Override
+	public LogVO send(Connection conn, UserInformationVO uvo, SendMessageVO smvo)
+			throws Exception {
+		
+		LogVO lvo = null;
+		ArrayList<MessageVO> al = null;
+		int idx = 0;
+		int rslt = 0;
+		
+		checkSendMessageVO(smvo);
+		Gv.setStatus(uvo.getUser_id(), "message check..");
+		checkAuth(conn, uvo, smvo);
+		Gv.setStatus(uvo.getUser_id(), "auth check..");
+		
+		lvo = makeLogVO(uvo, smvo);
+		idx = insertLog(conn, lvo);
+		
+		Gv.setStatus(uvo.getUser_id(), "save log..");
+		
+		int point = smvo.getAl().size() * SLibrary.intValue(VbyP.getValue(getMode(smvo)+"_COUNT"));
+		
+		if (idx > 0)
+			rslt = updatePoint(conn, uvo, lvo.getMode(), point);
+		else throw new Exception("insertLog Error!!");
+		Gv.setStatus(uvo.getUser_id(), "update point");
+		
+		if (rslt > 0){
+			al = makeMessageVOArrayList(uvo, smvo, idx);
+			Gv.setStatus(uvo.getUser_id(), "list make");
+			rslt = insertData(conn, lvo.getMode(), uvo, al, uvo.getLine());
+			Gv.setStatus(uvo.getUser_id(), "Success!!");
+		}
+		else throw new Exception("insertData Error!!");
+		
+		lvo.setIdx(idx);
+		
+		return lvo;
+	}
+	
 
 	@Override
 	public int insertLog(Connection conn, LogVO lvo) throws Exception {
@@ -130,50 +171,13 @@ public class SendManager implements ISend {
 	}
 
 	
-	@Override
-	public LogVO send(Connection conn, UserInformationVO uvo, SendMessageVO smvo)
-			throws Exception {
-		
-		LogVO lvo = null;
-		ArrayList<MessageVO> al = null;
-		int idx = 0;
-		int rslt = 0;
-		
-		checkSendMessageVO(smvo);
-		Gv.setStatus(uvo.getUser_id(), "message check..");
-		checkAuth(conn, uvo, smvo);
-		Gv.setStatus(uvo.getUser_id(), "auth check..");
-		
-		lvo = makeLogVO(uvo, smvo);
-		idx = insertLog(conn, lvo);
-		
-		Gv.setStatus(uvo.getUser_id(), "save log..");
-		
-		int point = smvo.getAl().size() * SLibrary.intValue(VbyP.getValue(getMode(smvo)+"_COUNT"));
-		
-		if (idx > 0)
-			rslt = updatePoint(conn, uvo, lvo.getMode(), point);
-		else throw new Exception("insertLog Error!!");
-		Gv.setStatus(uvo.getUser_id(), "update point");
-		
-		if (rslt > 0){
-			al = makeMessageVOArrayList(uvo, smvo, idx);
-			Gv.setStatus(uvo.getUser_id(), "list make");
-			rslt = insertData(conn, lvo.getMode(), uvo, al, uvo.getLine());
-			Gv.setStatus(uvo.getUser_id(), "Success!!");
-		}
-		else throw new Exception("insertData Error!!");
-		
-		lvo.setIdx(idx);
-		
-		return lvo;
-	}
 	
 	private ILineSet getLineInstance(String line) throws Exception {
 		
 		ILineSet ls = null;
 		
 		if (line.equals("lg")) ls = LG.getInstance();
+		else if (line.equals("pp")) ls = PP.getInstance();
 		else throw new Exception("no line class!!");
 		
 		return ls;
