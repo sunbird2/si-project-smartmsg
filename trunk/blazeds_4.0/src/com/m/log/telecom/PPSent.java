@@ -179,7 +179,7 @@ public class PPSent implements ISentData {
 		ssvo.setTelecom( SLibrary.intValue( SLibrary.IfNull(hm, "sendingCount") ) );
 		ssvo.setSuccess( SLibrary.intValue( SLibrary.IfNull(hm, "successCount") ) );
 		ssvo.setFail( SLibrary.intValue( SLibrary.IfNull(hm, "failCount") ) );
-		
+		System.out.println(ssvo.getLocal() + "/"+ssvo.getTelecom() + "/"+ssvo.getSuccess() + "/"+ssvo.getFail());
 		return ssvo;
 	}
 	
