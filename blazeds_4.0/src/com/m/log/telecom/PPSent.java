@@ -261,10 +261,10 @@ public class PPSent implements ISentData {
 			mvo.setUser_id(SLibrary.IfNull(hm, "ID"));
 			
 			String s = SLibrary.IfNull(hm, "STATUS");
-			if (s.equals("0")) s = "0";
-			if (s.equals("1") || s.equals("2") ) s = "1";
-			else if (s.equals("3")) s = "2";
-			else s = "2";
+			//if (s.equals("0")) s = "0";
+			//if (s.equals("1") || s.equals("2") ) s = "1";
+			//else if (s.equals("3")) s = "2";
+			//else s = "2";
 			mvo.setStat(s);
 			
 			String r = "대기";
