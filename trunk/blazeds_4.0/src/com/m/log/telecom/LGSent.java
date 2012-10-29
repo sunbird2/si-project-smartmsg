@@ -235,6 +235,8 @@ public class LGSent implements ISentData {
 			if (s.equals("0")) r = "대기";
 			else if (s.equals("1")) r = "전송중";
 			else r = VbyP.getValue( "lg_"+SLibrary.IfNull(hm, "TR_RSLTSTAT") );
+			
+			if (SLibrary.isNull(r)) r = "실패";
 			mvo.setRslt( r );
 			
 			mvo.setPhone(SLibrary.IfNull(hm, "TR_PHONE"));
@@ -271,6 +273,8 @@ public class LGSent implements ISentData {
 			if (s.equals("0")) r = "대기";
 			else if (s.equals("1")) r = "전송중";
 			else r = VbyP.getValue( "lg_mms_"+SLibrary.IfNull(hm, "RSLT") );
+			
+			if (SLibrary.isNull(r)) r = "실패";
 			mvo.setRslt( r );
 			
 			mvo.setPhone(SLibrary.IfNull(hm, "PHONE"));
