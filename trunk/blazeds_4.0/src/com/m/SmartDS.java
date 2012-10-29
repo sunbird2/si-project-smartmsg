@@ -28,6 +28,7 @@ import com.m.log.ISentData;
 import com.m.log.SentManager;
 import com.m.log.SentStatusVO;
 import com.m.log.telecom.LGSent;
+import com.m.log.telecom.PPSent;
 import com.m.member.Join;
 import com.m.member.JoinVO;
 import com.m.member.SessionManagement;
@@ -965,7 +966,7 @@ public class SmartDS extends SessionManagement {
 	private ISentData getSentInstance(String line) {
 		
 		if (line.equals("lg")) return LGSent.getInstance();
-		else if (line.equals("pp")) return LGSent.getInstance();
+		else if (line.equals("pp")) return PPSent.getInstance();
 		else return null;
 	}
 	
