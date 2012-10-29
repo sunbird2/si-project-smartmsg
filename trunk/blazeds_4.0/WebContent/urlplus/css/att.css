@@ -1,0 +1,9 @@
+.hand {cursor:pointer}
+dl dd {width:320px;text-align:center;}
+#img1_wrap {width:300px;}
+#img1_wrap .img1_add {display:block;max-width:100%;height:113px;padding-top:187px;background: url(../_images/img_add.gif) no-repeat 0 0;text-align: center;text-decoration: none;}
+#img1_wrap a.img1_add:hover { color: #555;}
+#img1 {max-width:100%;display:block;}
+
+
+
