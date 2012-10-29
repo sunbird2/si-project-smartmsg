@@ -58,6 +58,7 @@ public class SendManager implements ISend {
 			al = makeMessageVOArrayList(uvo, smvo, idx);
 			Gv.setStatus(uvo.getUser_id(), "list make");
 			rslt = insertData(conn, lvo.getMode(), uvo, al, uvo.getLine());
+			if ( rslt <= 0 ) throw new Exception("전송데이터가 등록되지 않았습니다.");
 			Gv.setStatus(uvo.getUser_id(), "Success!!");
 		}
 		else throw new Exception("insertData Error!!");

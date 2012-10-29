@@ -126,7 +126,7 @@ public class PP implements ILineSet {
 	}
 	
 	private String getSubject(String msg) {
-		return SLibrary.cutBytes(msg, 80, false, "");
+		return SLibrary.cutBytes(msg, 40, false, "");
 	}
 
 }

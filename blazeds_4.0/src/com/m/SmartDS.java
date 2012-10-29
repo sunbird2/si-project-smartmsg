@@ -974,7 +974,10 @@ public class SmartDS extends SessionManagement {
 	
 	private void close(Connection conn) {
 		try { 
-			if ( conn != null )	conn.close();
+			if ( conn != null ) {
+				//System.out.println(conn.getAutoCommit()+"######################");
+				conn.close();
+			}
 			conn = null;
 		}
 		catch(SQLException e) { VbyP.errorLog("conn.close() Exception!"); }
