@@ -82,6 +82,11 @@ public class PPSent implements ISentData {
 			SQL = SLibrary.messageFormat( VbyP.getSQL( "sent_pp_select_mms_paged_count" ) , new Object[]{where} );
 		}
 		else {
+			if ( !SLibrary.isNull( slvo.getSearch() )) {
+				
+				where = where(slvo.getSearch());
+				
+			}
 			SQL = VbyP.getSQL( "sent_pp_select_paged_count" );
 		}
 		
@@ -235,6 +240,8 @@ public class PPSent implements ISentData {
 			if (s.equals("0")) r = "대기";
 			else if (s.equals("1")) r = "전송중";
 			else r = VbyP.getValue( "pp_"+SLibrary.IfNull(hm, "TR_RSLTSTAT") );
+			
+			if (SLibrary.isNull(r)) r = "실패";
 			mvo.setRslt( r );
 			
 			mvo.setPhone(SLibrary.IfNull(hm, "TR_PHONE"));
@@ -271,6 +278,8 @@ public class PPSent implements ISentData {
 			if (s.equals("0")) r = "대기";
 			else if (s.equals("1")) r = "전송중";
 			else r = VbyP.getValue( "pp_mms_"+SLibrary.IfNull(hm, "RSLT") );
+			
+			if (SLibrary.isNull(r)) r = "실패";
 			mvo.setRslt( r );
 			
 			mvo.setPhone(SLibrary.IfNull(hm, "PHONE"));
@@ -309,13 +318,42 @@ public class PPSent implements ISentData {
 		String rslt = "";
 		String where = "";
 		String where2 = "";
-		if (type.equals("1")) where = " RSLT='1000' "; // 성공
-		else if (type.equals("2")) where = " STATUS='3' AND RSLT!='1000' "; // 실패
-		else if (type.equals("3")) where = " STATUS in ('1','2') "; // 전송중
+		if (type.equals("1")) where = " CALL_STATUS='6600' "; // 성공
+		else if (type.equals("2")) where = " STATUS='2' AND CALL_STATUS!='6600' "; // 실패
+		else if (type.equals("3")) where = " STATUS in ('1') "; // 전송중
 		else if (type.equals("4")) where = " STATUS='0' "; // 대기
 		
 		if ( !SLibrary.isNull(text) ) {
-			where2 = " ( ETC2 like '%"+text+"%' or PHONE like '%"+text+"%' )";
+			where2 = " ( DEST_NAME like '%"+text+"%' or DEST_PHONE like '%"+text+"%' )";
+		}
+		
+		if (!SLibrary.isNull(where) && !SLibrary.isNull(where2)) rslt = where+" AND "+where2;
+		else if (!SLibrary.isNull(where) && SLibrary.isNull(where2)) rslt = where;
+		else if (SLibrary.isNull(where) && !SLibrary.isNull(where2)) rslt = where2;
+		
+		
+		if (!SLibrary.isNull(rslt)) rslt = " AND "+rslt;
+		
+		return rslt;
+		
+	}
+	
+	private String where(String str) {
+		
+		String [] arr = getSearchValue(str);
+		String type = arr[0];
+		String text = arr[1];
+		
+		String rslt = "";
+		String where = "";
+		String where2 = "";
+		if (type.equals("1")) where = " CALL_STATUS='4100' "; // 성공
+		else if (type.equals("2")) where = " STATUS='2' AND CALL_STATUS!='4100' "; // 실패
+		else if (type.equals("3")) where = " STATUS in ('1') "; // 전송중
+		else if (type.equals("4")) where = " STATUS='0' "; // 대기
+		
+		if ( !SLibrary.isNull(text) ) {
+			where2 = " ( DEST_NAME like '%"+text+"%' or DEST_PHONE like '%"+text+"%' )";
 		}
 		
 		if (!SLibrary.isNull(where) && !SLibrary.isNull(where2)) rslt = where+" AND "+where2;
