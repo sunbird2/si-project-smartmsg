@@ -2,7 +2,8 @@
 try {
 	
 
-	String strUploadPath = "D:"+File.separator+"Workspace"+File.separator+"20120426-Assets"+File.separator+"blazeds_4.0"+File.separator+"WebContent"+File.separator+"urlplus"+File.separator+"uploadImage"+File.separator;
+	//String strUploadPath = "D:"+File.separator+"Workspace"+File.separator+"20120426-Assets"+File.separator+"blazeds_4.0"+File.separator+"WebContent"+File.separator+"urlplus"+File.separator+"uploadImage"+File.separator;
+	String strUploadPath = "/home/web/webapps/ROOT/urlplus/uploadImage/";
 	
 	File objFile = new File(strUploadPath);
 	
@@ -28,8 +29,6 @@ try {
 	
 	    // 업로드된 파일의 내용을 한줄씩 읽기
 	    RandomAccessFile objRAF = new RandomAccessFile(strUploadPath + strUploadName, "r");
-	    
-	    System.out.println(strUploadName);
 	
 	    try
 	    {
