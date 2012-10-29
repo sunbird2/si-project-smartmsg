@@ -965,6 +965,7 @@ public class SmartDS extends SessionManagement {
 	private ISentData getSentInstance(String line) {
 		
 		if (line.equals("lg")) return LGSent.getInstance();
+		else if (line.equals("pp")) return LGSent.getInstance();
 		else return null;
 	}
 	
