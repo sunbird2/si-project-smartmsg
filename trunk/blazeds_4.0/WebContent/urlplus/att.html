@@ -28,9 +28,11 @@ body{margin:0; padding:0;}
 		$('#file_upload').uploadify({
 			'swf'      : 'js/uploadify.swf', // 파일업로드 이벤트 가로채틑 flash
 			'uploader' : 'uploadify.jsp', // 비동기 업로드시 처리 url
-			'fileDesc' : '이미지',
-			'fileExt'  : '*.jpg, *.jpeg, *.png, *.gif',
+			'fileTypeDesc' : '이미지',
+			'fileTypeExts'  : '*.jpg, *.jpeg, *.png, *.gif',
 			'buttonText' : '이미지업로드',
+			'queueID'  : 'img1_add', // queue display element
+			'removeTimeout' : 1, // queue 제거 시간
 // 			'cancelImage' : 'uploadify-cancel.png', // 업로드 취소 이미지
 // 			'checkExisting' : '', // 파일 존재 체크 url 
 // 			'postData' : {'fileName' : 'attach_'+new Date().getTime()}, // 파라미터 추가
@@ -52,7 +54,7 @@ body{margin:0; padding:0;}
 	
 	</script>
   
-  
+  	
   	<h1>속성</h1>
   	<dl>
   		<dt>이미지 1장</dt>
@@ -61,10 +63,10 @@ body{margin:0; padding:0;}
   				<a href="#" id="img1_add" class="img1_add">PC에 저장된 사진을 첨부 하실 수 있으며,<br/>용량이 큰 사이즈는 리사이즈 됩니다.<br/>
   				<input type="file" name="file_upload" id="file_upload" style="display:inline;" /></a>
   				<div id="imgs"></div>
-  				<img id="img1" src="" alt="클릭 후 이미지를 추가 하세요." title="클릭 후 이미지를 추가 하세요." width="100" height="100" />
   			</div>
   		</dd>
   	</dl>
+  	
   </body>
 </html>
 
