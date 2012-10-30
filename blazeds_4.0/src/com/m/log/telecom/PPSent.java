@@ -116,9 +116,9 @@ public class PPSent implements ISentData {
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
 		pq.setPrepared(conn, SQL);
 		pq.setString(1, slvo.getUser_id());
-		pq.setString(2, Integer.toString(slvo.getIdx()));
+		pq.setInt(2, slvo.getIdx());
 		pq.setString(3, slvo.getUser_id());
-		pq.setString(4, Integer.toString(slvo.getIdx()));
+		pq.setInt(4, slvo.getIdx());
 		hm = pq.ExecuteQueryCols();
 		
 		return parseVO(hm);
