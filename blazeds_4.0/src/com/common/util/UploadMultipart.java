@@ -19,11 +19,11 @@ public class UploadMultipart {
 	String Encoding = "euc-kr";
 	String [] checkContentType = null;
 	String contentType = null;
-	String realFileName = null;//½ÇÁ¦ÆÄÀÏ¸í
-	String uploadedFileName = null;//Áßº¹°Ë»çÈÄ ¾÷·ÎµåµÈ ÆÄÀÏ¸í
+	String realFileName = null;
+	String uploadedFileName = null;
 	StringBuffer errorMsg = new StringBuffer();
 	long fileSize = 0;
-	String addFileName = null;//ÆÄÀÏÀÌ¸§ º¯°æ ÀúÀåÀÌ Æ÷ÇÔ ÀÌ¸§
+	String addFileName = null;
 	HashMap<String, String> hm = null;
 	
 	
@@ -67,12 +67,12 @@ public class UploadMultipart {
 						if( this.checkContentType()){
 							
 							fileSize = filePart.writeTo(dir);
-							uploadedFileName = filePart.getFileName();   //Áßº¹Ã³¸®ÈÄ ÆÄÀÏ ÀÌ¸§
+							uploadedFileName = filePart.getFileName();
 							
 							rslt = true;
 						}
 						else {
-							errorMsg.append(" ¾÷·Îµå °¡´ÉÇÑ ÆÄÀÏ ÇüÅÂ°¡  ¾Æ´Õ´Ï´Ù. \\r\\n\\   - ÇöÀç ÆÄÀÏ Çü½Ä : [" + contentType + "] \\r\\n   - °¡´É ÆÄÀÏ Çü½Ä : ["+SLibrary.join( this.checkContentType," | ")+"]");
+							errorMsg.append(" ì—…ë¡œë“œ ê°€ëŠ¥í•œ íŒŒì¼ í˜•íƒœê°€  ì•„ë‹™ë‹ˆë‹¤. \\r\\n\\   - í˜„ì¬ íŒŒì¼ í˜•ì‹ : [" + contentType + "] \\r\\n   - ê°€ëŠ¥ íŒŒì¼ í˜•ì‹ : ["+SLibrary.join( this.checkContentType," | ")+"]");
 						}
 					}
 					else {
@@ -133,7 +133,7 @@ public class UploadMultipart {
 			String temp = str;
 			temp = SLibrary.replaceAll(temp, pre, "");
 			temp = SLibrary.replaceAll(temp, end, "/");
-			buf.append("¾÷·Îµå¿ë·®À» ÃÊ°ú ÇÏ¿´½À´Ï´Ù. ( ÇöÀçÆÄÀÏÅ©±â/Çã¿ëÆÄÀÏÅ©±â )\\r\\n   - ");
+			//buf.append("ï¿½ï¿½Îµï¿½ë·®; ï¿½Ê°ï¿½ ï¿½Ï¿ï¿½ï¿½4Ï´ï¿½. ( ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ )\\r\\n   - ");
 			buf.append(temp+" byte");
 		}else {
 			
