@@ -472,10 +472,12 @@ public class SmartDS extends SessionManagement {
 			String uploadName = fu.doUploadRename(bytes, path, fileName);
 			Thumbnail tmb = new Thumbnail();
 			tmb.createThumbnail(path+uploadName, VbyP.getValue("mmsPath")+ uploadName, 176);
+			//tmb.createThumbnail(path+uploadName, VbyP.getValue("mmsPathPP")+ uploadName, 176);
 			bvo.setstrDescription( VbyP.getValue("mmsURL")+uploadName );
 			bvo.setbResult(true);
 			
 		}catch(Exception e){
+			VbyP.errorLog(e.toString());
 			bvo.setbResult(false);
 			bvo.setstrDescription("이미지 파일이 업로드 되지 않았습니다.\r\n"+e.getMessage());
 		}
@@ -508,10 +510,13 @@ public class SmartDS extends SessionManagement {
 			}else if  ( getMode(smvo).equals("MMS") &&  !SLibrary.isNull( VbyP.getValue("useOnlyMMSLine") )) {
 				uvo.setLine(VbyP.getValue("useOnlyMMSLine"));
 				VbyP.accessLog(" - change line : "+VbyP.getValue("useOnlyMMSLine"));
+			} else {
+				VbyP.accessLog(" - line : "+ uvo.getLine());
 			}
 			
 			smvo.setReqIP(FlexContext.getHttpRequest().getRemoteAddr());
 			
+			sendLogWrite(smvo);
 			lvo = send.send(conn, uvo, smvo);
 			
 			Gv.removeStatus(uvo.getUser_id());
@@ -537,6 +542,25 @@ public class SmartDS extends SessionManagement {
 		else if ( SLibrary.getByte( smvo.getMessage() ) > SendManager.SMS_BYTE)
 			mode = "LMS";
 		return mode;
+	}
+	
+	private void sendLogWrite(SendMessageVO smvo) {
+	
+		StringBuffer buf = new StringBuffer();
+		
+		buf.append(" - message:"+smvo.getMessage()+"\n");
+		buf.append(" - phoneCount:"+smvo.getAl().size()+"\n");
+		buf.append(" - returnPhone:"+smvo.getReturnPhone()+"\n");
+		buf.append(" - bReservation:"+smvo.isbReservation()+"\n");
+		buf.append(" - reservationDate:"+smvo.getReservationDate()+"\n");
+		buf.append(" - bInterval:"+smvo.isbInterval()+"\n");
+		buf.append(" - itCount:"+smvo.getItCount()+"\n");
+		buf.append(" - itMinute:"+smvo.getItMinute()+"\n");
+		buf.append(" - bMerge:"+smvo.isbMerge()+"\n");
+		buf.append(" - imagePath:"+smvo.getImagePath()+"\n");
+		buf.append(" - reqIP:"+smvo.getReqIP());
+		
+		VbyP.accessLog(buf.toString());
 	}
 	
 	/*###############################
