@@ -200,6 +200,10 @@
 					if ( $('#gallery').length == 0 ) $('#main-image').prepend('<div id="gallery"></div>'); 
 				}
 			}
+			
+			function showCustom( htm ) {
+                $('#dialog').html( htm );
+            }
 
        </script>
       <link rel="stylesheet" type="text/css" href="css/base.css" />
@@ -302,10 +306,10 @@
 	<div id="footer">
 		<div id="info">
 			<ul>
-				<li><a href="javascirpt" title="회사소개" class="i01">회사소개</a></li>
-				<li><a href="javascirpt" title="개인정보보호정책" class="i02">개인정보보호정책</a></li>
-				<li><a href="javascirpt" title="이용약관" class="i03">이용약관</a></li>
-				<li><a href="javascirpt" title="광고스팸문자" class="i04">광고스팸문자</a></li>
+				<li><a href="javascirpt:" onclick="return modal_window('custom/company.html');" title="회사소개" class="i01">회사소개</a></li>
+				<li><a href="javascirpt" onclick="return modal_window('custom/personal.html');" title="개인정보보호정책" class="i02">개인정보보호정책</a></li>
+				<li><a href="javascirpt" onclick="return modal_window('custom/use.html');" title="이용약관" class="i03">이용약관</a></li>
+				<li><a href="javascirpt" onclick="return modal_window('custom/spam.html');" title="광고스팸문자" class="i04">광고스팸문자</a></li>
 			</ul>
 			<img src="images/bottom_etc.png" alt="파트너"/>
 		</div>
@@ -319,6 +323,91 @@
 </div><!-- wrap -->
 
 <iframe src="" id="nobody" name="nobody" frameborder="0" width="0" height="0" style="display:none"></iframe>
+
+
+<div id="dialog"></div>
+<div id="mask" onclick="close_layer_window(); return false;"></div>
+ 
+ 
+ 
+<script type="text/javascript" >
+	var is_mask_run =false;
+    // 창 리사이즈할때 마다 갱신
+    $(window).resize(function () {
+        if(is_mask_run){
+            modal_window();
+        }
+    });
+     
+    // 스크롤할때마다 위치 갱신
+    $(window).scroll(function () {
+        if(is_mask_run){
+            modal_window();
+        }
+    });
+        
+	//마스크 배경 클릭시 창 닫기
+	$('#mask').click(function ()
+	{
+	    $(this).hide();
+	    $('#dialog').hide();
+	 
+	    is_mask_run =false;
+	});
+	 
+	/*레이어 윈도우창 닫기*/
+	function close_layer_window(){
+	    $('#mask').hide();
+	    $('#dialog').hide();
+	    is_mask_run= false;
+	}
+	 
+	// 창 사이즈 설정
+	function modal_window(path)
+	{
+        $("#nobody").attr("src", path);
+	    // 활성화
+	    is_mask_run = true;
+	     
+	    // 마스크 사이즈
+	    var maskHeight = $(document).height();
+	    var maskWidth = $(window).width();
+	    $('#mask').css({'width':maskWidth,'height':maskHeight});
+	 
+	    // 마스크 effect  
+	    $('#mask').fadeTo("slow",0.8); 
+	 
+	    // 윈도우 화면 사이즈 구하기
+	    var winH = $(window).height();
+	    var winW = $(window).width();
+	 
+	    // 스크롤 높이 구하기
+	    var _y =(window.pageYOffset) ? window.pageYOffset
+	    : (document.documentElement && document.documentElement.scrollTop) ? document.documentElement.scrollTop
+	    : (document.body) ? document.body.scrollTop
+	    : 0;
+	 
+	    if(_y<1){
+	    var h = winH/2;
+	    }else{
+	    var h = winH/2+_y;
+	    }
+	 
+	    // dialog창 리사이즈
+	    var dial_width =$('#dialog').width();
+	    var dial_height = $('#dialog').height();
+	    $('#dialog').css({'width':dial_width,'height':dial_height});
+	    $('#dialog').css('top', h-dial_height/2);
+	    $('#dialog').css('left', winW/2-dial_width/2); 
+	 
+	    // dialog창  effect
+	    $('#dialog').fadeIn(2000);
+	    
+	    return false;
+	}
+</script>
   </body>
 </html>
+
+
 

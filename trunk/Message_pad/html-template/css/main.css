@@ -96,6 +96,9 @@
 #bill .billTable td {border-width: 1px;padding: 8px;border-style: solid;border-color: #EEEEEE;}
 #bill .billTable td span {color:#999;}
 
+#mask {position:absolute;left:0;top:0;z-index:900;background-color:#000;display:none;}
+#dialog {position:absolute;left:0;top:0; width:600px;height:600px;display:none;z-index:901;background:url("../images/note_bg.jpg");text-align:center;}
+
 
 
 
