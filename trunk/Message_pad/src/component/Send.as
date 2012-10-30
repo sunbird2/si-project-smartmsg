@@ -926,13 +926,18 @@ package component
 		
 		private function removeImage():void {
 			
-			if (arrImage.length > 2) {
+			/*if (arrImage.length > 2) {
 				arrImage.pop();
 				SLibrary.alert("3개까지만 추가 가능 합니다. 마지막 이미지가 지워졌습니다.");
 				trace(arrImage.join(";"));
 			}
 			
 			if (mBox.numElements == 4) {
+				mBox.removeElementAt(0);
+			}*/
+			
+			if (arrImage.length > 0) {
+				arrImage.pop();
 				mBox.removeElementAt(0);
 			}
 		}
