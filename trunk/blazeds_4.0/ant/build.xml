@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="tomcat-demo" default="build-and-ftp-reload" basedir=".">
+<project name="munjanote_release" default="build-and-ftp-reload" basedir=".">
 	<property file="build.properties" />
 	
 	<property name="server-home" value="/home/web/" />
