@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>문자노트- SMS, LMS, MMS</title>
+
+      <script type="text/javascript" src="../jquery-1.8.1.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="../css/base.css" />
+      <link rel="stylesheet" type="text/css" href="../css/main.css">
+      <script type="text/javascript">
+         $(document).ready(function() { 
+
+               if (parent.document) {
+                    parent.showCustom( $('#billWrap').html() );
+               }
+            });
+      </script>
+   </head>
+  <body class="main">
+<div id="billWrap">
+<h1 style="font-size:16px;margin:10px 0px;">회사소개</h1>
+<pre style="width:580px;height:530px;word-wrap: break-word;text-align:left;border:1px dotted gray;padding:5px 5px;">
+저희 에이디 소프트는 고객님의 사업에 조금이나마 보탬이 되고자
+
+최선을 다하겠습니다.
+
+<pre>
+</div>
+  </body>
+</html>
+
+
+
