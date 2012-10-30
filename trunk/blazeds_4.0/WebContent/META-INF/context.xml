@@ -16,6 +16,6 @@
 		testOnBorrow="true"
 		validationQuery="select 1 "
 		poolPreparedStatements="true"
-        url="jdbc:mysql://218.38.12.89:3306/munjanote?autoReconnection=true&amp;"
+        url="jdbc:mysql://218.38.12.89:3306/munjanote?autoReconnection=true&amp;zeroDateTimeBehavior=convertToNull"
         />
 </Context>
