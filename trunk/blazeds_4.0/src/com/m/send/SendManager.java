@@ -225,7 +225,10 @@ public class SendManager implements ISend {
 			vo.setCallback(smvo.getReturnPhone());
 			vo.setMsg(smvo.getMessage());
 			vo.setSendMode( smvo.isbReservation() ? "R" : "I");
-			vo.setImagePath( SLibrary.isNull(smvo.getImagePath()) ? smvo.getImagePath() : "");
+			if (uvo.getLine().equals("pp"))
+				vo.setImagePath( !SLibrary.isNull(smvo.getImagePath()) ? SLibrary.replaceAll(smvo.getImagePath(), "mmsImage/", "") : "");
+			else
+				vo.setImagePath( !SLibrary.isNull(smvo.getImagePath()) ? smvo.getImagePath() : "");
 			
 			
 			al.add(vo);
