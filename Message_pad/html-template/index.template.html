@@ -204,6 +204,14 @@
 			function showCustom( htm ) {
                 $('#dialog').html( htm );
             }
+			
+			function billSubmit(f) {
+				f.putAmount.submit();
+			}
+			
+			function putAmount(amount) {
+				document.billForm.LGD_AMOUNT.value = amount;
+			}
 
        </script>
       <link rel="stylesheet" type="text/css" href="css/base.css" />
