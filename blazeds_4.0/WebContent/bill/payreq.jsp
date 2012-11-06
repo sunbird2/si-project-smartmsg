@@ -1,3 +1,4 @@
+<%@page import="com.m.member.UserSession"%>
 <%@page import="com.common.util.SLibrary"%>
 <%@ page contentType="text/html;charset=EUC-KR" %>
 <%@ page import="java.io.*" %>
@@ -7,8 +8,9 @@
 <%@ page import="java.security.MessageDigest" %>
 <%@ page import="lgdacom.XPayClient.XPayClient"%>
 <%
-	String user_id = SLibrary.IfNull((String)request.getAttribute("user_id"));
-	if (SLibrary.isNull(user_id)) {
+	UserSession us = (UserSession)session.getAttribute("user_id");
+	String user_id = us.getUser_id();
+	if (SLibrary.isNull(us.getUser_id())) {
 		out.println(SLibrary.alertScript("로그인 후 이용 하세요.", ""));
 	}
     /*
@@ -28,11 +30,11 @@
                                                                                         //상점아이디(자동생성)
     String LGD_OID              = user_id+"_"+SLibrary.getUnixtimeStringSecond();//request.getParameter("LGD_OID");                      //주문번호(상점정의 유니크한 주문번호를 입력하세요)
     String LGD_AMOUNT           = request.getParameter("LGD_AMOUNT");                   //결제금액("," 를 제외한 결제금액을 입력하세요)
-    String LGD_MERTKEY          = "";													//상점MertKey(mertkey는 상점관리자 -> 계약정보 -> 상점정보관리에서 확인하실수 있습니다)
-	String LGD_BUYER            = request.getParameter("LGD_BUYER");                    //구매자명
-    String LGD_PRODUCTINFO      = request.getParameter("LGD_PRODUCTINFO");              //상품명
-    String LGD_BUYEREMAIL       = request.getParameter("LGD_BUYEREMAIL");               //구매자 이메일
-    String LGD_TIMESTAMP        = request.getParameter("LGD_TIMESTAMP");                //타임스탬프
+    String LGD_MERTKEY          = "be40663ff0756bbc25c90073def17e74";													//상점MertKey(mertkey는 상점관리자 -> 계약정보 -> 상점정보관리에서 확인하실수 있습니다)
+	String LGD_BUYER            = user_id;//request.getParameter("LGD_BUYER");                    //구매자명
+    String LGD_PRODUCTINFO      = "문자노트";//request.getParameter("LGD_PRODUCTINFO");              //상품명
+    String LGD_BUYEREMAIL       = "";//request.getParameter("LGD_BUYEREMAIL");               //구매자 이메일
+    String LGD_TIMESTAMP        = SLibrary.getUnixtimeStringSecond();//request.getParameter("LGD_TIMESTAMP");                //타임스탬프
     String LGD_CUSTOM_SKIN      = "red";                                                //상점정의 결제창 스킨(red, blue, cyan, green, yellow)
     String LGD_BUYERID          = request.getParameter("LGD_BUYERID");       			//구매자 아이디
     String LGD_BUYERIP          = request.getParameter("LGD_BUYERIP");       			//구매자IP
@@ -128,6 +130,7 @@ function isActiveXOK(){
 	if(lgdacom_atx_flag == true){
     	document.getElementById('LGD_BUTTON1').style.display='none';
         document.getElementById('LGD_BUTTON2').style.display='';
+        doPay_ActiveX();
 	}else{
 		document.getElementById('LGD_BUTTON1').style.display='';
         document.getElementById('LGD_BUTTON2').style.display='none';	

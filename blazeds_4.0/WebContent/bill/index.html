@@ -24,7 +24,6 @@
 <div id="billWrap">
 <!-- bill -->
 <form name="billForm" method="post" target="nobody" action="/bill/payreq.jsp">
-	<input type="hidden" name="LGD_AMOUNT" value="" />
                 <div id="bill">
                     <img src="/images/bill_title.jpg" class="title"/>
                     <div class="step01">
@@ -45,25 +44,25 @@
                                 <th width="300">결제금액</th><th width="300">충전건수</th><th width="300">단가</th>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a10000" name="a10000" value="10000" onclick="putAmount(this.value)" onfocus="this.blur()"/><label for="a10000">10,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
+                                <td><input type="radio" id="a10000" name="LGD_AMOUNT" value="10000" onfocus="this.blur()"/><label for="a10000">10,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a30000" name="a30000" value="30000" onclick="putAmount(this.value)" onfocus="this.blur()" checked="checked"/><label for="a10000">30,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
+                                <td><input type="radio" id="a30000" name="LGD_AMOUNT" value="30000" onfocus="this.blur()" checked="checked"/><label for="a30000">30,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a50000" name="a50000" value="50000" onclick="putAmount(this.value)" onfocus="this.blur()"/><label for="a10000">50,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
+                                <td><input type="radio" id="a50000" name="LGD_AMOUNT" value="50000" onfocus="this.blur()"/><label for="a50000">50,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a100000" name="a100000" value="100000" onclick="putAmount(this.value)" onfocus="this.blur()"/><label for="a10000">100,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
+                                <td><input type="radio" id="a100000" name="LGD_AMOUNT" value="100000" onfocus="this.blur()"/><label for="a100000">100,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a300000" name="a300000" value="300000" onclick="putAmount(this.value)" onfocus="this.blur()"/><label for="a10000">300,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
+                                <td><input type="radio" id="a300000" name="LGD_AMOUNT" value="300000" onfocus="this.blur()"/><label for="a300000">300,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a500000" name="a500000" value="500000" onclick="putAmount(this.value)" onfocus="this.blur()"/><label for="a10000">500,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
+                                <td><input type="radio" id="a500000" name="LGD_AMOUNT" value="500000" onfocus="this.blur()"/><label for="a500000">500,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a1000000" name="a1000000" value="1000000" onclick="putAmount(this.value)" onfocus="this.blur()"/><label for="a10000">1,000,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
+                                <td><input type="radio" id="a1000000" name="LGD_AMOUNT" value="1000000" onfocus="this.blur()"/><label for="a1000000">1,000,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
                             </tr>
                         </table>
 
