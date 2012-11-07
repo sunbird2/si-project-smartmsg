@@ -9,58 +9,31 @@
 <%@ page import="lgdacom.XPayClient.XPayClient"%>
 <%
 	UserSession us = (UserSession)session.getAttribute("user_id");
-	String user_id = us.getUser_id();
-	if (SLibrary.isNull(us.getUser_id())) {
-		out.println(SLibrary.alertScript("·Î±×ÀÎ ÈÄ ÀÌ¿ë ÇÏ¼¼¿ä.", ""));
+	
+	if (us == null) {
+		out.println(SLibrary.alertScript("ë¡œê·¸ì¸ í›„ ì´ìš© ê°€ëŠ¥ í•©ë‹ˆë‹¤.", ""));
+		return;
 	}
-    /*
-     * [°áÁ¦ ÀÎÁõ¿äÃ» ÆäÀÌÁö(STEP2-1)]
-     *
-     * »ùÇÃÆäÀÌÁö¿¡¼­´Â ±âº» ÆÄ¶ó¹ÌÅÍ¸¸ ¿¹½ÃµÇ¾î ÀÖÀ¸¸ç, º°µµ·Î ÇÊ¿äÇÏ½Å ÆÄ¶ó¹ÌÅÍ´Â ¿¬µ¿¸Þ´º¾óÀ» Âü°íÇÏ½Ã¾î Ãß°¡ ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.
-     */
+	String user_id = us.getUser_id();
+   
+    String CST_PLATFORM         = "test"; //(test, service)
+    String CST_MID              = "fd_adsoft2";
+    String LGD_MID              = ("test".equals(CST_PLATFORM.trim())?"t":"")+CST_MID;
+                                                                                      
+    String LGD_OID              = user_id+"_"+SLibrary.getUnixtimeStringSecond();
+    String LGD_AMOUNT           = request.getParameter("LGD_AMOUNT");
+    String LGD_MERTKEY          = "be40663ff0756bbc25c90073def17e74";
+	String LGD_BUYER            = user_id;
+    String LGD_PRODUCTINFO      = "ï¿½ï¿½ï¿½Ú³ï¿½Æ®";
+    String LGD_BUYEREMAIL       = "";
+    String LGD_TIMESTAMP        = SLibrary.getUnixtimeStringSecond();
+    String LGD_CUSTOM_SKIN      = "red"; //(red, blue, cyan, green, yellow)
+    String LGD_BUYERID          = user_id;
+    String LGD_BUYERIP          = request.getRemoteAddr();//request.getParameter("LGD_BUYERIP");
+    String LGD_CUSTOM_FIRSTPAY	= request.getParameter("LGD_CUSTOM_FIRSTPAY");
 
-    /*
-     * 1. ±âº»°áÁ¦ ÀÎÁõ¿äÃ» Á¤º¸ º¯°æ
-     *
-     * ±âº»Á¤º¸¸¦ º¯°æÇÏ¿© ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.(ÆÄ¶ó¹ÌÅÍ Àü´Þ½Ã POST¸¦ »ç¿ëÇÏ¼¼¿ä)
-     */
-    String CST_PLATFORM         = "test";//request.getParameter("CST_PLATFORM");                 //LGÀ¯ÇÃ·¯½º °áÁ¦¼­ºñ½º ¼±ÅÃ(test:Å×½ºÆ®, service:¼­ºñ½º)
-    String CST_MID              = "fd_adsoft2";//request.getParameter("CST_MID");                      //LGÀ¯ÇÃ·¯½ºÀ¸·Î ºÎÅÍ ¹ß±Þ¹ÞÀ¸½Å »óÁ¡¾ÆÀÌµð¸¦ ÀÔ·ÂÇÏ¼¼¿ä.
-    String LGD_MID              = ("test".equals(CST_PLATFORM.trim())?"t":"")+CST_MID;  //Å×½ºÆ® ¾ÆÀÌµð´Â 't'¸¦ Á¦¿ÜÇÏ°í ÀÔ·ÂÇÏ¼¼¿ä.
-                                                                                        //»óÁ¡¾ÆÀÌµð(ÀÚµ¿»ý¼º)
-    String LGD_OID              = user_id+"_"+SLibrary.getUnixtimeStringSecond();//request.getParameter("LGD_OID");                      //ÁÖ¹®¹øÈ£(»óÁ¡Á¤ÀÇ À¯´ÏÅ©ÇÑ ÁÖ¹®¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä)
-    String LGD_AMOUNT           = request.getParameter("LGD_AMOUNT");                   //°áÁ¦±Ý¾×("," ¸¦ Á¦¿ÜÇÑ °áÁ¦±Ý¾×À» ÀÔ·ÂÇÏ¼¼¿ä)
-    String LGD_MERTKEY          = "be40663ff0756bbc25c90073def17e74";													//»óÁ¡MertKey(mertkey´Â »óÁ¡°ü¸®ÀÚ -> °è¾àÁ¤º¸ -> »óÁ¡Á¤º¸°ü¸®¿¡¼­ È®ÀÎÇÏ½Ç¼ö ÀÖ½À´Ï´Ù)
-	String LGD_BUYER            = user_id;//request.getParameter("LGD_BUYER");                    //±¸¸ÅÀÚ¸í
-    String LGD_PRODUCTINFO      = "¹®ÀÚ³ëÆ®";//request.getParameter("LGD_PRODUCTINFO");              //»óÇ°¸í
-    String LGD_BUYEREMAIL       = "";//request.getParameter("LGD_BUYEREMAIL");               //±¸¸ÅÀÚ ÀÌ¸ÞÀÏ
-    String LGD_TIMESTAMP        = SLibrary.getUnixtimeStringSecond();//request.getParameter("LGD_TIMESTAMP");                //Å¸ÀÓ½ºÅÆÇÁ
-    String LGD_CUSTOM_SKIN      = "red";                                                //»óÁ¡Á¤ÀÇ °áÁ¦Ã¢ ½ºÅ²(red, blue, cyan, green, yellow)
-    String LGD_BUYERID          = request.getParameter("LGD_BUYERID");       			//±¸¸ÅÀÚ ¾ÆÀÌµð
-    String LGD_BUYERIP          = request.getParameter("LGD_BUYERIP");       			//±¸¸ÅÀÚIP
+    String LGD_CASNOTEURL		= "http://www.munjanote.com/bill/cas_noteurl.jsp";    
 
-    /*
-     * °¡»ó°èÁÂ(¹«ÅëÀå) °áÁ¦ ¿¬µ¿À» ÇÏ½Ã´Â °æ¿ì ¾Æ·¡ LGD_CASNOTEURL À» ¼³Á¤ÇÏ¿© ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù. 
-     */    
-    String LGD_CASNOTEURL		= "http://»óÁ¡URL/cas_noteurl.jsp";    
-
-    /*
-     *************************************************
-     * 2. MD5 ÇØ½¬¾ÏÈ£È­ (¼öÁ¤ÇÏÁö ¸¶¼¼¿ä) - BEGIN
-     *
-     * MD5 ÇØ½¬¾ÏÈ£È­´Â °Å·¡ À§º¯Á¶¸¦ ¸·±âÀ§ÇÑ ¹æ¹ýÀÔ´Ï´Ù.
-     *************************************************
-     *
-     * ÇØ½¬ ¾ÏÈ£È­ Àû¿ë( LGD_MID + LGD_OID + LGD_AMOUNT + LGD_TIMESTAMP + LGD_MERTKEY )
-     * LGD_MID          : »óÁ¡¾ÆÀÌµð
-     * LGD_OID          : ÁÖ¹®¹øÈ£
-     * LGD_AMOUNT       : ±Ý¾×
-     * LGD_TIMESTAMP    : Å¸ÀÓ½ºÅÆÇÁ
-     * LGD_MERTKEY      : »óÁ¡MertKey (mertkey´Â »óÁ¡°ü¸®ÀÚ -> °è¾àÁ¤º¸ -> »óÁ¡Á¤º¸°ü¸®¿¡¼­ È®ÀÎÇÏ½Ç¼ö ÀÖ½À´Ï´Ù)
-     *
-     * MD5 ÇØ½¬µ¥ÀÌÅÍ ¾ÏÈ£È­ °ËÁõÀ» À§ÇØ
-     * LGÀ¯ÇÃ·¯½º¿¡¼­ ¹ß±ÞÇÑ »óÁ¡Å°(MertKey)¸¦ È¯°æ¼³Á¤ ÆÄÀÏ(lgdacom/conf/mall.conf)¿¡ ¹Ýµå½Ã ÀÔ·ÂÇÏ¿© ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.
-     */
     StringBuffer sb = new StringBuffer();
     sb.append(LGD_MID);
     sb.append(LGD_OID);
@@ -83,45 +56,42 @@
 
     String LGD_HASHDATA = strBuf.toString();
     String LGD_CUSTOM_PROCESSTYPE = "TWOTR";
-    /*
-     *************************************************
-     * 2. MD5 ÇØ½¬¾ÏÈ£È­ (¼öÁ¤ÇÏÁö ¸¶¼¼¿ä) - END
-     *************************************************
-     */
+
 %>
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>LGÀ¯ÇÃ·¯½º eCredit¼­ºñ½º °áÁ¦Å×½ºÆ®</title>
+<title>LG</title>
 <script type="text/javascript">
+
 /*
- * »óÁ¡°áÁ¦ ÀÎÁõ¿äÃ»ÈÄ PAYKEY¸¦ ¹Þ¾Æ¼­ ÃÖÁ¾°áÁ¦ ¿äÃ».
+ * ìƒì ê²°ì œ ì¸ì¦ìš”ì²­í›„ PAYKEYë¥¼ ë°›ì•„ì„œ ìµœì¢…ê²°ì œ ìš”ì²­.
  */
 function doPay_ActiveX(){
     ret = xpay_check(document.getElementById('LGD_PAYINFO'), '<%= CST_PLATFORM %>');
 
-    if (ret=="00"){     //ActiveX ·Îµù ¼º°ø
-        var LGD_RESPCODE        = dpop.getData('LGD_RESPCODE');       //°á°úÄÚµå
-        var LGD_RESPMSG         = dpop.getData('LGD_RESPMSG');        //°á°ú¸Þ¼¼Áö
+    if (ret=="00"){     //ActiveX ë¡œë”© ì„±ê³µ
+        var LGD_RESPCODE        = dpop.getData('LGD_RESPCODE');       //ê²°ê³¼ì½”ë“œ
+        var LGD_RESPMSG         = dpop.getData('LGD_RESPMSG');        //ê²°ê³¼ë©”ì„¸ì§€
 
-        if( "0000" == LGD_RESPCODE ) { //ÀÎÁõ¼º°ø
-            var LGD_PAYKEY      = dpop.getData('LGD_PAYKEY');         //LGÀ¯ÇÃ·¯½º ÀÎÁõKEY
-            var msg = "ÀÎÁõ°á°ú : " + LGD_RESPMSG + "\n";
+        if( "0000" == LGD_RESPCODE ) { //ì¸ì¦ì„±ê³µ
+            var LGD_PAYKEY      = dpop.getData('LGD_PAYKEY');         //LGìœ í”ŒëŸ¬ìŠ¤ ì¸ì¦KEY
+            var msg = "ì¸ì¦ê²°ê³¼ : " + LGD_RESPMSG + "\n";
             msg += "LGD_PAYKEY : " + LGD_PAYKEY +"\n\n";
             document.getElementById('LGD_PAYKEY').value = LGD_PAYKEY;
             alert(msg);
             document.getElementById('LGD_PAYINFO').submit();
-        } else { //ÀÎÁõ½ÇÆÐ
-            alert("ÀÎÁõÀÌ ½ÇÆÐÇÏ¿´½À´Ï´Ù. " + LGD_RESPMSG);
+        } else { //ì¸ì¦ì‹¤íŒ¨
+            alert("ì¸ì¦ì´ ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤. " + LGD_RESPMSG);
             /*
-             * ÀÎÁõ½ÇÆÐ È­¸é Ã³¸®
+             * ì¸ì¦ì‹¤íŒ¨ í™”ë©´ ì²˜ë¦¬
              */
         }
     } else {
-        alert("LG U+ ÀüÀÚ°áÁ¦¸¦ À§ÇÑ ActiveX ControlÀÌ  ¼³Ä¡µÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+        alert("LG U+ ì „ìžê²°ì œë¥¼ ìœ„í•œ ActiveX Controlì´  ì„¤ì¹˜ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         /*
-         * ÀÎÁõ½ÇÆÐ È­¸é Ã³¸®
+         * ì¸ì¦ì‹¤íŒ¨ í™”ë©´ ì²˜ë¦¬
          */
     }      
 }
@@ -140,76 +110,78 @@ function isActiveXOK(){
 </head>
 
 <body onload="isActiveXOK();">
-<div id="LGD_ACTIVEX_DIV"/> <!-- ActiveX ¼³Ä¡ ¾È³» Layer ÀÔ´Ï´Ù. ¼öÁ¤ÇÏÁö ¸¶¼¼¿ä. -->
+<div id="LGD_ACTIVEX_DIV"/> <!-- ActiveX ì„¤ì¹˜ ì•ˆë‚´ Layer ìž…ë‹ˆë‹¤. ìˆ˜ì •í•˜ì§€ ë§ˆì„¸ìš”. -->
 <form method="post" id="LGD_PAYINFO" action="payres.jsp">
 <table>
     <tr>
-        <td>±¸¸ÅÀÚ ÀÌ¸§ </td>
+        <td>êµ¬ë§¤ìž ì´ë¦„ </td>
         <td><%= LGD_BUYER %></td>
     </tr>
     <tr>
-        <td>±¸¸ÅÀÚ IP </td>
+        <td>êµ¬ë§¤ìž IP </td>
         <td><%= LGD_BUYERIP %></td>
     </tr>
     <tr>
-        <td>±¸¸ÅÀÚ ID </td>
+        <td>êµ¬ë§¤ìž ID </td>
         <td><%= LGD_BUYERID %></td>
     </tr>    
     <tr>
-        <td>»óÇ°Á¤º¸ </td>
+        <td>ìƒí’ˆì •ë³´ </td>
         <td><%= LGD_PRODUCTINFO %></td>
     </tr>
     <tr>
-        <td>°áÁ¦±Ý¾× </td>
+        <td>ê²°ì œê¸ˆì•¡ </td>
         <td><%= LGD_AMOUNT %></td>
     </tr>
     <tr>
-        <td>±¸¸ÅÀÚ ÀÌ¸ÞÀÏ </td>
+        <td>êµ¬ë§¤ìž ì´ë©”ì¼ </td>
         <td><%= LGD_BUYEREMAIL %></td>
     </tr>
     <tr>
-        <td>ÁÖ¹®¹øÈ£ </td>
+        <td>ì£¼ë¬¸ë²ˆí˜¸ </td>
         <td><%= LGD_OID %></td>
     </tr>
     <tr>
-        <td colspan="2">* Ãß°¡ »ó¼¼ °áÁ¦¿äÃ» ÆÄ¶ó¹ÌÅÍ´Â ¸Þ´º¾óÀ» ÂüÁ¶ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.</td>
+        <td colspan="2">* ì¶”ê°€ ìƒì„¸ ê²°ì œìš”ì²­ íŒŒë¼ë¯¸í„°ëŠ” ë©”ë‰´ì–¼ì„ ì°¸ì¡°í•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.</td>
     </tr>
     <tr>
         <td colspan="2"></td>
     </tr>    
     <tr>
         <td colspan="2">
-		<div id="LGD_BUTTON1">°áÁ¦¸¦ À§ÇÑ ¸ðµâÀ» ´Ù¿î ÁßÀÌ°Å³ª, ¸ðµâÀ» ¼³Ä¡ÇÏÁö ¾Ê¾Ò½À´Ï´Ù. </div>
-		<div id="LGD_BUTTON2" style="display:none"><input type="button" value="ÀÎÁõ¿äÃ»" onclick="doPay_ActiveX();"/> </div>        
+		<div id="LGD_BUTTON1">ê²°ì œë¥¼ ìœ„í•œ ëª¨ë“ˆì„ ë‹¤ìš´ ì¤‘ì´ê±°ë‚˜, ëª¨ë“ˆì„ ì„¤ì¹˜í•˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. </div>
+		<div id="LGD_BUTTON2" style="display:none"><input type="button" value="ì¸ì¦ìš”ì²­" onclick="doPay_ActiveX();"/> </div>        
         </td>
     </tr>    
 </table>
 <br>
 
-<input type="hidden" name="CST_PLATFORM"                value="<%= CST_PLATFORM %>">                   <!-- Å×½ºÆ®, ¼­ºñ½º ±¸ºÐ -->
-<input type="hidden" name="CST_MID"                     value="<%= CST_MID %>">                        <!-- »óÁ¡¾ÆÀÌµð -->
-<input type="hidden" name="LGD_MID"                     value="<%= LGD_MID %>">                        <!-- »óÁ¡¾ÆÀÌµð -->
-<input type="hidden" name="LGD_OID"                     value="<%= LGD_OID %>">                        <!-- ÁÖ¹®¹øÈ£ -->
-<input type="hidden" name="LGD_BUYER"                   value="<%= LGD_BUYER %>">                      <!-- ±¸¸ÅÀÚ -->
-<input type="hidden" name="LGD_PRODUCTINFO"             value="<%= LGD_PRODUCTINFO %>">                <!-- »óÇ°Á¤º¸ -->
-<input type="hidden" name="LGD_AMOUNT"                  value="<%= LGD_AMOUNT %>">                     <!-- °áÁ¦±Ý¾× -->
-<input type="hidden" name="LGD_BUYEREMAIL"              value="<%= LGD_BUYEREMAIL %>">                 <!-- ±¸¸ÅÀÚ ÀÌ¸ÞÀÏ -->
-<input type="hidden" name="LGD_CUSTOM_SKIN"             value="<%= LGD_CUSTOM_SKIN %>">                <!-- °áÁ¦Ã¢ SKIN -->
-<input type="hidden" name="LGD_CUSTOM_PROCESSTYPE"      value="<%= LGD_CUSTOM_PROCESSTYPE %>">         <!-- Æ®·£Àè¼Ç Ã³¸®¹æ½Ä -->
-<input type="hidden" name="LGD_TIMESTAMP"               value="<%= LGD_TIMESTAMP %>">                  <!-- Å¸ÀÓ½ºÅÆÇÁ -->
-<input type="hidden" name="LGD_HASHDATA"                value="<%= LGD_HASHDATA %>">                   <!-- MD5 ÇØ½¬¾ÏÈ£°ª -->
-<input type="hidden" name="LGD_PAYKEY"                  id="LGD_PAYKEY">   							   <!-- LGÀ¯ÇÃ·¯½º PAYKEY(ÀÎÁõÈÄ ÀÚµ¿¼ÂÆÃ)-->
+<input type="hidden" name="CST_PLATFORM"                value="<%= CST_PLATFORM %>">                   <!-- í…ŒìŠ¤íŠ¸, ì„œë¹„ìŠ¤ êµ¬ë¶„ -->
+<input type="hidden" name="CST_MID"                     value="<%= CST_MID %>">                        <!-- ìƒì ì•„ì´ë”” -->
+<input type="hidden" name="LGD_MID"                     value="<%= LGD_MID %>">                        <!-- ìƒì ì•„ì´ë”” -->
+<input type="hidden" name="LGD_OID"                     value="<%= LGD_OID %>">                        <!-- ì£¼ë¬¸ë²ˆí˜¸ -->
+<input type="hidden" name="LGD_BUYER"                   value="<%= LGD_BUYER %>">                      <!-- êµ¬ë§¤ìž -->
+<input type="hidden" name="LGD_PRODUCTINFO"             value="<%= LGD_PRODUCTINFO %>">                <!-- ìƒí’ˆì •ë³´ -->
+<input type="hidden" name="LGD_AMOUNT"                  value="<%= LGD_AMOUNT %>">                     <!-- ê²°ì œê¸ˆì•¡ -->
+<input type="hidden" name="LGD_BUYEREMAIL"              value="<%= LGD_BUYEREMAIL %>">                 <!-- êµ¬ë§¤ìž ì´ë©”ì¼ -->
+<input type="hidden" name="LGD_CUSTOM_SKIN"             value="<%= LGD_CUSTOM_SKIN %>">                <!-- ê²°ì œì°½ SKIN -->
+<input type="hidden" name="LGD_CUSTOM_PROCESSTYPE"      value="<%= LGD_CUSTOM_PROCESSTYPE %>">         <!-- íŠ¸ëžœìž­ì…˜ ì²˜ë¦¬ë°©ì‹ -->
+<input type="hidden" name="LGD_TIMESTAMP"               value="<%= LGD_TIMESTAMP %>">                  <!-- íƒ€ìž„ìŠ¤íƒ¬í”„ -->
+<input type="hidden" name="LGD_HASHDATA"                value="<%= LGD_HASHDATA %>">                   <!-- MD5 í•´ì‰¬ì•”í˜¸ê°’ -->
+<input type="hidden" name="LGD_PAYKEY"                  id="LGD_PAYKEY">   							   <!-- LGìœ í”ŒëŸ¬ìŠ¤ PAYKEY(ì¸ì¦í›„ ìžë™ì…‹íŒ…)-->
 <input type="hidden" name="LGD_VERSION"         		value="JSP_XPay_1.0">
-<input type="hidden" name="LGD_BUYERIP"                 value="<%= LGD_BUYERIP %>">           			<!-- ±¸¸ÅÀÚIP -->
-<input type="hidden" name="LGD_BUYERID"                 value="<%= LGD_BUYERID %>">           			<!-- ±¸¸ÅÀÚID -->
+<input type="hidden" name="LGD_BUYERIP"                 value="<%= LGD_BUYERIP %>">           			<!-- êµ¬ë§¤ìžIP -->
+<input type="hidden" name="LGD_BUYERID"                 value="<%= LGD_BUYERID %>">           			<!-- êµ¬ë§¤ìžID -->
+<input type="hidden" name="LGD_CUSTOM_FIRSTPAY"                 value="<%= LGD_CUSTOM_FIRSTPAY %>">           			<!-- ê²°ì œ ë°©ì‹ -->
 
-<!-- °¡»ó°èÁÂ(¹«ÅëÀå) °áÁ¦¿¬µ¿À» ÇÏ½Ã´Â °æ¿ì  ÇÒ´ç/ÀÔ±Ý °á°ú¸¦ Åëº¸¹Þ±â À§ÇØ ¹Ýµå½Ã LGD_CASNOTEURL Á¤º¸¸¦ LG À¯ÇÃ·¯½º¿¡ Àü¼ÛÇØ¾ß ÇÕ´Ï´Ù . -->
-<input type="hidden" name="LGD_CASNOTEURL"          	value="<%= LGD_CASNOTEURL %>" >                 <!-- °¡»ó°èÁÂ NOTEURL -->
+
+<!-- ê°€ìƒê³„ì¢Œ(ë¬´í†µìž¥) ê²°ì œì—°ë™ì„ í•˜ì‹œëŠ” ê²½ìš°  í• ë‹¹/ìž…ê¸ˆ ê²°ê³¼ë¥¼ í†µë³´ë°›ê¸° ìœ„í•´ ë°˜ë“œì‹œ LGD_CASNOTEURL ì •ë³´ë¥¼ LG ìœ í”ŒëŸ¬ìŠ¤ì— ì „ì†¡í•´ì•¼ í•©ë‹ˆë‹¤ . -->
+<input type="hidden" name="LGD_CASNOTEURL"          	value="<%= LGD_CASNOTEURL %>" >                 <!-- ê°€ìƒê³„ì¢Œ NOTEURL -->
 
 </form>
 </body>
-<!--  xpay.js´Â ¹Ýµå½Ã body ¹Ø¿¡ µÎ½Ã±â ¹Ù¶ø´Ï´Ù. -->
-<!--  UTF-8 ÀÎÄÚµù »ç¿ë ½Ã´Â xpay.js ´ë½Å xpay_utf-8.js À»  È£ÃâÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.-->
+<!--  xpay.jsëŠ” ë°˜ë“œì‹œ body ë°‘ì— ë‘ì‹œê¸° ë°”ëžë‹ˆë‹¤. -->
+<!--  UTF-8 ì¸ì½”ë”© ì‚¬ìš© ì‹œëŠ” xpay.js ëŒ€ì‹  xpay_utf-8.js ì„  í˜¸ì¶œí•˜ì‹œê¸° ë°”ëžë‹ˆë‹¤.-->
 <script language="javascript" src="<%=request.getScheme()%>://xpay.uplus.co.kr<%="test".equals(CST_PLATFORM)?(request.getScheme().equals("https")?":7443":":7080"):""%>/xpay/js/xpay_utf-8.js" type="text/javascript">
 </script>
 </html>
