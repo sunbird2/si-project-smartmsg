@@ -12,11 +12,6 @@
     <link rel="stylesheet" type="text/css" href="css/uploadify.css" />
     <script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.uploadify-3.1.min.js"></script>
-	
-	<style type="text/css">
-body{margin:0; padding:0;}
-.upload_msg{width:100%; background-color:#c40005; color:#fff; text-align:center; font:bold 14px normal; position:absolute; top:0; left:0; padding:10px 0; display:none;}
-</style>
    </head>
   <body>
   
@@ -24,26 +19,37 @@ body{margin:0; padding:0;}
 	
 	
 	<script type="text/javascript">
+	
 	$(function() {
-		$('#file_upload').uploadify({
+		$('#imgOne_upload').uploadify({
 			'swf'      : 'js/uploadify.swf', // 파일업로드 이벤트 가로채틑 flash
 			'uploader' : 'uploadify.jsp', // 비동기 업로드시 처리 url
-			'fileTypeDesc' : '이미지',
-			'fileTypeExts'  : '*.jpg, *.jpeg, *.png, *.gif',
-			'buttonText' : '이미지업로드',
-			'queueID'  : 'img1_add', // queue display element
+			'fileTypeDesc' : 'Image Files',
+	        'fileTypeExts' : '*.gif; *.jpg; *.png',
+			'buttonText' : '이미지등록',
 			'removeTimeout' : 1, // queue 제거 시간
-// 			'cancelImage' : 'uploadify-cancel.png', // 업로드 취소 이미지
-// 			'checkExisting' : '', // 파일 존재 체크 url 
-// 			'postData' : {'fileName' : 'attach_'+new Date().getTime()}, // 파라미터 추가
-// 			'folder' : 'upload',
-// 			'buttonText' : '파일 첨부',
-// 			'auto' : true, // 자동 파일 업로드 여부
+			'multi' : false, // 다중업로드
  			'onUploadSuccess' : function(file, data, response) {
- 				$('#imgs').append('<img id="img1" src="'+"uploadImage/"+data+'" />');
- 				$('#img1_add').hide();
- 				//$('#img1').attr("src", "uploadImage/"+data);
-            	//alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
+ 				if ($('#imgOne').length > 0)
+ 					$('#imgOne').attr('src','uploadImage/'+data);
+ 				else
+ 					$('#imgOne_box').append('<img id="imgOne" src="'+"uploadImage/"+data+'" />');
+        	}
+ 			
+		});
+		
+		
+		$('#imgThumbnail_upload').uploadify({
+			'swf'      : 'js/uploadify.swf', // 파일업로드 이벤트 가로채틑 flash
+			'uploader' : 'uploadifyMulti.jsp', // 비동기 업로드시 처리 url
+			'fileTypeDesc' : 'Image Files',
+	        'fileTypeExts' : '*.gif; *.jpg; *.png',
+			'buttonText' : '이미지등록',
+			'removeTimeout' : 1, // queue 제거 시간
+			'multi' : true, // 다중업로드
+ 			'onUploadSuccess' : function(file, data, response) {
+ 				$('#imgThumbnail_box').append('<img id="imgThumbnail" src="'+"uploadImage/thumb/"+data+'" />');
+ 				//$('#img1').attr("src", "uploadImage/"+data);alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
         	}
  			
 		});
@@ -59,10 +65,16 @@ body{margin:0; padding:0;}
   	<dl>
   		<dt>이미지 1장</dt>
   		<dd>
-  			<div id="img1_wrap">
-  				<a href="#" id="img1_add" class="img1_add">PC에 저장된 사진을 첨부 하실 수 있으며,<br/>용량이 큰 사이즈는 리사이즈 됩니다.<br/>
-  				<input type="file" name="file_upload" id="file_upload" style="display:inline;" /></a>
-  				<div id="imgs"></div>
+  			<div id="imgOne_wrap">
+  				<div id="imgOne_box"></div>
+  				<input type="file" name="imgOne_upload" id="imgOne_upload" />
+  			</div>
+  		</dd>
+  		<dt>이미지 썸네일</dt>
+  		<dd>
+  			<div id="imgThumbnail_wrap">
+  				<div id="imgThumbnail_box"></div>
+  				<input type="file" name="imgThumbnail_upload" id="imgThumbnail_upload" />
   			</div>
   		</dd>
   	</dl>
