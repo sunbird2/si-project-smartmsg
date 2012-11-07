@@ -1,19 +1,19 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
+<%@ page page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="lgdacom.XPayClient.XPayClient"%>
 
 <%
     /*
-     * [ÃÖÁ¾°áÁ¦¿äÃ» ÆäÀÌÁö(STEP2-2)]
+     * [ìµœì¢…ê²°ì œìš”ì²­ í˜ì´ì§€(STEP2-2)]
      *
-     * LGÀ¯ÇÃ·¯½ºÀ¸·Î ºÎÅÍ ³»·Á¹ŞÀº LGD_PAYKEY(ÀÎÁõKey)¸¦ °¡Áö°í ÃÖÁ¾ °áÁ¦¿äÃ».(ÆÄ¶ó¹ÌÅÍ Àü´Ş½Ã POST¸¦ »ç¿ëÇÏ¼¼¿ä)
+     * LGìœ í”ŒëŸ¬ìŠ¤ìœ¼ë¡œ ë¶€í„° ë‚´ë ¤ë°›ì€ LGD_PAYKEY(ì¸ì¦Key)ë¥¼ ê°€ì§€ê³  ìµœì¢… ê²°ì œìš”ì²­.(íŒŒë¼ë¯¸í„° ì „ë‹¬ì‹œ POSTë¥¼ ì‚¬ìš©í•˜ì„¸ìš”)
      */
 
-    String configPath = "C:/lgdacom";  //LGÀ¯ÇÃ·¯½º¿¡¼­ Á¦°øÇÑ È¯°æÆÄÀÏ("/conf/lgdacom.conf,/conf/mall.conf") À§Ä¡ ÁöÁ¤.
+    String configPath = "C:/lgdacom";  //LGìœ í”ŒëŸ¬ìŠ¤ì—ì„œ ì œê³µí•œ í™˜ê²½íŒŒì¼("/conf/lgdacom.conf,/conf/mall.conf") ìœ„ì¹˜ ì§€ì •.
     
     /*
      *************************************************
-     * 1.ÃÖÁ¾°áÁ¦ ¿äÃ» - BEGIN
-     *  (´Ü, ÃÖÁ¾ ±İ¾×Ã¼Å©¸¦ ¿øÇÏ½Ã´Â °æ¿ì ±İ¾×Ã¼Å© ºÎºĞ ÁÖ¼®À» Á¦°Å ÇÏ½Ã¸é µË´Ï´Ù.)
+     * 1.ìµœì¢…ê²°ì œ ìš”ì²­ - BEGIN
+     *  (ë‹¨, ìµœì¢… ê¸ˆì•¡ì²´í¬ë¥¼ ì›í•˜ì‹œëŠ” ê²½ìš° ê¸ˆì•¡ì²´í¬ ë¶€ë¶„ ì£¼ì„ì„ ì œê±° í•˜ì‹œë©´ ë©ë‹ˆë‹¤.)
      *************************************************
      */
     
@@ -22,58 +22,58 @@
     String LGD_MID                      = ("test".equals(CST_PLATFORM.trim())?"t":"")+CST_MID;
     String LGD_PAYKEY                   = request.getParameter("LGD_PAYKEY");
 
-    //ÇØ´ç API¸¦ »ç¿ëÇÏ±â À§ÇØ WEB-INF/lib/XPayClient.jar ¸¦ Classpath ·Î µî·ÏÇÏ¼Å¾ß ÇÕ´Ï´Ù. 
+    //í•´ë‹¹ APIë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•´ WEB-INF/lib/XPayClient.jar ë¥¼ Classpath ë¡œ ë“±ë¡í•˜ì…”ì•¼ í•©ë‹ˆë‹¤. 
     XPayClient xpay = new XPayClient();
    	boolean isInitOK = xpay.Init(configPath, CST_PLATFORM);   	
 
    	if( !isInitOK ) {
-    	//API ÃÊ±âÈ­ ½ÇÆĞ È­¸éÃ³¸®
-        out.println( "°áÁ¦¿äÃ»À» ÃÊ±âÈ­ ÇÏ´Âµ¥ ½ÇÆĞÇÏ¿´½À´Ï´Ù.<br>");
-        out.println( "LGÀ¯ÇÃ·¯½º¿¡¼­ Á¦°øÇÑ È¯°æÆÄÀÏÀÌ Á¤»óÀûÀ¸·Î ¼³Ä¡ µÇ¾ú´ÂÁö È®ÀÎÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.<br>");        
-        out.println( "mall.conf¿¡´Â Mert ID = Mert Key °¡ ¹İµå½Ã µî·ÏµÇ¾î ÀÖ¾î¾ß ÇÕ´Ï´Ù.<br><br>");
-        out.println( "¹®ÀÇÀüÈ­ LGÀ¯ÇÃ·¯½º 1544-7772<br>");
+    	//API ì´ˆê¸°í™” ì‹¤íŒ¨ í™”ë©´ì²˜ë¦¬
+        out.println( "ê²°ì œìš”ì²­ì„ ì´ˆê¸°í™” í•˜ëŠ”ë° ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.<br>");
+        out.println( "LGìœ í”ŒëŸ¬ìŠ¤ì—ì„œ ì œê³µí•œ í™˜ê²½íŒŒì¼ì´ ì •ìƒì ìœ¼ë¡œ ì„¤ì¹˜ ë˜ì—ˆëŠ”ì§€ í™•ì¸í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.<br>");        
+        out.println( "mall.confì—ëŠ” Mert ID = Mert Key ê°€ ë°˜ë“œì‹œ ë“±ë¡ë˜ì–´ ìˆì–´ì•¼ í•©ë‹ˆë‹¤.<br><br>");
+        out.println( "ë¬¸ì˜ì „í™” LGìœ í”ŒëŸ¬ìŠ¤ 1544-7772<br>");
         return;
    	
    	}else{      
    		try{
    			/*
    	   	     *************************************************
-   	   	     * 1.ÃÖÁ¾°áÁ¦ ¿äÃ»(¼öÁ¤ÇÏÁö ¸¶¼¼¿ä) - END
+   	   	     * 1.ìµœì¢…ê²°ì œ ìš”ì²­(ìˆ˜ì •í•˜ì§€ ë§ˆì„¸ìš”) - END
    	   	     *************************************************
    	   	     */
 	    	xpay.Init_TX(LGD_MID);
 	    	xpay.Set("LGD_TXNAME", "PaymentByKey");
 	    	xpay.Set("LGD_PAYKEY", LGD_PAYKEY);
 	    
-	    	//±İ¾×À» Ã¼Å©ÇÏ½Ã±â ¿øÇÏ´Â °æ¿ì ¾Æ·¡ ÁÖ¼®À» Ç®¾î¼­ ÀÌ¿ëÇÏ½Ê½Ã¿ä.
-	    	//String DB_AMOUNT = "DB³ª ¼¼¼Ç¿¡¼­ °¡Á®¿Â ±İ¾×"; //¹İµå½Ã À§º¯Á¶°¡ ºÒ°¡´ÉÇÑ °÷(DB³ª ¼¼¼Ç)¿¡¼­ ±İ¾×À» °¡Á®¿À½Ê½Ã¿ä.
+	    	//ê¸ˆì•¡ì„ ì²´í¬í•˜ì‹œê¸° ì›í•˜ëŠ” ê²½ìš° ì•„ë˜ ì£¼ì„ì„ í’€ì–´ì„œ ì´ìš©í•˜ì‹­ì‹œìš”.
+	    	//String DB_AMOUNT = "DBë‚˜ ì„¸ì…˜ì—ì„œ ê°€ì ¸ì˜¨ ê¸ˆì•¡"; //ë°˜ë“œì‹œ ìœ„ë³€ì¡°ê°€ ë¶ˆê°€ëŠ¥í•œ ê³³(DBë‚˜ ì„¸ì…˜)ì—ì„œ ê¸ˆì•¡ì„ ê°€ì ¸ì˜¤ì‹­ì‹œìš”.
 	    	//xpay.Set("LGD_AMOUNTCHECKYN", "Y");
 	    	//xpay.Set("LGD_AMOUNT", DB_AMOUNT);
 	    	
     	}catch(Exception e) {
-    		out.println("LGÀ¯ÇÃ·¯½º Á¦°ø API¸¦ »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù. È¯°æÆÄÀÏ ¼³Á¤À» È®ÀÎÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù. ");
+    		out.println("LGìœ í”ŒëŸ¬ìŠ¤ ì œê³µ APIë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤. í™˜ê²½íŒŒì¼ ì„¤ì •ì„ í™•ì¸í•´ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤. ");
     		out.println(""+e.getMessage());    	
     		return;
     	}
    	}
 
     /*
-     * 2. ÃÖÁ¾°áÁ¦ ¿äÃ» °á°úÃ³¸®
+     * 2. ìµœì¢…ê²°ì œ ìš”ì²­ ê²°ê³¼ì²˜ë¦¬
      *
-     * ÃÖÁ¾ °áÁ¦¿äÃ» °á°ú ¸®ÅÏ ÆÄ¶ó¹ÌÅÍ´Â ¿¬µ¿¸Ş´º¾óÀ» Âü°íÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.
+     * ìµœì¢… ê²°ì œìš”ì²­ ê²°ê³¼ ë¦¬í„´ íŒŒë¼ë¯¸í„°ëŠ” ì—°ë™ë©”ë‰´ì–¼ì„ ì°¸ê³ í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.
      */
      if ( xpay.TX() ) {
-         //1)°áÁ¦°á°ú È­¸éÃ³¸®(¼º°ø,½ÇÆĞ °á°ú Ã³¸®¸¦ ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.)
-         out.println( "°áÁ¦¿äÃ»ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.  <br>");
-         out.println( "TX °áÁ¦¿äÃ» Response_code = " + xpay.m_szResCode + "<br>");
-         out.println( "TX °áÁ¦¿äÃ» Response_msg = " + xpay.m_szResMsg + "<p>");
+         //1)ê²°ì œê²°ê³¼ í™”ë©´ì²˜ë¦¬(ì„±ê³µ,ì‹¤íŒ¨ ê²°ê³¼ ì²˜ë¦¬ë¥¼ í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.)
+         out.println( "ê²°ì œìš”ì²­ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.  <br>");
+         out.println( "TX ê²°ì œìš”ì²­ Response_code = " + xpay.m_szResCode + "<br>");
+         out.println( "TX ê²°ì œìš”ì²­ Response_msg = " + xpay.m_szResMsg + "<p>");
          
-         out.println("°Å·¡¹øÈ£ : " + xpay.Response("LGD_TID",0) + "<br>");
-         out.println("»óÁ¡¾ÆÀÌµğ : " + xpay.Response("LGD_MID",0) + "<br>");
-         out.println("»óÁ¡ÁÖ¹®¹øÈ£ : " + xpay.Response("LGD_OID",0) + "<br>");
-         out.println("°áÁ¦±İ¾× : " + xpay.Response("LGD_AMOUNT",0) + "<br>");
-         out.println("°á°úÄÚµå : " + xpay.Response("LGD_RESPCODE",0) + "<br>");
-         out.println("°á°ú¸Ş¼¼Áö : " + xpay.Response("LGD_RESPMSG",0) + "<p>");
+         out.println("ê±°ë˜ë²ˆí˜¸ : " + xpay.Response("LGD_TID",0) + "<br>");
+         out.println("ìƒì ì•„ì´ë”” : " + xpay.Response("LGD_MID",0) + "<br>");
+         out.println("ìƒì ì£¼ë¬¸ë²ˆí˜¸ : " + xpay.Response("LGD_OID",0) + "<br>");
+         out.println("ê²°ì œê¸ˆì•¡ : " + xpay.Response("LGD_AMOUNT",0) + "<br>");
+         out.println("ê²°ê³¼ì½”ë“œ : " + xpay.Response("LGD_RESPCODE",0) + "<br>");
+         out.println("ê²°ê³¼ë©”ì„¸ì§€ : " + xpay.Response("LGD_RESPMSG",0) + "<p>");
          
          for (int i = 0; i < xpay.ResponseNameCount(); i++)
          {
@@ -86,35 +86,35 @@
          out.println("<p>");
          
          if( "0000".equals( xpay.m_szResCode ) ) {
-         	//ÃÖÁ¾°áÁ¦¿äÃ» °á°ú ¼º°ø DBÃ³¸®
-         	out.println("ÃÖÁ¾°áÁ¦¿äÃ» °á°ú ¼º°ø DBÃ³¸®ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.<br>");
+         	//ìµœì¢…ê²°ì œìš”ì²­ ê²°ê³¼ ì„±ê³µ DBì²˜ë¦¬
+         	out.println("ìµœì¢…ê²°ì œìš”ì²­ ê²°ê³¼ ì„±ê³µ DBì²˜ë¦¬í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.<br>");
          	            	
-         	//ÃÖÁ¾°áÁ¦¿äÃ» °á°ú ¼º°ø DBÃ³¸® ½ÇÆĞ½Ã Rollback Ã³¸®
-         	boolean isDBOK = true; //DBÃ³¸® ½ÇÆĞ½Ã false·Î º¯°æÇØ ÁÖ¼¼¿ä.
+         	//ìµœì¢…ê²°ì œìš”ì²­ ê²°ê³¼ ì„±ê³µ DBì²˜ë¦¬ ì‹¤íŒ¨ì‹œ Rollback ì²˜ë¦¬
+         	boolean isDBOK = true; //DBì²˜ë¦¬ ì‹¤íŒ¨ì‹œ falseë¡œ ë³€ê²½í•´ ì£¼ì„¸ìš”.
          	if( !isDBOK ) {
-         		xpay.Rollback("»óÁ¡ DBÃ³¸® ½ÇÆĞ·Î ÀÎÇÏ¿© Rollback Ã³¸® [TID:" +xpay.Response("LGD_TID",0)+",MID:" + xpay.Response("LGD_MID",0)+",OID:"+xpay.Response("LGD_OID",0)+"]");
+         		xpay.Rollback("ìƒì  DBì²˜ë¦¬ ì‹¤íŒ¨ë¡œ ì¸í•˜ì—¬ Rollback ì²˜ë¦¬ [TID:" +xpay.Response("LGD_TID",0)+",MID:" + xpay.Response("LGD_MID",0)+",OID:"+xpay.Response("LGD_OID",0)+"]");
          		
                  out.println( "TX Rollback Response_code = " + xpay.Response("LGD_RESPCODE",0) + "<br>");
                  out.println( "TX Rollback Response_msg = " + xpay.Response("LGD_RESPMSG",0) + "<p>");
          		
                  if( "0000".equals( xpay.m_szResCode ) ) {
-                 	out.println("ÀÚµ¿Ãë¼Ò°¡ Á¤»óÀûÀ¸·Î ¿Ï·á µÇ¾ú½À´Ï´Ù.<br>");
+                 	out.println("ìë™ì·¨ì†Œê°€ ì •ìƒì ìœ¼ë¡œ ì™„ë£Œ ë˜ì—ˆìŠµë‹ˆë‹¤.<br>");
                  }else{
-         			out.println("ÀÚµ¿Ãë¼Ò°¡ Á¤»óÀûÀ¸·Î Ã³¸®µÇÁö ¾Ê¾Ò½À´Ï´Ù.<br>");
+         			out.println("ìë™ì·¨ì†Œê°€ ì •ìƒì ìœ¼ë¡œ ì²˜ë¦¬ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.<br>");
                  }
          	}
          	
          }else{
-         	//ÃÖÁ¾°áÁ¦¿äÃ» °á°ú ½ÇÆĞ DBÃ³¸®
-         	out.println("ÃÖÁ¾°áÁ¦¿äÃ» °á°ú ½ÇÆĞ DBÃ³¸®ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.<br>");            	
+         	//ìµœì¢…ê²°ì œìš”ì²­ ê²°ê³¼ ì‹¤íŒ¨ DBì²˜ë¦¬
+         	out.println("ìµœì¢…ê²°ì œìš”ì²­ ê²°ê³¼ ì‹¤íŒ¨ DBì²˜ë¦¬í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.<br>");            	
          }
      }else {
-         //2)API ¿äÃ»½ÇÆĞ È­¸éÃ³¸®
-         out.println( "°áÁ¦¿äÃ»ÀÌ ½ÇÆĞÇÏ¿´½À´Ï´Ù.  <br>");
-         out.println( "TX °áÁ¦¿äÃ» Response_code = " + xpay.m_szResCode + "<br>");
-         out.println( "TX °áÁ¦¿äÃ» Response_msg = " + xpay.m_szResMsg + "<p>");
+         //2)API ìš”ì²­ì‹¤íŒ¨ í™”ë©´ì²˜ë¦¬
+         out.println( "ê²°ì œìš”ì²­ì´ ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.  <br>");
+         out.println( "TX ê²°ì œìš”ì²­ Response_code = " + xpay.m_szResCode + "<br>");
+         out.println( "TX ê²°ì œìš”ì²­ Response_msg = " + xpay.m_szResMsg + "<p>");
          
-     	//ÃÖÁ¾°áÁ¦¿äÃ» °á°ú ½ÇÆĞ DBÃ³¸®
-     	out.println("ÃÖÁ¾°áÁ¦¿äÃ» °á°ú ½ÇÆĞ DBÃ³¸®ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.<br>");            	            
+     	//ìµœì¢…ê²°ì œìš”ì²­ ê²°ê³¼ ì‹¤íŒ¨ DBì²˜ë¦¬
+     	out.println("ìµœì¢…ê²°ì œìš”ì²­ ê²°ê³¼ ì‹¤íŒ¨ DBì²˜ë¦¬í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.<br>");            	            
      }
 %>

@@ -1,6 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.m.member.UserSession"%>
 <%@page import="com.common.util.SLibrary"%>
-<%@ page contentType="text/html;charset=EUC-KR" %>
 <%@ page import="java.io.*" %>
 <%@ page import="java.text.*" %>
 <%@ page import="java.util.*" %>
