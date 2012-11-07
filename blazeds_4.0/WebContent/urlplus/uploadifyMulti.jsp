@@ -14,7 +14,6 @@
 	Image img = null;
 	Image resized = null; // resize
 	Image square = null; // crop thumb
-
 	
 	try {
 	
@@ -58,6 +57,16 @@
             } else {
             	img.writeToFile( new File(VbyP.getValue("image_upload_path")+ um.getUploadedFileName()) );
             }
+            
+         	// create thumbnail
+   			square = img.getResizedToSquare( SLibrary.intValue( VbyP.getValue("thmub_w") ), 0.0 ).soften(0.1f);
+         	System.out.println(VbyP.getValue("image_upload_path_thumb")+um.getUploadedFileName());
+   			if (square.getSourceType() == ImageType.JPG)
+               	square.writeToJPG(new File(VbyP.getValue("image_upload_path_thumb")+um.getUploadedFileName()), 0.95f);
+   			else
+   				square.writeToFile( new File(VbyP.getValue("image_upload_path_thumb")+ um.getUploadedFileName()) );
+    		
+            
 
 		}catch(IOException ioe){
 			throw new  Exception("이미지 파일이 업로드 되지 않았습니다.\\r\\n\\r\\n- 원본 축소 실패");
