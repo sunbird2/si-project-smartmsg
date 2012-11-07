@@ -4,6 +4,8 @@ import com.oreilly.servlet.multipart.Part;
 import com.oreilly.servlet.multipart.MultipartParser;
 import com.oreilly.servlet.multipart.ParamPart;
 import com.oreilly.servlet.multipart.FilePart;
+
+import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -15,8 +17,6 @@ import com.common.util.UnixtimeFileRenamePolicy;
 
 public class UploadMultipart {
 	
-	int maxSize = 1024 * 1024;
-	String Encoding = "euc-kr";
 	String [] checkContentType = null;
 	String contentType = null;
 	String realFileName = null;
@@ -104,6 +104,35 @@ public class UploadMultipart {
 		return rslt;
 	}
 	
+	public File UploadCheck( HttpServletRequest request , String savePath , int maxFileSize , String encoding, String[] arrContentType ) {
+		
+		boolean rslt = false;
+		File file = null;
+		try {
+			rslt = Upload(request , savePath , maxFileSize , encoding);
+			
+			if (rslt == true) {
+				file=new File(savePath + getUploadedFileName());
+				this.contentType =  new MimetypesFileTypeMap().getContentType(file);
+				checkContentType = arrContentType;
+				if(file.exists() && checkContentType != null) {
+					boolean bType = checkContentType();
+					if (!bType) throw new Exception(" 업로드 가능한 파일 형태가  아닙니다. \\r\\n\\   - 현재 파일 형식 : [" + contentType + "] \\r\\n   - 가능 파일 형식 : ["+SLibrary.join( checkContentType," | ")+"]");
+				}
+			}
+			
+		}
+		catch(Exception e){
+			VbyP.errorLog("UploadMultipart.java upload error : "+e.toString());
+			
+			if(file != null && file.exists()) file.delete();
+			rslt = false; 
+			file = null;
+		}
+		
+		return file;
+	}
+	
 	private boolean checkContentType() {
 		
 		boolean rslt = false;
@@ -133,7 +162,6 @@ public class UploadMultipart {
 			String temp = str;
 			temp = SLibrary.replaceAll(temp, pre, "");
 			temp = SLibrary.replaceAll(temp, end, "/");
-			//buf.append("��ε�뷮; �ʰ� �Ͽ��4ϴ�. ( ��������ũ��/�������ũ�� )\\r\\n   - ");
 			buf.append(temp+" byte");
 		}else {
 			
