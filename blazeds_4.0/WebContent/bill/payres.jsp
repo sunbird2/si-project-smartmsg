@@ -1,3 +1,4 @@
+<%@page import="com.m.member.UserSession"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="java.sql.SQLException"%>
 <%@page import="com.m.billing.Billing"%>
@@ -16,7 +17,7 @@
      * LG유플러스으로 부터 내려받은 LGD_PAYKEY(인증Key)를 가지고 최종 결제요청.(파라미터 전달시 POST를 사용하세요)
      */
 
-    String configPath = "/home/web/webapps/ROOT/lgdacom/conf";  //LG유플러스에서 제공한 환경파일("/conf/lgdacom.conf,/conf/mall.conf") 위치 지정.
+    String configPath = "/home/web/webapps/ROOT/lgdacom";  //LG유플러스에서 제공한 환경파일("/conf/lgdacom.conf,/conf/mall.conf") 위치 지정.
     
     /*
      *************************************************
@@ -36,7 +37,7 @@
 
    	if( !isInitOK ) {
     	//API 초기화 실패 화면처리
-        out.println( "결제요청을 초기화 하는데 실패하였습니다.<br>");
+        out.println( "결제요청을 초기화 하는데 실패하였습니다.dd<br>");
         out.println( "LG유플러스에서 제공한 환경파일이 정상적으로 설치 되었는지 확인하시기 바랍니다.<br>");        
         out.println( "mall.conf에는 Mert ID = Mert Key 가 반드시 등록되어 있어야 합니다.<br><br>");
         out.println( "문의전화 LG유플러스 1544-7772<br>");
@@ -101,7 +102,14 @@
          	out.println("최종결제요청 결과 성공 DB처리하시기 바랍니다.<br>");
          	
          	/*##################################################################*/
-			String session_id = (String)session.getAttribute("user_id");
+         	UserSession us = (UserSession)session.getAttribute("user_id");
+	
+			if (us == null) {
+				out.println(SLibrary.alertScript("로그인 후 이용 가능 합니다.", ""));
+				return;
+			}
+			String session_id = us.getUser_id();
+
          	if (!SLibrary.isNull(session_id)) {
          		VbyP.accessLog(session_id+" : bill process start..");
              	Connection conn = null;
@@ -133,11 +141,16 @@
     				bvo.setMethod(pay_name);
     				bvo.setOrder_no(xpay.Response("LGD_OID",0));
     				
-    				badvo = Billing.getInstance().setBilling(conn, bvo);
-    				
     				VbyP.accessLog(" - amount : "+amount);
     				VbyP.accessLog(" - pay_name : "+pay_name);
     				VbyP.accessLog(" - Order_no : "+xpay.Response("LGD_OID",0));
+    				
+    				badvo = Billing.getInstance().setBilling(conn, bvo);
+    				
+    				if (badvo.getbResult() == false) {
+    					throw new Exception(badvo.getstrDescription());
+    				}
+    				
     				
              	}catch(Exception e) {
              		out.println(SLibrary.alertScript(e.getMessage(), ""));
@@ -160,6 +173,7 @@
 				out.println(SLibrary.alertScript("결제가 실패 하였습니다. 카드한도등을 확인 후 다시 시도 하세요.","parent.window.location.reload();"));
 				
 			}
+			VbyP.accessLog(session_id+" : bill process end");
 /*##################################################################*/
          	            	
          	

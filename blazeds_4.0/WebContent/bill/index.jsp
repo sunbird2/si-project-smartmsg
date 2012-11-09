@@ -11,9 +11,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>문자노트- SMS, LMS, MMS</title>
 
-       <script type="text/javascript" src="/js/jquery-1.8.1.min.js"></script>
-      <link rel="stylesheet" type="text/css" href="/css/base.css" />
-      <link rel="stylesheet" type="text/css" href="/css/main.css">
+     <script type="text/javascript" src="/js/jquery-1.8.1.min.js"></script>
+     <link rel="stylesheet" type="text/css" href="/css/base.css" />
+     <link rel="stylesheet" type="text/css" href="/css/main.css">
       <script type="text/javascript">
          $(document).ready(function() { 
 
@@ -26,7 +26,7 @@
   <body class="main">
 <div id="billWrap">
 <!-- bill -->
-<form name="billForm" method="post" target="nobody" action="/bill/payreq.jsp">
+<form name="billForm" method="post" target="nobody" action="/bill/payreq.jsp" >
                 <div id="bill">
                     <img src="/images/bill_title.jpg" class="title"/>
                     <div class="step01">
@@ -47,25 +47,25 @@
                                 <th width="300">결제금액</th><th width="300">충전건수</th><th width="300">단가</th>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a10000" name="LGD_AMOUNT" value="10000" onfocus="this.blur()"/><label for="a10000">10,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b10000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">18 <span>원</span></i> <b><%=Math.ceil( 10000/SLibrary.intValue(VbyP.getValue("b10000")) )  %></b> <span>원</span></td>
+                                <td><input type="radio" id="a10000" name="LGD_AMOUNT" value="11000" onfocus="this.blur()"/><label for="a10000">10,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b10000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">18 <span>원</span></i> <b><%=Math.ceil( 10000/SLibrary.intValue(VbyP.getValue("b10000")) )  %></b> <span>원</span></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a30000" name="LGD_AMOUNT" value="30000" onfocus="this.blur()" checked="checked"/><label for="a30000">30,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b30000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">16 <span>원</span></i> <b><%=Math.ceil( 30000/SLibrary.intValue(VbyP.getValue("b30000")) )  %></b> <span>원</span></td>
+                                <td><input type="radio" id="a30000" name="LGD_AMOUNT" value="33000" onfocus="this.blur()" checked="checked"/><label for="a30000">30,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b30000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">16 <span>원</span></i> <b><%=Math.ceil( 30000/SLibrary.intValue(VbyP.getValue("b30000")) )  %></b> <span>원</span></td>
                             </tr>
 							<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a50000" name="LGD_AMOUNT" value="50000" onfocus="this.blur()" checked="checked"/><label for="a50000">50,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b50000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">15 <span>원</span></i> <b><%=Math.ceil( 50000/SLibrary.intValue(VbyP.getValue("b50000")) )  %></b> <span>원</span></td>
+                                <td><input type="radio" id="a50000" name="LGD_AMOUNT" value="55000" onfocus="this.blur()" checked="checked"/><label for="a50000">50,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b50000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">15 <span>원</span></i> <b><%=Math.ceil( 50000/SLibrary.intValue(VbyP.getValue("b50000")) )  %></b> <span>원</span></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a100000" name="LGD_AMOUNT" value="100000" onfocus="this.blur()"/><label for="a100000">100,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b100000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">14 <span>원</span></i> <b><%=Math.ceil( 100000/SLibrary.intValue(VbyP.getValue("b100000")) )   %></b> <span>원</span></td>
+                                <td><input type="radio" id="a100000" name="LGD_AMOUNT" value="110000" onfocus="this.blur()"/><label for="a100000">100,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b100000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">14 <span>원</span></i> <b><%=Math.ceil( 100000/SLibrary.intValue(VbyP.getValue("b100000")) )   %></b> <span>원</span></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a300000" name="LGD_AMOUNT" value="300000" onfocus="this.blur()"/><label for="a300000">300,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b300000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">13 <span>원</span></i> <b><%=Math.ceil( 300000/SLibrary.intValue(VbyP.getValue("b300000")) )   %></b> <span>원</span></td>
+                                <td><input type="radio" id="a300000" name="LGD_AMOUNT" value="330000" onfocus="this.blur()"/><label for="a300000">300,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b300000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">13 <span>원</span></i> <b><%=Math.ceil( 300000/SLibrary.intValue(VbyP.getValue("b300000")) )   %></b> <span>원</span></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a500000" name="LGD_AMOUNT" value="500000" onfocus="this.blur()"/><label for="a500000">500,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b500000")) %> <span>건</span></td><td><b>12</b> <span>원</span></td>
+                                <td><input type="radio" id="a500000" name="LGD_AMOUNT" value="550000" onfocus="this.blur()"/><label for="a500000">500,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b500000")) %> <span>건</span></td><td><b>12</b> <span>원</span></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a1000000" name="LGD_AMOUNT" value="1000000" onfocus="this.blur()"/><label for="a1000000">1,000,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b1000000")) %> <span>건</span></td><td><b>11</b> <span>원</span></td>
+                                <td><input type="radio" id="a1000000" name="LGD_AMOUNT" value="1100000" onfocus="this.blur()"/><label for="a1000000">1,000,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b1000000")) %> <span>건</span></td><td><b>11</b> <span>원</span></td>
                             </tr>
                         </table>
 
