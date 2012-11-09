@@ -229,3 +229,19 @@
 	    
 	    return false;
 	}
+	
+	function login_view(b) {
+		if (b == "true") {
+			$("#login").hide();
+			$("#join").hide();
+			$("#logout").show();
+		}else {
+			$("#login").show();
+			$("#join").show();
+			$("#logout").hide();
+		}
+	}
+	
+	function logout_flex() {
+		if (MunjaNote) MunjaNote.flexFunction("logout", "");
+	}
