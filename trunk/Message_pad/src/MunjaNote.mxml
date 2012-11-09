@@ -44,6 +44,11 @@
 				
 				var re:String = "";
 				if (key == "menu") this.currentState = value;
+				else if (key == "logout") {
+					if (login != null) {
+						login.logout_clickHandler(null);
+					}
+				}
 				return re;
 			}
 			
@@ -157,6 +162,7 @@
 					if (p > 100) p = 100;
 					battery.percent = p;
 				}
+				ExternalInterface.call("login_view", Gv.bLogin ? "true":"false" );
 				
 					
 			}
@@ -170,6 +176,8 @@
 				
 				if (!Gv.bLogin) bg.visible = true;
 				else bg.visible = false;
+				
+				ExternalInterface.call("login_view", Gv.bLogin ? "true":"false" );
 			}
 		
 			protected function login_joinHandler(event:Event):void { this.currentState = "join"; }
