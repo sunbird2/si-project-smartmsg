@@ -61,7 +61,7 @@
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>LG</title>
 <script type="text/javascript">
 
@@ -80,7 +80,7 @@ function doPay_ActiveX(){
             var msg = "인증결과 : " + LGD_RESPMSG + "\n";
             msg += "LGD_PAYKEY : " + LGD_PAYKEY +"\n\n";
             document.getElementById('LGD_PAYKEY').value = LGD_PAYKEY;
-            alert(msg);
+            //alert(msg);
             document.getElementById('LGD_PAYINFO').submit();
         } else { //인증실패
             alert("인증이 실패하였습니다. " + LGD_RESPMSG);
