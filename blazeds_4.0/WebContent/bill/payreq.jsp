@@ -16,7 +16,7 @@
 	}
 	String user_id = us.getUser_id();
    
-    String CST_PLATFORM         = "test"; //(test, service)
+    String CST_PLATFORM         = "service"; //(test, service)
     String CST_MID              = "fd_adsoft2";
     String LGD_MID              = ("test".equals(CST_PLATFORM.trim())?"t":"")+CST_MID;
                                                                                       
@@ -24,7 +24,7 @@
     String LGD_AMOUNT           = request.getParameter("LGD_AMOUNT");
     String LGD_MERTKEY          = "be40663ff0756bbc25c90073def17e74";
 	String LGD_BUYER            = user_id;
-    String LGD_PRODUCTINFO      = "���ڳ�Ʈ";
+    String LGD_PRODUCTINFO      = "문자노트";
     String LGD_BUYEREMAIL       = "";
     String LGD_TIMESTAMP        = SLibrary.getUnixtimeStringSecond();
     String LGD_CUSTOM_SKIN      = "red"; //(red, blue, cyan, green, yellow)
