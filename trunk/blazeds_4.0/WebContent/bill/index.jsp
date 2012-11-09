@@ -1,0 +1,92 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>문자노트- SMS, LMS, MMS</title>
+
+       <script type="text/javascript" src="/js/jquery-1.8.1.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="/css/base.css" />
+      <link rel="stylesheet" type="text/css" href="/css/main.css">
+      <script type="text/javascript">
+         $(document).ready(function() { 
+
+               if (parent.document) {
+                    parent.showBill( $('#billWrap').html() );
+               }
+            });
+      </script>
+   </head>
+  <body class="main">
+<div id="billWrap">
+<!-- bill -->
+<form name="billForm" method="post" target="nobody" action="/bill/payreq.jsp">
+                <div id="bill">
+                    <img src="/images/bill_title.jpg" class="title"/>
+                    <div class="step01">
+                        <img src="/images/01.jpg"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <img src="/images/01_sub.jpg" class="title01"/>
+                        <ol>
+                            <li><input type="radio" id="card" name="LGD_CUSTOM_FIRSTPAY" value="SC0010" onfocus="this.blur()" /><label for="card">신용카드</label></li>
+                            <li><input type="radio" id="online" name="LGD_CUSTOM_FIRSTPAY" value="SC0030" onfocus="this.blur()" /><label for="online">즉시이체</label></li>
+                            <li><input type="radio" id="cash" name="LGD_CUSTOM_FIRSTPAY" onfocus="this.blur()" checked="checked" /><label for="cash">무통장입금</label></li>
+                         </ol>
+                    </div>
+
+                    <div class="step02">
+                        <img src="/images/02.jpg"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <img src="/images/02_sub.jpg" class="title01"/>
+                        <table class="billTable">
+                            <tr>
+                                <th width="300">결제금액</th><th width="300">충전건수</th><th width="300">단가</th>
+                            </tr>
+                            <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
+                                <td><input type="radio" id="a10000" name="LGD_AMOUNT" value="10000" onfocus="this.blur()"/><label for="a10000">10,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
+                            </tr>
+                            <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
+                                <td><input type="radio" id="a30000" name="LGD_AMOUNT" value="30000" onfocus="this.blur()" checked="checked"/><label for="a30000">30,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
+                            </tr>
+                            <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
+                                <td><input type="radio" id="a50000" name="LGD_AMOUNT" value="50000" onfocus="this.blur()"/><label for="a50000">50,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
+                            </tr>
+                            <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
+                                <td><input type="radio" id="a100000" name="LGD_AMOUNT" value="100000" onfocus="this.blur()"/><label for="a100000">100,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
+                            </tr>
+                            <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
+                                <td><input type="radio" id="a300000" name="LGD_AMOUNT" value="300000" onfocus="this.blur()"/><label for="a300000">300,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
+                            </tr>
+                            <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
+                                <td><input type="radio" id="a500000" name="LGD_AMOUNT" value="500000" onfocus="this.blur()"/><label for="a500000">500,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
+                            </tr>
+                            <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
+                                <td><input type="radio" id="a1000000" name="LGD_AMOUNT" value="1000000" onfocus="this.blur()"/><label for="a1000000">1,000,000 <span>원</span></label></td><td>1000 <span>건</span></td><td>12 <span>원</span></td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                    <div class="step03">
+                        <img src="/images/03.jpg"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <img src="/images/03_sub.jpg" class="title01"/>
+                        <table class="billTable">
+                            <tr>
+                                <th width="225">결제방식</th><th width="225">공급가액</th><th width="225">VAT</th><th width="225">최종결제금액</th>
+                            </tr>
+                            <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
+                                <td>신용카드</td><td>10,000 <span>원</span></td><td>1,000 <span>원</span></td><td>11,000 <span>원</span></td>
+                            </tr>
+                        </table><br/>
+                        <a href="#" class="button gray" onclick="billSubmit(document.billForm)">결제하기</a>
+                    </div>
+
+                </div>
+</form>                
+            <!-- bill -->
+</div>
+  </body>
+</html>
+
