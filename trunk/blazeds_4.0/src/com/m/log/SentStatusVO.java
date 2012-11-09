@@ -9,10 +9,10 @@ public class SentStatusVO implements Serializable {
 	 */
 	private static final long serialVersionUID = -797933545660446051L;
 	
-	private int local;
-	private int telecom;
-	private int success;
-	private int fail;
+	private int local = 0;
+	private int telecom = 0;
+	private int success = 0;
+	private int fail = 0;
 	
 	public int getLocal() {
 		return local;
