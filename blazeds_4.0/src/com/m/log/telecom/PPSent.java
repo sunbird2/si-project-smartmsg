@@ -106,11 +106,11 @@ public class PPSent implements ISentData {
 	@Override
 	public SentStatusVO getListDetail_status(Connection conn, LogVO slvo) {
 		
-		HashMap<String, String> hm = null;
-		
 		String SQL = "";
-		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_pp_select_mms_status" );
-		else SQL = VbyP.getSQL( "sent_pp_select_status" );
+		//if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_pp_select_mms_status" );
+		//else SQL = VbyP.getSQL( "sent_pp_select_status" );
+		
+		SQL = VbyP.getSQL( "sent_pp_select_status" );
 		
 		
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
@@ -119,9 +119,9 @@ public class PPSent implements ISentData {
 		pq.setInt(2, slvo.getIdx());
 		pq.setString(3, slvo.getUser_id());
 		pq.setInt(4, slvo.getIdx());
-		hm = pq.ExecuteQueryCols();
+		ArrayList<HashMap<String, String>> al = pq.ExecuteQueryArrayList();
 		
-		return parseVO(hm);
+		return parseVO(slvo.getMode(), al);
 	}
 
 	@Override
@@ -179,6 +179,41 @@ public class PPSent implements ISentData {
 		ssvo.setTelecom( SLibrary.intValue( SLibrary.IfNull(hm, "sendingCount") ) );
 		ssvo.setSuccess( SLibrary.intValue( SLibrary.IfNull(hm, "successCount") ) );
 		ssvo.setFail( SLibrary.intValue( SLibrary.IfNull(hm, "failCount") ) );
+		System.out.println(ssvo.getLocal() + "/"+ssvo.getTelecom() + "/"+ssvo.getSuccess() + "/"+ssvo.getFail());
+		return ssvo;
+	}
+	
+	private SentStatusVO parseVO(String mode, ArrayList<HashMap<String, String>> al) {
+		
+		SentStatusVO ssvo = new SentStatusVO();
+		int[] rslt = new int[4];
+		
+		if (al != null && al.size() > 0) {
+			int cnt = al.size();
+			HashMap<String, String> hm = null;
+			
+			for (int i = 0; i < cnt; i++) {
+				hm = al.get(i);
+				if ( SLibrary.IfNull(hm, "STATUS").equals("0") ) rslt[0]++; // standby
+				else if ( SLibrary.IfNull(hm, "STATUS").equals("1") ) rslt[1]++; // standby
+				else if ( SLibrary.IfNull(hm, "STATUS").equals("2") ) {
+					if (mode.equals("SMS")) {
+						if ( SLibrary.IfNull(hm, "CALL_STATUS").equals("4100") ) rslt[2]++; // success
+						else rslt[3]++; // fail
+					} else {
+						if ( SLibrary.IfNull(hm, "CALL_STATUS").equals("6600") ) rslt[2]++; // success
+						else rslt[3]++; // fail
+					}
+					
+				}else rslt[3]++;
+				
+			}
+		}
+		
+		ssvo.setLocal( rslt[0] );
+		ssvo.setTelecom( rslt[1] );
+		ssvo.setSuccess( rslt[2] );
+		ssvo.setFail( rslt[3] );
 		System.out.println(ssvo.getLocal() + "/"+ssvo.getTelecom() + "/"+ssvo.getSuccess() + "/"+ssvo.getFail());
 		return ssvo;
 	}
