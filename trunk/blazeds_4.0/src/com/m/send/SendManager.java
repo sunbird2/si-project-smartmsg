@@ -68,6 +68,36 @@ public class SendManager implements ISend {
 		return lvo;
 	}
 	
+	public LogVO Adminsend(Connection conn, UserInformationVO uvo, SendMessageVO smvo)
+			throws Exception {
+		
+		LogVO lvo = null;
+		ArrayList<MessageVO> al = null;
+		int idx = 0;
+		int rslt = 0;
+		
+		checkSendMessageVO(smvo);
+		
+		lvo = makeLogVO(uvo, smvo);
+		idx = insertLog(conn, lvo);
+		
+		Gv.setStatus(uvo.getUser_id(), "save log..");
+
+		
+		if (idx <= 0){
+			al = makeMessageVOArrayList(uvo, smvo, idx);
+			Gv.setStatus(uvo.getUser_id(), "list make");
+			rslt = insertData(conn, lvo.getMode(), uvo, al, uvo.getLine());
+			if ( rslt <= 0 ) throw new Exception("전송데이터가 등록되지 않았습니다.");
+			Gv.setStatus(uvo.getUser_id(), "Success!!");
+		}
+		else throw new Exception("insertLog Error!!");
+		
+		lvo.setIdx(idx);
+		
+		return lvo;
+	}
+	
 
 	@Override
 	public int insertLog(Connection conn, LogVO lvo) throws Exception {

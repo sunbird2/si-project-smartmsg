@@ -230,7 +230,7 @@ public class SessionManagement {
 	}
 	
 	
-	protected UserInformationVO getInformation(Connection conn, String user_id) {
+	public UserInformationVO getInformation(Connection conn, String user_id) {
 		
 		UserInformationVO vo = new UserInformationVO();
 		
