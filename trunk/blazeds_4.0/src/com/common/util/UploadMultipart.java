@@ -5,8 +5,10 @@ import com.oreilly.servlet.multipart.MultipartParser;
 import com.oreilly.servlet.multipart.ParamPart;
 import com.oreilly.servlet.multipart.FilePart;
 
-import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.tika.Tika;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -113,7 +115,8 @@ public class UploadMultipart {
 			
 			if (rslt == true) {
 				file=new File(savePath + getUploadedFileName());
-				this.contentType =  new MimetypesFileTypeMap().getContentType(file);
+				//this.contentType =  new MimetypesFileTypeMap().getContentType(file);
+				this.contentType = getContentType(file);
 				checkContentType = arrContentType;
 				if(file.exists() && checkContentType != null) {
 					boolean bType = checkContentType();
@@ -131,6 +134,21 @@ public class UploadMultipart {
 		}
 		
 		return file;
+	}
+	
+	private String getContentType(File file) {
+		
+		String mime = "";  
+		try {
+			if (file != null && file.exists()) {
+				Tika tika = new Tika();
+				mime = tika.detect(file);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mime;
 	}
 	
 	private boolean checkContentType() {
