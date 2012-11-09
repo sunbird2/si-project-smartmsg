@@ -194,6 +194,7 @@ public class PPSent implements ISentData {
 			
 			for (int i = 0; i < cnt; i++) {
 				hm = al.get(i);
+				System.out.println("@@@@@@@@@@@"+SLibrary.IfNull(hm, "STATUS")+"/"+SLibrary.IfNull(hm, "CALL_STATUS"));
 				if ( SLibrary.IfNull(hm, "STATUS").equals("0") ) rslt[0]++; // standby
 				else if ( SLibrary.IfNull(hm, "STATUS").equals("1") ) rslt[1]++; // standby
 				else if ( SLibrary.IfNull(hm, "STATUS").equals("2") ) {
