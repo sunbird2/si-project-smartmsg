@@ -164,7 +164,7 @@ package component
 		/**
 		 * logout Handler
 		 * */
-		private function logout_clickHandler(event:Event):void {
+		public function logout_clickHandler(event:Event):void {
 			
 			RemoteSingleManager.getInstance.addEventListener("logout_session", logout_resultHandler, false, 0, true);
 			RemoteSingleManager.getInstance.callresponderToken 
