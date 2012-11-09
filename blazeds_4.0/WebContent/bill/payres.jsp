@@ -193,7 +193,7 @@
          }else{
          	//최종결제요청 결과 실패 DB처리
          	out.println("최종결제요청 결과 실패 DB처리하시기 바랍니다.<br>");   
-         	out.println(SLibrary.alertScript("최종결제요청 결과 실패.","parent.window.location.reload();"));
+         	out.println(SLibrary.alertScript("결제요청이 실패하였습니다. \\r\\n\\r\\nTX 결제요청 Response_code = " + xpay.m_szResCode + "\\r\\n"+"TX 결제요청 Response_msg = " + xpay.m_szResMsg,"parent.window.location.reload();"));
          	VbyP.errorLog(" - 최종결제요청 결과 실패.");
          }
      }else {
