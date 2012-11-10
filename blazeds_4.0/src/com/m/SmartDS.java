@@ -728,6 +728,51 @@ public class SmartDS extends SessionManagement {
 		return rslt;
 	}
 	
+	public BooleanAndDescriptionVO failAdd( LogVO lvo ) {
+		
+		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		
+		Connection conn = null;
+		UserInformationVO uvo = null;
+		ISentData sentData = null;
+		int code = 0;
+		int cnt = 0;
+		int point = 0;
+
+		try {
+			if (!bSession()) throw new Exception("no login");
+			conn = VbyP.getDB();
+			uvo = getInformation(conn, getSession());
+			
+			sentData = getSentInstance(lvo.getLine());
+			
+			lvo.setUser_id(getSession());
+			cnt = sentData.failUpdate(conn, lvo);
+			
+			if (cnt > 0) {
+				if (lvo.getMode().equals("LMS")) { code = 47; point = cnt*SLibrary.intValue(VbyP.getValue("LMS_COUNT")); }
+				else if (lvo.getMode().equals("MMS")) { code = 27; point = cnt*SLibrary.intValue(VbyP.getValue("MMS_COUNT")); }
+				else { code = 17; point = cnt*SLibrary.intValue(VbyP.getValue("SMS_COUNT")); } 
+			}
+			
+			if ( PointManager.getInstance().insertUserPoint(conn, uvo, code, point) <= 0 ) {
+				bvo.setbResult(false);
+				bvo.setstrDescription("내역이 보상으로 처리 되었으나, 건수는 보상 되지 않았습니다. 관리자에게 문의 하세요.");
+			} else {
+				bvo.setbResult(true);
+				bvo.setstrDescription(Integer.toString(point)+" 건이 보상 되었습니다.");
+			}
+			
+		}catch (Exception e) {
+			bvo.setbResult(false);
+			bvo.setstrDescription("보상이 실패 하였습니다.");
+		}	finally {			
+			close(conn);
+		}
+		
+		return bvo;
+	}
+	
 	private BooleanAndDescriptionVO sentDelete(Connection conn, LogVO slvo) {
 		
 		ISent sent = SentManager.getInstance();

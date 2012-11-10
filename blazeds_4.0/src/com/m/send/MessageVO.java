@@ -19,6 +19,7 @@ public class MessageVO implements Serializable {
 	String sendMode = "I"; // 즉시, 예약
 	String imagePath = "";
 	String rsltDate;
+	String failAddDate;
 	
 	
 	public int getIdx() {
@@ -99,6 +100,12 @@ public class MessageVO implements Serializable {
 	}
 	public void setRsltDate(String rsltDate) {
 		this.rsltDate = rsltDate;
+	}
+	public String getFailAddDate() {
+		return failAddDate;
+	}
+	public void setFailAddDate(String failAddDate) {
+		this.failAddDate = failAddDate;
 	}
 	
 	

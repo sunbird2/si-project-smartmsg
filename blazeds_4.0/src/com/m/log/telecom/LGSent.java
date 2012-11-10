@@ -166,6 +166,21 @@ public class LGSent implements ISentData {
 		return pq.executeUpdate();
 	}
 	
+	public int failUpdate(Connection conn, LogVO lvo) {
+		
+		String SQL = "";
+		if (lvo.getMode().equals("LMS") || lvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_fail_update_mms" );
+		else SQL = VbyP.getSQL( "sent_lg_fail_update" );
+		
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		pq.setPrepared(conn, SQL);
+		pq.setString(1, SLibrary.getDateTimeString());
+		pq.setString(2, lvo.getUser_id());
+		pq.setString(3, Integer.toString(lvo.getIdx()));
+		
+		return pq.executeUpdate();
+	}
+	
 	private SentStatusVO parseVO(HashMap<String, String> hm) {
 		
 		SentStatusVO ssvo = new SentStatusVO();
@@ -247,6 +262,7 @@ public class LGSent implements ISentData {
 			mvo.setSendMode(SLibrary.IfNull(hm, "TR_ETC3"));
 			mvo.setImagePath("");
 			mvo.setRsltDate(SLibrary.IfNull(hm, "TR_RSLTDATE"));
+			mvo.setFailAddDate(SLibrary.IfNull(hm, "TR_ETC4"));
 		}
 		
 		return mvo;
@@ -285,6 +301,7 @@ public class LGSent implements ISentData {
 			mvo.setSendMode(SLibrary.IfNull(hm, "ETC3"));
 			mvo.setImagePath(SLibrary.IfNull(hm, "FILE_PATH1"));
 			mvo.setRsltDate(SLibrary.IfNull(hm, "RSLTDATE"));
+			mvo.setFailAddDate(SLibrary.IfNull(hm, "ETC4"));
 		}
 		
 		return mvo;
