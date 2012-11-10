@@ -104,7 +104,7 @@
 								  fillMode="scale" />
 					</s:HGroup>
 					<s:Spacer height="4"/>
-					<s:RichText width="100%" fontSize="14">
+					<s:RichText width="100%" fontSize="12">
 						<s:content><s:p><s:span id="confirm_mode" color.LMS="#FF8800"
 												color.MMS="#CC0000">SMS</s:span><s:span> 를 </s:span><s:span id="confirm_count" backgroundColor="#33B5E5">0</s:span><s:span> 명에게 </s:span><s:span id="confirm_delay" backgroundColor="#FFBB33"></s:span></s:p><s:p><s:span id="confirm_reservation" backgroundColor="#99CC00"></s:span><s:span>발송하시겠습니까?</s:span></s:p></s:content>
 					</s:RichText>
