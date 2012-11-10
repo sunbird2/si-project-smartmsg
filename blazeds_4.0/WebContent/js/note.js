@@ -132,11 +132,10 @@
         if (b) c = "block";
         else c = "none";
 
-        $('#pop1').css({display:c})
-        $('#pop2').css({display:c})
-        $('#pop3').css({display:c})
-        $('#pop4').css({display:c})
-
+        $('#pop1').css({display:c});
+        $('#pop2').css({display:c});
+        $('#pop3').css({display:c});
+        $('#pop4').css({display:c});
     }
 
 	function removeFlash() { 

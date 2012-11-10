@@ -1,8 +1,8 @@
 .hand {cursor:pointer}
 /*body {background:url("../images/bg.png")}*/
 #wrap {width:1200px;margin:0 auto;}
-#header {margin:0 auto;width:1024px;height:80px;}
-#header #top_right {width:1024px;margin-bottom:15px;height:30px;text-align:right;}
+#header {margin:0 auto;width:1024px;height:65px;}
+#header #top_right {width:1024px;margin-bottom:0px;height:30px;text-align:right;}
 #logo {clear:right; float:left; width:203px;height:35px;}
 #header #navi {float:right}
 #header #navi ul li {float:left;margin-right:20px;}
@@ -44,9 +44,9 @@
 #function-navi ul li a.sub4:hover {background-position:0 -328px;}
 #function-navi ul li a.sub5:hover {background-position:0 -346px;}
 
-#bar1 {clear:both;margin:0 auto; width:1024px; height:1px; background-color:#e8e8e8;font-size:1px;}
+#bar1 {clear:both;margin:0 auto; width:1024px; height:1px; background-color:#c8c8c8;font-size:1px;}
 
-#etc {margin:0 auto; width:1024px;height:143px; margin-top:15px;margin-bottom:30px;}
+#etc {margin:0 auto; width:1024px;height:143px; margin-top:20px;margin-bottom:30px;}
 #etc #custom { float:left;margin-right:15px;width:203px;height:143px;background:url("../images/custom_center.png")}
 #etc #notic { float:left;margin-right:15px;width:300px;height:143px;}
 #etc #bank { float:left;margin-right:15px;width:248px;height:143px;background:url("../images/bank.png")}
@@ -66,7 +66,7 @@
 /*slider*/
 .clear {clear:both}
 #gallery { position:relative; height:743px }
-#gallery a {float:left;position:absolute;}
+#gallery a {float:left;width:1024px;position:absolute;}
 #gallery a img {border:none;}
 #gallery a.show {z-index:500}
 #gallery a.show img{display:block;float:right;margin-top:110px;}
