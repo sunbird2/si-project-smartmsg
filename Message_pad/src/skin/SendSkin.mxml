@@ -42,21 +42,23 @@
 				<s:Rect left="0" top="0" bottom="0" width="1" ><s:fill><s:SolidColor color="0xDBDBDB" /></s:fill></s:Rect>
 				<s:Rect left="1" top="0" bottom="0" width="1" ><s:fill><s:SolidColor color="0xEAEAEA" /></s:fill></s:Rect>
 				
+				
 				<s:VGroup horizontalCenter="0"
 						  gap="2"
 						  horizontalAlign="center">
 					
-					<s:SkinnableContainer styleName="actionBar_contextuar_light" backgroundColor="#EEEEEE" width="100%" height="40">
-						<s:RichText color="#33B5E5" verticalCenter="0" left="5">
-							<s:content><s:p><s:span id="byte" fontSize="16">0</s:span><s:span kerning="auto"> </s:span><s:span color="#999999">byte</s:span></s:p></s:content>
+					<!-- Message -->
+					<s:Group width="100%" height="40">
+						<s:RichText color="#999999" left="5" bottom="0">
+							<s:content><s:p><s:span id="byte" fontSize="16">0</s:span><s:span kerning="auto"> </s:span><s:span>byte</s:span></s:p></s:content>
 						</s:RichText>
-						<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="15">
+						<s:HGroup  bottom="0" right="5" gap="15">
 							<s:Image id="addImage" source="skin/ics/assets/light/icon/5-content-picture.png" buttonMode="true" />
 							<s:Image id="messageSaveBtn" source="skin/ics/assets/light/icon/5-content-new-email.png" buttonMode="true" />
 							<s:Image id="removeMsg" source="skin/ics/assets/light/icon/5-content-remove.png" buttonMode="true" />
-						</s:HGroup>
-					</s:SkinnableContainer>
-					<s:Scroller width="275" height="200">
+						</s:HGroup> 
+					</s:Group>
+					<s:Scroller width="265" height="200">
 						<s:VGroup id="mBox" width="100%" gap="0">
 							<s:TextArea id="message" width="100%" height="200" styleName="textarea_light" prompt="메시지를 입력하세요."
 										borderColor.LMS="0xFF8800"
@@ -64,38 +66,40 @@
 						</s:VGroup>
 					</s:Scroller>
 					
-					
-					
-					<s:HGroup verticalAlign="middle" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
-						<s:Label text="수신 : " color="#33B5E5" />
-						<s:TextInput id="sendListInput" styleName="textinput_light" prompt="전화번호입력.." width="190" />
+					<!-- send List title -->
+					<s:HGroup verticalAlign="middle" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="0">
+						<s:Label text="수신 : "  color="#999999"/>
+						<s:TextInput id="sendListInput" styleName="textinput_light" prompt="전화번호입력.." width="115" />
 						<s:Image id="sendListInputBtn"
 								 source="@Embed('/skin/ics/assets/light/icon/9-av-download.png')" buttonMode="true"
 								 />
-					</s:HGroup>
-					
-					<s:List id="sendList"
-							focusEnabled="false"
-							borderColor="#DDDDDD"
-							itemRenderer="component.send.SendListRenderer"
-							width="100%" height="150">
-					</s:List>
-					
-					<s:HGroup width="100%" horizontalAlign="right" gap="0" verticalAlign="middle">
 						<s:Image id="dupleDelete"
 								 source="@Embed('/skin/ics/assets/light/icon/10-device-access-storage.png')" buttonMode="true"   
 								 />
 						<s:Image id="phoneRemoveAll"
 								 source="@Embed('/skin/ics/assets/light/icon/5-content-discard.png')" buttonMode="true"
 								 />
-						<s:Spacer width="10" />
+					</s:HGroup>
+					
+					
+					<!-- send List -->
+					<s:List id="sendList"
+							focusEnabled="false"
+							borderColor="#DDDDDD"
+							itemRenderer="component.send.SendListRenderer"
+							width="265" height="150">
+					</s:List>
+					<!-- send List count -->
+					<s:HGroup width="100%" horizontalAlign="right" paddingRight="5" gap="0" verticalAlign="middle">
 						<s:RichText whiteSpaceCollapse="preserve">
 							<s:content><s:p><s:span id="countPhone">0</s:span><s:span kerning="auto"> </s:span><s:span fontSize="12" lineHeight="166.65%" kerning="auto">명</s:span></s:p></s:content>
 						</s:RichText>
 					</s:HGroup>
 					
+					
+					<!-- callback -->
 					<s:HGroup verticalAlign="middle" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
-						<s:Label text="회신 : " color="#33B5E5" />
+						<s:Label text="회신 : "  color="#999999"/>
 						<s:ComboBox id="callback" width="190"
 									itemRenderer="component.send.ReturnPhoneRenderer" 
 									styleName="comboBox_light"/>
@@ -103,18 +107,27 @@
 								 source="@Embed('/skin/ics/assets/light/icon/5-content-new-event.png')" buttonMode="true"								 
 								  fillMode="scale" />
 					</s:HGroup>
-					<s:Spacer height="4"/>
-					<s:RichText width="100%" fontSize="12">
+					
+					<s:Spacer height="14"/>
+					
+					<!-- confirm -->
+					<s:RichText id="confirm_text" width="265" fontSize="12"  color="#999999">
 						<s:content><s:p><s:span id="confirm_mode" color.LMS="#FF8800"
 												color.MMS="#CC0000">SMS</s:span><s:span> 를 </s:span><s:span id="confirm_count" backgroundColor="#33B5E5">0</s:span><s:span> 명에게 </s:span><s:span id="confirm_delay" backgroundColor="#FFBB33"></s:span></s:p><s:p><s:span id="confirm_reservation" backgroundColor="#99CC00"></s:span><s:span>발송하시겠습니까?</s:span></s:p></s:content>
 					</s:RichText>
+					
 					<s:Spacer height="4"/>
-					<s:Button id="sendBtn" label="Send" width="100%" styleName="button_light" enabled="false" />
-					<s:HGroup width="100%">
-						<s:CheckBox id="sendReservation" label="예약설정" styleName="checkbox_light" />
-						<s:CheckBox id="sendInterval" label="간격설정" styleName="checkbox_light" />
+					
+					<!-- send Button -->
+					<s:Button id="sendBtn" label="Send" width="265" styleName="button_light" enabled="false" />
+					<s:HGroup width="265">
+						<s:CheckBox id="sendReservation" label="예약설정" styleName="checkbox_light"  color="#999999"/>
+						<s:CheckBox id="sendInterval" label="간격설정" styleName="checkbox_light"  color="#999999"/>
 					</s:HGroup>
 				</s:VGroup>
+				
+				<s:BitmapImage source="@Embed('/skin/ics/assets/list_normal.png', scaleGridTop='1', scaleGridBottom='37', scaleGridLeft='1', scaleGridRight='17')" smooth="true"
+							   width="18" right="1" top="0" bottom="0" visible="true"/>
 				
 			</s:Group>
 		</s:HGroup>
