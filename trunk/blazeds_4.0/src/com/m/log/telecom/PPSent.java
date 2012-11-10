@@ -7,6 +7,7 @@ import java.util.HashMap;
 import com.common.VbyP;
 import com.common.db.PreparedExecuteQueryManager;
 import com.common.util.SLibrary;
+import com.m.common.BooleanAndDescriptionVO;
 import com.m.log.ISentData;
 import com.m.log.SentStatusVO;
 import com.m.send.LogVO;
@@ -171,17 +172,31 @@ public class PPSent implements ISentData {
 		return pq.executeUpdate();
 	}
 	
-	private SentStatusVO parseVO(HashMap<String, String> hm) {
+	public int failUpdate(Connection conn, LogVO lvo) {
 		
-		SentStatusVO ssvo = new SentStatusVO();
+		String SQL = "";
+		SQL = VbyP.getSQL( "sent_pp_fail_update" );
 		
-		ssvo.setLocal( SLibrary.intValue( SLibrary.IfNull(hm, "standbyCount") ) );
-		ssvo.setTelecom( SLibrary.intValue( SLibrary.IfNull(hm, "sendingCount") ) );
-		ssvo.setSuccess( SLibrary.intValue( SLibrary.IfNull(hm, "successCount") ) );
-		ssvo.setFail( SLibrary.intValue( SLibrary.IfNull(hm, "failCount") ) );
-		System.out.println(ssvo.getLocal() + "/"+ssvo.getTelecom() + "/"+ssvo.getSuccess() + "/"+ssvo.getFail());
-		return ssvo;
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		pq.setPrepared(conn, SQL);
+		pq.setString(1, SLibrary.getDateTimeString());
+		pq.setString(2, lvo.getUser_id());
+		pq.setInt(3, lvo.getIdx());
+		
+		return pq.executeUpdate();
 	}
+	
+//	private SentStatusVO parseVO(HashMap<String, String> hm) {
+//		
+//		SentStatusVO ssvo = new SentStatusVO();
+//		
+//		ssvo.setLocal( SLibrary.intValue( SLibrary.IfNull(hm, "standbyCount") ) );
+//		ssvo.setTelecom( SLibrary.intValue( SLibrary.IfNull(hm, "sendingCount") ) );
+//		ssvo.setSuccess( SLibrary.intValue( SLibrary.IfNull(hm, "successCount") ) );
+//		ssvo.setFail( SLibrary.intValue( SLibrary.IfNull(hm, "failCount") ) );
+//		System.out.println(ssvo.getLocal() + "/"+ssvo.getTelecom() + "/"+ssvo.getSuccess() + "/"+ssvo.getFail());
+//		return ssvo;
+//	}
 	
 	private SentStatusVO parseVO(String mode, ArrayList<HashMap<String, String>> al) {
 		
@@ -194,7 +209,6 @@ public class PPSent implements ISentData {
 			
 			for (int i = 0; i < cnt; i++) {
 				hm = al.get(i);
-				System.out.println("@@@@@@@@@@@"+SLibrary.IfNull(hm, "STATUS")+"/"+SLibrary.IfNull(hm, "CALL_STATUS"));
 				if ( SLibrary.IfNull(hm, "STATUS").equals("0") ) rslt[0]++; // standby
 				else if ( SLibrary.IfNull(hm, "STATUS").equals("1") ) rslt[1]++; // standby
 				else if ( SLibrary.IfNull(hm, "STATUS").equals("2") ) {
@@ -288,6 +302,7 @@ public class PPSent implements ISentData {
 			mvo.setSendMode(SLibrary.IfNull(hm, "TR_ETC3"));
 			mvo.setImagePath("");
 			mvo.setRsltDate(SLibrary.IfNull(hm, "TR_RSLTDATE"));
+			mvo.setFailAddDate(SLibrary.IfNull(hm, "TR_ETC4"));
 		}
 		
 		return mvo;
@@ -326,6 +341,7 @@ public class PPSent implements ISentData {
 			mvo.setSendMode(SLibrary.IfNull(hm, "ETC3"));
 			mvo.setImagePath(SLibrary.IfNull(hm, "FILE_PATH1"));
 			mvo.setRsltDate(SLibrary.IfNull(hm, "RSLTDATE"));
+			mvo.setFailAddDate(SLibrary.IfNull(hm, "ETC4"));
 		}
 		
 		return mvo;
