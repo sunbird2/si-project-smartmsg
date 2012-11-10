@@ -66,6 +66,7 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
     private var _internal_imagePath : String;
     private var _internal_rslt : String;
     private var _internal_msg : String;
+    private var _internal_failAddDate : String;
     private var _internal_stat : String;
     private var _internal_sendDate : String;
     private var _internal_groupKey : int;
@@ -135,6 +136,12 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
     public function get msg() : String
     {
         return _internal_msg;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get failAddDate() : String
+    {
+        return _internal_failAddDate;
     }
 
     [Bindable(event="propertyChange")]
@@ -241,6 +248,15 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
         if (oldValue !== value)
         {
             _internal_msg = value;
+        }
+    }
+
+    public function set failAddDate(value:String) : void
+    {
+        var oldValue:String = _internal_failAddDate;
+        if (oldValue !== value)
+        {
+            _internal_failAddDate = value;
         }
     }
 

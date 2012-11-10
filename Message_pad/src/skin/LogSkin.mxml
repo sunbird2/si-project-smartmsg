@@ -70,6 +70,8 @@
 						<s:DropDownList id="searchType" width="70" styleName="dropDownList_light" />
 						<util:TextInputSearch id="search" prompt="이름 or 전화번호" focusSkin="skin.ics.TextInputFocus" color="#222222" fontSize="12" />
 						<s:Image id="excelDownBtn" source="skin/ics/assets/light/icon/5-content-import-export.png" buttonMode="true" toolTip="엑셀다운로드" />
+						<s:Image id="failAdd" source="skin/ics/assets/light/icon/5-content-undo.png" buttonMode="true" toolTip="실패보상 받기" />
+						
 					</s:HGroup>
 				</s:SkinnableContainer>
 				

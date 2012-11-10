@@ -20,14 +20,14 @@ internal class _PhoneVOEntityMetadata extends com.adobe.fiber.valueobjects.Abstr
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("pNo", "pName");
+    model_internal static var allProperties:Array = new Array("pName", "pNo");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("pNo", "pName");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("pName", "pNo");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("pNo", "pName");
+    model_internal static var dataProperties:Array = new Array("pName", "pNo");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("pNo", "pName");
+    model_internal static var nonDerivedProperties:Array = new Array("pName", "pNo");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -47,8 +47,8 @@ internal class _PhoneVOEntityMetadata extends com.adobe.fiber.valueobjects.Abstr
         {
             // dependents map
             model_internal::dependentsOnMap = new Object();
-            model_internal::dependentsOnMap["pNo"] = new Array();
             model_internal::dependentsOnMap["pName"] = new Array();
+            model_internal::dependentsOnMap["pNo"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
@@ -56,8 +56,8 @@ internal class _PhoneVOEntityMetadata extends com.adobe.fiber.valueobjects.Abstr
 
         // Property type Map
         model_internal::propertyTypeMap = new Object();
-        model_internal::propertyTypeMap["pNo"] = "String";
         model_internal::propertyTypeMap["pName"] = "String";
+        model_internal::propertyTypeMap["pNo"] = "String";
 
         model_internal::_instance = value;
     }
@@ -287,13 +287,13 @@ internal class _PhoneVOEntityMetadata extends com.adobe.fiber.valueobjects.Abstr
     }
 
     [Bindable(event="propertyChange")]
-    public function get isPNoAvailable():Boolean
+    public function get isPNameAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isPNameAvailable():Boolean
+    public function get isPNoAvailable():Boolean
     {
         return true;
     }
@@ -309,13 +309,13 @@ internal class _PhoneVOEntityMetadata extends com.adobe.fiber.valueobjects.Abstr
     }
 
     [Bindable(event="propertyChange")]   
-    public function get pNoStyle():com.adobe.fiber.styles.Style
+    public function get pNameStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get pNameStyle():com.adobe.fiber.styles.Style
+    public function get pNoStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

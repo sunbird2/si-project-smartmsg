@@ -59,8 +59,8 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
      * properties
      */
     private var _internal_point : String;
-    private var _internal_hp : String;
     private var _internal_levaeYN : String;
+    private var _internal_hp : String;
     private var _internal_unit_cost : int;
     private var _internal_line : String;
     private var _internal_user_id : String;
@@ -94,15 +94,15 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
     }
 
     [Bindable(event="propertyChange")]
-    public function get hp() : String
-    {
-        return _internal_hp;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get levaeYN() : String
     {
         return _internal_levaeYN;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get hp() : String
+    {
+        return _internal_hp;
     }
 
     [Bindable(event="propertyChange")]
@@ -141,16 +141,6 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
         }
     }
 
-    public function set hp(value:String) : void
-    {
-        var oldValue:String = _internal_hp;
-        if (oldValue !== value)
-        {
-            _internal_hp = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "hp", oldValue, _internal_hp));
-        }
-    }
-
     public function set levaeYN(value:String) : void
     {
         var oldValue:String = _internal_levaeYN;
@@ -158,6 +148,16 @@ public class _Super_UserInformationVO extends flash.events.EventDispatcher imple
         {
             _internal_levaeYN = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "levaeYN", oldValue, _internal_levaeYN));
+        }
+    }
+
+    public function set hp(value:String) : void
+    {
+        var oldValue:String = _internal_hp;
+        if (oldValue !== value)
+        {
+            _internal_hp = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "hp", oldValue, _internal_hp));
         }
     }
 

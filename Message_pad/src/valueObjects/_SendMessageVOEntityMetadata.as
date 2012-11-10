@@ -22,14 +22,14 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("message", "al", "itMinute", "imagePath", "itCount", "bMerge", "returnPhone", "bReservation", "reservationDate", "bInterval", "reqIP");
+    model_internal static var allProperties:Array = new Array("message", "al", "itMinute", "itCount", "bMerge", "imagePath", "bReservation", "returnPhone", "reservationDate", "bInterval", "reqIP");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("message", "al", "itMinute", "imagePath", "itCount", "bMerge", "returnPhone", "bReservation", "reservationDate", "bInterval", "reqIP");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("message", "al", "itMinute", "itCount", "bMerge", "imagePath", "bReservation", "returnPhone", "reservationDate", "bInterval", "reqIP");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("message", "al", "itMinute", "imagePath", "itCount", "bMerge", "returnPhone", "bReservation", "reservationDate", "bInterval", "reqIP");
+    model_internal static var dataProperties:Array = new Array("message", "al", "itMinute", "itCount", "bMerge", "imagePath", "bReservation", "returnPhone", "reservationDate", "bInterval", "reqIP");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("message", "al", "itMinute", "imagePath", "itCount", "bMerge", "returnPhone", "bReservation", "reservationDate", "bInterval", "reqIP");
+    model_internal static var nonDerivedProperties:Array = new Array("message", "al", "itMinute", "itCount", "bMerge", "imagePath", "bReservation", "returnPhone", "reservationDate", "bInterval", "reqIP");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array("al");
     model_internal static var collectionBaseMap:Object;
@@ -52,11 +52,11 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
             model_internal::dependentsOnMap["message"] = new Array();
             model_internal::dependentsOnMap["al"] = new Array();
             model_internal::dependentsOnMap["itMinute"] = new Array();
-            model_internal::dependentsOnMap["imagePath"] = new Array();
             model_internal::dependentsOnMap["itCount"] = new Array();
             model_internal::dependentsOnMap["bMerge"] = new Array();
-            model_internal::dependentsOnMap["returnPhone"] = new Array();
+            model_internal::dependentsOnMap["imagePath"] = new Array();
             model_internal::dependentsOnMap["bReservation"] = new Array();
+            model_internal::dependentsOnMap["returnPhone"] = new Array();
             model_internal::dependentsOnMap["reservationDate"] = new Array();
             model_internal::dependentsOnMap["bInterval"] = new Array();
             model_internal::dependentsOnMap["reqIP"] = new Array();
@@ -71,11 +71,11 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
         model_internal::propertyTypeMap["message"] = "String";
         model_internal::propertyTypeMap["al"] = "ArrayCollection";
         model_internal::propertyTypeMap["itMinute"] = "int";
-        model_internal::propertyTypeMap["imagePath"] = "String";
         model_internal::propertyTypeMap["itCount"] = "int";
         model_internal::propertyTypeMap["bMerge"] = "Boolean";
-        model_internal::propertyTypeMap["returnPhone"] = "String";
+        model_internal::propertyTypeMap["imagePath"] = "String";
         model_internal::propertyTypeMap["bReservation"] = "Boolean";
+        model_internal::propertyTypeMap["returnPhone"] = "String";
         model_internal::propertyTypeMap["reservationDate"] = "String";
         model_internal::propertyTypeMap["bInterval"] = "Boolean";
         model_internal::propertyTypeMap["reqIP"] = "String";
@@ -326,12 +326,6 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
     }
 
     [Bindable(event="propertyChange")]
-    public function get isImagePathAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get isItCountAvailable():Boolean
     {
         return true;
@@ -344,13 +338,19 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
     }
 
     [Bindable(event="propertyChange")]
-    public function get isReturnPhoneAvailable():Boolean
+    public function get isImagePathAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
     public function get isBReservationAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isReturnPhoneAvailable():Boolean
     {
         return true;
     }
@@ -402,12 +402,6 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
     }
 
     [Bindable(event="propertyChange")]   
-    public function get imagePathStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
     public function get itCountStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
@@ -420,13 +414,19 @@ internal class _SendMessageVOEntityMetadata extends com.adobe.fiber.valueobjects
     }
 
     [Bindable(event="propertyChange")]   
-    public function get returnPhoneStyle():com.adobe.fiber.styles.Style
+    public function get imagePathStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
     public function get bReservationStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get returnPhoneStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
