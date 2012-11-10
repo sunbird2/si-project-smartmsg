@@ -19,6 +19,7 @@
 					rslt.text = data.rslt;
 					rsltDate.text = data.rsltDate;
 					callback.text = data.callback;
+					failadd.text = (data.failAddDate && data.failAddDate != "")? "보상" : "";
 					
 					if (mvo.rslt == "대기") this.currentState = "def";
 					else if (mvo.rslt == "전송중") this.currentState = "sending";
@@ -49,6 +50,7 @@
 		<s:RichText id="rslt" width="50" height="14"/>
 		<s:RichText id="rsltDate" width="90" height="14"/>
 		<s:RichText id="callback" width="80" height="14"/>
+		<s:RichText id="failadd" width="80" height="14"/>
 	</s:HGroup>
 	
 </s:ItemRenderer>

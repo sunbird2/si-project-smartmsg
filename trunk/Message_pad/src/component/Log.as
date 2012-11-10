@@ -10,6 +10,7 @@ package component
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.external.ExternalInterface;
 	
 	import lib.AlertManager;
 	import lib.CustomEvent;
@@ -86,7 +87,7 @@ package component
 		[SkinPart(required="false")]public var excelDownBtn:Image;
 		[SkinPart(required="false")]public var searchType:DropDownList;
 		[SkinPart(required="false")]public var search:TextInputSearch;
-		
+		[SkinPart(required="false")]public var failAdd:Image;
 		
 		
 		private var _yyyymm:String;
@@ -94,6 +95,7 @@ package component
 		private var acDetail:ArrayCollection = new ArrayCollection();
 		private var acChart:ArrayCollection = new ArrayCollection();
 		private var arrSearch:ArrayCollection = new ArrayCollection([{label:"전체"},{label:"성공"},{label:"실패"},{label:"전송중"},{label:"대기"}]);
+		private var failCount:int = 0; 
 		
 		private var confirmAlert:AlertManager;
 		
@@ -197,6 +199,7 @@ package component
 				searchType.selectedIndex = 0;
 			}
 			else if (instance == search) search.addEventListener("search" , search_clickHandler);
+			else if (instance == failAdd) failAdd.addEventListener(MouseEvent.CLICK, failAdd_clickHandler);
 			
 			
 		}
@@ -237,6 +240,8 @@ package component
 			else if (instance == listDelBtn) listDelBtn.removeEventListener(MouseEvent.CLICK, listDelBtn_clickHandler);
 			else if (instance == excelDownBtn) excelDownBtn.removeEventListener(MouseEvent.CLICK, excelDownBtn_clickHandler);
 			else if (instance == searchType) searchType.dataProvider = null;
+			else if (instance == search) search.removeEventListener("search" , search_clickHandler);
+			else if (instance == failAdd) failAdd.addEventListener(MouseEvent.CLICK, failAdd_clickHandler);
 			
 			super.partRemoved(partName, instance);
 		}
@@ -248,6 +253,25 @@ package component
 			mx_internal::skinDestructionPolicy = "auto";
 			super.createChildren();
 		}
+		
+		private function failAdd_clickHandler(event:MouseEvent):void {
+			
+			if (!detailVO) SLibrary.alert("그룹내역에서 항목을 선택 후 진행 하실 수 있습니다." );
+			else if (failCount < 1) SLibrary.alert("실패된 내역이 없습니다." );
+			else {
+				RemoteSingleManager.getInstance.addEventListener("failAdd", failAdd_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.failAdd(detailVO);
+			}
+		}
+		private function failAdd_resultHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("failAdd", getSentList_resultHandler);
+			var rslt:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+			SLibrary.alert(rslt.strDescription);
+			getDetailList();
+		}
+		
 		
 		private function getPieSeries():PieSeries {
 			
@@ -340,6 +364,10 @@ package component
 				acChart.addItem({result:"전송중",cnt:ssvo.telecom});
 				acChart.addItem({result:"성공",cnt:ssvo.success});
 				acChart.addItem({result:"실패",cnt:ssvo.fail});
+				
+				failCount = ssvo.fail;
+				failAdd.enabled = failCount > 0 ? true : false;
+				
 			}
 			if (message)
 				message.text = detailVO.message;

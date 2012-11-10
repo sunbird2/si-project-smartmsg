@@ -64,11 +64,11 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
     private var _internal_al : ArrayCollection;
     model_internal var _internal_al_leaf:valueObjects.PhoneVO;
     private var _internal_itMinute : int;
-    private var _internal_imagePath : String;
     private var _internal_itCount : int;
     private var _internal_bMerge : Boolean;
-    private var _internal_returnPhone : String;
+    private var _internal_imagePath : String;
     private var _internal_bReservation : Boolean;
+    private var _internal_returnPhone : String;
     private var _internal_reservationDate : String;
     private var _internal_bInterval : Boolean;
     private var _internal_reqIP : String;
@@ -114,12 +114,6 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
     }
 
     [Bindable(event="propertyChange")]
-    public function get imagePath() : String
-    {
-        return _internal_imagePath;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get itCount() : int
     {
         return _internal_itCount;
@@ -132,15 +126,21 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
     }
 
     [Bindable(event="propertyChange")]
-    public function get returnPhone() : String
+    public function get imagePath() : String
     {
-        return _internal_returnPhone;
+        return _internal_imagePath;
     }
 
     [Bindable(event="propertyChange")]
     public function get bReservation() : Boolean
     {
         return _internal_bReservation;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get returnPhone() : String
+    {
+        return _internal_returnPhone;
     }
 
     [Bindable(event="propertyChange")]
@@ -214,16 +214,6 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
         }
     }
 
-    public function set imagePath(value:String) : void
-    {
-        var oldValue:String = _internal_imagePath;
-        if (oldValue !== value)
-        {
-            _internal_imagePath = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "imagePath", oldValue, _internal_imagePath));
-        }
-    }
-
     public function set itCount(value:int) : void
     {
         var oldValue:int = _internal_itCount;
@@ -244,13 +234,13 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
         }
     }
 
-    public function set returnPhone(value:String) : void
+    public function set imagePath(value:String) : void
     {
-        var oldValue:String = _internal_returnPhone;
+        var oldValue:String = _internal_imagePath;
         if (oldValue !== value)
         {
-            _internal_returnPhone = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "returnPhone", oldValue, _internal_returnPhone));
+            _internal_imagePath = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "imagePath", oldValue, _internal_imagePath));
         }
     }
 
@@ -261,6 +251,16 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
         {
             _internal_bReservation = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "bReservation", oldValue, _internal_bReservation));
+        }
+    }
+
+    public function set returnPhone(value:String) : void
+    {
+        var oldValue:String = _internal_returnPhone;
+        if (oldValue !== value)
+        {
+            _internal_returnPhone = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "returnPhone", oldValue, _internal_returnPhone));
         }
     }
 

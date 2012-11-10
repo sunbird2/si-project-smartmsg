@@ -71,9 +71,9 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     private var _internal_userName : String;
     private var _internal_driverName : String;
     private var _internal_maxCatalogNameLength : int;
+    private var _internal_catalogAtStart : Boolean;
     private var _internal_databaseProductVersion : String;
     private var _internal_catalogSeparator : String;
-    private var _internal_catalogAtStart : Boolean;
     private var _internal_driverMajorVersion : int;
     private var _internal_connection : valueObjects.Connection;
     private var _internal_SQLKeywords : String;
@@ -196,6 +196,12 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     }
 
     [Bindable(event="propertyChange")]
+    public function get catalogAtStart() : Boolean
+    {
+        return _internal_catalogAtStart;
+    }
+
+    [Bindable(event="propertyChange")]
     public function get databaseProductVersion() : String
     {
         return _internal_databaseProductVersion;
@@ -205,12 +211,6 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     public function get catalogSeparator() : String
     {
         return _internal_catalogSeparator;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get catalogAtStart() : Boolean
-    {
-        return _internal_catalogAtStart;
     }
 
     [Bindable(event="propertyChange")]
@@ -575,6 +575,16 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         }
     }
 
+    public function set catalogAtStart(value:Boolean) : void
+    {
+        var oldValue:Boolean = _internal_catalogAtStart;
+        if (oldValue !== value)
+        {
+            _internal_catalogAtStart = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "catalogAtStart", oldValue, _internal_catalogAtStart));
+        }
+    }
+
     public function set databaseProductVersion(value:String) : void
     {
         var oldValue:String = _internal_databaseProductVersion;
@@ -592,16 +602,6 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         {
             _internal_catalogSeparator = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "catalogSeparator", oldValue, _internal_catalogSeparator));
-        }
-    }
-
-    public function set catalogAtStart(value:Boolean) : void
-    {
-        var oldValue:Boolean = _internal_catalogAtStart;
-        if (oldValue !== value)
-        {
-            _internal_catalogAtStart = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "catalogAtStart", oldValue, _internal_catalogAtStart));
         }
     }
 
