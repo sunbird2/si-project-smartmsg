@@ -118,6 +118,8 @@ package component
 		[SkinPart(required="false")]public var confirm_count:SpanElement;
 		[SkinPart(required="false")]public var confirm_reservation:SpanElement;
 		[SkinPart(required="false")]public var confirm_delay:SpanElement;
+		[SkinPart(required="false")]public var confirm_text:RichText;
+		
 		
 		
 		[SkinPart(required="false")]public var title_text:RichText;
@@ -368,6 +370,10 @@ package component
 			
 			var validMessage:String = "";
 			var subMessage:String = "";
+			
+			sendBtn.enabled = false;
+			confirm_text.visible = false;
+			
 			if ( msg == "" ) {
 				validMessage = "메시지를 입력 하세요.";
 				subMessage = "90Byte 이상 입력시 LMS로 자동 전환됩니다.";
@@ -384,6 +390,7 @@ package component
 				validMessage = "보내기 버튼을 누르면 전송 됩니다.";
 				subMessage = "예약 설정 또는 간격설정을 하실 수 있습니다.";
 				sendBtn.enabled = true;
+				confirm_text.visible = true;
 			}
 			title_text.text = validMessage;
 			titleSub_text.text = subMessage;
