@@ -82,7 +82,7 @@
                                 <td>신용카드</td><td>10,000 <span>원</span></td><td>1,000 <span>원</span></td><td>11,000 <span>원</span></td>
                             </tr>
                         </table><br/>
-                        <a href="#" class="button gray" onclick="billSubmit(document.billForm)">결제하기</a>
+                        <a href="#" class="button gray" style="width:110px;" onclick="billSubmit(document.billForm)">결제하기</a>
                     </div>
 
                 </div>
