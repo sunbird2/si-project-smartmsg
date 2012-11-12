@@ -6,3 +6,6 @@ dl dd {width:320px;text-align:center;border:1px solid;}
 #imgOne_wrap {max-width:95%;}
 
 #imgThumbnail_wrap {max-width:95%;}
+#imgThumbnail_box {list-style: none;clear:both;width:100%}
+#imgThumbnail_box li {position:relative; display:block; float:left;height:100px;}
+#imgThumbnail_box li span {position:absolute;top:0px;left:0px;width:96px;height:96px;border:2px solid #52BA0D;text-align:right;}
