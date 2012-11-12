@@ -45,8 +45,11 @@
 		
 		// create org
 		try {
+			
+			img = ImageLoader.fromFile(file);
+			
 			int resizeW = SLibrary.intValue( VbyP.getValue("thumb_org_w") );
-            img = ImageLoader.fromFile(file);
+            
             if ( img.getWidth() > resizeW ) {
             	resized = img.getResizedToWidth( SLibrary.intValue( VbyP.getValue("thumb_org_w") ));
             	
@@ -58,13 +61,21 @@
             	img.writeToFile( new File(VbyP.getValue("image_upload_path")+ um.getUploadedFileName()) );
             }
             
+            
          	// create thumbnail
-   			square = img.getResizedToSquare( SLibrary.intValue( VbyP.getValue("thmub_w") ), 0.0 ).soften(0.1f);
-         	System.out.println(VbyP.getValue("image_upload_path_thumb")+um.getUploadedFileName());
-   			if (square.getSourceType() == ImageType.JPG)
-               	square.writeToJPG(new File(VbyP.getValue("image_upload_path_thumb")+um.getUploadedFileName()), 0.95f);
-   			else
-   				square.writeToFile( new File(VbyP.getValue("image_upload_path_thumb")+ um.getUploadedFileName()) );
+         	int thumbW = SLibrary.intValue(VbyP.getValue("thmub_w"));
+         	if ( img.getWidth() > thumbW && img.getHeight() > thumbW ) {
+         		
+         		square = img.getResizedToSquare( thumbW , 0.0 ).soften(0.1f);
+	   			if (square.getSourceType() == ImageType.JPG)
+	               	square.writeToJPG(new File(VbyP.getValue("image_upload_path_thumb")+um.getUploadedFileName()), 0.95f);
+	   			else
+	   				square.writeToFile( new File(VbyP.getValue("image_upload_path_thumb")+ um.getUploadedFileName()) );
+			}
+         	else {
+         		img.writeToFile( new File(VbyP.getValue("image_upload_path_thumb")+ um.getUploadedFileName()) );
+         	}
+         		
     		
             
 

@@ -22,7 +22,7 @@
 	<script type="text/javascript">
 	
 	
-	var imageOver = '<span style="display:none;"><a href="#" ><img src="_images/img_del.gif" width="18" height="18" /></a></span>';
+	var imageOver = '<span><a href="#" ><img src="_images/img_del.gif" width="18" height="18" /></a></span>';
 	
 	$(function() {
 		$('#imgOne_upload').uploadify({
@@ -39,7 +39,6 @@
  				var rslt;
  				try {
  					rslt = jQuery.parseJSON(data);
- 					alert(rslt.b );
  					if (rslt.b == "true") {
  	 	 				if ($('#imgOne').length > 0) $('#imgOne').attr('src','/urlImage/'+rslt.img);
  	 	 				else $('#imgOne_box').append('<img id="imgOne" src="'+"/urlImage/"+rslt.img+'" />');
@@ -69,7 +68,7 @@
  					rslt = $.parseJSON(data);
  					
  					if (rslt.b == "true")
- 						$('#imgThumbnail_box').append('<li><img id="imgThumbnail" src="'+"/urlImage/thumb/"+rslt.img+'" width="100" height="100" />'+imageOver+'</li>');
+ 						$('#imgThumbnail_box').append('<li><img id="imgThumbnail" src="'+"/urlImage/thumb/"+rslt.img+'" />'+imageOver+'</li>');
  					else
  						alert("에러 : "+rslt.err);
  	 				
@@ -80,9 +79,9 @@
         	'onQueueComplete' : function(queueData) {
         		
         		// 마우스 오버시 UI 변경
-        		$("#imgThumbnail_box > li").mouseover(function(){ $(this).children("span").show();}
-        			).mouseout(function(){ $(this).children("span").hide(); }
-        		);
+        		//$("#imgThumbnail_box > li").mouseover(function(){ $(this).children("span").show();}
+        		//	).mouseout(function(){ $(this).children("span").hide(); }
+        		//);
         		
         		// 삭제 클릭시 처리
         		$("#imgThumbnail_box > li > span > a").click(function(){
@@ -102,25 +101,14 @@
 	}
 	
 	$(function() {
-	        $( "#imgThumbnail_box" ).sortable();
+	        $( "#imgThumbnail_box" ).sortable({cursor: "move"});
 			$( "#imgThumbnail_box" ).disableSelection();
 
     });
 	
 	
 	</script>
-	<style>
-    .demo ul { list-style-type: none; margin: 0; padding: 0; margin-bottom: 10px; }
-    .demo li { margin: 5px; padding: 5px; width: 150px; }
-    </style>
-  
-  	<ul id="sortable" class="ui-sortable">
-            <li class="ui-state-default">Item 1</li>
-            <li class="ui-state-default">Item 2</li>
-            <li class="ui-state-default">Item 3</li>
-            <li class="ui-state-default">Item 4</li>
-            <li class="ui-state-default">Item 5</li>
-        </ul>
+ 
   	<h1>속성</h1>
   	<dl>
   		<dt>이미지 1장</dt>
