@@ -86,7 +86,21 @@
 		// remove temp
 		if(file != null && file.exists()) file.delete();
 		
-		out.println(SLibrary.IfNull(um.getUploadedFileName()));
+		//out.println(SLibrary.IfNull(um.getUploadedFileName()));
+		
+		boolean b = false;
+		if ( SLibrary.isNull(errorMsg) ) {
+			b = true;
+		}
+		
+		StringBuffer sbuf = new StringBuffer();
+		sbuf.append("{");
+		sbuf.append("\"b\" : \""+b+"\",");
+		sbuf.append("\"img\" : \""+um.getUploadedFileName()+"\",");
+		sbuf.append("\"err\" : \""+errorMsg+"\"");
+		sbuf.append("}");
+		
+		out.println( sbuf.toString() );
 		// if (errorMsg != null) out.println(SLibrary.alertScript(errorMsg.toString(),""));
 
 	}

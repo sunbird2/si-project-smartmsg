@@ -30,10 +30,20 @@
 			'removeTimeout' : 1, // queue 제거 시간
 			'multi' : false, // 다중업로드
  			'onUploadSuccess' : function(file, data, response) {
- 				if ($('#imgOne').length > 0)
- 					$('#imgOne').attr('src','/urlImage/'+data);
- 				else
- 					$('#imgOne_box').append('<img id="imgOne" src="'+"/urlImage/"+data+'" />');
+ 				
+ 				$('#debug').val($('#debug').val()+"\r\n"+file+"/"+data+"/"+response);
+ 				var rslt;
+ 				try {
+ 					rslt = jQuery.parseJSON(data);
+ 					alert(rslt.b );
+ 					if (rslt.b == "true") {
+ 	 	 				if ($('#imgOne').length > 0) $('#imgOne').attr('src','/urlImage/'+rslt.img);
+ 	 	 				else $('#imgOne_box').append('<img id="imgOne" src="'+"/urlImage/"+rslt.img+'" />');
+ 					} else {
+ 						alert("에러 : "+rslt.err);
+ 					}
+ 	 				
+ 				}catch(err){ alert("업로드 실패");}
         	}
  			
 		});
@@ -48,7 +58,20 @@
 			'removeTimeout' : 1, // queue 제거 시간
 			'multi' : true, // 다중업로드
  			'onUploadSuccess' : function(file, data, response) {
- 				$('#imgThumbnail_box').append('<img id="imgThumbnail" src="'+"/urlImage/thumb/"+data+'" />');
+ 				
+ 				
+ 				$('#debug').val($('#debug').val()+"\r\n"+file+"/"+data+"/"+response);
+ 				var rslt;
+ 				try {
+ 					rslt = jQuery.parseJSON(data);
+ 					if (rslt.b == "true") {
+ 						$('#imgThumbnail_box').append('<img id="imgThumbnail" src="'+"/urlImage/thumb/"+rslt.img+'" />');
+ 					} else {
+ 						alert("에러 : "+rslt.err);
+ 					}
+ 	 				
+ 				}catch(err){ alert("업로드 실패");}
+ 				
  				//$('#img1').attr("src", "uploadImage/"+data);alert('The file ' + file.name + ' was successfully uploaded with a response of ' + response + ':' + data);
         	}
  			
@@ -60,7 +83,7 @@
 	
 	</script>
   
-  	
+  	<textarea id="debug" rows="10" cols="100"></textarea>
   	<h1>속성</h1>
   	<dl>
   		<dt>이미지 1장</dt>
