@@ -13,19 +13,14 @@
     <script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery.uploadify-3.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
+    <script type="text/javascript" src="js/galleria/galleria-1.2.8.min.js"></script>
    </head>
   <body>
-  
 
-	
-	
 	<script type="text/javascript">
-	
-	
-	var imageOver = '<span><a href="#" ><img src="_images/img_del.gif" width="18" height="18" /></a></span>';
-	
-	$(function() {
-		$('#imgOne_upload').uploadify({
+	$(document).ready(function(){
+
+        $('#imgOne_upload').uploadify({
 			'swf'      : 'js/uploadify.swf', // 파일업로드 이벤트 가로채틑 flash
 			'uploader' : 'uploadify.jsp', // 비동기 업로드시 처리 url
 			'fileTypeDesc' : 'Image Files',
@@ -49,7 +44,7 @@
  				}catch(err){ alert("업로드 실패");}
         	}
  			
-		});
+		});//#imgOne_upload
 		
 		
 		$('#imgThumbnail_upload').uploadify({
@@ -67,8 +62,10 @@
  				try {
  					rslt = $.parseJSON(data);
  					
- 					if (rslt.b == "true")
- 						$('#imgThumbnail_box').append('<li><img id="imgThumbnail" src="'+"/urlImage/thumb/"+rslt.img+'" />'+imageOver+'</li>');
+ 					if (rslt.b == "true") {
+                        thumbData.push({image: '/urlImage/'+rslt.img,
+                                                thumb: '/urlImage/thumb/'+rslt.img });
+                    }
  					else
  						alert("에러 : "+rslt.err);
  	 				
@@ -77,38 +74,266 @@
         	},
         	
         	'onQueueComplete' : function(queueData) {
-        		
-        		// 마우스 오버시 UI 변경
-        		//$("#imgThumbnail_box > li").mouseover(function(){ $(this).children("span").show();}
-        		//	).mouseout(function(){ $(this).children("span").hide(); }
-        		//);
-        		
-        		// 삭제 클릭시 처리
-        		$("#imgThumbnail_box > li > span > a").click(function(){
-        			$(this).parent().parent().remove();
-        		});
-        		
+        		thumbEditView();
                 alert("총 " + $("#imgThumbnail_box").children().length + " 개의 이미지가 업로드 되어 있습니다.");
             }
  			
-		});
-	});
+		});//#imgThumbnail_upload
+
+        $('#imgSlide_upload').uploadify({
+			'swf'      		: 'js/uploadify.swf', 	// 파일업로드 이벤트 가로채틑 flash
+			'uploader' 		: 'uploadifySlide.jsp', // 비동기 업로드시 처리 url
+			'fileTypeDesc'	: 'Image Files',
+	        'fileTypeExts'	: '*.gif; *.jpg; *.png',
+			'buttonText'	: '이미지등록',
+			'removeTimeout' : 1, 					// queue 제거 시간
+			'multi' 		: true, 				// 다중업로드
+ 			'onUploadSuccess' : function(file, data, response) {
+ 				
+ 				$('#debug').val($('#debug').val()+"\r\n"+file+"/"+data+"/"+response);
+ 				var rslt;
+ 				try {
+ 					rslt = $.parseJSON(data);
+ 					if (rslt.b == "true") {
+                        slideData.push({image: '/urlImage/'+rslt.img,
+                                                thumb: '/urlImage/thumb/'+rslt.img,
+                                                big: '/urlImage/'+rslt.img,
+                                                link: '#' });
+                    }
+ 					else
+ 						alert("에러 : "+rslt.err);
+ 	 				
+ 				}catch(err){ alert("업로드 실패"+err); }
+ 				
+        	},
+        	
+        	'onQueueComplete' : function(queueData) {
+               
+                if (!bSlideRun) slideInitGalleria();
+                slideView();
+                alert("총 " + slideData.length + " 개의 이미지가 업로드 되어 있습니다.");
+               //slideData = [];
+            }
+ 			
+		});//#imgSlide_upload
+        
+    }) // $(document).ready
 	
-	
-	function thumb_alldel() {
+
+	var imageOver = '<span><a href="#" ><img src="_images/img_del.gif" width="18" height="18" /></a></span>';
+    var thumbData = []; // thumb data
+    
+    /**
+    * view -> remove UI -> remove Event
+    */
+    function thumbEditView() {
+        thumbView();
+        thumbRemoveView();
+        thumbRemoveEvent();
+    }
+    /**
+    * thumb view by thumbData
+    */
+    function thumbView() {
+        
+        $('#imgThumbnail_box').empty();
+        var html = "";
+        var cnt = thumbData.length;
+        var obj = null;
+        for ( var i = 0; i < cnt ; i++ ) {
+            obj = thumbData[i];
+            html += '<li><img src="'+obj.thumb+'" /></li>';
+        }
+        $('#imgThumbnail_box').append(html);
+    }
+
+    /**
+    * thumb remove image view
+    */
+    function thumbRemoveView() {
+        
+        var left = $('#imgThumbnail_box > li').width() - 18;
+        $('#imgThumbnail_box > li').append('<img src="_images/img_del.gif" width="18" height="18" style="cursor:pointer;position:absolute;top:0px;left:'+left+'px;" />');
+    }
+
+    /**
+    * thumb add remove event
+    */
+    function thumbRemoveEvent() {
+
+        $("#imgThumbnail_box > li > img").click(function(){
+            var index = $(this).parent().prevAll().length;
+            thumbData.splice( index, 1 ); 
+            thumbEditView();
+        });
+    }
+    /**
+    * thumb all remove click handler
+    */
+	function thumbDataRemoveAll() {
 		$("#imgThumbnail_box > li").remove();
+        thumbData.splice( 0, thumbData.length);
+        thumbEditView();
 		return false;
 	}
 	
-	$(function() {
-	        $( "#imgThumbnail_box" ).sortable({cursor: "move"});
-			$( "#imgThumbnail_box" ).disableSelection();
+    /**
+    * thumbnail drag & drop enable
+    */
+    var start_pos = 0;
+    var end_pos = 0;
+	function thumbSortAble(b) {
+        if (b) {
+            $("#imgThumbnail_box").sortable({cursor: "move"});
+            $('#imgThumbnail_box').sortable({
+                cursor: "move",
+                start: function(event, ui) {
+                    var start_pos = ui.item.index();
+                    ui.item.data('start_pos', start_pos);
+                },
+                change: function(event, ui) {
+                    start_pos = ui.item.data('start_pos');
+                    end_pos = ui.placeholder.index();
+                   
+                    //thumbDataPositionChange(start_pos, index);
+                    if (start_pos < end_pos) end_pos -= 1;
+                     de(start_pos+"=>"+end_pos);
+                    /*
+                    if (start_pos < index) {
+                    $('#sortable li:nth-child(' + index + ')').addClass('highlights');
+                    } else {
+                    $('#sortable li:eq(' + (index + 1) + ')').addClass('highlights');
+                    }
+                    */
+                },
+                update: function(event, ui) {
+                    de("end!! : "+start_pos+"=>"+end_pos);
+                    thumbData.move( start_pos, end_pos);
+                    $('#sortable li').removeClass('highlights');
+                }
+            });
 
-    });
+            $( "#imgThumbnail_box" ).disableSelection();
+        } else {
+            $( "#imgThumbnail_box" ).sortable( "destroy" );
+            thumbEditView();
+        }
+    }
+
+    Array.prototype.move = function (old_index, new_index) {
+        while (old_index < 0) {
+            old_index += this.length;
+        }
+        while (new_index < 0) {
+            new_index += this.length;
+        }
+        if (new_index >= this.length) {
+            var k = new_index - this.length;
+            while ((k--) + 1) {
+                this.push(undefined);
+            }
+        }
+        this.splice(new_index, 0, this.splice(old_index, 1)[0]);
+        return this;
+    };
+
+    var slideData = []; // slide data
+    var bSlideRun = false;
+    /**
+    * slide init
+    */
+    function slideInitGalleria() { 
+
+        Galleria.loadTheme('js/galleria/galleria.classic.min.js');
+        Galleria.ready(function() {
+
+            //add delete image to thumbnail 
+            this.bind("thumbnail", function(e) {
+                var left = $(e.thumbTarget).width() - 18;
+                $(e.thumbTarget).after('<img src="_images/img_del.gif" width="18" height="18" style="position:absolute;top:0px;left:'+left+'px;" onclick="slideDataRemove('+e.index +')" />'); // delete button
+            });
+
+            // add delete image to image
+            this.bind('image', function(e) {
+
+                var left = $(e.imageTarget ).parent().width() - 18;
+                $(e.imageTarget ).after('<img src="_images/img_del.gif" width="18" height="18" style="position:absolute;top:0px;left:'+left+'px;" onclick="slideDataRemove('+e.index +')" />'); // delete button
+            });
+
+        });
+        
+        Galleria.run('#imgSlide_box', {height:320}); // ,dataSource: slideData
+        bSlideRun = true;
+    }
+    /**
+    * slide view by slideData
+    */
+    function slideView() {
+        var gallery = Galleria.get(0);
+        $('#imgSlide_box').show();
+        gallery.setOptions('dataSource', slideData);
+        gallery.load();
+    }
+    
+    /**
+    * slide remove click handler
+    */
+    function slideDataRemove(index) {
+        var gallery = Galleria.get(0); 
+        gallery.splice( index, 1 ); 
+        gallery.load();
+    }
+	
+    /**
+    * slide all remove click handler
+    */
+    function slideDataRemoveAll() {
+        slideData = [];
+        var gallery = Galleria.get(0);
+        gallery.setOptions('dataSource', slideData);
+        gallery.load();
+        $('#imgSlide_box').hide();
+    }
+    /**
+    * slide drag & drop enable
+    */
+	function slideSortAble(b) {
+        if (b) {
+            $( "#imgSlide_box" ).hide();
+            $( "imgSlide_move_box" ).show();
+
+            $( "imgSlide_move_box" ).sortable({cursor: "move"});
+            $( "imgSlide_move_box" ).disableSelection();
+
+        } else {
+            $( "#imgSlide_box" ).show();
+            $( "imgSlide_move_box" ).hide();
+
+            $( "imgSlide_move_box" ).sortable( "destroy" );
+        }
+    }
+
+    function slideMoveView() {
+
+        $('#imgThumbnail_box').empty();
+        var html = "";
+        var cnt = thumbData.length;
+        var obj = null;
+        for ( var i = 0; i < cnt ; i++ ) {
+            obj = thumbData[i];
+            html += '<li><img src="'+obj.thumb+'" /></li>';
+        }
+        $('#imgThumbnail_box').append(html);
+        $( "imgSlide_move_box" )
+    }
+
+    function de(msg) {
+        $('#debug').val($('#debug').val()+"\r\n"+msg);
+    }
+
 	
 	
 	</script>
- 
   	<h1>속성</h1>
   	<dl>
   		<dt>이미지 1장</dt>
@@ -123,11 +348,24 @@
   			<div id="imgThumbnail_wrap">
   				<ul id="imgThumbnail_box"></ul>
   				<input type="file" name="imgThumbnail_upload" id="imgThumbnail_upload" />
-  				<a href="#" onclick="thumb_alldel()">모두삭제</a>
+  				<a href="#" onclick="thumbDataRemoveAll()">모두삭제</a>
+                <a href="#" onclick="thumbSortAble(true)">이동모드</a>
+                <a href="#" onclick="thumbSortAble(false)">이동해제</a>
+  			</div>
+  		</dd>
+        <dt>이미지 슬라이드</dt>
+  		<dd>
+  			<div id="imgSlide_wrap">
+  				<div id="imgSlide_box"></div>
+                <div id="imgSlide_move_box"></div>
+  				<input type="file" name="imgSlide_upload" id="imgSlide_upload" />
+  				<a href="#" onclick="slideDataRemoveAll()">모두삭제</a>
+                <a href="#" onclick="slideSortAble(true)">이동모드</a>
+                <a href="#" onclick="slideSortAble(false)">이동해제</a>
   			</div>
   		</dd>
   	</dl>
-  	<textarea id="debug" rows="10" cols="100"></textarea>
+  	<textarea id="debug" rows="40" cols="100" style="position:absolute;left:500px;top:10px;"></textarea>
   </body>
 </html>
 
