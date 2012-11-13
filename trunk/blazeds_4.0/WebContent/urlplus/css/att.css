@@ -8,4 +8,3 @@ dl dd {width:320px;text-align:center;border:1px solid;}
 #imgThumbnail_wrap {max-width:95%;overflow:hidden;}
 #imgThumbnail_box {list-style: none;clear:both;width:100%;overflow:hidden;}
 #imgThumbnail_box li {position:relative;float:left;width:100px;height:100px;overflow:hidden;}
-#imgThumbnail_box li span {position:absolute;top:0px;left:0px;width:100px;height:100px;text-align:right;}
