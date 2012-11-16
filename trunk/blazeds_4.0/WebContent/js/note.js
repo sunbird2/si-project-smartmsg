@@ -86,12 +86,49 @@
 				$('#notic').append(html);
 			}
 		);
+		
+		$.getJSON(
+			"/custom/emoticon.jsp",
+			{mode: "category", gubun: "테마문자"},
+			function(data) {
+
+				var html = "";
+				
+				$.each(data.items, function(i,item){
+					html += "<li onclick=\"getThema('"+item+"')\">"+item+"</li>";
+				});
+				$('#emoticon > .category').append(html);
+			}
+		);
+		getThema("");
+
+
+		
+
+		$.getJSON(
+			"/custom/emoticon.jsp",
+			{mode: "category", gubun: "업종별문자"},
+			function(data) {
+
+				var html = "";
+				
+				$.each(data.items, function(i,item){
+					html += "<li onclick=\"getUpjong('"+item+"')\">"+item+"</li>";
+				});
+				$('#emoticon > .category_up').append(html);
+				//$('#notic').append(html);
+			}
+		);
+
+		getUpjong("");
+		
+
 /*
 		$.ajax({
-		url: '/custom/notic.jsp?count=5',
+		url: '/custom/emoticon.jsp?mode=emoti&gubun=테마문자',
 		dataType: 'json',
 		success: function( data ) {
-		  alert( "SUCCESS:  " + data );
+		  alert( "SUCCESS:  " + data.items[0] );
 		},
 		error: function( data ) {
 		  alert( "ERROR:  " + data.responseText );
@@ -100,6 +137,40 @@
 */
 	
     });
+
+	function getThema(cate) {
+		$.getJSON(
+			"/custom/emoticon.jsp",
+			{mode: "emoti", gubun: "테마문자", cateGory: cate},
+			function(data) {
+				$('#emoticon > .emti').empty();
+				var html = "";
+				
+				$.each(data.items, function(i,item){
+					html += "<li><textarea cols=\"20\" rows=\"6\" readonly=\"readonly\">"+item+"</textarea></li>";
+				});
+				$('#emoticon > .emti').append(html);
+				//$('#notic').append(html);
+			}
+		);
+	}
+
+	function getUpjong(cate) {
+
+		$.getJSON(
+			"/custom/emoticon.jsp",
+			{mode: "emoti", gubun: "업종별문자", cateGory: cate},
+			function(data) {
+				$('#emoticon > .emti_up').empty();
+				var html = "";
+				$.each(data.items, function(i,item){
+					html += "<li><textarea cols=\"20\" rows=\"6\" readonly=\"readonly\">"+item+"</textarea></li>";
+				});
+				$('#emoticon > .emti_up').append(html);
+				//$('#notic').append(html);
+			}
+		);
+	}
    
    function stop() { if (interval) clearInterval(interval); }
 
