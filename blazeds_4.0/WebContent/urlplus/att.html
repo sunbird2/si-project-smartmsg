@@ -119,8 +119,6 @@
         
     }) // $(document).ready
 	
-
-	var imageOver = '<span><a href="#" ><img src="_images/img_del.gif" width="18" height="18" /></a></span>';
     var thumbData = []; // thumb data
     
     /**
@@ -144,7 +142,7 @@
             obj = thumbData[i];
             html += '<li><img src="'+obj.thumb+'" /></li>';
         }
-        $('#imgThumbnail_box').append(html);
+        $('#imgThumbnail_box').html(html);
     }
 
     /**
@@ -153,7 +151,7 @@
     function thumbRemoveView() {
         
         var left = $('#imgThumbnail_box > li').width() - 18;
-        $('#imgThumbnail_box > li').append('<img src="_images/img_del.gif" width="18" height="18" style="cursor:pointer;position:absolute;top:0px;left:'+left+'px;" />');
+        $('#imgThumbnail_box > li').append('<img src="_images/img_del.gif" width="18" height="18" class="imgdel" style="left:'+left+'px;" alt="삭제" />');
     }
 
     /**
@@ -184,39 +182,35 @@
     var end_pos = 0;
 	function thumbSortAble(b) {
         if (b) {
-            $("#imgThumbnail_box").sortable({cursor: "move"});
             $('#imgThumbnail_box').sortable({
                 cursor: "move",
                 start: function(event, ui) {
-                    var start_pos = ui.item.index();
-                    ui.item.data('start_pos', start_pos);
+                    var sp = ui.item.index();
+                    ui.item.data('start_pos', sp);
                 },
                 change: function(event, ui) {
                     start_pos = ui.item.data('start_pos');
                     end_pos = ui.placeholder.index();
                    
-                    //thumbDataPositionChange(start_pos, index);
                     if (start_pos < end_pos) end_pos -= 1;
                      de(start_pos+"=>"+end_pos);
-                    /*
-                    if (start_pos < index) {
-                    $('#sortable li:nth-child(' + index + ')').addClass('highlights');
-                    } else {
-                    $('#sortable li:eq(' + (index + 1) + ')').addClass('highlights');
-                    }
-                    */
+
                 },
                 update: function(event, ui) {
                     de("end!! : "+start_pos+"=>"+end_pos);
                     thumbData.move( start_pos, end_pos);
-                    $('#sortable li').removeClass('highlights');
                 }
             });
 
-            $( "#imgThumbnail_box" ).disableSelection();
+            $("#imgThumbnail_box").disableSelection();
+
+            $('#imgThumbnail_box > li > img.imgdel').hide();
+            alert("이미지를 드래그 하여 순서를 변경하세요.");
         } else {
             $( "#imgThumbnail_box" ).sortable( "destroy" );
             thumbEditView();
+            $('#imgThumbnail_box > li > img.imgdel').show();
+            alert("이동모드가 해제 되었습니다.");
         }
     }
 
@@ -250,14 +244,14 @@
             //add delete image to thumbnail 
             this.bind("thumbnail", function(e) {
                 var left = $(e.thumbTarget).width() - 18;
-                $(e.thumbTarget).after('<img src="_images/img_del.gif" width="18" height="18" style="position:absolute;top:0px;left:'+left+'px;" onclick="slideDataRemove('+e.index +')" />'); // delete button
+                $(e.thumbTarget).after('<img src="_images/img_del.gif" width="18" height="18"  class="imgdel" style="left:'+left+'px;" onclick="slideDataRemove('+e.index +')" alt="삭제"/>'); // delete button
             });
 
             // add delete image to image
             this.bind('image', function(e) {
 
                 var left = $(e.imageTarget ).parent().width() - 18;
-                $(e.imageTarget ).after('<img src="_images/img_del.gif" width="18" height="18" style="position:absolute;top:0px;left:'+left+'px;" onclick="slideDataRemove('+e.index +')" />'); // delete button
+                $(e.imageTarget ).after('<img src="_images/img_del.gif" width="18" height="18" style="position:absolute;top:0px;left:'+left+'px;" onclick="slideDataRemove('+e.index +')" alt="삭제"/>'); // delete button
             });
 
         });
@@ -282,6 +276,8 @@
         var gallery = Galleria.get(0); 
         gallery.splice( index, 1 ); 
         gallery.load();
+        if (gallery.getDataLength() <= 0)
+            $('#imgSlide_box').hide();
     }
 	
     /**
@@ -297,43 +293,95 @@
     /**
     * slide drag & drop enable
     */
+    var start_slide_pos = 0;
+    var end_slide_pos = 0;
 	function slideSortAble(b) {
         if (b) {
-            $( "#imgSlide_box" ).hide();
-            $( "imgSlide_move_box" ).show();
+            $("#imgSlide_box").hide();
+            $("#imgSlide_move_box").show();
 
-            $( "imgSlide_move_box" ).sortable({cursor: "move"});
-            $( "imgSlide_move_box" ).disableSelection();
+            slideMoveView();
+
+            $('#imgSlide_move_box').sortable({
+                cursor: "move",
+                start: function(event, ui) {
+                    var sp = ui.item.index();
+                    ui.item.data('start_pos', sp);
+                },
+                change: function(event, ui) {
+                    start_slide_pos = ui.item.data('start_pos');
+                    end_slide_pos = ui.placeholder.index();
+                   
+                    if (start_slide_pos < end_slide_pos) end_slide_pos -= 1;
+                     de(start_slide_pos+"=>"+end_slide_pos);
+
+                },
+                update: function(event, ui) {
+                    de("end!! : "+start_slide_pos+"=>"+end_slide_pos);
+                    slideData.move( start_slide_pos, end_slide_pos);
+                }
+            });
+            $("#imgSlide_move_box").disableSelection();
+            alert("이미지를 드래그 하여 순서를 변경하세요.");
 
         } else {
-            $( "#imgSlide_box" ).show();
-            $( "imgSlide_move_box" ).hide();
+            $("#imgSlide_move_box").sortable( "destroy" );
+            $("#imgSlide_move_box").hide();
 
-            $( "imgSlide_move_box" ).sortable( "destroy" );
+            $("#imgSlide_box").show();
+            slideView();
+            alert("이동모드가 해제 되었습니다.");
         }
     }
 
     function slideMoveView() {
 
-        $('#imgThumbnail_box').empty();
+        $('#imgSlide_move_box').empty();
         var html = "";
-        var cnt = thumbData.length;
+        var cnt = slideData.length;
         var obj = null;
         for ( var i = 0; i < cnt ; i++ ) {
-            obj = thumbData[i];
+            obj = slideData[i];
             html += '<li><img src="'+obj.thumb+'" /></li>';
         }
-        $('#imgThumbnail_box').append(html);
-        $( "imgSlide_move_box" )
+        $('#imgSlide_move_box').html(html);
     }
 
+    
     function de(msg) {
         $('#debug').val($('#debug').val()+"\r\n"+msg);
     }
 
-	
-	
+
+(function($) {
+	/* global */
+	var thubmOpt = {thumbData:[]};
+	function al() {alert(1111);}
+	// public
+	var methods = {
+		init: function (options) {
+			this.each(
+				function () {
+					$.extend(thumbOpt, options); // option setting
+				} // function
+			);// each
+
+		return this;
+	},
+		init: function (options) {}
+	};
+	$.fn.thumbNail = function (action) {
+		if (methods[action])
+			return methods[action].apply(this, Array.prototype.slice.call(arguments, 1));
+		else
+			return methods.init.apply(this, arguments);
+	};// fn.thumbNail
+
+})(jQuery);
+
 	</script>
+
+<button onclick="al()">dafdasf</button>
   	<h1>속성</h1>
   	<dl>
   		<dt>이미지 1장</dt>
