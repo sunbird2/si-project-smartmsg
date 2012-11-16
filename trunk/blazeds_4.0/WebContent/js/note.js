@@ -67,8 +67,7 @@
        //slideShow();
        showSlide();
        interval = setInterval('showSlide()',sec);
-       
-       /*
+	   /*
 		{
 			items: [{title:"", content:"", writer:"", timeWrite:"", cnt:0},{title:"", content:"", writer:"", timeWrite:"", cnt:0}]
 		}
@@ -77,13 +76,29 @@
 			"/custom/notic.jsp",
 			{count: 5},
 			function(data) {
-			$.each(data.items, function(i,item){
-				$("<img/>").attr("src", item.media.m).appendTo("#images");
-				if ( i == 3 ) return false;
-			});
-		});
-		
-		
+
+				var html = "<ul>";
+				
+				$.each(data.items, function(i,item){
+					html += "<li><a href='#' onclick='alert(\""+item.content+"\"); return false'>"+item.title+"</a></li>";
+				});
+				html += "</ul>";
+				$('#notic').append(html);
+			}
+		);
+/*
+		$.ajax({
+		url: '/custom/notic.jsp?count=5',
+		dataType: 'json',
+		success: function( data ) {
+		  alert( "SUCCESS:  " + data );
+		},
+		error: function( data ) {
+		  alert( "ERROR:  " + data.responseText );
+		}
+	  });
+*/
+	
     });
    
    function stop() { if (interval) clearInterval(interval); }

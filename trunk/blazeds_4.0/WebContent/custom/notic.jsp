@@ -13,7 +13,6 @@
 	items: [{title:"", content:"", writer:"", timeWrite:"", cnt:0},{title:"", content:"", writer:"", timeWrite:"", cnt:0}]
 }
 */
-
 Connection conn = null;
 ArrayList<NoticVO> al = null;
 int cnt = SLibrary.intValue(SLibrary.IfNull(request.getParameter("count")));
@@ -36,7 +35,7 @@ finally {
 	int alc = al.size();
 	NoticVO nvo = null;
 	buf.append("{");
-	buf.append("items:[");
+	buf.append("\"items\":[");
 	for(int i = 0; i < alc; i++) {
 		
 		nvo = al.get(i);
@@ -44,17 +43,21 @@ finally {
 		if (i != 0) buf.append(",");
 		
 		buf.append("{");
-		buf.append("idx:"+nvo.getIdx()+",");
-		buf.append("title:\""+nvo.getTitle()+"\",");
-		buf.append("content:\""+nvo.getContent()+"\",");
-		buf.append("writer:\""+nvo.getWriter()+"\",");
-		buf.append("timeWrite:\""+nvo.getTimeWrite()+"\",");
-		buf.append("cnt:\""+nvo.getCnt()+"\"");
+		buf.append("\"idx\":"+nvo.getIdx()+",");
+		buf.append("\"title\":\""+nvo.getTitle()+"\",");
+		buf.append("\"content\":\""+nvo.getContent()+"\",");
+		buf.append("\"writer\":\""+nvo.getWriter()+"\",");
+		buf.append("\"timeWrite\":\""+nvo.getTimeWrite()+"\",");
+		buf.append("\"cnt\":\""+nvo.getCnt()+"\"");
 		buf.append("}");
 		
 		
 	}
 	buf.append("]");
 	buf.append("}");
+	out.println(buf.toString());
+	VbyP.accessLog("notic list call : "+ buf.toString());
+
+	//out.println("{\"one\": \"Singular sensation\"}");
 }
 %>
