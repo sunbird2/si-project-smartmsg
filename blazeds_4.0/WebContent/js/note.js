@@ -67,6 +67,23 @@
        //slideShow();
        showSlide();
        interval = setInterval('showSlide()',sec);
+       
+       /*
+		{
+			items: [{title:"", content:"", writer:"", timeWrite:"", cnt:0},{title:"", content:"", writer:"", timeWrite:"", cnt:0}]
+		}
+		*/
+		$.getJSON(
+			"/custom/notic.jsp",
+			{count: 5},
+			function(data) {
+			$.each(data.items, function(i,item){
+				$("<img/>").attr("src", item.media.m).appendTo("#images");
+				if ( i == 3 ) return false;
+			});
+		});
+		
+		
     });
    
    function stop() { if (interval) clearInterval(interval); }
