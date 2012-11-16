@@ -11,10 +11,10 @@ public class NoticDAO {
 	
 public int totalCnt = 0;
 	
-	public ArrayList<HashMap<String, String>> getListPage(Connection conn, int start, int end) {
+	public ArrayList<NoticVO> getListPage(Connection conn, int start, int end) {
 		
 		ArrayList<HashMap<String, String>> al = null;
-		
+		ArrayList<NoticVO> rslt = null;
 		try {
 
 			StringBuffer buf = new StringBuffer();
@@ -25,11 +25,12 @@ public int totalCnt = 0;
 			pq.setInt(2, end);
 			
 			al = pq.ExecuteQueryArrayList();
+			rslt = changeVO(al);
 			
 		}catch (Exception e) {}
 		
 		
-		return al;
+		return rslt;
 	}
 	
 	public ArrayList<HashMap<String, String>> getListFAQPage(Connection conn, int start, int end) {
