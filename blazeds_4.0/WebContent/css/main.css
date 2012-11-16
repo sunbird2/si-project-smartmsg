@@ -50,7 +50,7 @@
 #etc #custom { float:left;margin-right:15px;width:203px;height:143px;background:url("../images/custom_center.png")}
 #etc #notic { float:left;margin-right:15px;width:300px;height:143px;}
 #etc #bank { float:left;margin-right:15px;width:248px;height:143px;background:url("../images/bank.png")}
-#etc #cost { float:left;width:210px;height:143px;background:url("../images/cost.png")}
+#etc #cost { float:left;width:210px;height:143px;background:url("../images/cost.png"); cursor:pointer}
 
 #footer {margin:0 auto; width:1024px;height:51px; margin-top:15px;margin-bottom:30px;}
 #info {float:left;width:356px;height:auto;}
