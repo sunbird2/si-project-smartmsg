@@ -61,7 +61,6 @@ public class UploadMultipart {
 					filePart.setRenamePolicy(new UnixtimeFileRenamePolicy());           
 
 					realFileName = filePart.getFileName(); 
-					
 					if ( realFileName != null ){
 						
 						contentType = filePart.getContentType().toString();
