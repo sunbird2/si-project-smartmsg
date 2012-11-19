@@ -486,6 +486,7 @@ package component
 			nameL.text = "";
 			phone.text = "";
 			memo.text = "";
+			nameList.selectedIndex = -1;
 		}
 		
 		private function nameList_changeHandler(event:IndexChangeEvent):void {
@@ -563,7 +564,7 @@ package component
 			if (avo.grpName == "") {
 				SLibrary.alert("그룹이름이 없습니다.");
 			} 
-			else if (avo.phone == ""){
+			else if (code >= 20 && avo.phone == ""){
 				SLibrary.alert("전화번호를 입력 하세요.");
 			}else {
 				activeCode = code;

@@ -47,7 +47,7 @@
 			
 			<s:Group includeIn="phones" width="170" height="100%">
 				<s:VGroup top="50" horizontalCenter="0">
-					<s:CheckBox label="중복번호제거" styleName="checkbox_light" selected="true" />
+					<s:CheckBox id="dupCheck" label="중복번호제거" styleName="checkbox_light" selected="true" enabled="false" />
 					<s:Button id="send" top="50" label="추가  >>" width="120" height="30" styleName="button_light"/>
 				</s:VGroup>
 				

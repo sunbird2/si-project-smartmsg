@@ -15,6 +15,7 @@ package component.paste
 	import skin.paste.PasteSkin;
 	
 	import spark.components.Button;
+	import spark.components.CheckBox;
 	import spark.components.RichText;
 	import spark.components.TextArea;
 	import spark.components.supportClasses.SkinnableComponent;
@@ -37,6 +38,8 @@ package component.paste
 		[SkinPart(required="true")] public var ta:TextArea;
 		[SkinPart(required="true")] public var phones:TextArea;
 		[SkinPart(required="true")] public var send:Button;
+		[SkinPart(required="true")] public var dupCheck:CheckBox;
+		
 		
 		private var state:String = "normal";
 		private var arrPhone:Array;
@@ -117,14 +120,24 @@ package component.paste
 				var ac:ArrayCollection = new ArrayCollection();
 				var pvo:PhoneVO = null;
 				var arr:Array = phones.text.split("\n");
+				var tempStr:String = "";
+				var dupCnt:Number = 0;
 				if (arr != null) {
 					var cnt:int = arr.length;
+					
 					for (var i:int = 0; i < cnt; i++) {
-						pvo = new PhoneVO();
-						pvo.pNo = arr[i] as String;
-						pvo.pName = "";
-						ac.addItem(pvo);
+						if (tempStr.search(arr[i]) == -1) {
+							pvo = new PhoneVO();
+							pvo.pNo = arr[i] as String;
+							pvo.pName = "";
+							ac.addItem(pvo);
+							tempStr += pvo.pNo + " ";
+						}else {
+							dupCnt++;
+						}
+						
 					}
+					if (dupCnt > 0) SLibrary.alert(dupCnt+"건의 중복 번호가 제거 되었습니다.");
 					this.dispatchEvent( new CustomEvent("getPhone", ac) );
 				}
 			}
