@@ -46,8 +46,8 @@
 
 #bar1 {clear:both;margin:0 auto; width:1024px; height:1px; background-color:#c8c8c8;font-size:1px;}
 
-#emoticon {margin:0 auto; width:1024px;height:680px; margin-top:20px;margin-bottom:30px;}
-#emoticon .category, #emoticon .category_up{margin:0 auto; width:1024px;height:auto;border:1px solid #c8c8c8;overflow:hidden}
+#emoticon {margin:0 auto; width:1024px; margin-top:20px;margin-bottom:30px;overflow:hidden;}
+#emoticon .category, #emoticon .category_up{margin:0 auto; width:1022px;height:auto;border:1px solid #c8c8c8;overflow:hidden;margin-top:10px;}
 #emoticon .category li,#emoticon .category_up li {display:block;float:left;margin:0px 4px;width:90px;cursor:pointer;padding:2px 4px; padding-left:12px;overflow:hidden;background:url('../images/ico_arrow_01.gif') no-repeat 4px 8px;}
 #emoticon .emti,#emoticon .emti_up {margin:10px auto; width:1000px;height:auto;margin-bottom:20px;overflow:hidden;}
 #emoticon .emti li ,#emoticon .emti_up li {display:block;float:left;position: relative;margin:5px 10px;width: 145px;height: 113px; cursor:pointer;overflow:hidden;background: url('../images/bg_msg_box.gif') no-repeat;}
