@@ -366,3 +366,8 @@
 			window.external.addFavorite(url, title);
 		}
 	}
+
+	function openUseage() {
+		var z = window.open("/custom/useage.html" , "useage", "scrollbars=no,width=640,height=625,resizable=no");
+		z.focus();
+	}
