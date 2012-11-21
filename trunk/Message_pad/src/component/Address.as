@@ -159,10 +159,10 @@ package component
 					for (var j:uint = 0; j < event.items.length; j++) { 
 						if (event.items[i] is AddressVO
 							&& AddressVO(event.items[i]) != null 
-							&& AddressVO(event.items[i]).idx != 0) {  
+							&& AddressVO(event.items[i]).idx != 0 && bGetGroup == false) {  
 							
 							activeAddress(12, AddressVO(event.items[i])); 
-						} 
+						}
 					} 
 					break; 
 				
@@ -303,13 +303,14 @@ package component
 			}
 		}
 		
-		
+		private var bGetGroup:Boolean = false;
 		/**
 		 * group list
 		 * */
 		private function getGroup():void {
 			
 			if (Gv.bLogin) {
+				bGetGroup = true;
 				RemoteSingleManager.getInstance.addEventListener("getAddrList", getGroup_resultHandler, false, 0, true);
 				RemoteSingleManager.getInstance.callresponderToken 
 					= RemoteSingleManager.getInstance.service.getAddrList(0, "");
@@ -324,7 +325,7 @@ package component
 			// allGroup add
 			acGroup.addItem( allAddressGroupVO() );
 			acGroup.addAll(data);
-			
+			bGetGroup = false;
 			setGvGroup();
 		}
 		private function groupList_keyUpHandler(event:KeyboardEvent):void {

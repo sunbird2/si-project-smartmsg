@@ -39,21 +39,23 @@
 			
 			private function onChange(event:Event):void 
 			{
-				var oldValue:String = labelDisplay.text;
-				var list:ListBase = this.owner as ListBase;
-				if (data.idx == 0 && data.grpName != "모두" && inputTxt.text == "") {
-					list.dataProvider.removeItemAt( this.itemIndex );
-					return;
+				if (labelDisplay && this.owner&& data) {
+					var oldValue:String = labelDisplay.text;
+					var list:ListBase = this.owner as ListBase;
+					if (data.idx == 0 && data.grpName != "모두" && inputTxt.text == "") {
+						list.dataProvider.removeItemAt( this.itemIndex );
+						return;
+					}
+					
+					if (oldValue != inputTxt.text)
+					{
+						data.grpName = inputTxt.text;
+						labelDisplay.text = inputTxt.text;
+						//dispatch the data update event
+						//list.dataProvider.itemUpdated(data, "grpName", oldValue, inputTxt.text); 
+					}
+					isEdit(false);
 				}
-				
-				if (oldValue != inputTxt.text)
-				{
-					data.grpName = inputTxt.text;
-					labelDisplay.text = inputTxt.text;
-					//dispatch the data update event
-					//list.dataProvider.itemUpdated(data, "grpName", oldValue, inputTxt.text); 
-				}
-				isEdit(false);
 			}
 			
 			public function onEdit(event:Event):void 
@@ -75,6 +77,7 @@
 			
 			protected function inputTxt_enterHandler(event:FlexEvent):void
 			{
+				inputTxt.selectRange(inputTxt.text.length,inputTxt.text.length);
 				inputTxt.dispatchEvent( new FocusEvent(FocusEvent.FOCUS_OUT));
 			}
 			
