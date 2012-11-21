@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@page import="imageUtil.ImageType"%>
 <%@page import="imageUtil.ImageLoader"%>
 <%@page import="imageUtil.Image"%>
@@ -17,7 +18,7 @@
 
 	
 	try {
-	
+
 		/*###############################
 		#		variable & init			#
 		###############################*/
@@ -46,10 +47,16 @@
 		
 		// create org
 		try {
-			int resizeW = SLibrary.intValue( VbyP.getValue("thumb_org_w") );
+			HashMap<String, String> hm = um.getParameter();
+			int parW = SLibrary.intValue( SLibrary.IfNull(hm, "width") );
+			
+			int resizeW = parW > 0 ? parW: SLibrary.intValue( VbyP.getValue("thumb_org_w") );
+
+			VbyP.accessLog(request.getRequestURI()+" ==>"+resizeW);
+
             img = ImageLoader.fromFile(file);
             if ( img.getWidth() > resizeW ) {
-            	resized = img.getResizedToWidth( SLibrary.intValue( VbyP.getValue("thumb_org_w") ));
+            	resized = img.getResizedToWidth( resizeW );
             	
             	if (resized.getSourceType() == ImageType.JPG)
                 	resized.soften(0.1f).writeToJPG(new File(VbyP.getValue("image_upload_path")+ um.getUploadedFileName() ), 0.95f);

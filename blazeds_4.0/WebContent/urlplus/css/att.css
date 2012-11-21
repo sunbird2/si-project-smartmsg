@@ -1,8 +1,25 @@
+#tabs {width:320px;height:auto;overflow:hidden;}
+.imageThumb_box {list-style: none;clear:both;width:100%;overflow:hidden;}
+.imageThumb_box li {position:relative;float:left;width:100px;height:100px;overflow:hidden;}
+
+.imageSlide_box {width:320px;height:320px;}
+.imageSlide_move_box {list-style:none;clear:both;width:100%;overflow:hidden;}
+.imageSlide_move_box li {position:relative;float:left;width:100px;height:100px;overflow:hidden;}
+
+.imageLayout_box {list-style: none;clear:both;width:100%;overflow:hidden;}
+.imageLayout_box li.imageLayout_cell {position:relative;float:left;width:30%;height:100px;overflow:hidden;margin:2px;border:1px solid;}
+.imageLayout_box li .imageLayout_edit {position:absolute;top:0px;left:0px;width:100%;overflow:hidden;text-align:right}
+.imageLayout_box li .imageLayout_edit img{ cursor:pointer }
+.imageLayout_box li .imageLayout_label {font-size:16px;width:100%;text-align:center;font-weight:bold} 
+
+
+
 .hand {cursor:pointer}
 
 .attr {float:left;width:320px;}
 .imgdel {cursor:pointer;position:absolute;top:0px;left:0px;}
 
+dl {float:left;margin:10px;}
 dl dd {width:320px;text-align:center;border:1px solid;}
 #imgOne_wrap {max-width:95%;overflow:hidden;}
 
@@ -10,5 +27,23 @@ dl dd {width:320px;text-align:center;border:1px solid;}
 #imgThumbnail_box {list-style: none;clear:both;width:100%;overflow:hidden;}
 #imgThumbnail_box li {position:relative;float:left;width:100px;height:100px;overflow:hidden;}
 
+#imgSlide_box {width:320px;height:320px;}
 #imgSlide_move_box {list-style:none;clear:both;width:100%;overflow:hidden;}
 #imgSlide_move_box li {position:relative;float:left;width:100px;height:100px;overflow:hidden;}
+
+#imgLayout_wrap {max-width:95%;overflow:hidden;}
+#imgLayout {list-style: none;clear:both;width:100%;overflow:hidden;}
+#imgLayout li {position:relative;float:left;width:30%;height:100px;overflow:hidden;margin:2px;border:1px solid;}
+#imgLayout li .layout-card {}
+#imgLayout li .edite {position:absolute;top:0px;left:0px;width:100%;overflow:hidden;text-align:right}
+#imgLayout li .edite img{ cursor:pointer }
+#imgLayout li .label {font-size:16px;width:100%;text-align:center;font-weight:bold} 
+
+#movieOne_wrap {max-width:95%;overflow:hidden;}
+#movieOne_box {position:relative;width:100%;overflow:hidden}
+
+#movieSlide_box {width:320px;height:320px;}
+#movieSlide_move_box {list-style:none;clear:both;width:100%;overflow:hidden;}
+#movieSlide_move_box li {position:relative;float:left;width:100px;height:100px;overflow:hidden;}
+
+.play_icon {position:absolute;top:100px;left:100px;cursor:pointer}

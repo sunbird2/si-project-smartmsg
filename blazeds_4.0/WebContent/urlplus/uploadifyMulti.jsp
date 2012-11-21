@@ -110,7 +110,6 @@
 		sbuf.append("\"img\" : \""+um.getUploadedFileName()+"\",");
 		sbuf.append("\"err\" : \""+errorMsg+"\"");
 		sbuf.append("}");
-		
 		out.println( sbuf.toString() );
 		// if (errorMsg != null) out.println(SLibrary.alertScript(errorMsg.toString(),""));
 
