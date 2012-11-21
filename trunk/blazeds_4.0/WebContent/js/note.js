@@ -62,7 +62,7 @@
 "<a href='#' class='show'><img src='images/m12.jpg' alt='Flowing Rock' title='' alt='' rel='<h3>실패보상 미리받기</h3> 실패된 건은 보상 받아 마땅한데 3일기다려야 하나요? 기다리지 않고 직접 클릭하여 실패된 건은 보상받아 다시 쓰실 수 있습니다.'/></a>"];
    var caption = "<div class='caption'><div class='content' style='width:1018px;'></div></div>";
    var interval;
-	var sec = 5000;
+	var sec = 10000;
     $(document).ready(function() { 
        //slideShow();
        showSlide();
