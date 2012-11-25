@@ -3,7 +3,7 @@
 #wrap {width:1200px;margin:0 auto;}
 #header {margin:0 auto;width:1024px;height:65px;}
 #header #top_right {width:1024px;margin-bottom:0px;height:30px;text-align:right;}
-#logo {clear:right; float:left; width:203px;height:35px;}
+#logo {float:left; width:203px;height:35px;}
 #header #navi {float:right}
 #header #navi ul li {float:left;margin-right:20px;}
 #header #navi ul li a {display:block;height:35px; text-indent:-10000px}
@@ -47,10 +47,10 @@
 #bar1 {clear:both;margin:0 auto; width:1024px; height:1px; background-color:#c8c8c8;font-size:1px;}
 
 #emoticon {margin:0 auto; width:1024px; margin-top:20px;margin-bottom:30px;overflow:hidden;}
-#emoticon .category, #emoticon .category_up{margin:0 auto; width:1022px;height:auto;border:1px solid #c8c8c8;overflow:hidden;margin-top:10px;}
+#emoticon .category, #emoticon .category_up{margin:0 auto; width:1002px;height:auto;border:1px solid #c8c8c8;overflow:hidden;margin-top:10px;padding:10px;}
 #emoticon .category li,#emoticon .category_up li {display:block;float:left;margin:0px 4px;width:90px;cursor:pointer;padding:2px 4px; padding-left:12px;overflow:hidden;background:url('../images/ico_arrow_01.gif') no-repeat 4px 8px;}
-#emoticon .emti,#emoticon .emti_up {margin:10px auto; width:1000px;height:auto;margin-bottom:20px;overflow:hidden;}
-#emoticon .emti li ,#emoticon .emti_up li {display:block;float:left;position: relative;margin:5px 10px;width: 145px;height: 113px; cursor:pointer;overflow:hidden;background: url('../images/bg_msg_box.gif') no-repeat;}
+#emoticon .emti,#emoticon .emti_up {margin:10px auto; width:1024px;height:auto;margin-bottom:20px;overflow:hidden;}
+#emoticon .emti li ,#emoticon .emti_up li {display:block;float:left;position: relative;margin:3px 12px;width: 145px;height: 113px; cursor:pointer;overflow:hidden;background: url('../images/bg_msg_box.gif') no-repeat;}
 #emoticon .emti li textarea ,#emoticon .emti_up li textarea{margin: 0;padding: 0 10px 0 0;border: none;position: absolute;top: 16px;left: 14px;overflow: hidden;width: 110px;height: 86px;background-color: transparent;line-height: 1.4em;cursor: pointer;}
 
 #etc {margin:0 auto; width:1024px;height:143px; margin-top:20px;margin-bottom:30px;}
@@ -59,16 +59,16 @@
 #etc #bank { float:left;margin-right:15px;width:248px;height:143px;background:url("../images/bank.png")}
 #etc #cost { float:left;width:210px;height:143px;background:url("../images/cost.png");cursor:pointer}
 
-#footer {margin:0 auto; width:1024px;height:51px; margin-top:15px;margin-bottom:30px;}
-#info {float:left;width:356px;height:auto;}
+#footer {margin:0 auto; width:1024px;height:61px; margin-top:15px;margin-bottom:30px;overflow:hidden;}
+#info {float:left;width:356px;height:auto;overflow:hidden;}
 #info ul li {float:left;}
 #info ul li a {display:block;height:14px;text-indent:-10000px}
 #info ul li a.i01 {width:49px;background:url("../images/bottom_company.png") 0 0 no-repeat;}
 #info ul li a.i02 {width:87px;background:url("../images/bottom_personal.png") 0 0 no-repeat;}
 #info ul li a.i03 {width:48px;background:url("../images/bottom_use.png") 0 0 no-repeat;}
 #info ul li a.i04 {width:57px;background:url("../images/bottom__spam.png") 0 0 no-repeat;}
-#copy {float:right;height:81px;}
-#copy .address {float:left;margin-right:15px;width:406px; height:51px;background:url("../images/bottom_copyright.png") 0 0 no-repeat;}
+#copy {float:right;height:81px;overflow:hidden;}
+#copy .address {float:left;margin-right:15px;width:406px; height:51px;background:url("../images/bottom_copyright.png") 0 0 no-repeat;overflow:hidden;}
 
 /*slider*/
 .clear {clear:both}
