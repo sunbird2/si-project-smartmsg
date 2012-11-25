@@ -27,6 +27,7 @@
 <div id="billWrap">
 <!-- bill -->
 <form name="billForm" method="post" target="nobody" action="/bill/payreq.jsp" >
+	
                 <div id="bill">
                     <img src="/images/bill_title.jpg" class="title"/>
                     <div class="step01">
@@ -35,7 +36,7 @@
                         <ol>
                             <li><input type="radio" id="card" name="LGD_CUSTOM_FIRSTPAY" value="SC0010" onfocus="this.blur()" onclick="selBill()" /><label for="card">신용카드</label></li>
                             <li><input type="radio" id="online" name="LGD_CUSTOM_FIRSTPAY" value="SC0030" onfocus="this.blur()" onclick="selBill()" /><label for="online">즉시이체</label></li>
-                            <li><input type="radio" id="cash" name="LGD_CUSTOM_FIRSTPAY" onfocus="this.blur()" checked="checked" onclick="selBill()" /><label for="cash">무통장입금</label></li>
+                            <li><input type="radio" id="cash" name="LGD_CUSTOM_FIRSTPAY" value="SC0040" onfocus="this.blur()" checked="checked" onclick="selBill()" /><label for="cash">무통장입금</label></li>
                          </ol>
                     </div>
 

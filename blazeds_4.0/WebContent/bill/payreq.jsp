@@ -173,6 +173,7 @@ function isActiveXOK(){
 <input type="hidden" name="LGD_BUYERIP"                 value="<%= LGD_BUYERIP %>">           			<!-- 구매자IP -->
 <input type="hidden" name="LGD_BUYERID"                 value="<%= LGD_BUYERID %>">           			<!-- 구매자ID -->
 <input type="hidden" name="LGD_CUSTOM_FIRSTPAY"                 value="<%= LGD_CUSTOM_FIRSTPAY %>">           			<!-- 결제 방식 -->
+<input type="hidden" name="LGD_CUSTOM_USABLEPAY" value="SC0010-SC0030" />
 
 
 <!-- 가상계좌(무통장) 결제연동을 하시는 경우  할당/입금 결과를 통보받기 위해 반드시 LGD_CASNOTEURL 정보를 LG 유플러스에 전송해야 합니다 . -->
