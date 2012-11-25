@@ -371,3 +371,33 @@
 		var z = window.open("/custom/useage.html" , "useage", "scrollbars=no,width=640,height=625,resizable=no");
 		z.focus();
 	}
+
+	function selBill() {
+		var f = document.billForm;
+		
+		var mval = $(":input:radio[name=LGD_CUSTOM_FIRSTPAY]:checked").val();
+		var samt = $(":input:radio[name=LGD_AMOUNT]:checked").val();
+
+		if (mval == "SC0010"){
+			$('#mt').text('신용카드');
+		}else if (mval == "SC0030"){
+			$('#mt').text('즉시이체');
+		}else {
+			$('#mt').text('무통장입금');
+		}
+		
+		var vat = samt * (1/11);
+		var amt = samt - vat;
+			
+		if (mval == "SC0010"){
+			$('#mt').text('신용카드');
+		}else if (mval == "SC0030"){
+			$('#mt').text('즉시이체');
+		}
+
+		$('#amt').text(amt);
+		$('#vat').text(vat);
+		$('#tamt').text(samt);
+
+
+	}
