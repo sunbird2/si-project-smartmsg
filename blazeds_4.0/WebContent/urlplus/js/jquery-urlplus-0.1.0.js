@@ -199,11 +199,16 @@
 							$('#'+tid).imageThumb("removeAllImage");
 							return false;
 						});
+						target.children('.imageThumb_sortable_destory').hide();
 						target.children('.imageThumb_sortable').click(function(){
+							target.children('.imageThumb_sortable').hide();
+							target.children('.imageThumb_sortable_destory').show();
 							$('#'+tid).imageThumb("sortAble", true);
 							return false;
 						});
 						target.children('.imageThumb_sortable_destory').click(function(){
+							target.children('.imageThumb_sortable').show();
+							target.children('.imageThumb_sortable_destory').hide();
 							$('#'+tid).imageThumb("sortAble", false);
 							return false;
 						});
@@ -452,13 +457,18 @@
 							$('#'+tid).imageSlide("removeAllImage");
 							return false;
 						});
-
+						
+						target.children('.imageSlide_sortable_destory').hide();
 						target.children('.imageSlide_sortable').click(function(){
+							target.children('.imageSlide_sortable').hide();
+							target.children('.imageSlide_sortable_destory').show();
 							$('#'+tid).imageSlide("sortAble", true);
 							return false;
 						});
 
 						target.children('.imageSlide_sortable_destory').click(function(){
+							target.children('.imageSlide_sortable').hide();
+							target.children('.imageSlide_sortable_destory').show();
 							$('#'+tid).imageSlide("sortAble", false);
 							return false;
 						});
@@ -675,7 +685,7 @@
 /* DOM structure
 		<ul class="imageLayout_box">
 			<li class="imageLayout_cell">
-				<img src="" />
+				<img src="" class="imageLayout_image"/>
 				<div class="imageLayout_edit">
 					<img src="_images/img_del.gif" width="18" height="18" />
 					<div class="imageLayout_label">1</div>
@@ -694,6 +704,13 @@
 				return imageLayoutMethods.init.apply(this, arguments);
 	};// fn.imageLayout
 
+	var ele = ['<ul class="imageLayout_box">', '<li class="imageLayout_cell"><img src="', '" class="imageLayout_image"/>', '</li>', '</ul>'];
+	var eleEdit = ['<div class="imageLayout_edit"><img src="_images/img_del.gif" width="18" height="18" /><div class="imageLayout_label"></div></div>'];
+	var eleEditFunction = ['<select name="imgLayout_no"></select>',
+						'<input type="file" style="display:none"/>',
+						'<a href="#" class="imageLayout_add">추가</a>',
+						'<a href="#" class="imageLayout_all_delete">모두삭제</a>'];
+
 	var layoutData = {};
 	var imageLayoutMethods = {
 
@@ -705,12 +722,7 @@
 				'layoutData' : []
 			};
 
-			var ele = ['<ul class="imageLayout_box">', '<li class="imageLayout_cell"><img src="', '" />', '</li>', '</ul>'];
-			var eleEdit = ['<div class="imageLayout_edit"><img src="_images/img_del.gif" width="18" height="18" /><div class="imageLayout_label"></div></div>'];
-			var eleEditFunction = ['<select name="imgLayout_no"></select>',
-								'<input type="file" style="display:none"/>',
-								'<a href="#" class="imageLayout_add">추가</a>',
-								'<a href="#" class="imageLayout_all_delete">모두삭제</a>'];
+			
 
 			var opt = $.extend(defaults, options);
 
@@ -753,6 +765,12 @@
 					tid = ul.attr("id");
 					instanceCnt++;
 
+					// setting upload button
+					var upBtn = $(this).find("input:eq(0)");
+					var upBtnID = "imageLayoutUploadBtn"+instanceCnt
+					upBtn.attr("id", upBtnID);
+					instanceCnt++;
+
 					// init layoutData
 					layoutData[tid] = opt.layoutData;
 					
@@ -760,6 +778,14 @@
 						$('#'+tid).imageLayout("masonry").imageLayout("sortable").imageLayout("resizable");
 						_sortLabel(tid); // display label
 						_deleteEvent(tid);
+						_selectBoxEvent(tid, upBtnID);
+						$(this).children('.imageLayout_add').click(function(){
+							$("#"+tid).imageLayout("addImage");
+						});
+
+						$(this).children('.imageLayout_all_delete').click(function(){
+							$("#"+tid).imageLayout("removeAll");
+						});
 
 					} else {
 						$('#'+tid).imageLayout("masonry");
@@ -825,11 +851,13 @@
 				var t = $(this);
 				var maxWidth = t.width()-4;
 				t.children('li').each(function(){
-					$(this).resizable({
+					$(this).resizable();
+					$(this).resizable('destroy').resizable({
 						resize: function(event, ui) {
 							ui.element.parent().masonry('reload');
 						},
 						stop: function(event, ui) {
+							t.siblings('select').val("-1");
 						},
 						minWidth: 8,
 						minHeight: 8,
@@ -846,17 +874,48 @@
 			d("imageLayout -> reloadAll");
 
 			return this.each( function () {
-				var t = $(this).children(':first-child');
+				var t = $(this);
 				var tid = t.attr("id");
-				$("#"+tid).imageLayout("masonry");
-				if ($( "#"+tid+" > li > .imageLayout_edit" ).lenght > 0) {
-					$("#"+tid).imageLayout("sortable").imageLayout("resizable");
+
+				$("#"+tid).masonry('reload');
+				// edit mode
+				if ($('#'+tid+" > .imageLayout_cell > .imageLayout_edit > .imageLayout_label").length > 0) {
+					$("#"+tid).sortable('refresh');
+					$("#"+tid).imageLayout("resizable");
 					_sortLabel(t.attr("id"));
 				}
 				
 				
 			});// each
-		}, // getResult
+		}, // reloadAll
+
+		addImage :  function () {
+			d("imageLayout -> addImage");
+
+			return this.each( function () {
+				var t = $(this);
+				var tid = t.attr("id");
+
+				var html = ele[1];
+				html += ele[2];
+				html += eleEdit[0];
+				html += ele[3];
+
+				t.append(html);
+				$('#'+tid).imageLayout("reloadAll");
+			});// each
+		}, // addImage
+
+		removeAll :  function () {
+			d("imageLayout -> removeAll");
+
+			return this.each( function () {
+				var t = $(this);
+				var tid = t.attr("id");
+				t.html("");
+				$('#'+tid).imageLayout("reloadAll");
+			});// each
+		}, // removeAll
 
 		getResult :  function () {
 			d("imageOne -> getResult");
@@ -879,21 +938,78 @@
 			var label= $('#'+tid+" > .imageLayout_cell > .imageLayout_edit > .imageLayout_label");
 			var label_cnt = label.length;
 
+			var sBox = $('#'+tid).siblings('select');
+			var sBoxOptions = '<option value="-1">-이미지 등록-</option>';
+			
 			if(label_cnt == 1){ // span이 한개일경우 순번 붙이기
-				label.text("1")
+				label.text("1");
+				sBoxOptions += '<option value="1">1 번</option>';
 			}else{ // span이 여러개일경우 순번 붙이기
 				$.each(label,function(i){
-					$(this).text(i+1);
+					var no = i+1;
+					$(this).text(no);
+					sBoxOptions += '<option value="'+no+'">'+no+' 번</option>';
+					
 				});
-			} 
+			}
+			sBox.html(sBoxOptions);
 
-		}), // _initImageLayout
+
+		}), // _sortLabel
+
+		_selectBoxEvent =  (function(tid, uid) {
+
+			var target = $('#'+tid).siblings('select');
+
+			if (target.length > 0){
+				target.change(function() {
+					
+					var index = $('option:selected', this).val();
+					var width = 100;
+					if (index >= 0){
+						width = $('#'+tid).children().eq(index-1).width();
+						$('#'+uid).uploadify( _uplodifyOption('uploadify.jsp', tid, index, {'width' : width} ) );//#imgOne_upload
+						$('#'+uid).show();
+					}else {
+						$('#'+uid).hide();
+					}
+				});
+			}
+		}), // _selectBoxEvent
+
+		_uplodifyOption =  (function(uploaderUrl, tid, index, formData) {
+
+			return {
+				'swf'      : 'js/uploadify.swf', // 파일업로드 이벤트 가로채틑 flash
+				'uploader' : uploaderUrl, // 비동기 업로드시 처리 url
+				'formData'      : formData,
+				'fileTypeDesc' : 'Image Files',
+				'fileTypeExts' : '*.gif; *.jpg; *.png',
+				'buttonText' : '이미지등록',
+				'removeTimeout' : 1, // queue 제거 시간
+				'multi' : false, // 다중업로드
+				'onUploadSuccess' : function(file, data, response) {
+					var rslt;
+					try {
+						rslt = jQuery.parseJSON(data);
+						if (rslt.b == "true") {
+							d($('#'+tid).children().eq(index-1).html());
+							$('#'+tid).children().eq(index-1).children('.imageLayout_image').attr('src','/urlImage/'+rslt.img);
+						} else {
+							alert("에러 : "+rslt.err);
+						}
+						
+					}catch(err){ alert("업로드 실패");}
+				}
+			};
+		}), // _uplodifyOption
+
 		_deleteEvent =  (function(tid) {
 			$( "#"+tid+" > li > .imageLayout_edit > img" ).click(function(){
 				var idx = $(this).parent().parent().remove();
 				$("#"+tid).imageLayout("reloadAll");
 			});
-		}); // _initImageLayout
+		}); // _deleteEvent
 
 
 
@@ -903,14 +1019,14 @@
 	function d(msg) {
 		if (bDebug){
 			if ($('#DEBUG').length <= 0){
-				$('body').append('<div id="DEBUG" class="ui-widget-content" style="position:absolute;top:10px;left:500px;width:300px;height:200px;padding-top:10px;background-color:#DDD;text-align:center;"><textarea style="width:90%;height:90%"></textarea></div>');
+				$('body').append('<div id="DEBUG" class="ui-widget-content" style="position:absolute;top:10px;left:800px;width:300px;height:200px;padding-top:10px;background-color:#DDD;text-align:center;"><textarea style="width:280px;height:180px;"></textarea></div>');
 				$('#DEBUG' ).draggable();
 			}
 			$('#DEBUG > textarea').val($('#DEBUG > textarea').val()+msg+'\r\n'); 
 		}
-	}
+	};
 
-})($);
+})($)
 
 Array.prototype.move = function (old_index, new_index) {
 	while (old_index < 0) {

@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>URLPlus</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="css/att.css" />
+	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+
+	<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    
+	<link rel="stylesheet" type="text/css" href="css/uploadify.css" />
+	<script type="text/javascript" src="js/jquery.uploadify-3.1.min.js"></script>
+
+    <script type="text/javascript" src="js/galleria/galleria-1.2.8.js"></script>
+	<script type="text/javascript" src="js/masonry/jquery.masonry.min.js"></script>
+
+	<script type="text/javascript" src="js/jquery-urlplus-0.1.0.js"></script>
+
+    
+   </head>
+  <body>
+
+	<script type="text/javascript">
+	var PAGE_EDITING = false; // 현재 페이지 수정 여부
+	
+	var defAttr = {
+		"tabs1": '<ul class="edit_box"><li id="imgOne"></li><li id="imgThumb"></li></ul>',
+		"tabs2": '<ul class="edit_box"><li id="imgSlide"></li></ul>',
+		"tabs3": '<ul class="edit_box"><li id="imgLayout"></li></ul>',
+	};
+
+    $(document).ready(function(){
+		$( "#tabs" ).tabs({
+			create : function(event, ui) {
+				ui.panel.html(defAttr.tabs1);
+				$('#imgOne').imageOne();
+				$('#imgThumb').imageThumb({bEdit : true});
+			},
+			activate:  function(event, ui) {
+				var tab = ui.newTab.children(':first-child').attr('href');
+				ui.oldPanel.html("");
+				if (tab == "#tabs-1") {
+					ui.newPanel.html(defAttr.tabs1);
+					$('#imgOne').imageOne();
+					$('#imgThumb').imageThumb({bEdit : true});
+				}
+				else if (tab == "#tabs-2") {
+					ui.newPanel.html(defAttr.tabs2);
+					$('#imgSlide').imageSlide({bEdit : true});
+				}
+				else if (tab == "#tabs-3") {
+					ui.newPanel.html(defAttr.tabs3);
+					$('#imgLayout').imageLayout({bEdit : true});
+				}
+				
+			}
+		});
+    }) // $(document).ready
+
+	
+	</script>
+	<a href="http://www.ehancast.com/img.zip">샘플이미지 다운로드</a>
+<!--
+  	<h1>속성</h1>
+	<dl>
+		<dt>이미지</dt>
+			<dd><a href="#" onclick="return false;">이미지 1장</a></dd>
+			<dd><a href="#" onclick="return false;">썸네일 이미지</a></dd>
+			<dd><a href="#" onclick="return false;">슬라이드</a></dd>
+			<dd><a href="#" onclick="return false;">분할이미지</a></dd>
+
+		<dt>동영상</dt>
+			<dd><a href="#" onclick="return false;">동영상 1개</a></dd>
+			<dd><a href="#" onclick="return false;">동영상 슬라이드</a></dd>
+
+		<dt>텍스트</dt>
+			<dd><a href="#" onclick="return false;">텍스트 상자</a></dd>
+			<dd><a href="#" onclick="return false;">텍스트 입력</a></dd>
+			<dd><a href="#" onclick="return false;">표</a></dd>
+
+		<dt>링크</dt>
+			<dd><a href="#" onclick="return false;">전화번호 링크</a></dd>
+			<dd><a href="#" onclick="return false;">웹페이지 링크</a></dd>
+			<dd><a href="#" onclick="return false;">응모하기링크</a></dd>
+
+		<dt>쿠폰</dt>
+			<dd><a href="#" onclick="return false;">바코드 쿠폰</a></dd>
+			<dd><a href="#" onclick="return false;">텍스트 쿠폰</a></dd>
+
+		<dt>기타</dt>
+			<dd><a href="#" onclick="return false;">페이스북 좋아요</a></dd>
+			<dd><a href="#" onclick="return false;">HTML 편집</a></dd>
+			<dd><a href="#" onclick="return false;">구분선</a></dd>
+	</dl>
+-->
+	<div id="tabs" >
+		<ul>
+			<li><a href="#tabs-1">1/ 정보형</a></li>
+			<li><a href="#tabs-2">2/ 쿠폰형</a></li>
+			<li><a href="#tabs-3">3/ 이벤트형</a></li>
+		</ul>
+		<div id="tabs-1"></div>
+		<div id="tabs-2"></div>
+		<div id="tabs-3"></div>
+	</div>
+
+  </body>
+</html>
