@@ -93,7 +93,7 @@
     <!--- @private -->
     <s:Rect id="fill" left="0" right="0" top="0" bottom="0">
         <s:fill>
-            <s:SolidColor color="#DDDDDD" color.over="#33B5E5" />
+            <s:SolidColor color="#A6A6A6" color.over="#33B5E5" />
         </s:fill>
     </s:Rect>
     

@@ -182,7 +182,7 @@ is defined by the ComboBoxTextInputSkin class.
             
             <!-- drop shadow -->
             <!--- @private -->
-            <s:RectangularDropShadow id="dropShadow" blurX="20" blurY="20" alpha="0.45" distance="7" 
+            <s:RectangularDropShadow id="dropShadow" blurX="10" blurY="10" alpha="0.45" distance="2" 
                                      angle="90" color="#000000" left="0" top="0" right="0" bottom="0" visible="false"/>
             
             <!-- border -->
@@ -190,7 +190,7 @@ is defined by the ComboBoxTextInputSkin class.
             <s:Rect id="border" left="0" right="0" top="0" bottom="0">
                 <s:stroke>
                     <!--- @private -->
-                    <s:SolidColorStroke id="borderStroke" color="#DDDDDD" weight="1"/>
+                    <s:SolidColorStroke id="borderStroke" color="#A6A6A6" weight="1"/>
                 </s:stroke>
             </s:Rect>
             

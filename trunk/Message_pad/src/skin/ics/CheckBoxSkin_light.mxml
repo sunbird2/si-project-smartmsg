@@ -150,7 +150,7 @@
     <!-- Label -->
     <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
     <s:Label id="labelDisplay"
-			 color="#222222"
+			 
              textAlign="start"
              verticalAlign="middle"
              maxDisplayedLines="1"

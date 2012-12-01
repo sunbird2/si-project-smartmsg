@@ -122,8 +122,8 @@
 			</s:HGroup>
 			<s:Label text="24시간제를 사용 합니다" color="#ed6c1f"/>
 			<s:HGroup>
-				<s:Button label="적용" click="confirm()" styleName="button_light" width="80" />
-				<s:Button label="취소" click="image1_clickHandler(event)"  styleName="button_light" width="80" />
+				<s:Button label="적용" click="confirm()" styleName="button_light" width="80" fontSize="14" />
+				<s:Button label="취소" click="image1_clickHandler(event)"  styleName="button_light" width="80" fontSize="14" />
 			</s:HGroup>
 		</s:VGroup>
 	</s:Group>

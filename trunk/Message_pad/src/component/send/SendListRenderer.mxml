@@ -34,7 +34,7 @@
 		<s:Label id="idx" left="5" verticalCenter="0" fontSize="12"/>
 		<s:Label id="pno" left="50" verticalCenter="0" fontSize="12"/>
 		<s:Label id="pna" left="170" verticalCenter="0" fontSize="12"/>
-		<s:Image source="@Embed('/skin/ics/assets/close_red.png')" buttonMode="true" click="del_clickHandler(event)" verticalCenter="0" right="5" />
+		<s:Image source="@Embed('/skin/ics/assets/close.gif')" buttonMode="true" click="del_clickHandler(event)" verticalCenter="0" right="5" />
 	</s:Group>
 	
 	<s:Rect width="100%" bottom="0" height="0.5">
