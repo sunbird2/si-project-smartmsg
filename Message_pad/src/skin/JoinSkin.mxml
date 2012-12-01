@@ -27,7 +27,7 @@
 			</s:layout>
 			<s:VGroup gap="4">
 				<s:RichText id="title_text" color="#FFFFFF" fontSize="14" text="회원가입"/>
-				<s:RichText id="titleSub_text" color="#DFDFDF" fontSize="12" text="messageYo의 회원이 되기 위한 절차 입니다. "/>
+				<s:RichText id="titleSub_text" color="#DFDFDF" fontSize="12" text="문자노트의 회원이 되기 위한 절차 입니다. "/>
 			</s:VGroup>
 			
 		</s:SkinnableContainer>
