@@ -77,7 +77,7 @@
 						<s:HGroup left="4" verticalCenter="0" verticalAlign="middle">
 							<s:Image source="/images/gbar.png" />
 							<s:Label text="수신 : "  color="#999999" />
-							<s:TextInput id="sendListInput" styleName="textinput_light" prompt="전화번호입력.." width="165" />	
+							<s:TextInput id="sendListInput" styleName="textinput_light" prompt="전화번호입력.." width="165" restrict="0-9 -"/>	
 						</s:HGroup>
 						
 						<s:HGroup gap="0" verticalCenter="0" right="5">
@@ -120,6 +120,7 @@
 						<s:ComboBox id="callback" width="165"  
 									itemRenderer="component.send.ReturnPhoneRenderer"
 									prompt="회신 전화번호입력.."
+									restrict="0-9 -"
 									styleName="comboBox_light"
 									
 									/>
