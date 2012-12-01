@@ -49,63 +49,78 @@
 					
 					<!-- Message -->
 					<s:Group width="100%" height="40">
-						<s:RichText color="#999999" left="5" bottom="0">
+						<s:Image source="/images/gbar.png" bottom="2" left="3" />
+						<s:RichText color="#999999" left="22" bottom="0">
 							<s:content><s:p><s:span id="byte" fontSize="16">0</s:span><s:span kerning="auto"> </s:span><s:span>byte</s:span></s:p></s:content>
 						</s:RichText>
-						<s:HGroup  bottom="0" right="5" gap="15">
-							<s:Image id="addImage" source="skin/ics/assets/light/icon/5-content-picture.png" buttonMode="true" />
-							<s:Image id="messageSaveBtn" source="skin/ics/assets/light/icon/5-content-new-email.png" buttonMode="true" />
-							<s:Image id="removeMsg" source="skin/ics/assets/light/icon/5-content-remove.png" buttonMode="true" />
+						<s:HGroup  bottom="0" right="5" gap="0">
+							<s:Image id="addImage" source="skin/ics/assets/light/icon/5-content-picture.png" buttonMode="true" toolTip="이미지 첨부" width="30" height="30" />
+							<s:Image id="messageSaveBtn" source="skin/ics/assets/light/icon/5-content-save.png" buttonMode="true" toolTip="메시지 저장" width="30" height="30" />
+							<s:Image id="removeMsg" source="skin/ics/assets/light/icon/5-content-remove.png" buttonMode="true" toolTip="메시지 삭제" width="30" height="30" />
 						</s:HGroup> 
 					</s:Group>
 					<s:Scroller width="265" height="200">
 						<s:VGroup id="mBox" width="100%" gap="0">
-							<s:TextArea id="message" width="100%" height="200" styleName="textarea_light" prompt="메시지를 입력하세요."
+							<s:TextArea id="message" width="100%" height="200" fontSize="14" styleName="textarea_light" prompt="메시지를 입력하세요."
 										borderColor.LMS="0xFF8800"
 										borderColor.MMS="0xCC0000"/>	
 						</s:VGroup>
 					</s:Scroller>
 					
 					<!-- send List title -->
-					<s:HGroup verticalAlign="middle" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="0">
-						<s:Label text="수신 : "  color="#999999"/>
-						<s:TextInput id="sendListInput" styleName="textinput_light" prompt="전화번호입력.." width="115" />
-						<s:Image id="sendListInputBtn"
-								 source="@Embed('/skin/ics/assets/light/icon/9-av-download.png')" buttonMode="true"
-								 />
-						<s:Image id="dupleDelete"
-								 source="@Embed('/skin/ics/assets/light/icon/10-device-access-storage.png')" buttonMode="true"   
-								 />
-						<s:Image id="phoneRemoveAll"
-								 source="@Embed('/skin/ics/assets/light/icon/5-content-discard.png')" buttonMode="true"
-								 />
-					</s:HGroup>
+					<s:Group width="100%">
+						<s:HGroup left="4" verticalCenter="0" verticalAlign="middle">
+							<s:Image source="/images/gbar.png" />
+							<s:Label text="수신 : "  color="#999999" />
+							<s:TextInput id="sendListInput" styleName="textinput_light" prompt="전화번호입력.." width="165" />	
+						</s:HGroup>
+						
+						<s:HGroup gap="0" verticalCenter="0" right="5">
+							<s:Image id="sendListInputBtn"
+									 source="@Embed('/skin/ics/assets/light/icon/9-av-download.png')" buttonMode="true"
+									 toolTip="전화번호추가" width="30" height="30"
+									 />
+						</s:HGroup>
+						
+					</s:Group>
 					
 					
 					<!-- send List -->
 					<s:List id="sendList"
 							focusEnabled="false"
-							borderColor="#DDDDDD"
+							borderColor="#DDDDDD" contentBackgroundColor="0xFFFFFF"
 							itemRenderer="component.send.SendListRenderer"
-							width="265" height="150">
+							width="265" height="162">
 					</s:List>
 					<!-- send List count -->
-					<s:HGroup width="100%" horizontalAlign="right" paddingRight="5" gap="0" verticalAlign="middle">
-						<s:RichText whiteSpaceCollapse="preserve">
-							<s:content><s:p><s:span id="countPhone">0</s:span><s:span kerning="auto"> </s:span><s:span fontSize="12" lineHeight="166.65%" kerning="auto">명</s:span></s:p></s:content>
+					<s:HGroup width="100%" horizontalAlign="right" paddingRight="5" gap="0" verticalAlign="bottom">
+						<s:RichText whiteSpaceCollapse="preserve" color="#999999" paddingBottom="5">
+							<s:content><s:p><s:span id="countPhone" fontSize="16">0</s:span><s:span kerning="auto"> </s:span><s:span kerning="auto">명 </s:span></s:p></s:content>
 						</s:RichText>
+						<s:Image id="dupleDelete"
+								 source="@Embed('/skin/ics/assets/light/icon/10-device-access-storage.png')" buttonMode="true"
+								 toolTip="중복번호 삭제" width="30" height="30"
+								 />
+						<s:Image id="phoneRemoveAll"
+								 source="@Embed('/skin/ics/assets/light/icon/5-content-discard.png')" buttonMode="true"
+								 toolTip="전체삭제" width="30" height="30"
+								 />	
 					</s:HGroup>
 					
 					
 					<!-- callback -->
 					<s:HGroup verticalAlign="middle" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
-						<s:Label text="회신 : "  color="#999999"/>
-						<s:ComboBox id="callback" width="190"
-									itemRenderer="component.send.ReturnPhoneRenderer" 
-									styleName="comboBox_light"/>
+						<s:Image source="/images/gbar.png" />
+						<s:Label text="회신 : "  color="#999999" />
+						<s:ComboBox id="callback" width="165"  
+									itemRenderer="component.send.ReturnPhoneRenderer"
+									prompt="회신 전화번호입력.."
+									styleName="comboBox_light"
+									
+									/>
 						<s:Image id="callbackSave"
 								 source="@Embed('/skin/ics/assets/light/icon/5-content-new-event.png')" buttonMode="true"								 
-								  fillMode="scale" />
+								  fillMode="scale" toolTip="회신번호 저장" />
 					</s:HGroup>
 					
 					<s:Spacer height="14"/>
@@ -119,9 +134,9 @@
 					<s:Spacer height="4"/>
 					
 					<!-- send Button -->
-					<s:Button id="sendBtn" label="Send" width="265" styleName="button_light" enabled="false" />
+					<s:Button id="sendBtn" label="전송하기" fontSize="14" fontWeight="bold" width="265" styleName="button_light" enabled="false" />
 					<s:HGroup width="265">
-						<s:CheckBox id="sendReservation" label="예약설정" styleName="checkbox_light"  color="#999999"/>
+						<s:CheckBox id="sendReservation" label="예약설정" styleName="checkbox_light" color="#999999"/>
 						<s:CheckBox id="sendInterval" label="간격설정" styleName="checkbox_light"  color="#999999"/>
 					</s:HGroup>
 				</s:VGroup>

@@ -261,8 +261,7 @@ in accordance with the terms of the license agreement accompanying it.
 						left="1" right="1" top="1" bottom="1" />
 	<!--- Defines the Label that is used for prompt text. The includeInLayout property is false so the prompt text does not affect measurement. -->
 	<s:Label id="promptDisplay" maxDisplayedLines="1"
-			 color="#666666"
-			 fontFamily="Dotum"
+			 color="#999999"
 			 verticalAlign="middle"
 			 mouseEnabled="false" mouseChildren="false"
 			 includeIn="normalWithPrompt,disabledWithPrompt" 

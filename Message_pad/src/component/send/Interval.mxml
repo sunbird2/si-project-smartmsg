@@ -42,8 +42,8 @@
 		<s:HGroup verticalAlign="middle"><s:TextInput id="cnt" width="50" restrict="0-9" styleName="textinput_light" /><s:Label text="건 마다" /></s:HGroup>
 		<s:HGroup verticalAlign="middle"><s:TextInput id="minute" width="50" restrict="0-9" styleName="textinput_light" /><s:Label text="분 간격으로 전송" /></s:HGroup>
 		<s:HGroup>
-			<s:Button label="적용" click="confirm()"  styleName="button_light" width="80"/>
-			<s:Button label="취소" click="{this.visible = false;this.dispatchEvent(new Event('cancelInterval'))}"  styleName="button_light" width="80" />
+			<s:Button label="적용" click="confirm()"  styleName="button_light" width="80" fontSize="14"/>
+			<s:Button label="취소" click="{this.visible = false;this.dispatchEvent(new Event('cancelInterval'))}"  styleName="button_light" width="80" fontSize="14" />
 		</s:HGroup>
 		
 	</s:Group>

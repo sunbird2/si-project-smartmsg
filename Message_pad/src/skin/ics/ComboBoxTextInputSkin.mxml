@@ -232,16 +232,16 @@
     </s:Rect>
 	
 	<s:Rect left="0" right="0" bottom="0" height="1">
-		<s:stroke>
+		<s:fill>
 			<!--- Defines the background fill color. -->
-			<s:SolidColorStroke color="0xDDDDDD" />
-		</s:stroke>
+			<s:SolidColor color="0xA6A6A6" />
+		</s:fill>
 	</s:Rect>
 	<s:Rect left="0" bottom="1" width="1" height="4">
-		<s:stroke>
+		<s:fill>
 			<!--- Defines the background fill color. -->
-			<s:SolidColorStroke color="0xDDDDDD" />
-		</s:stroke>
+			<s:SolidColor color="0xA6A6A6" />
+		</s:fill>
 	</s:Rect>
 	
     <!-- text -->
@@ -251,7 +251,7 @@
               widthInChars="10" verticalCenter="0"/>
     <!--- Defines the Label that is used for prompt text. The includeInLayout property is false so the prompt text does not affect measurement. -->
     <s:Label id="promptDisplay" maxDisplayedLines="1"
-			    fontFamily="Dotum"
+			 	color="#999999"
                 verticalAlign="middle"
                 mouseEnabled="false" mouseChildren="false"
                 includeIn="normalWithPrompt,disabledWithPrompt" 
