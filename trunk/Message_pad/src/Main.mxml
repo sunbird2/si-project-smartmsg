@@ -232,7 +232,7 @@
 			<s:Group id="statusBar" width="100%" height="24">
 			<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#000000"/></s:fill></s:Rect>
 			
-			<s:Label text="MessageYo" verticalCenter="0" left="10" color="#D6D6D6"
+			<s:Label text="문자노트" verticalCenter="0" left="10" color="#D6D6D6"
 			buttonMode="true" useHandCursor="true"
 			click="{this.menus.clickStat='home'}" />				
 			
