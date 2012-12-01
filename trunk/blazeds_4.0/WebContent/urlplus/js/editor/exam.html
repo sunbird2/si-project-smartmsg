@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Daum 에디터 - 등록화면 예제</title>
+	<link rel="stylesheet" href="css/editor.css" type="text/css" charset="utf-8"/>
+	<script src="js/editor_loader.js?environment=development" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body>
+<div class="body">
+
+	<form name="tx_editor_form" id="tx_editor_form" method="post" accept-charset="utf-8">
+		<div id="tx_trex_container" class="tx-editor-container">
+			<div id="tx_toolbar_basic" class="tx-toolbar tx-toolbar-basic"><div class="tx-toolbar-boundary">
+				<ul class="tx-bar tx-bar-left">
+					<li class="tx-list">
+						<div unselectable="on" class="tx-slt-42bg tx-fontsize" id="tx_fontsize">
+							<a href="javascript:;" title="글자크기">9pt</a>
+						</div>
+						<div id="tx_fontsize_menu" class="tx-fontsize-menu tx-menu" unselectable="on"></div>
+					</li>
+				</ul>
+				<ul class="tx-bar tx-bar-left tx-group-font">
+
+					<li class="tx-list">
+						<div unselectable="on" class=" tx-btn-lbg 	tx-bold" id="tx_bold">
+							<a href="javascript:;" class="tx-icon" title="굵게 (Ctrl+B)">굵게</a>
+						</div>
+					</li>
+					<li class="tx-list">
+						<div unselectable="on" class=" tx-slt-tbg 	tx-forecolor" id="tx_forecolor">
+							<a href="javascript:;" class="tx-icon" title="글자색">글자색</a>
+							<a href="javascript:;" class="tx-arrow" title="글자색 선택">글자색 선택</a>
+						</div>
+						<div id="tx_forecolor_menu" class="tx-menu tx-forecolor-menu tx-colorpallete"
+					 unselectable="on"></div>
+					</li>
+					<li class="tx-list">
+						<div unselectable="on" class=" tx-slt-brbg 	tx-backcolor" id="tx_backcolor">
+							<a href="javascript:;" class="tx-icon" title="글자 배경색">글자 배경색</a>
+							<a href="javascript:;" class="tx-arrow" title="글자 배경색 선택">글자 배경색 선택</a>
+						</div>
+						<div id="tx_backcolor_menu" class="tx-menu tx-backcolor-menu tx-colorpallete"
+					 unselectable="on"></div>
+					</li>
+				</ul>
+				<ul class="tx-bar tx-bar-left tx-group-align">
+					<li class="tx-list">
+						<div unselectable="on" class=" tx-btn-lbg 	tx-alignleft" id="tx_alignleft">
+							<a href="javascript:;" class="tx-icon" title="왼쪽정렬 (Ctrl+,)">왼쪽정렬</a>
+						</div>
+					</li>
+					<li class="tx-list">
+						<div unselectable="on" class=" tx-btn-bg 	tx-aligncenter" id="tx_aligncenter">
+							<a href="javascript:;" class="tx-icon" title="가운데정렬 (Ctrl+.)">가운데정렬</a>
+						</div>
+					</li>
+					<li class="tx-list">
+						<div unselectable="on" class=" tx-btn-bg 	tx-alignright" id="tx_alignright">
+							<a href="javascript:;" class="tx-icon" title="오른쪽정렬 (Ctrl+/)">오른쪽정렬</a>
+						</div>
+					</li>
+					<li class="tx-list">
+						<div unselectable="on" class=" tx-btn-rbg 	tx-alignfull" id="tx_alignfull">
+							<a href="javascript:;" class="tx-icon" title="양쪽정렬">양쪽정렬</a>
+						</div>
+					</li>
+				</ul>
+				
+			</div></div>
+	<div id="tx_canvas" class="tx-canvas">
+		<div id="tx_loading" class="tx-loading"><div><img src="images/icon/editor/loading2.png" width="113" height="21" align="absmiddle"/></div></div>
+		<div id="tx_canvas_wysiwyg_holder" class="tx-holder" style="display:block;">
+			<iframe id="tx_canvas_wysiwyg" name="tx_canvas_wysiwyg" allowtransparency="true" frameborder="0"></iframe>
+		</div>
+		<div class="tx-source-deco">
+			<div id="tx_canvas_source_holder" class="tx-holder">
+				<textarea id="tx_canvas_source" rows="30" cols="30"></textarea>
+			</div>
+		</div>
+		<div id="tx_canvas_text_holder" class="tx-holder">
+			<textarea id="tx_canvas_text" rows="30" cols="30"></textarea>
+		</div>
+	</div>
+		</div>
+	</form>
+</div>
+
+
+<script type="text/javascript">
+	var config = {
+		wrapper: "tx_trex_container", /* 에디터를 둘러싸고 있는 레이어 이름(에디터 컨테이너) */
+		form: 'tx_editor_form'+"", /* 등록하기 위한 Form 이름 */
+		txIconPath: "images/icon/editor/", /*에디터에 사용되는 이미지 디렉터리, 필요에 따라 수정한다. */
+		txDecoPath: "images/deco/contents/", /*본문에 사용되는 이미지 디렉터리, 서비스에서 사용할 때는 완성된 컨텐츠로 배포되기 위해 절대경로로 수정한다. */
+		canvas: {
+			styles: {
+				color: "#123456", /* 기본 글자색 */
+				fontFamily: "굴림", /* 기본 글자체 */
+				fontSize: "10pt", /* 기본 글자크기 */
+				backgroundColor: "#fff", /*기본 배경색 */
+				lineHeight: "1.5", /*기본 줄간격 */
+				padding: "8px" /* 위지윅 영역의 여백 */
+			}
+		}
+	};
+
+	EditorJSLoader.ready(function(Editor) {
+		var editor = new Editor(config);
+	});
+	
+</script>
+
+
+</body>
+</html>

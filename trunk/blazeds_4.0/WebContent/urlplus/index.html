@@ -9,105 +9,227 @@
 	<title>URLPlus</title>
     <link rel="stylesheet" type="text/css" href="css/base.css" />
     <link rel="stylesheet" type="text/css" href="css/att.css" />
-	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
-
-	<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+	
+	<link rel="stylesheet" href="js/editor/css/editor.css" type="text/css" charset="utf-8"/>
+	<script src="js/editor/js/editor_loader.js?environment=development" type="text/javascript" charset="utf-8"></script>
+	
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.9.2.custom.min.css" />
+	<script src="js/jquery-1.8.2.js"></script>
+    <script src="js/jquery-ui.js"></script>
     
 	<link rel="stylesheet" type="text/css" href="css/uploadify.css" />
 	<script type="text/javascript" src="js/jquery.uploadify-3.1.min.js"></script>
 
     <script type="text/javascript" src="js/galleria/galleria-1.2.8.js"></script>
 	<script type="text/javascript" src="js/masonry/jquery.masonry.min.js"></script>
-
+	
+	<script type="text/javascript" src="js/barcode/jquery-barcode-2.0.2.min.js"></script>
+	<script type="text/javascript" src="js/slimScroll/slimScroll.min.js"></script>
+	
 	<script type="text/javascript" src="js/jquery-urlplus-0.1.0.js"></script>
 
-    
+    <style type="text/css" media="screen">
+		#container{ width:600px; }
+		textarea{ width:500px; height:300px; }
+	</style>
    </head>
   <body>
 
 	<script type="text/javascript">
 	var PAGE_EDITING = false; // 현재 페이지 수정 여부
 	
-	var defAttr = {
-		"tabs1": '<ul class="edit_box"><li id="imgOne"></li><li id="imgThumb"></li></ul>',
-		"tabs2": '<ul class="edit_box"><li id="imgSlide"></li></ul>',
-		"tabs3": '<ul class="edit_box"><li id="imgLayout"></li></ul>',
-	};
 
     $(document).ready(function(){
 		$( "#tabs" ).tabs({
+			heightStyle: "auto",
 			create : function(event, ui) {
-				ui.panel.html(defAttr.tabs1);
-				$('#imgOne').imageOne();
-				$('#imgThumb').imageThumb({bEdit : true});
+				var eBox = ui.panel.find('ul');
+				addAtt('imageOne');
+				addAtt('imageThumb');
+				$('#tabs-1').slimScroll({
+					height: '250px',
+					alwaysVisible: true,
+					start: 'bottom',
+					distance: '0px',
+					wheelStep: 10
+				}).css({ background: '#fff', paddingRight: '10px' });
 			},
 			activate:  function(event, ui) {
 				var tab = ui.newTab.children(':first-child').attr('href');
-				ui.oldPanel.html("");
+				ui.oldPanel.find('ul').html("");
 				if (tab == "#tabs-1") {
-					ui.newPanel.html(defAttr.tabs1);
-					$('#imgOne').imageOne();
-					$('#imgThumb').imageThumb({bEdit : true});
+					addAtt('imageOne');
+					addAtt('imgThumb');
+					
 				}
 				else if (tab == "#tabs-2") {
-					ui.newPanel.html(defAttr.tabs2);
-					$('#imgSlide').imageSlide({bEdit : true});
+					addAtt('imgSlide');
+					
 				}
 				else if (tab == "#tabs-3") {
-					ui.newPanel.html(defAttr.tabs3);
-					$('#imgLayout').imageLayout({bEdit : true});
+					addAtt('imgLayout');
+					
 				}
 				
 			}
 		});
-    }) // $(document).ready
 
+    }) // $(document).ready
+	
+	/** 
+	* type 에 따라 속성들을 추가한다.
+	* type : 속성 명
+	*/
+	function addAtt(type) {
+
+		var target = getEditeEle();
+		var box = "<li class='attBox'></li>";
+		var addBoxEle = null;
+		
+		if (type == "imageOne") { addBoxEle = $(box).appendTo(target).imageOne(); }
+		else if (type == "imageThumb") { addBoxEle = $(box).appendTo(target).imageThumb({bEdit : true}); }
+		else if (type == "imgSlide") {
+
+			if ( $('.imageSlide_box , .movieSlide_box').length > 0 ){
+				alert("슬라이드, 동영상 이미지는 페이지당 하나만 추가 가능 합니다.");
+			} else {
+				addBoxEle = $(box).appendTo(target).imageSlide({bEdit : true});
+			}
+			
+		}
+		else if (type == "imgLayout") { addBoxEle = $(box).appendTo(target).imageLayout({bEdit : true}); }
+		else if (type == "movieOne") { addBoxEle = $(box).appendTo(target).movieOne({bEdit : true}); }
+		else if (type == "movieSlide") {
+
+			if ( $('.imageSlide_box , .movieSlide_box').length > 0 ){
+				alert("슬라이드, 동영상 이미지는 페이지당 하나만 추가 가능 합니다.");
+			} else {
+				addBoxEle = $(box).appendTo(target).movieSlide({bEdit : true});
+			}
+		}
+		else if (type == "text") { addBoxEle = $(box).appendTo(target).textEditor({domUrl : 'textEditor.jsp'}); }
+		else if (type == "textInput") { addBoxEle = $(box).appendTo(target).textInput({bEdit : true}); }
+		else if (type == "textTable") { addBoxEle = $(box).appendTo(target).textEditor({domUrl : 'textEditorTable.jsp', bTable : true}); }
+		else if (type == "linkPhone") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true, bPhone : true}); }
+		else if (type == "linkPage") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true}); }
+		else if (type == "linkEnter") { addBoxEle = $(box).appendTo(target).textInput({bEdit : true}); }
+		else if (type == "cuponBarcode") { addBoxEle = $(box).appendTo(target).coupon({bEdit : true, bBarcode : true}); }
+		else if (type == "cuponText") { addBoxEle = $(box).appendTo(target).coupon({bEdit : true}); }
+		else if (type == "faceBook") {}
+		else if (type == "html") {}
+		else if (type == "bar") {}
+
+		addFunctionToAttBox(type, addBoxEle);
+		
+		return false;
+	}
+	/** 
+	* 현재 활성화 tab의 수정 element를 반환함.
+	*/
+	function getEditeEle() {
+		if ($('#tabs-1').css("display") == "block") return $('#tabs-1 > .editor_box');
+		else if ($('#tabs-2').css("display") == "block") return $('#tabs-2 > .editor_box');
+		else if ($('#tabs-3').css("display") == "block") return $('#tabs-3 > .editor_box');
+		else return null;
+	}
+	/** 
+	* target 에 위로, 아래로, 삭제 기능을 추가 한다.
+	* target : 속성 element
+	*/
+	function addFunctionToAttBox( type, addBoxEle ) {
+		var tid = addBoxEle.attr('id');
+		var dom = '<div class="attBox_function"><a href="#" onclick="attBoxFunction(\''+type+'\',\''+tid+'\', this, \'up\');return false;" class="up">▲</a><a href="#" onclick="attBoxFunction(\''+type+'\',\''+tid+'\', this, \'down\');return false;" class="down">▼</a><a href="#" onclick="attBoxFunction(\''+type+'\',\''+tid+'\', this, \'remove\');return false;" class="remove">X</a></div>';
+		$(dom).appendTo(addBoxEle);
+	}
+	/** 
+	* 위로, 아래로, 삭제 이벤트 처리
+	* target : 속성 element
+	*/
+	function attBoxFunction(type, tid, ele, opt) {
+
+		var target = $(ele);
+
+		if (opt == "remove"){
+
+			if (type == "imageOne") { $('#'+tid).imageOne('destroy');}
+			else if (type == "imageThumb") { $('#'+tid).imageThumb('destroy'); }
+			else if (type == "imgSlide") { $('#'+tid).imageSlide('destroy'); }
+			else if (type == "imgLayout") { $('#'+tid).imageLayout('destroy'); }
+			else if (type == "movieOne") { $('#'+tid).movieOne('destroy'); }
+			else if (type == "movieSlide") { $('#'+tid).movieSlide('destroy'); }
+			
+			/*
+			else if (type == "text") { $('#'+tid).textEditor({domUrl : 'textEditor.jsp'}); }
+			else if (type == "textInput") { $('#'+tid).textInput({bEdit : true}); }
+			else if (type == "textTable") { $('#'+tid).textEditor({domUrl : 'textEditorTable.jsp', bTable : true}); }
+			else if (type == "linkPhone") { $('#'+tid).linkInput({bEdit : true, bPhone : true}); }
+			else if (type == "linkPage") { $('#'+tid).linkInput({bEdit : true}); }
+			else if (type == "linkEnter") { $('#'+tid).textInput({bEdit : true}); }
+			else if (type == "cuponBarcode") { $('#'+tid).coupon({bEdit : true, bBarcode : true}); }
+			else if (type == "cuponText") { $('#'+tid).coupon({bEdit : true}); }
+			else if (type == "faceBook") {}
+			else if (type == "html") {}
+			else if (type == "bar") {}
+			*/
+			target.parent().parent().remove();
+		}else if (opt == "up"){
+			target.parent().parent().prev().insertAfter( target.parent().parent() );
+		}else if (opt == "down"){
+			target.parent().parent().remove();
+		}
+	}
+
+	function test() {
+		Editor.getToolbar().tools.table.button._command();
+		//for (var _name in _tools) {
+ 		//			alert(_name);
+		//}
+	}
 	
 	</script>
 	<a href="http://www.ehancast.com/img.zip">샘플이미지 다운로드</a>
-<!--
+	<div id="ddr"></div>
   	<h1>속성</h1>
-	<dl>
+	<dl class="attListBox">
 		<dt>이미지</dt>
-			<dd><a href="#" onclick="return false;">이미지 1장</a></dd>
-			<dd><a href="#" onclick="return false;">썸네일 이미지</a></dd>
-			<dd><a href="#" onclick="return false;">슬라이드</a></dd>
-			<dd><a href="#" onclick="return false;">분할이미지</a></dd>
+			<dd><a href="#" onclick="addAtt('imageOne');return false;">이미지 1장</a></dd>
+			<dd><a href="#" onclick="addAtt('imageThumb');return false;">썸네일 이미지</a></dd>
+			<dd><a href="#" onclick="addAtt('imgSlide');return false;">슬라이드</a></dd>
+			<dd><a href="#" onclick="addAtt('imgLayout');return false;">분할이미지</a></dd>
 
 		<dt>동영상</dt>
-			<dd><a href="#" onclick="return false;">동영상 1개</a></dd>
-			<dd><a href="#" onclick="return false;">동영상 슬라이드</a></dd>
+			<dd><a href="#" onclick="addAtt('movieOne');return false;">동영상 1개</a></dd>
+			<dd><a href="#" onclick="addAtt('movieSlide');return false;">동영상 슬라이드</a></dd>
 
 		<dt>텍스트</dt>
-			<dd><a href="#" onclick="return false;">텍스트 상자</a></dd>
-			<dd><a href="#" onclick="return false;">텍스트 입력</a></dd>
-			<dd><a href="#" onclick="return false;">표</a></dd>
+			<dd><a href="#" onclick="addAtt('text');return false;">텍스트 상자</a></dd>
+			<dd><a href="#" onclick="addAtt('textInput');return false;">텍스트 입력</a></dd>
+			<dd><a href="#" onclick="addAtt('textTable');return false;">표</a></dd>
 
 		<dt>링크</dt>
-			<dd><a href="#" onclick="return false;">전화번호 링크</a></dd>
-			<dd><a href="#" onclick="return false;">웹페이지 링크</a></dd>
-			<dd><a href="#" onclick="return false;">응모하기링크</a></dd>
+			<dd><a href="#" onclick="addAtt('linkPhone');return false;">전화번호 링크</a></dd>
+			<dd><a href="#" onclick="addAtt('linkPage');return false;">웹페이지 링크</a></dd>
+			<dd><a href="#" onclick="addAtt('linkEnter');return false;">응모하기링크</a></dd>
 
 		<dt>쿠폰</dt>
-			<dd><a href="#" onclick="return false;">바코드 쿠폰</a></dd>
-			<dd><a href="#" onclick="return false;">텍스트 쿠폰</a></dd>
+			<dd><a href="#" onclick="addAtt('cuponBarcode');return false;">바코드 쿠폰</a></dd>
+			<dd><a href="#" onclick="addAtt('cuponText');return false;">텍스트 쿠폰</a></dd>
 
 		<dt>기타</dt>
-			<dd><a href="#" onclick="return false;">페이스북 좋아요</a></dd>
-			<dd><a href="#" onclick="return false;">HTML 편집</a></dd>
-			<dd><a href="#" onclick="return false;">구분선</a></dd>
+			<dd><a href="#" onclick="addAtt('faceBook');return false;">페이스북 좋아요</a></dd>
+			<dd><a href="#" onclick="addAtt('html');return false;">HTML 편집</a></dd>
+			<dd><a href="#" onclick="addAtt('bar');return false;">구분선</a></dd>
 	</dl>
--->
+
 	<div id="tabs" >
 		<ul>
 			<li><a href="#tabs-1">1/ 정보형</a></li>
 			<li><a href="#tabs-2">2/ 쿠폰형</a></li>
 			<li><a href="#tabs-3">3/ 이벤트형</a></li>
 		</ul>
-		<div id="tabs-1"></div>
-		<div id="tabs-2"></div>
-		<div id="tabs-3"></div>
+		<div id="tabs-1"><ul class="editor_box"></ul></div>
+		<div id="tabs-2"><ul class="editor_box"></ul></div>
+		<div id="tabs-3"><ul class="editor_box"></ul></div>
 	</div>
 
   </body>
