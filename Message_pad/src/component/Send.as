@@ -373,7 +373,6 @@ package component
 			
 			sendBtn.enabled = false;
 			
-			
 			if ( msg == "" ) {
 				validMessage = "메시지를 입력 하세요.";
 				subMessage = "90Byte 이상 입력시 LMS로 자동 전환됩니다.";
@@ -382,7 +381,7 @@ package component
 				validMessage = "전화번호를 추가하세요.";
 				subMessage = "아래 대량입력, 주소록, 엑셀등 글씨를 클릭 하여 추가 하실 수 있습니다.";
 			}
-			else if (rt.returnPhone == "") {
+			else if (rt.returnPhone == "" || rt.returnPhone == "null" || rt.returnPhone == null) {
 				validMessage = "회신번호를 입력하세요.";
 				subMessage = "여러 번호를 저장 하거나 선택 할 수 있습니다.";
 			}
@@ -390,8 +389,7 @@ package component
 				validMessage = "보내기 버튼을 누르면 전송 됩니다.";
 				subMessage = "예약 설정 또는 간격설정을 하실 수 있습니다.";
 				sendBtn.enabled = true;
-				if (confirm_text.visible == false)
-					confirm_text.visible = true;
+				
 			}
 			
 			
