@@ -1,4 +1,11 @@
 #tabs {width:360px;height:auto;overflow:hidden;}
+.editor_box li.attBox {position:relative;width:100%;height:auto;overflow:hidden;padding-top:20px;}
+.attBox_function {position:absolute;width:100%;top:0px;left:0px;text-align:right;overflow:hidden;}
+.attBox_function .up {}
+.attBox_function .down {}
+.attBox_function .remove {}
+
+
 .imageThumb_box {list-style: none;clear:both;width:100%;overflow:hidden;}
 .imageThumb_box li {position:relative;float:left;width:100px;height:100px;overflow:hidden;}
 
@@ -10,9 +17,22 @@
 .imageLayout_box li.imageLayout_cell {position:relative;float:left;width:30%;height:100px;overflow:hidden;margin:2px;border:1px solid;}
 .imageLayout_box li .imageLayout_edit {position:absolute;top:0px;left:0px;width:100%;overflow:hidden;text-align:right}
 .imageLayout_box li .imageLayout_edit img{ cursor:pointer }
-.imageLayout_box li .imageLayout_label {font-size:16px;width:100%;text-align:center;font-weight:bold} 
+.imageLayout_box li .imageLayout_label {font-size:16px;width:100%;text-align:center;font-weight:bold}
 
+.movieOneBox {position:relative;width:100%;overflow:hidden;}
+.movieOneBox .movieOne_play {position:absolute; top:20px; left:100px;}
 
+.movieSlide_box {width:320px;height:320px;}
+.movieSlide_move_box {list-style:none;clear:both;width:100%;overflow:hidden;}
+.movieSlide_move_box li {position:relative;float:left;width:100px;height:100px;overflow:hidden;}
+
+.imgPlay {cursor:pointer;position:absolute;top:60px;left:80px;}
+.imgPlayThumb {cursor:pointer;position:absolute;top:0px;left:0px;}
+.movieSlideLinkBox {position:absolute; top:120px; left:50px;overflow:hidden;}
+.movieSlideLinkBox .movieSlideLink{}
+.movieSlideLinkBox .movieSlideLinkBtn {}
+
+.barcodeTarget {margin:0 auto;}
 
 .hand {cursor:pointer}
 
@@ -20,7 +40,7 @@
 .imgdel {cursor:pointer;position:absolute;top:0px;left:0px;}
 
 dl {float:left;margin:10px;}
-dl dd {width:320px;text-align:center;border:1px solid;}
+dl dd {width:120px;text-align:center;border:1px solid;}
 #imgOne_wrap {max-width:95%;overflow:hidden;}
 
 #imgThumbnail_wrap {max-width:95%;overflow:hidden;}

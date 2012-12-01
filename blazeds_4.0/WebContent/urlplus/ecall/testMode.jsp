@@ -87,18 +87,22 @@
 					<option value="10">10</option>
 				</select>
 			</dd><!-- // 텍스트 합성 수 -->
-			<dt>쿠폰 번호 사용 수 : cupon</dt>
+			<dt>쿠폰 번호 사용 수 : coupon</dt>
 			<dd>
-				<select name="cupon">
+				<select name="coupon">
 					<option value="0">0</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
 				</select>
 			</dd><!-- // 쿠폰 번호 사용 수 -->
+			<dt>페이지 시작일 : startDate</dt>
+			<dd>
+				<input type="text" name="startDate" value="2012-11-20" />
+			</dd><!-- // 페이지 만료일 -->
 			<dt>페이지 만료일 : endDate</dt>
 			<dd>
-				<input type="text" name="endDate" value="2012-12-20" />
+				<input type="text" name="endDate" value="2013-01-20" />
 			</dd><!-- // 페이지 만료일 -->
 		</dl>
 		<input type="submit" value="완료" />
