@@ -372,7 +372,7 @@ package component
 			var subMessage:String = "";
 			
 			sendBtn.enabled = false;
-			confirm_text.visible = false;
+			
 			
 			if ( msg == "" ) {
 				validMessage = "메시지를 입력 하세요.";
@@ -390,8 +390,13 @@ package component
 				validMessage = "보내기 버튼을 누르면 전송 됩니다.";
 				subMessage = "예약 설정 또는 간격설정을 하실 수 있습니다.";
 				sendBtn.enabled = true;
-				confirm_text.visible = true;
+				if (confirm_text.visible == false)
+					confirm_text.visible = true;
 			}
+			
+			
+			confirm_text.visible = sendBtn.enabled;
+			
 			title_text.text = validMessage;
 			titleSub_text.text = subMessage;
 			

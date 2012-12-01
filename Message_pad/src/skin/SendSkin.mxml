@@ -11,6 +11,11 @@
 		<s:State name="LMS"/>
 		<s:State name="MMS"/>
 	</s:states>
+	<fx:Declarations>
+		<s:Parallel id="showEff" repeatCount="2" duration="500">
+			<s:Fade alphaFrom="0.0" alphaTo="1.0" />
+		</s:Parallel>
+	</fx:Declarations>
 	
 	
 	<s:Group id="contentGroup" width="1024" height="696" horizontalCenter="0">
@@ -126,7 +131,7 @@
 					<s:Spacer height="14"/>
 					
 					<!-- confirm -->
-					<s:RichText id="confirm_text" width="265" fontSize="12" >
+					<s:RichText id="confirm_text" width="265" fontSize="14" showEffect="{showEff}" >
 						<s:content><s:p><s:span id="confirm_mode" color.LMS="#FF8800"
 												color.MMS="#CC0000">SMS</s:span><s:span> 를 </s:span><s:span id="confirm_count" color="#33B5E5">0</s:span><s:span> 명에게 </s:span><s:span id="confirm_delay" backgroundColor="#FFBB33"></s:span></s:p><s:p><s:span id="confirm_reservation" backgroundColor="#99CC00"></s:span><s:span>발송하시겠습니까?</s:span></s:p></s:content>
 					</s:RichText>
@@ -134,7 +139,7 @@
 					<s:Spacer height="4"/>
 					
 					<!-- send Button -->
-					<s:Button id="sendBtn" label="전송하기" fontSize="14" fontWeight="bold" width="265" styleName="button_light" enabled="false" />
+					<s:Button id="sendBtn" label="전송하기" fontSize="12" fontWeight="bold" width="265" styleName="button_light" enabled="false" />
 					<s:HGroup width="265">
 						<s:CheckBox id="sendReservation" label="예약설정" styleName="checkbox_light" color="#999999"/>
 						<s:CheckBox id="sendInterval" label="간격설정" styleName="checkbox_light"  color="#999999"/>
