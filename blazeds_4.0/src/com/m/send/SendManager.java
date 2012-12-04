@@ -12,6 +12,7 @@ import com.m.common.Gv;
 import com.m.common.PointManager;
 import com.m.common.Refuse;
 import com.m.member.UserInformationVO;
+import com.m.send.telecom.KT;
 import com.m.send.telecom.LG;
 import com.m.send.telecom.PP;
 
@@ -209,6 +210,7 @@ public class SendManager implements ISend {
 		
 		if (line.equals("lg")) ls = LG.getInstance();
 		else if (line.equals("pp")) ls = PP.getInstance();
+		else if (line.equals("kt")) ls = KT.getInstance();
 		else throw new Exception("no line class!!");
 		
 		return ls;
