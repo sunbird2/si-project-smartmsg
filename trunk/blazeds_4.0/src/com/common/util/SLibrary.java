@@ -47,7 +47,7 @@ public class SLibrary {
 	 * KSC5601 -> 8859_1
 	 * 
 	 * @param ko
-	 *            - ¹®ÀÚ¿­
+	 *            - ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * @return String
 	 */
 	public static String to8859_1(String ko) {
@@ -65,7 +65,7 @@ public class SLibrary {
 	 * 8859_1 -> KSC5601
 	 * 
 	 * @param ko
-	 *            - ¹®ÀÚ¿­
+	 *            - ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * @return String
 	 */
 	public static String toKSC5601(String en) {
@@ -73,9 +73,9 @@ public class SLibrary {
 			return null;
 		}
 		try {
-			// Àû¿ë
+			// ï¿½ï¿½ï¿½
 			// en = new String(en.getBytes("8859_1"), "KSC5601");
-			// ¹ÌÀû¿ë
+			// ï¿½ï¿½ï¿½ï¿½ï¿½
 			return en;
 		} catch (Exception e) {
 			// return en;
@@ -85,11 +85,11 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÁÖ¾îÁø ¹®ÀÚ¿­ÀÌ nullÀÏ °æ¿ì ""À» ¸®ÅÏÇÑ´Ù.
+	 * ï¿½Ö¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ nullï¿½ï¿½ ï¿½ï¿½ï¿½ ""; ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	 * 
 	 * @param str
 	 * 
-	 * @return "" ¶Ç´Â str
+	 * @return "" ï¿½Ç´ï¿½ str
 	 */
 	public static String IfNull(String str) {
 
@@ -100,10 +100,10 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÁÖ¾îÁø ¹®ÀÚ¿­ÀÌ nullÀÏ °æ¿ì ""À» ¸®ÅÏÇÑ´Ù.
+	 * ï¿½Ö¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ nullï¿½ï¿½ ï¿½ï¿½ï¿½ ""; ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	 * 
 	 * @param str
-	 * @return "" ¶Ç´Â str
+	 * @return "" ï¿½Ç´ï¿½ str
 	 */
 	public static String IfNullDB(String str) {
 
@@ -114,7 +114,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÁÖ¾îÁø ¹®ÀÚ¿­ÀÌ nullÀÏ °æ¿ì ""À» flase¸¦ ¸®ÅÏÇÑ´Ù.
+	 * ï¿½Ö¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ nullï¿½ï¿½ ï¿½ï¿½ï¿½ ""; flaseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	 * 
 	 * @param str
 	 * 
@@ -128,8 +128,8 @@ public class SLibrary {
 			return false;
 	}
 	
-	public static String getDateAddSecond(String orgDate, int sec){
-		return getDateTimeString( "yyyy-MM-dd HH:mm:ss", ((getTime(orgDate, "yyyy-MM-dd HH:mm:ss")/1000)+sec)*1000 );
+	public static String getDateAddSecond(String format, String orgDate, int sec){
+		return getDateTimeString( format, ((getTime(orgDate, format)/1000)+sec)*1000 );
 	}
 
 	public static String getDateTimeString() {
@@ -148,15 +148,15 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÁÖ¾îÁø Æ÷¸Ë¿¡ µû¶ó ÀÏÀÚÇü µ¥ÀÌÅÍ¸¦ Æ÷¸ËµÈ ¹®ÀÚ¿­·Î ¸®ÅÏÇÑ´Ù.
+	 * ï¿½Ö¾ï¿½ï¿½ï¿½ ï¿½ï¿½Ë¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½Ëµï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	 * 
 	 * @param date
-	 *            Æ÷¸ËÇÒ ÀÏÀÚ°ª
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½
 	 * 
 	 * @param format
-	 *            ÀÏÀÚÇü µ¥ÀÌÅÍ Æ÷¸Ë ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
-	 * @return Æ÷¸ËµÈ ÀÏÀÚ °ª
+	 * @return ï¿½ï¿½Ëµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	 */
 	public static String getDateTimeString(String format, long date) {
 
@@ -164,15 +164,15 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÁÖ¾îÁø Æ÷¸Ë¿¡ µû¶ó ÀÏÀÚÇü µ¥ÀÌÅÍ¸¦ Æ÷¸ËµÈ ¹®ÀÚ¿­·Î ¸®ÅÏÇÑ´Ù.
+	 * ï¿½Ö¾ï¿½ï¿½ï¿½ ï¿½ï¿½Ë¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½Ëµï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	 * 
 	 * @param date
-	 *            Æ÷¸ËÇÒ ÀÏÀÚ°ª
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½
 	 * 
 	 * @param format
-	 *            ÀÏÀÚÇü µ¥ÀÌÅÍ Æ÷¸Ë ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
-	 * @return Æ÷¸ËµÈ ÀÏÀÚ °ª
+	 * @return ï¿½ï¿½Ëµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 	 */
 	public static String getDateTimeString(String format, java.util.Date date) {
 
@@ -183,12 +183,12 @@ public class SLibrary {
 	}
 
 	/**
-	 * String¿¡ ´ëÇÑ TimeÀ» return ÇÑ´Ù.
+	 * Stringï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Time; return ï¿½Ñ´ï¿½.
 	 * 
 	 * @param data
-	 *            ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
-	 * @return yyyy-MM-ddÇüÀÇ unixTime long°ª
+	 * @return yyyy-MM-ddï¿½ï¿½ï¿½ï¿½ unixTime longï¿½ï¿½
 	 */
 	public static long getTime(String dateString) {
 
@@ -196,13 +196,13 @@ public class SLibrary {
 	}
 
 	/**
-	 * String¿¡ ´ëÇÑ TimeÀ» return ÇÑ´Ù.
+	 * Stringï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Time; return ï¿½Ñ´ï¿½.
 	 * 
 	 * @param data
-	 *            ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * @param format
-	 *            ÀÏÀÚÇü µ¥ÀÌÅÍ Æ÷¸Ë ¹®ÀÚ¿­
-	 * @return unixTime long°ª
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
+	 * @return unixTime longï¿½ï¿½
 	 */
 	public static long getTime(String dateString, String format) {
 
@@ -216,13 +216,13 @@ public class SLibrary {
 	}
 
 	/**
-	 * String¿¡ ´ëÇÑ TimeÀ» return ÇÑ´Ù.
+	 * Stringï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Time; return ï¿½Ñ´ï¿½.
 	 * 
 	 * @param data
-	 *            ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * @param format
-	 *            ÀÏÀÚÇü µ¥ÀÌÅÍ Æ÷¸Ë ¹®ÀÚ¿­
-	 * @return unixTime String°ª
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
+	 * @return unixTime Stringï¿½ï¿½
 	 */
 	public static String getTimeSecond(String dateString, String format) {
 
@@ -238,13 +238,13 @@ public class SLibrary {
 	}
 
 	/**
-	 * String¿¡ ´ëÇÑ TimeÀ» ÀÏÁ¤ formatÀ¸·Î return ÇÑ´Ù.
+	 * Stringï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Time; ï¿½ï¿½d format8ï¿½ï¿½ return ï¿½Ñ´ï¿½.
 	 * 
 	 * @param data
-	 *            ¹®ÀÚ¿­ yyyyMMddhhmmss
+	 *            ï¿½ï¿½ï¿½Ú¿ï¿½ yyyyMMddhhmmss
 	 * @param format
-	 *            ÀÏÀÚÇü µ¥ÀÌÅÍ Æ÷¸Ë ¹®ÀÚ¿­
-	 * @return unixTime long°ª
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
+	 * @return unixTime longï¿½ï¿½
 	 */
 	public static String getDateTimeString(String dateString, String format) {
 
@@ -262,13 +262,13 @@ public class SLibrary {
 	}
 
 	/**
-	 * String¿¡ ´ëÇÑ TimeÀ» ÀÏÁ¤ formatÀ¸·Î return ÇÑ´Ù.
+	 * Stringï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Time; ï¿½ï¿½d format8ï¿½ï¿½ return ï¿½Ñ´ï¿½.
 	 * 
 	 * @param data
-	 *            ¹®ÀÚ¿­ yyyy-MM-dd hh:mm:ss
+	 *            ï¿½ï¿½ï¿½Ú¿ï¿½ yyyy-MM-dd hh:mm:ss
 	 * @param format
-	 *            ÀÏÀÚÇü µ¥ÀÌÅÍ Æ÷¸Ë ¹®ÀÚ¿­
-	 * @return unixTime long°ª
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
+	 * @return unixTime longï¿½ï¿½
 	 */
 	public static String getDateTimeStringStandard(String dateString,
 			String format) {
@@ -287,13 +287,13 @@ public class SLibrary {
 	}
 
 	/**
-	 * String¿¡ ´ëÇÑ TimeÀ» ÀÏÁ¤ formatÀ¸·Î return ÇÑ´Ù.
+	 * Stringï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Time; ï¿½ï¿½d format8ï¿½ï¿½ return ï¿½Ñ´ï¿½.
 	 * 
 	 * @param data
-	 *            ¹®ÀÚ¿­ yyyyMMddhhmmss
+	 *            ï¿½ï¿½ï¿½Ú¿ï¿½ yyyyMMddhhmmss
 	 * @param format
-	 *            ÀÏÀÚÇü µ¥ÀÌÅÍ Æ÷¸Ë ¹®ÀÚ¿­
-	 * @return unixTime long°ª
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
+	 * @return unixTime longï¿½ï¿½
 	 */
 	public static String getDateTimeString(String dateString, String format,
 			String parmFormat) {
@@ -312,10 +312,10 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÇöÀç ±âÁØÀ¸·Î n´Þ ÀüÈÄ ³¯Â¥ ¹ÝÈ¯
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½ nï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½È¯
 	 * 
 	 * @param n
-	 *            - Àû¿ë ´Þ
+	 *            - ï¿½ï¿½ï¿½ ï¿½ï¿½
 	 * @param format
 	 * @return String
 	 */
@@ -327,10 +327,10 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÇöÀç ±âÁØÀ¸·Î nÀÏ ÀüÈÄ ³¯Â¥ ¹ÝÈ¯
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½ nï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½È¯
 	 * 
 	 * @param n
-	 *            - Àû¿ë ÀÏ
+	 *            - ï¿½ï¿½ï¿½ ï¿½ï¿½
 	 * @param format
 	 * @return String
 	 */
@@ -342,10 +342,10 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÇöÀç ±âÁØÀ¸·Î n´Þ ÀüÈÄ ³¯Â¥ ¹ÝÈ¯
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½ nï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½È¯
 	 * 
 	 * @param n
-	 *            - Àû¿ë ´Þ
+	 *            - ï¿½ï¿½ï¿½ ï¿½ï¿½
 	 * @param format
 	 * @return String
 	 */
@@ -357,7 +357,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÇØ´ç ³â ¿ùÀÇ ¸»ÀÏÀ» ±¸ÇÑ´Ù.
+	 * ï¿½Ø´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½; ï¿½ï¿½ï¿½Ñ´ï¿½.
 	 */
 	public static int getLastDate(int year, int month) {
 
@@ -371,7 +371,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÇØ´ç ³â ¿ùÀÇ ¸»ÀÏÀ» ±¸ÇÑ´Ù.
+	 * ï¿½Ø´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½; ï¿½ï¿½ï¿½Ñ´ï¿½.
 	 */
 	public static int getLastDate(String pyear, String pmonth) {
 
@@ -388,33 +388,33 @@ public class SLibrary {
 	}
 
 	/**
-	 * ¹®ÀÚ¿­À» ¿À¸¥ÂÊ¿¡¼­ µ¡ºÙ¿© ÀÏÁ¤ÇÑ ±æÀÌ¸¦ ¸¸µç´Ù
+	 * ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½8ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¿ï¿½ ï¿½ï¿½dï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param src
-	 *            ¿øÇü ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param length
-	 *            ¸®ÅÏ¹ÞÀ» ±æÀÌ
+	 *            ï¿½ï¿½ï¿½Ï¹ï¿½; ï¿½ï¿½ï¿½ï¿½
 	 * 
-	 * @return ¸¸µé¾î³½ ¹®ÀÚ¿­
+	 * @return ï¿½ï¿½ï¿½ï¿½î³½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 */
 	public static String padR(String src, int length) {
 		return padR(src, length, " ");
 	}
 
 	/**
-	 * ¹®ÀÚ¿­À» ¿À¸¥ÂÊ¿¡¼­ µ¡ºÙ¿© ÀÏÁ¤ÇÑ ±æÀÌ¸¦ ¸¸µç´Ù
+	 * ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½8ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¿ï¿½ ï¿½ï¿½dï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param src
-	 *            ¿øÇü ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param unit
-	 *            µ¡ºÙ¿©Áú ¿ø¼Ò ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½Ù¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param length
-	 *            ¸®ÅÏ¹ÞÀ» ±æÀÌ
+	 *            ï¿½ï¿½ï¿½Ï¹ï¿½; ï¿½ï¿½ï¿½ï¿½
 	 * 
-	 * @return ¸¸µé¾î³½ ¹®ÀÚ¿­
+	 * @return ï¿½ï¿½ï¿½ï¿½î³½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 */
 	public static String padR(String src, int length, String unit) {
 
@@ -431,33 +431,33 @@ public class SLibrary {
 	}
 
 	/**
-	 * ¹®ÀÚ¿­À» ¿ÞÂÊ¿¡¼­ µ¡ºÙ¿© ÀÏÁ¤ÇÑ ±æÀÌ¸¦ ¸¸µç´Ù
+	 * ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¿ï¿½ ï¿½ï¿½dï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param src
-	 *            ¿øÇü ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param length
-	 *            ¸®ÅÏ¹ÞÀ» ±æÀÌ
+	 *            ï¿½ï¿½ï¿½Ï¹ï¿½; ï¿½ï¿½ï¿½ï¿½
 	 * 
-	 * @return ¸¸µé¾î³½ ¹®ÀÚ¿­
+	 * @return ï¿½ï¿½ï¿½ï¿½î³½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 */
 	public static String padL(String src, int length) {
 		return padL(src, length, " ");
 	}
 
 	/**
-	 * ¹®ÀÚ¿­À» ¿ÞÂÊ¿¡¼­ µ¡ºÙ¿© ÀÏÁ¤ÇÑ ±æÀÌ¸¦ ¸¸µç´Ù
+	 * ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¿ï¿½ ï¿½ï¿½dï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param src
-	 *            ¿øÇü ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param unit
-	 *            µ¡ºÙ¿©Áú ¿ø¼Ò ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½Ù¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param length
-	 *            ¸®ÅÏ¹ÞÀ» ±æÀÌ
+	 *            ï¿½ï¿½ï¿½Ï¹ï¿½; ï¿½ï¿½ï¿½ï¿½
 	 * 
-	 * @return ¸¸µé¾î³½ ¹®ÀÚ¿­
+	 * @return ï¿½ï¿½ï¿½ï¿½î³½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 */
 	public static String padL(String src, int length, String unit) {
 		// StringBuffer ret = src == null ? new StringBuffer() : new
@@ -478,18 +478,18 @@ public class SLibrary {
 	}
 
 	/**
-	 * ¿øÇü ¹®ÀÚ¿­·Î ºÎÅÍ ÀÏÁ¤ÇÑ ºÎºÐÀ» Ã£¾Æ ¸ñÀûÇÏ´Â ¹®ÀÚ¿­·Î ¸ðµÎ ´ëÄ¡ÇÑ´Ù.
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½dï¿½ï¿½ ï¿½Îºï¿½; Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ñ´ï¿½.
 	 * 
 	 * @param originalString
-	 *            ¿øÇü ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param findString
-	 *            Ã£¾Æ³¾ ¹®ÀÚ¿­
+	 *            Ã£ï¿½Æ³ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param replacString
-	 *            ´ëÄ¡ÇÒ ¹®ÀÚ¿­
+	 *            ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
-	 * @return ¸¸µé¾î³½ ¹®ÀÚ¿­
+	 * @return ï¿½ï¿½ï¿½ï¿½î³½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 */
 
 	public static String replaceAll(String originalString, String findString,
@@ -510,22 +510,22 @@ public class SLibrary {
 	}
 
 	/**
-	 * ´ë»ó¹®ÀÚ¿­(strTarget)¿¡¼­ Æ¯Á¤¹®ÀÚ¿­(strSearch)À» Ã£¾Æ ÁöÁ¤¹®ÀÚ¿­(strReplace ¹è¿­ Object[])·Î
-	 * Ä¡È¯ÇÏ¿© º¯°æÇÑ ¹®ÀÚ¿­À» ¹ÝÈ¯ÇÑ´Ù.
+	 * ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½(strTarget)ï¿½ï¿½ï¿½ï¿½ Æ¯dï¿½ï¿½ï¿½Ú¿ï¿½(strSearch); Ã£ï¿½ï¿½ ï¿½ï¿½dï¿½ï¿½ï¿½Ú¿ï¿½(strReplace ï¿½è¿­ Object[])ï¿½ï¿½
+	 * Ä¡È¯ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 * 
 	 * @param strTarget
-	 *            ´ë»ó¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param strSearch
-	 *            º¯°æ´ë»óÀÇ Æ¯Á¤¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ¯dï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param strReplace
-	 *            º¯°æ ½ÃÅ°´Â ÁöÁ¤¹®ÀÚ¿­ ¹è¿­ Object[]
+	 *            ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½dï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½è¿­ Object[]
 	 * 
 	 * @param isWhere
-	 *            Á¶°Ç¹®ÀÓÀ» ³ªÅ¸³»´Â ½ºÆ®¸µ. ´Ü, ´ë¼Ò¹®ÀÚ ±¸ºÐÀÌ ¾ø´Ù. ¿¹) where
+	 *            vï¿½Ç¹ï¿½ï¿½ï¿½; ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½. ï¿½ï¿½, ï¿½ï¿½Ò¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½. ï¿½ï¿½) where
 	 * 
-	 * @return º¯°æ¿Ï·áµÈ ¹®ÀÚ¿­
+	 * @return ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 */
 	public static String replaceArrayStringWhere(String strTarget,
 			String[] strSearch, Object[] strReplace, String isWhere) {
@@ -549,12 +549,12 @@ public class SLibrary {
 				int end = begin + strSearch[i].length();
 				strBuf.append(strCheck.substring(0, begin));
 				if (strReplace[i] instanceof String) {
-					// Á¶°ÇÀý¿¡ µé¾î°¡´Â Á¶°Ç¹®ÀÎ°æ¿ì
+					// vï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½ï¿½ vï¿½Ç¹ï¿½ï¿½Î°ï¿½ï¿½
 					if (strSearch[i].toUpperCase().startsWith(
 							isWhere.toUpperCase())) {
 						strBuf.append(strReplace[i]);
 					}
-					// Á¶°Ç°ªÀÎ °æ¿ì
+					// vï¿½Ç°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 					else {
 						strBuf.append("'" + strReplace[i] + "'");
 					}
@@ -572,19 +572,19 @@ public class SLibrary {
 	}
 
 	/**
-	 * ´ë»ó¹®ÀÚ¿­(strTarget)¿¡¼­ Æ¯Á¤¹®ÀÚ¿­(strSearch)À» Ã£¾Æ ÁöÁ¤¹®ÀÚ¿­(strReplace ¹è¿­ Object[])·Î
-	 * Ä¡È¯ÇÏ¿© º¯°æÇÑ ¹®ÀÚ¿­À» ¹ÝÈ¯ÇÑ´Ù.
+	 * ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½(strTarget)ï¿½ï¿½ï¿½ï¿½ Æ¯dï¿½ï¿½ï¿½Ú¿ï¿½(strSearch); Ã£ï¿½ï¿½ ï¿½ï¿½dï¿½ï¿½ï¿½Ú¿ï¿½(strReplace ï¿½è¿­ Object[])ï¿½ï¿½
+	 * Ä¡È¯ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 * 
 	 * @param strTarget
-	 *            ´ë»ó¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param strSearch
-	 *            º¯°æ´ë»óÀÇ Æ¯Á¤¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ¯dï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param strReplace
-	 *            º¯°æ ½ÃÅ°´Â ÁöÁ¤¹®ÀÚ¿­ ¹è¿­ Object[]
+	 *            ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½dï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½è¿­ Object[]
 	 * 
-	 * @return º¯°æ¿Ï·áµÈ ¹®ÀÚ¿­
+	 * @return ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 */
 	public static String replaceArrayString(String strTarget,
 			String[] strSearch, Object[] strReplace) {
@@ -618,18 +618,18 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÆÐÅÏÀ» °Ë»çÇÏ¿© Æ¯Á¤ ¹®ÀÚ¿­·Î º¯°æÇÑ´Ù
+	 * ï¿½ï¿½ï¿½ï¿½; ï¿½Ë»ï¿½ï¿½Ï¿ï¿½ Æ¯d ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 	 * 
 	 * @param strTarget
-	 *            ´ë»ó¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param pattern
-	 *            ÆÐÅÏ
+	 *            ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param pattern
-	 *            º¯°æ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½æ¹®ï¿½Ú¿ï¿½
 	 * 
-	 * @return º¯°æ¿Ï·áµÈ ¹®ÀÚ¿­
+	 * @return ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 */
 	public static String replacePattern(String strTarget, String pattern,
 			String replaceString) {
@@ -640,15 +640,15 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÆÐÅÏ°Ë»ç
+	 * ï¿½ï¿½ï¿½Ï°Ë»ï¿½
 	 * 
 	 * @param strTarget
-	 *            ´ë»ó¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param pattern
-	 *            ÆÐÅÏ
+	 *            ï¿½ï¿½ï¿½ï¿½
 	 * 
-	 * @return ¸ÅÄ¡ °á°ú
+	 * @return ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½
 	 */
 	public static boolean searchPattern(String strTarget, String pattern) {
 
@@ -659,16 +659,16 @@ public class SLibrary {
 	}
 
 	/**
-	 * Äõ¸®¹®ÀÚ¿­(strTarget)¿¡¼­ Æ¯Á¤¹®ÀÚ¿­(?)À» Ã£¾Æ ÁöÁ¤¹®ÀÚ¿­(strReplace ¹è¿­ Object[])·Î Ä¡È¯ÇÏ¿© º¯°æÇÑ
-	 * ¹®ÀÚ¿­À» ¹ÝÈ¯ÇÑ´Ù.
+	 * ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½(strTarget)ï¿½ï¿½ï¿½ï¿½ Æ¯dï¿½ï¿½ï¿½Ú¿ï¿½(?); Ã£ï¿½ï¿½ ï¿½ï¿½dï¿½ï¿½ï¿½Ú¿ï¿½(strReplace ï¿½è¿­ Object[])ï¿½ï¿½ Ä¡È¯ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 * 
 	 * @param strTarget
-	 *            ´ë»ó¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param strReplace
-	 *            º¯°æ ½ÃÅ°´Â ÁöÁ¤¹®ÀÚ¿­ ¹è¿­ Object[]
+	 *            ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½dï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½è¿­ Object[]
 	 * 
-	 * @return º¯°æ¿Ï·áµÈ ¹®ÀÚ¿­
+	 * @return ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 */
 	public static String setStmt(String strTarget, Object[] strReplace) {
 		String result = null;
@@ -701,7 +701,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * °Ô½Ã¹°¿¡¼­ ÃÖ´ë ÆäÀÌÁö °¹¼ö
+	 * ï¿½Ô½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @return int
 	 * 
@@ -752,7 +752,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * Ã¼Å©¹Ú½º Y/N return
+	 * Ã¼Å©ï¿½Ú½ï¿½ Y/N return
 	 * 
 	 * @param: String check
 	 * 
@@ -772,7 +772,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * À±³âÃ¼Å©
+	 * 1ï¿½ï¿½Ã¼Å©
 	 * 
 	 * @param: String strNm
 	 * 
@@ -791,7 +791,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÇÑ´ÞÀü ³¯Â¥ °è»ê
+	 * ï¿½Ñ´ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½
 	 * 
 	 * @param: String strNm
 	 * 
@@ -828,7 +828,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÇÑ´ÞÈÄ ³¯Â¥ °è»ê
+	 * ï¿½Ñ´ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½
 	 * 
 	 * @param: String strNm
 	 * 
@@ -902,7 +902,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ³¯Â¥, ¼ö·®,±Ý¾×ÀÇ mask¸¦ remove ÈÄ ¼ýÀÚ¸¸ return[À½¼öÆ÷ÇÔ]
+	 * ï¿½ï¿½Â¥, ï¿½ï¿½,ï¿½Ý¾ï¿½ï¿½ï¿½ maskï¿½ï¿½ remove ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ return[=ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]
 	 * 
 	 * @return java.lang.String
 	 * 
@@ -933,7 +933,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ¼ýÀÚ¿¡ ´ëÇØ ',' ¸¦ 3ÀÚ¸®¸¶´Ù »ðÀÔ(¹®ÀÚ¿­·Î ¸®ÅÏ) ÀÛ¼º ³¯Â¥: <2004.09.15>
+	 * ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ',' ï¿½ï¿½ 3ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) ï¿½Û¼ï¿½ ï¿½ï¿½Â¥: <2004.09.15>
 	 * 
 	 * @param: <|>
 	 * 
@@ -968,7 +968,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ¼ýÀÚ¿¡ ´ëÇØ ',' ¸¦ 3ÀÚ¸®¸¶´Ù »ðÀÔ(¹®ÀÚ¿­·Î ¸®ÅÏ) ÀÛ¼º ³¯Â¥: <2004.09.15>
+	 * ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ',' ï¿½ï¿½ 3ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) ï¿½Û¼ï¿½ ï¿½ï¿½Â¥: <2004.09.15>
 	 * 
 	 * @param: <|>
 	 * 
@@ -1004,12 +1004,12 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÀÔ·Â¹ÞÀº String¿¡¼­ Comma¸¦ »èÁ¦ÇÑ´Ù.
+	 * ï¿½Ô·Â¹ï¿½: Stringï¿½ï¿½ï¿½ï¿½ Commaï¿½ï¿½ ï¿½ï¿½fï¿½Ñ´ï¿½.
 	 * 
-	 * @return String Comma°¡ »èÁ¦µÈ String
+	 * @return String Commaï¿½ï¿½ ï¿½ï¿½fï¿½ï¿½ String
 	 * 
 	 * @param value
-	 *            String Comma°¡ ÀÖ´Â String
+	 *            String Commaï¿½ï¿½ ï¿½Ö´ï¿½ String
 	 */
 	public static String commaRemove(String value) {
 		String newValue = "";
@@ -1021,22 +1021,22 @@ public class SLibrary {
 	}
 
 	/**
-	 * ´ë»ó¹®ÀÚ¿­(strTarget)¿¡¼­ ±¸ºÐ¹®ÀÚ¿­(strDelim)À» ±âÁØÀ¸·Î ¹®ÀÚ¿­À» ºÐ¸®ÇÏ¿© °¢ ºÐ¸®µÈ ¹®ÀÚ¿­À» ¹è¿­¿¡ ÇÒ´çÇÏ¿©
-	 * ¹ÝÈ¯ÇÑ´Ù.
+	 * ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½(strTarget)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½Ú¿ï¿½(strDelim); ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½Ð¸ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ ï¿½Ð¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½è¿­ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½Ï¿ï¿½
+	 * ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 * 
 	 * @param strTarget
-	 *            ºÐ¸® ´ë»ó ¹®ÀÚ¿­
+	 *            ï¿½Ð¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * @param strDelim
-	 *            ±¸ºÐ½ÃÅ³ ¹®ÀÚ¿­·Î¼­ °á°ú ¹®ÀÚ¿­¿¡´Â Æ÷ÇÔµÇÁö ¾Ê´Â´Ù.
+	 *            ï¿½ï¿½ï¿½Ð½ï¿½Å³ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½Î¼ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
 	 * @param bContainNull
-	 *            ±¸ºÐµÇ¾îÁø ¹®ÀÚ¿­Áß °ø¹é¹®ÀÚ¿­ÀÇ Æ÷ÇÔ¿©ºÎ. true : Æ÷ÇÔ, false : Æ÷ÇÔÇÏÁö ¾ÊÀ½.
-	 * @return ºÐ¸®µÈ ¹®ÀÚ¿­À» ¼ø¼­´ë·Î ¹è¿­¿¡ °Ý³³ÇÏ¿© ¹ÝÈ¯ÇÑ´Ù.
+	 *            ï¿½ï¿½ï¿½ÐµÇ¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½é¹®ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½. true : ï¿½ï¿½ï¿½ï¿½, false : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½=.
+	 * @return ï¿½Ð¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½Ý³ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 */
 
 	public static String[] split(String strTarget, String strDelim,
 			boolean bContainNull) {
-		// StringTokenizer´Â ±¸ºÐÀÚ°¡ ¿¬¼ÓÀ¸·Î ÁßÃ¸µÇ¾î ÀÖÀ» °æ¿ì °ø¹é ¹®ÀÚ¿­À» ¹ÝÈ¯ÇÏÁö ¾ÊÀ½.
-		// µû¶ó¼­ ¾Æ·¡¿Í °°ÀÌ ÀÛ¼ºÇÔ.
+		// StringTokenizerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½ ï¿½ï¿½Ã¸ï¿½Ç¾ï¿½ ï¿½ï¿½; ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½ï¿½È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½=.
+		// ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½ï¿½.
 		int index = 0;
 		String[] resultStrArray = new String[search(strTarget, strDelim) + 1];
 		String strCheck = new String(strTarget);
@@ -1062,15 +1062,15 @@ public class SLibrary {
 	}
 
 	/**
-	 * ´ë»ó¹®ÀÚ¿­(strTarget)¿¡¼­ ÁöÁ¤¹®ÀÚ¿­(strSearch)ÀÌ °Ë»öµÈ È½¼ö¸¦, ÁöÁ¤¹®ÀÚ¿­ÀÌ ¾øÀ¸¸é 0 À» ¹ÝÈ¯ÇÑ´Ù.
+	 * ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½(strTarget)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½dï¿½ï¿½ï¿½Ú¿ï¿½(strSearch)ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ È½ï¿½ï¿½, ï¿½ï¿½dï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½8ï¿½ï¿½ 0 ; ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 * 
 	 * @param strTarget
-	 *            ´ë»ó¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 * @param strSearch
-	 *            °Ë»öÇÒ ¹®ÀÚ¿­
+	 *            ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
-	 * @return ÁöÁ¤¹®ÀÚ¿­ÀÌ °Ë»öµÇ¾úÀ¸¸é °Ë»öµÈ È½¼ö¸¦, °Ë»öµÇÁö ¾Ê¾ÒÀ¸¸é 0 À» ¹ÝÈ¯ÇÑ´Ù.
+	 * @return ï¿½ï¿½dï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½Ç¾ï¿½8ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½ È½ï¿½ï¿½, ï¿½Ë»ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½8ï¿½ï¿½ 0 ; ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 */
 	public static int search(String strTarget, String strSearch) {
 		int result = 0;
@@ -1089,7 +1089,7 @@ public class SLibrary {
 		return result;
 	}
 
-	// string int·Î Çüº¯È¯
+	// string intï¿½ï¿½ ï¿½ï¿½È¯
 	public static int intValue(String str) {
 
 		try {
@@ -1103,7 +1103,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * Ã³¸® °á°ú Check
+	 * Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ Check
 	 */
 	public static boolean isResult(int[] r) {
 		if (r == null || r.length == 0)
@@ -1117,11 +1117,11 @@ public class SLibrary {
 	}
 
 	/**
-	 * ¹®ÀÚ¹è¿­À» ¼ýÀÚ ¹è¿­·Î º¯È­
+	 * ï¿½ï¿½ï¿½Ú¹è¿­; ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½È­
 	 * 
 	 * @param String
-	 *            [] ¹®ÀÚ ¹è¿­
-	 * @return int [] Á¤¼ö ¹è¿­
+	 *            [] ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
+	 * @return int [] dï¿½ï¿½ ï¿½è¿­
 	 */
 	public static int[] changeIntArrayToStringArray(String[] strArray) {
 
@@ -1139,11 +1139,11 @@ public class SLibrary {
 	}
 
 	/**
-	 * ¹®ÀÚ¹è¿­À» ¼ýÀÚ ¹è¿­·Î º¯È­
+	 * ï¿½ï¿½ï¿½Ú¹è¿­; ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½È­
 	 * 
 	 * @param String
-	 *            [] ¹®ÀÚ ¹è¿­
-	 * @return int [] Á¤¼ö ¹è¿­
+	 *            [] ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
+	 * @return int [] dï¿½ï¿½ ï¿½è¿­
 	 */
 	public static int[] changeIntArrayToStringArray(String[] strArray,
 			int returnlength) {
@@ -1162,7 +1162,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * Object[]Áß °ø¹é¹®ÀÚ°¡ Á¦°ÅµÈ ¹è¿­À» ¸®ÅÏÇÑ´Ù.
+	 * Object[]ï¿½ï¿½ ï¿½ï¿½é¹®ï¿½Ú°ï¿½ fï¿½Åµï¿½ ï¿½è¿­; ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	 */
 	public static Object[] getNotBlankArray(Object[] obj) {
 
@@ -1182,9 +1182,9 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÀÚ¹Ù½ºÅ©¸³Æ® °æ°íÃ¢ ¶ç¿ì±â¹× ½ºÅ©¸³Æ® @param alert - °æ°í ³»¿ë @param script - ÀÌÈÄ script
+	 * ï¿½Ú¹Ù½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ã¢ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® @param alert - ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ @param script - ï¿½ï¿½ï¿½ï¿½ script
 	 * 
-	 * @return str : script ¹®ÀÚ¿­
+	 * @return str : script ï¿½ï¿½ï¿½Ú¿ï¿½
 	 */
 	public static String alertScript(String alert, String script) {
 
@@ -1197,7 +1197,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ¹®ÀÚ¿­À» ¼ýÀÚ·Î º¯È¯
+	 * ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½È¯
 	 */
 	public static int parseInt(String str) {
 
@@ -1211,7 +1211,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ¹®ÀÚ¿­À» ¼ýÀÚ·Î º¯È¯
+	 * ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½È¯
 	 */
 	public static long parseLong(String str) {
 
@@ -1225,7 +1225,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ¹®ÀÚ¿­¿¡ Object¹è¿­À» FormatÇÏ¿© ¹ÝÈ¯ÇÑ´Ù.
+	 * ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ Objectï¿½è¿­; Formatï¿½Ï¿ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 * */
 	public static String messageFormat(String pattern, Object[] obj) {
 
@@ -1233,7 +1233,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ±¸ºÐÀÚ·Î ³ª´©¾î Ã¹ ¹è¿­ÀÇ Áßº¹À» Á¦°Å&Á¤·Ä ÈÄ return
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¹ ï¿½è¿­ï¿½ï¿½ ï¿½ßºï¿½; fï¿½ï¿½&dï¿½ï¿½ ï¿½ï¿½ return
 	 */
 	public static String[] removeDupList(String list, String strSplit) {
 
@@ -1287,7 +1287,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ±¸ºÐÀÚ·Î ³ª´©¾î Ã¹ ¹è¿­ÀÇ Áßº¹À» Á¦°Å&Á¤·Ä ÈÄ return
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¹ ï¿½è¿­ï¿½ï¿½ ï¿½ßºï¿½; fï¿½ï¿½&dï¿½ï¿½ ï¿½ï¿½ return
 	 */
 	public static String[] removeCheckDeletList(String list,
 			Hashtable<String, String> hs) {
@@ -1341,7 +1341,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ±âº» ±¸ºÐÀÚ·Î ³ª´©¾î Ã¹ ¹è¿­ÀÇ Áßº¹À» Á¦°Å&Á¤·Ä ÈÄ return
+	 * ï¿½âº» ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¹ ï¿½è¿­ï¿½ï¿½ ï¿½ßºï¿½; fï¿½ï¿½&dï¿½ï¿½ ï¿½ï¿½ return
 	 */
 	public static String[] removeDupList(String list) {
 
@@ -1396,7 +1396,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ¹®ÀÚ¿­ÀÇ byte¸¦ ±¸ÇÑ´Ù.
+	 * ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ byteï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 	 * 
 	 * @param strSource
 	 * @return
@@ -1417,23 +1417,23 @@ public class SLibrary {
 	}
 
 	/**
-	 * StringÀ» ÁöÁ¤µÈ ±æÀÌ¸¸Å­¸¸ Ãâ·ÂÇÒ ¼ö ÀÖµµ·Ï ÇÏ¸ç, ¸¸¾à ÀÏºÎºÐ¸¸ÀÌ Ãâ·ÂµÇ´Â °æ¿ì¿¡´Â ÁöÁ¤µÈ postfix ¹®ÀÚ¿­À» ³¡¿¡
-	 * Ãß°¡ÇÑ´Ù.
+	 * String; ï¿½ï¿½dï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ï¸ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ÏºÎºÐ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ÂµÇ´ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½dï¿½ï¿½ postfix ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½ï¿½ï¿½ï¿½
+	 * ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 	 * 
-	 * cutByte°ªÀº ¹®ÀÚ¿­ÀÇ byte ±æÀÌ¸¦ ÀÇ¹ÌÇÑ´Ù. ÇÑ±Û°ú °°ÀÌ 2byte character´Â 2·Î °è»êÇÏ¸ç, ¿µ¹® ¹× ¹Ý°¢
-	 * ±âÈ£´Â 1·Î °è»êÇÑ´Ù.
+	 * cutByteï¿½ï¿½: ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ byte ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ç¹ï¿½ï¿½Ñ´ï¿½. ï¿½Ñ±Û°ï¿½ ï¿½ï¿½ï¿½ï¿½ 2byte characterï¿½ï¿½ 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ý°ï¿½
+	 * ï¿½ï¿½È£ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	 * 
 	 * @param strSource
-	 *            º¯È¯ÇÏ°íÀÚ ÇÏ´Â ¿øº» ¹®ÀÚ¿­. nullÀÎ °æ¿ì °ø¹é¹®ÀÚ¿­ÀÌ ¹ÝÈ¯µÈ´Ù.
+	 *            ï¿½ï¿½È¯ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½. nullï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½é¹®ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½È´ï¿½.
 	 * @param cutByte
-	 *            º¯È¯ÈÄ ÃÑ ±æÀÌ(postfix ¹®ÀÚ¿­ÀÇ ±æÀÌ Æ÷ÇÔ). ¹Ýµå½Ã strPostfix¹®ÀÚ¿­ÀÇ byteÅ©±â ÀÌ»óÀÇ
-	 *            ¼ýÀÚ¸¦ ÀÔ·ÂÇØ¾ß ÇÑ´Ù. ±×·¸Áö ¾ÊÀº °æ¿ì ¿øº» ¹®ÀÚ¿­À» ±×´ë·Î ¹ÝÈ¯ÇÑ´Ù.
+	 *            ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(postfix ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½). ï¿½Ýµï¿½ï¿½ strPostfixï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ byteÅ©ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½
+	 *            ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½Ô·ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½. ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½: ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½×´ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 * @param bTrim
-	 *            ¿øº» ¹®ÀÚ¿­ÀÇ ¾ÕµÚ¿¡ °ø¹é¹®ÀÚ°¡ ÀÖÀ»°æ¿ì trimÀ» ¼öÇàÇÒÁö¸¦ °áÁ¤ÇÑ´Ù.
+	 *            ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ÕµÚ¿ï¿½ ï¿½ï¿½é¹®ï¿½Ú°ï¿½ ï¿½ï¿½;ï¿½ï¿½ï¿½ trim; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½dï¿½Ñ´ï¿½.
 	 * @param strPostfix
-	 *            ¹®ÀÚ¿­ÀÌ Àß¸±°æ¿ì ÀÌ¸¦ Ç¥ÇöÇÏ±â À§ÇÑ ¹®ÀÚ¿­. nullÀÎ °æ¿ì "..."ÀÌ Ãß°¡µÈ´Ù.
-	 * @return º¯È¯µÈ °á°ú ¹®ÀÚ¿­À» return ÇÑ´Ù. ´Ü, strSource°¡ nullÀÎ °æ¿ì °ø¹é¹®ÀÚ¿­ÀÌ ¹ÝÈ¯µÇ¸ç
-	 *         cutByte°¡ strPostfix¹®ÀÚ¿­ÀÇ byteÅ©±â ¹Ì¸¸ÀÇ ¼ýÀÚ°¡ ¿À´Â °æ¿ì ¿øº» ¹®ÀÚ¿­À» ±×´ë·Î ¹ÝÈ¯ÇÑ´Ù.
+	 *            ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ß¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½ 'ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½. nullï¿½ï¿½ ï¿½ï¿½ï¿½ "..."ï¿½ï¿½ ï¿½ß°ï¿½ï¿½È´ï¿½.
+	 * @return ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; return ï¿½Ñ´ï¿½. ï¿½ï¿½, strSourceï¿½ï¿½ nullï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½é¹®ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ç¸ï¿½
+	 *         cutByteï¿½ï¿½ strPostfixï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ byteÅ©ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½4ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½×´ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 */
 	public static String cutBytes(String strSource, int cutByte, boolean bTrim,
 			String strPostfix) {
@@ -1462,10 +1462,10 @@ public class SLibrary {
 
 			int byteSize = 0;
 			if (charArray[strIndex] < 256) {
-				// 1byte character ÀÌ¸é
+				// 1byte character ï¿½Ì¸ï¿½
 				byteSize = 1;
 			} else {
-				// 2byte character ÀÌ¸é
+				// 2byte character ï¿½Ì¸ï¿½
 				byteSize = 2;
 			}
 
@@ -1487,22 +1487,22 @@ public class SLibrary {
 	}
 
 	/**
-	 * StringÀ» ÁöÁ¤µÈ ±æÀÌ¸¸Å­¸¸ Ãâ·ÂÇÒ ¼ö ÀÖµµ·Ï ÇÏ¸ç, ¸¸¾à ÀÏºÎºÐ¸¸ÀÌ Ãâ·ÂµÇ´Â °æ¿ì¿¡´Â ÁöÁ¤µÈ postfix ¹®ÀÚ¿­À» ³¡¿¡
-	 * Ãß°¡ÇÑ´Ù.
+	 * String; ï¿½ï¿½dï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½Å­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ï¸ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ÏºÎºÐ¸ï¿½ï¿½ï¿½ ï¿½ï¿½ÂµÇ´ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½dï¿½ï¿½ postfix ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½ï¿½ï¿½ï¿½
+	 * ï¿½ß°ï¿½ï¿½Ñ´ï¿½.
 	 * 
-	 * cutByte°ªÀº ¹®ÀÚ¿­ÀÇ byte ±æÀÌ¸¦ ÀÇ¹ÌÇÑ´Ù. ÇÑ±Û°ú °°ÀÌ 2byte character´Â 2·Î °è»êÇÏ¸ç, ¿µ¹® ¹× ¹Ý°¢
-	 * ±âÈ£´Â 1·Î °è»êÇÑ´Ù.
+	 * cutByteï¿½ï¿½: ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ byte ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ç¹ï¿½ï¿½Ñ´ï¿½. ï¿½Ñ±Û°ï¿½ ï¿½ï¿½ï¿½ï¿½ 2byte characterï¿½ï¿½ 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ý°ï¿½
+	 * ï¿½ï¿½È£ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	 * 
 	 * @param strSource
-	 *            º¯È¯ÇÏ°íÀÚ ÇÏ´Â ¿øº» ¹®ÀÚ¿­. nullÀÎ °æ¿ì °ø¹é¹®ÀÚ¿­ÀÌ ¹ÝÈ¯µÈ´Ù.
+	 *            ï¿½ï¿½È¯ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½. nullï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½é¹®ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½È´ï¿½.
 	 * @param cutByte
-	 *            º¯È¯ÈÄ ÃÑ ±æÀÌ(postfix ¹®ÀÚ¿­ÀÇ ±æÀÌ Æ÷ÇÔ). ¹Ýµå½Ã strPostfix¹®ÀÚ¿­ÀÇ byteÅ©±â ÀÌ»óÀÇ
-	 *            ¼ýÀÚ¸¦ ÀÔ·ÂÇØ¾ß ÇÑ´Ù. ±×·¸Áö ¾ÊÀº °æ¿ì ¿øº» ¹®ÀÚ¿­À» ±×´ë·Î ¹ÝÈ¯ÇÑ´Ù.
+	 *            ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(postfix ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½). ï¿½Ýµï¿½ï¿½ strPostfixï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ byteÅ©ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½
+	 *            ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½Ô·ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½. ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½: ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½×´ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 * @param bTrim
-	 *            ¿øº» ¹®ÀÚ¿­ÀÇ ¾ÕµÚ¿¡ °ø¹é¹®ÀÚ°¡ ÀÖÀ»°æ¿ì trimÀ» ¼öÇàÇÒÁö¸¦ °áÁ¤ÇÑ´Ù.
+	 *            ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ÕµÚ¿ï¿½ ï¿½ï¿½é¹®ï¿½Ú°ï¿½ ï¿½ï¿½;ï¿½ï¿½ï¿½ trim; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½dï¿½Ñ´ï¿½.
 	 * @param strPostfix
-	 *            ¹®ÀÚ¿­ÀÌ Àß¸±°æ¿ì ÀÌ¸¦ Ç¥ÇöÇÏ±â À§ÇÑ ¹®ÀÚ¿­. nullÀÎ °æ¿ì "..."ÀÌ Ãß°¡µÈ´Ù.
-	 * @return º¯È¯µÈ °á°ú ¹®ÀÚ¿­°ú ³ª¸ÓÁö ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ß¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½ 'ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½. nullï¿½ï¿½ ï¿½ï¿½ï¿½ "..."ï¿½ï¿½ ï¿½ß°ï¿½ï¿½È´ï¿½.
+	 * @return ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 */
 	public static int cutBytesIndex(String strSource, int cutByte, boolean bTrim) {
 
@@ -1520,10 +1520,10 @@ public class SLibrary {
 
 			int byteSize = 0;
 			if (charArray[strIndex] < 256) {
-				// 1byte character ÀÌ¸é
+				// 1byte character ï¿½Ì¸ï¿½
 				byteSize = 1;
 			} else {
-				// 2byte character ÀÌ¸é
+				// 2byte character ï¿½Ì¸ï¿½
 				byteSize = 2;
 			}
 
@@ -1538,28 +1538,28 @@ public class SLibrary {
 	}
 
 	/**
-	 * StringÀ» ÁöÁ¤µÈ ±æÀÌ ´ÜÀ§·Î ³ª´©¾î ¹ÝÈ¯ÇÑ´Ù.
+	 * String; ï¿½ï¿½dï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 * 
-	 * cutByte°ªÀº ¹®ÀÚ¿­ÀÇ byte ±æÀÌ¸¦ ÀÇ¹ÌÇÑ´Ù. ÇÑ±Û°ú °°ÀÌ 2byte character´Â 2·Î °è»êÇÏ¸ç, ¿µ¹® ¹× ¹Ý°¢
-	 * ±âÈ£´Â 1·Î °è»êÇÑ´Ù.
+	 * cutByteï¿½ï¿½: ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ byte ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ç¹ï¿½ï¿½Ñ´ï¿½. ï¿½Ñ±Û°ï¿½ ï¿½ï¿½ï¿½ï¿½ 2byte characterï¿½ï¿½ 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ý°ï¿½
+	 * ï¿½ï¿½È£ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	 * 
 	 * @param strSource
-	 *            º¯È¯ÇÏ°íÀÚ ÇÏ´Â ¿øº» ¹®ÀÚ¿­. nullÀÎ °æ¿ì °ø¹é¹®ÀÚ¿­ÀÌ ¹ÝÈ¯µÈ´Ù.
+	 *            ï¿½ï¿½È¯ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½. nullï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½é¹®ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½È´ï¿½.
 	 * @param cutByte
-	 *            º¯È¯ÈÄ ÃÑ ±æÀÌ(postfix ¹®ÀÚ¿­ÀÇ ±æÀÌ Æ÷ÇÔ). ¹Ýµå½Ã strPostfix¹®ÀÚ¿­ÀÇ byteÅ©±â ÀÌ»óÀÇ
-	 *            ¼ýÀÚ¸¦ ÀÔ·ÂÇØ¾ß ÇÑ´Ù. ±×·¸Áö ¾ÊÀº °æ¿ì ¿øº» ¹®ÀÚ¿­À» ±×´ë·Î ¹ÝÈ¯ÇÑ´Ù.
+	 *            ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(postfix ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½). ï¿½Ýµï¿½ï¿½ strPostfixï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ byteÅ©ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½
+	 *            ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½Ô·ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½. ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½: ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½×´ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 * @param bTrim
-	 *            ¿øº» ¹®ÀÚ¿­ÀÇ ¾ÕµÚ¿¡ °ø¹é¹®ÀÚ°¡ ÀÖÀ»°æ¿ì trimÀ» ¼öÇàÇÒÁö¸¦ °áÁ¤ÇÑ´Ù.
-	 * @return º¯È¯µÈ °á°ú ¹®ÀÚ¿­À» return ÇÑ´Ù. ´Ü, strSource°¡ nullÀÎ °æ¿ì °ø¹é¹®ÀÚ¿­ÀÌ ¹ÝÈ¯µÇ¸ç
-	 *         cutByte°¡ strPostfix¹®ÀÚ¿­ÀÇ byteÅ©±â ¹Ì¸¸ÀÇ ¼ýÀÚ°¡ ¿À´Â °æ¿ì ¿øº» ¹®ÀÚ¿­À» ±×´ë·Î ¹ÝÈ¯ÇÑ´Ù.
+	 *            ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ÕµÚ¿ï¿½ ï¿½ï¿½é¹®ï¿½Ú°ï¿½ ï¿½ï¿½;ï¿½ï¿½ï¿½ trim; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½dï¿½Ñ´ï¿½.
+	 * @return ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; return ï¿½Ñ´ï¿½. ï¿½ï¿½, strSourceï¿½ï¿½ nullï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½é¹®ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ç¸ï¿½
+	 *         cutByteï¿½ï¿½ strPostfixï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ byteÅ©ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½4ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½×´ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 */
 	public static String[] cutBytesGetArray(String strSource, int cutByte,
 			boolean bTrim) {
 
 		String[] arrRslt = null;
 		int totalSize = SLibrary.getByte(strSource);
-		int cnt = (int) Math.ceil(totalSize / cutByte);// ¿Ã¸²
-		cnt++;// ³ª¸ÓÁö byte¸¦ À§ÇØ
+		int cnt = (int) Math.ceil(totalSize / cutByte);// ï¿½Ã¸ï¿½
+		cnt++;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ byteï¿½ï¿½ 'ï¿½ï¿½
 
 		arrRslt = new String[cnt];
 
@@ -1577,7 +1577,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÈÞ´ëÆù¹øÈ£ °Ë»ç
+	 * ï¿½Þ´ï¿½ï¿½ï¿½ï¿½È£ ï¿½Ë»ï¿½
 	 */
 	public static boolean checkHp(String str) {
 
@@ -1586,7 +1586,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * FAX °Ë»ç
+	 * FAX ï¿½Ë»ï¿½
 	 */
 	public static boolean checkFax(String str) {
 
@@ -1595,7 +1595,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * Email °Ë»ç
+	 * Email ï¿½Ë»ï¿½
 	 */
 	public static boolean checkEmail(String str) {
 
@@ -1604,10 +1604,10 @@ public class SLibrary {
 	}
 
 	/**
-	 * String [] À» string '','','' ·Î º¯È¯
+	 * String [] ; string '','','' ï¿½ï¿½ ï¿½ï¿½È¯
 	 * 
 	 * @param temp
-	 *            - ¹®ÀÚ¹è¿­
+	 *            - ï¿½ï¿½ï¿½Ú¹è¿­
 	 * @return String
 	 */
 	public static String inQuery(String[] temp) {
@@ -1626,10 +1626,10 @@ public class SLibrary {
 	}
 
 	/**
-	 * int [] À» string 1,23,1 ·Î º¯È¯
+	 * int [] ; string 1,23,1 ï¿½ï¿½ ï¿½ï¿½È¯
 	 * 
 	 * @param temp
-	 *            - ¹®ÀÚ¹è¿­
+	 *            - ï¿½ï¿½ï¿½Ú¹è¿­
 	 * @return String
 	 */
 	public static String inQuery(int[] temp) {
@@ -1648,10 +1648,10 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÇÑÀÚ¸® ¼ýÀÚ¿¡ '0'À» ºÙ¿© ÁØ´Ù
+	 * ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ '0'; ï¿½Ù¿ï¿½ ï¿½Ø´ï¿½
 	 * 
 	 * @param str
-	 *            - ¹®ÀÚ¿­
+	 *            - ï¿½ï¿½ï¿½Ú¿ï¿½
 	 */
 	public static String addTwoSizeNumber(String str) {
 		int num = Integer.parseInt(str);
@@ -1664,10 +1664,10 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÇÑÀÚ¸® ¼ýÀÚ¿¡ '0'À» ºÙ¿© ÁØ´Ù
+	 * ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ '0'; ï¿½Ù¿ï¿½ ï¿½Ø´ï¿½
 	 * 
 	 * @param str
-	 *            - ¹®ÀÚ¿­
+	 *            - ï¿½ï¿½ï¿½Ú¿ï¿½
 	 */
 	public static String addTwoSizeNumber(int num) {
 		if (num < 10) {
@@ -1679,7 +1679,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÆäÀÌÁö Äõ¸® ¹®ÀÚ¿­À» ¹ÝÈ¯ÇÑ´Ù. ¿ª¼ø
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½ï¿½È¯ï¿½Ñ´ï¿½. ï¿½ï¿½ï¿½ï¿½
 	 */
 	public static String pgString(String sql) {
 
@@ -1690,7 +1690,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÆäÀÌÁö Äõ¸® ¹®ÀÚ¿­À» ¹ÝÈ¯ÇÑ´Ù. Á¤¼ø
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½ï¿½È¯ï¿½Ñ´ï¿½. dï¿½ï¿½
 	 */
 	public static String pgStringASC(String sql) {
 
@@ -1701,7 +1701,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ÀüÃ¼°Ç¼ö Äõ¸® ¹®ÀÚ¿­À» ¹ÝÈ¯ÇÑ´Ù.
+	 * ï¿½ï¿½Ã¼ï¿½Ç¼ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½; ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 */
 	public static String countQueryString(String sql) {
 
@@ -1712,7 +1712,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * ¹®ÀÚ¿­ ¹è¿­¿¡¼­ ÇØ´ç ¹®ÀÚ°¡ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù
+	 * ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½è¿­ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ñ´ï¿½
 	 */
 	public static boolean isArrayValue(String[] arr, String findString) {
 
@@ -1734,18 +1734,18 @@ public class SLibrary {
 	}
 
 	/**
-	 * ¹è¿­À» ¹Þ¾Æ ¿¬°áµÉ ¹®ÀÚ¿­·Î ¿¬°áÇÑ´Ù. ÀÌ¶§ °¢ ¿¤·¹¸àÆ® »çÀÌ¿¡ ±¸ºÐ¹®ÀÚ¿­À» Ãß°¡ÇÑ´Ù.<br>
+	 * ï¿½è¿­; ï¿½Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½Ì¶ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½Ð¹ï¿½ï¿½Ú¿ï¿½; ï¿½ß°ï¿½ï¿½Ñ´ï¿½.<br>
 	 * 
 	 * @param aobj
-	 *            ¹®ÀÚ¿­·Î ¸¸µé ¹è¿­
+	 *            ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
 	 * @param s
-	 *            °¢ ¿¤·¹¸àÆ®ÀÇ ±¸ºÐ ¹®ÀÚ¿­
-	 * @return ¿¬°áµÈ ¹®ÀÚ¿­
+	 *            ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
+	 * @return ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
 	 * 
 	 *         <code>
 	 * String[] source = new String[] {"AAA","BBB","CCC"};<br>
 	 * String result = TextUtil.join(source,"+");<br>
-	 * </code> <code>result</code>´Â <code>"AAABBBCCC"</code>¸¦ °¡Áö°Ô µÈ´Ù.
+	 * </code> <code>result</code>ï¿½ï¿½ <code>"AAABBBCCC"</code>ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È´ï¿½.
 	 */
 	public static String join(Object aobj[], String s) {
 		StringBuffer stringbuffer = new StringBuffer();
@@ -1762,7 +1762,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * 2009-08-01 12:00:0.0 µÚ¿¡ µÎÀÚ¸® »èÁ¦
+	 * 2009-08-01 12:00:0.0 ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½Ú¸ï¿½ ï¿½ï¿½f
 	 */
 	public static String yyyymmddhhmiss(String strDate) {
 
@@ -1796,7 +1796,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * htmlÀ» ÅØ½ºÆ®·Î º¸ÀÌµµ·Ï º¯°æÇÑ´Ù.
+	 * html; ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 	 * 
 	 * @param str
 	 * @return
@@ -1833,7 +1833,7 @@ public class SLibrary {
 	}
 
 	/**
-	 * HashMap À» <option> Å×±×·Î º¯È¯ÇÑ´Ù.
+	 * HashMap ; <option> ï¿½×±×·ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 	 * 
 	 * @param rs
 	 * @param selectedValue
@@ -1901,7 +1901,7 @@ public class SLibrary {
 		return b ? number : null;
 	}
 
-	// ÆÄÀÏÀ» Á¸Àç¿©ºÎ¸¦ È®ÀÎÇÏ´Â ¸Þ¼Òµå
+	// ï¿½ï¿½ï¿½ï¿½; xï¿½ç¿©ï¿½Î¸ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
 	public static Boolean isFile(String path) {
 		
 		Boolean b = false;

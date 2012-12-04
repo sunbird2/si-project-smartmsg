@@ -230,6 +230,8 @@ public class SendManager implements ISend {
 		
 		String sendDate = "";
 		
+		String dFormat = "yyyy-MM-dd HH:mm:ss";
+		
 		
 		int count = smvo.getAl().size();
 		
@@ -238,6 +240,11 @@ public class SendManager implements ISend {
 		else
 			sendDate = SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss");
 		
+		if (uvo.getLine().equals("kt")) {
+			dFormat = "yyyyMMddHHmmss";
+			SLibrary.getDateTimeString(sendDate, dFormat);
+		}
+		
 		for (int i = 0; i < count; i++) {
 			
 			vo = new MessageVO();
@@ -245,7 +252,7 @@ public class SendManager implements ISend {
 			
 
 			if (smvo.isbInterval() && i != 0 && (i+1) % smvo.getItCount() == 0) 
-				sendDate = SLibrary.getDateAddSecond(sendDate, smvo.getItMinute() * 60);
+				sendDate = SLibrary.getDateAddSecond(dFormat, sendDate, smvo.getItMinute() * 60);
 			
 			vo.setGroupKey(groupKey);
 			vo.setSendDate(sendDate);
@@ -255,7 +262,7 @@ public class SendManager implements ISend {
 			vo.setCallback(smvo.getReturnPhone());
 			vo.setMsg(smvo.getMessage());
 			vo.setSendMode( smvo.isbReservation() ? "R" : "I");
-			if (uvo.getLine().equals("pp"))
+			if (uvo.getLine().equals("pp") || uvo.getLine().equals("kt"))
 				vo.setImagePath( !SLibrary.isNull(smvo.getImagePath()) ? SLibrary.replaceAll(smvo.getImagePath(), "mmsImage/", "") : "");
 			else
 				vo.setImagePath( !SLibrary.isNull(smvo.getImagePath()) ? smvo.getImagePath() : "");
