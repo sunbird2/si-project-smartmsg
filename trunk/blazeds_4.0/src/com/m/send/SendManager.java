@@ -244,7 +244,7 @@ public class SendManager implements ISend {
 		
 		if (uvo.getLine().equals("kt")) {
 			dFormat = "yyyyMMddHHmmss";
-			SLibrary.getDateTimeString(sendDate, dFormat);
+			SLibrary.getDateTimeString(sendDate, dFormat, "yyyy-MM-dd HH:mm:ss");
 		}
 		
 		for (int i = 0; i < count; i++) {

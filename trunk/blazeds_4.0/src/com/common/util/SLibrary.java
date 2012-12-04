@@ -299,12 +299,13 @@ public class SLibrary {
 			String parmFormat) {
 
 		long dLong = 0;
-
+		System.out.println(dateString+"/"+format+"/"+parmFormat);
 		SimpleDateFormat df = new SimpleDateFormat(parmFormat,
 				Locale.getDefault());
 		try {
 			Date d = df.parse(dateString);
 			dLong = d.getTime();
+			System.out.println(dLong);
 		} catch (ParseException e) {
 			dLong = 0;
 		}
