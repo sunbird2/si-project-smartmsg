@@ -255,7 +255,7 @@
 	function billSubmit(f) {
 		var m = $(":input:radio[name=LGD_CUSTOM_FIRSTPAY]:checked").val();
 		if (m == "SC0040") {
-			alert("무통장 입금이 예약 되었습니다. 홈페이지 하단의 정보로 입금 부탁 드리겠습니다.");
+			alert("무통장 입금이 예약 되었습니다. \r\n\r\n홈페이지 하단의 정보로 입금 부탁 드리겠습니다.");
 		}else {
 			f.submit();
 		}
