@@ -16,15 +16,14 @@
 	<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.9.2.custom.min.css" />
 	<script src="js/jquery-1.8.2.js"></script>
     <script src="js/jquery-ui.js"></script>
-    
-	<link rel="stylesheet" type="text/css" href="css/uploadify.css" />
+
 	<script type="text/javascript" src="js/jquery.uploadify-3.1.min.js"></script>
 
     <script type="text/javascript" src="js/galleria/galleria-1.2.8.js"></script>
 	<script type="text/javascript" src="js/masonry/jquery.masonry.min.js"></script>
 	
 	<script type="text/javascript" src="js/barcode/jquery-barcode-2.0.2.min.js"></script>
-	<script type="text/javascript" src="js/slimScroll/slimScroll.min.js"></script>
+	<script type="text/javascript" src="js/tinyscrollbar/jquery.tinyscrollbar.min.js"></script>
 	
 	<script type="text/javascript" src="js/jquery-urlplus-0.1.0.js"></script>
 
@@ -37,44 +36,39 @@
 
 	<script type="text/javascript">
 	var PAGE_EDITING = false; // 현재 페이지 수정 여부
-	
+	var scrollUpdate = function(){ 	$('#scroll_wrap').tinyscrollbar_update();};
+	var scrollUpdateBottom = function(){ 	$('#scroll_wrap').tinyscrollbar_update('bottom');};
 
     $(document).ready(function(){
-		$( "#tabs" ).tabs({
-			heightStyle: "auto",
-			create : function(event, ui) {
-				var eBox = ui.panel.find('ul');
-				addAtt('imageOne');
-				addAtt('imageThumb');
-				$('#tabs-1').slimScroll({
-					height: '250px',
-					alwaysVisible: true,
-					start: 'bottom',
-					distance: '0px',
-					wheelStep: 10
-				}).css({ background: '#fff', paddingRight: '10px' });
-			},
-			activate:  function(event, ui) {
-				var tab = ui.newTab.children(':first-child').attr('href');
-				ui.oldPanel.find('ul').html("");
-				if (tab == "#tabs-1") {
-					addAtt('imageOne');
-					addAtt('imgThumb');
-					
-				}
-				else if (tab == "#tabs-2") {
-					addAtt('imgSlide');
-					
-				}
-				else if (tab == "#tabs-3") {
-					addAtt('imgLayout');
-					
-				}
-				
-			}
-		});
+		
+		$('#scroll_wrap').tinyscrollbar();
+		tabView();
+
 
     }) // $(document).ready
+
+	function tabView() {
+		$('#editeCanvas > .editor_box').html("");
+
+		var tab = $('#tabs > li > a.on:first').attr('href');
+		if (tab == "#tabs-1") {
+			addAtt('imageOne');
+			addAtt('imageThumb');
+			addAtt('imgSlide');
+		}else if (tab == "#tabs-2") {
+			addAtt('imgSlide');
+		}else if (tab == "#tabs-3") {
+			addAtt('imgLayout');
+		}
+		scrollUpdate();
+	}
+
+	function tabChange(index) {
+		$('#tabs > li > a').attr('class','');
+		$('#tabs > li > a[href="#tabs-'+index+'"]').attr('class', 'on');
+		tabView();
+
+	}
 	
 	/** 
 	* type 에 따라 속성들을 추가한다.
@@ -107,9 +101,9 @@
 				addBoxEle = $(box).appendTo(target).movieSlide({bEdit : true});
 			}
 		}
-		else if (type == "text") { addBoxEle = $(box).appendTo(target).textEditor({domUrl : 'textEditor.jsp'}); }
+		else if (type == "text") { addBoxEle = $(box).appendTo(target).textEditor({domUrl : 'textEditor.jsp', readyEvent: scrollUpdateBottom }); }
 		else if (type == "textInput") { addBoxEle = $(box).appendTo(target).textInput({bEdit : true}); }
-		else if (type == "textTable") { addBoxEle = $(box).appendTo(target).textEditor({domUrl : 'textEditorTable.jsp', bTable : true}); }
+		else if (type == "textTable") { addBoxEle = $(box).appendTo(target).textEditor({domUrl : 'textEditorTable.jsp', bTable : true, readyEvent: scrollUpdateBottom }); }
 		else if (type == "linkPhone") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true, bPhone : true}); }
 		else if (type == "linkPage") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true}); }
 		else if (type == "linkEnter") { addBoxEle = $(box).appendTo(target).textInput({bEdit : true}); }
@@ -118,8 +112,12 @@
 		else if (type == "faceBook") {}
 		else if (type == "html") {}
 		else if (type == "bar") {}
+		
 
 		addFunctionToAttBox(type, addBoxEle);
+
+		scrollUpdateBottom();
+		
 		
 		return false;
 	}
@@ -127,18 +125,16 @@
 	* 현재 활성화 tab의 수정 element를 반환함.
 	*/
 	function getEditeEle() {
-		if ($('#tabs-1').css("display") == "block") return $('#tabs-1 > .editor_box');
-		else if ($('#tabs-2').css("display") == "block") return $('#tabs-2 > .editor_box');
-		else if ($('#tabs-3').css("display") == "block") return $('#tabs-3 > .editor_box');
-		else return null;
+		return $('#editeCanvas> .editor_box');
 	}
 	/** 
 	* target 에 위로, 아래로, 삭제 기능을 추가 한다.
 	* target : 속성 element
 	*/
 	function addFunctionToAttBox( type, addBoxEle ) {
-		var tid = addBoxEle.attr('id');
-		var dom = '<div class="attBox_function"><a href="#" onclick="attBoxFunction(\''+type+'\',\''+tid+'\', this, \'up\');return false;" class="up">▲</a><a href="#" onclick="attBoxFunction(\''+type+'\',\''+tid+'\', this, \'down\');return false;" class="down">▼</a><a href="#" onclick="attBoxFunction(\''+type+'\',\''+tid+'\', this, \'remove\');return false;" class="remove">X</a></div>';
+
+		var tid = addBoxEle.attr("id");
+		var dom = '<div class="attBox_function title_'+type+'"><a href="#" onclick="attBoxFunction(\''+type+'\',\''+tid+'\', this, \'remove\');return false;" class="remove" alt="삭제">X</a><a href="#" onclick="attBoxFunction(\''+type+'\',\''+tid+'\', this, \'down\');return false;" class="down" alt="아래로">▼</a><a href="#" onclick="attBoxFunction(\''+type+'\',\''+tid+'\', this, \'up\');return false;" class="up" alt="위로">▲</a></div>';
 		$(dom).appendTo(addBoxEle);
 	}
 	/** 
@@ -172,12 +168,15 @@
 			else if (type == "bar") {}
 			*/
 			target.parent().parent().remove();
+			scrollUpdateBottom();
 		}else if (opt == "up"){
 			target.parent().parent().prev().insertAfter( target.parent().parent() );
 		}else if (opt == "down"){
 			target.parent().parent().remove();
 		}
 	}
+	
+	
 
 	function test() {
 		Editor.getToolbar().tools.table.button._command();
@@ -187,50 +186,78 @@
 	}
 	
 	</script>
-	<a href="http://www.ehancast.com/img.zip">샘플이미지 다운로드</a>
-	<div id="ddr"></div>
-  	<h1>속성</h1>
-	<dl class="attListBox">
-		<dt>이미지</dt>
-			<dd><a href="#" onclick="addAtt('imageOne');return false;">이미지 1장</a></dd>
-			<dd><a href="#" onclick="addAtt('imageThumb');return false;">썸네일 이미지</a></dd>
-			<dd><a href="#" onclick="addAtt('imgSlide');return false;">슬라이드</a></dd>
-			<dd><a href="#" onclick="addAtt('imgLayout');return false;">분할이미지</a></dd>
+	
+	<div id="wrap">
+		<div id="header">
+			<h1><a href="#"><img src="_images/logo.png" alt="모바일웹에디터"/></a></h1>
+			<ul id="tabs">
+				<li class="mainmenu1"><a href="#tabs-1" class="on" onclick="tabChange(1)">정보형</a></li>
+				<li class="mainmenu2"><a href="#tabs-2" onclick="tabChange(2)">쿠폰형</a></li>
+				<li class="mainmenu3"><a href="#tabs-3" onclick="tabChange(3)">이벤트형</a></li>
+			</ul>
+		</div><!--// header -->
 
-		<dt>동영상</dt>
-			<dd><a href="#" onclick="addAtt('movieOne');return false;">동영상 1개</a></dd>
-			<dd><a href="#" onclick="addAtt('movieSlide');return false;">동영상 슬라이드</a></dd>
+		<div id="att">
+			<h2 class="image">이미지</h2>
+			<ul>
+				<li class="image_one"><a href="#" onclick="addAtt('imageOne');return false;">이미지 1장</a></li>
+				<li class="image_thumb"><a href="#" onclick="addAtt('imageThumb');return false;">썸네일 이미지</a></li>
+				<li class="image_slide"><a href="#" onclick="addAtt('imgSlide');return false;">슬라이드</a></li>
+				<li class="image_layout"><a href="#" onclick="addAtt('imgLayout');return false;">분할이미지</a></li>
+			</ul>
+			
+			<h2  class="movie">동영상</h2>
+			<ul>
+				<li class="movie_one"><a href="#" onclick="addAtt('movieOne');return false;">동영상 1개</a></li>
+				<li class="movie_slide"><a href="#" onclick="addAtt('movieSlide');return false;">동영상 슬라이드</a></li>
+			</ul>
 
-		<dt>텍스트</dt>
-			<dd><a href="#" onclick="addAtt('text');return false;">텍스트 상자</a></dd>
-			<dd><a href="#" onclick="addAtt('textInput');return false;">텍스트 입력</a></dd>
-			<dd><a href="#" onclick="addAtt('textTable');return false;">표</a></dd>
+			<h2  class="text">텍스트</h2>
+			<ul>
+				<li class="text_box"><a href="#" onclick="addAtt('text');return false;">텍스트 상자</a></li>
+				<li class="text_input"><a href="#" onclick="addAtt('textInput');return false;">텍스트 입력</a></li>
+				<li class="text_table"><a href="#" onclick="addAtt('textTable');return false;">표</a></li>
+			</ul>
 
-		<dt>링크</dt>
-			<dd><a href="#" onclick="addAtt('linkPhone');return false;">전화번호 링크</a></dd>
-			<dd><a href="#" onclick="addAtt('linkPage');return false;">웹페이지 링크</a></dd>
-			<dd><a href="#" onclick="addAtt('linkEnter');return false;">응모하기링크</a></dd>
+			<h2  class="link">링크</h2>
+			<ul>
+				<li class="link_phone"><a href="#" onclick="addAtt('linkPhone');return false;">전화번호 링크</a></li>
+				<li class="link_web"><a href="#" onclick="addAtt('linkPage');return false;">웹페이지 링크</a></li>
+				<li class="link_enter"><a href="#" onclick="addAtt('linkEnter');return false;">응모하기링크</a></li>
+			</ul>
 
-		<dt>쿠폰</dt>
-			<dd><a href="#" onclick="addAtt('cuponBarcode');return false;">바코드 쿠폰</a></dd>
-			<dd><a href="#" onclick="addAtt('cuponText');return false;">텍스트 쿠폰</a></dd>
+			<h2  class="coupon">쿠폰</h2>
+			<ul>
+				<li class="coupon_barcode"><a href="#" onclick="addAtt('cuponBarcode');return false;">바코드 쿠폰</a></li>
+				<li class="coupon_text"><a href="#" onclick="addAtt('cuponText');return false;">텍스트 쿠폰</a></li>
+			</ul>
 
-		<dt>기타</dt>
-			<dd><a href="#" onclick="addAtt('faceBook');return false;">페이스북 좋아요</a></dd>
-			<dd><a href="#" onclick="addAtt('html');return false;">HTML 편집</a></dd>
-			<dd><a href="#" onclick="addAtt('bar');return false;">구분선</a></dd>
-	</dl>
+			<h2  class="etc">기타</h2>
+			<ul>
+				<li class="etc_facebook"><a href="#" onclick="addAtt('faceBook');return false;">페이스북 좋아요</a></li>
+				<li class="etc_html"><a href="#" onclick="addAtt('html');return false;">HTML 편집</a></li>
+				<li class="etc_bar"><a href="#" onclick="addAtt('bar');return false;">구분선</a></li>
+			</ul>
+		</div><!--// att-->
 
-	<div id="tabs" >
-		<ul>
-			<li><a href="#tabs-1">1/ 정보형</a></li>
-			<li><a href="#tabs-2">2/ 쿠폰형</a></li>
-			<li><a href="#tabs-3">3/ 이벤트형</a></li>
-		</ul>
-		<div id="tabs-1"><ul class="editor_box"></ul></div>
-		<div id="tabs-2"><ul class="editor_box"></ul></div>
-		<div id="tabs-3"><ul class="editor_box"></ul></div>
-	</div>
+		<div id="canvas_wrap">
+			<div id="scroll_wrap">
+				<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
+				<div class="viewport">
+					<div id="editeCanvas" class="overview">
+						<ul class="editor_box"></ul>
+					</div>
+				</div>
+			</div>
+			<div id="page_wrap"></div>
+			<div id="buttons">
+				<a href="#" onclick="">미리보기</a>
+				<a href="#" onclick="">저장하기</a>
+			</div>
+		</div>
 
+		
+	</div><!--// wrap -->
+<a href="http://www.ehancast.com/img.zip">샘플이미지 다운로드</a>
   </body>
 </html>

@@ -35,22 +35,27 @@
 		init: function (options) {
 			d("imageOne -> init");
 			var defaults = {
-
+			'buttonImage' : '_images/image_register_btn.png',
+			'width' : 85,
+			'height' : 22,
 			'swf'      : 'js/uploadify.swf', // 파일업로드 이벤트 가로채틑 flash
 			'uploader' : 'uploadify.jsp', // 비동기 업로드시 처리 url
 			'formData'      : '',
 			'fileTypeDesc' : 'Image Files',
 	        'fileTypeExts' : '*.gif; *.jpg; *.png',
-			'buttonText' : '이미지등록',
+			//'buttonText' : '이미지등록',
 			'removeTimeout' : 1, // queue 제거 시간
 			'multi' : false // 다중업로드
 			};
 
-			var ele = ['<img src="#" class="imageOne_img" />',
+			var ele = ['<img src="_images/image_menu_cont01.png" class="imageOne_img" />',
 							'<input type="file" name="imgOne_upload" />',
 							'<a href="#" class="imageOne_deleteBtn">삭제</a>',
-							'<input type="radio" name="img_type" value="0" />고정이미지<input type="radio" name="img_type" value="1" />합성이미지<a href="#" >도움말</a>',
-							'<input type="text" name="img_link" value="http://" />'];
+							'<div class="imageOne_radioBox">',
+							'<input type="radio" name="img_type" value="0" checked="checked" /> <label> 고정이미지 </label>&nbsp;&nbsp;<input type="radio" name="img_type" value="1" /> <label> 합성이미지 </label> <a href="#" class="imageOne_help">&nbsp;&nbsp;&nbsp;</a>',
+							'</div>',
+							'<span class="imageOne_linkTxt">이미지에 링크 걸 URL을 입력하세요.</span>',
+							'<input type="text" name="img_link" class="imageOne_link" value="http://" />'];
 
 			var opt = $.extend(defaults, options);
 
@@ -178,8 +183,9 @@
 			var opt = $.extend(defaults, options);
 
 			return this.each( function () {
-					
+
 					$(this).attr("id", "attrBox"+instanceCnt);
+					
 					instanceCnt++;
 					var target = $(this);
 					var tid = "";
@@ -1587,6 +1593,7 @@
 			d("textEditor -> init");
 			var defaults = {
 				'domUrl' : 'textEditor.jsp',
+				'readyEvent' : function(){},
 				'bTable' : false
 			};
 
@@ -1629,12 +1636,15 @@
 
 								EditorJSLoader.ready(function (Editor) {
 									new Editor(config);
+									Editor.getCanvas().setCanvasSize({height:140});
+									opt.readyEvent();
 									if (opt.bTable) {
 										Editor.onPanelLoadComplete(function(){
 											Editor.getToolbar().tools.table.button._command();
 											alert("표삽입의 칸을 선택하여 표를 추가 하세요.");
 										});
 									}
+
 									/*
 									Editor.getCanvas().observeJob(Trex.Ev.__IFRAME_LOAD_COMPLETE, function() {
 										Editor.modify({
