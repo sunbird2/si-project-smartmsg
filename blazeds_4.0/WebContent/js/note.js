@@ -122,6 +122,8 @@
 
 		getUpjong("");
 		
+		$.post("accLog.jsp", { ref: document.referrer, } );
+		
 
 /*
 		$.ajax({
