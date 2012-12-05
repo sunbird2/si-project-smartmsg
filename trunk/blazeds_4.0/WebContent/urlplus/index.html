@@ -52,9 +52,10 @@
 
 		var tab = $('#tabs > li > a.on:first').attr('href');
 		if (tab == "#tabs-1") {
-			addAtt('imageOne');
-			addAtt('imageThumb');
-			addAtt('imgSlide');
+			//addAtt('imageOne');
+			//addAtt('imageThumb');
+			//addAtt('imgSlide');
+			addAtt('movieOne');
 		}else if (tab == "#tabs-2") {
 			addAtt('imgSlide');
 		}else if (tab == "#tabs-3") {
@@ -92,7 +93,7 @@
 			
 		}
 		else if (type == "imgLayout") { addBoxEle = $(box).appendTo(target).imageLayout({bEdit : true}); }
-		else if (type == "movieOne") { addBoxEle = $(box).appendTo(target).movieOne({bEdit : true}); }
+		else if (type == "movieOne") { addBoxEle = $(box).appendTo(target).movieOne({bEdit : true, readyEvent: scrollUpdateBottom}); }
 		else if (type == "movieSlide") {
 
 			if ( $('.imageSlide_box , .movieSlide_box').length > 0 ){
@@ -254,7 +255,9 @@
 				<a href="#" onclick="">미리보기</a>
 				<a href="#" onclick="">저장하기</a>
 			</div>
-		</div>
+			<div id="uploadifyQueue" style="position:absolute;left:40px;top:11px;"></div>
+		</div><!--// canvas_wrap -->
+		
 
 		
 	</div><!--// wrap -->

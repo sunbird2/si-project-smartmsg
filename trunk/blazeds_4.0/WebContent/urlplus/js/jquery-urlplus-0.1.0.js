@@ -35,6 +35,7 @@
 		init: function (options) {
 			d("imageOne -> init");
 			var defaults = {
+			'queueID' :'uploadifyQueue',
 			'buttonImage' : '_images/image_register_btn.png',
 			'width' : 85,
 			'height' : 22,
@@ -51,11 +52,13 @@
 			var ele = ['<img src="_images/image_menu_cont01.png" class="imageOne_img" />',
 							'<input type="file" name="imgOne_upload" />',
 							'<a href="#" class="imageOne_deleteBtn">삭제</a>',
-							'<div class="imageOne_radioBox">',
-							'<input type="radio" name="img_type" value="0" checked="checked" /> <label> 고정이미지 </label>&nbsp;&nbsp;<input type="radio" name="img_type" value="1" /> <label> 합성이미지 </label> <a href="#" class="imageOne_help">&nbsp;&nbsp;&nbsp;</a>',
-							'</div>',
-							'<span class="imageOne_linkTxt">이미지에 링크 걸 URL을 입력하세요.</span>',
-							'<input type="text" name="img_link" class="imageOne_link" value="http://" />'];
+							'<div class="imageOne_etcBox" style="display:none;">',
+								'<div class="imageOne_radioBox">',
+								'<input type="radio" name="img_type" value="0" checked="checked" /> <label> 고정이미지 </label>&nbsp;&nbsp;<input type="radio" name="img_type" value="1" /> <label> 합성이미지 </label> <a href="#" class="imageOne_help">&nbsp;&nbsp;&nbsp;</a>',
+								'</div>',
+								'<span class="imageOne_linkTxt">이미지에 링크 걸 URL을 입력하세요.</span>',
+								'<input type="text" name="img_link" class="imageOne_link" value="http://" />',
+							'</div>'];
 
 			var opt = $.extend(defaults, options);
 
@@ -163,6 +166,10 @@
 		init: function (options) {
 			d("imageThumb -> init");
 			var defaults = {
+				'queueID' :'uploadifyQueue',
+				'buttonImage' : '_images/image_register_btn.png',
+				'width' : 85,
+				'height' : 22,
 				'swf'					: 'js/uploadify.swf', // 파일업로드 이벤트 가로채틑 flash
 				'uploader' 		: 'uploadifyMulti.jsp', // 비동기 업로드시 처리 url
 				'fileTypeDesc'	: 'Image Files',
@@ -174,11 +181,14 @@
 				'thumbData' : []
 			};
 
-			var ele = ['<ul class="imageThumb_box"></ul>',
+			var ele = ['<p class="imageThumb_tip"><span>마우스로 드래그하여</span> <b>순서를 이동</b><span>할 수 있습니다.</span><p>',
+							'<ul class="imageThumb_box"></ul>',
+							'<div class="imageThumb_btn_wrap">',
 							'<input type="file" name="imgThumbnail_upload" />',
 							'<a href="#" class="imageThumb_removall">모두삭제</a>',
-							'<a href="#" class="imageThumb_sortable">이동모드</a>',
-							'<a href="#" class="imageThumb_sortable_destory">이동해제</a>'];
+							//'<a href="#" class="imageThumb_sortable">이동모드</a>',
+							//'<a href="#" class="imageThumb_sortable_destory">이동해제</a>',
+							'</div>'];
 
 			var opt = $.extend(defaults, options);
 
@@ -193,7 +203,7 @@
 						// create UI
 						target.append(ele.join(""));
 
-						var ul = target.children(':first-child');
+						var ul = target.find('.imageThumb_box');
 						ul.attr("id", "imageThumb"+instanceCnt);
 						tid = ul.attr("id");
 						instanceCnt++;
@@ -223,15 +233,19 @@
 																						'onQueueComplete' : function(queueData) {
 																							ul.imageThumb("view");
 																							ul.imageThumb("editUI");
+																							$('#'+tid).imageThumb("sortAble", false);
 																							alert("총 "+imageThumbData[tid].length + " 개의 이미지가 추가 되어있습니다.");
 																						}
 																					}
 						) );
+
+						$('#'+tid).imageThumb("sortAble", true);
 						
 						target.children('.imageThumb_removall').click(function(){
 							$('#'+tid).imageThumb("removeAllImage");
 							return false;
 						});
+						/*
 						target.children('.imageThumb_sortable_destory').hide();
 						target.children('.imageThumb_sortable').click(function(){
 							target.children('.imageThumb_sortable').hide();
@@ -245,6 +259,7 @@
 							$('#'+tid).imageThumb("sortAble", false);
 							return false;
 						});
+						*/
 
 					} else {
 						target.append(ele[0]);
@@ -273,7 +288,7 @@
 				var obj = null;
 				for ( var i = 0; i < cnt ; i++ ) {
 					obj = imageThumbData[tid][i];
-					html += '<li><img src="'+obj.thumb+'" /></li>';
+					html += '<li><img src="'+obj.thumb+'" class="imgThumbnail_item" /></li>';
 				}
 				target.html(html);
 
@@ -287,8 +302,9 @@
 				
 				var target = $(this);
 				var tid = target.attr("id");
-				var left = target.find( 'li' ).width() - 18;
-				$( target ).find('li').append('<img src="_images/img_del.gif" width="18" height="18" class="imgdel" style="left:'+left+'px;" alt="삭제" />');
+				var left = target.find( 'li' ).width() - 11;
+				target.find( 'li' ).css("border","1px solid #F62CA2");
+				$( target ).find('li').append('<img src="_images/x.png" width="11" height="11" class="imgdel" style="left:'+left+'px;" alt="삭제" />');
 
 				// click event
 				target.find( 'li > img' ).click(function(){
@@ -348,12 +364,12 @@
 						}
 					}).disableSelection();
 
-					$('#'+tid+' > li > img.imgdel').hide();
-					alert("이미지를 드래그 하여 순서를 변경하세요.");
+					//$('#'+tid+' > li > img.imgdel').hide();
+					//alert("이미지를 드래그 하여 순서를 변경하세요.");
 				} else {
-					try{$('#'+tid).sortable( "destroy" );}catch (e){}
-					$('#'+tid+' > li > img.imgdel').show();
-					alert("이동모드가 해제 되었습니다.");
+					try{$('#'+tid).sortable( "refresh" );}catch (e){}
+					//$('#'+tid+' > li > img.imgdel').show();
+					//alert("이동모드가 해제 되었습니다.");
 				}
 
 			});// each
@@ -424,6 +440,10 @@
 		init: function (options) {
 			d("imageSlide -> init");
 			var defaults = {
+				'queueID' :'uploadifyQueue',
+				'buttonImage' : '_images/image_register_btn.png',
+				'width' : 85,
+				'height' : 22,
 				'swf' : 'js/uploadify.swf', // 파일업로드 이벤트 가로채틑 flash
 				'uploader' : 'uploadifySlide.jsp', // 비동기 업로드시 처리 url
 				'fileTypeDesc' : 'Image Files',
@@ -435,12 +455,15 @@
 				'slideData' : []
 			};
 			
-			var ele = ['<div class="imageSlide_box"></div>',
+			var ele = ['<p class="imageSlide_tip"><span>이미지는</span> <b>최대 20장</b><span>까지 등록할 수 있습니다.</span><p>',
+							'<div class="imageSlide_box"></div>',
 							'<div class="imageSlide_move_box"></div>',
+							'<div class="imageSlide_btn_wrap">',
 							'<input type="file" name="imgSlide_upload" />',
 							'<a href="#" class="imageSlide_removall">모두삭제</a>',
-							'<a href="#" class="imageSlide_sortable">이동모드</a>',
-							'<a href="#" class="imageSlide_sortable_destory">이동해제</a>'];
+							//'<a href="#" class="imageSlide_sortable">이동모드</a>',
+							//'<a href="#" class="imageSlide_sortable_destory">이동해제</a>',
+							'</div>'];
 
 			var opt = $.extend(defaults, options);
 
@@ -460,7 +483,7 @@
 						target.append(ele.join(""));
 						
 						// get imageSlide_box & set id
-						var div = target.children(':first-child');
+						var div = target.find('.imageSlide_box');
 						div.attr("id", "imageSlide"+instanceCnt);
 						tid = div.attr("id");
 						div.next().attr("id", "imageSlide_move"+instanceCnt);
@@ -506,6 +529,7 @@
 							return false;
 						});
 						
+						/*
 						target.children('.imageSlide_sortable_destory').hide();
 						target.children('.imageSlide_sortable').click(function(){
 							target.children('.imageSlide_sortable').hide();
@@ -520,7 +544,7 @@
 							$('#'+tid).imageSlide("sortAble", false);
 							return false;
 						});
-
+						*/
 
 					} else {
 						target.append(ele[0]);
@@ -773,11 +797,12 @@
 				return imageLayoutMethods.init.apply(this, arguments);
 	};// fn.imageLayout
 
+	var eleHelp = ['<p class="imageLayout_tip"><span>마우스로 <b>&nbsp;&nbsp;</b>를 드래그하여 크기를 변경할수 있습니다.&nbsp;</span><p>']
 	var ele = ['<ul class="imageLayout_box">', '<li class="imageLayout_cell"><img src="', '" class="imageLayout_image"/>', '</li>', '</ul>'];
-	var eleEdit = ['<div class="imageLayout_edit"><img src="_images/img_del.gif" width="18" height="18" /><div class="imageLayout_label"></div></div>'];
-	var eleEditFunction = ['<select name="imgLayout_no"></select>',
+	var eleEdit = ['<div class="imageLayout_edit"><img src="_images/x.png" width="11" height="11" /><div class="imageLayout_label"></div></div>'];
+	var eleEditFunction = ['<a href="#" class="imageLayout_add">추가</a>',
+						'<select name="imgLayout_no" class="imagLayout_select"></select>',
 						'<input type="file" style="display:none"/>',
-						'<a href="#" class="imageLayout_add">추가</a>',
 						'<a href="#" class="imageLayout_all_delete">모두삭제</a>'];
 
 	var layoutData = {};
@@ -802,7 +827,7 @@
 					// create UI
 					var html = '';
 					if (opt.bEdit == true){
-
+						html = eleHelp.join("");
 						html += ele[0];
 						var dCnt = opt.layoutData.length;
 						for (var i = 0; i < opt.cellCount ; i++) {
@@ -831,7 +856,7 @@
 					$(this).html(html);
 
 					// get imageLayout & set id
-					var ul = $(this).children(':first-child');
+					var ul = $(this).find('.imageLayout_box');
 					d(ul.tabName);
 					ul.attr("id", "imageLayout"+instanceCnt);
 					tid = ul.attr("id");
@@ -866,6 +891,26 @@
 			});// each
 
 		},// init
+
+		selectable :  function () {
+			d("imageLayout -> selectable");
+			var arg = arguments;
+			var tid = $(this).attr("id");
+			return this.each( function () {
+				var t = $(this);
+				var maxWidth = t.width()-4;
+				if (arg && arg.length > 0 && arg[0]=='destroy') t.selectable('destroy');
+				else {
+					t.selectable({
+						selected: function( event, ui ) {
+							var index = $(ui.selected).find(".imageLayout_edit > .imageLayout_label").text();
+							$('#'+tid).siblings('select').val(index).trigger('change');
+						}
+					});
+				}
+				
+			});// each
+		}, // masonry
 
 		masonry :  function () {
 			d("imageLayout -> masonry");
@@ -1048,7 +1093,7 @@
 			var label_cnt = label.length;
 
 			var sBox = $('#'+tid).siblings('select');
-			var sBoxOptions = '<option value="-1">-이미지 등록-</option>';
+			var sBoxOptions = '<option value="-1">이미지등록</option>';
 			
 			if(label_cnt == 1){ // span이 한개일경우 순번 붙이기
 				label.text("1");
@@ -1089,6 +1134,10 @@
 		_uplodifyOption =  (function(uploaderUrl, tid, index, formData) {
 
 			return {
+				'queueID' :'uploadifyQueue',
+				'buttonImage' : '_images/image_register_btn.png',
+				'width' : 85,
+				'height' : 22,
 				'swf'      : 'js/uploadify.swf', // 파일업로드 이벤트 가로채틑 flash
 				'uploader' : uploaderUrl, // 비동기 업로드시 처리 url
 				'formData'      : formData,
@@ -1115,6 +1164,7 @@
 
 		_deleteEvent =  (function(tid) {
 			$( "#"+tid+" > li > .imageLayout_edit > img" ).click(function(){
+				
 				var idx = $(this).parent().parent().remove();
 				$("#"+tid).imageLayout("reloadAll");
 			});
@@ -1139,7 +1189,10 @@
 		init: function (options) {
 			d("movieOne -> init");
 			var defaults = {
-
+			'queueID' :'uploadifyQueue',
+			'buttonImage' : '_images/image_register_btn.png',
+			'width' : 85,
+			'height' : 22,
 			'swf'      : 'js/uploadify.swf', // 파일업로드 이벤트 가로채틑 flash
 			'uploader' : 'uploadify.jsp', // 비동기 업로드시 처리 url
 			'formData'      : '',
@@ -1147,25 +1200,27 @@
 	        'fileTypeExts' : '*.gif; *.jpg; *.png',
 			'buttonText' : '이미지등록',
 			'removeTimeout' : 1, // queue 제거 시간
-			'multi' : false // 다중업로드
+			'multi' : false, // 다중업로드
+			'readyEvent' : function(){}
 			};
 
-			var ele = ['<div class="movieOneBox"><img src="#" class="movieOne_img" /><img src="_images/Play.png" class="movieOne_play" /></div>',
+			var ele = ['<p class="movieOne_tip"><span>이미지 등록 후 </span><b>동영상 URL</b><span>을 입력하세요.</span><p>',
+							'<div class="movieOneBox"><img src="_images/movie_menu_cont.png" class="movieOne_img" /><div class="movieOneBox_linkBox"><img src="_images/play_btn.png" class="movieOne_play" /><input type="text" name="img_link" value="http://동영상파일주소.." class="movieOne_link" /></div></div>',
 							'<input type="file" name="imgOne_upload" />',
-							'<a href="#" class="movieOne_deleteBtn">삭제</a>',
-							'<input type="text" name="img_link" value="http://" />'];
+							'<a href="#" class="movieOneBox_deleteBtn">삭제</a>'];
 
 			var opt = $.extend(defaults, options);
 
 			return this.each( function () {
-
+					
 					$(this).attr("id", "attrBox"+instanceCnt);
+					var tid = $(this).attr("id");
 					instanceCnt++;
 					// create UI
 					$(this).append(ele.join(""));
 
 					var img = $(this).find('.movieOneBox > .movieOne_img');
-					var upBtn = $(this).find("input:eq(0)");
+					var upBtn = $(this).find("input:eq(1)");
 					var delBtn = $(this).find(".movieOne_deleteBtn");
 
 					upBtn.attr("id", "movieOneUploadBtn"+instanceCnt);
@@ -1173,10 +1228,17 @@
 					$('#movieOneUploadBtn'+instanceCnt).uploadify( $.extend(opt, {
 																				'onUploadSuccess' : function(file, data, response) {
 																					var rslt;
+																					var opts = opt;
 																					try {
 																						rslt = jQuery.parseJSON(data);
-																						if (rslt.b == "true") { img.attr('src','/urlImage/'+rslt.img);} 
+																						if (rslt.b == "true") { 
+																							img.attr('src','/urlImage/'+rslt.img);
+																							$('#'+tid+' > .movieOneBox > .movieOneBox_linkBox').show();
+																							img.load(function() {opts.readyEvent();});
+																						}
 																						else { alert("에러 : "+rslt.err); }
+																						
+																						
 																					}catch(err){ alert("업로드 실패");}
 																				}
 																			}
@@ -1242,6 +1304,10 @@
 		init: function (options) {
 			d("movieSlide -> init");
 			var defaults = {
+				'queueID' :'uploadifyQueue',
+				'buttonImage' : '_images/image_register_btn.png',
+				'width' : 85,
+				'height' : 22,
 				'swf' : 'js/uploadify.swf', // 파일업로드 이벤트 가로채틑 flash
 				'uploader' : 'uploadifySlide.jsp', // 비동기 업로드시 처리 url
 				'fileTypeDesc' : 'Image Files',
