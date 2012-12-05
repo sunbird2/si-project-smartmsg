@@ -69,12 +69,12 @@
 #att .etc_bar a{width:45px;height:48px;background:url("../_images/etc_menu.gif") -100px -51px}
 #att .etc_bar a:hover {background-position: -100px 0px}
 
-#canvas_wrap {float:left;width:410px;background-color:#f0f0f0;height:590px;}
-#editeCanvas {width:342px;height:500px;}
+#canvas_wrap {position:relative;float:left;width:410px;background-color:#f0f0f0;height:590px;}
+#editeCanvas {width:344px;height:500px;}
 
 /* Tiny Scrollbar */
-#scroll_wrap { width:372px;height:500px;margin:10px 0px 10px 24px; }
-#scroll_wrap .viewport { width: 342px; height: 500px; overflow: hidden; position: relative;margin:0 auto; }
+#scroll_wrap { width:372px;height:500px;margin:10px 0px 10px 20px; }
+#scroll_wrap .viewport { width: 344px; height: 500px; overflow: hidden; position: relative;margin:0 auto; }
 #scroll_wrap .overview { list-style: none; position: absolute; left: 0; top: 0; padding: 0; margin: 0; }
 #scroll_wrap .scrollbar{ position: relative; background-position: 0 0; float: right; width: 15px; }
 #scroll_wrap .track {  height: 100%; width:13px; position: relative; padding: 0 1px; }
@@ -84,17 +84,25 @@
 .noSelect { user-select: none; -o-user-select: none; -moz-user-select: none; -khtml-user-select: none; -webkit-user-select: none; }
 
 /* uploadify*/
-.uploadify {position: relative;margin-bottom: 1em;float:left;}
+.uploadify {position: relative;margin-bottom: 1em;float:left; margin:0px;}
 .uploadify-button {background-color: transparent; border: none;padding:0;}
 .uploadify:hover .uploadify-button {background-color: transparent;}
+.uploadify-queue {margin-bottom: 0em;}
+.uploadify-queue-item {background-color: #F5F5F5;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;font: 11px Verdana, Geneva, sans-serif;margin-top: 0px;width: 320px;padding: 10px;}
+.uploadify-error {background-color: #FDE5DD !important;}
+.uploadify-queue-item .cancel a {background: url('../_images/x.png') 0 0 no-repeat;float: right;height:16px;text-indent: -9999px;width: 16px;}
+.uploadify-queue-item.completed {background-color: #E5E5E5;}
+.uploadify-progress {background-color: #E5E5E5;margin-top: 10px;width: 100%;}
+.uploadify-progress-bar {background-color: #0099FF;height: 3px;width: 1px;}
 
 
 
 
 
-.editor_box {margin:0 auto;width:322px;min-height:478px;overflow:hidden;background-color:#FFF;border:1px solid #C9C9C9;padding:10px 10px;}
+.editor_box {margin:0 auto;width:322px;min-height:478px;overflow:hidden;background-color:#FFF;border:1px solid #C9C9C9;padding:10px 10px;overflow:hidden;}
 .editor_box li.attBox {position:relative;margin-bottom:5px;width:300px;height:auto;overflow:hidden;padding:10px 10px;padding-top:20px;border:1px dotted #C9C9C9;}
 
+.attBox {overflow:hidden;}
 .attBox .title_imageOne {background:url("../_images/txt.png") 0px -1px no-repeat}
 .attBox .title_imageThumb {background:url("../_images/txt.png") 0px -13px no-repeat}
 .attBox .title_imgSlide {background:url("../_images/txt.png") 0px -25px no-repeat}
@@ -119,30 +127,52 @@
 .attBox_function .down {background:url("../_images/detail_btn.png") -18px 0px no-repeat}
 .attBox_function .remove {background:url("../_images/detail_btn.png") -36px 0px no-repeat}
 
-
+/* imageOne */
 .imageOne_img {display:block;margin:0 auto;}
 .imageOne_deleteBtn {display:block;float:right;width:53px; height:22px; background:url("../_images/delete_btn.png") no-repeat;text-indent:-9999px}
+.imageOne_etcBtn {display:block;clear:both;float:left;font-size:11px}
 .imageOne_radioBox {margin:0 auto;width:99%;overflow:hidden;padding:5px 0px;border-top:1px dotted #C9C9C9;border-bottom:1px dotted #C9C9C9;text-align:center;}
 .imageOne_help {font-size:14px;width:14px;height:14px;background:url("../_images/question.png") no-repeat;text-indent:-9999px}
 .imageOne_help:hover {text-decoration:none;}
 .imageOne_linkTxt {line-height:28px;}
 .imageOne_link {width:99%}
-
-.imageThumb_box {list-style: none;clear:both;width:100%;overflow:hidden;}
-.imageThumb_box li {position:relative;float:left;width:100px;height:100px;overflow:hidden;}
-
+/* imageThumb */
+.imageThumb_box {list-style: none;clear:both;margin-top:5px;width:305px;overflow:hidden;}
+.imageThumb_box li {position:relative;float:left;margin-right:5px;margin-bottom:4px;width:54px;height:54px;overflow:hidden;}
+.imageThumb_tip {width:299px;height:22px;margin-top:10px;padding-top:4px;border:1px solid #DFDFDF;background:url("../_images/caution.png") 8px 6px no-repeat; text-align:center;font-size:11px;}
+.imageThumb_tip b{color:#BB1C92;font-weight:normal;font-size:11px;border:none;}
+.imgThumbnail_item {width:100%;height:100%;}
+.imageThumb_btn_wrap {overflow:hidden;margin:0 auto;width:165px;height:22px;}
+.imageThumb_removall {float:right;display:block;width:74px;height:24px;background:url("../_images/total_delete_btn.png") no-repeat;text-indent:-9999px}
+/* imageSlide */
 .imageSlide_box {width:320px;height:320px;}
 .imageSlide_move_box {list-style:none;clear:both;width:100%;overflow:hidden;}
 .imageSlide_move_box li {position:relative;float:left;width:100px;height:100px;overflow:hidden;}
-
-.imageLayout_box {list-style: none;clear:both;width:100%;overflow:hidden;}
-.imageLayout_box li.imageLayout_cell {position:relative;float:left;width:30%;height:100px;overflow:hidden;margin:2px;border:1px solid;}
-.imageLayout_box li .imageLayout_edit {position:absolute;top:0px;left:0px;width:100%;overflow:hidden;text-align:right}
+.imageSlide_tip {width:299px;height:22px;margin-top:10px;padding-top:4px;border:1px solid #DFDFDF;background:url("../_images/caution.png") 8px 6px no-repeat; text-align:center;font-size:11px;}
+.imageSlide_tip b{color:#BB1C92;font-weight:normal;font-size:11px;border:none;}
+.imageSlide_btn_wrap{overflow:hidden;margin:0 auto;width:165px;height:22px;}
+.imageSlide_removall {float:right;display:block;width:74px;height:24px;background:url("../_images/total_delete_btn.png") no-repeat;text-indent:-9999px}
+/* imageLayout */
+.imageLayout_tip {width:299px;height:22px;margin-top:10px;margin-bottom:8px;padding-top:5px;border:1px solid #DFDFDF;background:url("../_images/caution.png") 8px 6px no-repeat; text-align:right;font-size:11px;}
+.imageLayout_tip b{background: url("images/ui-icons_c02669_256x240.png") -68px -228px no-repeat;font-size:11px;border:none;}
+.imageLayout_box {list-style: none;clear:both;width:310px;overflow:hidden;margin-bottom:5px; }
+.imageLayout_box .ui-selected { border:1px solid #F62CA2; }
+.imageLayout_box li.imageLayout_cell {position:relative;float:left;width:95px;height:100px;overflow:hidden;margin-right:7px;margin-bottom:7px;background-color:#F0F0F0}
+.imageLayout_box li .imageLayout_edit {position:absolute;top:0px;left:0px;width:100%;overflow:hidden;text-align:right;}
 .imageLayout_box li .imageLayout_edit img{ cursor:pointer }
-.imageLayout_box li .imageLayout_label {font-size:16px;width:100%;text-align:center;font-weight:bold}
-
+.imageLayout_box li .imageLayout_label {float:left;padding:0px;width:16px;height:16px;font-size:11px;background-color:#999;color:#FFF;text-align:center;}
+.imagLayout_select {display:block;float:left;margin:1px 5px;}
+.imageLayout_add {display:block;float:left;width:20px;height:20px;background:url("../_images/plusminus_btn.png"); text-indent:-9999px;}
+.imageLayout_all_delete {float:right;display:block;width:74px;height:24px;background:url("../_images/total_delete_btn.png") no-repeat;text-indent:-9999px}
+/* movieOne */
+.movieOne_tip {width:271px;height:22px;margin-top:10px;margin-bottom:5px;padding-left:28px;padding-top:5px;border:1px solid #DFDFDF;background:url("../_images/caution.png") 8px 6px no-repeat;font-size:11px;}
+.movieOne_tip b{color:#BB1C92;font-weight:normal;font-size:11px;border:none;}
 .movieOneBox {position:relative;width:100%;overflow:hidden;}
-.movieOneBox .movieOne_play {position:absolute; top:20px; left:100px;}
+.movieOneBox .movieOne_img {display:block;margin:0 auto;}
+.movieOneBox_linkBox{display:none;position:absolute;left:44px;top:50%;overflow:hidden;margin-top:-99px;text-align:center;}
+.movieOneBox .movieOne_play {display:block;margin:0 auto;}
+.movieOneBox .movieOne_link {border:4px solid #F62CA2;padding: 5px 2px;width:180px;}
+.movieOneBox_deleteBtn {display:block;float:right;width:53px; height:22px; background:url("../_images/delete_btn.png") no-repeat;text-indent:-9999px}
 
 .movieSlide_box {width:320px;height:320px;}
 .movieSlide_move_box {list-style:none;clear:both;width:100%;overflow:hidden;}
