@@ -87,13 +87,14 @@ public class LogVO implements Serializable {
 		return timeSend;
 	}
 	public void setTimeSend(String timeSend) {
-		this.timeSend = timeSend;
+		
+		this.timeSend = dtCut(timeSend);
 	}
 	public String getTimeWrite() {
 		return timeWrite;
 	}
 	public void setTimeWrite(String timeWrite) {
-		this.timeWrite = timeWrite;
+		this.timeWrite = dtCut(timeWrite);
 	}
 	public String getYnDel() {
 		return ynDel;
@@ -111,7 +112,7 @@ public class LogVO implements Serializable {
 		return timeDel;
 	}
 	public void setTimeDel(String timeDel) {
-		this.timeDel = timeDel;
+		this.timeDel = dtCut(timeDel);
 	}
 	public String getMode() {
 		return mode;
@@ -132,6 +133,13 @@ public class LogVO implements Serializable {
 
 	public void setSearch(String search) {
 		this.search = search;
+	}
+	
+	private String dtCut(String d) {
+		
+		if (d != null && d.length() > 19)
+			return d.substring(0, 19);
+		else return d;
 	}
 	
 	
