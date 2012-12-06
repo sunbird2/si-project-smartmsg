@@ -38,19 +38,25 @@
 		<s:State name="suc" />
 		<s:State name="fail" />
 	</s:states>
-	<s:Rect left="0" right="0" top="0" bottom="0">
-		<s:fill>
-			<s:SolidColor color.def="#808080" color.sending="#000000" color.suc="#0000FF" color.fail="#FF0000" alpha="0.1" />
-		</s:fill>
-	</s:Rect>
+	
+	<!--<S:RECT LEFT="0" RIGHT="0" TOP="0" BOTTOM="0">
+		<S:FILL>
+			<S:SOLIDCOLOR COLOR.DEF="#808080" COLOR.SENDING="#000000" COLOR.SUC="#0000FF" COLOR.FAIL="#FF0000" ALPHA="0.1" />
+		</S:FILL>
+	</S:RECT>-->
 	<s:HGroup top="5" bottom="5" left="10" right="10" verticalAlign="middle" >
 		<s:RichText id="no" width="50" height="14" />
 		<s:RichText id="phone" width="80" height="14"/>
 		<s:RichText id="names" width="80" height="14"/>
-		<s:RichText id="rslt" width="50" height="14"/>
+		<s:RichText id="rslt" width="50" height="14" color.def="#808080" color.sending="#000000" color.suc="#0000FF" color.fail="#FF0000"/>
 		<s:RichText id="rsltDate" width="90" height="14"/>
 		<s:RichText id="callback" width="80" height="14"/>
 		<s:RichText id="failadd" width="80" height="14"/>
 	</s:HGroup>
+	<s:Rect left="0" right="0" top="0" height="1">
+		<s:fill>
+			<s:SolidColor color="#DDDDDD" />
+		</s:fill>
+	</s:Rect>
 	
 </s:ItemRenderer>

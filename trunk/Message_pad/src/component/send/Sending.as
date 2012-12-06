@@ -270,7 +270,7 @@ package component.send
 			if (cstat == "result")
 				cstat = "result_list";
 			else {
-				PagedFilterSmtInit();
+				getResultList();
 			}
 		}
 

@@ -81,9 +81,9 @@
 						<mx:PieChart id="chart" width="300" height="200" fontFamily="Dotum" ></mx:PieChart>
 					</s:HGroup>
 					<s:List id="detailList"
-							width="100%" height="378"
+							width="90%" height="383"
 							borderVisible="false"
-							borderColor="#DDDDDD"
+							borderColor="#999999"
 							itemRenderer="skin.log.LogDetailItemRenderer"/>
 				</s:VGroup>
 				

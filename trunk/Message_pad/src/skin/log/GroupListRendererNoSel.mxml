@@ -14,9 +14,9 @@
 				// TODO Auto Generated method stub
 				super.data = value;
 				if (super.data != null) {
-
-					main.text = SLibrary.cutByteTo( LogVO(super.data).message.replace(/\n/g,"") , 400 );
-					sub.text = LogVO(super.data).mode + " " + LogVO(super.data).timeSend ;
+					var vo:LogVO = super.data as LogVO;
+					main.text = vo.mode + "   " + vo.cnt + "건   " + vo.timeSend;
+					sub.text = SLibrary.cutByteTo( LogVO(super.data).message.replace(/\n/g,"") , 400 );
 				}
 					
 			}
