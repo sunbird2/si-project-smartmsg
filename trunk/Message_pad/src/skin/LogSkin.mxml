@@ -78,7 +78,7 @@
 				<s:VGroup includeIn="detail" width="100%" horizontalAlign="center" gap="10">
 					<s:HGroup>
 						<s:TextArea id="message" width="225" height="200" styleName="textarea_light" editable="false" />
-						<mx:PieChart id="chart" width="300" height="200" fontFamily="Dotum" ></mx:PieChart>
+						<mx:PieChart id="chart" width="300" height="200" ></mx:PieChart>
 					</s:HGroup>
 					<s:List id="detailList"
 							width="90%" height="383"
