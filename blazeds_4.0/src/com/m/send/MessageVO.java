@@ -32,7 +32,8 @@ public class MessageVO implements Serializable {
 		return sendDate;
 	}
 	public void setSendDate(String sendData) {
-		this.sendDate = sendData;
+		
+		this.sendDate = dtCut(sendData);
 	}
 	public String getUser_id() {
 		return user_id;
@@ -99,15 +100,20 @@ public class MessageVO implements Serializable {
 		return rsltDate;
 	}
 	public void setRsltDate(String rsltDate) {
-		this.rsltDate = rsltDate;
+		this.rsltDate = dtCut(rsltDate);
 	}
 	public String getFailAddDate() {
 		return failAddDate;
 	}
 	public void setFailAddDate(String failAddDate) {
-		this.failAddDate = failAddDate;
+		this.failAddDate = dtCut(failAddDate);
 	}
 	
-	
+	private String dtCut(String d) {
+		
+		if (d != null && d.length() > 19)
+			return d.substring(0, 19);
+		else return d;
+	}
 	
 }

@@ -389,13 +389,13 @@ public class KTSent implements ISentData {
 	}
 	
 	private String getPhone(String str) {
-		String[] arr = str.split("^");
+		String[] arr = str.split("\\^");
 		if (arr != null && arr.length > 1) return arr[1];
 		else return "";
 	}
 	
 	private String getName(String str) {
-		String[] arr = str.split("^");
+		String[] arr = str.split("\\^");
 		if (arr != null && arr.length > 0) return arr[0];
 		else return "";
 	}
