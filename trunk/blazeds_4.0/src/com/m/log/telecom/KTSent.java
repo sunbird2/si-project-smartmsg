@@ -341,10 +341,10 @@ public class KTSent implements ISentData {
 		if (type.equals("1")) where = " d.RESULT='2' "; // 성공
 		else if (type.equals("2")) where = " d.RESULT not in ('0','2') "; // 실패
 		else if (type.equals("3")) where = " d.RESULT in ('0') "; // 전송중
-		else if (type.equals("4")) where = " d.RESULT in ('0') "; // 대기
+		else if (type.equals("4")) where = " d.RESULT is null "; // 대기
 		
 		if ( !SLibrary.isNull(text) ) {
-			where2 = " s.DEST_INFO like '%"+text+"%' )";
+			where2 = " s.DEST_INFO like '%"+text+"%' ";
 		}
 		
 		if (!SLibrary.isNull(where) && !SLibrary.isNull(where2)) rslt = where+" AND "+where2;
@@ -370,10 +370,10 @@ public class KTSent implements ISentData {
 		if (type.equals("1")) where = " d.RESULT='2' "; // 성공
 		else if (type.equals("2")) where = " d.RESULT not in ('0','2') "; // 실패
 		else if (type.equals("3")) where = " d.RESULT in ('0') "; // 전송중
-		else if (type.equals("4")) where = " d.RESULT in ('0') "; // 대기
+		else if (type.equals("4")) where = " d.RESULT is null "; // 대기
 		
 		if ( !SLibrary.isNull(text) ) {
-			where2 = " s.DEST_INFO like '%"+text+"%' )";
+			where2 = " s.DEST_INFO like '%"+text+"%' ";
 		}
 		
 		
