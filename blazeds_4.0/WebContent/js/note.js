@@ -122,7 +122,7 @@
 
 		getUpjong("");
 		
-		$.post("accLog.jsp", { ref: document.referrer, } );
+		$.post("accLog.jsp", { ref: document.referrer } );
 		
 
 /*
