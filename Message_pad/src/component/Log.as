@@ -94,7 +94,7 @@ package component
 		private var acGroup:ArrayCollection = new ArrayCollection();
 		private var acDetail:ArrayCollection = new ArrayCollection();
 		private var acChart:ArrayCollection = new ArrayCollection();
-		private var arrSearch:ArrayCollection = new ArrayCollection([{label:"전체"},{label:"성공"},{label:"실패"},{label:"전송중"}]);
+		private var arrSearch:ArrayCollection = new ArrayCollection([{label:"전체"},{label:"성공"},{label:"실패"},{label:"전송중"},{label:"대기"}]);
 		private var failCount:int = 0; 
 		
 		private var confirmAlert:AlertManager;
@@ -400,6 +400,7 @@ package component
 			if (detailVO) {
 				//groupList.visible = true;
 				PagedFilterSmtInit();
+				callResponder.removeEventListener(ResultEvent.RESULT, callResponder_resultHandler);
 				callResponder.addEventListener(ResultEvent.RESULT, callResponder_resultHandler);
 				callResponder.token = smt.getSentListDetail_pagedFiltered(detailVO );
 			}
@@ -583,7 +584,8 @@ package component
 				
 				detailVO.search = searchType.selectedIndex + "/"+search.text;
 				//groupList.visible = true;
-				callResponder.token = smt.getSentListDetail_pagedFiltered(detailVO);
+				//callResponder.token = smt.getSentListDetail_pagedFiltered(detailVO);
+				getDetailList();
 			} else {
 				SLibrary.alert("그룹내역을 선택 하세요");
 			}
