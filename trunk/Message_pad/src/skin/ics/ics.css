@@ -93,6 +93,7 @@ s|Scroller {
 	focusSkin : ClassReference("skin.ics.TextInputFocus");
 	paddingLeft : 5;
 	paddingBottom : 5;
+	ime-mode:active;
 }
 
 .textinput_light {
@@ -100,6 +101,7 @@ s|Scroller {
 	focusSkin : ClassReference("skin.ics.TextInputFocus");
 	paddingLeft : 5;
 	paddingBottom : 5;
+	ime-mode:active;
 }
 
 /* textarea */
@@ -107,10 +109,12 @@ s|Scroller {
 	contentBackgroundColor : #000000;
 	borderColor : #222222;
 	focusAlpha : 0;
+	ime-mode:active;
 }
 .textarea_light {
 	contentBackgroundColor : #FFFFFF;
 	borderColor : #DDDDDD;
+	ime-mode:active;
 /*	focusAlpha : 0;*/
 }
 /* combobox */

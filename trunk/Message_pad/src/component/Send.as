@@ -85,6 +85,7 @@ package component
 		// message
 		[SkinPart(required="false")]public var message:TextArea;
 		[SkinPart(required="false")]public var byte:SpanElement;
+		[SkinPart(required="false")]public var sMode:SpanElement;
 
 		[SkinPart(required="false")]public var addImage:Image;
 		[SkinPart(required="false")]public var messageSaveBtn:Image;
@@ -178,6 +179,7 @@ package component
 			if (_sendMode != value) {
 				_sendMode = value;
 				confirm_mode.text = sendMode;
+				sMode.text = sendMode;
 				this.dispatchEvent( new Event(Send.CHANGE_MODE));
 			}
 			
