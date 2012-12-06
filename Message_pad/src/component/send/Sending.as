@@ -209,7 +209,8 @@ package component.send
 				
 		}
 		private function getResult():void {
-			rsm.callresponderToken = rsm.service.getSentResultStatus( lvo );
+			if (lvo != null && rsm != null)
+				rsm.callresponderToken = rsm.service.getSentResultStatus( lvo );
 		}
 		private function resultCnt_resultHandler(event:CustomEvent):void {
 			
