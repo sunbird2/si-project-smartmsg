@@ -48,12 +48,12 @@
 		<s:RichText id="no" width="50" height="14" />
 		<s:RichText id="phone" width="80" height="14"/>
 		<s:RichText id="names" width="80" height="14"/>
-		<s:RichText id="rslt" width="50" height="14" color.def="#808080" color.sending="#000000" color.suc="#0000FF" color.fail="#FF0000"/>
+		<s:RichText id="rslt" width="50" height="14" color.def="#000000" color.sending="#808080" color.suc="#99CC00" color.fail="#FF4444"/>
 		<s:RichText id="rsltDate" width="90" height="14"/>
 		<s:RichText id="callback" width="80" height="14"/>
 		<s:RichText id="failadd" width="80" height="14"/>
 	</s:HGroup>
-	<s:Rect left="0" right="0" top="0" height="1">
+	<s:Rect left="0" right="0" bottom="0" height="1">
 		<s:fill>
 			<s:SolidColor color="#DDDDDD" />
 		</s:fill>

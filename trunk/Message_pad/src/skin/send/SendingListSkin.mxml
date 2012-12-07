@@ -18,9 +18,9 @@
 					nameText.text = mvo.name;
 					result.text = mvo.rslt;
 					
-					if (mvo.rslt == "성공") result.setStyle("color",0x079DD0);
-					else if (mvo.rslt == "대기" || mvo.rslt == "전송중") result.setStyle("color",0xD6D6D6);
-					else result.setStyle("color",0xD30A0A);
+					if (mvo.rslt == "성공") result.setStyle("color",0x99CC00);
+					else if (mvo.rslt == "대기" || mvo.rslt == "전송중") result.setStyle("color",0x808080);
+					else result.setStyle("color",0xFF4444);
 				}
 					
 			}
