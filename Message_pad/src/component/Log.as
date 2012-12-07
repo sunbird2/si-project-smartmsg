@@ -281,14 +281,14 @@ package component
 			seri.setStyle("labelPosition","callout");
 			
 			seri.setStyle("fills",[
-				new SolidColor(0x808080, .6),
-				new SolidColor(0x000000, .6),
-				new SolidColor(0x0000FF, .6),
-				new SolidColor(0xFF0000, .6),
-				new SolidColor(0xFFFF00, .6)
+				new SolidColor(0x000000, .9),
+				new SolidColor(0x808080, .9),
+				new SolidColor(0x99CC00, .9),
+				new SolidColor(0xFF4444, .9),
+				new SolidColor(0xFFBB33, .9)
 			]);
 			
-			seri.setStyle("stroke", new SolidColorStroke(0x000000, 2, .5) );
+			seri.setStyle("stroke", new SolidColorStroke(0x000000, 1, .5) );
 			seri.setStyle("radialStroke", new SolidColorStroke(0xFFFFCC, 1, .3) );
 			
 			
@@ -360,10 +360,16 @@ package component
 			if (ssvo) {
 				
 				acChart.removeAll();
+				/*
 				acChart.addItem({result:"대기중",cnt:ssvo.local});
 				acChart.addItem({result:"전송중",cnt:ssvo.telecom});
 				acChart.addItem({result:"성공",cnt:ssvo.success});
 				acChart.addItem({result:"실패",cnt:ssvo.fail});
+				*/
+				acChart.addItem({result:"대기중",cnt:1});
+				acChart.addItem({result:"전송중",cnt:1});
+				acChart.addItem({result:"성공",cnt:1});
+				acChart.addItem({result:"실패",cnt:1});
 				
 				failCount = ssvo.fail;
 				failAdd.enabled = failCount > 0 ? true : false;
