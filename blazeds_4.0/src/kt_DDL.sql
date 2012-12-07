@@ -104,28 +104,6 @@ CREATE TABLE `SDK_SMS_REPORT_DETAIL` (
 ) DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `SDK_SMS_RECEIVE` (
-  `JOB_ID` int(11) NOT NULL default '0',
-  `MSG_ID` int(11) NOT NULL default '0',
-  `CALLBACK` varchar(20) NOT NULL,
-  `ANI_NUMBER` varchar(20) NOT NULL,
-  `DEST_NUMBER` varchar(20) NOT NULL,
-  `SMS_MSG` varchar(200) NOT NULL,
-  `RECV_DATE` varchar(20) NOT NULL,
-  `REPORT_STATUS` int(11) NOT NULL default '0',
-  `REPORT_COUNT` int(11) NOT NULL default '0',
-  `REPORT_PROC_TIME` varchar(20) default NULL,
-  `REPORT_RESULT` int(11) NOT NULL default '0',
-  `STAT_STATUS` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`JOB_ID`),
-  KEY `IDX_SDK_S_RC_1` (`MSG_ID`),
-  KEY `IDX_SDK_S_RC_2` (`CALLBACK`),
-  KEY `IDX_SDK_S_RC_3` (`ANI_NUMBER`),
-  KEY `IDX_SDK_S_RC_4` (`RECV_DATE`),
-  KEY `IDX_SDK_S_RC_5` (`REPORT_STATUS`),
-  KEY `IDX_SDK_S_RC_6` (`STAT_STATUS`)
-) DEFAULT CHARSET=utf8;
-
 
 CREATE TABLE `SDK_MMS_SEND` (
   `MSG_ID` int(11) NOT NULL auto_increment,
