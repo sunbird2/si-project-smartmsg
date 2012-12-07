@@ -128,5 +128,14 @@ public class PP implements ILineSet {
 	private String getSubject(String msg) {
 		return SLibrary.cutBytes(msg, 40, false, "");
 	}
+	@Override
+	public String parseMMSPath(String imgPath) {
+		return ( !SLibrary.isNull(imgPath) ) ? SLibrary.replaceAll(imgPath, "mmsImage/", "") : "";
+	}
+	@Override
+	public String parseDate(String dttm) {
+		// TODO Auto-generated method stub
+		return dttm;
+	}
 
 }

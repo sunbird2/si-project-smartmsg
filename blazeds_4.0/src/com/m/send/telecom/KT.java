@@ -127,6 +127,27 @@ public class KT implements ILineSet {
 		return SLibrary.cutBytes(msg, 40, false, "");
 	}
 	
+	@Override
+	public String parseMMSPath(String imgPath) {
+		String temp = ( !SLibrary.isNull(imgPath) ) ? SLibrary.replaceAll(imgPath, "mmsImage/", "") : "";
+		String[] arr = temp.split(";");
+		StringBuffer buf = new StringBuffer();
+		if (arr != null) {
+			int cnt = arr.length;
+			for (int i = 0; i < cnt; i++) {
+				buf.append(arr[i]+"^1^"+ Integer.toString(i));
+				if (i < cnt-1) buf.append("|");
+			}
+		}
+		return buf.toString();
+	}
+	@Override
+	public String parseDate(String dttm) {
+		
+		String dFormat = "yyyyMMddHHmmss";
+		return  SLibrary.getDateTimeString(dttm, dFormat, "yyyy-MM-dd HH:mm:ss");
+	}
+	
 	
 
 }
