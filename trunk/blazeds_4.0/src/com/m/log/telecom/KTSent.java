@@ -255,9 +255,8 @@ public class KTSent implements ISentData {
 			
 			
 			String r = "대기";
-			if (s.equals("0")) r = "대기";
-			else if (s.equals("1")) r = "전송중";
-			else r = VbyP.getValue( "kt_"+SLibrary.IfNull(hm, "RESULT") );
+			
+			r = VbyP.getValue( "kt_"+SLibrary.IfNull(hm, "RESULT") );
 			
 			if (SLibrary.isNull(r)) r = "실패";
 			mvo.setRslt( r );
@@ -294,9 +293,7 @@ public class KTSent implements ISentData {
 			mvo.setStat(s);
 			
 			String r = "대기";
-			if (s.equals("0")) r = "대기";
-			else if (s.equals("1")) r = "전송중";
-			else r = VbyP.getValue( "kt_mms_"+SLibrary.IfNull(hm, "RESULT") );
+			r = VbyP.getValue( "kt_mms_"+SLibrary.IfNull(hm, "RESULT") );
 			
 			if (SLibrary.isNull(r)) r = "실패";
 			mvo.setRslt( r );
@@ -338,9 +335,9 @@ public class KTSent implements ISentData {
 		String rslt = "";
 		String where = "";
 		String where2 = "";
-		if (type.equals("1")) where = " d.RESULT='2' "; // 성공
-		else if (type.equals("2")) where = " d.RESULT not in ('0','2') "; // 실패
-		else if (type.equals("3")) where = " d.RESULT in ('0') "; // 전송중
+		if (type.equals("1")) where = " d.RESULT=2 "; // 성공
+		else if (type.equals("2")) where = " d.RESULT not in (0,2) "; // 실패
+		else if (type.equals("3")) where = " d.RESULT in (0) "; // 전송중
 		else if (type.equals("4")) where = " d.RESULT is null "; // 대기
 		
 		if ( !SLibrary.isNull(text) ) {
@@ -367,9 +364,9 @@ public class KTSent implements ISentData {
 		String rslt = "";
 		String where = "";
 		String where2 = "";
-		if (type.equals("1")) where = " d.RESULT='2' "; // 성공
-		else if (type.equals("2")) where = " d.RESULT not in ('0','2') "; // 실패
-		else if (type.equals("3")) where = " d.RESULT in ('0') "; // 전송중
+		if (type.equals("1")) where = " d.RESULT=2 "; // 성공
+		else if (type.equals("2")) where = " d.RESULT not in (0,2) "; // 실패
+		else if (type.equals("3")) where = " d.RESULT in (0) "; // 전송중
 		else if (type.equals("4")) where = " d.RESULT is null "; // 대기
 		
 		if ( !SLibrary.isNull(text) ) {

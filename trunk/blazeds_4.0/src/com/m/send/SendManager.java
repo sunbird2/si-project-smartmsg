@@ -16,6 +16,7 @@ import com.m.send.telecom.KT;
 import com.m.send.telecom.LG;
 import com.m.send.telecom.PP;
 
+
 public class SendManager implements ISend {
 
 	public static final int SMS_BYTE = 90;
@@ -60,6 +61,13 @@ public class SendManager implements ISend {
 			Gv.setStatus(uvo.getUser_id(), "list make");
 			rslt = insertData(conn, lvo.getMode(), uvo, al, uvo.getLine());
 			if ( rslt <= 0 ) throw new Exception("전송데이터가 등록되지 않았습니다.");
+			
+			if (rslt < point) {
+				VbyP.accessLog(uvo.getUser_id()+" >> fail add : "+ (point - rslt));
+				rslt = updateFailPoint(conn, uvo, lvo.getMode(), point - rslt);
+				if ( rslt <= 0 ) VbyP.errorLog(uvo.getUser_id()+" >> fail add : "+ (point - rslt)+" "+lvo.getMode()+" Fail!!!!!");
+			}
+			
 			Gv.setStatus(uvo.getUser_id(), "Success!!");
 		}
 		else throw new Exception("insertData Error!!");
@@ -160,7 +168,7 @@ public class SendManager implements ISend {
 				for (int i = 0; i < count; i++) {
 					
 					vo = al.get(i);
-	
+					/*
 					if (Refuse.isRefuse(hashTable_refuse, vo.getPhone())) // refuse
 						ls.insertClientPqSetter_fail(mode, pq, vo, VbyP.getValue("refuse_code"));
 					else if (hashTable_duple.containsKey(vo.getPhone())) // duple
@@ -169,23 +177,24 @@ public class SendManager implements ISend {
 						hashTable_duple.put(vo.getPhone(), "");
 						ls.insertClientPqSetter(mode, pq, vo);
 					}
+					*/
+					if (!Refuse.isRefuse(hashTable_refuse, vo.getPhone()) && !hashTable_duple.containsKey(vo.getPhone())) {
+						hashTable_duple.put(vo.getPhone(), "");
+						ls.insertClientPqSetter(mode, pq, vo);
+						pq.addBatch();
+						
+						if (i >= maxBatch && (i%maxBatch) == 0 ) {
+							
+							resultCount += pq.executeBatchNoClose();
+							VbyP.accessLog(" - complete : "+resultCount);
+						}
+					}
 					
-					pq.addBatch();							
+												
 	
 					Gv.setStatus(uvo.getUser_id(), Integer.toString(i+1));
 					
-					if (i >= maxBatch && (i%maxBatch) == 0 ) {
-						
-						resultCount += pq.executeBatchNoClose();
-						VbyP.accessLog(" - complete : "+resultCount);
-						
-	//					try { if ( conn != null ) conn.close(); } catch(Exception e) {System.out.println( "reconn close Error!!!!" + e.toString());}
-	//					
-	//					conn = VbyP.getDB();					
-	//					if (conn == null) System.out.println("reconn connection is NULL Error!!!!");
-	//					
-	//					pq.setPrepared( conn, ls.getInsertQuery(mode) );
-					}
+					
 					
 				}
 				resultCount += pq.executeBatch();
@@ -201,7 +210,18 @@ public class SendManager implements ISend {
 		
 		return resultCount;
 	}
-
+	
+	private int updateFailPoint(Connection conn, UserInformationVO uvo, String type, int count) throws Exception {
+		
+		int code = 0;
+		int typeCnt = 0;
+		if (type.equals("LMS")) { code = 47; typeCnt = SLibrary.intValue(VbyP.getValue("LMS_COUNT")); }
+		else if (type.equals("MMS")) { code = 27; typeCnt = SLibrary.intValue(VbyP.getValue("MMS_COUNT")); }
+		else { code = 17; typeCnt = SLibrary.intValue(VbyP.getValue("SMS_COUNT")); }
+		
+		PointManager pm = PointManager.getInstance();		
+		return pm.insertUserPoint(conn, uvo, code, count * typeCnt);
+	}
 	
 	
 	private ILineSet getLineInstance(String line) throws Exception {
