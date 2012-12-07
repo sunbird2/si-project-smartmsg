@@ -130,6 +130,14 @@ public class LG implements ILineSet {
 	private String getSubject(String msg) {
 		return SLibrary.cutBytes(msg, 40, false, "");
 	}
+	@Override
+	public String parseMMSPath(String imgPath) {
+		return SLibrary.IfNull(imgPath);
+	}
+	@Override
+	public String parseDate(String dttm) {
+		return dttm;
+	}
 	
 	
 
