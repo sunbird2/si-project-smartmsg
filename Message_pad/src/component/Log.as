@@ -360,17 +360,18 @@ package component
 			if (ssvo) {
 				
 				acChart.removeAll();
-				/*
+				
 				acChart.addItem({result:"대기중",cnt:ssvo.local});
 				acChart.addItem({result:"전송중",cnt:ssvo.telecom});
 				acChart.addItem({result:"성공",cnt:ssvo.success});
 				acChart.addItem({result:"실패",cnt:ssvo.fail});
-				*/
+				
+				/*
 				acChart.addItem({result:"대기중",cnt:1});
 				acChart.addItem({result:"전송중",cnt:1});
 				acChart.addItem({result:"성공",cnt:1});
 				acChart.addItem({result:"실패",cnt:1});
-				
+				*/
 				failCount = ssvo.fail;
 				failAdd.enabled = failCount > 0 ? true : false;
 				
