@@ -1,3 +1,4 @@
+<%@page import="com.common.util.SendMail"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.m.member.UserSession"%>
 <%@page import="com.common.util.SLibrary"%>
@@ -56,6 +57,8 @@
 
     String LGD_HASHDATA = strBuf.toString();
     String LGD_CUSTOM_PROCESSTYPE = "TWOTR";
+    
+    SendMail.send("[bill] "+user_id + " " +LGD_AMOUNT+"원", "");
 
 %>
 
