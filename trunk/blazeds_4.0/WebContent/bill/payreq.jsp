@@ -58,7 +58,7 @@
     String LGD_HASHDATA = strBuf.toString();
     String LGD_CUSTOM_PROCESSTYPE = "TWOTR";
     
-    SendMail.send("[bill] "+user_id + " " +LGD_AMOUNT+"원", "");
+    SendMail.send("[bill] "+user_id + " " +LGD_AMOUNT+"원 요청", "");
 
 %>
 
