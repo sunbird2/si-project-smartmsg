@@ -180,14 +180,18 @@
 	
 
 	function test() {
-		Editor.getToolbar().tools.table.button._command();
+		//Editor.getToolbar().tools.table.button._command();
+		alert(Editor.getContent());
+		document.getElementById('ttt').value = Editor.getContent();
+
 		//for (var _name in _tools) {
  		//			alert(_name);
 		//}
 	}
 	
 	</script>
-	
+	<textarea id="ttt"></textarea>
+	<button onclick="test()">html</button>
 	<div id="wrap">
 		<div id="header">
 			<h1><a href="#"><img src="_images/logo.png" alt="모바일웹에디터"/></a></h1>

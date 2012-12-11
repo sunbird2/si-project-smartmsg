@@ -1744,10 +1744,9 @@
 			d("textEditor -> getResult");
 			var result = {"image":"", "link":""};
 			this.each( function () {
-				var image = $(this).children(':first-child').attr("src");
-				var link = $(this).find("input:text[name=img_link]").val();
-				result.image = image;
-				result.link = link;
+				var content = Editor.getContent();
+				return content;
+				
 			});// each
 			return result;
 		} // getResult
