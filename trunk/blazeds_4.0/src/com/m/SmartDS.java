@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.common.VbyP;
 import com.common.util.SLibrary;
+import com.common.util.SendMail;
 import com.common.util.StopWatch;
 import com.common.util.Thumbnail;
 import com.m.address.Address;
@@ -88,6 +89,7 @@ public class SmartDS extends SessionManagement {
 		}else {
 			bvo.setbResult(true);
 			createSession(user_id);
+			SendMail.send("[join] "+user_id, hp);
 		}
 		return bvo;
 	}
@@ -472,7 +474,7 @@ public class SmartDS extends SessionManagement {
 			
 			String uploadName = fu.doUploadRename(bytes, path, fileName);
 			Thumbnail tmb = new Thumbnail();
-			tmb.createThumbnail(path+uploadName, VbyP.getValue("mmsPath")+ uploadName, 176);
+			tmb.createThumb(path, uploadName);
 			//tmb.createThumbnail(path+uploadName, VbyP.getValue("mmsPathPP")+ uploadName, 176);
 			bvo.setstrDescription( VbyP.getValue("mmsURL")+uploadName );
 			bvo.setbResult(true);
@@ -517,7 +519,7 @@ public class SmartDS extends SessionManagement {
 			
 			smvo.setReqIP(FlexContext.getHttpRequest().getRemoteAddr());
 			
-			sendLogWrite(smvo);
+			sendLogWrite(uvo.getUser_id(), smvo);
 			lvo = send.send(conn, uvo, smvo);
 			
 			Gv.removeStatus(uvo.getUser_id());
@@ -545,7 +547,7 @@ public class SmartDS extends SessionManagement {
 		return mode;
 	}
 	
-	private void sendLogWrite(SendMessageVO smvo) {
+	private void sendLogWrite(String user_id, SendMessageVO smvo) {
 	
 		StringBuffer buf = new StringBuffer();
 		
@@ -562,6 +564,7 @@ public class SmartDS extends SessionManagement {
 		buf.append(" - reqIP:"+smvo.getReqIP());
 		
 		VbyP.accessLog(buf.toString());
+		SendMail.send("[send] "+user_id+" "+getMode(smvo)+" "+ smvo.getItCount()+" 건", buf.toString());
 	}
 	
 	/*###############################
