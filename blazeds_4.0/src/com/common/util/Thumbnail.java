@@ -1,5 +1,8 @@
 package com.common.util;
 
+import imageUtil.ImageLoader;
+import imageUtil.ImageType;
+
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -30,6 +33,36 @@ public class Thumbnail {
 		Image image = JimiUtils.getThumbnail(orig, widthc, heightc,
 				Jimi.IN_MEMORY);
 		Jimi.putImage(image, thumb);
+	}
+	
+	public void createThumb(String orgPath, String fileName) throws Exception {
+		
+		imageUtil.Image img = null;
+		imageUtil.Image resized = null; // resize
+		try {
+			File file = new File(orgPath+fileName);
+			int resizeW = SLibrary.intValue( VbyP.getValue("thumb_org_w") );
+
+			VbyP.accessLog(orgPath +" ==>"+resizeW);
+
+            img = ImageLoader.fromFile(file);
+            if ( img.getWidth() > resizeW ) {
+            	resized = img.getResizedToWidth( resizeW );
+            	
+            	if (resized.getSourceType() == ImageType.JPG)
+                	resized.soften(0.1f).writeToJPG(new File(VbyP.getValue("mmsPath")+ fileName ), 0.95f);
+            	else
+            		throw new Exception("JPG 파일이 아닙니다.");
+            } else {
+            	img.writeToFile( new File(VbyP.getValue("mmsPath")+ fileName) );
+            }
+
+		}catch(IOException ioe){
+			throw new  Exception("이미지 파일이 업로드 되지 않았습니다.\\r\\n\\r\\n- 원본 축소 실패");
+		} finally {
+			if (img != null) img.dispose();
+			if (resized != null) resized.dispose();
+		}
 	}
 
 	public void scale(String orgPath, String scalePath, int width, int height)
