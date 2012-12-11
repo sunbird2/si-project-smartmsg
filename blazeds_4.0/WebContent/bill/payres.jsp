@@ -1,3 +1,4 @@
+<%@page import="com.common.util.SendMail"%>
 <%@page import="com.m.member.UserSession"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="java.sql.SQLException"%>
@@ -109,14 +110,14 @@
 				return;
 			}
 			String session_id = us.getUser_id();
-
+			int amount = 0;
          	if (!SLibrary.isNull(session_id)) {
          		VbyP.accessLog(session_id+" : bill process start..");
              	Connection conn = null;
              	SessionManagement sm = null;
              	String pay_code = "";
              	String pay_name = "";
-             	int amount = SLibrary.intValue(xpay.Response("LGD_AMOUNT",0));
+             	amount = SLibrary.intValue(xpay.Response("LGD_AMOUNT",0));
              	BooleanAndDescriptionVO badvo = null;
              	
              	try {
@@ -169,6 +170,7 @@
 			
 			if (isDBOK) {
 				out.println(SLibrary.alertScript("결제가 완료 되었습니다.","parent.window.location.reload();"));
+				SendMail.send("[bill] "+session_id + " " +amount+"원 완료!!", "");
 			}else {
 				out.println(SLibrary.alertScript("결제가 실패 하였습니다. 카드한도등을 확인 후 다시 시도 하세요.","parent.window.location.reload();"));
 				
