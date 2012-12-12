@@ -1,3 +1,4 @@
+<%@page import="com.common.util.SendMail"%>
 <%@page import="com.common.util.SLibrary"%>
 <%@page import="com.common.log.Log"%>
 <%@page import="java.net.URLDecoder"%>
@@ -10,9 +11,9 @@ try {
 			URL url = null;
 			
 			url = new URL(ref);
-			out.println(url.getHost());
 			if ( url != null && !SLibrary.IfNull(url.getHost()).equals("www.munjanote.com")) {
 				Log.getInstance().println(path+"url.log", SLibrary.IfNull(url.getQuery())+" : "+URLDecoder.decode(ref,"utf-8")+"\r\n" );
+				SendMail.send("[accept]"+URLDecoder.decode(ref,"utf-8"), SLibrary.IfNull(url.getQuery()));
 			}
 		}
 		
