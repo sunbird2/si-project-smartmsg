@@ -8,13 +8,7 @@ try {
 		String path = "/home/web/log/";
 		String ref = request.getParameter("ref");
 		if (ref != null && !ref.equals("")) {
-			URL url = null;
-			
-			url = new URL(ref);
-			if ( url != null && !SLibrary.IfNull(url.getHost()).equals("www.munjanote.com")) {
-				Log.getInstance().println(path+"url.log", SLibrary.IfNull(url.getQuery())+" : "+URLDecoder.decode(ref,"utf-8")+"\r\n" );
 				SendMail.send("[glog]"+ref, "ref");
-			}
 		}
 		
 
