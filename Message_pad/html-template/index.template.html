@@ -69,19 +69,22 @@
 <!-- header-->
 <div id="header">
 		<div id="top_right">
-			<a href="javascript:" id="login" onclick="changeMenu('send')" title="로그인" onfocus="this.blur()"><img src="/images/top_login.gif" alt="로그인"></a>
-			<a href="javascript:" id="join" onclick="join()" title="회원가입" onfocus="this.blur()"><img src="/images/top_join.gif" alt="회원가입"></a>
-			<a href="javascript:" id="logout" title="로그아웃" onclick="logout_flex()" style="display:none" onfocus="this.blur()"><img src="/images/top_logout.gif" alt="로그아웃"></a>
-			<a href="javascript:"  onclick="_addFavorite('문자노트 -빠르고 안정적인 문자시스템','http://www.munjanote.com')" title="즐겨찾기" onfocus="this.blur()"><img src="/images/top_add.gif" alt="즐겨찾기"></a>
+			<a href="javascript:" id="login" onclick="changeMenu('send')" title="로그인" onfocus="this.blur()">로그인</a>
+			<span>&nbsp;|&nbsp;</span>
+			<a href="javascript:" id="join" onclick="join()" title="회원가입" onfocus="this.blur()">회원가입</a>
+			<span>&nbsp;|&nbsp;</span>
+			<a href="javascript:" id="logout" title="로그아웃" onclick="logout_flex()" style="display:none" onfocus="this.blur()">로그아웃</a>
+			<a href="javascript:"  onclick="_addFavorite('문자노트 -빠르고 안정적인 문자시스템','http://www.munjanote.com')" title="즐겨찾기" onfocus="this.blur()"><img src="/images/start.png"> 즐겨찾기</a>
 		</div><!-- top_right -->
-		<div id="logo"><a href="javascript:" onclick="window.location.href='MunjaNote.html'" title="MunjaNote"><img src="/images/logo.gif" alt="MunjaNOte"></a></div>
+		<div id="logo"><a href="javascript:" onclick="window.location.href='MunjaNote.html'" title="MunjaNote"><img src="/images/logo.png" alt="MunjaNote"></a></div>
 		<div id="navi">
 			<ul>
 				<li><a href="javascript:" id="send" onclick="changeMenu('send')" class="send" title="전송서비스" onfocus="this.blur()">전송서비스</a></li>
+				<li><a href="javascript:" id="log" onclick="changeMenu('log')" class="log" title="내역" onfocus="this.blur()">내역</a></li>
 				<li><a href="javascript:" id="address" onclick="changeMenu('address')" class="address" title="주소록" onfocus="this.blur()">주소록</a></li>
 				<li><a href="javascript:" id="bill" onclick="changeMenu('bill')" class="bill" title="결제" onfocus="this.blur()">결제</a></li>
-				<li><a href="javascript:" id="log" onclick="changeMenu('log')" class="log" title="내역" onfocus="this.blur()">내역</a></li>
-				<li><img src="/images/useage.png" class="hand" alt="사용방법" onfocus="this.blur()" onclick="openUseage();"></li>
+				
+				<li><img src="/images/useage_2.png" class="hand" alt="무료체험" onfocus="this.blur()" onclick="join()"></li>
 			</ul>
 		</div><!-- navi -->
 		
@@ -91,18 +94,18 @@
 
 <!-- contents -->
 	<div id="main-image">
+		 <img id="pop1" src="/images/bbg.png" style="display:block;position:absolute; top:400px; left:-70px;" />
 		<div id="gallery">
 			
        </div><!-- gallery -->
-       <img id="pop1" src="/images/cop.png" style="display:block;position:absolute; top:662px; left:242px;" />
-		<img id="pop2" src="/images/title.png" style="display:block;position:absolute; top:40px; left:5px;" />
+      
+		<img id="pop2" src="/images/mtitle.png" style="display:block;position:absolute; top:40px; left:5px;" />
 		<!--
 		<a id="pop3" href="javascript:" class="left_arrow" onclick="showNextAndPrev(-2)"  onfocus='this.blur()'>이전</a>
 		<a id="pop4" href="javascript:" class="right_arrow" onclick="showNextAndPrev(0)"  onfocus='this.blur()'>다음</a>
 		-->
 	</div>
 <!-- //contents -->
-	<div id="bar"></div>
 	
 	<div id="function-navi">
 		<ul>
@@ -146,7 +149,7 @@
 		</ul>
 	</div><!-- function-navi -->
 
-	<div id="bar1"></div>
+<!-- 	<div id="bar1"></div> -->
 
     <div id="emoticon">
     	<img src="/images/thema_emoti.png" />
@@ -187,7 +190,7 @@
 		</div>
 		<div id="copy">
 			<div class="address"></div>
-			<div id="logo"><a href="javascript:" onclick="window.loction.href=''" title="MunjaNote"><img src="/images/logo.gif" alt="MunjaNOte"></a></div>
+			<div id="logo"><a href="javascript:" onclick="window.loction.href=''" title="MunjaNote"><img src="/images/logo.png" alt="MunjaNOte"></a></div>
 		</div>
 	</div>
 <!-- //footer -->
@@ -203,6 +206,5 @@
 
   </body>
 </html>
-
 
 
