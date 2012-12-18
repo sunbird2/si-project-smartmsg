@@ -1785,19 +1785,31 @@
 			d("textInput -> init");
 			var defaults = {
 				'textData' : {textInputType: "", keywordText: "", nextPage: 0, keywordCheck: "", startDate: "", endDate: ""},
+				'bInput' : true,
 				'bEdit' : true
 			};
+			var opt = $.extend(defaults, options);
 			
-			var ele = ['<div class="textInput">',
-							'<input type="radio" name="textInputType" value="keyword"/><label>문제 맞추기</label>',
-							'<input type="radio" name="textInputType" value="comment"/><label>의견쓰기</label>',
-							'<input type="text" name="keywordText" value="정답를 입력해 주세요.( 여러정답 ex. 정답1,정답2)" />',
-							'<span >정답 일치시 <select name="nextPage"><option value="1">1</option></select> 번 페이지로 이동합니다.</span>',
-							'<span><input type="radio" name="keywordCheck" value="all"/><label>모든 응모자</label><input type="radio" name="keywordCheck" value="all"/><label>선착순</label><input type="text" name="keywordCheckCnt" />명 <input type="radio" name="keywordCheck" value="all"/><label>임의</label><input type="text" name="keywordCheckRandomCnt" />명</span>',
-							'<span>이벤트기간 <input type="text" name="startDate"/> ~ <input type="text" name="endDate"/></span>',
+			var inputEle = '<input type="text" class="inputText textInput_tip_input" />&nbsp;<button class="css3button textInput_tip_btn">응모하기</button>';
+			var btnEle = '<button class="css3button textInput_tip_btn_only">응모하기</button>';
+			var tipEle = "";
+			
+			if (opt.bInput == true) tipEle = inputEle;
+			else tipEle = btnEle;
+			
+			var ele = ['<div class="textInput_wrap">',
+			           		'<p class="textInput_tip">'+tipEle+'</p>',
+			           		'<div class="textInput_next_wrap">',
+							'<input type="radio" name="textInputType" value="keyword" checked="checked"/><label> 키워드 맞추기</label>&nbsp;&nbsp;',
+							'<input type="radio" name="textInputType" value="comment"/><label> 의견쓰기</label>',
+							'<input type="text" name="keywordText" value="키워드를 입력해 주세요.( 여러키워드 ex. 키워드1,키워드2)" class="textInput_keywordText" />',
+							'<p class="textInput_next_type_wrap"><span>키워드 일치시</span> <select name="nextPage"><option value="1">1</option></select> 번 페이지로 이동합니다.</p>',
+							'<span><input type="radio" name="keywordCheck" value="all" class="textInput_radio" checked="checked"/><label> 모든 응모자</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="all" class="textInput_radio"/><label> 선착순</label><input type="text" name="keywordCheckCnt" class="textInput_keyword_input" /><label>명</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="all" class="textInput_radio"/><label> 임의</label><input type="text" name="keywordCheckRandomCnt" class="textInput_keyword_input" /><label>명</label></span>',
+							'</div>',
+							'<label>이벤트기간</label> <input type="text" name="startDate" class="textInput_date" value="시작일"/> ~ <input type="text" name="endDate" class="textInput_date" value="종료일"/>',
 							'</div>'];
 
-			var opt = $.extend(defaults, options);
+			
 
 			return this.each( function () {
 					
@@ -1806,15 +1818,43 @@
 
 					var target = $(this);
 					// create UI
-					target.append(ele.join(""));
+					if (opt.bInput == true)
+						target.append(ele.join(""));
+					else {
+						var arr = [];
+						arr.push(ele[0],ele[1],ele[2],ele[6],ele[7],ele[8],ele[9],ele[10]);
+						target.append(arr.join(""));
+					}
 					
-					// get movieSlide_box & set id
+					// set id
 					var div = target.children(':first-child');
 					div.attr("id", "textInput"+instanceCnt);
 					tid = div.attr("id");
 					
+					// link type change
+					var textInputTypeName = "textInputType"+instanceCnt;
+					div.find('.textInput_next_wrap > :input[name=textInputType]').attr("name", textInputTypeName);
+					$('input[name='+textInputTypeName+']').change(function(){
+						 if (this.value == 'keyword') {
+							div.find('.textInput_next_wrap > .textInput_keywordText').show();
+						 	div.find('.textInput_next_wrap > .textInput_next_type_wrap > span').text("키워드 일치시");
+						 }
+						 else {
+							 div.find('.textInput_next_wrap > .textInput_keywordText').hide();
+							 div.find('.textInput_next_wrap > .textInput_next_type_wrap > span').text("의견입력 후 응모시");
+						 }
+					 });
+					var keywordCheckeName = "keywordCheck"+instanceCnt;
+					div.find(':input[name=keywordCheck]').attr("name", keywordCheckeName);
+					
+					
 					// init textInputData
 					textInputData[tid] = opt.textData;
+					
+					div.children(':input[name=startDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date()  });
+					div.children(':input[name=startDate]').datepicker('setDate', new Date());
+					div.children(':input[name=endDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date() });
+					div.children(':input[name=endDate]').datepicker('setDate', new Date());
 					
 					instanceCnt++;
 					d("textInput -> init");
@@ -1868,15 +1908,18 @@
 				'bEdit' : true
 			};
 			
+			var tipBtn = '<button class="css3button linkInput_tip_button">바로가기</button>';
+			var tipText = '<a href="#" class="linkInput_tip_text" style="color:#fc4ab5;text-decoration: underline;">바로가기</a>';
 			var ele = ['<div class="linkInput">',
-							'<input type="radio" name="linkInputType" value="button"/><label>버튼형</label>',
-							'<input type="radio" name="linkInputType" value="text"/><label>텍스트형</label>',
-							'<input type="text" name="linkInputName" value="링크이름" />',
-							'<span><select name="nextPage"><option value="url">직접입력</option><option value="1">1 페이지</option></select> <input type="text" name="linkInputURL" value="링크이름" /></span>',
-							'<a href="#" onclick="return false;" class="linkAddBtn">추가</a>',
+			           		'<p class="linkInput_tip">'+tipBtn+'</p>',
+							'<input type="radio" name="linkInputType" value="button" checked="checked"/><label> 버튼형 </label>&nbsp;&nbsp;',
+							'<input type="radio" name="linkInputType" value="text"/><label> 텍스트형 </label><br/>',
+							'<input type="text" name="linkInputName" value="표시이름" class="linkName" />&nbsp;',
+							'<select name="nextPage" class="linkType"><option value="url">URL</option><option value="1">페이지</option></select>',
+							'<input type="text" name="linkInputURL" value="http://"  class="linkPath"/>',
 							'<a href="#" onclick="return false;" class="linkDelBtn">삭제</a>',
+							'<a href="#" onclick="return false;" class="linkAddBtn">추가</a>',
 							'</div>'];
-
 			var opt = $.extend(defaults, options);
 
 			return this.each( function () {
@@ -1890,7 +1933,7 @@
 						target.append(ele.join(""));
 					} else {
 						var arr = [];
-						arr.push(ele[0],ele[1],ele[2],ele[3],ele[5],ele[6],ele[7]);
+						arr.push(ele[0],ele[1],ele[2],ele[3],ele[4],ele[6],ele[7],ele[8]);
 						target.append(arr.join(""));
 					}
 					
@@ -1900,20 +1943,38 @@
 					div.attr("id", "linkInput"+instanceCnt);
 					tid = div.attr("id");
 					
+					if (opt.bPhone == true){
+						div.children(':input[name=linkInputURL]').val("전화번호");
+					}
+					
+					// link type change
+					var linkTypeName = "linkInputType"+instanceCnt;
+					div.children(':input[name=linkInputType]').attr("name", linkTypeName);
+					
+					$('input[name='+linkTypeName+']').change(function(){
+						 if (this.value == 'button')
+							 div.children('.linkInput_tip').html(tipBtn);
+						 else
+							 div.children('.linkInput_tip').html(tipText);
+					 });
+					
+					 // add & del btn
+					div.children('.linkAddBtn').click(function(){
+						target.linkInput({bEdit : true, bPhone : opt.bPhone});
+						return false;
+					});
+					div.children('.linkDelBtn').click(function(){
+						target.remove();
+						return false;
+					});
+					
 					// init linkInputData
 					linkInputData[tid] = opt.linkData;
 					
 					instanceCnt++;
-
-					div.children('.linkAddBtn').click(function(){
-							target.linkInput({bEdit : true, bPhone : opt.bPhone});
-							return false;
-						});
-					div.children('.linkDelBtn').click(function(){
-							target.remove();
-							return false;
-						});
-
+					
+					
+					
 					d("linkInput -> init");
 
 			});// each

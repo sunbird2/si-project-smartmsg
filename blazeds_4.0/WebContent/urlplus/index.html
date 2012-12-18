@@ -52,10 +52,11 @@
 
 		var tab = $('#tabs > li > a.on:first').attr('href');
 		if (tab == "#tabs-1") {
-			addAtt('imageOne');
-			addAtt('imageThumb');
-			//addAtt('imgSlide');
-			//addAtt('movieOne');
+			//addAtt('imageOne');
+			//addAtt('imageThumb');
+			addAtt('textInput');
+			
+			
 		}else if (tab == "#tabs-2") {
 			addAtt('imgSlide');
 		}else if (tab == "#tabs-3") {
@@ -107,7 +108,7 @@
 		else if (type == "textTable") { addBoxEle = $(box).appendTo(target).textEditor({domUrl : 'textEditorTable.jsp', bTable : true, readyEvent: scrollUpdateBottom }); }
 		else if (type == "linkPhone") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true, bPhone : true}); }
 		else if (type == "linkPage") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true}); }
-		else if (type == "linkEnter") { addBoxEle = $(box).appendTo(target).textInput({bEdit : true}); }
+		else if (type == "linkEnter") { addBoxEle = $(box).appendTo(target).textInput({bEdit : true, bInput:false}); }
 		else if (type == "cuponBarcode") { addBoxEle = $(box).appendTo(target).coupon({bEdit : true, bBarcode : true}); }
 		else if (type == "cuponText") { addBoxEle = $(box).appendTo(target).coupon({bEdit : true}); }
 		else if (type == "faceBook") {}
