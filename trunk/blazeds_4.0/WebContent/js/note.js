@@ -133,6 +133,17 @@
 		
 		$.post("accLog.jsp", { ref: document.referrer } );
 		
+		
+		// 이벤트
+		ChEventPopup
+		// center : true 팝업 가운데 출력 
+		// closeButton :  팝업안에 닫기 버튼 아이디 
+		// backgroundDisplay : 팝업 배경 색 출력 
+		// left: 가운데 정렬이 아닐때 가로 위치 지정
+		// top : 가운데 정렬이 아닐때 세로 위치 지정 
+		var opts = {'center' : false , 'closeButton':'#close','backgroundDisplay' : true} //options add
+		// 클래스명이 pupup 인 Dom 클릭 하면 레이어 아이디가 popupLayr 팝업 호출 .
+		$(".popup").layerPopup("#popupLayer" , opts);
 /*
 		$.ajax({
 		url: '/custom/emoticon.jsp?mode=emoti&gubun=테마문자',
