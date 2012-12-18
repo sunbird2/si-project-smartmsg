@@ -68,8 +68,8 @@ SendMail.send("[bill] 결제 페이지 요청", "");
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
                                 <td><input type="radio" id="a300000" name="LGD_AMOUNT" value="330000" onfocus="this.blur()" onclick="selBill()"/><label for="a300000">300,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b300000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">13 <span>원</span></i> <b><%=Math.ceil( 300000/SLibrary.intValue(VbyP.getValue("b300000")) )   %></b> <span>원</span></td>
                             </tr>
-                            <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-                                <td><input type="radio" id="a500000" name="LGD_AMOUNT" value="550000" onfocus="this.blur()" onclick="selBill()"/><label for="a500000">500,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b500000")) %> <span>건</span></td><td><b>12</b> <span>원</span></td>
+                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
+                                <td><input type="radio" id="a500000" name="LGD_AMOUNT" value="550000" onfocus="this.blur()" onclick="selBill()"/><label for="a500000">500,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b500000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">13 <span>원</span></i> <b><%=Math.ceil( 500000/SLibrary.intValue(VbyP.getValue("b500000")) )   %></b> <span>원</span></td>
                             </tr>
                             <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
                                 <td><input type="radio" id="a1000000" name="LGD_AMOUNT" value="1100000" onfocus="this.blur()" onclick="selBill()"/><label for="a1000000">1,000,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b1000000")) %> <span>건</span></td><td><b>11</b> <span>원</span></td>
