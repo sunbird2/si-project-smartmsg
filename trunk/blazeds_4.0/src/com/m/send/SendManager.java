@@ -49,7 +49,8 @@ public class SendManager implements ISend {
 		
 		Gv.setStatus(uvo.getUser_id(), "save log..");
 		
-		int point = smvo.getAl().size() * SLibrary.intValue(VbyP.getValue(getMode(smvo)+"_COUNT"));
+		int typePoint =  SLibrary.intValue(VbyP.getValue(getMode(smvo)+"_COUNT"));
+		int point = smvo.getAl().size() * typePoint;
 		
 		if (idx > 0)
 			rslt = updatePoint(conn, uvo, lvo.getMode(), point);
@@ -62,10 +63,10 @@ public class SendManager implements ISend {
 			rslt = insertData(conn, lvo.getMode(), uvo, al, uvo.getLine());
 			if ( rslt <= 0 ) throw new Exception("전송데이터가 등록되지 않았습니다.");
 			
-			if (rslt < point) {
-				VbyP.accessLog(uvo.getUser_id()+" >> fail add : "+ (point - rslt));
-				rslt = updateFailPoint(conn, uvo, lvo.getMode(), point - rslt);
-				if ( rslt <= 0 ) VbyP.errorLog(uvo.getUser_id()+" >> fail add : "+ (point - rslt)+" "+lvo.getMode()+" Fail!!!!!");
+			if (rslt*typePoint < point) {
+				VbyP.accessLog(uvo.getUser_id()+" >> fail add : "+ (point - (rslt*typePoint)));
+				rslt = updateFailPoint(conn, uvo, lvo.getMode(), point - (rslt*typePoint));
+				if ( rslt <= 0 ) VbyP.errorLog(uvo.getUser_id()+" >> fail add : "+ (point - (rslt*typePoint))+" "+lvo.getMode()+" Fail!!!!!");
 			}
 			
 			Gv.setStatus(uvo.getUser_id(), "Success!!");
