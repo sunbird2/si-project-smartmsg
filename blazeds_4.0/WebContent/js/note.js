@@ -17,6 +17,7 @@
             else embedSWF(menu);
             $('#function-navi').hide();
 			$('#emoticon').hide();
+			$('#eventPop').hide();
              document.MunjaNote.focus();
         }
     	
@@ -32,7 +33,12 @@
     function join() {
         var MunjaNote = document.getElementById("MunjaNote");
         if (MunjaNote) MunjaNote.flexFunction("menu", "join");
-     	else embedSWF("join");
+     	else {
+     		embedSWF("join");
+     		$('#function-navi').hide();
+			$('#emoticon').hide();
+			$('#eventPop').hide();
+     	}
 		log("회원가입 클릭");
         document.MunjaNote.focus();
      }
