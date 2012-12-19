@@ -3,6 +3,8 @@ package component.address
 	/* For guidance on writing an ActionScript Skinnable Component please refer to the Flex documentation: 
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	
+	import component.util.TextInputSearch;
+	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -45,7 +47,7 @@ package component.address
 	{
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
 		[SkinPart(required="true")] */
-		[SkinPart(required="false")]public var searchTextInput:TextInput;
+		[SkinPart(required="false")]public var searchTextInput:TextInputSearch;
 		[SkinPart(required="false")]public var addressTree:Tree;
 		[SkinPart(required="false")]public var searchButton:Button;
 		[SkinPart(required="false")]public var allButton:Button;
@@ -78,13 +80,12 @@ package component.address
 		{
 			super.partAdded(partName, instance);
 			if (instance == addressTree) {
-				addressTree.dataProvider = xml;
+				
 				addressTree.labelField = "@label";
-				addressTree.addEventListener(ListEvent.CHANGE, addressTree_changeHandler);
+				//addressTree.addEventListener(ListEvent.CHANGE, addressTree_changeHandler);
 				
 			}
-			else if (instance == searchTextInput) searchTextInput.addEventListener(FlexEvent.ENTER, getAddress);
-			else if (instance == searchButton) searchButton.addEventListener(MouseEvent.CLICK, getAddress);
+			else if (instance == searchTextInput) searchTextInput.addEventListener("search" , getAddress);
 			else if (instance == allButton) allButton.addEventListener(MouseEvent.CLICK, getAddressAll);
 			
 			//else if (instance == searchTextInput) searchTextInput.addEventListener(KeyboardEvent.KEY_UP, search_keyUpHandler);
@@ -97,11 +98,10 @@ package component.address
 			super.partRemoved(partName, instance);
 			if (instance == addressTree) {
 				Object(addressTree.dataProvider).removeAll();
-				addressTree.removeEventListener(ListEvent.CHANGE, addressTree_changeHandler);
+				//addressTree.removeEventListener(ListEvent.CHANGE, addressTree_changeHandler);
 				
 			}
-			else if (instance == searchTextInput) searchTextInput.removeEventListener(FlexEvent.ENTER, getAddress);
-			else if (instance == searchButton) searchButton.removeEventListener(MouseEvent.CLICK, getAddress);
+			else if (instance == searchTextInput) searchTextInput.removeEventListener("search" , getAddress);
 			else if (instance == allButton) allButton.removeEventListener(MouseEvent.CLICK, getAddressAll);
 			//else if (instance == searchTextInput) searchTextInput.removeEventListener(KeyboardEvent.KEY_UP, search_keyUpHandler);
 		}
@@ -109,11 +109,13 @@ package component.address
 		private function getAddress(event:Event):void {
 			
 			var s:String = "";
-			if (searchTextInput) {
+			if (searchTextInput != null && searchTextInput.text != "") {
 				bSearch = true;
 				s = searchTextInput.text;
 			} else bSearch = false;
 			
+			
+
 			RemoteSingleManager.getInstance.addEventListener("getAddrTree", getAddrList_resultHandler, false, 0, true);
 			RemoteSingleManager.getInstance.callresponderToken 
 				= RemoteSingleManager.getInstance.service.getAddrTree( s );
@@ -134,18 +136,21 @@ package component.address
 			
 			RemoteSingleManager.getInstance.removeEventListener("getAddrTree", getAddrList_resultHandler);
 			
+			var rsXMLC:XMLListCollection = new XMLListCollection();
 			var xlData:XMLList = new XMLList(event.result);
 			
 			if(xlData.elements("msg").toString()!="ok") {
 				SLibrary.alert(xlData.elements("msg").toString());
 			}
 			else {
-				xml.removeAll();
+				
 				
 				if (bSearch)
-					xml.addAll(new XMLListCollection(xlData.elements("addr")));
+					rsXMLC.addAll(new XMLListCollection(xlData.elements("addr")));
 				else
-					xml.addAll(new XMLListCollection(xlData.elements("addrs")));
+					rsXMLC.addAll(new XMLListCollection(xlData.elements("addrs")));
+				
+				addressTree.dataProvider = rsXMLC;
 			}
 		}
 		
@@ -153,6 +158,13 @@ package component.address
 			
 			var selXML:XML = addressTree.selectedItem as XML;
 			var type:String = selXML.attribute("type");
+			
+			addSend(type, selXML);
+			
+		}
+		
+		public function addSend(type:String, selXML:XML):void {
+			
 			var xmlList:XMLList = new XMLList(selXML);
 			//data.attribute('type'), new XMLList(treeListData.item)
 			var ac:ArrayCollection = new ArrayCollection();
@@ -177,9 +189,8 @@ package component.address
 				ac.addItem( getPhoneVO(selXML.@phone,selXML.@label) )
 				dispatchEvent(new CustomEvent("sendAddress", ac ) );
 			}
-			
-			
 		}
+		
 		private function addressTree_sendGroupConfirmHandler(event:CustomEvent):void {
 			
 			confirmAlert.removeEventListener("yes",addressTree_sendGroupConfirmHandler);

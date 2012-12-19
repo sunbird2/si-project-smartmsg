@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true" 
+				showsCaret="false"
+				
+				>
+	<fx:Script>
+		<![CDATA[
+			import component.Address;
+			
+			import mx.events.FlexEvent;
+			
+			import skin.AddressSkin_mini;
+			
+			import spark.components.List;
+			import spark.components.supportClasses.ListBase;
+			
+			import valueObjects.AddressVO;
+			[Bindable]
+			private var bSelected:Boolean = false;
+			
+			[Bindable]
+			private var bLast:Boolean = false;
+			
+			override public function set data(value:Object):void
+			{
+				// TODO Auto Generated method stub
+				super.data = value;
+				bSelected = selected;
+				//if (this.itemIndex == List(this.owner).dataProvider.length-1)
+				//	bLast = true;
+				
+				if (data && data.grpName) labelDisplay.text = data.grpName;
+			}
+			
+			
+			
+			private function onChange(event:Event):void 
+			{
+				if (labelDisplay && this.owner&& data) {
+					var oldValue:String = labelDisplay.text;
+					var list:ListBase = this.owner as ListBase;
+					if (data.idx == 0 && data.grpName != "모두") {
+						list.dataProvider.removeItemAt( this.itemIndex );
+						return;
+					}
+				}
+			}
+			
+			
+			
+			override public function set selected(value:Boolean):void
+			{
+				// TODO Auto Generated method stub
+				super.selected = value;
+			}
+			
+			protected function send_clickHandler(event:MouseEvent):void {
+				
+				var parent:Address = parentDocument.parentDocument.hostComponent as Address;
+				parent.addSend("group", data as AddressVO);
+				event.stopImmediatePropagation();
+				event.stopPropagation();
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:Group left="0" right="0" height="35">
+		<s:Label id="labelDisplay" 
+				 left="5" verticalCenter="0"/>
+		<s:Image right="5" verticalCenter="0" buttonMode="true" source="@Embed('assets/post_btn_send.gif')"  click="send_clickHandler(event)"/>
+	</s:Group>
+	
+	
+	<s:Rect width="100%" bottom="0" height="0.5">
+		<s:stroke>
+			<s:SolidColorStroke color="#D9D9D9" />
+		</s:stroke>
+	</s:Rect>
+	
+	
+	
+</s:ItemRenderer>

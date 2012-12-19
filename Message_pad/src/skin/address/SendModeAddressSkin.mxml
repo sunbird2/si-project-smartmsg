@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
-		xmlns:mx="library://ns.adobe.com/flex/mx">
+		xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:util="component.util.*">
 	<!-- host component -->
 	<fx:Metadata>
 		[HostComponent("component.address.SendModeAddress")]
@@ -23,15 +23,20 @@
 			
 		</s:SkinnableContainer>
 		<s:HGroup verticalAlign="middle">
-			<s:TextInput id="searchTextInput" styleName="textinput_light" prompt="이름 or 전화번호"/>
-			<s:Button id="searchButton" label="검색" width="80" height="28" styleName="button_light" />
+			<util:TextInputSearch id="searchTextInput" right="40" top="5" prompt="이름 or 전화번호" depth="5"
+								  focusSkin="skin.ics.TextInputFocus" fontSize="12" />
+			
 			<s:Button id="allButton" label="전체보기" width="100" height="28" styleName="button_light" />
 		</s:HGroup>
 		
 		<mx:Tree id="addressTree" 
 				 width="100%" height="550"
+				 disclosureClosedIcon="@Embed('/assets/close_folder.png')" disclosureOpenIcon="@Embed('/assets/open_folder.png')" defaultLeafIcon="@Embed('/assets/open_folder.png')" 
+				 folderClosedIcon="{null}" folderOpenIcon="{null}"
 				 borderVisible="false"
 				 itemRenderer="skin.address.SendModeAddressRenderer"
+				 showRoot="true" fontWeight="normal"
+				 borderStyle="none" depthColors="0xeeeeee" rollOverColor="0xdddddd" dropShadowVisible="true"
 				 fontFamily="Gulim"/>
 	</s:VGroup>	
 </s:Skin>

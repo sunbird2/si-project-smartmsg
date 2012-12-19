@@ -4,18 +4,25 @@
 					  xmlns:mx="library://ns.adobe.com/flex/mx">
 	<fx:Script>
 		<![CDATA[
+			import component.address.SendModeAddress;
 			
 			override public function set data(value:Object):void {
 				super.data = value;
-				/* if (treeListData != null && treeListData.hasChildren){
+				 if (data != null && treeListData != null && treeListData.hasChildren){
 					var chk:XMLList = new XMLList(treeListData.item);
 					var myChild:int = chk[0].children().length();
 					labelField.text = treeListData.label + " (" + myChild + ")";
 				}else if (data != null) {
-					labelField.text = data.attribute('label') != "" ? data.attribute('label') : data.attribute('phone');
-				} */
-				if (data != null)
-					labelField.text = data.attribute('label') != "" ? data.attribute('label') : data.attribute('phone');
+					labelField.text = data.attribute('label') != "" ? data.attribute('label')+"  "+data.attribute('phone') : data.attribute('phone');
+				} 
+
+			}
+			
+			protected function send_clickHandler(event:MouseEvent):void {
+				var obj:SendModeAddressSkin = parentDocument as SendModeAddressSkin;
+				
+				var parent:SendModeAddress = SendModeAddressSkin(parentDocument).hostComponent as SendModeAddress;
+				parent.addSend(data.attribute('type'), treeListData.item  as XML);
 			}
 		]]>
 	</fx:Script>
@@ -37,4 +44,7 @@
 		<s:BitmapImage source="{treeListData.icon}" />
 		<s:Label id="labelField" paddingTop="2"/>
 	</s:HGroup>
+	<s:Group right="2">
+		<s:Image source="@Embed('assets/post_btn_send.gif')"  visible="{data.attribute('type')!='all'}" click="send_clickHandler(event)"/>
+	</s:Group>
 </s:MXTreeItemRenderer>
