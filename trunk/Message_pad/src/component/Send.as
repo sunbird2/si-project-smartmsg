@@ -200,6 +200,7 @@ package component
 		private var Kpf:KoreaPhoneNumberFormatter;
 		private var excel:Excel;
 		private var sma:SendModeAddress;
+		private var sa:Address;
 		private var sml:SendModeLog;
 		private var paste:Paste;
 		private var sending:Sending;
@@ -235,7 +236,8 @@ package component
 			removeInterval();
 			
 			removeExcel();
-			removeSendModeAddress()
+			removeSendModeAddress();
+			removeSendAddress();
 			removeSendModeLog();
 			removePaste();
 			removeEmoticon();
@@ -345,7 +347,8 @@ package component
 			else if (viewFunction == "sentMessage") emoticonView("sentMessage");
 				
 			else if (viewFunction == "sendListFromExcel")toggleExcel(); 
-			else if (viewFunction == "sendListFromAddress") toggleSendModeAddress();
+			//else if (viewFunction == "sendListFromAddress") toggleSendModeAddress();
+			else if (viewFunction == "sendListFromAddress") toggleSendAddress();
 			else if (viewFunction == "sendListFromSent") toggleSendModeLog();
 			else if (viewFunction == "sendListFromCopy") togglePaste();
 			
@@ -357,7 +360,8 @@ package component
 			else if (item.name == "sentMessage") emoticonView("sentMessage");
 			
 			else if (item.name == "sendListFromExcel")toggleExcel(); 
-			else if (item.name == "sendListFromAddress") toggleSendModeAddress();
+			//else if (item.name == "sendListFromAddress") toggleSendModeAddress();
+			else if (item.name == "sendListFromAddress") toggleSendAddress();
 			else if (item.name == "sendListFromSent") toggleSendModeLog();
 			else if (item.name == "sendListFromCopy") togglePaste();
 			
@@ -674,6 +678,37 @@ package component
 				sma.removeEventListener("close", sma_closeHandler);
 				this.functionGroup.removeElement(sma);
 				sma = null;
+			}
+			
+		}
+		
+		/**
+		 * SendAddress
+		 * */
+		private function toggleSendAddress():void {
+			
+			if (sa == null) createSendAddress();
+			else removeSendAddress();
+		}
+		private function createSendAddress():void {
+			sa = new Address(true);
+			sa.addEventListener("sendAddress", sa_sendHandler);
+			sa.addEventListener("close", sa_closeHandler);
+			this.functionGroup.addElement(sa);
+		}
+		private function sa_sendHandler(event:CustomEvent):void {
+			addPhoneList( event.result as ArrayCollection );
+		}
+		private function sa_closeHandler(event:Event):void {
+			removeSendAddress();
+		}
+		private function removeSendAddress():void {
+			
+			if (sa != null) {
+				sa.removeEventListener("sendAddress", sa_sendHandler);
+				sa.removeEventListener("close", sa_closeHandler);
+				this.functionGroup.removeElement(sa);
+				sa = null;
 			}
 			
 		}

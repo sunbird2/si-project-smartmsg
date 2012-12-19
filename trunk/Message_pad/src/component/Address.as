@@ -22,6 +22,7 @@ package component
 	import lib.CustomEvent;
 	import lib.Gv;
 	import lib.IconItemRenderer;
+	import lib.IconItemRenderer_sendAddress;
 	import lib.RemoteSingleManager;
 	import lib.SLibrary;
 	
@@ -39,6 +40,7 @@ package component
 	import mx.rpc.events.ResultEvent;
 	
 	import skin.AddressSkin;
+	import skin.AddressSkin_mini;
 	import skin.address.GroupRenderer;
 	
 	import spark.components.Button;
@@ -51,17 +53,22 @@ package component
 	import spark.components.TextArea;
 	import spark.components.TextInput;
 	import spark.components.VGroup;
+	import spark.components.supportClasses.Skin;
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
 	import spark.layouts.VerticalLayout;
 	import spark.layouts.supportClasses.DropLocation;
 	
 	import valueObjects.AddressVO;
+	import valueObjects.PhoneVO;
 	
 	
 	/* A component must identify the view states that its skin supports. 
 	Use the [SkinState] metadata tag to define the view states in the component class. 
 	[SkinState("normal")] */
+	[Event(name="sendAddress", type="lib.CustomEvent")]
+	[Event(name="close", type="flash.events.Event")]
+	
 	
 	public class Address extends SkinnableComponent
 	{
@@ -84,16 +91,17 @@ package component
 		[SkinPart(required="false")]public var nameAddBtn:Image;
 		[SkinPart(required="false")]public var nameDelBtn:Image;
 		[SkinPart(required="false")]public var nameCount:SpanElement;
+		[SkinPart(required="false")]public var selectSend:Image;
 		
 		
 		
 		
 		
 		// card
-		[SkinPart(required="true")]public var cardGroup:VGroup;
-		[SkinPart(required="true")]public var groupName:ComboBox;
-		[SkinPart(required="true")]public var nameL:TextInput;
-		[SkinPart(required="true")]public var phone:TextInput;
+		[SkinPart(required="false")]public var cardGroup:VGroup;
+		[SkinPart(required="false")]public var groupName:ComboBox;
+		[SkinPart(required="false")]public var nameL:TextInput;
+		[SkinPart(required="false")]public var phone:TextInput;
 		[SkinPart(required="false")]public var memo:TextArea;
 		[SkinPart(required="false")]public var cardAddBtn:Image;
 		[SkinPart(required="false")]public var cardBtn:Image;
@@ -119,10 +127,16 @@ package component
 		private var _activeCode:Number = 0;
 		private var _activeAddressVO:AddressVO;
 		
-		public function Address() {
+		private var bMini:Boolean = false;
+		
+		public function Address(parbMine:Boolean=false) {
 			super();
 			
-			setStyle("skinClass", AddressSkin);
+			if (parbMine == true) {
+				bMini = true;
+				setStyle("skinClass", AddressSkin_mini);
+			}
+			else setStyle("skinClass", AddressSkin);
 			
 			addEventListener(Event.ADDED_TO_STAGE, addedtostage_handler, false, 0, true);
 			addEventListener(Event.REMOVED_FROM_STAGE, removedfromstage_handler, false, 0, true);
@@ -205,7 +219,12 @@ package component
 				nameList.dragMoveEnabled = true;
 				//nameList.allowMultipleSelection = true;
 				
-				var irFactory:ClassFactory = new ClassFactory(IconItemRenderer);
+				var irFactory:ClassFactory = null;
+				if (bMini == true) {
+					irFactory = new ClassFactory(IconItemRenderer_sendAddress);
+				}else
+					irFactory = new ClassFactory(IconItemRenderer);
+				
 				irFactory.properties = {
 					icon:"skin/ics/assets/light/icon/6-social-person.png",
 					labelTitle:"name",
@@ -231,7 +250,8 @@ package component
 				groupName.labelField = "grpName";
 			}
 			else if (instance == cardGroup) cardGroup.visible = false;
-			else if (instance == commitBtn) commitBtn.addEventListener(MouseEvent.CLICK, commitBtn_clickHandler); 
+			else if (instance == commitBtn) commitBtn.addEventListener(MouseEvent.CLICK, commitBtn_clickHandler);
+			else if (instance == selectSend) selectSend.addEventListener(MouseEvent.CLICK, selectSend_clickHandler);
 			
 			
 			if (instance is LinkElement) {
@@ -286,6 +306,61 @@ package component
 			}
 			
 			
+		}
+		
+		// mini to send
+		public function addSend(type:String, avo:AddressVO):void {
+			
+			if (type == "group") {
+				
+				getListAndSendPhone(avo.grpName);
+			}
+			else {
+				if (avo != null) {
+					var ac:ArrayCollection = new ArrayCollection();
+					ac.addItem( getPhoneVO(avo.phone, avo.name) )
+					dispatchEvent(new CustomEvent("sendAddress", ac ) );
+				}
+				
+			}
+		}
+		private function getListAndSendPhone(grpName:String):void {
+			RemoteSingleManager.getInstance.addEventListener("getAddrList", getListAndSendPhone_resultHandler, false, 0, true);
+			RemoteSingleManager.getInstance.callresponderToken 
+				= RemoteSingleManager.getInstance.service.getAddrList(1, currentGroupName);
+		}
+		private function getListAndSendPhone_resultHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("getAddrList", getListAndSendPhone_resultHandler);
+			
+			var data:ArrayCollection = event.result as ArrayCollection;
+			
+			if (data != null) {
+				dispatchEvent(new CustomEvent("sendAddress", parsePhoneVO(data) ) );
+			}
+			
+		}
+		
+		private function parsePhoneVO(ac:ArrayCollection):ArrayCollection {
+			
+			var rslt:ArrayCollection = new ArrayCollection();
+			if (ac != null) {
+				var cnt:int = ac.length;
+				var avo:AddressVO = null;
+				for (var i:int = 0; i < cnt; i++) {
+					avo = ac.getItemAt(i) as AddressVO;
+					rslt.addItem( getPhoneVO(avo.phone, avo.name) );
+				}
+			}
+			
+			return rslt;
+		}
+		
+		private function getPhoneVO(pno:String, pname:String):PhoneVO {
+			var pvo:PhoneVO = new PhoneVO();
+			pvo.pNo = pno;
+			pvo.pName = pname;
+			return pvo;
 		}
 		
 		private function search_clickHandler(event:CustomEvent):void {
@@ -460,19 +535,24 @@ package component
 			
 		}
 		private function viewCard():void {
+			if (cardGroup) {
+				if (nameList.selectedIndex >= 0) {
+					var avo:AddressVO = AddressVO( acName.getItemAt( nameList.selectedIndex ) );
+					
+					if (avo.grpName) groupName.selectedItem = avo;
+					nameL.text = avo.name;
+					phone.text = avo.phone;
+					memo.text = avo.memo;
+					
+					if (cardGroup)
+						cardGroup.visible = true;
+				}
+				else {
+					if (cardGroup)
+						cardGroup.visible = false;
+				}
+			}
 			
-			if (nameList.selectedIndex >= 0) {
-				var avo:AddressVO = AddressVO( acName.getItemAt( nameList.selectedIndex ) );
-
-				if (avo.grpName) groupName.selectedItem = avo;
-				nameL.text = avo.name;
-				phone.text = avo.phone;
-				memo.text = avo.memo;
-				cardGroup.visible = true;
-			}
-			else {
-				cardGroup.visible = false;
-			}
 		}
 		private function viewCreatCard():void {
 			
@@ -541,6 +621,23 @@ package component
 		private function deleteName_resultHandler(event:CustomEvent):void {
 			
 			SLibrary.alert( String(event.result) +"건의 전화번호가 삭제 되었습니다." );
+		}
+		
+		private function selectSend_clickHandler(event:MouseEvent):void {
+			
+			var act:Vector.<Object> = nameList.selectedItems;
+			var cnt:int = act.length;
+			var ac:ArrayCollection = new ArrayCollection();
+			var i:int = 0;
+			for(i = 0; i < cnt; i++) {
+				ac.addItem( AddressVO( nameList.selectedItems[i] ) );
+			}
+			
+			if (ac.length == 0) {
+				SLibrary.alert("선택된 전화번호가 없습니다.");
+			}else {
+				dispatchEvent(new CustomEvent("sendAddress", parsePhoneVO(ac) ) );
+			}
 		}
 		
 		
