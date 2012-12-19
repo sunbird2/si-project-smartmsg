@@ -200,7 +200,7 @@ package component
 				Gv.bLogin = true;
 				Gv.user_id = uvo.user_id;
 				Gv.point = uint( uvo.point );
-				
+				setPoint();
 				if (bOnceAutoMoveSend) {
 					bOnceAutoMoveSend = false;
 					callLater(moveSend);
@@ -267,15 +267,15 @@ package component
 			var unit:int = 1;
 			
 			var t:String = "SMS";
-			if (mType.selectedIndex >= 0)
+			if (mType != null && mType.selectedIndex >= 0)
 				t = mType.selectedItem.label;
 			
 			if (t == "LMS") unit = 3;
 			else if (t == "MMS") unit = 15;
 			else unit = 1;
 			
-			
-			point.text =  SLibrary.addComma( String(Math.floor( Gv.point/unit ) ) );
+			if (point != null)
+				point.text =  SLibrary.addComma( String(Math.floor( Gv.point/unit ) ) );
 		}
 		
 	}
