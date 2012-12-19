@@ -162,7 +162,7 @@ package component
 		private function next1_clickHandler(event:MouseEvent):void {
 			
 			if (agree1.selected == false) SLibrary.alert("이용약관에 동의해 주세요");
-			else if (agree1.selected == false) SLibrary.alert("이용약관에 동의해 주세요");
+			else if (agree2.selected == false) SLibrary.alert("개인정보에 동의해 주세요");
 			else {
 				step = 1;
 				invalidateSkinState();

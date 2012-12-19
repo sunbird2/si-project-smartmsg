@@ -637,8 +637,8 @@
 				<s:CheckBox id="agree2" x="706" y="38"  label="개인정보에 동의 합니다." styleName="checkbox_light"/>
 			</s:Group>
 			<s:HGroup width="100%" horizontalAlign="center">
-				<s:Button id="next1" label="다음단계" fontSize="16" styleName="button_light" width="120" height="36"/>
-				<s:Button id="cancel1" label="취소" fontSize="16" styleName="button_light" width="120" height="36"/>
+				<s:Button id="next1" label="다음단계" fontSize="12" fontWeight="bold" styleName="button_light" width="120" />
+				<s:Button id="cancel1" label="취소" fontSize="12" fontWeight="bold" styleName="button_light" width="120" />
 			</s:HGroup>
 		</s:VGroup>
 		
@@ -700,15 +700,15 @@
 				</s:FormItem>
 			</s:Form>
 			<s:HGroup>
-				<s:Button id="next2" label="가입하기" color="0x2DB149" fontSize="16" styleName="button_light" width="120" height="36" />
-				<s:Button id="cancel2" label="취소" fontSize="16" styleName="button_light" width="120" height="36" />
+				<s:Button id="next2" label="가입하기" color="0x2DB149" fontSize="12" fontWeight="bold" styleName="button_light" width="120" />
+				<s:Button id="cancel2" label="취소" fontSize="12" fontWeight="bold" styleName="button_light" width="120" />
 			</s:HGroup>
 		</s:VGroup>
 		
 		<!--step3-->
 		<s:VGroup id="step3" includeIn="step3" left="0" right="0" top="80" height="500" horizontalAlign="center">
 			<s:Label text="가입을 환영합니다."  fontSize="40"/>
-			<s:Label text="체험 건수 5건이 주어졌습니다."  fontSize="16"/>
+			<s:Label text="체험 건수 3건이 주어졌습니다."  fontSize="16"/>
 			<s:HGroup>
 				<s:Label id="sec" text="5"  fontSize="16"/>
 				<s:Label text="초 후 서비스로 자동 입장 합니다." fontSize="16" />
