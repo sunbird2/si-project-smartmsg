@@ -7,8 +7,9 @@
 try {
 		String path = "/home/web/log/";
 		String ref = request.getParameter("ref");
-		if (ref != null && !ref.equals("")) {
-				SendMail.send("[glog]"+ref, "ref");
+		String ip = SLibrary.IfNull(request.getRemoteAddr());
+		if (ref != null && !ref.equals("") && !ip.equals("112.216.246.130")) {
+				SendMail.send("[glog]"+ref, "ref:"+ip);
 		}
 		
 
