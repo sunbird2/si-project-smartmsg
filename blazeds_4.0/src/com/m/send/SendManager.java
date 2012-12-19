@@ -326,6 +326,7 @@ public class SendManager implements ISend {
 
 	private void checkAuth(Connection conn, UserInformationVO uvo, SendMessageVO smvo) throws Exception{
 		
+		int typePoint =  SLibrary.intValue(VbyP.getValue(getMode(smvo)+"_COUNT"));
 		int sendCount = smvo.getAl().size();
 		//최대 발송건수
 		if ( Integer.parseInt(VbyP.getValue("maxSendCount")) < sendCount )
@@ -334,8 +335,8 @@ public class SendManager implements ISend {
 		//탈퇴회원 체크
 		if( uvo.getLevaeYN().equals("Y") ){ throw new Exception("잘못된 접근입니다."); 	}
 		
-		if( Integer.parseInt(uvo.getPoint()) < sendCount )
-			throw new Exception("잔여건수가 부족합니다. ( "+ Integer.toString(sendCount)+" / "+ uvo.getPoint()+" )");
+		if( Integer.parseInt(uvo.getPoint()) < sendCount*typePoint )
+			throw new Exception("잔여건수가 부족합니다. \\r\\n\\r\\n + 현재건 : "+ uvo.getPoint()+" \\r\\n + 발송건 : "+ Integer.toString(sendCount*typePoint)+" ( "+Integer.toString(sendCount)+"*"+Integer.toString(typePoint)+" )"+"\\r\\n ※ 전화번호당 LMS는 3건 MMS는 15건 차감됩니다.");
 		
 		//message 필터링
 		if ( Integer.parseInt(VbyP.getValue("filterMinCount")) <= sendCount  ) {

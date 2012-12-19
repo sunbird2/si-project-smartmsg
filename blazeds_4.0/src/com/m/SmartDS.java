@@ -564,7 +564,7 @@ public class SmartDS extends SessionManagement {
 		buf.append(" - reqIP:"+smvo.getReqIP());
 		
 		VbyP.accessLog(buf.toString());
-		SendMail.send("[send] "+user_id+" "+getMode(smvo)+" "+ smvo.getItCount()+" 건", buf.toString());
+		SendMail.send("[send] "+user_id+" "+getMode(smvo)+" "+ Integer.toString(smvo.getAl().size())+" 건", buf.toString());
 	}
 	
 	/*###############################
