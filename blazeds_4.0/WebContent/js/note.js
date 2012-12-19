@@ -7,17 +7,21 @@
 
         if (str == "bill") {
             $("#nobody").attr("src", "/bill/");
-			if ($('#gallery').length > 0)$('#gallery').height("740px");
+			if ($('#gallery').length > 0) {
+				$('#gallery').height("760px");
+			}
 
 			$('#function-navi').hide();
 			$('#emoticon').hide();
         }else {
 
             if (MunjaNote) MunjaNote.flexFunction("menu", menu);
-            else embedSWF(menu);
+            else {
+            	embedSWF(menu);
+            	$('#eventPop').hide();
+            }
             $('#function-navi').hide();
 			$('#emoticon').hide();
-			$('#eventPop').hide();
              document.MunjaNote.focus();
         }
     	
@@ -33,12 +37,7 @@
     function join() {
         var MunjaNote = document.getElementById("MunjaNote");
         if (MunjaNote) MunjaNote.flexFunction("menu", "join");
-     	else {
-     		embedSWF("join");
-     		$('#function-navi').hide();
-			$('#emoticon').hide();
-			$('#eventPop').hide();
-     	}
+     	else embedSWF("join");
 		log("회원가입 클릭");
         document.MunjaNote.focus();
      }
@@ -141,7 +140,6 @@
 		
 		
 		// 이벤트
-		ChEventPopup
 		// center : true 팝업 가운데 출력 
 		// closeButton :  팝업안에 닫기 버튼 아이디 
 		// backgroundDisplay : 팝업 배경 색 출력 
@@ -274,7 +272,7 @@
 	function removeFlash() { 
 		if ( $('#MunjaNote') ) {
 			swfobject.removeSWF("MunjaNote");
-			if ( $('#gallery').length == 0 ) $('#main-image').prepend('<div id="gallery" style="height:740px;"></div>'); 
+			if ( $('#gallery').length == 0 ) $('#main-image').prepend('<div id="gallery" style="height:760px;"></div>'); 
 		}
 	}
 	
