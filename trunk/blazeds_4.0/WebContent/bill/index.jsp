@@ -2,7 +2,11 @@
 <%@page import="com.common.VbyP"%>
 <%@page import="com.common.util.SLibrary"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
-SendMail.send("[bill] 결제 페이지 요청", "");
+String ip = SLibrary.IfNull(request.getRemoteAddr());
+if (!ip.equals("112.216.246.130")) {
+	SendMail.send("[bill] 결제 페이지 요청", "ref:"+ip);
+}
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
