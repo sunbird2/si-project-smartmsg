@@ -420,10 +420,9 @@ package component
 		
 		private function messageCheck():void {
 			
-			if ( currentByte > Gv.SMS_BYTE ) {
-				if (arrImage && arrImage.length > 0) sendMode = "MMS";
-				else sendMode = "LMS";
-			}else sendMode = "SMS";
+			if (arrImage && arrImage.length > 0) sendMode = "MMS";
+			else if ( currentByte > Gv.SMS_BYTE ) sendMode = "LMS";
+			else sendMode = "SMS";
 			
 			cstat = sendMode;
 			

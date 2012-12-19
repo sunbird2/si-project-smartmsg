@@ -138,7 +138,7 @@ s|Scroller {
 
 .dropDownList_dark {
 	skinClass : ClassReference("skin.ics.DropDownListSkin");
-	dropShadowVisible : false;
+	dropShadowVisible : true;
 	focusAlpha : 0;
 	color:#DDDDDD;
 	paddingLeft : 5;
