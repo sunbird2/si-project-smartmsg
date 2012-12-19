@@ -81,7 +81,7 @@ public class SmartDS extends SessionManagement {
 		vo.setHp(hp);
 		
 		int rslt = join.insert(vo);
-		PointManager.getInstance().initPoint( user_id, 5);
+		PointManager.getInstance().initPoint( user_id, SLibrary.intValue( VbyP.getValue("join_point") ));
 		
 		if (rslt < 1) {
 			bvo.setbResult(false);
