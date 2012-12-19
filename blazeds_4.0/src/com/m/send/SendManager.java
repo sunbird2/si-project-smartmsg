@@ -132,13 +132,12 @@ public class SendManager implements ISend {
 	public int updatePoint(Connection conn, UserInformationVO uvo, String type, int count) throws Exception {
 		
 		int code = 0;
-		int typeCnt = 0;
-		if (type.equals("LMS")) { code = SendManager.LMS_CODE; typeCnt = SLibrary.intValue(VbyP.getValue("LMS_COUNT")); }
-		else if (type.equals("MMS")) { code = SendManager.MMS_CODE; typeCnt = SLibrary.intValue(VbyP.getValue("MMS_COUNT")); }
-		else { code = SendManager.SMS_CODE; typeCnt = SLibrary.intValue(VbyP.getValue("SMS_COUNT")); }
+		if (type.equals("LMS")) { code = SendManager.LMS_CODE;}
+		else if (type.equals("MMS")) { code = SendManager.MMS_CODE; }
+		else { code = SendManager.SMS_CODE; }
 		
 		PointManager pm = PointManager.getInstance();		
-		return pm.insertUserPoint(conn, uvo, code, count * typeCnt *-1);
+		return pm.insertUserPoint(conn, uvo, code, count *-1);
 	}
 
 	@Override
