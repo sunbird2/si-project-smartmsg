@@ -50,6 +50,7 @@ package component
 	import spark.components.VGroup;
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
+	import spark.primitives.BitmapImage;
 	
 	import valueObjects.BooleanAndDescriptionVO;
 	import valueObjects.LogVO;
@@ -959,10 +960,10 @@ package component
 		public function setPhoto(source:String):void {
 			
 			removeImage();
-			var img:Image = new Image();
+			var img:BitmapImage = new BitmapImage();
 			img.source = source;
 			img.smooth = true;
-			img.buttonMode = true;
+			img.width = 260;
 			mBox.addElementAt(img, mBox.numElements-1);
 			mBox.gap = 0;
 			arrImage.push(source);
