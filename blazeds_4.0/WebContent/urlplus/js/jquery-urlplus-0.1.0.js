@@ -2024,13 +2024,13 @@
 			};
 			
 			var ele = ['<div class="couponBox">',
-							'<span>이벤트기간 <input type="text" name="startDate"/> ~ <input type="text" name="endDate"/></span>',
+							'<label>이벤트기간</label> <input type="text" name="startDate" class="coupon_date"/> ~ <input type="text" name="endDate" class="coupon_date"/>',
 							'</div>'];
 
-			var eleType = ['<b>텍스트 쿠폰설정</b>',
-							'<b>바코드 쿠폰설정</b>',
-							'<div class="barcodeTarget"></div><input type="text" class="barcodeValue" value="1234567890128"><button class="viewBocode">보기</button>' ];
-
+			var eleType = ['<div class="coupon_tip">',
+							'<div class="barcodeTarget"></div>',
+							'</div>'];
+			//<input type="text" class="barcodeValue" value="1234567890128"><button class="viewBocode">보기</button>
 			var opt = $.extend(defaults, options);
 
 			return this.each( function () {
@@ -2042,16 +2042,16 @@
 					// create UI
 					var arr = [];
 					if (opt.bBarcode == true){
-						arr.push(ele[0],eleType[1],eleType[2],ele[1],ele[2]);
+						arr.push(ele[0],eleType[0],eleType[1],eleType[2],ele[1],ele[2]);
 					}else {
-						arr.push(ele[0],eleType[0],ele[1],ele[2]);
+						arr.push(ele[0],eleType[0],eleType[1],eleType[2],ele[1],ele[2]);
 					}
 					target.append(arr.join(""));
 					
 					// get movieSlide_box & set id
 					var div = target.children(':first-child');
 					div.attr("id", "coupon"+instanceCnt);
-					tid = div.attr("id");
+					var tid = div.attr("id");
 					
 					// init couponData
 					couponData[tid] = opt.couponData;
@@ -2062,18 +2062,23 @@
 							  bgColor: '#FFFFFF',
 							  color: '#000000',
 							  barWidth: '2',
-							  barHeight: '70',
+							  barHeight: '50',
 							  moduleSize: '5',
 							  addQuietZone: '1'
 							};
-						$("#"+tid+" > .barcodeTarget").barcode(opt.barcodeValue, opt.barcodeType, barConf);
+						$("#"+tid+" > .coupon_tip > .barcodeTarget").barcode(opt.barcodeValue, opt.barcodeType, barConf);
 
-						$('#'+tid+' > .viewBocode').click(function() {
-								alert($("#"+tid+" > .barcodeValue").val()+","+opt.barcodeType);
-								$("#"+tid+" > .barcodeTarget").barcode( $("#"+tid+" > .barcodeValue").val() , opt.barcodeType, barConf);
-							});
-					}
-					
+//						$('#'+tid+' > .viewBocode').click(function() {
+//								alert($("#"+tid+" > .barcodeValue").val()+","+opt.barcodeType);
+//								$("#"+tid+" > .barcodeTarget").barcode( $("#"+tid+" > .barcodeValue").val() , opt.barcodeType, barConf);
+//							});
+					} else {
+						$("#"+tid+" > .coupon_tip > .barcodeTarget").html('<p class="coupon_text_exam">쿠폰번호  1234567890128</p>');
+					} 
+					div.children(':input[name=startDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date()  });
+					div.children(':input[name=startDate]').datepicker('setDate', new Date());
+					div.children(':input[name=endDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date() });
+					div.children(':input[name=endDate]').datepicker('setDate', new Date());
 					instanceCnt++;
 					d("coupon -> init");
 
@@ -2093,6 +2098,282 @@
 		} // getResult
 
 	}; // couponMethods
+	
+	
+	
+	//--------------------------------
+	// coupon button
+	//--------------------------------
+	/* DOM structure
+		<div class="coupon_button_wrap">
+			<div class="coupon_button">
+				<div class="switch off">
+					<div class="label_box">
+						<div class="label_left">쿠폰사용전</div>
+						<div class="label_right">쿠폰사용완료</div>
+					</div>
+					<span class="thumb">쿠폰사용전</span><input type="checkbox" />
+				</div>
+			</div>
+			<img src="img/img_coupon.png" style="display:block; width:95%;margin:0 auto;margin-top:10px;margin-bottom:20px"/>
+		</div>
+	*/
+	$.fn.couponBtn = function (action) {
+		if (couponBtnMethods[action])
+			return couponBtnMethods[action].apply(this, Array.prototype.slice.call(arguments, 1));
+		else
+			return couponBtnMethods.init.apply(this, arguments);
+	};// fn.couponBtn
+
+	var couponBtnData = [];
+	var couponBtnMethods = {
+
+		init: function (options) {
+			d("couponBtn -> init");
+			var defaults = {
+				'bEdit' : true
+			};
+			
+			var ele = ['<div class="coupon_button_wrap">',
+						'	<div class="coupon_button">',
+						'		<div class="switch off">',
+						'			<div class="label_box">',
+						'				<div class="label_left">쿠폰사용전</div>',
+						'				<div class="label_right">쿠폰사용완료</div>',
+						'			</div>',
+						'			<span class="coupon_thumb">쿠폰사용전</span><input type="checkbox" />',
+						'		</div>',
+						'	</div>',
+						'	<img src="_images/img_coupon.png" style="display:block; width:95%;margin:0 auto;margin-top:10px;margin-bottom:20px"/>',
+						'</div>'];
+
+			var opt = $.extend(defaults, options);
+
+			return this.each( function () {
+
+					$(this).attr("id", "attrBox"+instanceCnt);
+					instanceCnt++;
+
+					var target = $(this);
+					// create UI
+					target.append(ele.join(""));
+					
+					d("couponBtn -> init");
+
+			});// each
+
+		},// init
+		getResult :  function () {
+			d("couponBtn -> getResult");
+			var result = {"image":"", "link":""};
+			this.each( function () {
+				var image = $(this).children(':first-child').attr("src");
+				var link = $(this).find("input:text[name=img_link]").val();
+				result.image = image;
+				result.link = link;
+			});// each
+			return result;
+		} // getResult
+
+	}; // couponBtnMethods
+	
+	//--------------------------------
+	// facebook
+	//--------------------------------
+	/* DOM structure
+		<div class="facebook_wrap">
+			<p class="facebook_tip">예제</p>
+			<span>'좋아요'할 페이스북 주소를 입력해 주세요.</span>
+			<input type="text" name="facebook_good" />
+		</div>
+	*/
+	$.fn.facebook = function (action) {
+		if (facebookMethods[action])
+			return facebookMethods[action].apply(this, Array.prototype.slice.call(arguments, 1));
+		else
+			return facebookMethods.init.apply(this, arguments);
+	};// fn.facebook
+
+	var facebookData = [];
+	var facebookMethods = {
+
+		init: function (options) {
+			d("facebook -> init");
+			var defaults = {
+				'bEdit' : true
+			};
+			
+			var ele = ['<div class="facebook_wrap">',
+						'	<p class="facebook_tip"><img src="_images/good.png" /></p>',
+						'	<span>\'좋아요\'할 페이스북 주소를 입력해 주세요.</span>',
+						'	<input type="text" name="facebook_good" class="facebook_link" />',
+						'</div>'];
+
+			var opt = $.extend(defaults, options);
+
+			return this.each( function () {
+
+					$(this).attr("id", "attrBox"+instanceCnt);
+					instanceCnt++;
+
+					var target = $(this);
+					// create UI
+					target.append(ele.join(""));
+					
+					d("facebook -> init");
+
+			});// each
+
+		},// init
+		getResult :  function () {
+			d("facebook -> getResult");
+			var result = {"image":"", "link":""};
+			this.each( function () {
+				var image = $(this).children(':first-child').attr("src");
+				var link = $(this).find("input:text[name=img_link]").val();
+				result.image = image;
+				result.link = link;
+			});// each
+			return result;
+		} // getResult
+
+	}; // facebookMethods
+	
+	
+	//--------------------------------
+	// htmlWrite
+	//--------------------------------
+	/* DOM structure
+		<div class="htmlWrite_wrap">
+			<textarea class="htmlWrite_textarea"></textarea>
+			<button class="htmlWrite_previewBtn">미리보기</button>
+		</div>
+	*/
+	$.fn.htmlWrite = function (action) {
+		if (htmlWriteMethods[action])
+			return htmlWriteMethods[action].apply(this, Array.prototype.slice.call(arguments, 1));
+		else
+			return htmlWriteMethods.init.apply(this, arguments);
+	};// fn.htmlWrite
+
+	var htmlWriteData = [];
+	var htmlWriteMethods = {
+
+		init: function (options) {
+			d("htmlWrite -> init");
+			var defaults = {
+				'bEdit' : true
+			};
+			
+			var ele = ['<div class="htmlWrite_wrap">',
+						'	<div class="htmlWrite_box"><textarea class="htmlWrite_textarea"></textarea></div>',
+						'	<button class="htmlWrite_previewBtn">미리보기</button>',
+						'</div>'];
+
+			var opt = $.extend(defaults, options);
+
+			return this.each( function () {
+
+					$(this).attr("id", "attrBox"+instanceCnt);
+					instanceCnt++;
+
+					var target = $(this);
+					// create UI
+					target.append(ele.join(""));
+					
+					// set id
+					var div = target.children(':first-child');
+					div.attr("id", "htmlWrite"+instanceCnt);
+					var tid = div.attr("id");
+					
+					$("#"+tid+" > .htmlWrite_previewBtn").click(function() {
+						if ($(this).text() == "미리보기") {
+							var html = $("#"+tid+" > .htmlWrite_box > .htmlWrite_textarea").val();
+							$("#"+tid+" > .htmlWrite_box").html(html);
+							$(this).text("소스보기");
+						}else {
+							
+							$("#"+tid+" > .htmlWrite_box").html("<textarea class=\"htmlWrite_textarea\">"+$("#"+tid+" > .htmlWrite_box").html()+"</textarea>");
+							$(this).text("미리보기");
+						}
+					});
+					
+					d("htmlWrite -> init");
+
+			});// each
+
+		},// init
+		getResult :  function () {
+			d("htmlWrite -> getResult");
+			var result = {"image":"", "link":""};
+			this.each( function () {
+				var image = $(this).children(':first-child').attr("src");
+				var link = $(this).find("input:text[name=img_link]").val();
+				result.image = image;
+				result.link = link;
+			});// each
+			return result;
+		} // getResult
+
+	}; // htmlWriteMethods
+	
+	
+	//--------------------------------
+	// bar
+	//--------------------------------
+	/* DOM structure
+		<div class="htmlWrite_wrap">
+			<textarea class="htmlWrite_textarea"></textarea>
+			<button class="htmlWrite_previewBtn">미리보기</button>
+		</div>
+	*/
+	$.fn.bar = function (action) {
+		if (barMethods[action])
+			return barMethods[action].apply(this, Array.prototype.slice.call(arguments, 1));
+		else
+			return barMethods.init.apply(this, arguments);
+	};// fn.bar
+
+	var barData = [];
+	var barMethods = {
+
+		init: function (options) {
+			d("bar -> init");
+			var defaults = {
+				'bEdit' : true
+			};
+			
+			var ele = ['<div class="bar"></div>'];
+
+			var opt = $.extend(defaults, options);
+
+			return this.each( function () {
+
+					$(this).attr("id", "attrBox"+instanceCnt);
+					instanceCnt++;
+
+					var target = $(this);
+					// create UI
+					target.append(ele.join(""));
+					
+					d("bar -> init");
+
+			});// each
+
+		},// init
+		getResult :  function () {
+			d("bar -> getResult");
+			var result = {"image":"", "link":""};
+			this.each( function () {
+				var image = $(this).children(':first-child').attr("src");
+				var link = $(this).find("input:text[name=img_link]").val();
+				result.image = image;
+				result.link = link;
+			});// each
+			return result;
+		} // getResult
+
+	}; // barMethods
 
 
 
