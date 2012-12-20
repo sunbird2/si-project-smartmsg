@@ -30,19 +30,15 @@
 			
 		
 %>
-<!doctype html>
-<html lang="ko">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>preview call test</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <title>LG U+</title>
 <link rel="stylesheet" type="text/css" href="base.css">
 <link rel="stylesheet" type="text/css" href="urlplus.css">
-<!--<script src="urlplus.js"></script>-->
 <script>
-	window.addEventListener('load', function(){
-		setTimeout(scrollTo, 0, 0, 1);
-	}, false);
 
 	function ok() {
 		var val = document.form.keyword.value;
@@ -72,11 +68,11 @@
 		}
 		else if (pg.equals("2")) {
 			%>
-<!doctype html>
-<html lang="ko">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+	<title>preview call test</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <title>LG U+</title>
 <link rel="stylesheet" type="text/css" href="base.css">
 <link rel="stylesheet" type="text/css" href="urlplus.css">
