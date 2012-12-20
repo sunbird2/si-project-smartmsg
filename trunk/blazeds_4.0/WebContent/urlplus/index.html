@@ -54,7 +54,7 @@
 		if (tab == "#tabs-1") {
 			//addAtt('imageOne');
 			//addAtt('imageThumb');
-			addAtt('textInput');
+			addAtt('html');
 			
 			
 		}else if (tab == "#tabs-2") {
@@ -81,6 +81,7 @@
 		var target = getEditeEle();
 		var box = "<li class='attBox'></li>";
 		var addBoxEle = null;
+		var subBoxEle = null;
 		
 		if (type == "imageOne") { addBoxEle = $(box).appendTo(target).imageOne(); }
 		else if (type == "imageThumb") { addBoxEle = $(box).appendTo(target).imageThumb({bEdit : true}); }
@@ -109,11 +110,31 @@
 		else if (type == "linkPhone") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true, bPhone : true}); }
 		else if (type == "linkPage") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true}); }
 		else if (type == "linkEnter") { addBoxEle = $(box).appendTo(target).textInput({bEdit : true, bInput:false}); }
-		else if (type == "cuponBarcode") { addBoxEle = $(box).appendTo(target).coupon({bEdit : true, bBarcode : true}); }
-		else if (type == "cuponText") { addBoxEle = $(box).appendTo(target).coupon({bEdit : true}); }
-		else if (type == "faceBook") {}
-		else if (type == "html") {}
-		else if (type == "bar") {}
+		else if (type == "cuponBarcode") { 
+			if ($('.couponBox').length > 0) {
+				alert("쿠폰은 페이지당 하나만 추가 가능 합니다.");
+				return ;
+			}else {
+				addBoxEle = $(box).appendTo(target).coupon({bEdit : true, bBarcode : true});
+				subBoxEle = $(box).appendTo(target).couponBtn({bEdit : true});
+				addFunctionToAttBoxNoDel(type, subBoxEle);	
+			}
+			
+		}
+		else if (type == "cuponText") { 
+			
+			if ($('.couponBox').length > 0) {
+				alert("쿠폰은 페이지당 하나만 추가 가능 합니다.");
+				return ;
+			}else {
+				addBoxEle = $(box).appendTo(target).coupon({bEdit : true});
+				subBoxEle = $(box).appendTo(target).couponBtn({bEdit : true});
+				addFunctionToAttBoxNoDel(type, subBoxEle);
+			}
+		}
+		else if (type == "faceBook") {addBoxEle = $(box).appendTo(target).facebook({bEdit : true});}
+		else if (type == "html") {addBoxEle = $(box).appendTo(target).htmlWrite({bEdit : true});}
+		else if (type == "bar") {addBoxEle = $(box).appendTo(target).bar({bEdit : true});}
 		
 
 		addFunctionToAttBox(type, addBoxEle);
@@ -140,6 +161,16 @@
 		$(dom).appendTo(addBoxEle);
 	}
 	/** 
+	* target 에 위로, 아래로을 추가 한다.
+	* target : 속성 element
+	*/
+	function addFunctionToAttBoxNoDel( type, addBoxEle ) {
+
+		var tid = addBoxEle.attr("id");
+		var dom = '<div class="attBox_function"><a href="#" onclick="attBoxFunction(\''+type+'\',\''+tid+'\', this, \'down\');return false;" class="down_only" alt="아래로">▼</a><a href="#" onclick="attBoxFunction(\''+type+'\',\''+tid+'\', this, \'up\');return false;" class="up" alt="위로">▲</a></div>';
+		$(dom).appendTo(addBoxEle);
+	}
+	/** 
 	* 위로, 아래로, 삭제 이벤트 처리
 	* target : 속성 element
 	*/
@@ -155,26 +186,14 @@
 			else if (type == "imgLayout") { $('#'+tid).imageLayout('destroy'); }
 			else if (type == "movieOne") { $('#'+tid).movieOne('destroy'); }
 			else if (type == "movieSlide") { $('#'+tid).movieSlide('destroy'); }
+			else if (type == "cuponBarcode" || type == "cuponText") { $('.coupon_button_wrap').parent().remove(); } // coupon button remove;
 			
-			/*
-			else if (type == "text") { $('#'+tid).textEditor({domUrl : 'textEditor.jsp'}); }
-			else if (type == "textInput") { $('#'+tid).textInput({bEdit : true}); }
-			else if (type == "textTable") { $('#'+tid).textEditor({domUrl : 'textEditorTable.jsp', bTable : true}); }
-			else if (type == "linkPhone") { $('#'+tid).linkInput({bEdit : true, bPhone : true}); }
-			else if (type == "linkPage") { $('#'+tid).linkInput({bEdit : true}); }
-			else if (type == "linkEnter") { $('#'+tid).textInput({bEdit : true}); }
-			else if (type == "cuponBarcode") { $('#'+tid).coupon({bEdit : true, bBarcode : true}); }
-			else if (type == "cuponText") { $('#'+tid).coupon({bEdit : true}); }
-			else if (type == "faceBook") {}
-			else if (type == "html") {}
-			else if (type == "bar") {}
-			*/
 			target.parent().parent().remove();
 			scrollUpdateBottom();
 		}else if (opt == "up"){
 			target.parent().parent().prev().insertAfter( target.parent().parent() );
 		}else if (opt == "down"){
-			target.parent().parent().remove();
+			target.parent().parent().next().insertBefore( target.parent().parent() );
 		}
 	}
 	
@@ -261,7 +280,7 @@
 				<a href="#" onclick="">미리보기</a>
 				<a href="#" onclick="">저장하기</a>
 			</div>
-			<div id="uploadifyQueue" style="position:absolute;left:40px;top:11px;"></div>
+			<div id="uploadifyQueue" style="position:absolute;left:50%;top:50%;margin-left:-160px"></div>
 		</div><!--// canvas_wrap -->
 		
 
