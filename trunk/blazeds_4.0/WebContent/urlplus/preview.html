@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>preview call test</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<pre>
+ex1).
+	&lt;form name="form" method="post" action="http://www.munjanote.com/urlplus/preview/"&gt;
+		&lt;input type="hidden" name="client_id" value="아이디입력.." /&gt;&lt;!-- [필수] 사용자 아이디 --&gt;
+		&lt;input type="hidden" name="htmlKey" value="" /&gt;&lt;!-- [필수] 페이지키 --&gt;
+		&lt;input type="submit" value="페이지 호출" /&gt;
+	&lt;/form&gt;
+
+ex2).
+	&lt;button onclick="preview()"&gt;팝업 호출&lt;/button&gt;
+	&lt;script type="text/javascript"&gt;
+	function preview() {
+		var f = document.form;
+		var url = "http://www.munjanote.com/urlplus/preview/";
+		var param = "?client_id=" + f.client_id.value + "&htmlKey=" + f.htmlKey.value;
+		window.open(url+param,"urlplusPreview","scrollbars=auto,toolbar=no,resizable=yes,width=400,height=500,left=0,top=0");
+	}
+	&lt;/script&gt;
+</pre>
+    <form name="form" method="post" action="http://www.munjanote.com/urlplus/preview/">
+		<input type="hidden" name="client_id" value="아이디입력.." /><!-- [필수] 사용자 아이디 -->
+		<input type="hidden" name="htmlKey" value="1234" /><!-- [필수] 페이지키 -->
+		<input type="submit" value="페이지 호출" />
+	</form>
+	<button onclick="preview()">팝업 호출</button>
+	<script type="text/javascript">
+	function preview() {
+		var f = document.form;
+		var url = "http://www.munjanote.com/urlplus/preview/";
+		var param = "?client_id=" + f.client_id.value + "&htmlKey=" + f.htmlKey.value;
+		window.open(url+param,"urlplusPreview","scrollbars=auto,toolbar=no,resizable=yes,width=400,height=500,left=0,top=0");
+	}
+		
+	</script>
+</body>
+</html>

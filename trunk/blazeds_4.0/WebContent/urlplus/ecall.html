@@ -5,11 +5,22 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 </head>
 <body>
+<pre>
+&lt;form name="form" method="post" action="http://www.munjanote.com/urlplus/ecall/"&gt;
+	&lt;input type="hidden" name="mode" value="test" /&gt;&lt;!-- [필수] test (테스트:결과값 수동 작성), edit(페이지작성), modify(페이지수정시, key값 필요) 기본:edite --&gt;
+	&lt;input type="hidden" name="client_id" value="아이디입력.." /&gt;&lt;!-- [필수] 사용자 아이디 --&gt;
+	&lt;input type="hidden" name="service_code" value="발급받은서비스코드.." /&gt;&lt;!-- [필수] 사용자 아이디 --&gt;
+	&lt;input type="hidden" name="modify_key" value="" /&gt;&lt;!-- [선택] mode 값이 'modify' 일 경우 페이지 키 --&gt;
+	&lt;input type="hidden" name="return_url" value="http://결과 받을 주소" /&gt;&lt;!-- [선택] 테스트시 결과 받을 주소  ※ 실사용시 등록된 URL로 처리 됩니다.--&gt;
+	&lt;input type="hidden" name="pageType" value="" /&gt;&lt;!-- [선택] I(정보형), C(쿠폰형), E(이벤트형), IEC 복수가능 --&gt;
+	&lt;input type="submit" value="모바일웹에이터 호출" /&gt;
+&lt;/form&gt;
+</pre>
     <form name="form" method="post" action="http://www.munjanote.com/urlplus/ecall/">
 		<input type="hidden" name="mode" value="test" /><!-- [필수] test (테스트:결과값 수동 작성), edit(페이지작성), modify(페이지수정시, key값 필요) 기본:edite -->
 		<input type="hidden" name="client_id" value="아이디입력.." /><!-- [필수] 사용자 아이디 -->
 		<input type="hidden" name="modify_key" value="" /><!-- [선택] mode 값이 'modify' 일 경우 페이지 키 -->
-		<input type="hidden" name="return_url" value="http://www.munjanote.com/urlplus/attPlug.html" /><!-- [필수] 페이지 작성 완료 시 결과 받을 주소 -->
+		<input type="hidden" name="return_url" value="http://www.ehancast.com/return.php" /><!-- [선택] 테스트시 결과 받을 주소 ※ 실사용시 등록된 URL로 처리 됩니다. -->
 		<input type="hidden" name="pageType" value="" /><!-- [선택] I(정보형), C(쿠폰형), E(이벤트형), IEC 복수가능 -->
 		<input type="submit" value="모바일웹에이터 호출" />
 	</form>
