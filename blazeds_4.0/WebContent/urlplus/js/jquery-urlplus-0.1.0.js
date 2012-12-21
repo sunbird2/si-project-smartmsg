@@ -1113,7 +1113,19 @@
 	_removeDataGalleria =  (function(tid, idx) {
 		d(tid+" : _removeDataGalleria("+idx+")");
 		var target = $('#'+tid);
-		imageSlideData[tid].splice( idx, 1 ); 
+		
+		if (imageSlideData[tid][idx].merge && imageSlideData[tid][idx].merge != "") {
+			//target.find('.imageSlide_radioBox').append('<button class="whiteBtn">합성이미지</button>');
+			alert($('#'+tid).parent().find('.imageSlide_radioBox').length);
+			$('<button class="whiteBtn">합성이미지</button>').appendTo(target.parent().find('.imageSlide_radioBox')).click(function(){
+				imageSlideData[tid].push({image: '_images/image_menu_cont01300.png', thumb: '_images/image_menu_cont01.png', big: '_images/image_menu_cont01300.png', link: '', merge : MERGE_IMAGE_TAG });
+				$(this).remove();
+			});;
+		}
+		
+		
+		imageSlideData[tid].splice( idx, 1 );
+		
 		var gallery = $('#'+tid).data('galleria');
 		gallery.load(imageSlideData[tid]);
 
