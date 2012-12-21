@@ -189,6 +189,8 @@
 				var top = target.height() - 11;
 
 				// ui
+				if ( $(this).find(".imageOne_link_icon").length > 0 ) $(this).find(".imageOne_link_icon").remove();
+				
 				if (imageOneData[tid].link && imageOneData[tid].link != "" ) {
 					$(this).append('<a href="#" class="imageOne_link_icon imageOne_link_icon_on" style="left:'+left+'px;top:'+top+'px;" alt="클릭시 링크 설정" title="클릭시 링크 설정" onclick="return false;">링크설정</a>');
 				}else {
@@ -211,8 +213,8 @@
 					target.find("button.accept").click(function(){
 						var inputLink = $(this).prev().val();
 						if (inputLink != null && inputLink != "") {
-							imageOneData[tid][idx].link = inputLink;
-							alert((idx+1)+" 번 이미지 클릭시 \r\n "+inputLink+" 주소로 링크 설정 되었습니다.");
+							imageOneData[tid].link = inputLink;
+							alert("이미지 클릭시 \r\n "+inputLink+" 주소로 링크 설정 되었습니다.");
 							
 							$(this).parent().remove();
 							$('#'+stid).imageOne("editUI");
@@ -333,7 +335,7 @@
 								'<button class="whiteBtn">합성이미지</button>',
 								'<button class="whiteBtn">합성이미지</button>',
 								'<button class="whiteBtn">합성이미지</button>',
-								'</div>',
+							'</div>',
 							'</div>'];
 
 			var opt = $.extend(defaults, options);
@@ -481,6 +483,10 @@
 				// ui
 				target.find( 'li' ).css("border","1px solid #F62CA2");
 				$( target ).find('li').each(function(index) {
+					
+					$(this).find('.imgdel').remove();
+					$(this).find('.imageThumb_num').remove();
+					$(this).find('.imageThumb_link_icon').remove();
 					
 					if (imageThumbData[tid][index].link && imageThumbData[tid][index].link != "" ) {
 						$(this).append('<img src="_images/x.png" width="11" height="11" class="imgdel" style="left:'+left+'px;" alt="삭제"  title="클릭시 링크 설정"/>'
@@ -721,11 +727,19 @@
 							'<div class="imageSlide_box"></div>',
 							'<div class="imageSlide_move_box"></div>',
 							'<div class="imageSlide_btn_wrap">',
-							'<input type="file" name="imgSlide_upload" />',
-							'<a href="#" class="imageSlide_removall">모두삭제</a>',
-							//'<a href="#" class="imageSlide_sortable">이동모드</a>',
-							//'<a href="#" class="imageSlide_sortable_destory">이동해제</a>',
-							'</div>'];
+								'<input type="file" name="imgSlide_upload" />',
+								'<a href="#" class="imageSlide_removall">모두삭제</a>',
+								//'<a href="#" class="imageSlide_sortable">이동모드</a>',
+								//'<a href="#" class="imageSlide_sortable_destory">이동해제</a>',
+							'</div>',
+							'<div class="imageSlide_etcBox">',
+								'<div class="imageSlide_radioBox">',
+									'<p class="imageSlide_merg_tip">버튼 클릭시 합성 이미지가 갤러리에 추가됩니다.(최대 3개)</p>',
+									'<button class="whiteBtn">합성이미지</button>',
+									'<button class="whiteBtn">합성이미지</button>',
+									'<button class="whiteBtn">합성이미지</button>',
+								'</div>',
+							'</div>',];
 
 			var opt = $.extend(defaults, options);
 
@@ -740,7 +754,6 @@
 					var tid = "";
 					if (opt.bEdit == true) {
 
-						
 						// create UI
 						target.append(ele.join(""));
 						
@@ -770,8 +783,8 @@
 																								try {
 																									rslt = $.parseJSON(data);
 																									if (rslt.b == "true") {
-																										imageSlideData[tid].push({image: '/urlImage/'+rslt.img, thumb: '/urlImage/thumb/'+rslt.img, big: '/urlImage/'+rslt.img, link: '#' });
-																										d(tid+" push( { image: '/urlImage/"+rslt.img+"', thumb: '/urlImage/thumb/"+rslt.img +"', big: '/urlImage/"+rslt.img+"', link: '#'})" );
+																										imageSlideData[tid].push({image: '/urlImage/'+rslt.img, thumb: '/urlImage/thumb/'+rslt.img, big: '/urlImage/'+rslt.img, link: '', merge : "" });
+																										d(tid+" push( { image: '/urlImage/"+rslt.img+"', thumb: '/urlImage/thumb/"+rslt.img +"', big: '/urlImage/"+rslt.img+"', link: ''})" );
 																									}
 																									else alert("에러 : "+rslt.err);
 																									
@@ -789,6 +802,13 @@
 						target.children('.imageSlide_removall').click(function(){
 							$('#'+tid).imageSlide("removeAllImage");
 							return false;
+						});
+						
+						// merge button click
+						$(this).find('.whiteBtn').click(function(){
+							imageSlideData[tid].push({image: '_images/image_menu_cont01300.png', thumb: '_images/image_menu_cont01.png', big: '_images/image_menu_cont01300.png', link: '', merge : MERGE_IMAGE_TAG });
+							div.imageSlide("view");
+							$(this).remove();
 						});
 						
 						/*
@@ -812,9 +832,9 @@
 						target.append(ele[0]);
 						var div = target.children(':first-child');
 						div.attr("id", "imageSlide"+instanceCnt);
-						imageSlideData[div.attr("id")] = opt.thumbData;
-						div.imageSlide("view");
 					}
+					imageSlideData[div.attr("id")] = opt.slideData;
+					div.imageSlide("view");
 					
 					
 			});// each
@@ -836,7 +856,7 @@
 					gallery.load(imageSlideData[tid]);
 				}else {
 					d("create");
-					Galleria.run($('#'+tid), {dataSource: imageSlideData[tid], height:320, idleMode:false, lightbox: true});
+					Galleria.run($('#'+tid), {dataSource: imageSlideData[tid], width:300, height:320, idleMode:false, lightbox: true});
 				}
 				
 
@@ -976,25 +996,98 @@
 
 			//add delete image to thumbnail 
 			this.bind("thumbnail", function(e) {
-				var left = $(e.thumbTarget).width() - 18;
-				var obj = $(e.thumbTarget).after('<img src="_images/img_del.gif" width="18" height="18"  class="imgdel" style="left:'+left+'px;" alt="삭제"/>'); // delete button
+				// delete
+				var left = $(e.thumbTarget).width() - 11;
+				var obj = $(e.thumbTarget).after('<img src="_images/x.png" width="11" height="11"  class="imgdel" style="left:'+left+'px;" alt="삭제"/>'); // delete button
 
 				$(obj).next().click({gid:tid, idx: e.index}, function(e) {
 					_removeDataGalleria(e.data.gid, e.data.idx);
 					return false;
 				});
+				
+				// merge
+				$(e.thumbTarget).siblings('.MERGE_IMAGE').remove();
+				if (imageSlideData[tid][e.index].merge && imageSlideData[tid][e.index].merge != "") {
+					obj = $(e.thumbTarget).after(MERGE_IMAGE_TAG);
+					 $(e.thumbTarget).siblings('.MERGE_IMAGE').attr("class", "MERGE_IMAGE galleryMERGE_IMAGE");
+					globalMethod.autoMergeImageNumber();
+					imageSlideData[tid][e.index].merge = $(e.thumbTarget).siblings('.MERGE_IMAGE').text();
+				}
+				
 			});
 
 			// add delete image to image
 			this.bind('image', function(e) {
-
-				var left = $(e.imageTarget ).parent().width() - 18;
-				var obj = $(e.imageTarget ).after('<img src="_images/img_del.gif" width="18" height="18" style="position:absolute;top:0px;left:'+left+'px;" alt="삭제"/>'); // delete button
-
+				
+				// del btn
+				/*
+				var left = $(e.imageTarget ).parent().width() - 11;
+				var obj = $(e.imageTarget ).after('<img src="_images/x.png" width="11" height="11" style="position:absolute;top:0px;left:'+left+'px;" alt="삭제"/>'); // delete button
 				$(obj).next().click({gid:tid, idx: e.index}, function(e) {
 					_removeDataGalleria(e.data.gid, e.data.idx);
 					return false;
 				});
+				*/
+				// link icon
+				var index = e.index;
+				var left = $(e.imageTarget ).parent().width() - 24;
+				var top = $(e.imageTarget ).parent().height() - 11;
+				var obj = null;
+				
+				$('#'+tid).find('.imageSlide_link_icon').remove();
+				if (imageSlideData[tid][index].link && imageSlideData[tid][index].link != "" )
+					obj = $(e.imageTarget).after('<a href="#" class="imageSlide_link_icon imageSlide_link_icon_on" style="left:'+left+'px;top:'+top+'px;" alt="클릭시 링크 설정" title="클릭시 링크 설정" onclick="return false;">링크설정</a>');
+				else
+					obj = $(e.imageTarget).after('<a href="#" class="imageSlide_link_icon" style="left:'+left+'px;top:'+top+'px;" alt="클릭시 링크 설정" title="클릭시 링크 설정" onclick="return false;">링크설정</a>');
+				
+				// link click event
+				$(obj).next().click({gid:tid, idx: index}, function(e) {
+					var stid = e.data.gid;
+					var idx = e.data.idx;
+					var link = imageSlideData[stid][idx].link;
+					var cancleLable = "취소";
+					if ( link && link != null ) {
+						cancleLable = "삭제";
+					}else {
+						link = "http://";
+					}
+					
+					var linkEle = '<div class="imageSlide_link_layer"><p class="imageSlide_link_layer_tip">이미지 클릭시 이동할 주소를 설정 합니다.</p><input type="text" name="imageSlide_link_text" value="'+link+'" class="imageSlide_link_text" /><button class="whiteBtn accept">적용</button><button class="whiteBtn cancle">'+cancleLable+'</button></div>';
+					var target = $(linkEle).appendTo($('#'+stid));
+					target.find("button.accept").click(function(){
+						var inputLink = $(this).prev().val();
+						if (inputLink != null && inputLink != "") {
+							imageSlideData[stid][idx].link = inputLink;
+							alert((idx+1)+" 번 이미지 클릭시 \r\n "+inputLink+" 주소로 링크 설정 되었습니다.");
+							$(this).parent().remove();
+							var gallery = $('#'+stid).data('galleria');
+							gallery.load(imageSlideData[stid]);
+							
+						}else {
+							alert("링크를 입력하세요.");
+						}
+					});
+					
+					target.find("button.cancle").click(function(){
+						var inputLink = $(this).prev().val();
+						if (imageSlideData[stid][idx].link != null && imageSlideData[stid][idx].link != "") {
+							imageSlideData[stid][idx].link = "";
+							alert("링크가 삭제 되었습니다.");
+							var gallery = $('#'+tid).data('galleria');
+							gallery.load(imageSlideData[stid]);
+						}
+						$(this).parent().remove();
+					});
+				}); // link click event
+				
+				$(e.imageTarget).siblings(".imageSlide_merg_text");
+				if (imageSlideData[tid][e.index].merge && imageSlideData[tid][e.index].merge != "") {
+					obj = $(e.imageTarget).after(MERGE_IMAGE_TAG);
+					$(e.imageTarget).siblings('.MERGE_IMAGE').attr("class", "imageSlide_merg_text").text(imageSlideData[tid][e.index].merge);
+				}
+				
+				
+				
 			});
 
 		}); // Galleria.ready
@@ -1020,7 +1113,6 @@
 	_removeDataGalleria =  (function(tid, idx) {
 		d(tid+" : _removeDataGalleria("+idx+")");
 		var target = $('#'+tid);
-
 		imageSlideData[tid].splice( idx, 1 ); 
 		var gallery = $('#'+tid).data('galleria');
 		gallery.load(imageSlideData[tid]);
@@ -1042,7 +1134,7 @@
 			<li class="imageLayout_cell">
 				<img src="" class="imageLayout_image"/>
 				<div class="imageLayout_edit">
-					<img src="_images/img_del.gif" width="18" height="18" />
+					<img src="_images/x.png" width="11" height="11" />
 					<div class="imageLayout_label">1</div>
 				</div>
 			</li>
@@ -1673,9 +1765,10 @@
 						target.append(ele[0]);
 						var div = target.children(':first-child');
 						div.attr("id", "movieSlide"+instanceCnt);
-						movieSlideData[div.attr("id")] = opt.thumbData;
-						div.movieSlide("view");
+						
 					}
+					movieSlideData[div.attr("id")] = opt.slideData;
+					div.movieSlide("view");
 					
 					
 			});// each
@@ -1833,11 +1926,11 @@
 
 			//add delete image to thumbnail 
 			this.bind("thumbnail", function(e) {
-				var left = $(e.thumbTarget).width() - 18;
-				var delBtn = $('<img src="_images/img_del.gif" width="18" height="18"  class="imgdel" style="left:'+left+'px;" alt="삭제"/>').appendTo( $(e.imageTarget ).parent() );
+				var left = $(e.thumbTarget).width() - 11;
+				var delBtn = $('<img src="_images/x.png" width="11" height="11"  class="imgdel" style="left:'+left+'px;" alt="삭제"/>').appendTo( $(e.imageTarget ).parent() );
 
 				delBtn.click({gid:tid, idx: e.index}, function(e) {
-					_removeDataGalleria(e.data.gid, e.data.idx);
+					_removeDataGalleriaMovie(e.data.gid, e.data.idx);
 					return false;
 				});
 			});
@@ -1845,8 +1938,8 @@
 			// add delete image to image
 			this.bind('image', function(e) {
 
-				var left = $(e.imageTarget ).parent().width() - 18;
-				var delBtn = $('<img src="_images/img_del.gif" width="18" height="18" style="position:absolute;top:0px;left:'+left+'px;" alt="삭제"/><img src="_images/Play.png" class="imgPlay" />').appendTo( $(e.imageTarget ).parent() );
+				var left = $(e.imageTarget ).parent().width() - 11;
+				var delBtn = $('<img src="_images/x.png" width="11" height="11" style="position:absolute;top:0px;left:'+left+'px;" alt="삭제"/><img src="_images/Play.png" class="imgPlay" />').appendTo( $(e.imageTarget ).parent() );
 
 				var gallery = $('#'+tid).data('galleria');
 				var data = gallery.getData(e.index);
@@ -1860,7 +1953,7 @@
 				});
 
 				delBtn.click({gid:tid, idx: e.index}, function(e) {
-					_removeDataGalleria(e.data.gid, e.data.idx);
+					_removeDataGalleriaMovie(e.data.gid, e.data.idx);
 					return false;
 				});
 			});
@@ -1885,8 +1978,8 @@
 
     }), // _slideMoveView
 
-	_removeDataGalleria =  (function(tid, idx) {
-		d(tid+" : _removeDataGalleria("+idx+")");
+	_removeDataGalleriaMovie =  (function(tid, idx) {
+		d(tid+" : _removeDataGalleriaMovie("+idx+")");
 		var target = $('#'+tid);
 		
 		if (movieSlideData[tid]) movieSlideData[tid].splice( idx, 1 ); 
@@ -1901,7 +1994,7 @@
 		}
 
 		
-	}); // _removeDataGalleria
+	}); // _removeDataGalleriaMovie
 
 
 //--------------------------------

@@ -16,7 +16,8 @@
 	<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.9.2.custom.min.css" />
 	<script src="js/jquery-1.8.2.js"></script>
     <script src="js/jquery-ui.js"></script>
-
+	
+	
 	<script type="text/javascript" src="js/jquery.uploadify-3.1.min.js"></script>
 
     <script type="text/javascript" src="js/galleria/galleria-1.2.8.js"></script>
@@ -31,6 +32,7 @@
 		#container{ width:600px; }
 		textarea{ width:500px; height:300px; }
 	</style>
+
    </head>
   <body>
 
@@ -46,6 +48,17 @@
 	                 {image: '/urlImage/6.png', thumb: '/urlImage/thumb/6.jpg', link :'', merge : '' },
 	                 {image: '/urlImage/7.jpg', thumb: '/urlImage/thumb/7.jpg', link :'', merge : '' }
 	                ];
+	
+	var testSlideData = [
+							{image: '/urlImage/1.png', thumb: '/urlImage/thumb/1.png', big: '', link: '' },
+							{image: '/urlImage/2.png', thumb: '/urlImage/thumb/2.jpg', big: '', link: '' },
+							{image: '/urlImage/3.png', thumb: '/urlImage/thumb/3.jpg', big: '', link: '' },
+							{image: '/urlImage/4.jpg', thumb: '/urlImage/thumb/4.jpg', big: '', link: '' },
+							{image: '/urlImage/5.jpg', thumb: '/urlImage/thumb/5.jpg', big: '', link: '' },
+							{image: '/urlImage/3.png', thumb: '/urlImage/thumb/3.jpg', big: '', link: '' },
+							{image: '/urlImage/4.jpg', thumb: '/urlImage/thumb/4.jpg', big: '', link: '' },
+							{image: '/urlImage/5.jpg', thumb: '/urlImage/thumb/5.jpg', big: '', link: '' },
+	                     ];
 	
 	var PAGE_EDITING = false; // 현재 페이지 수정 여부
 	var scrollUpdate = function(){ 	$('#scroll_wrap').tinyscrollbar_update();};
@@ -66,7 +79,7 @@
 		if (tab == "#tabs-1") {
 			//addAtt('imageOne');
 			//addAtt('imageThumb');
-			addAtt('imageOne');
+			addAtt('imgSlide');
 			
 			
 		}else if (tab == "#tabs-2") {
@@ -102,7 +115,7 @@
 			if ( $('.imageSlide_box , .movieSlide_box').length > 0 ){
 				alert("슬라이드, 동영상 이미지는 페이지당 하나만 추가 가능 합니다.");
 			} else {
-				addBoxEle = $(box).appendTo(target).imageSlide({bEdit : true});
+				addBoxEle = $(box).appendTo(target).imageSlide({slideData : testSlideData,bEdit : true});
 			}
 			
 		}
@@ -222,7 +235,6 @@
 	}
 	
 	</script>
-	<button class="whiteBtn">{IMAGE1}</button>
 	<!--
 	<textarea id="ttt"></textarea>
 	<button onclick="test()">html</button> -->
