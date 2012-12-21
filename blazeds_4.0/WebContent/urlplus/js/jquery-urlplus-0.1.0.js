@@ -18,7 +18,20 @@
 //--------------------------------
 	var instanceCnt = 0;
 	var bDebug = true;
-
+	var MERGE_NUM = ["①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩"];
+	var MERGE_IMAGE_TAG = '<a href="#" class="MERGE_IMAGE"></a>';
+	var globalMethod = {
+		autoMergeImageNumber : function () {
+			$('.MERGE_IMAGE').each(function(index) {
+			    $(this).text("{IMAGE"+MERGE_NUM[index]+"}");
+			});
+		}	
+			
+	};
+	
+	$.URLPLUS = {
+		getMERGE_IMAGE_TAG:function(){return MERGE_IMAGE_TAG;}
+	};
 //--------------------------------
 // imageOne
 //--------------------------------
@@ -28,7 +41,8 @@
 		else
 			return imageOneMethods.init.apply(this, arguments);
 	};// fn.imageOne
-
+	
+	var imageOneData={};
 	
 	var imageOneMethods = {
 
@@ -46,58 +60,184 @@
 	        'fileTypeExts' : '*.gif; *.jpg; *.png',
 			//'buttonText' : '이미지등록',
 			'removeTimeout' : 1, // queue 제거 시간
-			'multi' : false // 다중업로드
+			'multi' : false, // 다중업로드
+			'imageData' : {image:"", link:"", merge: ""},
+			'bEdit':false
 			};
 
-			var ele = ['<img src="_images/image_menu_cont01.png" class="imageOne_img" />',
+			var ele = ['<div class="imageOne_wrap"><img src="_images/image_menu_cont01300.png" class="imageOne_img" /></div>',
+			           		'<p class="imageOne_merg_text" style="display:none;"></p>',
 							'<input type="file" name="imgOne_upload" />',
 							'<a href="#" class="imageOne_deleteBtn">삭제</a>',
-							'<div class="imageOne_etcBox" style="display:none;">',
+							'<div class="imageOne_etcBox">',
 								'<div class="imageOne_radioBox">',
 								'<input type="radio" name="img_type" value="0" checked="checked" /> <label> 고정이미지 </label>&nbsp;&nbsp;<input type="radio" name="img_type" value="1" /> <label> 합성이미지 </label> <a href="#" class="imageOne_help">&nbsp;&nbsp;&nbsp;</a>',
 								'</div>',
-								'<span class="imageOne_linkTxt">이미지에 링크 걸 URL을 입력하세요.</span>',
-								'<input type="text" name="img_link" class="imageOne_link" value="http://" />',
+								//'<span class="imageOne_linkTxt">이미지에 링크 걸 URL을 입력하세요.</span>',
+								//'<input type="text" name="img_link" class="imageOne_link" value="http://" />',
 							'</div>'];
 
 			var opt = $.extend(defaults, options);
 
 			return this.each( function () {
+				
 					// create UI
+					var attID = "attrBox"+instanceCnt;
 					$(this).append(ele.join(""));
-					$(this).attr("id", "attrBox"+instanceCnt);
+					$(this).attr("id", attID);
 					instanceCnt++;
-					var img = $(this).children(':first-child');
+					
+					var img = $(this).find('.imageOne_wrap');
+					img.attr("id", "imageOne"+instanceCnt);
+					tid = img.attr("id");
+					instanceCnt++;
+					
 					var upBtn = $(this).find("input:eq(0)");
 					var delBtn = $(this).find(".imageOne_deleteBtn");
 					var imgType = $(this).find("input:radio[name=img_type]");
-
-					upBtn.attr("id", "imageOneUploadBtn"+instanceCnt);
-
+					
+					var upBtnID = "imageOneUploadBtn"+instanceCnt;
+					upBtn.attr("id", upBtnID);
+					
+					// image option init
+					imageOneData[tid] = opt.imageData;
+					
 					$('#imageOneUploadBtn'+instanceCnt).uploadify( $.extend(opt, {
 																				'onUploadSuccess' : function(file, data, response) {
 																					var rslt;
 																					try {
 																						rslt = jQuery.parseJSON(data);
-																						if (rslt.b == "true") { img.attr('src','/urlImage/'+rslt.img);} 
+																						if (rslt.b == "true") { 
+																							img.find(".imageOne_img").attr('src','/urlImage/'+rslt.img);
+																							imageOneData[tid] = {image:rslt.img, link:"", merge: "" }
+																						} 
 																						else { alert("에러 : "+rslt.err); }
 																					}catch(err){ alert("업로드 실패");}
 																				}
 																			}
 					) );
 
-					delBtn.click(function() { img.attr("src", "#"); });
+					delBtn.click(function() {
+						imageOneData[tid] = {image:"", link:"", merge: "" };
+						img.find(".imageOne_img").attr("src", "_images/image_menu_cont01300.png");
+					});
+					
 					imgType.change( function() {
 						var val = $(this).val();
+						img.find(".imageOne_img").attr("src", "_images/image_menu_cont01300.png");
+						
 						if (val == 1) {
-							img.attr("src", "{mergeImage}");
+							
+							imageOneData[tid] = {image:"", link:"", merge: MERGE_IMAGE_TAG };
+							$('#'+attID+" > .imageOne_merg_text").show();
+							$('#'+attID+" > .imageOne_merg_text").html(MERGE_IMAGE_TAG);
+							globalMethod.autoMergeImageNumber();
+							
+							$('#'+upBtnID).hide();
+							$('#'+attID+" > .imageOne_deleteBtn").hide();
+							
+							$('#'+tid).imageOne("editUI");
+						}else {
+							
+							$('#'+attID+" > .imageOne_merg_text").html("");
+							globalMethod.autoMergeImageNumber();
+							$('#'+attID+" > .imageOne_merg_text").hide();
+							
+							
+							$('#'+upBtnID).show();
+							$('#'+attID+" > .imageOne_deleteBtn").show();
 						}
 					});
+					
+					// opt init
+					if (imageOneData[tid].image && imageOneData[tid].image != "") img.find(".imageOne_img").attr('src','/urlImage/'+imageOneData[tid].image);
+					else if (imageOneData[tid].merge && imageOneData[tid].merge != "") {
+						imgType.filter('input[value=1]').attr("checked", "checked");
+						
+						$('#'+attID+" > .imageOne_merg_text").show();
+						$('#'+attID+" > .imageOne_merg_text").html(MERGE_IMAGE_TAG);
+						globalMethod.autoMergeImageNumber();
+						$('#'+upBtnID).hide();
+						$('#'+attID+" > .imageOne_deleteBtn").hide();
+					}
+					
+					
+					// edit link create
+					if (opt.bEdit && opt.bEdit == true) {
+						img.find(".imageOne_img").load(function() {
+							
+							if ( (imageOneData[tid].image && imageOneData[tid].image!="") || (imageOneData[tid].merge && imageOneData[tid].merge!=""))
+								$('#'+tid).imageOne("editUI");
+							else $('#'+tid).find(".imageOne_link_icon").hide();
+						});
+						
+					}
 					instanceCnt++;
 					
 			});// each
 
 		},// init
+		
+		editUI : function() {
+
+			d("imageOne -> editUI");
+			return this.each( function () {
+				
+				var target = $(this);
+				var tid = target.attr("id");
+				var left = target.width() - 24;
+				var top = target.height() - 11;
+
+				// ui
+				if (imageOneData[tid].link && imageOneData[tid].link != "" ) {
+					$(this).append('<a href="#" class="imageOne_link_icon imageOne_link_icon_on" style="left:'+left+'px;top:'+top+'px;" alt="클릭시 링크 설정" title="클릭시 링크 설정" onclick="return false;">링크설정</a>');
+				}else {
+					$(this).append('<a href="#" class="imageOne_link_icon" style="left:'+left+'px;top:'+top+'px;" alt="클릭시 링크 설정" title="클릭시 링크 설정" onclick="return false;">링크설정</a>');
+				}
+
+				// link click event				
+				target.find( '.imageOne_link_icon' ).click(function(){
+					var stid = tid;
+					var link = imageOneData[tid].link;
+					var cancleLable = "취소";
+					if ( link && link != null ) {
+						cancleLable = "삭제";
+					}else {
+						link = "http://";
+					}
+					
+					var linkEle = '<div class="imageThumb_link_layer"><p class="imageThumb_link_layer_tip">이미지 클릭시 이동할 주소를 설정 합니다.</p><input type="text" name="imageThumb_link_text" value="'+link+'" class="imageThumb_link_text" /><button class="whiteBtn accept">적용</button><button class="whiteBtn cancle">'+cancleLable+'</button></div>';
+					var target = $(linkEle).appendTo($('#'+tid));
+					target.find("button.accept").click(function(){
+						var inputLink = $(this).prev().val();
+						if (inputLink != null && inputLink != "") {
+							imageOneData[tid][idx].link = inputLink;
+							alert((idx+1)+" 번 이미지 클릭시 \r\n "+inputLink+" 주소로 링크 설정 되었습니다.");
+							
+							$(this).parent().remove();
+							$('#'+stid).imageOne("editUI");
+							
+						}else {
+							alert("링크를 입력하세요.");
+						}
+					});
+					
+					target.find("button.cancle").click(function(){
+						var inputLink = $(this).prev().val();
+						if (imageOneData[tid].link != null && imageOneData[tid].link != "") {
+							imageOneData[tid].link = "";
+							alert("링크가 삭제 되었습니다.");
+							
+							$('#'+stid).imageOne("editUI");
+						}
+						$(this).parent().remove();
+					});
+				});
+
+			});// each
+			
+		}, // editUI
+		
 		getResult :  function () {
 			d("imageOne -> getResult");
 			var result = {"image":"", "link":""};
@@ -184,10 +324,16 @@
 			var ele = ['<p class="imageThumb_tip"><span>마우스로 드래그하여</span> <b>순서를 이동</b><span>할 수 있습니다.</span><p>',
 							'<ul class="imageThumb_box"></ul>',
 							'<div class="imageThumb_btn_wrap">',
-							'<input type="file" name="imgThumbnail_upload" />',
-							'<a href="#" class="imageThumb_removall">모두삭제</a>',
-							//'<a href="#" class="imageThumb_sortable">이동모드</a>',
-							//'<a href="#" class="imageThumb_sortable_destory">이동해제</a>',
+								'<input type="file" name="imgThumbnail_upload" />',
+								'<a href="#" class="imageThumb_removall">모두삭제</a>',
+							'</div>',
+							'<div class="imageThumb_etcBox">',
+								'<div class="imageThumb_radioBox">',
+								'<p class="imageThumb_merg_tip">버튼 클릭시 합성 이미지가 갤러리에 추가됩니다.(최대 3개)</p>',
+								'<button class="whiteBtn">합성이미지</button>',
+								'<button class="whiteBtn">합성이미지</button>',
+								'<button class="whiteBtn">합성이미지</button>',
+								'</div>',
 							'</div>'];
 
 			var opt = $.extend(defaults, options);
@@ -202,6 +348,7 @@
 					if (opt.bEdit == true) {
 						// create UI
 						target.append(ele.join(""));
+						globalMethod.autoMergeImageNumber();
 
 						var ul = target.find('.imageThumb_box');
 						ul.attr("id", "imageThumb"+instanceCnt);
@@ -213,7 +360,12 @@
 
 						upBtn.attr("id", "imageThumbUploadBtn"+instanceCnt);
 						
-						imageThumbData[tid] = [];
+						imageThumbData[tid] = opt.thumbData;
+						if (opt.thumbData.length > 0) {
+							ul.imageThumb("view");
+							if (opt.bEdit == true) ul.imageThumb("editUI");
+						}
+						
 
 						$('#imageThumbUploadBtn'+instanceCnt).uploadify( $.extend(opt, {
 																						'onUploadSuccess' : function(file, data, response) {
@@ -221,7 +373,7 @@
 																							try {
 																								rslt = $.parseJSON(data);
 																								if (rslt.b == "true") {
-																									imageThumbData[tid].push({image: '/urlImage/'+rslt.img, thumb: '/urlImage/thumb/'+rslt.img });
+																									imageThumbData[tid].push({image: '/urlImage/'+rslt.img, thumb: '/urlImage/thumb/'+rslt.img , link:"", merge:"" });
 																									d(tid+" push( { image: '/urlImage/"+rslt.img+"', thumb: '/urlImage/thumb/"+rslt.img +"'})" );
 																								}
 																								else alert("에러 : "+rslt.err);
@@ -245,6 +397,19 @@
 							$('#'+tid).imageThumb("removeAllImage");
 							return false;
 						});
+						
+						// merge click
+						target.find('.whiteBtn').click(function(){
+							
+							imageThumbData[tid].push({image: "", thumb: "" , link:"", merge: MERGE_IMAGE_TAG });
+							$(this).remove();
+							$('#'+tid).imageThumb("view");
+							$('#'+tid).imageThumb("editUI");
+							$('#'+tid).imageThumb("sortAble", false);
+							
+							
+						});
+						
 						/*
 						target.children('.imageThumb_sortable_destory').hide();
 						target.children('.imageThumb_sortable').click(function(){
@@ -286,11 +451,19 @@
 				var cnt = imageThumbData[tid].length;
 
 				var obj = null;
+				var bMerge = false;
 				for ( var i = 0; i < cnt ; i++ ) {
 					obj = imageThumbData[tid][i];
-					html += '<li><img src="'+obj.thumb+'" class="imgThumbnail_item" /></li>';
+					if (obj.merge && obj.merge != "") {
+						html += '<li><div class="imageThumb_mearge_box">'+MERGE_IMAGE_TAG+'</div></li>';
+						bMerge = true;
+					}
+					else
+						html += '<li><img src="'+obj.thumb+'" class="imgThumbnail_item" /></li>';
 				}
 				target.html(html);
+				
+				if (bMerge == true) globalMethod.autoMergeImageNumber();
 
 			});// each
 		}, // view
@@ -303,14 +476,91 @@
 				var target = $(this);
 				var tid = target.attr("id");
 				var left = target.find( 'li' ).width() - 11;
+				var top = target.find( 'li' ).height() - 11;
+				
+				// ui
 				target.find( 'li' ).css("border","1px solid #F62CA2");
-				$( target ).find('li').append('<img src="_images/x.png" width="11" height="11" class="imgdel" style="left:'+left+'px;" alt="삭제" />');
+				$( target ).find('li').each(function(index) {
+					
+					if (imageThumbData[tid][index].link && imageThumbData[tid][index].link != "" ) {
+						$(this).append('<img src="_images/x.png" width="11" height="11" class="imgdel" style="left:'+left+'px;" alt="삭제"  title="클릭시 링크 설정"/>'
+					    		+'<div class="imageThumb_num">'+(index+1)+'</div>'
+					    		+'<a href="#" class="imageThumb_link_icon imageThumb_link_icon_on" style="left:'+(left-13)+'px;top:'+top+'px;" alt="클릭시 링크 설정" title="클릭시 링크 설정" onclick="return false;">링크설정</a>');
+					}else {
+						$(this).append('<img src="_images/x.png" width="11" height="11" class="imgdel" style="left:'+left+'px;" alt="삭제"  title="클릭시 링크 설정"/>'
+					    		+'<div class="imageThumb_num">'+(index+1)+'</div>'
+					    		+'<a href="#" class="imageThumb_link_icon" style="left:'+(left-13)+'px;top:'+top+'px;" alt="클릭시 링크 설정" title="클릭시 링크 설정" onclick="return false;">링크설정</a>');
+					}
+				    
+				});
 
-				// click event
+				// delete click event
 				target.find( 'li > img' ).click(function(){
 					var idx = $(this).parent().prevAll().length;
-					imageThumbData[tid].splice( idx, 1 ); 
 					$(this).parent().remove();
+					var stid = tid;
+					if (imageThumbData[tid][idx].merge && imageThumbData[tid][idx].merge != "") {
+						//$("#"+tid).siblings('.imageThumb_etcBox').find('.imageThumb_radioBox').append('<button class="whiteBtn">'+MERGE_IMAGE_TAG+'</button>');
+						
+						$('<button class="whiteBtn">합성이미지</button>').appendTo($("#"+tid).siblings('.imageThumb_etcBox').find('.imageThumb_radioBox')).click(function(){
+							
+							var mergeText = $(this).text();
+							imageThumbData[tid].push({image: "", thumb: "" , link:"", merge: MERGE_IMAGE_TAG });
+							$(this).remove();
+							$('#'+stid).imageThumb("view");
+							$('#'+stid).imageThumb("editUI");
+							$('#'+stid).imageThumb("sortAble", false);
+							
+							
+						});
+						
+						globalMethod.autoMergeImageNumber();
+					}
+					imageThumbData[tid].splice( idx, 1 ); 
+					
+				});
+				
+				// link click event				
+				target.find( 'li > .imageThumb_link_icon' ).click(function(){
+					var stid = tid;
+					var idx = $(this).parent().prevAll().length;
+					var link = imageThumbData[tid][idx].link;
+					var cancleLable = "취소";
+					if ( link && link != null ) {
+						cancleLable = "삭제";
+					}else {
+						link = "http://";
+					}
+					
+					var linkEle = '<div class="imageThumb_link_layer"><p class="imageThumb_link_layer_tip">이미지 클릭시 이동할 주소를 설정 합니다.</p><input type="text" name="imageThumb_link_text" value="'+link+'" class="imageThumb_link_text" /><button class="whiteBtn accept">적용</button><button class="whiteBtn cancle">'+cancleLable+'</button></div>';
+					var target = $(linkEle).appendTo($('#'+tid));
+					target.find("button.accept").click(function(){
+						var inputLink = $(this).prev().val();
+						if (inputLink != null && inputLink != "") {
+							imageThumbData[tid][idx].link = inputLink;
+							alert((idx+1)+" 번 이미지 클릭시 \r\n "+inputLink+" 주소로 링크 설정 되었습니다.");
+							$(this).parent().remove();
+							$('#'+stid).imageThumb("view");
+							$('#'+stid).imageThumb("editUI");
+							$('#'+stid).imageThumb("sortAble", false);
+							
+						}else {
+							alert("링크를 입력하세요.");
+						}
+					});
+					
+					target.find("button.cancle").click(function(){
+						var inputLink = $(this).prev().val();
+						if (imageThumbData[tid][idx].link != null && imageThumbData[tid][idx].link != "") {
+							imageThumbData[tid][idx].link = "";
+							alert("링크가 삭제 되었습니다.");
+							
+							$('#'+stid).imageThumb("view");
+							$('#'+stid).imageThumb("editUI");
+							$('#'+stid).imageThumb("sortAble", false);
+						}
+						$(this).parent().remove();
+					});
 				});
 
 			});// each
@@ -360,7 +610,7 @@
 							var start_pos = ui.item.data('start_pos');
 							var end_pos = ui.item.data('end_pos');
 							d('#'+tid+" sotable update : "+start_pos+"=>"+end_pos);
-							 $('#'+tid).imageThumb("sort", start_pos, end_pos);
+							$('#'+tid).imageThumb("sort", start_pos, end_pos);
 						}
 					}).disableSelection();
 
@@ -383,7 +633,19 @@
 				var target = $(this);
 				var tid = target.attr("id");
 				imageThumbData[tid].move( arg[0], arg[1]);
+				
+				// numbre refresh
+				$('#'+tid).find(".imageThumb_num").each(function(index) {
+					$(this).text(index+1);
+				});
+				
+				// merge sort
+				globalMethod.autoMergeImageNumber();
+				
 			});// each
+			
+			
+			
 		}, // sort
 
 		getResult :  function () {
