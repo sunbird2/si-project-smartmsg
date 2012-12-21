@@ -35,6 +35,18 @@
   <body>
 
 	<script type="text/javascript">
+	var testImageOne = {imageData : {image:"", link:"", merge: $.URLPLUS.getMERGE_IMAGE_TAG()}  , bEdit:true};
+	var testImageOne2 = { imageData : {image: "1.png", link:"http://ddr.html", merge: "" }  , bEdit:true };
+	var testImage = [
+	                 {image: '/urlImage/1.png', thumb: '/urlImage/thumb/1.png', link :'', merge : '' },
+	                 {image: '/urlImage/2.png', thumb: '/urlImage/thumb/2.jpg', link :'', merge : '' },
+	                 {image: '/urlImage/3.png', thumb: '/urlImage/thumb/3.jpg', link :'', merge : '' },
+	                 {image: '/urlImage/4.jpg', thumb: '/urlImage/thumb/4.jpg', link :'', merge : '' },
+	                 {image: '/urlImage/5.jpg', thumb: '/urlImage/thumb/5.jpg', link :'', merge : '' },
+	                 {image: '/urlImage/6.png', thumb: '/urlImage/thumb/6.jpg', link :'', merge : '' },
+	                 {image: '/urlImage/7.jpg', thumb: '/urlImage/thumb/7.jpg', link :'', merge : '' }
+	                ];
+	
 	var PAGE_EDITING = false; // 현재 페이지 수정 여부
 	var scrollUpdate = function(){ 	$('#scroll_wrap').tinyscrollbar_update();};
 	var scrollUpdateBottom = function(){ 	$('#scroll_wrap').tinyscrollbar_update('bottom');};
@@ -54,7 +66,7 @@
 		if (tab == "#tabs-1") {
 			//addAtt('imageOne');
 			//addAtt('imageThumb');
-			addAtt('html');
+			addAtt('imageOne');
 			
 			
 		}else if (tab == "#tabs-2") {
@@ -83,8 +95,8 @@
 		var addBoxEle = null;
 		var subBoxEle = null;
 		
-		if (type == "imageOne") { addBoxEle = $(box).appendTo(target).imageOne(); }
-		else if (type == "imageThumb") { addBoxEle = $(box).appendTo(target).imageThumb({bEdit : true}); }
+		if (type == "imageOne") { addBoxEle = $(box).appendTo(target).imageOne({bEdit : true}); }
+		else if (type == "imageThumb") { addBoxEle = $(box).appendTo(target).imageThumb({bEdit : true, thumbData:testImage }); }
 		else if (type == "imgSlide") {
 
 			if ( $('.imageSlide_box , .movieSlide_box').length > 0 ){
@@ -210,6 +222,7 @@
 	}
 	
 	</script>
+	<button class="whiteBtn">{IMAGE1}</button>
 	<!--
 	<textarea id="ttt"></textarea>
 	<button onclick="test()">html</button> -->
