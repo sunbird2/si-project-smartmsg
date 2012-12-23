@@ -529,7 +529,7 @@ public class SmartDS extends SessionManagement {
 			if (lvo == null) lvo = new LogVO();
 			lvo.setIdx(0);
 			lvo.setMessage(e.getMessage());
-			
+			VbyP.accessLog("send Exception : "+e.getMessage());
 			System.out.println(e.toString());
 		}
 		finally { close(conn); }
