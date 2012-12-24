@@ -720,6 +720,7 @@
 				'removeTimeout' : 1,// queue 제거 시간
 				'multi' : true,
 				'bEdit' : false,
+				'bMovie' : false,
 				'slideData' : []
 			};
 			
@@ -1005,6 +1006,11 @@
 					return false;
 				});
 				
+				// number
+				var numberEle = '<p class="imageSlide_number">'+(e.index+1)+'</p>';
+				$(e.thumbTarget).after(numberEle);
+				
+				
 				// merge
 				$(e.thumbTarget).siblings('.MERGE_IMAGE').remove();
 				if (imageSlideData[tid][e.index].merge && imageSlideData[tid][e.index].merge != "") {
@@ -1013,6 +1019,15 @@
 					globalMethod.autoMergeImageNumber();
 					imageSlideData[tid][e.index].merge = $(e.thumbTarget).siblings('.MERGE_IMAGE').text();
 				}
+				
+				// movie icon
+				if (imageSlideData[tid][e.index].bMovie && imageSlideData[tid][e.index].bMovie == true) {
+					var playIcon = '<img src="_images/play_btn.png" class="imageSlide_play_icon_thumb" />';
+					$(e.thumbTarget).after(playIcon);
+				}
+				
+				
+				
 				
 			});
 
@@ -1028,12 +1043,14 @@
 					return false;
 				});
 				*/
+				
+				
+				
 				// link icon
 				var index = e.index;
 				var left = $(e.imageTarget ).parent().width() - 24;
 				var top = $(e.imageTarget ).parent().height() - 11;
 				var obj = null;
-				
 				$('#'+tid).find('.imageSlide_link_icon').remove();
 				if (imageSlideData[tid][index].link && imageSlideData[tid][index].link != "" )
 					obj = $(e.imageTarget).after('<a href="#" class="imageSlide_link_icon imageSlide_link_icon_on" style="left:'+left+'px;top:'+top+'px;" alt="클릭시 링크 설정" title="클릭시 링크 설정" onclick="return false;">링크설정</a>');
@@ -1042,6 +1059,8 @@
 				
 				// link click event
 				$(obj).next().click({gid:tid, idx: index}, function(e) {
+					var linkIcon = $(this);
+					linkIcon.hide();
 					var stid = e.data.gid;
 					var idx = e.data.idx;
 					var link = imageSlideData[stid][idx].link;
@@ -1052,13 +1071,29 @@
 						link = "http://";
 					}
 					
-					var linkEle = '<div class="imageSlide_link_layer"><p class="imageSlide_link_layer_tip">이미지 클릭시 이동할 주소를 설정 합니다.</p><input type="text" name="imageSlide_link_text" value="'+link+'" class="imageSlide_link_text" /><button class="whiteBtn accept">적용</button><button class="whiteBtn cancle">'+cancleLable+'</button></div>';
+					var linkEle = '<div class="imageSlide_link_layer"><p class="imageSlide_link_layer_tip">이미지 클릭시 이동할 주소를 설정 합니다.</p><input type="text" name="imageSlide_link_text" value="'+link+'" class="imageSlide_link_text" /><button class="whiteBtn accept">적용</button><button class="whiteBtn cancle">'+cancleLable+'</button><p class="imageSlide_link_movie_wrap"><input type="checkbox" name="bMovie" class="imageSlide_link_movie_check" value="true"/><label>동영상 주소일 경우 체크 하세요.</label></p></div>';
 					var target = $(linkEle).appendTo($('#'+stid));
+					//init 
+					if (imageSlideData[stid][idx].link && imageSlideData[stid][idx].link != "" ) {
+						target.find(".imageSlide_link_text").val(imageSlideData[stid][idx].link);
+					}
+					// movie checkbox
+					if (imageSlideData[stid][idx].bMovie && imageSlideData[stid][idx].bMovie == true ) {
+						target.find(".imageSlide_link_movie_check").attr('checked', true);
+					}
+					
 					target.find("button.accept").click(function(){
-						var inputLink = $(this).prev().val();
+						var inputLink = $(this).siblings('.imageSlide_link_text').val();
+						var checkMovie = $(this).siblings('.imageSlide_link_movie_wrap').find('.imageSlide_link_movie_check');
+						var bMove = checkMovie.attr('checked') ? true : false;
+						
 						if (inputLink != null && inputLink != "") {
 							imageSlideData[stid][idx].link = inputLink;
-							alert((idx+1)+" 번 이미지 클릭시 \r\n "+inputLink+" 주소로 링크 설정 되었습니다.");
+							
+							imageSlideData[stid][idx].bMovie = bMove;
+							
+							
+							alert((idx+1)+" 번 이미지 클릭시 \r\n "+inputLink+" 주소로 이동 합니다.");
 							$(this).parent().remove();
 							var gallery = $('#'+stid).data('galleria');
 							gallery.load(imageSlideData[stid]);
@@ -1072,20 +1107,30 @@
 						var inputLink = $(this).prev().val();
 						if (imageSlideData[stid][idx].link != null && imageSlideData[stid][idx].link != "") {
 							imageSlideData[stid][idx].link = "";
+							imageSlideData[stid][idx].bMovie = false;
 							alert("링크가 삭제 되었습니다.");
 							var gallery = $('#'+tid).data('galleria');
 							gallery.load(imageSlideData[stid]);
+						}else {
+							linkIcon.show();
 						}
 						$(this).parent().remove();
 					});
 				}); // link click event
 				
-				$(e.imageTarget).siblings(".imageSlide_merg_text");
+				
+				// merge text
+				$(e.imageTarget).siblings(".imageSlide_merg_text").remove();
 				if (imageSlideData[tid][e.index].merge && imageSlideData[tid][e.index].merge != "") {
 					obj = $(e.imageTarget).after(MERGE_IMAGE_TAG);
 					$(e.imageTarget).siblings('.MERGE_IMAGE').attr("class", "imageSlide_merg_text").text(imageSlideData[tid][e.index].merge);
 				}
 				
+				// movie icon
+				if (imageSlideData[tid][e.index].bMovie && imageSlideData[tid][e.index].bMovie == true) {
+					var playIcon = '<img src="_images/play_btn.png" class="imageSlide_play_icon" />';
+					$(e.imageTarget).after(playIcon);
+				}
 				
 				
 			});
@@ -1549,7 +1594,7 @@
 			return movieOneMethods.init.apply(this, arguments);
 	};// fn.movieOne
 
-	
+	var movieOneData={};
 	var movieOneMethods = {
 
 		init: function (options) {
@@ -1567,11 +1612,13 @@
 			'buttonText' : '이미지등록',
 			'removeTimeout' : 1, // queue 제거 시간
 			'multi' : false, // 다중업로드
-			'readyEvent' : function(){}
+			'readyEvent' : function(){},
+			'movieData' : {image:"", link:""},
+			'bEdit':false
 			};
 
 			var ele = ['<p class="movieOne_tip"><span>이미지 등록 후 </span><b>동영상 URL</b><span>을 입력하세요.</span><p>',
-							'<div class="movieOneBox"><img src="_images/movie_menu_cont.png" class="movieOne_img" /><div class="movieOneBox_linkBox"><img src="_images/play_btn.png" class="movieOne_play" /><input type="text" name="img_link" value="http://동영상파일주소.." class="movieOne_link" /></div></div>',
+							'<div class="movieOneBox"><img src="_images/movie_menu_cont.png" class="movieOne_img" /><div class="movieOneBox_linkBox"><img src="_images/play_btn.png" class="movieOne_play" /><input type="text" name="img_link" value="http://동영상파일주소.." class="movieOne_link" />&nbsp;<button class="whiteBtn">적용</button></div></div>',
 							'<input type="file" name="imgOne_upload" />',
 							'<a href="#" class="movieOneBox_deleteBtn">삭제</a>'];
 
@@ -1590,6 +1637,15 @@
 					var delBtn = $(this).find(".movieOne_deleteBtn");
 
 					upBtn.attr("id", "movieOneUploadBtn"+instanceCnt);
+					
+					// init
+					movieOneData[tid] = opt.movieData;
+					img.load(function() {opt.readyEvent();});
+					// init movieOneData
+					if (movieOneData[tid].image && movieOneData[tid].image != "") {
+						img.attr('src','/urlImage/'+movieOneData[tid].image);
+						$('#'+tid+' > .movieOneBox > .movieOneBox_linkBox').show();
+					}
 
 					$('#movieOneUploadBtn'+instanceCnt).uploadify( $.extend(opt, {
 																				'onUploadSuccess' : function(file, data, response) {
@@ -1597,10 +1653,9 @@
 																					var opts = opt;
 																					try {
 																						rslt = jQuery.parseJSON(data);
-																						if (rslt.b == "true") { 
-																							img.attr('src','/urlImage/'+rslt.img);
-																							$('#'+tid+' > .movieOneBox > .movieOneBox_linkBox').show();
-																							img.load(function() {opts.readyEvent();});
+																						if (rslt.b == "true") {
+																							movieOneData[tid].image = rslt.img;
+																							img.attr('src','/urlImage/'+movieOneData[tid].image);
 																						}
 																						else { alert("에러 : "+rslt.err); }
 																						
@@ -1611,6 +1666,8 @@
 					) );
 
 					delBtn.click(function() { img.attr("src", "#"); });
+					
+					
 					instanceCnt++;
 					
 			});// each
