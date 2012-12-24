@@ -37,6 +37,14 @@
   <body>
 
 	<script type="text/javascript">
+	
+	
+	var PAGE_EDITING = false; // 현재 페이지 수정 여부
+	var scrollUpdate = function(){ 	$('#scroll_wrap').tinyscrollbar_update();};
+	var scrollUpdateBottom = function(){ 	$('#scroll_wrap').tinyscrollbar_update('bottom');};
+	
+	
+	// testData
 	var testImageOne = {imageData : {image:"", link:"", merge: $.URLPLUS.getMERGE_IMAGE_TAG()}  , bEdit:true};
 	var testImageOne2 = { imageData : {image: "1.png", link:"http://ddr.html", merge: "" }  , bEdit:true };
 	var testImage = [
@@ -50,19 +58,16 @@
 	                ];
 	
 	var testSlideData = [
-							{image: '/urlImage/1.png', thumb: '/urlImage/thumb/1.png', big: '', link: '' },
-							{image: '/urlImage/2.png', thumb: '/urlImage/thumb/2.jpg', big: '', link: '' },
-							{image: '/urlImage/3.png', thumb: '/urlImage/thumb/3.jpg', big: '', link: '' },
-							{image: '/urlImage/4.jpg', thumb: '/urlImage/thumb/4.jpg', big: '', link: '' },
-							{image: '/urlImage/5.jpg', thumb: '/urlImage/thumb/5.jpg', big: '', link: '' },
-							{image: '/urlImage/3.png', thumb: '/urlImage/thumb/3.jpg', big: '', link: '' },
-							{image: '/urlImage/4.jpg', thumb: '/urlImage/thumb/4.jpg', big: '', link: '' },
-							{image: '/urlImage/5.jpg', thumb: '/urlImage/thumb/5.jpg', big: '', link: '' },
+							{image: '/urlImage/1.png', thumb: '/urlImage/thumb/1.png', big: '', link: '', bMovie: false },
+							{image: '/urlImage/2.png', thumb: '/urlImage/thumb/2.jpg', big: '', link: '', bMovie: false },
+							{image: '/urlImage/3.png', thumb: '/urlImage/thumb/3.jpg', big: '', link: '', bMovie: false },
+							{image: '/urlImage/4.jpg', thumb: '/urlImage/thumb/4.jpg', big: '', link: '', bMovie: false },
+							{image: '/urlImage/5.jpg', thumb: '/urlImage/thumb/5.jpg', big: '', link: '', bMovie: false },
+							{image: '/urlImage/3.png', thumb: '/urlImage/thumb/3.jpg', big: '', link: '', bMovie: false },
+							{image: '/urlImage/4.jpg', thumb: '/urlImage/thumb/4.jpg', big: '', link: '', bMovie: false },
+							{image: '/urlImage/5.jpg', thumb: '/urlImage/thumb/5.jpg', big: '', link: '', bMovie: false },
 	                     ];
-	
-	var PAGE_EDITING = false; // 현재 페이지 수정 여부
-	var scrollUpdate = function(){ 	$('#scroll_wrap').tinyscrollbar_update();};
-	var scrollUpdateBottom = function(){ 	$('#scroll_wrap').tinyscrollbar_update('bottom');};
+	var testMovieOneData = {bEdit : true, readyEvent: scrollUpdateBottom, 'movieData' : {image:"5.jpg", link:"http://www.naver.com"}};
 
     $(document).ready(function(){
 		
@@ -79,7 +84,7 @@
 		if (tab == "#tabs-1") {
 			//addAtt('imageOne');
 			//addAtt('imageThumb');
-			addAtt('imgSlide');
+			addAtt('imageOne');
 			
 			
 		}else if (tab == "#tabs-2") {
@@ -120,7 +125,8 @@
 			
 		}
 		else if (type == "imgLayout") { addBoxEle = $(box).appendTo(target).imageLayout({bEdit : true}); }
-		else if (type == "movieOne") { addBoxEle = $(box).appendTo(target).movieOne({bEdit : true, readyEvent: scrollUpdateBottom}); }
+		//else if (type == "movieOne") { addBoxEle = $(box).appendTo(target).movieOne({bEdit : true, readyEvent: scrollUpdateBottom}); }
+		else if (type == "movieOne") { addBoxEle = $(box).appendTo(target).movieOne(testMovieOneData); }
 		else if (type == "movieSlide") {
 
 			if ( $('.imageSlide_box , .movieSlide_box').length > 0 ){
@@ -300,10 +306,19 @@
 					</div>
 				</div>
 			</div>
-			<div id="page_wrap"></div>
+			<div id="page_wrap">
+				<div class="page_wrap_center">
+					<a href="#" class="page_wrap_page page1 on1">&nbsp;</a>
+					<a href="#" class="page_wrap_page page2">&nbsp;</a>
+					<a href="#" class="page_wrap_page page3">&nbsp;</a>
+					<a href="#" class="page_wrap_page page4">&nbsp;</a>
+					<a href="#" class="page_wrap_page page5">&nbsp;</a>
+				</div>
+				<a href="#" class="page_add"></a>
+			</div>
 			<div id="buttons">
-				<a href="#" onclick="">미리보기</a>
-				<a href="#" onclick="">저장하기</a>
+				<a href="#" onclick="" class="preview">미리보기</a>
+				<a href="#" onclick="" class="save">저장하기</a>
 			</div>
 			<div id="uploadifyQueue" style="position:absolute;left:50%;top:50%;margin-left:-160px"></div>
 		</div><!--// canvas_wrap -->

@@ -71,11 +71,40 @@
 
 #canvas_wrap {position:relative;float:left;width:410px;background-color:#f0f0f0;height:590px;}
 #editeCanvas {width:344px;height:500px;}
+#page_wrap {position:relative;margin:0 auto;width:342px;height:32px;border:1px solid #C9C9C9;background-color:#EAEAEA}
+#page_wrap .page_wrap_center {margin-top:7px;overflow:hidden;text-align:center;}
+#page_wrap .page_wrap_center .page_wrap_page {width:20px;height:16px;padding:2px 8px;cursor:pointer;}
 
+#page_wrap .page_wrap_center .page1{background:url("../_images/number.png") 0px -20px no-repeat;}
+#page_wrap .page_wrap_center a.page1:HOVER {background-position:0px 0px;text-decoration: none;}
+#page_wrap .page_wrap_center a.on1 {background-position:-0px 0px;text-decoration: none;}
+
+#page_wrap .page_wrap_center .page2{background:url("../_images/number.png") -25px -20px no-repeat;}
+#page_wrap .page_wrap_center a.page2:HOVER {background-position:-25px 0px;text-decoration: none;}
+#page_wrap .page_wrap_center a.on2 {background-position:-25px 0px;text-decoration: none;}
+
+#page_wrap .page_wrap_center .page3{background:url("../_images/number.png") -50px -20px no-repeat;}
+#page_wrap .page_wrap_center a.page3:HOVER {background-position:-50px 0px;text-decoration: none;}
+#page_wrap .page_wrap_center a.on3 {background-position:-50px 0px;text-decoration: none;}
+
+#page_wrap .page_wrap_center .page4{background:url("../_images/number.png") -75px -20px no-repeat;}
+#page_wrap .page_wrap_center a.page4:HOVER {background-position:-75px 0px;text-decoration: none;}
+#page_wrap .page_wrap_center a.on4 {background-position:-75px 0px;text-decoration: none;}
+
+#page_wrap .page_wrap_center .page5{background:url("../_images/number.png") -100px -20px no-repeat;}
+#page_wrap .page_wrap_center a.page5:HOVER {background-position:-100px 0px;text-decoration: none;}
+#page_wrap .page_wrap_center a.on5 {background-position:-100px 0px;text-decoration: none;}
+
+#page_wrap .page_add {position:absolute;left:310px;top:7px;width:24px;height:19px;background:url('../_images/page_add.png') 0px -19px;}
+#page_wrap .page_add:HOVER { background:url('../_images/page_add.png') 0px 0px; }
+
+#buttons {width:180px;margin:0 auto;margin-top:6px;}
+#buttons .preview {float:left;margin-right:10px;display:block;width:83px;height:28px;background:url("../_images/preview_btn.png") 0px 0px no-repeat;text-indent:-9999px}
+#buttons .save {float:left;display:block;width:86px;height:28px;background:url("../_images/save_btn.png") 0px 0px no-repeat;text-indent:-9999px}
 
 /* Tiny Scrollbar */
-#scroll_wrap { width:372px;height:500px;margin:10px 0px 10px 20px; }
-#scroll_wrap .viewport { width: 344px; height: 500px; overflow: hidden; position: relative;margin:0 auto; }
+#scroll_wrap { width:372px;height:500px;margin:10px 0px 5px 32px; }
+#scroll_wrap .viewport { width: 344px; height: 500px; overflow: hidden; position: relative; }
 #scroll_wrap .overview { list-style: none; position: absolute; left: 0; top: 0; padding: 0; margin: 0; }
 #scroll_wrap .scrollbar{ position: relative; background-position: 0 0; float: right; width: 15px; }
 #scroll_wrap .track {  height: 100%; width:13px; position: relative; padding: 0 1px; }
@@ -180,14 +209,19 @@
 .imageSlide_removall {float:right;display:block;width:74px;height:24px;background:url("../_images/total_delete_btn.png") no-repeat;text-indent:-9999px}
 .imageSlide_link_icon {display:block;width:24px;height:11px;cursor:pointer;position:absolute;top:0px;left:0px;background:url("../_images/link.png");text-indent:-9999px;overflow:hidden;}
 .imageSlide_link_icon_on {background:url("../_images/linkon.png");}
-.imageSlide_link_layer {position:absolute;top:50%;left:1px;padding:5px 10px; border:2px solid black;margin-left:30px;margin-top:-25px;background-color:#FFF;z-index:999}
+.imageSlide_link_layer {position:absolute;top:50%;left:30px;padding:5px 10px; border:2px solid black;margin-top:-35px;background-color:#FFF;z-index:999}
 .imageSlide_link_layer_tip {font-size:11px;}
+.imageSlide_link_text {}
+.imageSlide_link_movie_wrap{}
+.imageSlide_play_icon {position:absolute;top:50%;left:105px;margin-top:-45px;z-index:900}
+.imageSlide_play_icon_thumb {position:absolute;top:4px;left:4px;width:30px;height:30px;z-index:900}
+.imageSlide_number {position:absolute;top:0px;left:0px;width:12px;height:12px;z-index:900;background-color:#000;font-size:11px;text-align:center;padding:0px;line-height:11px;color:#fff;}
 .imageSlide_etcBox {clear:both;width:100%;padding:10px 0px;height:auto;overflow:hidden;}
 .imageSlide_etcBtn {display:block;clear:both;float:left;font-size:11px}
 .imageSlide_radioBox {margin:0 auto;width:99%;overflow:hidden;padding:5px 0px;border-top:1px dashed #C9C9C9;text-align:center;}
 .imageSlide_merg_tip {font-size:11px;width:100%;}
 .galleryMERGE_IMAGE {position:absolute;top:50%;left:-7px;border:2px solid #999;padding:0px 0px;margin-top:-5px;background-color:#FFF;z-index:999;font-size:9px;}
-.imageSlide_merg_text {position:absolute;top:50%;left:100px;border:2px solid #999;padding:0px 0px;margin-top:-10px;background-color:#FFF;z-index:999;}
+.imageSlide_merg_text {position:absolute;top:50%;left:107px;border:2px solid #999;padding:0px 0px;margin-top:-11px;background-color:#FFF;z-index:999;}
 
 /* imageLayout */
 .imageLayout_tip {width:299px;height:22px;margin-top:10px;margin-bottom:8px;padding-top:5px;border:1px solid #DFDFDF;background:url("../_images/caution.png") 8px 6px no-repeat; text-align:right;font-size:11px;}
@@ -204,11 +238,11 @@
 /* movieOne */
 .movieOne_tip {width:271px;height:22px;margin-top:10px;margin-bottom:5px;padding-left:28px;padding-top:5px;border:1px solid #DFDFDF;background:url("../_images/caution.png") 8px 6px no-repeat;font-size:11px;}
 .movieOne_tip b{color:#BB1C92;font-weight:normal;font-size:11px;border:none;}
-.movieOneBox {position:relative;width:100%;overflow:hidden;}
+.movieOneBox {position:relative;width:100%;overflow:hidden;margin-bottom:10px;}
 .movieOneBox .movieOne_img {display:block;margin:0 auto;}
-.movieOneBox_linkBox{display:none;position:absolute;left:44px;top:50%;overflow:hidden;margin-top:-99px;text-align:center;}
+.movieOneBox_linkBox{display:none;position:absolute;left:47px;top:50%;overflow:hidden;margin-top:-56px;text-align:center;}
 .movieOneBox .movieOne_play {display:block;margin:0 auto;}
-.movieOneBox .movieOne_link {border:4px solid #F62CA2;padding: 5px 2px;width:180px;}
+.movieOneBox .movieOne_link {border:2px solid #F62CA2;padding: 2px 2px;width:150px;}
 .movieOneBox_deleteBtn {display:block;float:right;width:53px; height:22px; background:url("../_images/delete_btn.png") no-repeat;text-indent:-9999px}
 
 .movieSlide_box {width:320px;height:320px;}
