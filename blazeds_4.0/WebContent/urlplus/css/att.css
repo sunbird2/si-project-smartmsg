@@ -255,6 +255,11 @@
 .movieSlideLinkBox .movieSlideLink{}
 .movieSlideLinkBox .movieSlideLinkBtn {}
 
+/* text */
+.text_merge_wrap {background:url('../_images/bullet.png') 0px 7px no-repeat;padding:0px 8px;margin-top:5px;}
+.text_merge_text {float:left;color:#716DBE;font-size:11px;font-weight:bold;margin-top:3px;}
+.text_merge_help {float:left;display:block;margin-top:3px;margin-left:5px;margin-right:20px;width:14px;height:14px;background:url('../_images/question.png') no-repeat;text-indent:-9999px}
+
 /* textInput */
 .textInput_wrap {margin-top:10px;font-size:11px;}
 .textInput_tip {margin-bottom:5px;background:url("../_images/sample.png") 5px 17px no-repeat;text-align:right;padding-bottom:10px; border-bottom:1px dashed #C9C9C9; }
