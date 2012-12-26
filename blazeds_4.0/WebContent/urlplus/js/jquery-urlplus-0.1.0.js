@@ -20,6 +20,7 @@
 	var bDebug = true;
 	var MERGE_NUM = ["①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩"];
 	var MERGE_IMAGE_TAG = '<a href="#" class="MERGE_IMAGE"></a>';
+	var MERGE_DATA_MAX = 6;
 	var globalMethod = {
 		autoMergeImageNumber : function () {
 			$('.MERGE_IMAGE').each(function(index) {
@@ -2101,6 +2102,24 @@
 					$.get(opt.domUrl+"?instance="+index ,
 						function(data) {
 							target.append($(data));
+							
+							// merge button click
+							target.find('.text_merge_button').click(function(){
+								
+								var txt = Editor.getContent();
+							    var patt = /\<button\>\{DATA\}\<\/button\>/gi;
+							    var arrData = txt.match(patt);
+							    
+							    if (arrData && arrData.length > MERGE_DATA_MAX+1) {
+							    	alert(MERGE_DATA_MAX+" 개 이상 추가 하실 수 없습니다.");
+							    }else {
+							    	Editor.getCanvas().pasteContent('<button>{DATA}</button>');
+							    }
+							    
+								
+								
+							});
+							
 							var config = {
 									txHost: '',
 									txPath: '/urlplus/js/editor/', /* 런타임 시 리소스들을 로딩할 때 필요한 부분으로, 경로가 변경되면 이 부분 수정이 필요. ex) /xxx/xxx/ */
@@ -2125,8 +2144,26 @@
 								};
 
 								EditorJSLoader.ready(function (Editor) {
+//									Trex.module("notify removed attachments", function (editor, toolbar, sidebar, canvas, config) {
+//										d("textEditor -> removeasdf");
+//										editor.getCanvas().observeJob(Trex.Ev.__CANVAS_PANEL_DELETE_SOMETHING, function (ev) {
+//							            	d("textEditor -> remove");
+//							            	// 데이터중에 존재하지 stage에 존재하지 않는 entry는 박스에서 바로 제거
+//							                var attachBox = Editor.getAttachBox();
+//							                attachBox.datalist.each(function (entry) {
+//							                	d("textEditor -> removeddd");
+//							                    if (entry.type === "image" && entry.existStage === false) {
+//							                        entry.execRemove();
+//							                    }
+//							                });
+//							                alert("image delete!");
+//							                attachBox.refreshPreview();
+//							            });
+//							        });
+									
 									new Editor(config);
 									Editor.getCanvas().setCanvasSize({height:140});
+									
 									opt.readyEvent();
 									if (opt.bTable) {
 										Editor.onPanelLoadComplete(function(){
@@ -2148,10 +2185,12 @@
 										});
 									});
 									*/
-								});
-						}
-					);
-
+								}); //EditorJSLoader.ready
+						}); // get
+					
+					
+					
+					
 					
 
 					d("textEditor -> init");
