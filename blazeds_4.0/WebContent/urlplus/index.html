@@ -84,7 +84,7 @@
 		if (tab == "#tabs-1") {
 			//addAtt('imageOne');
 			//addAtt('imageThumb');
-			addAtt('imageOne');
+			addAtt('text');
 			
 			
 		}else if (tab == "#tabs-2") {
@@ -238,6 +238,10 @@
 		//for (var _name in _tools) {
  		//			alert(_name);
 		//}
+	}
+	
+	function addText() {
+		Editor.getCanvas().pasteContent('<button>{DATA}</button>');
 	}
 	
 	</script>

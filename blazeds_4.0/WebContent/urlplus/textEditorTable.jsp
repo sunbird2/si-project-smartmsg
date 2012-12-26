@@ -1,7 +1,7 @@
 <%@page import="com.common.util.SLibrary"%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
 	int instance = SLibrary.intValue(request.getParameter("instance"));
 
-%><p>표 만들기</p>
+%><br/>
 <form name="tx_editor_form<%=instance%>" id="tx_editor_form<%=instance%>" method="post" accept-charset="utf-8">
 		<div id="tx_trex_container<%=instance%>" class="tx-editor-container">
 			<div id="tx_toolbar_basic<%=instance%>" class="tx-toolbar tx-toolbar-basic"><div class="tx-toolbar-boundary">
@@ -190,10 +190,8 @@
 	</div>
 		</div>
 	</form>
-	<p>합성할 문자 추가 <a href="#" onclick="return false;">도움말</a></p>
-	<a href="#" onclick="return false;">{DATA①}</a>
-	<a href="#" onclick="return false;">{DATA②}</a>
-	<a href="#" onclick="return false;">{DATA③}</a>
-	<a href="#" onclick="return false;">{DATA④}</a>
-	<a href="#" onclick="return false;">{DATA⑤}</a>
-	<a href="#" onclick="return false;">{DATA⑥}</a>
+	<div class="text_merge_wrap">
+		<p class="text_merge_text">합성할 문자 추가</p>
+		<a href="#" class="text_merge_help" onclick="return false;">도움말</a>
+		<button class="whiteBtn text_merge_button" id="ddr">{DATA} 추가</button>
+	</div>
