@@ -34,7 +34,7 @@
 		getMERGE_IMAGE_TAG:function(){return MERGE_IMAGE_TAG;}
 	};
 //--------------------------------
-// imageOne
+// imageOne : (image:, link:, merge:)
 //--------------------------------
 	$.fn.imageOne = function (action) {
 		if (imageOneMethods[action])
@@ -83,13 +83,14 @@
 			return this.each( function () {
 				
 					// create UI
-					var attID = "attrBox"+instanceCnt;
+					var attID = "attrBox_"+instanceCnt;
 					$(this).append(ele.join(""));
 					$(this).attr("id", attID);
 					instanceCnt++;
 					
 					var img = $(this).find('.imageOne_wrap');
-					img.attr("id", "imageOne"+instanceCnt);
+					img.attr("id", "imageOne_"+instanceCnt);
+					img.addClass("ATTR");
 					tid = img.attr("id");
 					instanceCnt++;
 					
@@ -97,13 +98,13 @@
 					var delBtn = $(this).find(".imageOne_deleteBtn");
 					var imgType = $(this).find("input:radio[name=img_type]");
 					
-					var upBtnID = "imageOneUploadBtn"+instanceCnt;
+					var upBtnID = "imageOneUploadBtn_"+instanceCnt;
 					upBtn.attr("id", upBtnID);
 					
 					// image option init
 					imageOneData[tid] = opt.imageData;
 					
-					$('#imageOneUploadBtn'+instanceCnt).uploadify( $.extend(opt, {
+					$('#imageOneUploadBtn_'+instanceCnt).uploadify( $.extend(opt, {
 																				'onUploadSuccess' : function(file, data, response) {
 																					var rslt;
 																					try {
@@ -285,7 +286,7 @@
 
 
 //--------------------------------
-// imageThumb
+// imageThumb : (image: , thumb:  , link: , merge: ) 
 //--------------------------------
 /* structure
 	<ul class="imageThumb_box">
@@ -343,7 +344,7 @@
 
 			return this.each( function () {
 
-					$(this).attr("id", "attrBox"+instanceCnt);
+					$(this).attr("id", "attrBox_"+instanceCnt);
 					
 					instanceCnt++;
 					var target = $(this);
@@ -354,14 +355,15 @@
 						globalMethod.autoMergeImageNumber();
 
 						var ul = target.find('.imageThumb_box');
-						ul.attr("id", "imageThumb"+instanceCnt);
+						ul.attr("id", "imageThumb_"+instanceCnt);
+						ul.addClass("ATTR");
 						tid = ul.attr("id");
 						instanceCnt++;
 
 						d(ul.html());
 						var upBtn = target.find("input:eq(0)");
 
-						upBtn.attr("id", "imageThumbUploadBtn"+instanceCnt);
+						upBtn.attr("id", "imageThumbUploadBtn_"+instanceCnt);
 						
 						imageThumbData[tid] = opt.thumbData;
 						if (opt.thumbData.length > 0) {
@@ -370,7 +372,7 @@
 						}
 						
 
-						$('#imageThumbUploadBtn'+instanceCnt).uploadify( $.extend(opt, {
+						$('#imageThumbUploadBtn_'+instanceCnt).uploadify( $.extend(opt, {
 																						'onUploadSuccess' : function(file, data, response) {
 																							var rslt;
 																							try {
@@ -432,7 +434,8 @@
 					} else {
 						target.append(ele[0]);
 						var ul = target.children(':first-child');
-						ul.attr("id", "imageThumb"+instanceCnt);
+						ul.attr("id", "imageThumb_"+instanceCnt);
+						ul.addClass("ATTR");
 						imageThumbData[ul.attr("id")] = opt.thumbData;
 						ul.imageThumb("view");
 					}
@@ -657,12 +660,11 @@
 
 		getResult :  function () {
 			d("imageThumb -> getResult");
-			var result = {"image":"", "link":""};
+			
+			var result = null;
 			this.each( function () {
-				var image = $(this).children(':first-child').attr("src");
-				var link = $(this).find("input:text[name=img_link]").val();
-				result.image = image;
-				result.link = link;
+				var tid = $(this).attr("id");
+				result = imageThumbData[tid];
 			});// each
 			return result;
 		}, // getResult
@@ -686,7 +688,7 @@
 
 
 //--------------------------------
-// imageSlide
+// imageSlide : image: '', thumb: '', big: '', link: '', merge : '' 
 //--------------------------------
 /* structure
 	<div class="imageSlide_box"></div>
@@ -750,7 +752,7 @@
 
 			return this.each( function () {
 					
-					$(this).attr("id", "attrBox"+instanceCnt);
+					$(this).attr("id", "attrBox_"+instanceCnt);
 					instanceCnt++;
 					var target = $(this);
 					var tid = "";
@@ -761,9 +763,10 @@
 						
 						// get imageSlide_box & set id
 						var div = target.find('.imageSlide_box');
-						div.attr("id", "imageSlide"+instanceCnt);
+						div.attr("id", "imageSlide_"+instanceCnt);
+						div.addClass("ATTR");
 						tid = div.attr("id");
-						div.next().attr("id", "imageSlide_move"+instanceCnt);
+						div.next().attr("id", "imageSlide_move_"+instanceCnt);
 						d(div.next().attr("id"));
 						instanceCnt++;
 
@@ -775,7 +778,7 @@
 						
 						// setting upload button
 						var upBtn = target.find("input:eq(0)");
-						var upBtnID = "imageSlideUploadBtn"+instanceCnt
+						var upBtnID = "imageSlideUploadBtn_"+instanceCnt
 						upBtn.attr("id", upBtnID);
 						instanceCnt++;
 
@@ -833,7 +836,7 @@
 					} else {
 						target.append(ele[0]);
 						var div = target.children(':first-child');
-						div.attr("id", "imageSlide"+instanceCnt);
+						div.attr("id", "imageSlide_"+instanceCnt);
 					}
 					imageSlideData[div.attr("id")] = opt.slideData;
 					div.imageSlide("view");
@@ -953,12 +956,10 @@
 
 		getResult :  function () {
 			d("imageSlide -> getResult");
-			var result = {"image":"", "link":""};
+			var result = null;
 			this.each( function () {
-				var image = $(this).children(':first-child').attr("src");
-				var link = $(this).find("input:text[name=img_link]").val();
-				result.image = image;
-				result.link = link;
+				var tid = $(this).attr("id");
+				result = imageSlideData[tid];
 			});// each
 			return result;
 		}, // getResult
@@ -1185,7 +1186,7 @@
 
 
 //--------------------------------
-// imageLayout
+// imageLayout : image: , width: , height:
 //--------------------------------
 /* DOM structure
 		<ul class="imageLayout_box">
@@ -1234,7 +1235,7 @@
 
 			return this.each( function () {
 					
-					$(this).attr("id", "attrBox"+instanceCnt);
+					$(this).attr("id", "attrBox_"+instanceCnt);
 					instanceCnt++;
 					// create UI
 					var html = '';
@@ -1242,10 +1243,13 @@
 						html = eleHelp.join("");
 						html += ele[0];
 						var dCnt = opt.layoutData.length;
-						for (var i = 0; i < opt.cellCount ; i++) {
+						if (opt.layoutData.length > 0) bCnt = opt.layoutData.length;
+						else bCnt = opt.cellCount;
+						
+						for (var i = 0; i < dCnt ; i++) {
 							
 							html += ele[1];
-							if (dCnt-1 >= i) html += opt.layoutData[i];
+							//if (dCnt-1 >= i) html += opt.layoutData[i];
 							html += ele[2];
 							html += eleEdit[0];
 							html += ele[3];
@@ -1253,11 +1257,14 @@
 						html += ele[4];
 						html += eleEditFunction.join("");
 					} else {
-
+						var dCnt = opt.layoutData.length;
+						if (opt.layoutData.length > 0) bCnt = opt.layoutData.length;
+						else bCnt = opt.cellCount;
+						
 						html += ele[0];
 						for (var i = 0; i < opt.cellCount ; i++) {
 							html += ele[1];
-							if (dCnt-1 >= i) html += opt.layoutData[i];
+							//if (dCnt-1 >= i) html += opt.layoutData[i];
 							html += ele[2];
 							html += ele[3];
 						}
@@ -1270,18 +1277,28 @@
 					// get imageLayout & set id
 					var ul = $(this).find('.imageLayout_box');
 					d(ul.tabName);
-					ul.attr("id", "imageLayout"+instanceCnt);
+					ul.attr("id", "imageLayout_"+instanceCnt);
+					ul.addClass("ATTR");
 					tid = ul.attr("id");
 					instanceCnt++;
 
 					// setting upload button
 					var upBtn = $(this).find("input:eq(0)");
-					var upBtnID = "imageLayoutUploadBtn"+instanceCnt
+					var upBtnID = "imageLayoutUploadBtn_"+instanceCnt
 					upBtn.attr("id", upBtnID);
 					instanceCnt++;
 
 					// init layoutData
 					layoutData[tid] = opt.layoutData;
+					if (layoutData[tid]) {
+						var cnt = layoutData[tid].length;
+						for (var i = 0; i < cnt; i++) {
+							var obj = layoutData[tid][i];// = {image:rslt.img , width: formData.width, height: 0};
+							$('#'+tid).children().eq(i).width(obj.width);
+							$('#'+tid).children().eq(i).height(obj.height);
+							$('#'+tid).children().eq(i).children('.imageLayout_image').attr('src', obj.image);
+						}
+					}
 					
 					if (opt.bEdit == true){
 						$('#'+tid).imageLayout("masonry").imageLayout("sortable").imageLayout("resizable");
@@ -1360,32 +1377,59 @@
 						tolerance: 'pointer',
 						
 						start:  function(event, ui) {
-							ui.item.addClass('dragging').removeClass('imageLayout_cell');
-							if ( ui.item.hasClass('bigun') ) {
-								 ui.placeholder.addClass('bigun');
-								 }
-								
-								 ui.item.parent().masonry('reload')
+									var sp = ui.item.index();
+									ui.item.data('start_pos', sp);
+									ui.item.addClass('dragging').removeClass('imageLayout_cell');
+									if ( ui.item.hasClass('bigun') ) {
+										 ui.placeholder.addClass('bigun');
+										 }
+										
+										 ui.item.parent().masonry('reload');
 								},
 						change: function(event, ui) {
-								   ui.item.parent().masonry('reload');
+									var start_pos = ui.item.data('start_pos');
+									var end_pos = ui.placeholder.index();
+								   
+									if (start_pos < end_pos) ui.item.data('end_pos', end_pos-1);
+									else ui.item.data('end_pos', end_pos);
+									d('#'+tid+" sotable change : "+ui.item.data('start_pos')+"=>"+ui.item.data('end_pos'));
+									
+									ui.item.parent().masonry('reload');
 								},
+						update: function(event, ui) {
+							var start_pos = ui.item.data('start_pos');
+							var end_pos = ui.item.data('end_pos');
+							d('#'+tid+" sotable update : "+start_pos+"=>"+end_pos);
+							$('#'+tid).imageLayout("sort", start_pos, end_pos);
+						},
 						stop: function(event, ui) { 
 								ui.item.removeClass('dragging').addClass('imageLayout_cell');
 								ui.item.parent().masonry('reload');
 								$('#'+tid).imageLayout("reloadAll");
-						}
+						}	
+								
 					});
 				}
 
 			});// each
 		}, // sortable
+		
+		sort : function() {
+			d("imageLayout -> sort");
+			var arg = arguments;
+			return this.each( function () {
+				var target = $(this);
+				var tid = target.attr("id");
+				layoutData[tid].move( arg[0], arg[1]);
+			});// each
+		}, // sort
 
 		resizable :  function () {
 			d("imageLayout -> resizable");
 			var arg = arguments;
 			return this.each( function () {
 				var t = $(this);
+				var tid = t.attr("id");
 				var maxWidth = t.width()-4;
 
 				if (arg && arg.length > 0 && arg[0]=='destroy') {
@@ -1395,7 +1439,8 @@
 					});
 				}
 				else {
-					t.children('li').each(function(){
+					t.children('li').each(function(index){
+						var idx = index;
 						$(this).resizable();
 						$(this).resizable('destroy').resizable({
 							resize: function(event, ui) {
@@ -1403,9 +1448,12 @@
 							},
 							stop: function(event, ui) {
 								t.siblings('select').val("-1");
+								layoutData[tid][idx].width = ui.size.width;
+								layoutData[tid][idx].height = ui.size.height;
+								
 							},
-							minWidth: 8,
-							minHeight: 8,
+							minWidth: 20,
+							minHeight: 20,
 							maxWidth: maxWidth,
 							grid: [1,1],
 							handles: 'e,se,s'
@@ -1466,12 +1514,10 @@
 
 		getResult :  function () {
 			d("imageLayout -> getResult");
-			var result = {"image":"", "link":""};
+			var result = null;
 			this.each( function () {
-				var image = $(this).children(':first-child').attr("src");
-				var link = $(this).find("input:text[name=img_link]").val();
-				result.image = image;
-				result.link = link;
+				var tid = $(this).attr("id");
+				result = layoutData[tid];
 			});// each
 			return result;
 		}, // getResult
@@ -1564,6 +1610,7 @@
 						rslt = jQuery.parseJSON(data);
 						if (rslt.b == "true") {
 							d($('#'+tid).children().eq(index-1).html());
+							layoutData[tid][index-1] = {image:rslt.img , width: formData.width, height: 0};
 							$('#'+tid).children().eq(index-1).children('.imageLayout_image').attr('src','/urlImage/'+rslt.img);
 						} else {
 							alert("에러 : "+rslt.err);
@@ -1586,7 +1633,7 @@
 
 
 //--------------------------------
-// movieOne
+// movieOne : (image: , link:)
 //--------------------------------
 	$.fn.movieOne = function (action) {
 		if (movieOneMethods[action])
@@ -1627,17 +1674,21 @@
 
 			return this.each( function () {
 					
-					$(this).attr("id", "attrBox"+instanceCnt);
-					var tid = $(this).attr("id");
-					instanceCnt++;
+					$(this).attr("id", "attrBox_"+instanceCnt);
 					// create UI
 					$(this).append(ele.join(""));
+
+					$(this).find(".movieOneBox").attr("id","movieOne_"+instanceCnt);
+					var tid = $(this).find(".movieOneBox").attr("id");
+					$('#'+tid).addClass("ATTR");
+					instanceCnt++;
 
 					var img = $(this).find('.movieOneBox > .movieOne_img');
 					var upBtn = $(this).find("input:eq(1)");
 					var delBtn = $(this).find(".movieOne_deleteBtn");
 
-					upBtn.attr("id", "movieOneUploadBtn"+instanceCnt);
+					upBtn.attr("id", "movieOneUploadBtn_"+instanceCnt);
+					
 					
 					// init
 					movieOneData[tid] = opt.movieData;
@@ -1645,10 +1696,15 @@
 					// init movieOneData
 					if (movieOneData[tid].image && movieOneData[tid].image != "") {
 						img.attr('src','/urlImage/'+movieOneData[tid].image);
-						$('#'+tid+' > .movieOneBox > .movieOneBox_linkBox').show();
+						$('#'+tid).find('.movieOneBox_linkBox').show();
 					}
+					if (movieOneData[tid].link && movieOneData[tid].link != "") {
+						$('#'+tid).find("input:text[name=img_link]").val(movieOneData[tid].link).css("border","2px solid #F62CA2");
+						$('#'+tid).find('.whiteBtn').text("삭제");
+						$('#'+tid).find('.movieOneBox_linkBox').show();
+					}else $('#'+tid).find("input:text[name=img_link]").val("http://동영상파일 주소..").css("border","2px solid #999");
 
-					$('#movieOneUploadBtn'+instanceCnt).uploadify( $.extend(opt, {
+					$('#movieOneUploadBtn_'+instanceCnt).uploadify( $.extend(opt, {
 																				'onUploadSuccess' : function(file, data, response) {
 																					var rslt;
 																					var opts = opt;
@@ -1657,6 +1713,7 @@
 																						if (rslt.b == "true") {
 																							movieOneData[tid].image = rslt.img;
 																							img.attr('src','/urlImage/'+movieOneData[tid].image);
+																							$('#'+tid).find('.movieOneBox_linkBox').show();
 																						}
 																						else { alert("에러 : "+rslt.err); }
 																						
@@ -1665,6 +1722,22 @@
 																				}
 																			}
 					) );
+					
+					$('#'+tid).find('.whiteBtn').click(function(){
+						if ( $(this).text() == "적용" ) {
+							movieOneData[tid].link = $('#'+tid).find("input:text[name=img_link]").val();
+							$('#'+tid).find("input:text[name=img_link]").css("border","2px solid #F62CA2");
+							alert("적용 되었습니다.");
+							$(this).text("삭제");
+						} else {
+							$('#'+tid).find("input:text[name=img_link]").val("");
+							movieOneData[tid].link = $('#'+tid).find("input:text[name=img_link]").val();
+							$('#'+tid).find("input:text[name=img_link]").css("border","2px solid #999");
+							alert("삭제 되었습니다.");
+							$(this).text("적용");
+						}
+						
+					});
 
 					delBtn.click(function() { img.attr("src", "#"); });
 					
@@ -1675,13 +1748,12 @@
 
 		},// init
 		getResult :  function () {
+
 			d("movieOne -> getResult");
-			var result = {"image":"", "link":""};
+			var result = null;
 			this.each( function () {
-				var image = $(this).children(':first-child').attr("src");
-				var link = $(this).find("input:text[name=img_link]").val();
-				result.image = image;
-				result.link = link;
+				var tid = $(this).attr("id");
+				result = movieOneData[tid];
 			});// each
 			return result;
 		}, // getResult
@@ -1722,7 +1794,7 @@
 				return movieSlideMethods.init.apply(this, arguments);
 	};// fn.movieSlide
 
-	var movieSlideData={};
+	var movieSlideData=[];
 	var movieSlideMethods = {
 
 		init: function (options) {
@@ -1757,7 +1829,7 @@
 
 			return this.each( function () {
 					
-					$(this).attr("id", "attrBox"+instanceCnt);
+					$(this).attr("id", "attrBox_"+instanceCnt);
 					instanceCnt++;
 
 					var target = $(this);
@@ -1770,9 +1842,10 @@
 						
 						// get movieSlide_box & set id
 						var div = target.children(':first-child');
-						div.attr("id", "movieSlide"+instanceCnt);
+						div.attr("id", "movieSlide_"+instanceCnt);
 						tid = div.attr("id");
-						div.next().attr("id", "movieSlide_move"+instanceCnt);
+						div.addClass("ATTR");
+						div.next().attr("id", "movieSlide_move_"+instanceCnt);
 						d(div.next().attr("id"));
 						instanceCnt++;
 
@@ -1784,7 +1857,7 @@
 						
 						// setting upload button
 						var upBtn = target.find("input:eq(0)");
-						var upBtnID = "movieSlideUploadBtn"+instanceCnt
+						var upBtnID = "movieSlideUploadBtn_"+instanceCnt
 						upBtn.attr("id", upBtnID);
 						instanceCnt++;
 
@@ -1834,7 +1907,7 @@
 					} else {
 						target.append(ele[0]);
 						var div = target.children(':first-child');
-						div.attr("id", "movieSlide"+instanceCnt);
+						div.attr("id", "movieSlide_"+instanceCnt);
 						
 					}
 					movieSlideData[div.attr("id")] = opt.slideData;
@@ -2077,7 +2150,7 @@
 			return textEditorMethods.init.apply(this, arguments);
 	};// fn.textEditor
 
-	
+	var textEditorData = [];
 	var textEditorMethods = {
 
 		init: function (options) {
@@ -2085,26 +2158,31 @@
 			var defaults = {
 				'domUrl' : 'textEditor.jsp',
 				'readyEvent' : function(){},
+				'data' : {},
 				'bTable' : false
 			};
 
 			var opt = $.extend(defaults, options);
 
 			return this.each( function () {
+					instanceCnt++;
+					$(this).attr("id", "textEditor_"+instanceCnt);
+					$(this).addClass("ATTR");
+					var tid = $(this).attr("id");
 					
-					$(this).attr("id", "attrBox"+instanceCnt);
-					instanceCnt++;
 					// create UI
-					instanceCnt++;
 					var index = instanceCnt;
 					var target = $(this);
+					textEditorData[tid] = opt.data;
 					
 					$.get(opt.domUrl+"?instance="+index ,
 						function(data) {
 							target.append($(data));
-							
+							var stid = tid;
 							// merge button click
 							target.find('.text_merge_button').click(function(){
+								
+								Editor.switchEditor(index);
 								
 								var txt = Editor.getContent();
 							    var patt = /\<button\>\{DATA\}\<\/button\>/gi;
@@ -2165,12 +2243,17 @@
 									Editor.getCanvas().setCanvasSize({height:140});
 									
 									opt.readyEvent();
-									if (opt.bTable) {
-										Editor.onPanelLoadComplete(function(){
+									
+									Editor.onPanelLoadComplete(function(){
+										if (opt.bTable) {
 											Editor.getToolbar().tools.table.button._command();
 											alert("표삽입의 칸을 선택하여 표를 추가 하세요.");
+										}
+										if ( textEditorData[tid] ) {
+											Editor.getCanvas().pasteContent(textEditorData[tid]);
+										}
+										
 										});
-									}
 
 									/*
 									Editor.getCanvas().observeJob(Trex.Ev.__IFRAME_LOAD_COMPLETE, function() {
@@ -2205,11 +2288,12 @@
 		},// init
 		getResult :  function () {
 			d("textEditor -> getResult");
-			var result = {"image":"", "link":""};
+			var arg = arguments;
+			var result = null;
 			this.each( function () {
-				var content = Editor.getContent();
-				return content;
-				
+				Editor.switchEditor(arg[0]);
+				result = Editor.getContent();
+				alert(result);
 			});// each
 			return result;
 		} // getResult
@@ -2218,7 +2302,7 @@
 
 
 //--------------------------------
-// textInput
+// textInput : textInputType: "", keywordText: "", nextPage: 0, keywordCheck: "", keywordCheckCntsq: 0, keywordCheckCntrn: 0, startDate: "", endDate: ""
 //--------------------------------
 /* DOM structure
 	<div class="textInput">
@@ -2247,7 +2331,8 @@
 		init: function (options) {
 			d("textInput -> init");
 			var defaults = {
-				'textData' : {textInputType: "", keywordText: "", nextPage: 0, keywordCheck: "", startDate: "", endDate: ""},
+				'totalPage' : 1,
+				'data' : {textInputType: "", keywordText: "", nextPage: 0, keywordCheck: "", keywordCheckCntsq: 0, keywordCheckCntrn: 0, startDate: "", endDate: ""},
 				'bInput' : true,
 				'bEdit' : true
 			};
@@ -2267,7 +2352,7 @@
 							'<input type="radio" name="textInputType" value="comment"/><label> 의견쓰기</label>',
 							'<input type="text" name="keywordText" value="키워드를 입력해 주세요.( 여러키워드 ex. 키워드1,키워드2)" class="textInput_keywordText" />',
 							'<p class="textInput_next_type_wrap"><span>키워드 일치시</span> <select name="nextPage"><option value="1">1</option></select> 번 페이지로 이동합니다.</p>',
-							'<span><input type="radio" name="keywordCheck" value="all" class="textInput_radio" checked="checked"/><label> 모든 응모자</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="all" class="textInput_radio"/><label> 선착순</label><input type="text" name="keywordCheckCnt" class="textInput_keyword_input" /><label>명</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="all" class="textInput_radio"/><label> 임의</label><input type="text" name="keywordCheckRandomCnt" class="textInput_keyword_input" /><label>명</label></span>',
+							'<span><input type="radio" name="keywordCheck" value="all" class="textInput_radio" checked="checked"/><label> 모든 응모자</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="squence" class="textInput_radio"/><label> 선착순</label><input type="text" name="keywordCheckCntsq" class="textInput_keyword_input" /><label>명</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="random" class="textInput_radio"/><label> 임의</label><input type="text" name="keywordCheckRandomCntrn" class="textInput_keyword_input" /><label>명</label></span>',
 							'</div>',
 							'<label>이벤트기간</label> <input type="text" name="startDate" class="textInput_date" value="시작일"/> ~ <input type="text" name="endDate" class="textInput_date" value="종료일"/>',
 							'</div>'];
@@ -2276,7 +2361,7 @@
 
 			return this.each( function () {
 					
-					$(this).attr("id", "attrBox"+instanceCnt);
+					$(this).attr("id", "attrBox_"+instanceCnt);
 					instanceCnt++;
 
 					var target = $(this);
@@ -2291,33 +2376,66 @@
 					
 					// set id
 					var div = target.children(':first-child');
-					div.attr("id", "textInput"+instanceCnt);
+					div.attr("id", "textInput_"+instanceCnt);
 					tid = div.attr("id");
+					$('#'+tid).addClass("ATTR");
 					
 					// link type change
-					var textInputTypeName = "textInputType"+instanceCnt;
+					var textInputTypeName = "textInputType_"+instanceCnt;
 					div.find('.textInput_next_wrap > :input[name=textInputType]').attr("name", textInputTypeName);
 					$('input[name='+textInputTypeName+']').change(function(){
 						 if (this.value == 'keyword') {
 							div.find('.textInput_next_wrap > .textInput_keywordText').show();
 						 	div.find('.textInput_next_wrap > .textInput_next_type_wrap > span').text("키워드 일치시");
+						 	
 						 }
 						 else {
 							 div.find('.textInput_next_wrap > .textInput_keywordText').hide();
 							 div.find('.textInput_next_wrap > .textInput_next_type_wrap > span').text("의견입력 후 응모시");
 						 }
+						 
+						 textInputData[tid].textInputType = this.value;
 					 });
-					var keywordCheckeName = "keywordCheck"+instanceCnt;
+					var keywordCheckeName = "keywordCheck_"+instanceCnt;
 					div.find(':input[name=keywordCheck]').attr("name", keywordCheckeName);
+					$('input[name='+keywordCheckeName+']').change(function(){
+						 textInputData[tid].keywordCheck = this.value;
+					 });
+					
+					var sel =div.find("select[name=nextPage]");
+					if (opt.totalPage > 0) {
+						
+						for (var i = 0; i < opt.totalPage; i++) {
+							sel.append("<option value='"+(i+1)+"'>"+(i+1)+"</option>");
+						}
+						
+					}
+					
 					
 					
 					// init textInputData
-					textInputData[tid] = opt.textData;
+					textInputData[tid] = opt.data;
+					
+					if (textInputData[tid].textInputType) {
+						$("#"+tid+" input[name="+textInputTypeName+"]").filter('input[value='+textInputData[tid].textInputType+']').attr("checked", "checked");
+						$("#"+tid+" input[name="+textInputTypeName+"]").trigger('change');
+					}
+					if (textInputData[tid].keywordText) $("#"+tid+" input[name=keywordText]").val(textInputData[tid].keywordText);
+					if (textInputData[tid].nextPage) sel.val(textInputData[tid].nextPage).attr("selected", "selected");
+					if (textInputData[tid].keywordCheck) $("#"+tid+" input[name="+keywordCheckeName+"]").filter('input[value='+textInputData[tid].keywordCheck+']').attr("checked", "checked");
+					if (textInputData[tid].keywordCheckCntsq) $("#"+tid+" input[name=keywordCheckCntsq]").val(textInputData[tid].keywordCheckCntsq);
+					if (textInputData[tid].keywordCheckCntrn) $("#"+tid+" input[name=keywordCheckCntrn]").val(textInputData[tid].keywordCheckCntrn);
+					if (textInputData[tid].startDate) $("#"+tid+" input[name=startDate]").val(textInputData[tid].startDate);
+					if (textInputData[tid].endDate) $("#"+tid+" input[name=endDate]").val(textInputData[tid].endDate);
+					
+					
+					
 					
 					div.children(':input[name=startDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date()  });
 					div.children(':input[name=startDate]').datepicker('setDate', new Date());
 					div.children(':input[name=endDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date() });
 					div.children(':input[name=endDate]').datepicker('setDate', new Date());
+					
 					
 					instanceCnt++;
 					d("textInput -> init");
@@ -2327,12 +2445,18 @@
 		},// init
 		getResult :  function () {
 			d("textInput -> getResult");
-			var result = {"image":"", "link":""};
+			var result = { textInputType: "", keywordText: "", nextPage: 0, keywordCheck: "", keywordCheckCntsq: 0, keywordCheckCntrn: 0, startDate: "", endDate: "" };
 			this.each( function () {
-				var image = $(this).children(':first-child').attr("src");
-				var link = $(this).find("input:text[name=img_link]").val();
-				result.image = image;
-				result.link = link;
+				var tid = $(this).attr("id");
+				result.textInputType=textInputData[tid].textInputType;
+				result.keywordText=$("#"+tid+" input[name=keywordText]").val();
+				result.nextPage=$("#"+tid).find("select[name=nextPage]").val();
+				result.keywordCheck=textInputData[tid].keywordCheck;
+				result.keywordCheckCntsq=$("#"+tid+" input[name=keywordCheckCntsq]").val();
+				result.keywordCheckCntrn=$("#"+tid+" input[name=keywordCheckCntrn]").val();
+				result.startDate=$("#"+tid+" input[name=startDate]").val();
+				result.endDate=$("#"+tid+" input[name=endDate]").val();
+				
 			});// each
 			return result;
 		} // getResult
@@ -2341,7 +2465,7 @@
 
 
 //--------------------------------
-// linkInput
+// linkInput : [{bPhone:,linkInputType:, linkInputName:, nextPage:, linkInputURL:}]
 //--------------------------------
 /* DOM structure
 	<div class="linkInput">
@@ -2361,78 +2485,83 @@
 	};// fn.linkInput
 
 	var linkInputData = [];
+	var linkInputOpt = [];
 	var linkInputMethods = {
 
 		init: function (options) {
 			d("linkInput -> init");
 			var defaults = {
-				'linkData' : {linkInputType: "", linkInputName: "", nextPage: 0, linkInputURL: ""},
+				'linkData' : [],
 				'bPhone' : false,
 				'bEdit' : true
 			};
 			
 			var tipBtn = '<button class="css3button linkInput_tip_button">바로가기</button>';
 			var tipText = '<a href="#" class="linkInput_tip_text" style="color:#fc4ab5;text-decoration: underline;">바로가기</a>';
-			var ele = ['<div class="linkInput">',
-			           		'<p class="linkInput_tip">'+tipBtn+'</p>',
+			var ele = ['<p class="linkInput_tip">'+tipBtn+'</p>',
+			           '<div class="linkInput">',
 							'<input type="radio" name="linkInputType" value="button" checked="checked"/><label> 버튼형 </label>&nbsp;&nbsp;',
 							'<input type="radio" name="linkInputType" value="text"/><label> 텍스트형 </label><br/>',
+						'</div>'];
+			var eleInput = ['<div class="linkInput_box">',
 							'<input type="text" name="linkInputName" value="표시이름" class="linkName" />&nbsp;',
-							'<select name="nextPage" class="linkType"><option value="url">URL</option><option value="1">페이지</option></select>',
+							'<select name="nextPage" class="linkType"><option value="url">URL</option><option value="page">페이지</option></select>',
 							'<input type="text" name="linkInputURL" value="http://"  class="linkPath"/>',
 							'<a href="#" onclick="return false;" class="linkDelBtn">삭제</a>',
 							'<a href="#" onclick="return false;" class="linkAddBtn">추가</a>',
-							'</div>'];
+						'</div>'];
 			var opt = $.extend(defaults, options);
 
 			return this.each( function () {
 
-					$(this).attr("id", "attrBox"+instanceCnt);
+					$(this).attr("id", "attrBox_"+instanceCnt);
 					instanceCnt++;
 
 					var target = $(this);
 					// create UI
-					if (opt.bPhone == false){
-						target.append(ele.join(""));
-					} else {
-						var arr = [];
-						arr.push(ele[0],ele[1],ele[2],ele[3],ele[4],ele[6],ele[7],ele[8]);
-						target.append(arr.join(""));
-					}
+					target.append(ele.join(""));
 					
+					// set id
+					var div = target.find('.linkInput');
+					div.attr("id", "linkInput_"+instanceCnt);
+					div.addClass('ATTR');
 					
-					// get movieSlide_box & set id
-					var div = target.children(':first-child');
-					div.attr("id", "linkInput"+instanceCnt);
 					tid = div.attr("id");
 					
-					if (opt.bPhone == true){
-						div.children(':input[name=linkInputURL]').val("전화번호");
-					}
-					
 					// link type change
-					var linkTypeName = "linkInputType"+instanceCnt;
+					var linkTypeName = "linkInputType_"+instanceCnt;
 					div.children(':input[name=linkInputType]').attr("name", linkTypeName);
+
 					
 					$('input[name='+linkTypeName+']').change(function(){
 						 if (this.value == 'button')
-							 div.children('.linkInput_tip').html(tipBtn);
+							 div.siblings('.linkInput_tip').html(tipBtn);
 						 else
-							 div.children('.linkInput_tip').html(tipText);
+							 div.siblings('.linkInput_tip').html(tipText);
+						 
+						 linkInputOpt[tid].linkInputType = this.value;
 					 });
 					
-					 // add & del btn
-					div.children('.linkAddBtn').click(function(){
-						target.linkInput({bEdit : true, bPhone : opt.bPhone});
-						return false;
-					});
-					div.children('.linkDelBtn').click(function(){
-						target.remove();
-						return false;
-					});
 					
 					// init linkInputData
 					linkInputData[tid] = opt.linkData;
+					linkInputOpt[tid] = opt;
+					linkInputOpt[tid].linkInputType = 'button';
+					if (linkInputData[tid] && linkInputData[tid].length > 0) {
+						var val = linkInputData[tid][0].linkInputType;
+						alert(linkTypeName);
+						div.children('input:radio[name='+linkTypeName+']:input[value='+val+']').attr("checked", true);
+						div.children(':input[name='+linkTypeName+']').trigger('change');
+						linkInputOpt[tid].linkInputType = val;
+					}
+					var cnt = linkInputData[tid].length;
+
+					for (var i = 0; i < cnt; i++) {
+						
+						div.linkInput("add", opt.bPhone, i);
+					}
+					
+					if (cnt < 1) div.linkInput("add", opt.bPhone);
 					
 					instanceCnt++;
 					
@@ -2443,14 +2572,84 @@
 			});// each
 
 		},// init
+		
+		// arg[0] : bPhone, arg[1] : index
+		add :  function () {
+			d("linkInput -> add");
+			var tid = $(this).attr("id");
+			var arg = arguments;
+			
+			var ele = ['<div class="linkInput_box">',
+							'<input type="text" name="linkInputName" value="표시이름" class="linkName" />&nbsp;',
+							'<select name="nextPage" class="linkType"><option value="url">URL</option><option value="page">페이지</option></select>',
+							'<input type="text" name="linkInputURL" value="http://"  class="linkPath"/>',
+							'<a href="#" onclick="return false;" class="linkDelBtn">삭제</a>',
+							'<a href="#" onclick="return false;" class="linkAddBtn">추가</a>',
+					'</div>'];
+			
+			return this.each( function () {
+				
+				var obj = null
+				var bPhone = arg[0];
+				//create ui
+				var arr = [];
+				// bPhone
+				if (arg && arg.length > 0 && arg[0] == true) {
+					arr.push(ele[0],ele[1],ele[3],ele[4],ele[5],ele[6]);
+				}else arr = ele;
+				
+				obj = $(arr.join("")).appendTo('#'+tid);
+				
+				if (bPhone == true){
+					obj.children(':input[name=linkInputURL]').val("전화번호");
+					obj.children(':input[name=linkInputURL]').width(160);
+				}
+				
+				// index value input
+				if (arg && arg.length > 1) {
+					
+					var d = linkInputData[tid][arg[1]];
+					obj.children(':input[name=linkInputName]').val(d.linkInputName);
+					
+					if (d.bPhone == false) obj.children('.linkType').val(d.nextPage);
+					
+					obj.children(':input[name=linkInputURL]').val(d.linkInputURL);
+				}
+				
+				// button click
+				obj.children('.linkAddBtn').click(function(){
+					$('#'+tid).linkInput("add", bPhone);
+					return false;
+				});
+				obj.children('.linkDelBtn').click(function(){
+					if ( $('#'+tid).find('.linkInput_box').length <= 1 )
+						alert("모두 삭제 할 수 없습니다.");
+					else
+						$(this).parent().remove();
+					return false;
+				});
+				
+			});// each
+		}, // add
 		getResult :  function () {
 			d("linkInput -> getResult");
-			var result = {"image":"", "link":""};
+			
+			var tid = $(this).attr("id");
+			var result = [];
+			var bp = linkInputOpt[tid].bPhone;
+			var lit =  linkInputOpt[tid].linkInputType;
+
 			this.each( function () {
-				var image = $(this).children(':first-child').attr("src");
-				var link = $(this).find("input:text[name=img_link]").val();
-				result.image = image;
-				result.link = link;
+				
+				$('#'+tid).children('.linkInput_box').each(function(){
+					var obj = $(this);
+					var rs = {bPhone:bp, linkInputType:lit, linkInputName:"", nextPage:"", linkInputURL:""};
+					rs.linkInputName = obj.children(':input[name=linkInputName]').val();
+					if (bp == false && obj.children('.linkType').length > 0) rs.nextPage = obj.children('.linkType').val();
+					rs.linkInputURL = obj.children(':input[name=linkInputURL]').val();
+					result.push(rs);
+				});
+				
 			});// each
 			return result;
 		} // getResult
@@ -2459,7 +2658,7 @@
 
 
 //--------------------------------
-// coupon
+// coupon : bBarcode:false, startDate: "", endDate: "" 
 //--------------------------------
 /* DOM structure
 	<div class="couponBox">
@@ -2474,12 +2673,13 @@
 	};// fn.coupon
 
 	var couponData = [];
+	var couponOpt = [];
 	var couponMethods = {
 
 		init: function (options) {
 			d("coupon -> init");
 			var defaults = {
-				'couponData' : {startDate: "", endDate: ""},
+				'data' : {startDate: "", endDate: ""},
 				'bBarcode' : false,
 				'barcodeType' : "ean13", //ean8, ean13, std25, int25, code11, code39, code93, code128, codabar, msi, datamatrix
 				'barcodeValue' : "1234567890128",
@@ -2498,7 +2698,7 @@
 
 			return this.each( function () {
 
-					$(this).attr("id", "attrBox"+instanceCnt);
+					$(this).attr("id", "attrBox_"+instanceCnt);
 					instanceCnt++;
 
 					var target = $(this);
@@ -2513,11 +2713,13 @@
 					
 					// get movieSlide_box & set id
 					var div = target.children(':first-child');
-					div.attr("id", "coupon"+instanceCnt);
+					div.attr("id", "coupon_"+instanceCnt);
+					div.addClass("ATTR");
 					var tid = div.attr("id");
 					
 					// init couponData
 					couponData[tid] = opt.couponData;
+					couponOpt[tid] = opt;
 
 					if (opt.bBarcode == true){
 						var barConf = {
@@ -2542,6 +2744,22 @@
 					div.children(':input[name=startDate]').datepicker('setDate', new Date());
 					div.children(':input[name=endDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date() });
 					div.children(':input[name=endDate]').datepicker('setDate', new Date());
+					
+					
+					// init textInputData
+					couponData[tid] = opt.data;
+					
+					if (couponData[tid].startDate) $("#"+tid+" input[name=startDate]").val(couponData[tid].startDate);
+					if (couponData[tid].endDate) $("#"+tid+" input[name=endDate]").val(couponData[tid].endDate);
+					
+					
+					
+					
+					div.children(':input[name=startDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date()  });
+					div.children(':input[name=startDate]').datepicker('setDate', new Date());
+					div.children(':input[name=endDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date() });
+					div.children(':input[name=endDate]').datepicker('setDate', new Date());
+					
 					instanceCnt++;
 					d("coupon -> init");
 
@@ -2550,12 +2768,16 @@
 		},// init
 		getResult :  function () {
 			d("coupon -> getResult");
-			var result = {"image":"", "link":""};
+			var result = {bBarcode:false, startDate: "", endDate: "" };
+			var tid = $(this).attr("id");
+			alert(tid+"asdfadsf");
 			this.each( function () {
-				var image = $(this).children(':first-child').attr("src");
-				var link = $(this).find("input:text[name=img_link]").val();
-				result.image = image;
-				result.link = link;
+				var tid = $(this).attr("id");
+				
+				result.bBarcode = couponOpt[tid].bBarcode;
+				result.startDate=$("#"+tid+" input[name=startDate]").val();
+				result.endDate=$("#"+tid+" input[name=endDate]").val();
+				
 			});// each
 			return result;
 		} // getResult
@@ -2614,7 +2836,8 @@
 
 			return this.each( function () {
 
-					$(this).attr("id", "attrBox"+instanceCnt);
+					$(this).attr("id", "couponBtn_"+instanceCnt);
+					$(this).addClass("ATTR");
 					instanceCnt++;
 
 					var target = $(this);
@@ -2628,13 +2851,7 @@
 		},// init
 		getResult :  function () {
 			d("couponBtn -> getResult");
-			var result = {"image":"", "link":""};
-			this.each( function () {
-				var image = $(this).children(':first-child').attr("src");
-				var link = $(this).find("input:text[name=img_link]").val();
-				result.image = image;
-				result.link = link;
-			});// each
+			var result = "couponBtn";
 			return result;
 		} // getResult
 
@@ -2676,7 +2893,8 @@
 
 			return this.each( function () {
 
-					$(this).attr("id", "attrBox"+instanceCnt);
+					$(this).attr("id", "faceBook_"+instanceCnt);
+					$(this).addClass("ATTR");
 					instanceCnt++;
 
 					var target = $(this);
@@ -2690,12 +2908,9 @@
 		},// init
 		getResult :  function () {
 			d("facebook -> getResult");
-			var result = {"image":"", "link":""};
+			var result = "";
 			this.each( function () {
-				var image = $(this).children(':first-child').attr("src");
-				var link = $(this).find("input:text[name=img_link]").val();
-				result.image = image;
-				result.link = link;
+				result = $(this).find('.facebook_wrap > .facebook_link').val();
 			});// each
 			return result;
 		} // getResult
@@ -2737,7 +2952,7 @@
 
 			return this.each( function () {
 
-					$(this).attr("id", "attrBox"+instanceCnt);
+					$(this).attr("id", "htmlWrite_"+instanceCnt);
 					instanceCnt++;
 
 					var target = $(this);
@@ -2746,7 +2961,8 @@
 					
 					// set id
 					var div = target.children(':first-child');
-					div.attr("id", "htmlWrite"+instanceCnt);
+					div.attr("id", "htmlWrite_"+instanceCnt);
+					div.addClass("ATTR");
 					var tid = div.attr("id");
 					
 					$("#"+tid+" > .htmlWrite_previewBtn").click(function() {
@@ -2768,12 +2984,9 @@
 		},// init
 		getResult :  function () {
 			d("htmlWrite -> getResult");
-			var result = {"image":"", "link":""};
+			var result = "";
 			this.each( function () {
-				var image = $(this).children(':first-child').attr("src");
-				var link = $(this).find("input:text[name=img_link]").val();
-				result.image = image;
-				result.link = link;
+				result = $(this).find('.htmlWrite_box > .htmlWrite_textarea').val();
 			});// each
 			return result;
 		} // getResult
@@ -2812,7 +3025,8 @@
 
 			return this.each( function () {
 
-					$(this).attr("id", "attrBox"+instanceCnt);
+					$(this).attr("id", "bar_"+instanceCnt);
+					$(this).addClass("ATTR");
 					instanceCnt++;
 
 					var target = $(this);
@@ -2826,17 +3040,93 @@
 		},// init
 		getResult :  function () {
 			d("bar -> getResult");
-			var result = {"image":"", "link":""};
-			this.each( function () {
-				var image = $(this).children(':first-child').attr("src");
-				var link = $(this).find("input:text[name=img_link]").val();
-				result.image = image;
-				result.link = link;
-			});// each
-			return result;
+			return "bar";
 		} // getResult
 
 	}; // barMethods
+	
+	
+	//--------------------------------
+	// result
+	//--------------------------------
+	$.fn.result = function (action) {
+		if (resultMethods[action])
+			return resultMethods[action].apply(this, Array.prototype.slice.call(arguments, 1));
+		else
+			return resultMethods.init.apply(this, arguments);
+	};// fn.result
+
+	var resultMethods = {
+
+		init: function (options) {
+			d("result -> init");
+			var defaults = {
+				'bEdit' : true
+			};
+			var rslt = [];
+			this.each( function () {
+				
+				var arr = [];
+				
+				
+				$(this).find(".ATTR").each(function(){
+
+					var aid = $(this).attr("id");
+					var m = aid.split("_");
+					alert(aid+"adsfadsf");
+					var data = {type:"", resutl: {}};
+					if (m && m.length > 0) {
+						if (m[0] == "imageOne") {data.type = m[0]; data.result = $(this).imageOne("getResult");}
+						else if (m[0] == "imageThumb") {data.type = m[0]; data.result = $(this).imageThumb("getResult");}
+						else if (m[0] == "imageSlide") {data.type = m[0]; data.result = $(this).imageSlide("getResult");}
+						else if (m[0] == "imageLayout") {data.type = m[0]; data.result = $(this).imageLayout("getResult");}
+						else if (m[0] == "movieOne") {data.type = m[0]; data.result = $(this).movieOne("getResult");}
+						else if (m[0] == "movieSlide") {data.type = m[0]; data.result = $(this).movieSlide("getResult");}
+						else if (m[0] == "textEditor") {data.type = m[0]; data.result = $(this).textEditor("getResult",m[1]);}
+						else if (m[0] == "textInput") {data.type = m[0]; data.result = $(this).textInput("getResult");}
+						else if (m[0] == "textTable") {data.type = m[0]; data.result = $(this).textTable("getResult");}
+						else if (m[0] == "linkInput") {data.type = m[0]; data.result = $(this).linkInput("getResult");}
+						else if (m[0] == "linkEnter") {data.type = m[0]; data.result = $(this).linkEnter("getResult");}
+						else if (m[0] == "coupon") {data.type = m[0]; data.result = $(this).coupon("getResult");}
+						else if (m[0] == "couponBtn") {data.type = m[0]; data.result = $(this).couponBtn("getResult");}
+						else if (m[0] == "faceBook") {data.type = m[0]; data.result = $(this).facebook("getResult");}
+						else if (m[0] == "htmlWrite") {data.type = m[0]; data.result = $(this).htmlWrite("getResult");}
+						else if (m[0] == "bar") {data.type = m[0]; data.result = $(this).bar("getResult");}
+						//else if (m[0] == "imageThumb") {data.type = m[0]; data.result = $(this).imageThumb("getResult");}
+						
+						arr.push(data);
+						
+						var rv = "";
+						if (is_array(data.result)) {
+							var cnt = data.result.length;
+							alert(cnt+"arr");
+							for (var i = 0; i < cnt; i++) {
+								rv += "["+i+"]\r\n";
+								for (var d in data.result[i]) {
+									rv += d+":"+ data.result[i][d]+"\r\n";
+								}
+							}
+						}else {
+							alert( data.result);
+							for (var d in data.result) {
+								rv += d+":"+ data.result[d]+"\r\n";
+							}
+							
+						}
+						
+
+						alert(data.type+"\r\n"+rv);
+					}
+					
+				});
+										
+				d("result -> init");
+
+			});// each
+
+		}
+
+	}; // resultMethods
 
 
 
@@ -2856,6 +3146,11 @@
 			$('#DEBUG > textarea').val($('#DEBUG > textarea').val()+msg+'\r\n'); 
 		}
 	};
+	
+	
+	function is_array(obj) {
+		return typeof(obj)=='object'&&(obj instanceof Array)
+	}
 
 })($)
 
