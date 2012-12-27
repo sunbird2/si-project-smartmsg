@@ -67,7 +67,17 @@
 							{image: '/urlImage/4.jpg', thumb: '/urlImage/thumb/4.jpg', big: '', link: '', bMovie: false },
 							{image: '/urlImage/5.jpg', thumb: '/urlImage/thumb/5.jpg', big: '', link: '', bMovie: false },
 	                     ];
-	var testMovieOneData = {bEdit : true, readyEvent: scrollUpdateBottom, 'movieData' : {image:"5.jpg", link:"http://www.naver.com"}};
+	var testMovieOneData = {bEdit : true, readyEvent: scrollUpdateBottom, 'movieData' : {image:"5.jpg", link:""}};
+	
+	var testLayout = [
+	                 {image: '/urlImage/1.png', width: 100, height:50 },
+	                 {image: '/urlImage/2.png', width: 200, height:50 },
+	                 {image: '/urlImage/3.png', width: 300, height:50 },
+	                 {image: '/urlImage/4.jpg', width: 100, height:50 }
+	                ];
+	
+	var testLinkInput = [{bPhone:true,linkInputType:"text", linkInputName:"바로", nextPage:1, linkInputURL:"http://www.naver.com"},{bPhone:true,linkInputType:"text", linkInputName:"바로", nextPage:1, linkInputURL:"http://www.naver.com"}];
+	var testLinkInputText = [{bPhone:false,linkInputType:"text", linkInputName:"바로", nextPage:"page", linkInputURL:"http://www.naver.com"},{bPhone:false,linkInputType:"page", linkInputName:"바로", nextPage:1, linkInputURL:"http://www.naver.com"}];
 
     $(document).ready(function(){
 		
@@ -84,7 +94,7 @@
 		if (tab == "#tabs-1") {
 			//addAtt('imageOne');
 			//addAtt('imageThumb');
-			addAtt('text');
+			//addAtt('textInput');
 			
 			
 		}else if (tab == "#tabs-2") {
@@ -124,7 +134,7 @@
 			}
 			
 		}
-		else if (type == "imgLayout") { addBoxEle = $(box).appendTo(target).imageLayout({bEdit : true}); }
+		else if (type == "imgLayout") { addBoxEle = $(box).appendTo(target).imageLayout({bEdit : true, layoutData: testLayout}); }
 		//else if (type == "movieOne") { addBoxEle = $(box).appendTo(target).movieOne({bEdit : true, readyEvent: scrollUpdateBottom}); }
 		else if (type == "movieOne") { addBoxEle = $(box).appendTo(target).movieOne(testMovieOneData); }
 		else if (type == "movieSlide") {
@@ -132,14 +142,14 @@
 			if ( $('.imageSlide_box , .movieSlide_box').length > 0 ){
 				alert("슬라이드, 동영상 이미지는 페이지당 하나만 추가 가능 합니다.");
 			} else {
-				addBoxEle = $(box).appendTo(target).movieSlide({bEdit : true});
+				addBoxEle = $(box).appendTo(target).imageSlide({slideData : testSlideData,bEdit : true});
 			}
 		}
-		else if (type == "text") { addBoxEle = $(box).appendTo(target).textEditor({domUrl : 'textEditor.jsp', readyEvent: scrollUpdateBottom }); }
-		else if (type == "textInput") { addBoxEle = $(box).appendTo(target).textInput({bEdit : true}); }
-		else if (type == "textTable") { addBoxEle = $(box).appendTo(target).textEditor({domUrl : 'textEditorTable.jsp', bTable : true, readyEvent: scrollUpdateBottom }); }
-		else if (type == "linkPhone") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true, bPhone : true}); }
-		else if (type == "linkPage") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true}); }
+		else if (type == "text") { addBoxEle = $(box).appendTo(target).textEditor({domUrl : 'textEditor.jsp', readyEvent: scrollUpdateBottom, data:"<p>hi</p>" }); }
+		else if (type == "textInput") { addBoxEle = $(box).appendTo(target).textInput({bEdit : true, data : {textInputType: "comment", keywordText: "정답입니다.", nextPage: 0, keywordCheck: "squence", keywordCheckCntsq: 0, keywordCheckCntrn: 0, startDate: "", endDate: ""}}); }
+		else if (type == "textTable") { addBoxEle = $(box).appendTo(target).textEditor({domUrl : 'textEditorTable.jsp', bTable : true, readyEvent: scrollUpdateBottom, data:"<p>hi</p>" }); }
+		else if (type == "linkPhone") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true, bPhone : true, linkData:testLinkInput}); }
+		else if (type == "linkPage") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true, linkData:testLinkInputText}); }
 		else if (type == "linkEnter") { addBoxEle = $(box).appendTo(target).textInput({bEdit : true, bInput:false}); }
 		else if (type == "cuponBarcode") { 
 			if ($('.couponBox').length > 0) {
@@ -232,8 +242,9 @@
 
 	function test() {
 		//Editor.getToolbar().tools.table.button._command();
-		alert(Editor.getContent());
-		document.getElementById('ttt').value = Editor.getContent();
+		$("#editor_box").result();
+		//alert(Editor.getContent());
+		//document.getElementById('ttt').value = Editor.getContent();
 
 		//for (var _name in _tools) {
  		//			alert(_name);
@@ -246,8 +257,8 @@
 	
 	</script>
 	<!--
-	<textarea id="ttt"></textarea>
-	<button onclick="test()">html</button> -->
+	<textarea id="ttt"></textarea> -->
+	<button onclick="test()">html</button>
 	<div id="wrap">
 		<div id="header">
 			<h1><a href="#"><img src="_images/logo.png" alt="모바일웹에디터"/></a></h1>
@@ -306,7 +317,7 @@
 				<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
 				<div class="viewport">
 					<div id="editeCanvas" class="overview">
-						<ul class="editor_box"></ul>
+						<ul class="editor_box" id="editor_box"></ul>
 					</div>
 				</div>
 			</div>
