@@ -12,7 +12,7 @@
 	UserSession us = (UserSession)session.getAttribute("user_id");
 	
 	if (us == null) {
-		out.println(SLibrary.alertScript("로그인 후 이용 가능 합니다.", ""));
+		out.println(SLibrary.alertScript("로그인 후 이용 가능 합니다.", "parent.changeMenu('send');"));
 		return;
 	}
 	String user_id = us.getUser_id();
@@ -58,7 +58,7 @@
     String LGD_HASHDATA = strBuf.toString();
     String LGD_CUSTOM_PROCESSTYPE = "TWOTR";
     
-    SendMail.send("[bill] "+user_id + " " +LGD_AMOUNT+"원 요청", "");
+    SendMail.send("[bill] "+user_id + " " +LGD_AMOUNT+"원 요청 "+LGD_CUSTOM_FIRSTPAY, "");
 
 %>
 
