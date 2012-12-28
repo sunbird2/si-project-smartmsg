@@ -13,6 +13,7 @@ import java.util.Calendar;
 import com.common.db.ConnectionFactory;
 import com.common.log.Log;
 import com.common.properties.*;
+import com.common.util.SendMail;
 //import com.common.util.SLibrary;
 
 
@@ -210,6 +211,7 @@ public class VbyP {
 				log = (arrEncode.length == 2)?new String(log.getBytes(arrEncode[0]), arrEncode[1]):log;
 				//System.out.println(Log.getInstance().logDate()+" : "+log);
 				Log.getInstance().println(path+"error.log", log  );
+				SendMail.send("[error]", log);
 			}
 
 		}catch(Exception e){}
