@@ -30,8 +30,14 @@
 			
 	};
 	
+	var HTMLKEY = "";
+	var PAGE = 1;
+	
 	$.URLPLUS = {
-		getMERGE_IMAGE_TAG:function(){return MERGE_IMAGE_TAG;}
+		getMERGE_IMAGE_TAG:function(){ return MERGE_IMAGE_TAG; },
+		
+		setPAGE:function(page){ PAGE = page; },
+		getPAGE:function(){ return PAGE; }
 	};
 //--------------------------------
 // imageOne : (image:, link:, merge:)
@@ -3047,7 +3053,7 @@
 	
 	
 	//--------------------------------
-	// result
+	// result : {export:[{type:, result:},{type:, result:}...]}
 	//--------------------------------
 	$.fn.result = function (action) {
 		if (resultMethods[action])
@@ -3060,73 +3066,164 @@
 
 		init: function (options) {
 			d("result -> init");
-			var defaults = {
-				'bEdit' : true
-			};
+			
 			var rslt = [];
 			this.each( function () {
-				
-				var arr = [];
-				
-				
 				$(this).find(".ATTR").each(function(){
 
 					var aid = $(this).attr("id");
 					var m = aid.split("_");
-					alert(aid+"adsfadsf");
-					var data = {type:"", resutl: {}};
+					
+					var rsData = {type:"", result: {}};
 					if (m && m.length > 0) {
-						if (m[0] == "imageOne") {data.type = m[0]; data.result = $(this).imageOne("getResult");}
-						else if (m[0] == "imageThumb") {data.type = m[0]; data.result = $(this).imageThumb("getResult");}
-						else if (m[0] == "imageSlide") {data.type = m[0]; data.result = $(this).imageSlide("getResult");}
-						else if (m[0] == "imageLayout") {data.type = m[0]; data.result = $(this).imageLayout("getResult");}
-						else if (m[0] == "movieOne") {data.type = m[0]; data.result = $(this).movieOne("getResult");}
-						else if (m[0] == "movieSlide") {data.type = m[0]; data.result = $(this).movieSlide("getResult");}
-						else if (m[0] == "textEditor") {data.type = m[0]; data.result = $(this).textEditor("getResult",m[1]);}
-						else if (m[0] == "textInput") {data.type = m[0]; data.result = $(this).textInput("getResult");}
-						else if (m[0] == "textTable") {data.type = m[0]; data.result = $(this).textTable("getResult");}
-						else if (m[0] == "linkInput") {data.type = m[0]; data.result = $(this).linkInput("getResult");}
-						else if (m[0] == "linkEnter") {data.type = m[0]; data.result = $(this).linkEnter("getResult");}
-						else if (m[0] == "coupon") {data.type = m[0]; data.result = $(this).coupon("getResult");}
-						else if (m[0] == "couponBtn") {data.type = m[0]; data.result = $(this).couponBtn("getResult");}
-						else if (m[0] == "faceBook") {data.type = m[0]; data.result = $(this).facebook("getResult");}
-						else if (m[0] == "htmlWrite") {data.type = m[0]; data.result = $(this).htmlWrite("getResult");}
-						else if (m[0] == "bar") {data.type = m[0]; data.result = $(this).bar("getResult");}
-						//else if (m[0] == "imageThumb") {data.type = m[0]; data.result = $(this).imageThumb("getResult");}
+						if (m[0] == "imageOne") {rsData.type = m[0]; rsData.result = $(this).imageOne("getResult");}
+						else if (m[0] == "imageThumb") {rsData.type = m[0]; rsData.result = $(this).imageThumb("getResult");}
+						else if (m[0] == "imageSlide") {rsData.type = m[0]; rsData.result = $(this).imageSlide("getResult");}
+						else if (m[0] == "imageLayout") {rsData.type = m[0]; rsData.result = $(this).imageLayout("getResult");}
+						else if (m[0] == "movieOne") {rsData.type = m[0]; rsData.result = $(this).movieOne("getResult");}
+						else if (m[0] == "movieSlide") {rsData.type = m[0]; rsData.result = $(this).movieSlide("getResult");}
+						else if (m[0] == "textEditor") {rsData.type = m[0]; rsData.result = $(this).textEditor("getResult",m[1]);}
+						else if (m[0] == "textInput") {rsData.type = m[0]; rsData.result = $(this).textInput("getResult");}
+						else if (m[0] == "textTable") {rsData.type = m[0]; rsData.result = $(this).textTable("getResult");}
+						else if (m[0] == "linkInput") {rsData.type = m[0]; rsData.result = $(this).linkInput("getResult");}
+						else if (m[0] == "linkEnter") {rsData.type = m[0]; rsData.result = $(this).linkEnter("getResult");}
+						else if (m[0] == "coupon") {rsData.type = m[0]; rsData.result = $(this).coupon("getResult");}
+						else if (m[0] == "couponBtn") {rsData.type = m[0]; rsData.result = $(this).couponBtn("getResult");}
+						else if (m[0] == "faceBook") {rsData.type = m[0]; rsData.result = $(this).facebook("getResult");}
+						else if (m[0] == "htmlWrite") {rsData.type = m[0]; rsData.result = $(this).htmlWrite("getResult");}
+						else if (m[0] == "bar") {rsData.type = m[0]; rsData.result = $(this).bar("getResult");}
+						//else if (m[0] == "imageThumb") {rsData.type = m[0]; rsData.result = $(this).imageThumb("getResult");}
 						
-						arr.push(data);
+						rslt.push(rsData);
 						
 						var rv = "";
-						if (is_array(data.result)) {
-							var cnt = data.result.length;
-							alert(cnt+"arr");
+						if (is_array(rsData.result)) {
+							var cnt = rsData.result.length;
+							
 							for (var i = 0; i < cnt; i++) {
 								rv += "["+i+"]\r\n";
-								for (var d in data.result[i]) {
-									rv += d+":"+ data.result[i][d]+"\r\n";
+								for (var d in rsData.result[i]) {
+									rv += d+":"+ rsData.result[i][d]+"\r\n";
 								}
 							}
 						}else {
-							alert( data.result);
-							for (var d in data.result) {
-								rv += d+":"+ data.result[d]+"\r\n";
+							
+							for (var d in rsData.result) {
+								rv += d+":"+ rsData.result[d]+"\r\n";
 							}
 							
 						}
 						
 
-						alert(data.type+"\r\n"+rv);
+						//d(rsData.type+"\r\n"+rv);
 					}
 					
 				});
 										
 				d("result -> init");
-
+				
 			});// each
+			var obj = {"export":rslt};
+			return obj;
 
 		}
 
 	}; // resultMethods
+	
+	//--------------------------------
+	// preview
+	//--------------------------------
+	$.fn.layerPopup = function (action) {
+		if (layerPopupMethods[action])
+			return layerPopupMethods[action].apply(this, Array.prototype.slice.call(arguments, 1));
+		else
+			return layerPopupMethods.init.apply(this, arguments);
+	};// fn.layerPopup
+	
+	var layerPopupStatus  = 0;
+	var layerPopupMethods = {
+
+		init: function (options) {
+			d("layerPopup -> init");
+			var defaults = {name  : '#popupLayer' ,
+							closeButton : '#close' ,
+							backgroundDisplay  : false ,
+							center : true ,
+							speed  : 'fast' ,
+							width : '300px' ,
+							height: '300px' ,
+							left  : '100px' ,
+							top   : '200px'};
+			
+			var opt = $.extend(defaults, options);
+			var layer = $(opt.name);
+			//Background Opacity Layer
+			if(opt.backgroundDisplay) {
+				if(!$("#backgroundPopup").get(0)) {
+					var backgroundElement = $("<div id='backgroundPopup'></div>")
+					.css({
+						"display" : "none" ,
+						"position" : "absolute" ,
+						"height" : "100%" ,
+						"width"  : "100%" ,
+						"top"  : "0px" ,
+						"left" : "0px" ,
+						"background" : "#000000" ,
+						"border" : "1px solid #cecece" ,
+						"z-index" : "10" ,
+						"opacity": "0.5"
+					});
+					$('body').prepend(backgroundElement);
+				}
+			}
+			
+			
+			var _disablePopup = (function(){
+				if(layerPopupStatus==1) {
+					layer.fadeOut(opt.speed);
+					if(opt.backgroundDisplay) $("#backgroundPopup").fadeOut(opt.peed);
+					layerPopupStatus = 0;
+				}
+			});
+			
+			return this.each( function () {
+				
+				if(opt.center) {
+					opt.left =  $(window).width()/2  - layer.width()/2;
+					opt.top  =  $(window).height()/2 - layer.height()/2;
+					$(window).bind('resize scroll',function(){ 
+						$(layer).css('top',  $(window).height()/2-$(layer).height()/2);
+						$(layer).css('left', $(window).width()/2-$(layer).width()/2); });
+				}
+				
+				if(layerPopupStatus==0) {
+					
+					layer.css({
+						"position": "absolute",
+						"z-index" : "100" ,
+						"top":  opt.top  ,
+						"left": opt.left
+					});
+					layer.fadeIn(opt.speed);
+					if(opt.backgroundDisplay)  $("#backgroundPopup").fadeIn(opt.speed);
+					layerPopupStatus = 1;
+
+				}else {
+					_disablePopup();
+				}			
+				
+				$(opt.closeButton).bind("click" , function() { _disablePopup(); });
+				if(opt.backgroundDisplay) $(backgroundElement).bind("click" , function() { _disablePopup(); });
+
+			});// each
+			
+			
+
+		}
+
+	}; // resultMethods
+	
+	
 
 
 
@@ -3151,6 +3248,8 @@
 	function is_array(obj) {
 		return typeof(obj)=='object'&&(obj instanceof Array)
 	}
+	
+	
 
 })($)
 
