@@ -81,9 +81,14 @@ package component.send
 			event.stopImmediatePropagation();
 			event.preventDefault();
 			if (Gv.bLogin) {
-				RemoteSingleManager.getInstance.addEventListener("setReturnPhone", callbackSave_resultHandler, false, 0, true);
-				RemoteSingleManager.getInstance.callresponderToken 
-					= RemoteSingleManager.getInstance.service.setReturnPhone(callback.selectedItem as String);
+				if (callback.selectedItem && callback.selectedItem as String != "") {
+					RemoteSingleManager.getInstance.addEventListener("setReturnPhone", callbackSave_resultHandler, false, 0, true);
+					RemoteSingleManager.getInstance.callresponderToken 
+						= RemoteSingleManager.getInstance.service.setReturnPhone(callback.selectedItem as String);	
+				}else {
+					SLibrary.alert("번호를 입력 후 저장하세요.");
+				}
+				
 			} else {
 				SLibrary.alert("로그인 후 이용가능 합니다.");
 			}
