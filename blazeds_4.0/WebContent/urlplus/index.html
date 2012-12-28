@@ -84,7 +84,6 @@
 		$('#scroll_wrap').tinyscrollbar();
 		tabView();
 
-
     }) // $(document).ready
 
 	function tabView() {
@@ -238,17 +237,56 @@
 		}
 	}
 	
+	/**
+	* 미리보기 레이어
+	*/
+	function preview(ele) {
+		
+		var result = $("#editor_box").result();
+		alert(JSON.stringify(result));
+		
+		$.post( "save/index.jsp",
+				{"code" : JSON.stringify(result), "page":$.URLPLUS.getPAGE() },
+				function( data ) {
+					alert(data);
+					var json = $.parseJSON(data);
+					if (json.bError && json.bError != "") alert(json.bError);
+					else if ( !json.htmlKey || json.htmlKey == "") alert("htmlKey 값이 없습니다.");
+					else {
+						// layer view
+						var ifName = "previewLayer";
+						$(ele).layerPopup({name  : '#'+ifName ,
+							closeButton : '#previewLayerClose' ,
+							backgroundDisplay  : true ,
+							center : true ,
+							speed  : 'fast'
+							});
+						
+						var f = document.previewForm;
+						f.htmlKey.value = json.htmlKey;
+						f.submit();
+					}
+				}
+		);
+		
+		
+		
+		
+	}
+	
 	
 
 	function test() {
 		//Editor.getToolbar().tools.table.button._command();
-		$("#editor_box").result();
-		//alert(Editor.getContent());
-		//document.getElementById('ttt').value = Editor.getContent();
+		var arr = $("#editor_box").result();
 
-		//for (var _name in _tools) {
- 		//			alert(_name);
-		//}
+		alert(JSON.stringify(arr));
+		$.ajax({
+	        'url': "save/index.jsp",
+	        type: "post",
+            data: {"code" : JSON.stringify(arr) }
+	        //success: callback
+	    });
 	}
 	
 	function addText() {
@@ -332,15 +370,29 @@
 				<a href="#" class="page_add"></a>
 			</div>
 			<div id="buttons">
-				<a href="#" onclick="" class="preview">미리보기</a>
+				<a href="#" onclick="preview(this)" class="preview">미리보기</a>
 				<a href="#" onclick="" class="save">저장하기</a>
 			</div>
 			<div id="uploadifyQueue" style="position:absolute;left:50%;top:50%;margin-left:-160px"></div>
 		</div><!--// canvas_wrap -->
 		
-
 		
 	</div><!--// wrap -->
+	<div id="previewLayer">
+		<h1 class="title">모바일웹 미리보기</h1>
+        <a href="#" id="previewLayerClose">닫기</a>
+        <iframe id="previewIframe" class="previewIframe" width="340" height="480" frameborder="0" scrolling="auto" marginwidth="5" marginheight="5"></iframe>
+        <p class="paging">
+        	<button class="whiteBtn pre">&lt; 이전</button>
+        	<span class="page_wrap"></span>
+        	<button class="whiteBtn next">다음 &gt;</button>
+        </p>
+    </div><!--// previewLayer -->
+    <!-- preview from -->
+    <form id="previewForm" name="previewForm" method="post" target="previewIframe" action="preview/">
+   		<input type="hidden" name="htmlKey" value="" />
+	</form>
+    
 <a href="http://www.ehancast.com/img.zip">샘플이미지 다운로드</a>
   </body>
 </html>
