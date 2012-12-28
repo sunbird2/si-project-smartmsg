@@ -134,9 +134,10 @@ public class SmartDS extends SessionManagement {
 					rvo = super.loginSuper(conn, user_id, password);
 				}else {
 					rvo = super.createSession(conn, user_id, password);
+					VbyP.accessLog(" >> "+user_id+" Login");
 				}
 			}
-		}catch (Exception e) {}
+		}catch (Exception e) {VbyP.errorLog(e.toString());}
 		finally { close(conn); }
 		
 		return rvo;
@@ -170,7 +171,7 @@ public class SmartDS extends SessionManagement {
 			conn = VbyP.getDB();
 			if ( !SLibrary.IfNull( super.getSession() ).equals("") )
 				vo = super.getInformation(conn, this.getSession());
-		}catch (Exception e) {}
+		}catch (Exception e) {VbyP.errorLog(e.toString());}
 		finally { close(conn); }
 		
 		return vo;
@@ -190,7 +191,7 @@ public class SmartDS extends SessionManagement {
 			em = Emotion.getInstance();
 			arr = em.getCategory(conn, gubun);
 			
-		}catch (Exception e) {}	finally {			
+		}catch (Exception e) {VbyP.errorLog(e.toString());}	finally {			
 			close(conn);
 		}
 		
@@ -218,7 +219,7 @@ public class SmartDS extends SessionManagement {
 			em = Emotion.getInstance();
 			returnList = em.getEmotiCate(conn, getSession(), gubun, category, startIndex, numItems);
 			
-		}catch (Exception e) {}	finally {			
+		}catch (Exception e) {VbyP.errorLog(e.toString());}	finally {			
 			close(conn);
 		}
 		
@@ -250,7 +251,7 @@ public class SmartDS extends SessionManagement {
 			}
 			
 			
-		}catch (Exception e) {}	finally {			
+		}catch (Exception e) {VbyP.errorLog(e.toString());}	finally {			
 			close(conn);
 		}
 		
@@ -275,7 +276,7 @@ public class SmartDS extends SessionManagement {
 			}else {
 				cnt = em.getEmotiCatePaged_count(conn, getSession(), gubun, category);
 			}
-		}catch (Exception e) {}	finally {			
+		}catch (Exception e) {VbyP.errorLog(e.toString());}	finally {			
 			close(conn);
 		}
 		System.out.println(cnt);
@@ -292,7 +293,7 @@ public class SmartDS extends SessionManagement {
 			em = Emotion.getInstance();
 			al = em.getEmotiCatePage(conn, getSession(), gubun, category, page, count);
 			
-		}catch (Exception e) {}	finally {			
+		}catch (Exception e) {VbyP.errorLog(e.toString());}	finally {			
 			close(conn);
 		}
 		
@@ -315,6 +316,7 @@ public class SmartDS extends SessionManagement {
 		}catch (Exception e) {
 			bvo.setbResult(false);
 			bvo.setstrDescription(e.getMessage());
+			VbyP.errorLog(e.toString());
 		}	finally { close(conn); }
 		
 		return bvo;
@@ -335,6 +337,7 @@ public class SmartDS extends SessionManagement {
 		}catch (Exception e) {
 			bvo.setbResult(false);
 			bvo.setstrDescription(e.getMessage());
+			VbyP.errorLog(e.toString());
 		}	finally { close(conn); }
 		
 		return bvo;
@@ -376,6 +379,7 @@ public class SmartDS extends SessionManagement {
 		}catch (Exception e) {
 			bvo.setbResult(false);
 			bvo.setstrDescription(e.getMessage());
+			VbyP.errorLog(e.toString());
 		}	finally { close(conn); }
 		
 		return bvo;
@@ -391,7 +395,7 @@ public class SmartDS extends SessionManagement {
 			em = ReturnPhone.getInstance();
 			al = em.getReturnPhone(conn, getSession());
 			
-		}catch (Exception e) {}	finally {			
+		}catch (Exception e) {VbyP.errorLog(e.toString());}	finally {			
 			close(conn);
 		}
 		
@@ -413,6 +417,7 @@ public class SmartDS extends SessionManagement {
 		}catch (Exception e) {
 			bvo.setbResult(false);
 			bvo.setstrDescription(e.getMessage());
+			VbyP.errorLog(e.toString());
 		}	finally { close(conn); }
 		
 		return bvo;
@@ -433,6 +438,7 @@ public class SmartDS extends SessionManagement {
 		}catch (Exception e) {
 			bvo.setbResult(false);
 			bvo.setstrDescription(e.getMessage());
+			VbyP.errorLog(e.toString());
 		}	finally { close(conn); }
 		
 		return bvo;
@@ -582,7 +588,7 @@ public class SmartDS extends SessionManagement {
 			al = sent.getList(conn, getSession(), yyyymm);
 				
 
-		}catch (Exception e) { System.out.println(e.toString()); }
+		}catch (Exception e) { VbyP.errorLog(e.toString()); }
 		finally { close(conn); }
 		
 		return al;
@@ -610,7 +616,7 @@ public class SmartDS extends SessionManagement {
 			lvo.setUser_id(getSession());
 			ssvo = sentData.getListDetail_status(conn, lvo);
 			
-		}catch (Exception e) {}	finally {			
+		}catch (Exception e) {VbyP.errorLog(e.toString());}	finally {			
 			close(conn);
 		}
 		
@@ -632,7 +638,7 @@ public class SmartDS extends SessionManagement {
 			slvo.setUser_id(getSession());
 			cnt = sentData.getListDetail_pagedCnt(conn, slvo);
 			
-		}catch (Exception e) {}	finally {			
+		}catch (Exception e) {VbyP.errorLog(e.toString());}	finally {			
 			close(conn);
 		}
 		System.out.println(cnt);
@@ -654,7 +660,7 @@ public class SmartDS extends SessionManagement {
 			al = sentData.getListDetail(conn, slvo, startIndex, numItems);
 				
 
-		}catch (Exception e) { System.out.println(e.toString()); }
+		}catch (Exception e) { VbyP.errorLog(e.toString()); }
 		finally { close(conn); }
 		
 		return al;
@@ -676,7 +682,7 @@ public class SmartDS extends SessionManagement {
 			al = sentData.getListDetail(conn, slvo);
 				
 
-		}catch (Exception e) { System.out.println(e.toString()); }
+		}catch (Exception e) { VbyP.errorLog(e.toString());System.out.println(e.toString()); }
 		finally { close(conn); }
 		
 		return al;
@@ -698,7 +704,7 @@ public class SmartDS extends SessionManagement {
 		}catch (Exception e) { 
 			rvo.setbResult(false);
 			rvo.setstrDescription("실패 하였습니다.");
-			
+			VbyP.errorLog(e.toString());
 		}
 		finally { close(conn); }
 		
@@ -725,7 +731,7 @@ public class SmartDS extends SessionManagement {
 
 		}catch (Exception e) {
 			rslt.add(new BooleanAndDescriptionVO(false, "실패 하였습니다."+e.getMessage()));
-			
+			VbyP.errorLog(e.toString());
 		}
 		finally { close(conn); }
 		
@@ -770,6 +776,7 @@ public class SmartDS extends SessionManagement {
 		}catch (Exception e) {
 			bvo.setbResult(false);
 			bvo.setstrDescription("보상이 실패 하였습니다.");
+			VbyP.errorLog(e.toString());
 		}	finally {			
 			close(conn);
 		}
@@ -849,7 +856,7 @@ public class SmartDS extends SessionManagement {
 		}catch (Exception e) { 
 			rvo.setbResult(false);
 			rvo.setstrDescription("그굽 내역 삭제에 실패 하였습니다."+e.getMessage());
-			
+			VbyP.errorLog(e.toString());
 		}
 		
 		return rvo;
@@ -873,16 +880,19 @@ public class SmartDS extends SessionManagement {
 		}catch(Exception e){
 			evo.setbResult(false);
 			evo.setstrDescription("upload fail");
+			VbyP.errorLog(e.toString());
 		}
 		
 		try {
 			evo.setList( el.getExcelData(path, uploadFileName) );
 		}catch(IOException ie) {
 			System.out.println(ie.toString());
+			VbyP.errorLog(ie.toString());
 		}catch(Exception e) {
 			System.out.println(e.toString());
 			evo.setbResult(false);
 			evo.setstrDescription("no excel formatt");
+			VbyP.errorLog(e.toString());
 		}
 		finally {		 
 			new File(path + uploadFileName).delete();
@@ -922,7 +932,7 @@ public class SmartDS extends SessionManagement {
 			}
 			
 			
-		}catch (Exception e) {}	finally {			
+		}catch (Exception e) {VbyP.errorLog(e.toString());}	finally {			
 			close(conn);
 		}
 		
@@ -948,7 +958,7 @@ public class SmartDS extends SessionManagement {
 			else
 				buf = address.getTreeData(conn, getSession(), search);
 			
-		}catch (Exception e) { VbyP.errorLogDaily("getAddrTree >>"+e.toString()); }	
+		}catch (Exception e) { VbyP.errorLog(e.toString()); }	
 		finally {			
 			close(conn);
 		}
@@ -995,7 +1005,7 @@ public class SmartDS extends SessionManagement {
 			
 			}
 			
-		}catch (Exception e) {}	finally { close(conn); }
+		}catch (Exception e) {VbyP.errorLog(e.toString());}	finally { close(conn); }
 		
 		return result;
 	}
@@ -1030,7 +1040,7 @@ public class SmartDS extends SessionManagement {
 			
 			}
 			
-		}catch (Exception e) {}	finally { close(conn); }
+		}catch (Exception e) {VbyP.errorLog(e.toString());}	finally { close(conn); }
 		
 		return result;
 	}
