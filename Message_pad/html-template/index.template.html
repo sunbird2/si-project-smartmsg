@@ -204,12 +204,12 @@
 <div id="dialog"></div>
 <div id="mask" onclick="close_layer_window(); return false;"></div>
 
-<div id="eventPop" style="position:absolute;top:70px;left:50%;margin-left:-510px;z-index:1000;background:url('images/ChEventPopup.png') no-repeat;width:571px;height:730px">
+<div id="eventPop" style="position:absolute;top:70px;left:50%;margin-left:-510px;z-index:1000;background:url('images/HappyNewYearEventPopup.png') no-repeat;width:571px;height:611px">
 	<div style="position:relative;width:100%;height:100%">
 		<div style="position:absolute;top:0px;left:520px;width:50px;height:50px;cursor:pointer;text-indent:-9999px;" onclick="$('#eventPop').hide()">close</div>
-		<div style="position:absolute;top:450px;left:100px;width:100px;height:25px;cursor:pointer;text-indent:-9999px;" onclick="join();$('#eventPop').hide();">회원가입</div>
-		<div style="position:absolute;top:450px;left:210px;width:100px;height:25px;cursor:pointer;text-indent:-9999px;" onclick="changeMenu('bill');$('#eventPop').hide();">충전하기</div>
-		<div style="position:absolute;top:540px;left:310px;width:250px;height:25px;text-indent:-9999px;" onclick="$('#eventPop').hide()">창닫기</div>
+		<div style="position:absolute;top:410px;left:90px;width:120px;height:30px;cursor:pointer;text-indent:-9999px;" onclick="changeMenu('bill');$('#eventPop').hide();">결제센터</div>
+		<div style="position:absolute;top:410px;left:220px;width:120px;height:30px;cursor:pointer;text-indent:-9999px;" onclick="modal_window('/bill/cost.jsp');$('#eventPop').hide();">단가안내</div>
+		<div style="position:absolute;top:515px;left:310px;width:250px;height:25px;text-indent:-9999px;cursor:pointer;" onclick="$('#eventPop').hide()">창닫기</div>
 	</div>
 </div>
   </body>
