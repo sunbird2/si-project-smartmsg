@@ -56,7 +56,7 @@ finally {
 	buf.append("]");
 	buf.append("}");
 	out.println(buf.toString());
-	VbyP.accessLog("notic list call : "+ buf.toString());
+	VbyP.accessLog("notic list call : ");
 
 	//out.println("{\"one\": \"Singular sensation\"}");
 }

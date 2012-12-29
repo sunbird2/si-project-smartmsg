@@ -50,7 +50,10 @@
 							 <td><label for="a500000">500,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b500000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">13 <span>원</span></i> <b><%=Math.ceil( 500000/SLibrary.intValue(VbyP.getValue("b500000")) )   %></b> <span>원</span></td>
 						</tr>
 						<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-							<td><label for="a1000000">1,000,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b1000000")) %> <span>건</span></td><td><b>11</b> <span>원</span></td>
+							<td><label for="a1000000">1,000,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b1000000")) %> <span>건</span></td><td><b><%=Math.ceil( 1000000/SLibrary.intValue(VbyP.getValue("b1000000")) )   %></b> <span>원</span></td>
+						</tr>
+						<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
+							<td><label for="a1000000">2,000,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b2000000")) %> <span>건</span></td><td><b><%=Math.ceil( 2000000/SLibrary.intValue(VbyP.getValue("b2000000")) )   %></b> <span>원</span></td>
 						</tr>
 					</table>
 					<p style="width:590px;text-align:right;">※ 위 단가는 단문(SMS)기준 건수 이며 발송시 장문은 3건 , 멀티는 15건이 차감 됩니다.</p>
