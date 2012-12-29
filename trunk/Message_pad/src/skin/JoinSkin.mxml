@@ -640,7 +640,7 @@
 				</s:Scroller>
 				<s:CheckBox id="agree2" x="706" y="38"  label="개인정보에 동의 합니다." styleName="checkbox_light"/>
 			</s:Group>
-			<s:HGroup width="100%" horizontalAlign="center">
+			<s:HGroup width="100%" height="50" horizontalAlign="center" verticalAlign="middle">
 				<s:Button id="next1" label="다음단계" fontSize="14" fontWeight="bold" styleName="button_light" width="120" />
 				<s:Button id="cancel1" label="취소" fontSize="14" fontWeight="bold" styleName="button_light" width="120" />
 			</s:HGroup>
@@ -706,7 +706,7 @@
 					</s:helpContent>
 				</s:FormItem>
 			</s:Form>
-			<s:HGroup>
+			<s:HGroup height="50" horizontalAlign="center" verticalAlign="middle">
 				<s:Button id="next2" label="가입하기" color="0x2DB149" fontSize="14" fontWeight="bold" styleName="button_light" width="120" />
 				<s:Button id="cancel2" label="취소" fontSize="14" fontWeight="bold" styleName="button_light" width="120" />
 			</s:HGroup>
