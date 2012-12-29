@@ -19,7 +19,11 @@
 		</s:Transition>
 	</s:transitions>
 	<s:Group width="1024" height="696" horizontalCenter="0">
-		
+		<s:Rect left="0" right="0" bottom="0" top="0">
+			<s:fill>
+				<s:SolidColor color="#E9E9E9" />
+			</s:fill>
+		</s:Rect>
 		<!-- actionbar -->
 		<s:SkinnableContainer styleName="actionBar_dark" width="100%" height="48" depth="4">
 			<s:layout>
@@ -637,13 +641,14 @@
 				<s:CheckBox id="agree2" x="706" y="38"  label="개인정보에 동의 합니다." styleName="checkbox_light"/>
 			</s:Group>
 			<s:HGroup width="100%" horizontalAlign="center">
-				<s:Button id="next1" label="다음단계" fontSize="12" fontWeight="bold" styleName="button_light" width="120" />
-				<s:Button id="cancel1" label="취소" fontSize="12" fontWeight="bold" styleName="button_light" width="120" />
+				<s:Button id="next1" label="다음단계" fontSize="14" fontWeight="bold" styleName="button_light" width="120" />
+				<s:Button id="cancel1" label="취소" fontSize="14" fontWeight="bold" styleName="button_light" width="120" />
 			</s:HGroup>
 		</s:VGroup>
 		
 		<!--step2-->
-		<s:VGroup id="step2" includeIn="step2" left="0" right="0" top="80" height="500" horizontalAlign="center" gap="20">
+		<s:VGroup id="step2" includeIn="step2" left="0" right="0" top="60" height="500" horizontalAlign="center" gap="20">
+			<s:Image source="/images/bill_title.png"/>
 			<s:RichText horizontalCenter="0" whiteSpaceCollapse="preserve" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
 				<s:content><s:p><s:span>사용자 정보를</s:span><s:span color="#8d8d8d"> 입력해주세요.</s:span></s:p></s:content>
 			</s:RichText>
@@ -702,19 +707,25 @@
 				</s:FormItem>
 			</s:Form>
 			<s:HGroup>
-				<s:Button id="next2" label="가입하기" color="0x2DB149" fontSize="12" fontWeight="bold" styleName="button_light" width="120" />
-				<s:Button id="cancel2" label="취소" fontSize="12" fontWeight="bold" styleName="button_light" width="120" />
+				<s:Button id="next2" label="가입하기" color="0x2DB149" fontSize="14" fontWeight="bold" styleName="button_light" width="120" />
+				<s:Button id="cancel2" label="취소" fontSize="14" fontWeight="bold" styleName="button_light" width="120" />
 			</s:HGroup>
 		</s:VGroup>
 		
 		<!--step3-->
-		<s:VGroup id="step3" includeIn="step3" left="0" right="0" top="80" height="500" horizontalAlign="center">
-			<s:Label text="가입을 환영합니다."  fontSize="40"/>
-			<s:Label text="체험 건수 3건이 주어졌습니다."  fontSize="16"/>
-			<s:HGroup>
-				<s:Label id="sec" text="5"  fontSize="16"/>
-				<s:Label text="초 후 서비스로 자동 입장 합니다." fontSize="16" />
+		<s:VGroup id="step3" includeIn="step3" left="0" right="0" top="60" height="500" horizontalAlign="center" gap="20">
+			<s:Image source="/images/bill_title.png"/>
+			<s:RichText horizontalCenter="0" whiteSpaceCollapse="preserve" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
+				<s:content><s:p><s:span>문자노트 회원가입을</s:span><s:span color="#8d8d8d"> 환영합니다.</s:span></s:p></s:content>
+			</s:RichText>
+			<s:RichText horizontalCenter="0" whiteSpaceCollapse="preserve" fontSize="16" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
+				<s:content><s:p><s:span>무료 체험 </s:span><s:span color="#0099CC" fontSize="24" fontWeight="bold">3</s:span><s:span>건이 충전되었습니다.</s:span></s:p></s:content>
+			</s:RichText>
+			<s:HGroup gap="2">
+				<s:Label id="sec" text="5" fontWeight="bold" fontSize="16" color="#CC0000"/>
+				<s:Label text="초 후 서비스로 자동 입장 합니다." fontSize="12" />
 			</s:HGroup>
+			<s:Image x="282" width="460" height="312" source="/images/m1.png" smooth="true"/>
 		</s:VGroup>
 	</s:Group>
 	
