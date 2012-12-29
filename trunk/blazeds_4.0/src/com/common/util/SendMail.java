@@ -30,7 +30,7 @@ public class SendMail {
 			transport.sendMessage(msg, msg.getAllRecipients());
 			transport.close();
 		} catch (Exception ex){
-			VbyP.errorLog("mail send fail :"+title+" \n"+content+"\n"+ex);
+			System.out.println("mail send fail :"+title+" \n"+content+"\n"+ex);
 		}
     }
 	
@@ -53,7 +53,7 @@ public class SendMail {
 			transport.sendMessage(msg, msg.getAllRecipients());
 			transport.close();
 		} catch (Exception ex){
-			VbyP.errorLog("mail send fail :"+title+" \n"+content+"\n"+ex);
+			System.out.println("mail send fail :"+title+" \n"+content+"\n"+ex);
 		}
     }
 	
