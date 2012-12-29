@@ -7,12 +7,11 @@
 
         if (str == "bill") {
             $("#nobody").attr("src", "/bill/");
-			if ($('#gallery').length > 0) {
-				$('#gallery').height("760px");
-			}
 
 			$('#function-navi').hide();
 			$('#emoticon').hide();
+			$('#costInfo').hide();
+			$('#bar1').hide();
         }else {
 
             if (MunjaNote) MunjaNote.flexFunction("menu", menu);
@@ -22,6 +21,8 @@
             }
             $('#function-navi').hide();
 			$('#emoticon').hide();
+			$('#costInfo').hide();
+			$('#bar1').hide();
              document.MunjaNote.focus();
         }
     	
@@ -80,7 +81,7 @@
     $(document).ready(function() { 
        //slideShow();
        showSlide();
-       //interval = setInterval('showSlide()',sec);
+       interval = setInterval('showSlide()',sec);
 	   /*
 		{
 			items: [{title:"", content:"", writer:"", timeWrite:"", cnt:0},{title:"", content:"", writer:"", timeWrite:"", cnt:0}]
@@ -255,6 +256,8 @@
 		removeFlash();
         stop();
         $('#gallery').html( htm );
+        if ($('#gallery').length > 0)
+        	$('#gallery').height("810px");
         viewPopBlock(false);
     }
 
@@ -430,9 +433,21 @@
 			$('#mt').text('즉시이체');
 		}
 
-		$('#amt').text(amt);
-		$('#vat').text(vat);
-		$('#tamt').text(samt);
-
+		$('#amt').text(numberFormat(amt));
+		$('#vat').text(numberFormat(vat));
+		$('#tamt').text(numberFormat(samt));
+		$('#tcnt').text(  $(":input[name=c"+amt+"]").val() );
+		
 
 	}
+	
+	function numberFormat(n) {
+	  var reg = /(^[+-]?\d+)(\d{3})/;// 정규식
+	  n += '';// 숫자를 문자열로 변환
+	  while (reg.test(n))
+	    n = n.replace(reg, '$1' + ',' + '$2');
+	  return n;
+
+	}
+
+	
