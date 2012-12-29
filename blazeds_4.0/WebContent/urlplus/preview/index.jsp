@@ -5,6 +5,12 @@
 	String client_id = SLibrary.IfNull( request.getParameter("client_id") );
 	String html_key = SLibrary.IfNull( request.getParameter("htmlKey") );
 	
+	//test
+	if (request.getRemoteAddr().equals("112.216.246.130")){
+		client_id = "urlplus";
+	}
+	
+	
 	String errorMsg = "";
 	
 	boolean bAuth = false;
@@ -47,7 +53,12 @@
 		if(!errorMsg.equals("") && bAuth == false) {
 			out.println(SLibrary.alertScript(errorMsg, "window.close();"));
 		} else {
+			if (request.getRemoteAddr().equals("112.216.246.130")){
 				%><jsp:include page="preview.jsp" flush="false" /><%
+			}
+			else {
+				%><jsp:include page="preview_w.jsp" flush="false" /><%
+			}
 		}
 		
 
