@@ -12,6 +12,7 @@
 			$('#emoticon').hide();
 			$('#costInfo').hide();
 			$('#bar1').hide();
+			$('#eventPop').hide();
         }else {
 
             if (MunjaNote) MunjaNote.flexFunction("menu", menu);
@@ -39,6 +40,12 @@
         var MunjaNote = document.getElementById("MunjaNote");
         if (MunjaNote) MunjaNote.flexFunction("menu", "join");
      	else embedSWF("join");
+		
+		$('#eventPop').hide();
+		$('#function-navi').hide();
+		$('#emoticon').hide();
+		$('#costInfo').hide();
+		$('#bar1').hide();
 		log("회원가입 클릭");
         document.MunjaNote.focus();
      }
