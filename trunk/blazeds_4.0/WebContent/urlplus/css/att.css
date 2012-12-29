@@ -1,4 +1,4 @@
-#wrap {width:646px}
+#wrap {width:646px;height:auto;overflow:hidden;}
 /*header*/
 #header {background:url("../_images/bg.gif") no-repeat;height:48px}
 #header h1 {float:left;margin-left:19px;padding-top:10px}
@@ -313,6 +313,16 @@
 
 /* bar */
 .bar {width:100%;height:1px; margin:10px 0px;font-size:1px; border-bottom:1px dashed #999}
+
+/* preview */
+#previewLayer { display:none;width:344px;height:549px;padding:20px 20px 0px 20px;border:2px solid #878A98;background-color:#FFF}
+#previewLayer .title {float:left;}
+#previewLayer .paging {margin-top:10px;width:344px;text-align:center;}
+#previewLayer .paging .pre {float:left;}
+#previewLayer .paging .next {float:right;}
+#previewLayer .paging .page_wrap {}
+#previewLayerClose {float:right;display:block;width:17px;height:17px;background:url("../_images/popup_x.png");text-indent:-9999px;}
+#previewIframe {border:1px solid #BABABA;margin-top:5px;}
 
 
 .hand {cursor:pointer}
