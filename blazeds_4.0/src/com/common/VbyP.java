@@ -210,6 +210,7 @@ public class VbyP {
 					path = rp.getPath();
 				log = (arrEncode.length == 2)?new String(log.getBytes(arrEncode[0]), arrEncode[1]):log;
 				//System.out.println(Log.getInstance().logDate()+" : "+log);
+				System.out.println("error"+log);
 				Log.getInstance().println(path+"error.log", log  );
 				SendMail.send("[error]", log);
 			}

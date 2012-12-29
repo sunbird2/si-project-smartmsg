@@ -58,6 +58,7 @@ public class SmartDS extends SessionManagement {
 	###############################*/
 	public BooleanAndDescriptionVO checkID(String user_id) {
 		
+		VbyP.accessLog(user_id+" >> id check");
 		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
 		Join join = new Join();
 		
@@ -72,6 +73,7 @@ public class SmartDS extends SessionManagement {
 	
 	public BooleanAndDescriptionVO join(String user_id, String password, String password_re, String hp) {
 		
+		VbyP.accessLog(user_id+" >> join!");
 		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
 		Join join = new Join();
 		
@@ -96,6 +98,7 @@ public class SmartDS extends SessionManagement {
 	
 	public BooleanAndDescriptionVO modify(String user_id, String password, String password_re, String hp) {
 		
+		VbyP.accessLog(user_id+" >> modify");
 		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
 		Join join = new Join();
 		
@@ -301,6 +304,7 @@ public class SmartDS extends SessionManagement {
 	}
 	public BooleanAndDescriptionVO saveMymsg(String msg) {
 		
+		VbyP.accessLog(getSession() +" >> saveMymsg");
 		Connection conn = null;
 		Emotion em = null;
 		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
@@ -323,6 +327,7 @@ public class SmartDS extends SessionManagement {
 	}
 	public BooleanAndDescriptionVO delMymsg(int idx) {
 		
+		VbyP.accessLog(getSession() +" >> delMymsg");
 		Connection conn = null;
 		Emotion em = null;
 		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
@@ -365,6 +370,7 @@ public class SmartDS extends SessionManagement {
 	###############################*/
 	public BooleanAndDescriptionVO setReturnPhone(String phone) {
 		
+		VbyP.accessLog(getSession() +" >> setReturnPhone : " + phone);
 		Connection conn = null;
 		ReturnPhone em = null;
 		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
@@ -403,6 +409,7 @@ public class SmartDS extends SessionManagement {
 	}
 	public BooleanAndDescriptionVO setReturnPhoneTimeWrite(int idx) {
 		
+		VbyP.accessLog(getSession() +" >> setReturnPhoneTimeWrite : " + idx);
 		Connection conn = null;
 		ReturnPhone em = null;
 		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
@@ -424,6 +431,7 @@ public class SmartDS extends SessionManagement {
 	}
 	public BooleanAndDescriptionVO deleteReturnPhone(int idx) {
 		
+		VbyP.accessLog(getSession() +" >> deleteReturnPhone : " + idx);
 		Connection conn = null;
 		ReturnPhone em = null;
 		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
@@ -578,6 +586,7 @@ public class SmartDS extends SessionManagement {
 	###############################*/
 	public ArrayList<LogVO> getSentList(String yyyymm) {
 		
+		VbyP.accessLog(getSession() +" >> getSentList : " + yyyymm);
 		Connection conn = null;
 		ISent sent = SentManager.getInstance();
 		ArrayList<LogVO> al = null;
@@ -690,6 +699,7 @@ public class SmartDS extends SessionManagement {
 	
 	public BooleanAndDescriptionVO deleteSent(LogVO slvo) {
 		
+		VbyP.accessLog(getSession() +" >> deleteSent : " );
 		Connection conn = null;
 		
 		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
@@ -713,6 +723,7 @@ public class SmartDS extends SessionManagement {
 	
 	public ArrayList<BooleanAndDescriptionVO> deleteManySent(ArrayList<LogVO> al ) {
 		
+		VbyP.accessLog(getSession() +" >> deleteManySent : " );
 		Connection conn = null;
 		
 		ArrayList<BooleanAndDescriptionVO> rslt = new ArrayList<BooleanAndDescriptionVO>();
@@ -740,6 +751,7 @@ public class SmartDS extends SessionManagement {
 	
 	public BooleanAndDescriptionVO failAdd( LogVO lvo ) {
 		
+		VbyP.accessLog(getSession() +" >> failAdd : " );
 		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
 		
 		Connection conn = null;
@@ -780,12 +792,14 @@ public class SmartDS extends SessionManagement {
 		}	finally {			
 			close(conn);
 		}
-		
+		VbyP.accessLog(getSession() +" >> failAdd : "+bvo.getstrDescription() );
 		return bvo;
 	}
 	
 	private BooleanAndDescriptionVO sentDelete(Connection conn, LogVO slvo) {
 		
+		
+		VbyP.accessLog(getSession() +" >> sentDelete : " );
 		ISent sent = SentManager.getInstance();
 		ISentData sentData = null;
 		UserInformationVO uvo = null;
@@ -858,7 +872,7 @@ public class SmartDS extends SessionManagement {
 			rvo.setstrDescription("그굽 내역 삭제에 실패 하였습니다."+e.getMessage());
 			VbyP.errorLog(e.toString());
 		}
-		
+		VbyP.accessLog(getSession() +" >> sentDelete : "+rvo.getstrDescription() );
 		return rvo;
 	}
 
@@ -897,7 +911,7 @@ public class SmartDS extends SessionManagement {
 		finally {		 
 			new File(path + uploadFileName).delete();
 		}
-	    
+		VbyP.accessLog(getSession() +" >> getExcelLoaderData : "+evo.getstrDescription() );
 		return evo;
 	}
 	
@@ -906,6 +920,7 @@ public class SmartDS extends SessionManagement {
 	###############################*/
 	public ArrayList<AddressVO> getAddrList(int flag, String groupNameOrSearch) {
 		
+		VbyP.accessLog(getSession() +" >> getAddrList : " );
 		Connection conn = null;
 		IAddress addr = null;
 		ArrayList<AddressVO> al = null;
@@ -941,6 +956,7 @@ public class SmartDS extends SessionManagement {
 	
 	public String getAddrTree(String search) {
 		
+		VbyP.accessLog(getSession() +" >> getAddrTree : " );
 		Connection conn = null;
 		Address address = null;
 		StringBuffer buf = new StringBuffer();
@@ -967,6 +983,7 @@ public class SmartDS extends SessionManagement {
 	
 	public int modifyAddr(int flag, AddressVO avo) {
 		
+		VbyP.accessLog(getSession() +" >> modifyAddr : " );
 		Connection conn = null;
 		IAddress addr = null;
 		int result = 0;
@@ -1012,6 +1029,7 @@ public class SmartDS extends SessionManagement {
 	
 	public int modifyManyAddr(int flag, ArrayList<AddressVO> al, String group) {
 		
+		VbyP.accessLog(getSession() +" >> modifyManyAddr : " );
 		Connection conn = null;
 		IAddress addr = null;
 		int result = 0;
