@@ -15,7 +15,7 @@
              Firefox 3.6 focus border issues.  Initially, don't display flashContent div so it won't show 
              if JavaScript disabled.
         -->
-        
+        <link rel="shortcut icon" href="http://www.munjanote.com/images/note_icon.ico">
         
         <!-- Enable Browser History by replacing useBrowserHistory tokens with two hyphens -->
         <!-- BEGIN Browser History required section ${useBrowserHistory}>
@@ -76,7 +76,7 @@
 			<a href="javascript:" id="logout" title="로그아웃" onclick="logout_flex()" style="display:none" onfocus="this.blur()">로그아웃</a>
 			<a href="javascript:"  onclick="_addFavorite('문자노트 -빠르고 안정적인 문자시스템','http://www.munjanote.com')" title="즐겨찾기" onfocus="this.blur()"><img src="/images/start.png"> 즐겨찾기</a>
 		</div><!-- top_right -->
-		<div id="logo"><a href="javascript:" onclick="window.location.href='MunjaNote.html'" title="MunjaNote"><img src="/images/logo.png" alt="MunjaNote"></a></div>
+		<div id="logo"><a href="javascript:" onclick="window.location.href='/'" title="MunjaNote"><img src="/images/logo.png" alt="MunjaNote"></a></div>
 		<div id="navi">
 			<ul>
 				<li><a href="javascript:" id="send" onclick="changeMenu('send')" class="send" title="전송서비스" onfocus="this.blur()">전송서비스</a></li>
@@ -94,7 +94,7 @@
 
 <!-- contents -->
 	<div id="main-image">
-		 <img id="pop1" src="/images/bbg.png" style="display:block;position:absolute; top:400px; left:-70px;" />
+		 <img id="pop1" src="/images/bbg.png" style="display:block;position:absolute; top:350px; left:-70px;" />
 		<div id="gallery">
 			
        </div><!-- gallery -->
@@ -148,8 +148,9 @@
 			</li>
 		</ul>
 	</div><!-- function-navi -->
-
-<!-- 	<div id="bar1"></div> -->
+	<div id="bar1"></div>
+	<div id="costInfo" style="margin:0 auto;width:1024px;"><img src="/images/bill_title.png" class="title"/></div>
+<!-- 	 -->
 
     <div id="emoticon">
     	<img src="/images/thema_emoti.png" />
@@ -194,11 +195,12 @@
 		</div>
 	</div>
 <!-- //footer -->
-	
+	<div id="sideBanner"></div>	
 </div><!-- wrap -->
 
 <iframe src="" id="nobody" name="nobody" frameborder="0" width="0" height="0" style="display:none"></iframe>
 <!-- <iframe src="" id="nobody" name="nobody" frameborder="0" width="200" height="200" style="display:block"></iframe> -->
+
 
 
 <div id="dialog"></div>
