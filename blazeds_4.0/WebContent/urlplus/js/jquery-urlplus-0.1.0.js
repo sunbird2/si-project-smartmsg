@@ -17,7 +17,7 @@
 // global
 //--------------------------------
 	var instanceCnt = 0;
-	var bDebug = true;
+	var bDebug = false;
 	var MERGE_NUM = ["①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩"];
 	var MERGE_IMAGE_TAG = '<a href="#" class="MERGE_IMAGE"></a>';
 	var MERGE_DATA_MAX = 6;
@@ -978,13 +978,17 @@
 				var upID = upBtn.attr("id");
 				$('#'+upID).uploadify('destroy');
 				
-				var div = $(this).children(':first-child');
+				var div = $(this).children('.imageSlide_box');
 				var tid = div.attr("id");
 				var gallery = $('#'+tid).data('galleria');
+
 				if (gallery) {
-					//gallery.unbind('thumbnail');
-					//gallery.unbind('image');
-					gallery.destroy();
+					gallery.pause();
+					gallery.removePan();
+					gallery.unbind("thumbnail");
+					gallery.unbind("image");
+					gallery.destroy();					
+					gallery.remove();
 				}
 				imageSlideData[tid] = [];
 
@@ -1352,6 +1356,7 @@
 			var arg = arguments;
 			return this.each( function () {
 				var t = $(this);
+				/*
 				var maxWidth = t.width()-4;
 				if (arg && arg.length > 0 && arg[0]=='destroy') t.masonry('destroy');
 				else {
@@ -1361,7 +1366,7 @@
 						columnWidth: 1
 					});
 				}
-				
+				*/
 			});// each
 		}, // masonry
 
@@ -1390,7 +1395,7 @@
 										 ui.placeholder.addClass('bigun');
 										 }
 										
-										 ui.item.parent().masonry('reload');
+										 //ui.item.parent().masonry('reload');
 								},
 						change: function(event, ui) {
 									var start_pos = ui.item.data('start_pos');
@@ -1400,7 +1405,7 @@
 									else ui.item.data('end_pos', end_pos);
 									d('#'+tid+" sotable change : "+ui.item.data('start_pos')+"=>"+ui.item.data('end_pos'));
 									
-									ui.item.parent().masonry('reload');
+									//ui.item.parent().masonry('reload');
 								},
 						update: function(event, ui) {
 							var start_pos = ui.item.data('start_pos');
@@ -1410,7 +1415,7 @@
 						},
 						stop: function(event, ui) { 
 								ui.item.removeClass('dragging').addClass('imageLayout_cell');
-								ui.item.parent().masonry('reload');
+								//ui.item.parent().masonry('reload');
 								$('#'+tid).imageLayout("reloadAll");
 						}	
 								
@@ -1450,7 +1455,7 @@
 						$(this).resizable();
 						$(this).resizable('destroy').resizable({
 							resize: function(event, ui) {
-								ui.element.parent().masonry('reload');
+								//ui.element.parent().masonry('reload');
 							},
 							stop: function(event, ui) {
 								t.siblings('select').val("-1");
@@ -1520,10 +1525,13 @@
 
 		getResult :  function () {
 			d("imageLayout -> getResult");
-			var result = null;
+			var result = {width:0, height:0, item:[]};
 			this.each( function () {
 				var tid = $(this).attr("id");
-				result = layoutData[tid];
+				result.width = $(this).width();
+				result.height = $(this).height();
+				result.item = layoutData[tid];
+				//result = layoutData[tid];
 			});// each
 			return result;
 		}, // getResult
@@ -2164,7 +2172,7 @@
 			var defaults = {
 				'domUrl' : 'textEditor.jsp',
 				'readyEvent' : function(){},
-				'data' : {},
+				'data' : "",
 				'bTable' : false
 			};
 
@@ -2298,7 +2306,7 @@
 			var result = null;
 			this.each( function () {
 				Editor.switchEditor(arg[0]);
-				result = Editor.getContent();
+				result = "\""+Editor.getContent().replace(/\"/g,"'")+"\"";
 				alert(result);
 			});// each
 			return result;
@@ -2358,7 +2366,7 @@
 							'<input type="radio" name="textInputType" value="comment"/><label> 의견쓰기</label>',
 							'<input type="text" name="keywordText" value="키워드를 입력해 주세요.( 여러키워드 ex. 키워드1,키워드2)" class="textInput_keywordText" />',
 							'<p class="textInput_next_type_wrap"><span>키워드 일치시</span> <select name="nextPage"><option value="1">1</option></select> 번 페이지로 이동합니다.</p>',
-							'<span><input type="radio" name="keywordCheck" value="all" class="textInput_radio" checked="checked"/><label> 모든 응모자</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="squence" class="textInput_radio"/><label> 선착순</label><input type="text" name="keywordCheckCntsq" class="textInput_keyword_input" /><label>명</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="random" class="textInput_radio"/><label> 임의</label><input type="text" name="keywordCheckRandomCntrn" class="textInput_keyword_input" /><label>명</label></span>',
+							'<span><input type="radio" name="keywordCheck" value="all" class="textInput_radio" checked="checked"/><label>모든 응모자</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="squence" class="textInput_radio"/><label>선착순</label><input type="text" name="keywordCheckCntsq" class="textInput_keyword_input" /><label>명</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="random" class="textInput_radio"/><label>임의</label><input type="text" name="keywordCheckRandomCntrn" class="textInput_keyword_input" /><label>명</label></span>',
 							'</div>',
 							'<label>이벤트기간</label> <input type="text" name="startDate" class="textInput_date" value="시작일"/> ~ <input type="text" name="endDate" class="textInput_date" value="종료일"/>',
 							'</div>'];
@@ -2586,7 +2594,7 @@
 			var arg = arguments;
 			
 			var ele = ['<div class="linkInput_box">',
-							'<input type="text" name="linkInputName" value="표시이름" class="linkName" />&nbsp;',
+							'<input type="text" name="linkInputName" value="표시이름" class="linkName" />',
 							'<select name="nextPage" class="linkType"><option value="url">URL</option><option value="page">페이지</option></select>',
 							'<input type="text" name="linkInputURL" value="http://"  class="linkPath"/>',
 							'<a href="#" onclick="return false;" class="linkDelBtn">삭제</a>',
@@ -2899,7 +2907,7 @@
 
 			return this.each( function () {
 
-					$(this).attr("id", "faceBook_"+instanceCnt);
+					$(this).attr("id", "facebook_"+instanceCnt);
 					$(this).addClass("ATTR");
 					instanceCnt++;
 
@@ -2917,6 +2925,7 @@
 			var result = "";
 			this.each( function () {
 				result = $(this).find('.facebook_wrap > .facebook_link').val();
+				result = "\""+result.replace(/\"/g,"'")+"\"";
 			});// each
 			return result;
 		} // getResult
@@ -2993,6 +3002,7 @@
 			var result = "";
 			this.each( function () {
 				result = $(this).find('.htmlWrite_box > .htmlWrite_textarea').val();
+				result = "\""+result.replace(/\"/g,"'")+"\"";
 			});// each
 			return result;
 		} // getResult
@@ -3088,10 +3098,10 @@
 						else if (m[0] == "linkInput") {rsData.type = m[0]; rsData.result = $(this).linkInput("getResult");}
 						else if (m[0] == "linkEnter") {rsData.type = m[0]; rsData.result = $(this).linkEnter("getResult");}
 						else if (m[0] == "coupon") {rsData.type = m[0]; rsData.result = $(this).coupon("getResult");}
-						else if (m[0] == "couponBtn") {rsData.type = m[0]; rsData.result = $(this).couponBtn("getResult");}
-						else if (m[0] == "faceBook") {rsData.type = m[0]; rsData.result = $(this).facebook("getResult");}
+						else if (m[0] == "couponBtn") {rsData.type = m[0]; rsData.result = "'couponBtn'";}
+						else if (m[0] == "facebook") {rsData.type = m[0]; rsData.result = $(this).facebook("getResult");}
 						else if (m[0] == "htmlWrite") {rsData.type = m[0]; rsData.result = $(this).htmlWrite("getResult");}
-						else if (m[0] == "bar") {rsData.type = m[0]; rsData.result = $(this).bar("getResult");}
+						else if (m[0] == "bar") {rsData.type = m[0]; rsData.result = "'bar'";}
 						//else if (m[0] == "imageThumb") {rsData.type = m[0]; rsData.result = $(this).imageThumb("getResult");}
 						
 						rslt.push(rsData);

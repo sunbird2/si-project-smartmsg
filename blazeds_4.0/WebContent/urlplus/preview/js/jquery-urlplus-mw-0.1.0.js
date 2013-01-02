@@ -17,7 +17,7 @@
 // global
 //--------------------------------
 	var instanceCnt = 0;
-	var bDebug = true;
+	var bDebug = false;
 //--------------------------------
 // imageOne : (image:, link:, merge:)
 //--------------------------------
@@ -629,13 +629,6 @@
 	//--------------------------------
 	// facebook
 	//--------------------------------
-	/* DOM structure
-		<div class="facebook_wrap">
-			<p class="facebook_tip">예제</p>
-			<span>'좋아요'할 페이스북 주소를 입력해 주세요.</span>
-			<input type="text" name="facebook_good" />
-		</div>
-	*/
 	$.fn.facebook = function (action) {
 		if (facebookMethods[action])
 			return facebookMethods[action].apply(this, Array.prototype.slice.call(arguments, 1));
@@ -649,12 +642,10 @@
 		init: function (options) {
 			d("facebook -> init");
 			var defaults = {
-				'bEdit' : true
+				'data' : ""
 			};
 			
-			var ele = ['<div class="facebook_wrap">',
-						'	<p class="facebook_tip"><img src="_images/good.png" /></p>',
-						'</div>'];
+			var ele = ['<a href="" class="facebook_link"/>좋아요</a>'];
 
 			var opt = $.extend(defaults, options);
 
@@ -667,10 +658,9 @@
 				
 				facebookData[attID] = opt.data;
 				var dtd = facebookData[attID];
+				$(this).append(ele.join(""));
 
-				var target = $(this);
-				// create UI
-				target.append(ele.join(""));
+				$(this).find(".facebook_link").attr("href", dtd);
 
 			});// each
 
@@ -695,14 +685,10 @@
 		init: function (options) {
 			d("htmlWrite -> init");
 			var defaults = {
-				'bEdit' : true
+				'data' : ""
 			};
 			
-			var ele = ['<div class="htmlWrite_wrap">',
-						'	<div class="htmlWrite_box"><textarea class="htmlWrite_textarea"></textarea></div>',
-						'	<button class="htmlWrite_previewBtn">미리보기</button>',
-						'</div>'];
-
+			
 			var opt = $.extend(defaults, options);
 
 			return this.each( function () {
@@ -711,13 +697,10 @@
 				var attID = "attrBox_"+instanceCnt;
 				// create UI
 				$(this).attr("id", attID);
-				
 				htmlWriteData[attID] = opt.data;
 				var dtd = htmlWriteData[attID];
+				$(this).html(dtd);
 				
-				var target = $(this);
-				// create UI
-				target.append(dtd.data);
 			});// each
 
 		}
@@ -749,8 +732,6 @@
 				var attID = "attrBox_"+instanceCnt;
 				// create UI
 				$(this).attr("id", attID);
-				
-
 				var target = $(this);
 				// create UI
 				target.append(ele.join(""));
@@ -773,6 +754,7 @@
 // utils
 //--------------------------------
 function d(msg) {
+	//alert(bDebug);
 	if (bDebug){
 		if ($('#DEBUG').length <= 0){
 			$('body').append('<div id="DEBUG" class="ui-widget-content" style="position:absolute;top:10px;left:800px;width:300px;height:200px;padding-top:10px;background-color:#DDD;text-align:center;"><textarea style="width:280px;height:180px;"></textarea></div>');

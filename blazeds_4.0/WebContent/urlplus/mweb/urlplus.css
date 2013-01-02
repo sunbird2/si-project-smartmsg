@@ -3,21 +3,33 @@
 body {background-color:#fff;padding-bottom:20px;}
 
 #mw_wrap {width:100%;height:auto;overflow:hidden;}
-#mw_wrap li {position:relative;width:100%;height:auto;overflow:hidden;}
+#mw_wrap li.att {position:relative;width:100%;height:auto;overflow:hidden;}
 
 .imageLayout_box {overflow:hidden;height:auto;}
+.imageLayout_cell {float:left;}
+.imageLayout_image {float:left;width:100%;height:100%;}
 
-.imageLayout_image {width:100%;height:100%;}
-
-
-.imageOne {width: 100%;  text-align: center;}
 .imageOne img {width: 100%; vertical-align: middle}
+
+.imageThumb_box {width:100%;height:auto;overflow:hidden;}
+.imageThumb_box li {float:left;width: 20%; vertical-align: middle}
+.imageThumb_box li .imgThumbnail_item {width:100%}
 
 .movieOne_img {width:100%;height:100%;}
 .movieOne_play_icon {background:url("img/play_btn.png");display:block;position:absolute;width:78px;height:81px;left:50%;top:50%;margin-top:-40px;margin-left:-39px;z-index:9999}
+.imageSlide_play_icon_thumb {position:absolute;top:4px;left:4px;width:30px;height:30px;z-index:900}
+.imageSlide_play_icon {position:absolute;top:50%;left:50%;margin-top:-40px;margin-left:-39px;z-index:900}
 
 .linkEnter {width: 100%;  text-align: center;}
 .linkEnter .inputText {width:55%;max-width: 470px;}
+/* coupon button */
+.coupon_button_wrap { width: 100%; background-color:#c5c5c8; overflow:hidden;height:100px;padding-top:15px;
+		background: -webkit-gradient(
+			linear, left top, left bottom, 
+			from(#d8d8da),
+			to(#b2b2c1));
+}
+.coupon_button {margin:0 auto;width: 90%; overflow:hidden;padding:0px 10px; vertical-align: middle;text-align:center;}
 
 .bar {width:100%;height:1px; margin:10px 0px;font-size:1px; border-bottom:1px dashed #999}
 
