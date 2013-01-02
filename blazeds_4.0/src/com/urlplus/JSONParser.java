@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.ListIterator;
 
+import com.common.util.SLibrary;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
@@ -25,7 +27,9 @@ public class JSONParser {
 		ArrayList<HashMap<String, String>> rslt = new ArrayList<HashMap<String,String>>();
 		HashMap<String, String> hm = null;
 		@SuppressWarnings("unchecked")
-		ListIterator<Object> itr=jsonArray.listIterator();            
+		ListIterator<Object> itr=jsonArray.listIterator();        
+		
+		String temp = "";
 	    while(itr.hasNext()){
 	    	
 	        JSONObject obj=(JSONObject)itr.next();
@@ -36,7 +40,9 @@ public class JSONParser {
 	        	
 		   	    while(itrs.hasNext()){
 		   	           Object key=itrs.next();
-		   	           hm.put(key.toString(), obj.get(key).toString());
+		   	           temp = obj.get(key).toString();
+		   	           temp = SLibrary.replaceAll(temp, "\r\n", "\\r\\n");
+		   	           hm.put(key.toString(), temp);
 		   	    }
 		   	    rslt.add(hm);
 	        }
