@@ -4,29 +4,29 @@
 	
 	String client_id = SLibrary.IfNull( request.getParameter("client_id") );
 	String html_key = SLibrary.IfNull( request.getParameter("htmlKey") );
-	
 	//test
-	if (request.getRemoteAddr().equals("112.216.246.130")){
-		client_id = "urlplus";
-	}
+	//if (request.getRemoteAddr().equals("112.216.246.130") || request.getRemoteAddr().equals("0:0:0:0:0:0:0:1")){
+	//	client_id = "urlplus";
+	//}
 	
 	
 	String errorMsg = "";
 	
 	boolean bAuth = false;
-	String user_id = "";
+	String user_id = client_id;
+	String session_id = SLibrary.IfNull((String)session.getAttribute("user_id"));
 	
 	try {
 
 		/*###############################
 		#		variable & init			#
 		###############################*/
-		
+		if (SLibrary.isNull(client_id)) user_id = session_id;
 		
 		/*###############################
 		#		validity check			#
 		###############################*/
-		if (client_id.equals("")) throw new Exception("client_id 값이 없습니다.");
+		if (user_id.equals("")) throw new Exception("client_id 값이 없습니다.");
 		if (html_key.equals("")) throw new Exception("htmlKey 값이 없습니다.");	
 		
 		
@@ -35,10 +35,9 @@
 		###############################*/
 		
 		//check member info
-		user_id = "mtwon";
 		if (!SLibrary.isNull(user_id)) bAuth = true;
 		
-		if (bAuth == true) 
+		if (bAuth == true && !SLibrary.isNull(session_id)) 
 			session.setAttribute("user_id", user_id);
 		
 		
@@ -53,12 +52,7 @@
 		if(!errorMsg.equals("") && bAuth == false) {
 			out.println(SLibrary.alertScript(errorMsg, "window.close();"));
 		} else {
-			if (request.getRemoteAddr().equals("112.216.246.130")){
-				%><jsp:include page="preview.jsp" flush="false" /><%
-			}
-			else {
-				%><jsp:include page="preview_w.jsp" flush="false" /><%
-			}
+			%><jsp:include page="preview.jsp" flush="false" /><%
 		}
 		
 

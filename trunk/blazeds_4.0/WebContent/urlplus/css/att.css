@@ -1,3 +1,6 @@
+
+input {font-size:11px;}
+
 #wrap {width:646px;height:auto;overflow:hidden;}
 /*header*/
 #header {background:url("../_images/bg.gif") no-repeat;height:48px}
@@ -130,7 +133,7 @@
 
 
 .editor_box {margin:0 auto;width:322px;min-height:478px;overflow:hidden;background-color:#FFF;border:1px solid #C9C9C9;padding:10px 10px;overflow:hidden;}
-.editor_box li.attBox {position:relative;margin-bottom:5px;width:300px;height:auto;overflow:hidden;padding:10px 10px;padding-top:20px;border:1px dotted #C9C9C9;}
+.editor_box li.attBox {position:relative;margin-bottom:5px;width:300px;height:auto;overflow:hidden;padding-left:10px;padding-right:10px;padding-bottom:10px;padding-top:30px;border:1px dotted #C9C9C9;}
 
 .attBox {overflow:hidden;}
 .attBox .title_imageOne {background:url("../_images/txt.png") 0px -1px no-repeat}
@@ -194,13 +197,16 @@
 .imageThumb_link_icon_on {background:url("../_images/linkon.png");}
 .imageThumb_mearge_box {position:absolute;top:50%;left:-10px;margin-top:-10px}
 .imageThumb_merg_tip {font-size:11px;width:100%;}
-.imageThumb_link_layer {position:absolute;top:50%;left:1px;padding:5px 10px; border:2px solid black;margin-left:30px;margin-top:-25px;background-color:#FFF;}
+.imageThumb_link_layer {position:absolute;top:50%;left:1px;padding:5px 10px; border:2px solid black;margin-left:30px;margin-top:-25px;background-color:#FFF;text-align:left;}
 .imageThumb_link_layer_tip {font-size:11px;}
+.imageThumb_link_layer .imageThumb_link_text {display:block;float:left;width:125px}
+.imageThumb_link_layer .accept {display:block;float:left;}
+.imageThumb_link_layer .cancle {display:block;float:left;}
 
 .imageThumb_btn_wrap {overflow:hidden;margin:0 auto;width:165px;height:22px;}
 .imageThumb_removall {float:right;display:block;width:74px;height:24px;background:url("../_images/total_delete_btn.png") no-repeat;text-indent:-9999px}
 /* imageSlide */
-.imageSlide_box {position:relative;width:320px;height:320px;}
+.imageSlide_box {position:relative;width:320px;height:320px;overflow:hidden;}
 .imageSlide_move_box {list-style:none;clear:both;width:100%;overflow:hidden;}
 .imageSlide_move_box li {position:relative;float:left;width:100px;height:100px;overflow:hidden;}
 .imageSlide_tip {width:299px;height:22px;margin-top:10px;padding-top:4px;border:1px solid #DFDFDF;background:url("../_images/caution.png") 8px 6px no-repeat; text-align:center;font-size:11px;}
@@ -279,12 +285,13 @@
 .linkInput_tip {margin-bottom:5px;background:url("../_images/sample.png") 5px 10px no-repeat;text-align:center;padding-bottom:10px; border-bottom:1px dashed #C9C9C9; }
 .linkInput_tip_button {width:65%}
 .linkInput_tip_text {color:#fc4ab5;display:block;font-size: 1.2em;padding: 7px 20px;text-decoration: underline;}
-.linkName {width:80px;}
-.linkType {width:50px;}
-.linkPath {width:110px;}
-.linkAddBtn {float:right;display:block;margin-right:2px;width:20px;height:20px;background:url("../_images/plusminus_btn.png") no-repeat;text-indent:-9999px}
-.linkDelBtn {float:right;display:block;width:20px;height:20px;background:url("../_images/plusminus_btn.png") -20px 0px no-repeat;text-indent:-9999px}
 .linkInput_box {width:100%;overflow:hidden;}
+.linkInput_box .linkName {display:block;float:left;width:80px;height:16px;margin-right:2px;}
+.linkInput_box .linkType {display:block;float:left;width:50px;margin-right:2px;}
+.linkInput_box .linkPath {display:block;float:left;width:110px;height:16px;}
+.linkInput_box .linkAddBtn {float:right;display:block;margin-right:2px;width:20px;height:20px;background:url("../_images/plusminus_btn.png") no-repeat;text-indent:-9999px}
+.linkInput_box .linkDelBtn {float:right;display:block;width:20px;height:20px;background:url("../_images/plusminus_btn.png") -20px 0px no-repeat;text-indent:-9999px}
+
 
 /* barcode */
 .coupon_tip {width:100%;height:auto;overflow:hidden;margin:10px 0px;background:url("../_images/sample.png") 5px 20px no-repeat;text-align:center;padding-bottom:10px; border-bottom:1px dashed #C9C9C9;}
@@ -388,6 +395,8 @@ button.css3button {
 	text-shadow:
 		0px -1px 0px rgba(000,000,000,0.2),
 		0px 1px 0px rgba(255,255,255,0.3);
+		
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa41a', endColorstr='#f47820');
 }
 
 /* input text */
@@ -494,7 +503,7 @@ button.whiteBtn {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	color: #666;
-	padding: 2px 10px;
+	padding: 4px 10px;
 	background: -moz-linear-gradient(
 		top,
 		#ffffff 0%,
@@ -507,5 +516,11 @@ button.whiteBtn {
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	border: 1px solid #bebebe;
+	
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f1f1f1');
+	width: auto;
+	height:auto;
+	overflow: visible;
+	line-height:1em;
 	
 }
