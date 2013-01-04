@@ -79,7 +79,8 @@ json-lib-2.4-jdk15.jar
 		hvo.setCERT_USER_CNT(0);
 		
 		if (bUpdate == true) {
-			if (edao.deleteHTML_Tag(conn, hvo.getHTML_KEY()) <= 0)  throw new Exception("html 수정에 실패 하였습니다.");
+			edao.deleteHTML_Tag(conn, hvo.getHTML_KEY(), page_num);
+			//if ( edao.deleteHTML_Tag(conn, hvo.getHTML_KEY()) <= 0)  throw new Exception("html 수정에 실패 하였습니다.");
 			if ( edao.updateHTML(conn, hvo) <= 0 ) throw new Exception("html 수정에 실패 하였습니다.");
 		}else {
 			if ( edao.createHTML(conn, hvo) <= 0 ) throw new Exception("html 생성에 실패 하였습니다.");

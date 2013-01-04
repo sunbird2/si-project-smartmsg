@@ -1,9 +1,24 @@
+<%@page import="com.urlplus.HtmlTagVO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="com.urlplus.HtmlVO"%>
+<%@page import="com.urlplus.EditorDAO"%>
 <%@page import="com.common.VbyP"%>
 <%@page import="com.common.util.SLibrary"%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
 	
 	String session_id = SLibrary.IfNull((String)session.getAttribute("user_id"));
 	String html_key = SLibrary.IfNull((String)session.getAttribute("html_key"));
 	String return_url = SLibrary.IfNull( (String)session.getAttribute("return_url") );
+	int pg = SLibrary.intValue(SLibrary.IfNull( request.getParameter("page") ));
+	
+	EditorDAO edao = null;
+	HtmlVO hvo = null;
+	ArrayList<HtmlTagVO> ahtvo = null;
+	Connection conn = null;
+	boolean bAtt = false; // 저장된 값?
+	int maxPage = 0;
+	
+	StringBuffer buf = new StringBuffer();
 	
 	String errorMsg = "";
 	String edite_id = "";
@@ -13,6 +28,9 @@
 		/*###############################
 		#		variable & init			#
 		###############################*/
+		edao = new EditorDAO();
+		conn = VbyP.getDB();
+		if (pg == 0) pg = 1;
 		
 		/*###############################
 		#		validity check			#
@@ -23,9 +41,40 @@
 		System.out.println("session_id:"+session_id);
 		System.out.println("session_html_key:"+html_key);
 		
+		
 		/*###############################
 		#		Process					#
 		###############################*/
+		if (!SLibrary.isNull(html_key)) {
+			hvo = edao.getHTML(conn, html_key, session_id);
+			ahtvo = edao.getHTMLTag(conn, hvo, pg);
+			
+			int cnt = ahtvo.size();
+			HtmlTagVO htvo = null;
+			//addBoxEle = $(box).appendTo(target).imageOne({bEdit : true});
+			for (int i = 0; i < cnt; i++) {
+				htvo = ahtvo.get(i);
+				
+				buf.append("addBoxEle = $(box).appendTo(target).");
+				buf.append( htvo.getTAG_KEY() );
+				buf.append("({bEdit : true, data:");
+				buf.append( htvo.getTAG_VALUE() );
+				buf.append(" } );\r\n");
+				
+
+				if (htvo.getTAG_KEY().equals("cert") || htvo.getTAG_KEY().equals("couponBtn"))
+					buf.append("addFunctionToAttBoxNoDel(\""+htvo.getTAG_KEY()+"\", addBoxEle);\r\n");
+				else
+					buf.append("addFunctionToAttBox(\""+htvo.getTAG_KEY()+"\", addBoxEle);\r\n");
+			}
+			
+			if (buf.length() > 0) bAtt = true;
+			
+			maxPage = edao.getMaxPage(conn, hvo);
+		}
+		
+		
+		
 %><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -67,9 +116,35 @@
 	<script type="text/javascript">
 	
 	var RETURN_URL = "<%=return_url%>";
-	var PAGE_EDITING = false; // 현재 페이지 수정 여부
-	var scrollUpdate = function(){ 	$('#scroll_wrap').tinyscrollbar_update();};
-	var scrollUpdateBottom = function(){ 	$('#scroll_wrap').tinyscrollbar_update('bottom');};
+	$.URLPLUS.setPAGE(<%=Integer.toString(pg) %>); // 현재 페이지
+	var scrollUpdate = function(){ 
+		$('#scroll_wrap').tinyscrollbar_update();
+		inputTextDefualtValue();
+	};
+	var scrollUpdateBottom = function(){
+		$('#scroll_wrap').tinyscrollbar_update('bottom');
+		inputTextDefualtValue();
+	};
+	var inputTextDefualtValue = function() {
+		$('input[type=text]').each(function() {
+			var t = $(this);
+		    t.css('color', '#666'); // this could be in the style sheet instead
+		    t.focus(function() {
+		        if(t.val() == t.attr("title")) {
+		            t.val('');
+		            t.css('color', '#333');
+		        }
+		    });
+		    t.blur(function() {
+		        if(t.val() == '') {
+		            t.css('color', '#999');
+		            t.val(t.attr("title"));
+		        }
+		    });
+		}); // each
+		
+		$('input[type=text]').blur();
+	};
 	
 	
 	// testData
@@ -110,10 +185,103 @@
     $(document).ready(function(){
 		
 		$('#scroll_wrap').tinyscrollbar();
-		tabView();
+		//tabView();
+		
+<%
+		if (bAtt) {
+%>
+			var target = getEditeEle();
+			var box = "<li class='attBox'></li>";
+			var addBoxEle = null;
+			var subBoxEle = null;
+			
+			<%=buf.toString()%>
+			
+			
+			scrollUpdateBottom();
+			
+<%
+		}else {
+%>
+			pageMakeLayerView();
+<%
+		}
+%>
+		
+		
+		
 
     }) // $(document).ready
+    
+    function pageMakeLayerView() {
+    	$('#pageLayerBtn').layerPopup({name  : '#pageLayer' ,
+			closeButton : '#pageLayerClose' ,
+			backgroundDisplay  : true ,
+			center : true ,
+			speed  : 'fast'
+			});
+    }
+    /**
+	* 페이지 만들기
+	*/
+	function pageMake() {
+		var type = $('input[name=makePageType]:checked').val();
 
+		if (type == "I") {
+			addAtt('imgSlide');
+			addAtt('linkPage');
+			addAtt('text');
+			addAtt('linkPhone');
+			
+		}else if (type == "C") {
+			addAtt('imageOne');
+			addAtt('coupon');
+			addAtt('text');
+		}else if (type == "E") {
+			addAtt('imageOne');
+			addAtt('textInput');
+			addAtt('linkPage');
+			addAtt('text');
+			addAtt('linkPhone');
+		}else if (type == "CERT") {
+			addAtt('cert');
+		}
+		
+		var layer = $('#pageLayer');
+		if(layer.css("display") != "none") {
+			layer.fadeOut("fast");
+			$("#backgroundPopup").fadeOut("fast");
+		}
+		
+		scrollUpdate();
+	}
+    
+    function pageAdd() {
+    	
+    	var result = $("#editor_box").result();
+    	
+    	if (is_array(result.export) && result.export.length > 0) {
+    		alert(result.export.length);
+	    	$.post( "save/index.jsp",
+					{"code" : JSON.stringify(result), "page":$.URLPLUS.getPAGE() },
+					function( data ) {
+						
+						var json = $.parseJSON(data);
+						if (json.bError && json.bError != "") alert(json.bError);
+						else if ( !json.htmlKey || json.htmlKey == "") alert("htmlKey 값이 없습니다.");
+						else {
+							// layer view
+							var pg = $.URLPLUS.getPAGE()+1;
+							window.location.href="?page="+pg;
+						}
+					}
+			);
+    	}else {
+    		alert("현재 페이지를 작성 후 추가 하세요.");
+    	}
+    	
+    }
+/*
 	function tabView() {
     	
     	document.getElementById('editor_box').innerHTML = "";
@@ -128,7 +296,7 @@
 			
 		}else if (tab == "#tabs-2") {
 			addAtt('imageOne');
-			addAtt('cuponBarcode');
+			addAtt('coupon');
 			addAtt('text');
 		}else if (tab == "#tabs-3") {
 			addAtt('imageOne');
@@ -139,7 +307,7 @@
 		}
 		scrollUpdate();
 	}
-
+*/
 	function tabChange(index) {
 		$('#tabs > li > a').attr('class','');
 		$('#tabs > li > a[href="#tabs-'+index+'"]').attr('class', 'on');
@@ -150,7 +318,7 @@
 	/** 
 	* type 에 따라 속성들을 추가한다.
 	* type : 속성 명
-	*/
+	
 	function addAttTest(type) {
 
 		var target = getEditeEle();
@@ -186,7 +354,7 @@
 		else if (type == "linkPhone") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true, bPhone : true, linkData:testLinkInput}); }
 		else if (type == "linkPage") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true, linkData:testLinkInputText}); }
 		else if (type == "linkEnter") { addBoxEle = $(box).appendTo(target).textInput({bEdit : true, bInput:false}); }
-		else if (type == "cuponBarcode") { 
+		else if (type == "coupon") { 
 			if ($('.couponBox').length > 0) {
 				alert("쿠폰은 페이지당 하나만 추가 가능 합니다.");
 				return ;
@@ -220,6 +388,7 @@
 		
 		return false;
 	}
+	*/
 	
 	/** 
 	* type 에 따라 속성들을 추가한다.
@@ -260,7 +429,7 @@
 		else if (type == "linkPhone") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true, bPhone : true}); }
 		else if (type == "linkPage") { addBoxEle = $(box).appendTo(target).linkInput({bEdit : true}); }
 		else if (type == "linkEnter") { addBoxEle = $(box).appendTo(target).textInput({bEdit : true, bInput:false}); }
-		else if (type == "cuponBarcode") { 
+		else if (type == "coupon") { 
 			if ($('.couponBox').length > 0) {
 				alert("쿠폰은 페이지당 하나만 추가 가능 합니다.");
 				return ;
@@ -271,13 +440,13 @@
 			}
 			
 		}
-		else if (type == "cuponText") { 
+		else if (type == "couponText") { 
 			
 			if ($('.couponBox').length > 0) {
 				alert("쿠폰은 페이지당 하나만 추가 가능 합니다.");
 				return ;
 			}else {
-				addBoxEle = $(box).appendTo(target).coupon({bEdit : true});
+				addBoxEle = $(box).appendTo(target).couponText({bEdit : true});
 				subBoxEle = $(box).appendTo(target).couponBtn({bEdit : true});
 				addFunctionToAttBoxNoDel(type, subBoxEle);
 			}
@@ -285,9 +454,12 @@
 		else if (type == "faceBook") {addBoxEle = $(box).appendTo(target).facebook({bEdit : true});}
 		else if (type == "html") {addBoxEle = $(box).appendTo(target).htmlWrite({bEdit : true});}
 		else if (type == "bar") {addBoxEle = $(box).appendTo(target).bar({bEdit : true});}
+		else if (type == "cert") {addBoxEle = $(box).appendTo(target).cert();}
 		
-
-		addFunctionToAttBox(type, addBoxEle);
+		if (type == "cert")
+			addFunctionToAttBoxNoDel(type, addBoxEle);
+		else
+			addFunctionToAttBox(type, addBoxEle);
 
 		scrollUpdateBottom();
 		
@@ -336,7 +508,7 @@
 			else if (type == "imgLayout") { $('#'+tid).imageLayout('destroy'); }
 			else if (type == "movieOne") { $('#'+tid).movieOne('destroy'); }
 			else if (type == "movieSlide") { $('#'+tid).movieSlide('destroy'); }
-			else if (type == "cuponBarcode" || type == "cuponText") { $('.coupon_button_wrap').parent().remove(); } // coupon button remove;
+			else if (type == "coupon" || type == "coupon" || type == "couponText") { $('.coupon_button_wrap').parent().remove(); } // coupon button remove;
 			
 			var dv;
 			dv = document.getElementById(tid);
@@ -350,6 +522,8 @@
 			target.parent().parent().next().insertBefore( target.parent().parent() );
 		}
 	}
+	
+	
 	
 	function hello(ele) {
 		//alert(ele);
@@ -445,11 +619,11 @@
 	<div id="wrap">
 		<div id="header">
 			<h1><a href="#"><img src="_images/logo.png" alt="모바일웹에디터"/></a></h1>
-			<ul id="tabs">
+			<!-- <ul id="tabs">
 				<li class="mainmenu1"><a href="#tabs-1" class="on" onclick="tabChange(1)">정보형</a></li>
 				<li class="mainmenu2"><a href="#tabs-2" onclick="tabChange(2)">쿠폰형</a></li>
 				<li class="mainmenu3"><a href="#tabs-3" onclick="tabChange(3)">이벤트형</a></li>
-			</ul>
+			</ul> -->
 		</div><!--// header -->
 
 		<div id="att">
@@ -483,8 +657,8 @@
 
 			<h2  class="coupon">쿠폰</h2>
 			<ul>
-				<li class="coupon_barcode"><a href="#" onclick="addAtt('cuponBarcode');return false;">바코드 쿠폰</a></li>
-				<li class="coupon_text"><a href="#" onclick="addAtt('cuponText');return false;">텍스트 쿠폰</a></li>
+				<li class="coupon_barcode"><a href="#" onclick="addAtt('coupon');return false;">바코드 쿠폰</a></li>
+				<li class="coupon_text"><a href="#" onclick="addAtt('couponText');return false;">텍스트 쿠폰</a></li>
 			</ul>
 
 			<h2  class="etc">기타</h2>
@@ -506,13 +680,24 @@
 			</div>
 			<div id="page_wrap">
 				<div class="page_wrap_center">
-					<a href="#" class="page_wrap_page page1 on1">&nbsp;</a>
-					<!-- <a href="#" class="page_wrap_page page2">&nbsp;</a>
-					<a href="#" class="page_wrap_page page3">&nbsp;</a>
-					<a href="#" class="page_wrap_page page4">&nbsp;</a>
-					<a href="#" class="page_wrap_page page5">&nbsp;</a> -->
+				<%
+					String pagecss = "page_wrap_page page1 on1";
+					int tPage = 0;
+					System.out.println(maxPage);
+					for (int i = 0; i < maxPage+1; i++) {
+						tPage = i+1;
+						
+						pagecss = "page_wrap_page page"+tPage;
+						if (pg == tPage) {
+							pagecss +=" on"+tPage;
+						}
+						%>
+						<a href="?page=<%=tPage %>" class="<%=pagecss %>">&nbsp;</a>
+						<%
+					}
+				%>
 				</div>
-				<a href="#" class="page_add"></a>
+				<a href="#" id="pageLayerBtn" onclick="pageAdd()" class="page_add"></a>
 			</div>
 			<div id="buttons">
 				<a href="#" onclick="preview(this)" class="preview">미리보기</a>
@@ -523,7 +708,19 @@
 		
 		
 	</div><!--// wrap -->
-	<div id="previewLayer">
+	
+	<div id="pageLayer">
+		<h1 class="title">페이지 생성</h1>
+        <a href="#" id="pageLayerClose">닫기</a>
+        <br/><input type="radio" id="makePageType_I" name="makePageType" value="I" checked="checked"/><label for="makePageType_I">정보형</label><br/>
+        <input type="radio" id="makePageType_C" name="makePageType" value="C" /><label for="makePageType_C">쿠폰형</label><br/>
+        <input type="radio" id="makePageType_E" name="makePageType" value="E" /><label for="makePageType_E">이벤트형</label><br/>
+        <input type="radio" id="makePageType_CERT" name="makePageType" value="CERT" /><label for="makePageType_CERT">본인인증</label><br/>
+        <input type="radio" id="makePageType_BLANK" name="makePageType" value="BLANK" /><label for="makePageType_BLANK">빈페이지</label><br/>
+        <button onclick="pageMake();">만들기</button>
+    </div><!--// pageLayer -->
+    
+    <div id="previewLayer">
 		<h1 class="title">모바일웹 미리보기</h1>
         <a href="#" id="previewLayerClose">닫기</a>
         <iframe id="previewIframe" name="previewIframe" class="previewIframe" width="340" height="480" frameborder="0" scrolling="auto" marginwidth="5" marginheight="5"></iframe>
@@ -533,6 +730,7 @@
         	<button class="whiteBtn next">다음 &gt;</button>
         </p>
     </div><!--// previewLayer -->
+    
     <!-- preview from -->
     <form id="previewForm" name="previewForm" method="post" target="previewIframe" action="preview/">
    		<input type="hidden" name="htmlKey" value="" />
@@ -559,6 +757,7 @@
 	}
 	finally {
 		
+		if (conn != null) { try{ conn.close(); }catch(Exception ex){} }
 		if(!errorMsg.equals("")) {
 			out.println(SLibrary.alertScript(errorMsg, "window.close();"));
 		} 

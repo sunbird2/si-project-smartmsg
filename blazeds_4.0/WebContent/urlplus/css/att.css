@@ -1,6 +1,8 @@
 
 input {font-size:11px;}
 
+.defaultTextActive { color: #a1a1a1; font-style: italic; }
+
 #wrap {width:646px;height:auto;overflow:hidden;}
 /*header*/
 #header {background:url("../_images/bg.gif") no-repeat;height:48px}
@@ -149,6 +151,7 @@ input {font-size:11px;}
 .attBox .title_linkPage {background:url("../_images/txt.png") 0px -121px no-repeat}
 .attBox .title_linkEnter {background:url("../_images/txt.png") 0px -133px no-repeat}
 .attBox .title_cuponBarcode {background:url("../_images/txt.png") 0px -145px no-repeat}
+.attBox .title_coupon {background:url("../_images/txt.png") 0px -145px no-repeat}
 .attBox .title_cuponText {background:url("../_images/txt.png") 0px -157px no-repeat}
 .attBox .title_faceBook {background:url("../_images/txt.png") 0px -169px no-repeat}
 .attBox .title_html  {background:url("../_images/txt.png") 0px -181px no-repeat}
@@ -320,6 +323,24 @@ input {font-size:11px;}
 
 /* bar */
 .bar {width:100%;height:1px; margin:10px 0px;font-size:1px; border-bottom:1px dashed #999}
+
+/* cert */
+.cert_tip {margin-bottom:5px;text-align:center;padding-bottom:10px; border-bottom:1px dashed #C9C9C9; }
+.cert_tip_button {width:95%;}
+.cert_tip_input {width:95%;}
+.cert_edit_wrap {width:100%;height:auto;overflow:hidden;text-align:center;}
+.cert_input{width:95%;}
+
+
+/* pageLayer */
+#pageLayer { display:none;width:344px;height:349px;padding:20px 20px 0px 20px;border:2px solid #878A98;background-color:#FFF}
+#pageLayer .title {float:left;}
+#pageLayer .paging {margin-top:10px;width:344px;text-align:center;}
+#pageLayer .paging .pre {float:left;}
+#pageLayer .paging .next {float:right;}
+#pageLayer .paging .page_wrap {}
+#pageLayerClose {float:right;display:block;width:17px;height:17px;background:url("../_images/popup_x.png");text-indent:-9999px;}
+#previewIframe {border:1px solid #BABABA;margin-top:5px;}
 
 /* preview */
 #previewLayer { display:none;width:344px;height:549px;padding:20px 20px 0px 20px;border:2px solid #878A98;background-color:#FFF}

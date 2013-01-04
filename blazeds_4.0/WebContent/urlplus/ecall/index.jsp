@@ -2,6 +2,10 @@
 <%@page import="com.common.util.SLibrary"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
 	
+	session.removeAttribute("user_id");
+	session.removeAttribute("html_key");
+	session.removeAttribute("return_url");
+
 	String mode = SLibrary.IfNull( request.getParameter("mode") ); 
 	String client_id = SLibrary.IfNull( request.getParameter("client_id") );
 	String modify_key = SLibrary.IfNull( request.getParameter("modify_key") );
