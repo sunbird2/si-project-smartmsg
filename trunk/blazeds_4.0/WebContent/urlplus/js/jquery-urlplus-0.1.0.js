@@ -39,6 +39,7 @@
 		setPAGE:function(page){ PAGE = page; },
 		getPAGE:function(){ return PAGE; }
 	};
+	
 //--------------------------------
 // imageOne : (image:, link:, merge:)
 //--------------------------------
@@ -68,7 +69,7 @@
 			//'buttonText' : '이미지등록',
 			'removeTimeout' : 1, // queue 제거 시간
 			'multi' : false, // 다중업로드
-			'imageData' : {image:"", link:"", merge: ""},
+			'data' : {image:"", link:"", merge: ""},
 			'bEdit':false
 			};
 
@@ -108,7 +109,7 @@
 					upBtn.attr("id", upBtnID);
 					
 					// image option init
-					imageOneData[tid] = opt.imageData;
+					imageOneData[tid] = opt.data;
 					
 					$('#imageOneUploadBtn_'+instanceCnt).uploadify( $.extend(opt, {
 																				'onUploadSuccess' : function(file, data, response) {
@@ -131,30 +132,34 @@
 					});
 					
 					imgType.change( function() {
-						var val = $(this).val();
-						img.find(".imageOne_img").attr("src", "_images/image_menu_cont01300.png");
 						
-						if (val == 1) {
+						if ($(this).is(":checked")) {
+							var val = $(this).val();
+							img.find(".imageOne_img").attr("src", "_images/image_menu_cont01300.png");
 							
-							imageOneData[tid] = {image:"", link:"", merge: MERGE_IMAGE_TAG };
-							$('#'+attID+" > .imageOne_merg_text").show();
-							$('#'+attID+" > .imageOne_merg_text").html(MERGE_IMAGE_TAG);
-							globalMethod.autoMergeImageNumber();
-							
-							$('#'+upBtnID).hide();
-							$('#'+attID+" > .imageOne_deleteBtn").hide();
-							
-							$('#'+tid).imageOne("editUI");
-						}else {
-							
-							$('#'+attID+" > .imageOne_merg_text").html("");
-							globalMethod.autoMergeImageNumber();
-							$('#'+attID+" > .imageOne_merg_text").hide();
-							
-							
-							$('#'+upBtnID).show();
-							$('#'+attID+" > .imageOne_deleteBtn").show();
+							if (val == 1) {
+								
+								imageOneData[tid] = {image:"", link:"", merge: MERGE_IMAGE_TAG };
+								$('#'+attID+" > .imageOne_merg_text").show();
+								$('#'+attID+" > .imageOne_merg_text").html(MERGE_IMAGE_TAG);
+								globalMethod.autoMergeImageNumber();
+								
+								$('#'+upBtnID).hide();
+								$('#'+attID+" > .imageOne_deleteBtn").hide();
+								
+								$('#'+tid).imageOne("editUI");
+							}else {
+								
+								$('#'+attID+" > .imageOne_merg_text").html("");
+								globalMethod.autoMergeImageNumber();
+								$('#'+attID+" > .imageOne_merg_text").hide();
+								
+								
+								$('#'+upBtnID).show();
+								$('#'+attID+" > .imageOne_deleteBtn").show();
+							}
 						}
+						
 					});
 					
 					// opt init
@@ -216,7 +221,7 @@
 						link = "http://";
 					}
 					
-					var linkEle = '<div class="imageThumb_link_layer"><p class="imageThumb_link_layer_tip">이미지 클릭시 이동할 주소를 설정 합니다.</p><input type="text" name="imageThumb_link_text" value="'+link+'" class="imageThumb_link_text" /><button class="whiteBtn accept">적용</button><button class="whiteBtn cancle">'+cancleLable+'</button></div>';
+					var linkEle = '<div class="imageThumb_link_layer"><p class="imageThumb_link_layer_tip">이미지 클릭시 이동할 주소를 설정 합니다.</p><input type="text" name="imageThumb_link_text" value="'+link+'" title="http://" class="imageThumb_link_text" /><button class="whiteBtn accept">적용</button><button class="whiteBtn cancle">'+cancleLable+'</button></div>';
 					var target = $(linkEle).appendTo($('#'+tid));
 					target.find("button.accept").click(function(){
 						var inputLink = $(this).prev().val();
@@ -250,12 +255,19 @@
 		
 		getResult :  function () {
 			d("imageOne -> getResult");
-			var result = {"image":"", "link":""};
+			var result = {"image":"", "link":"", "merge":""};
 			this.each( function () {
-				var image = $(this).children(':first-child').attr("src");
-				var link = $(this).find("input:text[name=img_link]").val();
-				result.image = image;
-				result.link = link;
+				var target = $(this);
+				var tid = target.attr("id");
+				//var image = $(this).children(':first-child').attr("src");
+				//var link = $(this).find("input:text[name=img_link]").val();
+				
+				result.image = imageOneData[tid].image;
+				result.link = imageOneData[tid].link;
+				result.merge = imageOneData[tid].merge;
+				
+				if (result.image == "" && result.merge == "")
+					result = "";
 			});// each
 			return result;
 		}, // getResult
@@ -328,7 +340,7 @@
 				'removeTimeout' : 1,// queue 제거 시간
 				'multi' 		: true,
 				'bEdit'		: false,
-				'thumbData' : []
+				'data' : []
 			};
 
 			var ele = ['<p class="imageThumb_tip"><span>마우스로 드래그하여</span> <b>순서를 이동</b><span>할 수 있습니다.</span><p>',
@@ -371,8 +383,8 @@
 
 						upBtn.attr("id", "imageThumbUploadBtn_"+instanceCnt);
 						
-						imageThumbData[tid] = opt.thumbData;
-						if (opt.thumbData.length > 0) {
+						imageThumbData[tid] = opt.data;
+						if (opt.data.length > 0) {
 							ul.imageThumb("view");
 							if (opt.bEdit == true) ul.imageThumb("editUI");
 						}
@@ -442,7 +454,7 @@
 						var ul = target.children(':first-child');
 						ul.attr("id", "imageThumb_"+instanceCnt);
 						ul.addClass("ATTR");
-						imageThumbData[ul.attr("id")] = opt.thumbData;
+						imageThumbData[ul.attr("id")] = opt.data;
 						ul.imageThumb("view");
 					}
 					instanceCnt++;
@@ -548,7 +560,7 @@
 						link = "http://";
 					}
 					
-					var linkEle = '<div class="imageThumb_link_layer"><p class="imageThumb_link_layer_tip">이미지 클릭시 이동할 주소를 설정 합니다.</p><input type="text" name="imageThumb_link_text" value="'+link+'" class="imageThumb_link_text" /><button class="whiteBtn accept">적용</button><button class="whiteBtn cancle">'+cancleLable+'</button></div>';
+					var linkEle = '<div class="imageThumb_link_layer"><p class="imageThumb_link_layer_tip">이미지 클릭시 이동할 주소를 설정 합니다.</p><input type="text" name="imageThumb_link_text" value="'+link+'" title="http://" class="imageThumb_link_text" /><button class="whiteBtn accept">적용</button><button class="whiteBtn cancle">'+cancleLable+'</button></div>';
 					var target = $(linkEle).appendTo($('#'+tid));
 					target.find("button.accept").click(function(){
 						var inputLink = $(this).prev().val();
@@ -670,7 +682,9 @@
 			var result = null;
 			this.each( function () {
 				var tid = $(this).attr("id");
-				result = imageThumbData[tid];
+				
+				if (imageThumbData[tid] && is_array(imageThumbData[tid]))
+					result = imageThumbData[tid];
 			});// each
 			return result;
 		}, // getResult
@@ -730,7 +744,7 @@
 				'multi' : true,
 				'bEdit' : false,
 				'bMovie' : false,
-				'slideData' : []
+				'data' : []
 			};
 			
 			var ele = ['<p class="imageSlide_tip"><span>이미지는</span> <b>최대 20장</b><span>까지 등록할 수 있습니다.</span><p>',
@@ -844,7 +858,7 @@
 						var div = target.children(':first-child');
 						div.attr("id", "imageSlide_"+instanceCnt);
 					}
-					imageSlideData[div.attr("id")] = opt.slideData;
+					imageSlideData[div.attr("id")] = opt.data;
 					div.imageSlide("view");
 					
 					
@@ -965,7 +979,8 @@
 			var result = null;
 			this.each( function () {
 				var tid = $(this).attr("id");
-				result = imageSlideData[tid];
+				if (imageSlideData[tid] && is_array(imageSlideData[tid]))
+					result = imageSlideData[tid];
 			});// each
 			return result;
 		}, // getResult
@@ -1083,7 +1098,7 @@
 						link = "http://";
 					}
 					
-					var linkEle = '<div class="imageSlide_link_layer"><p class="imageSlide_link_layer_tip">이미지 클릭시 이동할 주소를 설정 합니다.</p><input type="text" name="imageSlide_link_text" value="'+link+'" class="imageSlide_link_text" /><button class="whiteBtn accept">적용</button><button class="whiteBtn cancle">'+cancleLable+'</button><p class="imageSlide_link_movie_wrap"><input type="checkbox" name="bMovie" class="imageSlide_link_movie_check" value="true"/><label>동영상 주소일 경우 체크 하세요.</label></p></div>';
+					var linkEle = '<div class="imageSlide_link_layer"><p class="imageSlide_link_layer_tip">이미지 클릭시 이동할 주소를 설정 합니다.</p><input type="text" name="imageSlide_link_text" value="'+link+'" title="http://" class="imageSlide_link_text" /><button class="whiteBtn accept">적용</button><button class="whiteBtn cancle">'+cancleLable+'</button><p class="imageSlide_link_movie_wrap"><input type="checkbox" name="bMovie" class="imageSlide_link_movie_check" value="true"/><label>동영상 주소일 경우 체크 하세요.</label></p></div>';
 					var target = $(linkEle).appendTo($('#'+stid));
 					//init 
 					if (imageSlideData[stid][idx].link && imageSlideData[stid][idx].link != "" ) {
@@ -1173,7 +1188,7 @@
 		
 		if (imageSlideData[tid][idx].merge && imageSlideData[tid][idx].merge != "") {
 			//target.find('.imageSlide_radioBox').append('<button class="whiteBtn">합성이미지</button>');
-			alert($('#'+tid).parent().find('.imageSlide_radioBox').length);
+			
 			$('<button class="whiteBtn">합성이미지</button>').appendTo(target.parent().find('.imageSlide_radioBox')).click(function(){
 				imageSlideData[tid].push({image: '_images/image_menu_cont01300.png', thumb: '_images/image_menu_cont01.png', big: '_images/image_menu_cont01300.png', link: '', merge : MERGE_IMAGE_TAG });
 				$(this).remove();
@@ -1236,7 +1251,7 @@
 			var defaults = {
 				'cellCount'      : 6, 
 				'bEdit' : false,
-				'layoutData' : []
+				'data' : []
 			};
 
 			
@@ -1252,14 +1267,14 @@
 					if (opt.bEdit == true){
 						html = eleHelp.join("");
 						html += ele[0];
-						var dCnt = opt.layoutData.length;
-						if (opt.layoutData.length > 0) bCnt = opt.layoutData.length;
+						var dCnt = opt.data.length;
+						if (opt.data.length > 0) bCnt = opt.data.length;
 						else bCnt = opt.cellCount;
 						
 						for (var i = 0; i < dCnt ; i++) {
 							
 							html += ele[1];
-							//if (dCnt-1 >= i) html += opt.layoutData[i];
+							//if (dCnt-1 >= i) html += opt.data[i];
 							html += ele[2];
 							html += eleEdit[0];
 							html += ele[3];
@@ -1267,14 +1282,14 @@
 						html += ele[4];
 						html += eleEditFunction.join("");
 					} else {
-						var dCnt = opt.layoutData.length;
-						if (opt.layoutData.length > 0) bCnt = opt.layoutData.length;
+						var dCnt = opt.data.length;
+						if (opt.data.length > 0) bCnt = opt.data.length;
 						else bCnt = opt.cellCount;
 						
 						html += ele[0];
 						for (var i = 0; i < opt.cellCount ; i++) {
 							html += ele[1];
-							//if (dCnt-1 >= i) html += opt.layoutData[i];
+							//if (dCnt-1 >= i) html += opt.data[i];
 							html += ele[2];
 							html += ele[3];
 						}
@@ -1531,6 +1546,9 @@
 				result.width = $(this).width();
 				result.height = $(this).height();
 				result.item = layoutData[tid];
+				if (layoutData[tid] && is_array(layoutData[tid]))
+					result = layoutData[tid];
+				else result = null;
 				//result = layoutData[tid];
 			});// each
 			return result;
@@ -1675,12 +1693,12 @@
 			'removeTimeout' : 1, // queue 제거 시간
 			'multi' : false, // 다중업로드
 			'readyEvent' : function(){},
-			'movieData' : {image:"", link:""},
+			'data' : {image:"", link:""},
 			'bEdit':false
 			};
 
 			var ele = ['<p class="movieOne_tip"><span>이미지 등록 후 </span><b>동영상 URL</b><span>을 입력하세요.</span><p>',
-							'<div class="movieOneBox"><img src="_images/movie_menu_cont.png" class="movieOne_img" /><div class="movieOneBox_linkBox"><img src="_images/play_btn.png" class="movieOne_play" /><input type="text" name="img_link" value="http://동영상파일주소.." class="movieOne_link" />&nbsp;<button class="whiteBtn">적용</button></div></div>',
+							'<div class="movieOneBox"><img src="_images/movie_menu_cont.png" class="movieOne_img" /><div class="movieOneBox_linkBox"><img src="_images/play_btn.png" class="movieOne_play" /><input type="text" name="img_link" value="http://동영상파일주소.." title="http://동영상파일주소.." class="movieOne_link" />&nbsp;<button class="whiteBtn">적용</button></div></div>',
 							'<input type="file" name="imgOne_upload" />',
 							'<a href="#" class="movieOneBox_deleteBtn">삭제</a>'];
 
@@ -1705,7 +1723,7 @@
 					
 					
 					// init
-					movieOneData[tid] = opt.movieData;
+					movieOneData[tid] = opt.data;
 					img.load(function() {opt.readyEvent();});
 					// init movieOneData
 					if (movieOneData[tid].image && movieOneData[tid].image != "") {
@@ -1767,7 +1785,9 @@
 			var result = null;
 			this.each( function () {
 				var tid = $(this).attr("id");
-				result = movieOneData[tid];
+				if (movieOneData[tid].image && movieOneData[tid].image != "")
+					result = movieOneData[tid];
+					
 			});// each
 			return result;
 		}, // getResult
@@ -1786,372 +1806,6 @@
 	}; // movieOneMethods
 
 
-
-
-
-
-//--------------------------------
-// movieSlide
-//--------------------------------
-/* structure
-	<div class="movieSlide_box"></div>
-	<div class="movieSlide_move_box"></div>
-	<input type="file" name="imgSlide_upload" />
-	<a href="#" class="movieSlide_removall">모두삭제</a>
-	<a href="#" class="movieSlide_sortable">이동모드</a>
-	<a href="#" class="movieSlide_sortable_destory">이동해제</a>
-*/
-	$.fn.movieSlide = function (action) {
-		if (movieSlideMethods[action])
-				return movieSlideMethods[action].apply(this, Array.prototype.slice.call(arguments, 1));
-			else
-				return movieSlideMethods.init.apply(this, arguments);
-	};// fn.movieSlide
-
-	var movieSlideData=[];
-	var movieSlideMethods = {
-
-		init: function (options) {
-			d("movieSlide -> init");
-			var defaults = {
-				'queueID' :'uploadifyQueue',
-				'buttonImage' : '_images/image_register_btn.png',
-				'width' : 85,
-				'height' : 22,
-				'swf' : 'js/uploadify.swf', // 파일업로드 이벤트 가로채틑 flash
-				'uploader' : 'uploadifySlide.jsp', // 비동기 업로드시 처리 url
-				'fileTypeDesc' : 'Image Files',
-				'fileTypeExts' : '*.gif; *.jpg; *.png',
-				'buttonText' : '이미지등록',
-				'removeTimeout' : 1,// queue 제거 시간
-				'multi' : true,
-				'bEdit' : false,
-				'slideData' : []
-			};
-			
-			var ele = ['<div class="movieSlide_box"></div>',
-							'<div class="movieSlide_move_box"></div>',
-							'<input type="file" name="imgSlide_upload" />',
-							'<a href="#" class="movieSlide_removall">모두삭제</a>',
-							'<a href="#" class="movieSlide_sortable">이동모드</a>',
-							'<a href="#" class="movieSlide_sortable_destory">이동해제</a>'];
-
-			var opt = $.extend(defaults, options);
-
-			_initGalleria();
-			
-
-			return this.each( function () {
-					
-					$(this).attr("id", "attrBox_"+instanceCnt);
-					instanceCnt++;
-
-					var target = $(this);
-					var tid = "";
-					if (opt.bEdit == true) {
-
-						
-						// create UI
-						target.append(ele.join(""));
-						
-						// get movieSlide_box & set id
-						var div = target.children(':first-child');
-						div.attr("id", "movieSlide_"+instanceCnt);
-						tid = div.attr("id");
-						div.addClass("ATTR");
-						div.next().attr("id", "movieSlide_move_"+instanceCnt);
-						d(div.next().attr("id"));
-						instanceCnt++;
-
-						// init slideData
-						movieSlideData[tid] = [];
-						
-						// setting delete button 
-						_editGalleriaMovie(tid);
-						
-						// setting upload button
-						var upBtn = target.find("input:eq(0)");
-						var upBtnID = "movieSlideUploadBtn_"+instanceCnt
-						upBtn.attr("id", upBtnID);
-						instanceCnt++;
-
-						$('#'+upBtnID).uploadify( $.extend(opt, {
-																							'onUploadSuccess' : function(file, data, response) {
-																								var rslt;
-																								try {
-																									rslt = $.parseJSON(data);
-																									if (rslt.b == "true") {
-																										movieSlideData[tid].push({image: '/urlImage/'+rslt.img, thumb: '/urlImage/thumb/'+rslt.img, big: '/urlImage/'+rslt.img, link: 'http://동영상 링크' });
-																										d(tid+" push( { image: '/urlImage/"+rslt.img+"', thumb: '/urlImage/thumb/"+rslt.img +"', big: '/urlImage/"+rslt.img+"', link: '#'})" );
-																									}
-																									else alert("에러 : "+rslt.err);
-																									
-																								}catch(err){ alert("업로드 실패"); }
-																							},
-																						
-																							'onQueueComplete' : function(queueData) {
-																								div.movieSlide("view");
-																								alert("총 "+movieSlideData[tid].length + " 개의 이미지가 추가 되어있습니다.");
-																							}
-																						}
-						) );
-						
-						
-						target.children('.movieSlide_removall').click(function(){
-							$('#'+tid).movieSlide("removeAllImage");
-							return false;
-						});
-						
-						target.children('.movieSlide_sortable_destory').hide();
-						target.children('.movieSlide_sortable').click(function(){
-							target.children('.movieSlide_sortable').hide();
-							target.children('.movieSlide_sortable_destory').show();
-							$('#'+tid).movieSlide("sortAble", true);
-							return false;
-						});
-
-						target.children('.movieSlide_sortable_destory').click(function(){
-							target.children('.movieSlide_sortable').hide();
-							target.children('.movieSlide_sortable_destory').show();
-							$('#'+tid).movieSlide("sortAble", false);
-							return false;
-						});
-
-
-					} else {
-						target.append(ele[0]);
-						var div = target.children(':first-child');
-						div.attr("id", "movieSlide_"+instanceCnt);
-						
-					}
-					movieSlideData[div.attr("id")] = opt.slideData;
-					div.movieSlide("view");
-					
-					
-			});// each
-
-		},// init
-
-		view : function() {
-
-			d("movieSlide -> view");
-
-			return this.each( function () {
-				
-				var target = $(this);
-				var tid = target.attr("id");
-				var gallery = $('#'+tid).data('galleria');
-				d(gallery);
-				if (gallery) {
-					d("reload");
-					gallery.load(movieSlideData[tid]);
-				}else {
-					d("create");
-					Galleria.run($('#'+tid), {dataSource: movieSlideData[tid], height:320, idleMode:false, lightbox: true});
-				}
-				
-
-			});// each
-		}, // view
-
-		removeAllImage : function() {
-
-			d("movieSlide -> removeAllImage");
-			return this.each( function () {
-				
-				var target = $(this);
-				var tid = target.attr("id");
-				var gallery = $('#'+tid).data('galleria');
-					
-				if (gallery) {
-					movieSlideData[tid] = [];
-					d(movieSlideData[tid].length+" data count");
-					gallery.load(movieSlideData[tid]);
-					$('#'+tid+" > .galleria-container > .galleria-stage > .galleria-images > .galleria-image > img").remove();
-				}
-
-			});// each
-			
-		}, // removeAllImage
-
-		sortAble : function() {
-
-			var arg = arguments;
-			d("movieSlide -> sortAble("+arg[0]+")");
-			return this.each( function () {
-				
-				var target = $(this);
-				var tid = target.attr("id");
-				var mbox = target.next();
-				var mid = mbox.attr("id");
-
-				if (arg[0] == true) {
-
-					$('#'+tid).hide();
-					$('#'+mid).show();
-					// display move image
-					_slideMoveView(tid ,mid);
-
-					$('#'+mid).sortable({
-						cursor: "move",
-						start: function(event, ui) {
-							var sp = ui.item.index();
-							ui.item.data('start_pos', sp);
-						},
-						change: function(event, ui) {
-							var start_pos = ui.item.data('start_pos');
-							var end_pos = ui.placeholder.index();
-						   
-							if (start_pos < end_pos) ui.item.data('end_pos', end_pos-1);
-							else ui.item.data('end_pos', end_pos);
-
-							d('#'+tid+" sotable change : "+ui.item.data('start_pos')+"=>"+ui.item.data('end_pos'));
-
-						},
-						update: function(event, ui) {
-							var start_pos = ui.item.data('start_pos');
-							var end_pos = ui.item.data('end_pos');
-							d('#'+tid+" sotable update : "+start_pos+"=>"+end_pos);
-							 $('#'+tid).movieSlide("sort", start_pos, end_pos);
-						}
-					}).disableSelection();
-
-					alert("이미지를 드래그 하여 순서를 변경하세요.");
-				} else {
-					try{$('#'+mid).sortable( "destroy" );}catch (e){}
-					$('#'+tid).show();
-					$('#'+mid).hide();
-					var gallery = $('#'+tid).data('galleria');
-					gallery.load(movieSlideData[tid]);
-					alert("이동모드가 해제 되었습니다.");
-				}
-
-			});// each
-			
-		}, // sortAble
-
-		sort : function() {
-			d("movieSlide -> sort");
-			var arg = arguments;
-			return this.each( function () {
-				var target = $(this);
-				var tid = target.attr("id");
-				movieSlideData[tid].move( arg[0], arg[1]);
-			});// each
-		}, // sort
-
-		getResult :  function () {
-			d("movieSlide -> getResult");
-			var result = {"image":"", "link":""};
-			this.each( function () {
-				var image = $(this).children(':first-child').attr("src");
-				var link = $(this).find("input:text[name=img_link]").val();
-				result.image = image;
-				result.link = link;
-			});// each
-			return result;
-		}, // getResult
-
-		destroy :  function () {
-			d("movieSlide -> destroy");
-			
-			return this.each( function () {
-				var upBtn = $(this).children(".uploadify");
-				var upID = upBtn.attr("id");
-				$('#'+upID).uploadify('destroy');
-				
-				var div = $(this).children(':first-child');
-				var tid = div.attr("id");
-				var gallery = $('#'+tid).data('galleria');
-				if (gallery) gallery.destroy();
-				imageSlideData[tid] = [];
-
-			});// each
-		} // destroy
-
-	}; // movieSlideMethods
-
-	var _initGalleria =  (function() {
-		if (!Galleria){ alert("Galleria 플러그인이 존재 하지 않습니다."); return;}
-		Galleria.loadTheme('js/galleria/galleria.classic.min.js');
-	}), // _initGalleria
-
-	_editGalleriaMovie = (function(val) {
-		
-		var tid = val;
-		Galleria.ready(function() {
-
-			//add delete image to thumbnail 
-			this.bind("thumbnail", function(e) {
-				var left = $(e.thumbTarget).width() - 11;
-				var delBtn = $('<img src="_images/x.png" width="11" height="11"  class="imgdel" style="left:'+left+'px;" alt="삭제"/>').appendTo( $(e.imageTarget ).parent() );
-
-				delBtn.click({gid:tid, idx: e.index}, function(e) {
-					_removeDataGalleriaMovie(e.data.gid, e.data.idx);
-					return false;
-				});
-			});
-
-			// add delete image to image
-			this.bind('image', function(e) {
-
-				var left = $(e.imageTarget ).parent().width() - 11;
-				var delBtn = $('<img src="_images/x.png" width="11" height="11" style="position:absolute;top:0px;left:'+left+'px;" alt="삭제"/><img src="_images/Play.png" class="imgPlay" />').appendTo( $(e.imageTarget ).parent() );
-
-				var gallery = $('#'+tid).data('galleria');
-				var data = gallery.getData(e.index);
-				var linkBox = $('<div class="movieSlideLinkBox"><input type="text" name="movieLink" value="'+data.link+'" class="movieSlideLink"/><button onclick="return false;" class="movieSlideLinkBtn">적용</button></div>').appendTo( $(e.imageTarget ).parent() );
-				
-				// 링크 적용
-				linkBox.find('.movieSlideLinkBtn').click( function(e) {
-					alert(linkBox.find('.movieSlideLink').val());
-					data.link = linkBox.find('.movieSlideLink').val();
-					return false;
-				});
-
-				delBtn.click({gid:tid, idx: e.index}, function(e) {
-					_removeDataGalleriaMovie(e.data.gid, e.data.idx);
-					return false;
-				});
-			});
-
-		}); // Galleria.ready
-
-	}), // _editGalleriaMovie
-	
-	_slideMoveView =  (function(tid, mid) {
-
-		$('#'+mid).empty();
-		var html = "";
-		var sldata = movieSlideData[tid];
-		var cnt = sldata.length;
-
-		var obj = null;
-		for ( var i = 0; i < cnt ; i++ ) {
-			obj = sldata[i];
-			html += '<li><img src="'+obj.thumb+'" /></li>';
-		}
-		$('#'+mid).html(html);
-
-    }), // _slideMoveView
-
-	_removeDataGalleriaMovie =  (function(tid, idx) {
-		d(tid+" : _removeDataGalleriaMovie("+idx+")");
-		var target = $('#'+tid);
-		
-		if (movieSlideData[tid]) movieSlideData[tid].splice( idx, 1 ); 
-
-		
-		var gallery = $('#'+tid).data('galleria');
-		if (gallery) {
-			gallery.load(movieSlideData[tid]);
-			if (gallery.getDataLength() -1 <= 0) {
-				$('#'+tid+" > .galleria-container > .galleria-stage > .galleria-images > .galleria-image > img").remove();
-			}
-		}
-
-		
-	}); // _removeDataGalleriaMovie
 
 
 //--------------------------------
@@ -2307,7 +1961,10 @@
 			this.each( function () {
 				Editor.switchEditor(arg[0]);
 				result = "\""+Editor.getContent().replace(/\"/g,"'")+"\"";
-				alert(result);
+				if (result == "\"<p><br></p>\"")
+					result = "";
+				
+				
 			});// each
 			return result;
 		} // getResult
@@ -2346,7 +2003,7 @@
 			d("textInput -> init");
 			var defaults = {
 				'totalPage' : 1,
-				'data' : {textInputType: "", keywordText: "", nextPage: 0, keywordCheck: "", keywordCheckCntsq: 0, keywordCheckCntrn: 0, startDate: "", endDate: ""},
+				'data' : {textInputType: "keyword", keywordText: "", nextPage: 0, keywordCheck: "", keywordCheckCntsq: 0, keywordCheckCntrn: 0, startDate: "", endDate: ""},
 				'bInput' : true,
 				'bEdit' : true
 			};
@@ -2364,9 +2021,9 @@
 			           		'<div class="textInput_next_wrap">',
 							'<input type="radio" name="textInputType" value="keyword" checked="checked"/><label> 키워드 맞추기</label>&nbsp;&nbsp;',
 							'<input type="radio" name="textInputType" value="comment"/><label> 의견쓰기</label>',
-							'<input type="text" name="keywordText" value="키워드를 입력해 주세요.( 여러키워드 ex. 키워드1,키워드2)" class="textInput_keywordText" />',
+							'<input type="text" name="keywordText" value="" title="키워드를 입력해 주세요.( 여러키워드 ex. 키워드1,키워드2)" class="textInput_keywordText" />',
 							'<p class="textInput_next_type_wrap"><span>키워드 일치시</span> <select name="nextPage"><option value="1">1</option></select> 번 페이지로 이동합니다.</p>',
-							'<span><input type="radio" name="keywordCheck" value="all" class="textInput_radio" checked="checked"/><label>모든 응모자</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="squence" class="textInput_radio"/><label>선착순</label><input type="text" name="keywordCheckCntsq" class="textInput_keyword_input" /><label>명</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="random" class="textInput_radio"/><label>임의</label><input type="text" name="keywordCheckRandomCntrn" class="textInput_keyword_input" /><label>명</label></span>',
+							'<span><input type="radio" name="keywordCheck" value="all" class="textInput_radio" checked="checked"/><label>모든 응모자</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="squence" class="textInput_radio"/><label>선착순</label><input type="text" name="keywordCheckCntsq"  class="textInput_keyword_input" /><label>명</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="random" class="textInput_radio"/><label>임의</label><input type="text" name="keywordCheckRandomCntrn" class="textInput_keyword_input" /><label>명</label></span>',
 							'</div>',
 							'<label>이벤트기간</label> <input type="text" name="startDate" class="textInput_date" value="시작일"/> ~ <input type="text" name="endDate" class="textInput_date" value="종료일"/>',
 							'</div>'];
@@ -2398,7 +2055,7 @@
 					var textInputTypeName = "textInputType_"+instanceCnt;
 					div.find('.textInput_next_wrap > :input[name=textInputType]').attr("name", textInputTypeName);
 					$('input[name='+textInputTypeName+']').change(function(){
-						 if (this.value == 'keyword') {
+						 if ($('input[name='+textInputTypeName+']:checked').val() == 'keyword') {
 							div.find('.textInput_next_wrap > .textInput_keywordText').show();
 						 	div.find('.textInput_next_wrap > .textInput_next_type_wrap > span').text("키워드 일치시");
 						 	
@@ -2408,12 +2065,13 @@
 							 div.find('.textInput_next_wrap > .textInput_next_type_wrap > span').text("의견입력 후 응모시");
 						 }
 						 
-						 textInputData[tid].textInputType = this.value;
+						 textInputData[tid].textInputType = $('input[name='+textInputTypeName+']:checked').val();
 					 });
 					var keywordCheckeName = "keywordCheck_"+instanceCnt;
 					div.find(':input[name=keywordCheck]').attr("name", keywordCheckeName);
 					$('input[name='+keywordCheckeName+']').change(function(){
-						 textInputData[tid].keywordCheck = this.value;
+						if ($(this).is(":checked"))
+							textInputData[tid].keywordCheck = this.value;
 					 });
 					
 					var sel =div.find("select[name=nextPage]");
@@ -2462,14 +2120,22 @@
 			var result = { textInputType: "", keywordText: "", nextPage: 0, keywordCheck: "", keywordCheckCntsq: 0, keywordCheckCntrn: 0, startDate: "", endDate: "" };
 			this.each( function () {
 				var tid = $(this).attr("id");
-				result.textInputType=textInputData[tid].textInputType;
-				result.keywordText=$("#"+tid+" input[name=keywordText]").val();
+				
+				result.textInputType = textInputData[tid].textInputType;
+				
+				var keywordText = $("#"+tid+" input[name=keywordText]");
+				if (keywordText.val() != keywordText.attr("title"))
+					result.keywordText=keywordText.val();
+				
 				result.nextPage=$("#"+tid).find("select[name=nextPage]").val();
 				result.keywordCheck=textInputData[tid].keywordCheck;
 				result.keywordCheckCntsq=$("#"+tid+" input[name=keywordCheckCntsq]").val();
 				result.keywordCheckCntrn=$("#"+tid+" input[name=keywordCheckCntrn]").val();
 				result.startDate=$("#"+tid+" input[name=startDate]").val();
 				result.endDate=$("#"+tid+" input[name=endDate]").val();
+				
+				if (result.textInputType == "keyword" && result.keywordText == "")
+					result = null;
 				
 			});// each
 			return result;
@@ -2505,7 +2171,7 @@
 		init: function (options) {
 			d("linkInput -> init");
 			var defaults = {
-				'linkData' : [],
+				'data' : [],
 				'bPhone' : false,
 				'bEdit' : true
 			};
@@ -2518,9 +2184,9 @@
 							'<input type="radio" name="linkInputType" value="text"/><label> 텍스트형 </label><br/>',
 						'</div>'];
 			var eleInput = ['<div class="linkInput_box">',
-							'<input type="text" name="linkInputName" value="표시이름" class="linkName" />&nbsp;',
+							'<input type="text" name="linkInputName" value="" title="링크걸버튼명" class="linkName" />&nbsp;',
 							'<select name="nextPage" class="linkType"><option value="url">URL</option><option value="page">페이지</option></select>',
-							'<input type="text" name="linkInputURL" value="http://"  class="linkPath"/>',
+							'<input type="text" name="linkInputURL" value="" title="http://"  class="linkPath"/>',
 							'<a href="#" onclick="return false;" class="linkDelBtn">삭제</a>',
 							'<a href="#" onclick="return false;" class="linkAddBtn">추가</a>',
 						'</div>'];
@@ -2548,22 +2214,26 @@
 
 					
 					$('input[name='+linkTypeName+']').change(function(){
-						 if (this.value == 'button')
-							 div.siblings('.linkInput_tip').html(tipBtn);
-						 else
-							 div.siblings('.linkInput_tip').html(tipText);
+						
+						if ($(this).is(":checked")) {
+							if (this.value == 'button')
+								div.siblings('.linkInput_tip').html(tipBtn);
+							else
+								div.siblings('.linkInput_tip').html(tipText);
+							 
+							linkInputOpt[tid].linkInputType = this.value;
+						}
 						 
-						 linkInputOpt[tid].linkInputType = this.value;
 					 });
 					
 					
 					// init linkInputData
-					linkInputData[tid] = opt.linkData;
+					linkInputData[tid] = opt.data;
 					linkInputOpt[tid] = opt;
 					linkInputOpt[tid].linkInputType = 'button';
 					if (linkInputData[tid] && linkInputData[tid].length > 0) {
 						var val = linkInputData[tid][0].linkInputType;
-						alert(linkTypeName);
+						
 						div.children('input:radio[name='+linkTypeName+']:input[value='+val+']').attr("checked", true);
 						div.children(':input[name='+linkTypeName+']').trigger('change');
 						linkInputOpt[tid].linkInputType = val;
@@ -2594,9 +2264,9 @@
 			var arg = arguments;
 			
 			var ele = ['<div class="linkInput_box">',
-							'<input type="text" name="linkInputName" value="표시이름" class="linkName" />',
+							'<input type="text" name="linkInputName" value="" title="링크걸 버튼명" class="linkName" />',
 							'<select name="nextPage" class="linkType"><option value="url">URL</option><option value="page">페이지</option></select>',
-							'<input type="text" name="linkInputURL" value="http://"  class="linkPath"/>',
+							'<input type="text" name="linkInputURL" value="" title="http://"  class="linkPath"/>',
 							'<a href="#" onclick="return false;" class="linkDelBtn">삭제</a>',
 							'<a href="#" onclick="return false;" class="linkAddBtn">추가</a>',
 					'</div>'];
@@ -2615,7 +2285,7 @@
 				obj = $(arr.join("")).appendTo('#'+tid);
 				
 				if (bPhone == true){
-					obj.children(':input[name=linkInputURL]').val("전화번호");
+					obj.children(':input[name=linkInputURL]').attr("title", "전화번호");
 					obj.children(':input[name=linkInputURL]').width(160);
 				}
 				
@@ -2658,13 +2328,26 @@
 				$('#'+tid).children('.linkInput_box').each(function(){
 					var obj = $(this);
 					var rs = {bPhone:bp, linkInputType:lit, linkInputName:"", nextPage:"", linkInputURL:""};
-					rs.linkInputName = obj.children(':input[name=linkInputName]').val();
-					if (bp == false && obj.children('.linkType').length > 0) rs.nextPage = obj.children('.linkType').val();
-					rs.linkInputURL = obj.children(':input[name=linkInputURL]').val();
-					result.push(rs);
+					
+					var lin = obj.children(':input[name=linkInputName]');
+					var lt = obj.children('.linkType');
+					var liu = obj.children(':input[name=linkInputURL]');
+					
+					if (lin.attr("title") != lin.val())
+						rs.linkInputName = lin.val();
+					if (bp == false && lt.length > 0) 
+						rs.nextPage = lt.val();
+					if (liu.attr("title") != liu.val())
+						rs.linkInputURL = liu.val();
+					
+					if (rs.linkInputName != "" && rs.linkInputURL != "")
+						result.push(rs);
 				});
 				
 			});// each
+			
+			if (result.length < 1) result = null;
+			
 			return result;
 		} // getResult
 
@@ -2784,7 +2467,7 @@
 			d("coupon -> getResult");
 			var result = {bBarcode:false, startDate: "", endDate: "" };
 			var tid = $(this).attr("id");
-			alert(tid+"asdfadsf");
+			
 			this.each( function () {
 				var tid = $(this).attr("id");
 				
@@ -2797,6 +2480,107 @@
 		} // getResult
 
 	}; // couponMethods
+	
+//--------------------------------
+// couponText : bBarcode:false, startDate: "", endDate: "" 
+//--------------------------------
+/* DOM structure
+	<div class="couponBox">
+		<span>이벤트기간 <input type="text" name="startDate"/> ~ <input type="text" name="endDate"/></span>
+	</div>
+*/
+	$.fn.couponText = function (action) {
+		if (couponTextMethods[action])
+			return couponTextMethods[action].apply(this, Array.prototype.slice.call(arguments, 1));
+		else
+			return couponTextMethods.init.apply(this, arguments);
+	};// fn.couponText
+
+	var couponTextData = [];
+	var couponTextOpt = [];
+	var couponTextMethods = {
+
+		init: function (options) {
+			d("couponText -> init");
+			var defaults = {
+				'data' : {startDate: "", endDate: ""},
+				'bEdit' : true
+			};
+			
+			var ele = ['<div class="couponBox">',
+							'<label>이벤트기간</label> <input type="text" name="startDate" class="coupon_date"/> ~ <input type="text" name="endDate" class="coupon_date"/>',
+							'</div>'];
+
+			var eleType = ['<div class="coupon_tip">',
+							'<div class="barcodeTarget"></div>',
+							'</div>'];
+			//<input type="text" class="barcodeValue" value="1234567890128"><button class="viewBocode">보기</button>
+			var opt = $.extend(defaults, options);
+
+			return this.each( function () {
+
+					$(this).attr("id", "attrBox_"+instanceCnt);
+					instanceCnt++;
+
+					var target = $(this);
+					// create UI
+					var arr = [];
+					
+					arr.push(ele[0],eleType[0],eleType[1],eleType[2],ele[1],ele[2]);
+					target.append(arr.join(""));
+					
+					// get movieSlide_box & set id
+					var div = target.children(':first-child');
+					div.attr("id", "couponText_"+instanceCnt);
+					div.addClass("ATTR");
+					var tid = div.attr("id");
+
+					
+					$("#"+tid+" > .coupon_tip > .barcodeTarget").html('<p class="coupon_text_exam">쿠폰번호  1234567890128</p>');
+
+					div.children(':input[name=startDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date()  });
+					div.children(':input[name=startDate]').datepicker('setDate', new Date());
+					div.children(':input[name=endDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date() });
+					div.children(':input[name=endDate]').datepicker('setDate', new Date());
+					
+					
+					// init textInputData
+					couponTextData[tid] = opt.data;
+					
+					if (couponTextData[tid].startDate) $("#"+tid+" input[name=startDate]").val(couponTextData[tid].startDate);
+					if (couponTextData[tid].endDate) $("#"+tid+" input[name=endDate]").val(couponTextData[tid].endDate);
+					
+					
+					
+					
+					div.children(':input[name=startDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date()  });
+					div.children(':input[name=startDate]').datepicker('setDate', new Date());
+					div.children(':input[name=endDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date() });
+					div.children(':input[name=endDate]').datepicker('setDate', new Date());
+					
+					instanceCnt++;
+					d("couponText -> init");
+
+			});// each
+
+		},// init
+		getResult :  function () {
+			d("couponText -> getResult");
+			var result = {bBarcode:false, startDate: "", endDate: "" };
+			var tid = $(this).attr("id");
+			
+			this.each( function () {
+				var tid = $(this).attr("id");
+				
+				result.bBarcode = false;
+				result.startDate=$("#"+tid+" input[name=startDate]").val();
+				result.endDate=$("#"+tid+" input[name=endDate]").val();
+				
+			});// each
+			return result;
+		} // getResult
+
+	}; // couponTextMethods
 	
 	
 	
@@ -2900,7 +2684,7 @@
 			var ele = ['<div class="facebook_wrap">',
 						'	<p class="facebook_tip"><img src="_images/good.png" /></p>',
 						'	<span>\'좋아요\'할 페이스북 주소를 입력해 주세요.</span>',
-						'	<input type="text" name="facebook_good" class="facebook_link" />',
+						'	<input type="text" name="facebook_good" title="http://" class="facebook_link" />',
 						'</div>'];
 
 			var opt = $.extend(defaults, options);
@@ -2924,8 +2708,10 @@
 			d("facebook -> getResult");
 			var result = "";
 			this.each( function () {
-				result = $(this).find('.facebook_wrap > .facebook_link').val();
-				result = "\""+result.replace(/\"/g,"'")+"\"";
+				var target = $(this).find('.facebook_wrap > :input[name=facebook_good]');
+				if (target.val() != target.attr("title"))
+					result = target.val();
+				//result = "\""+result.replace(/\"/g,"'")+"\"";
 			});// each
 			return result;
 		} // getResult
@@ -3061,6 +2847,117 @@
 
 	}; // barMethods
 	
+	//--------------------------------
+	// cert
+	//--------------------------------
+	/* DOM structure
+	 	<p class="cert_tip">
+	 		<span>인증설명..</span><span>을(를) 넣어주시기 바랍니다.</span>
+	 		<input type="text" class="inputText textInput_tip_input" />
+	 		<button class="css3button cert_tip_button">확인</button>
+	 		
+	 		<button class="css3button cert_tip_button">SMS 인증번호 요청</button>
+	 	<p>
+	 	<div>
+	 		<input type="radio" name="certType" value="certUser" /><label>사용자정보인증</label>
+	 		<input type="radio" name="certType" value="certSMS" /><label>SMS인증</label>
+	 	</div>
+	 	<div>
+			<input type="text" name="certText" class="cert_input" title="인증설명.." />
+		</div>
+		
+	*/
+	$.fn.cert = function (action) {
+		if (certMethods[action])
+			return certMethods[action].apply(this, Array.prototype.slice.call(arguments, 1));
+		else
+			return certMethods.init.apply(this, arguments);
+	};// fn.cert
+
+	var certData = [];
+	var certMethods = {
+
+		init: function (options) {
+			d("cert -> init");
+			var defaults = {
+				'data' : {certType:"", certText:""}
+			};
+			
+			var eleTip = ['<p class="cert_tip">',
+					 		'<span>주민등록번호 뒤 7자리</span><span>을(를) 넣어주시기 바랍니다.</span>',
+					 		'<input type="text" class="inputText cert_tip_input" />',
+					 		'<button class="css3button cert_tip_button">확인</button>',
+						 '<p>'];
+			
+			var ele = ['<div class="cert_edit_wrap">',
+					 		'<input type="radio" name="certType" value="certUser" id="certType_certUser" checked="checked" /><label for="certType_certUser" > 사용자정보인증</label>&nbsp;&nbsp;&nbsp;&nbsp',
+					 		'<input type="radio" name="certType" value="certSMS" id="certType_certSMS"  /><label for="certType_certSMS" > SMS인증</label>',
+					 		'<input type="text" name="certText" class="cert_input" title="인증설명.." />',
+				 		'</div>'];
+
+			var opt = $.extend(defaults, options);
+			
+			return this.each( function () {
+					
+					var tid = "cert_"+instanceCnt;
+					$(this).attr("id", tid);
+					$(this).addClass("ATTR");
+					instanceCnt++;
+					
+					var target = $(this);
+					// create UI
+					target.append(eleTip.join("")).append(ele.join(""));
+					
+					
+					
+					target.find('input[name=certType]').change(function(){
+						 if (target.find('.cert_edit_wrap > input[name=certType]:checked').val() == 'certUser') {
+							 $(this).siblings('.cert_input').show();
+							 // tip
+							 target.find(".cert_tip > span").show();
+							 target.find(".cert_tip > .cert_tip_input").show();
+							 target.find(".cert_tip > button").text("확인");
+						 }
+						 else {
+							 $(this).siblings('.cert_input').hide(); 
+							// tip
+							 target.find(".cert_tip > span").hide();
+							 target.find(".cert_tip > .cert_tip_input").hide();
+							 target.find(".cert_tip > button").text("인증번호받기");
+						 }
+					 });
+					
+					// init data
+					certData[tid] = opt.data;
+					var dtd = certData[tid];
+					
+					if (dtd.certType) {
+						
+						target.find('input[name=certType]').filter('input[value='+dtd.certType+']').attr("checked", "checked");
+						target.find('input[name=certType]').trigger('change');
+					}
+
+					if (dtd.certText) {
+						target.find('.cert_edit_wrap > .cert_input').val(dtd.certText);
+					}
+					d("cert -> init");
+
+			});// each
+
+		},// init
+		getResult :  function () {
+			d("cert -> getResult");
+			var result = {certType:"", certText:""};
+			this.each( function () {
+				var target = $(this); 
+				result.certType = target.find('.cert_edit_wrap > input[name=certType]:checked').val();
+				result.certText = target.find('.cert_edit_wrap > input[name=certText]').val();
+			});// each
+			return result;
+		} // getResult
+
+	}; // barMethods
+	
 	
 	//--------------------------------
 	// result : {export:[{type:, result:},{type:, result:}...]}
@@ -3102,9 +2999,11 @@
 						else if (m[0] == "facebook") {rsData.type = m[0]; rsData.result = $(this).facebook("getResult");}
 						else if (m[0] == "htmlWrite") {rsData.type = m[0]; rsData.result = $(this).htmlWrite("getResult");}
 						else if (m[0] == "bar") {rsData.type = m[0]; rsData.result = "'bar'";}
+						else if (m[0] == "cert") {rsData.type = m[0]; rsData.result = $(this).cert("getResult");}
 						//else if (m[0] == "imageThumb") {rsData.type = m[0]; rsData.result = $(this).imageThumb("getResult");}
 						
-						rslt.push(rsData);
+						if(rsData.result && rsData.result != "")
+							rslt.push(rsData);
 						
 						var rv = "";
 						if (is_array(rsData.result)) {
@@ -3150,7 +3049,6 @@
 			return layerPopupMethods.init.apply(this, arguments);
 	};// fn.layerPopup
 	
-	var layerPopupStatus  = 0;
 	var layerPopupMethods = {
 
 		init: function (options) {
@@ -3189,10 +3087,10 @@
 			
 			
 			var _disablePopup = (function(){
-				if(layerPopupStatus==1) {
+				if(layer.css("display") != "none") {
 					layer.fadeOut(opt.speed);
 					if(opt.backgroundDisplay) $("#backgroundPopup").fadeOut(opt.peed);
-					layerPopupStatus = 0;
+					
 				}
 			});
 			
@@ -3206,7 +3104,7 @@
 						$(layer).css('left', $(window).width()/2-$(layer).width()/2); });
 				}
 				
-				if(layerPopupStatus==0) {
+				if(layer.css("display") == "none") {
 					
 					layer.css({
 						"position": "absolute",
@@ -3216,7 +3114,6 @@
 					});
 					layer.fadeIn(opt.speed);
 					if(opt.backgroundDisplay)  $("#backgroundPopup").fadeIn(opt.speed);
-					layerPopupStatus = 1;
 
 				}else {
 					_disablePopup();
@@ -3255,14 +3152,14 @@
 	};
 	
 	
-	function is_array(obj) {
-		return typeof(obj)=='object'&&(obj instanceof Array)
-	}
+	
 	
 	
 
 })($)
-
+function is_array(obj) {
+		return typeof(obj)=='object'&&(obj instanceof Array)
+	}
 Array.prototype.move = function (old_index, new_index) {
 	while (old_index < 0) {
 		old_index += this.length;

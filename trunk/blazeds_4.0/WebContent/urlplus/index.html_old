@@ -38,7 +38,7 @@
 
 	<script type="text/javascript">
 	
-	
+	alert("NO!!!");
 	var PAGE_EDITING = false; // 현재 페이지 수정 여부
 	var scrollUpdate = function(){ 	$('#scroll_wrap').tinyscrollbar_update();};
 	var scrollUpdateBottom = function(){ 	$('#scroll_wrap').tinyscrollbar_update('bottom');};
