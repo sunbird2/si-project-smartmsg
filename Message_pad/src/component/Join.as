@@ -189,11 +189,12 @@ package component
 			
 			if (arr.length > 0) {
 				
-				ti.setStyle("borderColor",INVALID_COLOR);
+				useridh.setStyle("color",INVALID_COLOR);
 				useridh.text = ValidationResult(arr[0]).errorMessage;
 			}else {
 				
-				useridh.text = "";
+				useridh.text = "확인";
+				useridh.setStyle("color",VALID_COLOR);
 				dupleIdCheck(ti.text);
 			}
 		}
@@ -213,10 +214,10 @@ package component
 			RemoteSingleManager.getInstance.removeEventListener("checkID", idCheck_CustomEventHandler);
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {
-				userid.setStyle("borderColor",VALID_COLOR);
+				useridh.setStyle("color",VALID_COLOR);
 				useridh.text = "확인";
 			} else {
-				userid.setStyle("borderColor",INVALID_COLOR);
+				useridh.setStyle("color",INVALID_COLOR);
 				useridh.text = "사용할수 없는 아이디 입니다.";
 			}
 		}
@@ -235,10 +236,10 @@ package component
 			var arr:Array = StringValidator.validateString(sv, ti.text);
 			
 			if (arr.length > 0) {
-				ti.setStyle("borderColor",INVALID_COLOR);
+				userpwh.setStyle("color",INVALID_COLOR);
 				userpwh.text = ValidationResult(arr[0]).errorMessage;
 			}else {
-				ti.setStyle("borderColor",VALID_COLOR);
+				userpwh.setStyle("color",VALID_COLOR);
 				userpwh.text = "확인";
 			}
 		}
@@ -256,11 +257,11 @@ package component
 			var arr:Array = StringValidator.validateString(sv, ti.text);
 			
 			if (arr.length > 0) {
-				ti.setStyle("borderColor",INVALID_COLOR);
+				userrepwh.setStyle("color",INVALID_COLOR);
 				userrepwh.text = ValidationResult(arr[0]).errorMessage;
 			}else {
 				if (userpw.text == ti.text) {
-					ti.setStyle("borderColor",VALID_COLOR);
+					userrepwh.setStyle("color",VALID_COLOR);
 					userrepwh.text = "확인";
 				}else {
 					userrepwh.text = "비밀번호와 일치 하지 않습니다.";
@@ -273,21 +274,19 @@ package component
 		protected function tiHp_keyUpHandler(event:KeyboardEvent):void
 		{
 			var phone:String = String(userhp1.selectedItem.data)+userhp2.text+userhp3.text;
-			sv.minLength = 4;
-			sv.maxLength = 12;
+			sv.minLength = 10;
+			sv.maxLength = 11;
 			sv.tooShortError = "10자리 이상 입력하세요";
 			sv.tooLongError = "13자리 이상 입력하실 수 없습니다.";
 			
 			var arr:Array = StringValidator.validateString(sv, phone);
 			
 			if (arr.length > 0) {
-				userhp2.setStyle("borderColor",INVALID_COLOR);
-				userhp3.setStyle("borderColor",INVALID_COLOR);
+				userhph.setStyle("color",INVALID_COLOR);
 				userhph.text = ValidationResult(arr[0]).errorMessage;
 			}else {
-				userhp2.setStyle("borderColor",VALID_COLOR);
-				userhp3.setStyle("borderColor",VALID_COLOR);
-				userhph.text = "";
+				userhph.setStyle("color",VALID_COLOR);
+				userhph.text = "확인";
 			}
 		}
 		
@@ -298,11 +297,10 @@ package component
 		private function checkAll():Boolean {
 			
 			var b:Boolean = false;
-			if (userid.getStyle("borderColor") == VALID_COLOR 
-				&&userpw.getStyle("borderColor") == VALID_COLOR
-				&&userrepw.getStyle("borderColor") == VALID_COLOR
-				&&userhp2.getStyle("borderColor") == VALID_COLOR
-				&&userhp3.getStyle("borderColor") == VALID_COLOR
+			if (useridh.getStyle("color") == VALID_COLOR 
+				&&userpwh.getStyle("color") == VALID_COLOR
+				&&userrepwh.getStyle("color") == VALID_COLOR
+				&&userhph.getStyle("color") == VALID_COLOR
 			) b = true;
 			
 			return b;
@@ -314,7 +312,7 @@ package component
 		 * */
 		private function next2_clickHandler(event:MouseEvent):void {
 			
-			if (checkAll == false) SLibrary.alert("붉은색 부분을 확인해 주세요.");
+			if (checkAll() == false) SLibrary.alert("붉은색 부분을 확인해 주세요.");
 			else {
 				RemoteSingleManager.getInstance.addEventListener("join", next2_resultHandler, false, 0, true);
 				RemoteSingleManager.getInstance.callresponderToken 
@@ -329,7 +327,7 @@ package component
 				step = 2;
 				invalidateSkinState();
 			} else {
-				SLibrary.alert("로그인 실패");
+				SLibrary.alert("가입 실패");
 			}
 			
 		}

@@ -662,21 +662,21 @@
 					<s:TextInput id="userid" width="210" prompt="아이디"
 								 styleName="textinput_light"/>
 					<s:helpContent>
-						<s:Label id="useridh" text="아이디를 입력하세요."/>
+						<s:Label id="useridh" text="아이디를 입력하세요." color="0xFF0000"/>
 					</s:helpContent>
 				</s:FormItem>
 				
 				<s:FormItem width="475" height="65" label="비밀번호" required="true">
 					<s:TextInput id="userpw" width="210" prompt="비밀번호" displayAsPassword="true" styleName="textinput_light" />
 					<s:helpContent>
-						<s:Label id="userpwh" text="비밀번호를 입력하세요."/>
+						<s:Label id="userpwh" text="비밀번호를 입력하세요." color="0xFF0000"/>
 					</s:helpContent>
 				</s:FormItem>
 				
 				<s:FormItem width="475" height="65" label="비밀번호확인" required="true">
 					<s:TextInput id="userrepw" width="210" prompt="비밀번호확인" displayAsPassword="true" styleName="textinput_light" />
 					<s:helpContent>
-						<s:Label id="userrepwh" text="비밀번호확인을 입력하세요."/>
+						<s:Label id="userrepwh" text="비밀번호확인을 입력하세요." color="0xFF0000"/>
 					</s:helpContent>
 				</s:FormItem>
 				
@@ -698,7 +698,7 @@
 					
 					<s:helpContent>
 						<s:VGroup>
-							<s:Label id="userhph" text="휴대폰번호를 입력하세요."/>
+							<s:Label id="userhph" text="휴대폰번호를 입력하세요." color="0xFF0000"/>
 							<s:Label text="비밀번호찾기시 이용됩니다."/>
 							<s:Label text="정확히 입력하세요."/>
 						</s:VGroup>
