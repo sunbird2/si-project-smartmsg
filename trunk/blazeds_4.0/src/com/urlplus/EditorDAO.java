@@ -148,12 +148,13 @@ public class EditorDAO {
 		else return rslt;
 	}
 	
-	public int deleteHTML_Tag(Connection conn, String html_key) {
+	public int deleteHTML_Tag(Connection conn, String html_key, int page) {
 		int rslt = 0;
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
 		pq.setPrepared( conn, VbyP.getSQL("deleteURL_MW_HTML_TAG"));
 		
 		pq.setString(1, html_key);
+		pq.setInt(2, page);
 		
 		rslt = pq.executeUpdate();
 		
@@ -220,6 +221,18 @@ public class EditorDAO {
 			}
 		}
 		
+		return rslt;
+	}
+	
+	public int getMaxPage(Connection conn, HtmlVO hvo) {
+		
+		int rslt = 0;
+		
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		pq.setPrepared( conn, VbyP.getSQL("selectPageURL_MW_HTML_TAG"));
+		pq.setString(1, hvo.getHTML_KEY());
+		
+		rslt = pq.ExecuteQueryNum();
 		return rslt;
 	}
 	
