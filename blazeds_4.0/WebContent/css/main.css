@@ -55,10 +55,10 @@
 #emoticon .emti li textarea ,#emoticon .emti_up li textarea{margin: 0;padding: 0 10px 0 0;border: none;position: absolute;top: 16px;left: 14px;overflow: hidden;width: 110px;height: 86px;background-color: transparent;line-height: 1.4em;cursor: pointer;}
 
 #etc {margin:0 auto; width:1024px;height:143px; margin-top:20px;margin-bottom:30px;}
-#etc #custom { float:left;margin-right:15px;width:203px;height:143px;background:url("../images/custom_center.png")}
+#etc #custom { float:left;margin-right:15px;width:203px;height:143px;background:url("../images/custom_center2.png")}
 #etc #notic { float:left;margin-right:15px;width:300px;height:143px;}
-#etc #bank { float:left;margin-right:15px;width:248px;height:143px;background:url("../images/bank.png")}
-#etc #cost { float:left;width:210px;height:143px;background:url("../images/cost.png");cursor:pointer}
+#etc #bank { float:left;margin-right:15px;width:248px;height:143px;background:url("../images/bank3.png") no-repeat}
+#etc #cost { float:left;width:210px;height:143px;background:url("../images/cost2.png");cursor:pointer}
 
 #footer {margin:0 auto; width:1024px;height:61px; margin-top:15px;margin-bottom:30px;overflow:hidden;}
 #info {float:left;width:356px;height:auto;overflow:hidden;}
@@ -226,6 +226,61 @@
 	background: -webkit-gradient(linear, left top, left bottom, from(#0078a5), to(#00adee));
 	background: -moz-linear-gradient(top,  #0078a5,  #00adee);
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0078a5', endColorstr='#00adee');
+}
+
+ /* banner_box */
+.banner_box ul { clear:both; width:980px; *width:982px; padding-bottom:50px; *position:relative; *z-index:1; zoom:1; }
+.banner_box ul:after { content:'.'; display:block; height:0; clear:both; visibility:hidden; }
+.banner_box ul li { display:inline; float:left; position:relative; z-index:1; width:237px; height:185px; margin-left:11px; _margin-left:9px; border-top:1px solid #f2f2f2;
+	-webkit-box-shadow:rgba(0,0,0,.15) 0 1px 3px;
+	   -moz-box-shadow:rgba(0,0,0,.15) 0 1px 3px;
+	        box-shadow:rgba(0,0,0,.15) 0 1px 3px;
+	        box-shadow:rgba(0,0,0,.15) 0 1px 6px \0/IE9;
+	-webkit-border-radius:5px;
+	   -moz-border-radius:5px;
+	        border-radius:5px;
+}
+.banner_box ul li.first-child { margin-left:0; }
+.banner_box ul li.last-child { margin-left:10px; _margin-left:8px; }
+
+.banner_box ul li a { display:block; cursor:pointer;
+	background:#f6f6f6;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(50%, rgba(249,249,249,1)), color-stop(100%, rgba(240,240,240,1)));
+	background:-webkit-linear-gradient(top, rgba(249,249,249,1) 50%, rgba(240,240,240,1) 100%);
+	background:   -moz-linear-gradient(top, rgba(249,249,249,1) 50%, rgba(240,240,240,1) 100%);
+	background:    -ms-linear-gradient(top, rgba(249,249,249,1) 50%, rgba(240,240,240,1) 100%);
+	background:     -o-linear-gradient(top, rgba(249,249,249,1) 50%, rgba(240,240,240,1) 100%);
+	background:        linear-gradient(top, rgba(249,249,249,1) 50%, rgba(240,240,240,1) 100%);
+	-webkit-border-radius:5px;
+	   -moz-border-radius:5px;
+	        border-radius:5px;
+	-webkit-box-shadow:0 -3px 1px rgba(255,255,255,.6), inset 0 2px 1px rgba(255,255,255,.97), 0 0 3px -1px rgba(0,0,0,.7);
+	   -moz-box-shadow:0 -3px 1px rgba(255,255,255,.6), inset 0 2px 1px rgba(255,255,255,.97), 0 0 3px -1px rgba(0,0,0,.7);
+	        box-shadow:0 -3px 1px rgba(255,255,255,.6), inset 0 2px 1px rgba(255,255,255,.97), 0 0 3px -1px rgba(0,0,0,.7);
+}
+.banner_box ul li a:nth-child(1n) { border-color:#fff; }
+.banner_box ul li a:hover {
+	background:#f0f0f0;
+	background:-webkit-gradient(linear,left top, left bottom, color-stop(50%, rgba(249,249,249,1)), color-stop(100%, rgba(224,224,224,1)));
+	background:-webkit-linear-gradient(top, rgba(249,249,249,1) 50%, rgba(224,224,224,1) 100%);
+	background:   -moz-linear-gradient(top, rgba(249,249,249,1) 50%, rgba(224,224,224,1) 100%);
+	background:    -ms-linear-gradient(top, rgba(249,249,249,1) 50%, rgba(224,224,224,1) 100%);
+	background:     -o-linear-gradient(top, rgba(249,249,249,1) 50%, rgba(224,224,224,1) 100%);
+	background:        linear-gradient(top, rgba(249,249,249,1) 50%, rgba(224,224,224,1) 100%);
+}
+.banner_box ul li .down_shadow { display:inline-block; height:185px; width:100%; _display:inline; _zoom:1; border:1px solid #e0e0e0; border-top-color:#efefef; border-bottom-color:#ccc; }
+.banner_box ul li .down_shadow:nth-child(1n) { border:none;
+	-webkit-border-radius:100% / 33px;
+	   -moz-border-radius:100% / 33px;
+	        border-radius:100% / 33px;
+    -webkit-box-shadow:0 8px 3px -5px rgba(0,0,0,.2);
+       -moz-box-shadow:0 8px 3px -5px rgba(0,0,0,.2);
+            box-shadow:0 8px 3px -5px rgba(0,0,0,.2);
+}
+.banner_box ul li a img { display:block;
+	-webkit-border-radius:5px;
+	   -moz-border-radius:5px;
+	        border-radius:5px;
 }
 
 
