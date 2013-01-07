@@ -1,3 +1,4 @@
+<%@page import="java.util.Hashtable"%>
 <%@page import="com.urlplus.HtmlTagVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.Connection"%>
@@ -10,6 +11,7 @@
 	String html_key = SLibrary.IfNull((String)session.getAttribute("html_key"));
 	String return_url = SLibrary.IfNull( (String)session.getAttribute("return_url") );
 	int pg = SLibrary.intValue(SLibrary.IfNull( request.getParameter("page") ));
+	String pageAtt = SLibrary.IfNull(request.getParameter("pageAtt"));
 	
 	EditorDAO edao = null;
 	HtmlVO hvo = null;
@@ -17,6 +19,9 @@
 	Connection conn = null;
 	boolean bAtt = false; // 저장된 값?
 	int maxPage = 0;
+	String[] pageAttArray  = null;
+	Hashtable<String, String> pageAttMap = new Hashtable<String,String>();
+	
 	
 	StringBuffer buf = new StringBuffer();
 	
@@ -31,6 +36,24 @@
 		edao = new EditorDAO();
 		conn = VbyP.getDB();
 		if (pg == 0) pg = 1;
+		
+		pageAttArray = pageAtt.split(",");
+		
+		if (pageAttArray != null && pageAttArray.length > 0) {
+			for (int i = 0; i < pageAttArray.length; i++) {
+				pageAttMap.put(pageAttArray[i], "dummy");
+			}
+		}else {
+			for (int i = 0; i < 17; i++) {
+				pageAttMap.put(Integer.toString(i), "dummy");
+			}
+		}
+		
+		if (pageAtt.equals("no")) {
+			pageAttMap = new Hashtable<String, String>();
+			pageAttMap.put("100", "dummy");
+			System.out.println(pageAttMap.containsKey("100"));
+		}
 		
 		/*###############################
 		#		validity check			#
@@ -52,26 +75,36 @@
 			int cnt = ahtvo.size();
 			HtmlTagVO htvo = null;
 			//addBoxEle = $(box).appendTo(target).imageOne({bEdit : true});
+			String key = "";
 			for (int i = 0; i < cnt; i++) {
 				htvo = ahtvo.get(i);
 				
+				key = htvo.getTAG_KEY();
+				if (key.equals("certSMS") || key.equals("certUser"))
+					key = "cert";
+				
 				buf.append("addBoxEle = $(box).appendTo(target).");
-				buf.append( htvo.getTAG_KEY() );
+				buf.append( key );
 				buf.append("({bEdit : true, data:");
 				buf.append( htvo.getTAG_VALUE() );
+				if (key.equals("textEditor")) {
+					buf.append(", readyEvent : scrollUpdate");
+				}
 				buf.append(" } );\r\n");
 				
 
-				if (htvo.getTAG_KEY().equals("cert") || htvo.getTAG_KEY().equals("couponBtn"))
-					buf.append("addFunctionToAttBoxNoDel(\""+htvo.getTAG_KEY()+"\", addBoxEle);\r\n");
+				if (key.equals("cert") || key.equals("couponBtn"))
+					buf.append("addFunctionToAttBoxNoDel(\""+key+"\", addBoxEle);\r\n");
 				else
-					buf.append("addFunctionToAttBox(\""+htvo.getTAG_KEY()+"\", addBoxEle);\r\n");
+					buf.append("addFunctionToAttBox(\""+key+"\", addBoxEle);\r\n");
 			}
 			
 			if (buf.length() > 0) bAtt = true;
 			
 			maxPage = edao.getMaxPage(conn, hvo);
+			
 		}
+		//if (maxPage <= 0) maxPage = 1;
 		
 		
 		
@@ -570,7 +603,7 @@
 		var result = $("#editor_box").result();
 		
 		$.post( "save/index.jsp",
-				{"code" : JSON.stringify(result), "page":$.URLPLUS.getPAGE() },
+				{"code" : JSON.stringify(result), "page":$.URLPLUS.getPAGE(), "commit":"ok" },
 				function( data ) {
 					
 					var json = $.parseJSON(data);
@@ -580,12 +613,33 @@
 						
 						var f = document.commitForm;
 				   		f.htmlKey.value = json.htmlKey;
-						f.pageType.value = json.pageType;
+						//f.pageType.value = json.pageType;
 						f.mergeText.value = json.mergeText;
 						f.mergeImage.value = json.mergeImage;
 						f.coupon.value = json.coupon;
-						f.startDate.value = json.startDate;
-						f.endDate.value = json.endDate;
+						
+						f.event1_start.value = json.dt_event1_start;
+						f.event2_start.value = json.dt_event2_start;
+						f.event3_start.value = json.dt_event3_start;
+						f.event1_end.value = json.dt_event1_end;
+						f.event2_end.value = json.dt_event2_end;
+						f.event3_end.value = json.dt_event3_end;
+						f.coupon1_start.value = json.dt_coupon1_start;
+						f.coupon2_start.value = json.dt_coupon2_start;
+						f.coupon3_start.value = json.dt_coupon3_start;
+						f.coupon1_end.value = json.dt_coupon1_end;
+						f.coupon2_end.value = json.dt_coupon2_end;
+						f.coupon3_end.value = json.dt_coupon3_end;
+						
+						//f.startDate.value = json.startDate;
+						//f.endDate.value = json.endDate;
+						
+						f.cert_cnt.value = json.cert_cnt;
+						f.cert_SMS.value = json.bSMS;
+						
+						f.cert_text1.value = json.cert_text1;
+						f.cert_text2.value = json.cert_text2;
+						f.cert_text3.value = json.cert_text3;
 						
 						f.action = RETURN_URL;
 						f.submit();
@@ -627,45 +681,45 @@
 		</div><!--// header -->
 
 		<div id="att">
-			<h2 class="image">이미지</h2>
-			<ul>
-				<li class="image_one"><a href="#" onclick="addAtt('imageOne');return false;">이미지 1장</a></li>
-				<li class="image_thumb"><a href="#" onclick="addAtt('imageThumb');return false;">썸네일 이미지</a></li>
-				<li class="image_slide"><a href="#" onclick="addAtt('imgSlide');return false;">슬라이드</a></li>
-				<li class="image_layout"><a href="#" onclick="addAtt('imgLayout');return false;">분할이미지</a></li>
+			<h2 class="image" <%=( !pageAttMap.containsKey("0")&&!pageAttMap.containsKey("1")&&!pageAttMap.containsKey("2")&&!pageAttMap.containsKey("3") )? "style='display:none;'" : "" %>>이미지</h2>
+			<ul <%=( !pageAttMap.containsKey("0")&&!pageAttMap.containsKey("1")&&!pageAttMap.containsKey("2")&&!pageAttMap.containsKey("3") )? "style='display:none;'" : "" %>>
+				<li class="image_one"  <%=!pageAttMap.containsKey("0") ? "style='display:none;'" : "" %>><a href="#" onclick="addAtt('imageOne');return false;">이미지 1장</a></li>
+				<li class="image_thumb" <%=!pageAttMap.containsKey("1") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('imageThumb');return false;">썸네일 이미지</a></li>
+				<li class="image_slide" <%=!pageAttMap.containsKey("2") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('imgSlide');return false;">슬라이드</a></li>
+				<li class="image_layout" <%=!pageAttMap.containsKey("3") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('imgLayout');return false;">분할이미지</a></li>
 			</ul>
 			
-			<h2  class="movie">동영상</h2>
-			<ul>
-				<li class="movie_one"><a href="#" onclick="addAtt('movieOne');return false;">동영상 1개</a></li>
-				<li class="movie_slide"><a href="#" onclick="addAtt('movieSlide');return false;">동영상 슬라이드</a></li>
+			<h2  class="movie" <%=!pageAttMap.containsKey("4")&&!pageAttMap.containsKey("5") ? "style='display:none;'":"" %>>동영상</h2>
+			<ul <%=!pageAttMap.containsKey("4")&&!pageAttMap.containsKey("5") ? "style='display:none;'":"" %>>
+				<li class="movie_one" <%=!pageAttMap.containsKey("4") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('movieOne');return false;">동영상 1개</a></li>
+				<li class="movie_slide" <%=!pageAttMap.containsKey("5") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('movieSlide');return false;">동영상 슬라이드</a></li>
 			</ul>
 
-			<h2  class="text">텍스트</h2>
-			<ul>
-				<li class="text_box"><a href="#" onclick="addAtt('text');return false;">텍스트 상자</a></li>
-				<li class="text_input"><a href="#" onclick="addAtt('textInput');return false;">텍스트 입력</a></li>
-				<li class="text_table"><a href="#" onclick="addAtt('textTable');return false;">표</a></li>
+			<h2  class="text" <%=!pageAttMap.containsKey("6")&&!pageAttMap.containsKey("7")&&!pageAttMap.containsKey("8") ? "style='display:none;'":"" %>>텍스트</h2>
+			<ul <%=!pageAttMap.containsKey("6")&&!pageAttMap.containsKey("7")&&!pageAttMap.containsKey("8") ? "style='display:none;'":"" %>>
+				<li class="text_box" <%=!pageAttMap.containsKey("6") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('text');return false;">텍스트 상자</a></li>
+				<li class="text_input" <%=!pageAttMap.containsKey("7") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('textInput');return false;">텍스트 입력</a></li>
+				<li class="text_table" <%=!pageAttMap.containsKey("8") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('textTable');return false;">표</a></li>
 			</ul>
 
-			<h2  class="link">링크</h2>
-			<ul>
-				<li class="link_phone"><a href="#" onclick="addAtt('linkPhone');return false;">전화번호 링크</a></li>
-				<li class="link_web"><a href="#" onclick="addAtt('linkPage');return false;">웹페이지 링크</a></li>
-				<li class="link_enter"><a href="#" onclick="addAtt('linkEnter');return false;">응모하기링크</a></li>
+			<h2  class="link" <%=!pageAttMap.containsKey("9")&&!pageAttMap.containsKey("10")&&!pageAttMap.containsKey("11") ? "style='display:none;'":"" %>>링크</h2>
+			<ul <%=!pageAttMap.containsKey("9")&&!pageAttMap.containsKey("10")&&!pageAttMap.containsKey("11") ? "style='display:none;'":"" %>>
+				<li class="link_phone" <%=!pageAttMap.containsKey("9") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('linkPhone');return false;">전화번호 링크</a></li>
+				<li class="link_web" <%=!pageAttMap.containsKey("10") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('linkPage');return false;">웹페이지 링크</a></li>
+				<li class="link_enter" <%=!pageAttMap.containsKey("11") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('linkEnter');return false;">응모하기링크</a></li>
 			</ul>
 
-			<h2  class="coupon">쿠폰</h2>
-			<ul>
-				<li class="coupon_barcode"><a href="#" onclick="addAtt('coupon');return false;">바코드 쿠폰</a></li>
-				<li class="coupon_text"><a href="#" onclick="addAtt('couponText');return false;">텍스트 쿠폰</a></li>
+			<h2  class="coupon" <%=!pageAttMap.containsKey("12")&&!pageAttMap.containsKey("13") ? "style='display:none;'":"" %>>쿠폰</h2>
+			<ul <%=!pageAttMap.containsKey("12")&&!pageAttMap.containsKey("13") ? "style='display:none;'":"" %>>
+				<li class="coupon_barcode" <%=!pageAttMap.containsKey("12") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('coupon');return false;">바코드 쿠폰</a></li>
+				<li class="coupon_text" <%=!pageAttMap.containsKey("13") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('couponText');return false;">텍스트 쿠폰</a></li>
 			</ul>
 
-			<h2  class="etc">기타</h2>
-			<ul>
-				<li class="etc_facebook"><a href="#" onclick="addAtt('faceBook');return false;">페이스북 좋아요</a></li>
-				<li class="etc_html"><a href="#" onclick="addAtt('html');return false;">HTML 편집</a></li>
-				<li class="etc_bar"><a href="#" onclick="addAtt('bar');return false;">구분선</a></li>
+			<h2  class="etc" <%=!pageAttMap.containsKey("14")&&!pageAttMap.containsKey("15")&&!pageAttMap.containsKey("16") ? "style='display:none;'":"" %>>기타</h2>
+			<ul <%=!pageAttMap.containsKey("14")&&!pageAttMap.containsKey("15")&&!pageAttMap.containsKey("16") ? "style='display:none;'":"" %>>
+				<li class="etc_facebook" <%=!pageAttMap.containsKey("14") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('faceBook');return false;">페이스북 좋아요</a></li>
+				<li class="etc_html" <%=!pageAttMap.containsKey("15") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('html');return false;">HTML 편집</a></li>
+				<li class="etc_bar" <%=!pageAttMap.containsKey("16") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('bar');return false;">구분선</a></li>
 			</ul>
 		</div><!--// att-->
 
@@ -684,7 +738,9 @@
 					String pagecss = "page_wrap_page page1 on1";
 					int tPage = 0;
 					System.out.println(maxPage);
-					for (int i = 0; i < maxPage+1; i++) {
+					if (pg > maxPage) maxPage++;
+					
+					for (int i = 0; i < maxPage; i++) {
 						tPage = i+1;
 						
 						pagecss = "page_wrap_page page"+tPage;
@@ -738,12 +794,29 @@
 	<!-- commit from -->
     <form name="commitForm" method="post">
    		<input type="hidden" name="htmlKey"/>
-		<input type="hidden" name="pageType" />
+<!-- 		<input type="hidden" name="pageType" /> -->
 		<input type="hidden" name="mergeText" />
 		<input type="hidden" name="mergeImage" />
 		<input type="hidden" name="coupon" />
-		<input type="hidden" name="startDate" />
-		<input type="hidden" name="endDate" />
+		<input type="hidden" name="event1_start" />
+		<input type="hidden" name="event2_start" />
+		<input type="hidden" name="event3_start" />
+		<input type="hidden" name="event1_end" />
+		<input type="hidden" name="event2_end" />
+		<input type="hidden" name="event3_end" />
+		<input type="hidden" name="coupon1_start" />
+		<input type="hidden" name="coupon2_start" />
+		<input type="hidden" name="coupon3_start" />
+		<input type="hidden" name="coupon1_end" />
+		<input type="hidden" name="coupon2_end" />
+		<input type="hidden" name="coupon3_end" />
+<!-- 		<input type="hidden" name="startDate" /> -->
+<!-- 		<input type="hidden" name="endDate" /> -->
+		<input type="hidden" name="cert_cnt" />
+		<input type="hidden" name="cert_SMS" />
+		<input type="hidden" name="cert_text1" />
+		<input type="hidden" name="cert_text2" />
+		<input type="hidden" name="cert_text3" />
 	</form>
     
 <!-- <a href="http://www.ehancast.com/img.zip">샘플이미지 다운로드</a> -->
