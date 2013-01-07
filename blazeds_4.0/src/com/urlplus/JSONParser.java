@@ -14,6 +14,9 @@ import net.sf.json.JSONSerializer;
 
 public class JSONParser {
 
+	public static JSONObject getJSON(String json) {
+		return JSONObject.fromObject(JSONSerializer.toJSON(json));
+	}
 	
 	public static ArrayList<HashMap<String, String>> getList(String json, String key) {
 		

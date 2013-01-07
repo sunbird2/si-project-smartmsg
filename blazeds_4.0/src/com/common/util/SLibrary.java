@@ -1926,5 +1926,17 @@ public class SLibrary {
 		
 		return rslt;
 	}
+	
+	
+	public static int pattenCnt(String str, String patten) {
+		
+		Pattern p = Pattern.compile(patten);
+		Matcher m = p.matcher(str);
+		int count = 0;
+		for( int i = 0; m.find(i); i = m.end())
+			count++;
+		
+		return count;
+	}
 
 }
