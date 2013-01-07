@@ -1,3 +1,4 @@
+<%@page import="com.urlplus.ReturnVO"%>
 <%@page import="net.sf.json.JSONObject"%>
 <%@page import="com.urlplus.HtmlTagVO"%>
 <%@page import="com.urlplus.HtmlVO"%>
@@ -19,12 +20,14 @@ json-lib-2.4-jdk15.jar
 	
 	String json = SLibrary.IfNull(request.getParameter("code"));
 	int page_num =SLibrary.intValue( SLibrary.IfNull(request.getParameter("page")) );
+	boolean bCommit = !SLibrary.isNull(request.getParameter("commit"));
 	
 	Connection conn = null;
 	EditorDAO edao = null;
 	HtmlVO hvo = null;
 	HtmlTagVO htvo = null;
 	boolean bUpdate = false; 
+	ReturnVO rvo = new ReturnVO();
 	
 	int rsCnt = 0;
 	
@@ -68,15 +71,7 @@ json-lib-2.4-jdk15.jar
 			bUpdate = true;
 		}
 		
-		hvo.setHTML_TYPE("");
-		hvo.setMW_TEXT_CNT(0);
-		hvo.setMW_IMAGE_CNT(0);
-		hvo.setCOUPON_CNT(0);
-		hvo.setDT_START("");
-		hvo.setDT_END("");
-		hvo.setDT_FORCE_END("");
-		hvo.setCERT_SMS_YN("");
-		hvo.setCERT_USER_CNT(0);
+		
 		
 		if (bUpdate == true) {
 			edao.deleteHTML_Tag(conn, hvo.getHTML_KEY(), page_num);
@@ -90,6 +85,21 @@ json-lib-2.4-jdk15.jar
 		rsCnt = edao.manyInsertHTML_Tag(conn, edao.makeTagVO(session_htmlkey, page_num, al));
 		
 		
+		// commit 
+		if (bCommit == true) {
+			rvo = edao.getReturn(conn, hvo);
+		}
+		
+		hvo.setHTML_TYPE("");
+		hvo.setMW_TEXT_CNT(rvo.getMerge_data_cnt());
+		hvo.setMW_IMAGE_CNT(rvo.getMerge_image_cnt());
+		hvo.setCOUPON_CNT(rvo.getCoupon_cnt());
+		hvo.setDT_START("");
+		hvo.setDT_END("");
+		hvo.setDT_FORCE_END("");
+		hvo.setCERT_SMS_YN("");
+		hvo.setCERT_USER_CNT(0);
+		
 	}catch(Exception e) { 
 		outPut = e.getMessage();
 	}
@@ -97,12 +107,32 @@ json-lib-2.4-jdk15.jar
 		if (conn != null) try{ conn.close(); }catch(Exception ex){};
 		JSONObject jobj = JSONParser.add("bError", outPut);
 		JSONParser.add(jobj, "htmlKey", hvo.getHTML_KEY());
-		JSONParser.add(jobj, "pageType", hvo.getHTML_TYPE());
 		JSONParser.add(jobj, "mergeText", hvo.getMW_TEXT_CNT());
 		JSONParser.add(jobj, "mergeImage", hvo.getMW_IMAGE_CNT());
+		JSONParser.add(jobj, "event", hvo.getCOUPON_CNT());
 		JSONParser.add(jobj, "coupon", hvo.getCOUPON_CNT());
+		
+		JSONParser.add(jobj, "dt_event1_start", rvo.getDt_event1_start());
+		JSONParser.add(jobj, "dt_event2_start", rvo.getDt_event2_start());
+		JSONParser.add(jobj, "dt_event3_start", rvo.getDt_event3_start());
+		JSONParser.add(jobj, "dt_event1_end", rvo.getDt_event1_end());
+		JSONParser.add(jobj, "dt_event2_end", rvo.getDt_event2_end());
+		JSONParser.add(jobj, "dt_event3_end", rvo.getDt_event3_end());
+		JSONParser.add(jobj, "dt_coupon1_start", rvo.getDt_coupon1_start());
+		JSONParser.add(jobj, "dt_coupon2_start", rvo.getDt_coupon2_start());
+		JSONParser.add(jobj, "dt_coupon3_start", rvo.getDt_coupon3_start());
+		JSONParser.add(jobj, "dt_coupon1_end", rvo.getDt_coupon1_end());
+		JSONParser.add(jobj, "dt_coupon2_end", rvo.getDt_coupon2_end());
+		JSONParser.add(jobj, "dt_coupon3_end", rvo.getDt_coupon3_end());
+		
 		JSONParser.add(jobj, "startDate", hvo.getDT_START());
 		JSONParser.add(jobj, "endDate", hvo.getDT_END());
+		
+		JSONParser.add(jobj, "bSMS", rvo.isbSMS());
+		JSONParser.add(jobj, "cert_cnt", rvo.getCert_cnt());
+		JSONParser.add(jobj, "cert_text1", rvo.getCert_text1());
+		JSONParser.add(jobj, "cert_text2", rvo.getCert_text2());
+		JSONParser.add(jobj, "cert_text3", rvo.getCert_text3());
 
 		out.println( jobj.toString() );
 	}
