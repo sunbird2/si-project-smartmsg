@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import net.sf.json.JSONObject;
+
 import com.common.VbyP;
 import com.common.db.PreparedExecuteQueryManager;
 import com.common.util.SLibrary;
@@ -203,7 +205,7 @@ public class EditorDAO {
 		ArrayList<HtmlTagVO> rslt = null;
 		
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
-		pq.setPrepared( conn, VbyP.getSQL("selectURL_MW_HTML_TAG"));
+		pq.setPrepared( conn, VbyP.getSQL("selectURL_MW_HTML_TAG_PAGE"));
 		pq.setString(1, hvo.getHTML_KEY());
 		pq.setInt(2, page);
 		
@@ -224,6 +226,32 @@ public class EditorDAO {
 		return rslt;
 	}
 	
+	public ArrayList<HtmlTagVO> getHTMLTag(Connection conn, HtmlVO hvo) {
+		
+		ArrayList<HtmlTagVO> rslt = null;
+		
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		pq.setPrepared( conn, VbyP.getSQL("selectURL_MW_HTML_TAG"));
+		pq.setString(1, hvo.getHTML_KEY());
+		
+		ArrayList<HashMap<String, String>> al = pq.ExecuteQueryArrayList();
+		HashMap<String, String> hm = null;
+		HtmlTagVO htvo = null;
+		
+		if (al != null) {
+			rslt = new ArrayList<HtmlTagVO>();
+			int cnt = al.size();
+			for (int i = 0; i < cnt; i++) {
+				hm = al.get(i);
+				htvo = parseHtmlTaGVO(hm);
+				rslt.add(htvo);
+			}
+		}
+		
+		return rslt;
+	}
+	
+	
 	public int getMaxPage(Connection conn, HtmlVO hvo) {
 		
 		int rslt = 0;
@@ -233,6 +261,161 @@ public class EditorDAO {
 		pq.setString(1, hvo.getHTML_KEY());
 		
 		rslt = pq.ExecuteQueryNum();
+		return rslt;
+	}
+	
+	public ReturnVO getReturn(Connection conn, HtmlVO hvo) {
+		
+		ReturnVO vo = null;
+		
+		
+		ArrayList<HtmlTagVO> al = getHTMLTag(conn, hvo); 
+		if (al != null && al.size() > 0) {
+			// couponCnt, eventCnt, couponDT, EventDT set!
+			vo = getCouponAndTerm(al);
+			
+			vo.setMerge_image_cnt( getImageCnt(al) );
+			vo.setMerge_data_cnt( getDataCnt(al) );
+			vo.setbSMS( isSMS(al) );
+			vo = getCertCnt(vo , al) ;
+		}
+		
+		return vo;
+	}
+	
+	private int getImageCnt(ArrayList<HtmlTagVO> al) {
+		
+		int rslt = 0;
+		
+		int cnt = al.size();
+		HtmlTagVO htvo = null;
+		String pattern = "MERGE_IMAGE" ;
+		
+		for (int i = 0; i < cnt; i++) {
+			htvo = al.get(i);
+			if (htvo.getTAG_KEY().equals("imageOne") || htvo.getTAG_KEY().equals("imageThumb") || htvo.getTAG_KEY().equals("imageSlide")) {
+				rslt += SLibrary.pattenCnt(htvo.getTAG_VALUE(), pattern) ;
+			}
+		}
+		
+		return rslt;
+	}
+	
+	private int getDataCnt(ArrayList<HtmlTagVO> al) {
+		
+		int rslt = 0;
+		
+		int cnt = al.size();
+		HtmlTagVO htvo = null;
+		String pattern = "<button>\\{DATA\\}</button>" ;
+		
+		for (int i = 0; i < cnt; i++) {
+			htvo = al.get(i);
+			if (htvo.getTAG_KEY().equals("textEditor")) {
+				rslt += SLibrary.pattenCnt(htvo.getTAG_VALUE(), pattern) ;
+			}
+		}
+		
+		return rslt;
+	}
+	
+	private ReturnVO getCertCnt(ReturnVO arvo, ArrayList<HtmlTagVO> al) {
+		
+		ReturnVO rvo = arvo;
+		int rslt = 0;
+		int cnt = al.size();
+		HtmlTagVO htvo = null;
+		
+		JSONObject json = null;
+		
+		for (int i = 0; i < cnt; i++) {
+			htvo = al.get(i);
+			if (htvo.getTAG_KEY().equals("certUser")) {
+				json = JSONParser.getJSON(htvo.getTAG_VALUE());
+				if (rslt == 0) {
+					rvo.setCert_text1(json.get("certText").toString());
+				} else if (rslt == 1) {
+					rvo.setCert_text2(json.get("certText").toString());
+				} else if (rslt == 2) {
+					rvo.setCert_text3(json.get("certText").toString());
+				}
+				
+				rslt++;
+			}
+		}
+		rvo.setCert_cnt(rslt);
+		return rvo;
+	}
+	
+	private boolean isSMS(ArrayList<HtmlTagVO> al) {
+	
+		int rslt = 0;
+		
+		int cnt = al.size();
+		HtmlTagVO htvo = null;
+		
+		for (int i = 0; i < cnt; i++) {
+			htvo = al.get(i);
+			if (htvo.getTAG_KEY().equals("certSMS")) {
+				rslt++;
+			}
+		}
+		
+		if (rslt > 0) return true;
+		else return false;
+	
+	}
+	
+	private ReturnVO getCouponAndTerm(ArrayList<HtmlTagVO> al) {
+		
+		ReturnVO rslt = new ReturnVO();
+		
+		// 'coupon','couponText','textInput','linkEnter'
+		int cnt = al.size();
+		HtmlTagVO htvo = null;
+		int event_cnt = 0;
+		int coupon_cnt = 0;
+		
+		JSONObject json = null;
+		
+		for (int i = 0; i < cnt; i++) {
+			htvo = al.get(i);
+			if (htvo.getTAG_KEY().equals("coupon") || htvo.getTAG_KEY().equals("couponText") || htvo.getTAG_KEY().equals("textInput") || htvo.getTAG_KEY().equals("linkEnter")) {
+				
+				if ( htvo.getTAG_KEY().equals("textInput") ||  htvo.getTAG_KEY().equals("linkEnter")) {
+					
+					json = JSONParser.getJSON(htvo.getTAG_VALUE());
+					if (event_cnt == 0) {
+						rslt.setDt_event1_start( json.get("startDate").toString());
+						rslt.setDt_event1_start( json.get("endDate").toString());
+					} else if (event_cnt == 1) {
+						rslt.setDt_event2_start( json.get("startDate").toString());
+						rslt.setDt_event3_start( json.get("endDate").toString());
+					} else if (event_cnt == 2) {
+						rslt.setDt_event3_start( json.get("startDate").toString());
+						rslt.setDt_event3_start( json.get("endDate").toString());
+					}
+					event_cnt++;
+					
+				} // if
+				if ( htvo.getTAG_KEY().equals("coupon") ||  htvo.getTAG_KEY().equals("couponText")) {
+					
+					json = JSONParser.getJSON(htvo.getTAG_VALUE());
+					if (coupon_cnt == 0) {
+						rslt.setDt_coupon1_start( json.get("startDate").toString());
+						rslt.setDt_coupon1_end( json.get("endDate").toString());
+					} else if (coupon_cnt == 1) {
+						rslt.setDt_coupon2_start( json.get("startDate").toString());
+						rslt.setDt_coupon2_end( json.get("endDate").toString());
+					} else if (coupon_cnt == 2) {
+						rslt.setDt_coupon3_start( json.get("startDate").toString());
+						rslt.setDt_coupon3_end( json.get("endDate").toString());
+					}
+					coupon_cnt++;
+				} // if
+			}
+		}
+		
 		return rslt;
 	}
 	
