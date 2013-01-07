@@ -1910,17 +1910,17 @@
 									new Editor(config);
 									Editor.getCanvas().setCanvasSize({height:140});
 									
-									opt.readyEvent();
+									
 									
 									Editor.onPanelLoadComplete(function(){
-										if (opt.bTable) {
-											Editor.getToolbar().tools.table.button._command();
-											alert("표삽입의 칸을 선택하여 표를 추가 하세요.");
-										}
-										if ( textEditorData[tid] ) {
-											Editor.getCanvas().pasteContent(textEditorData[tid]);
-										}
-										
+											if (opt.bTable) {
+												Editor.getToolbar().tools.table.button._command();
+												alert("표삽입의 칸을 선택하여 표를 추가 하세요.");
+											}
+											if ( textEditorData[tid] ) {
+												Editor.getCanvas().pasteContent(textEditorData[tid]);
+											}
+											opt.readyEvent();
 										});
 
 									/*
@@ -2097,16 +2097,23 @@
 					if (textInputData[tid].keywordCheck) $("#"+tid+" input[name="+keywordCheckeName+"]").filter('input[value='+textInputData[tid].keywordCheck+']').attr("checked", "checked");
 					if (textInputData[tid].keywordCheckCntsq) $("#"+tid+" input[name=keywordCheckCntsq]").val(textInputData[tid].keywordCheckCntsq);
 					if (textInputData[tid].keywordCheckCntrn) $("#"+tid+" input[name=keywordCheckCntrn]").val(textInputData[tid].keywordCheckCntrn);
-					if (textInputData[tid].startDate) $("#"+tid+" input[name=startDate]").val(textInputData[tid].startDate);
-					if (textInputData[tid].endDate) $("#"+tid+" input[name=endDate]").val(textInputData[tid].endDate);
-					
 					
 					
 					
 					div.children(':input[name=startDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date()  });
-					div.children(':input[name=startDate]').datepicker('setDate', new Date());
 					div.children(':input[name=endDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date() });
-					div.children(':input[name=endDate]').datepicker('setDate', new Date());
+					
+					if (textInputData[tid].startDate) {
+						var from = textInputData[tid].startDate.split("-");
+						$("#"+tid+" input[name=startDate]").val(textInputData[tid].startDate);
+						div.children(':input[name=startDate]').datepicker('setDate', new Date(from[0], from[1] - 1, from[2]));
+					}
+					if (textInputData[tid].endDate) {
+						var to = textInputData[tid].endDate.split("-");
+						$("#"+tid+" input[name=endDate]").val(textInputData[tid].endDate);
+						div.children(':input[name=endDate]').datepicker('setDate',  new Date(to[0], to[1] - 1, to[2]));
+					}
+					
 					
 					
 					instanceCnt++;
@@ -2376,7 +2383,7 @@
 		init: function (options) {
 			d("coupon -> init");
 			var defaults = {
-				'data' : {startDate: "", endDate: ""},
+				'data' : {bBarcode:true, startDate: "", endDate: ""},
 				'bBarcode' : false,
 				'barcodeType' : "ean13", //ean8, ean13, std25, int25, code11, code39, code93, code128, codabar, msi, datamatrix
 				'barcodeValue' : "1234567890128",
@@ -2401,7 +2408,7 @@
 					var target = $(this);
 					// create UI
 					var arr = [];
-					if (opt.bBarcode == true){
+					if (opt.data.bBarcode == true){
 						arr.push(ele[0],eleType[0],eleType[1],eleType[2],ele[1],ele[2]);
 					}else {
 						arr.push(ele[0],eleType[0],eleType[1],eleType[2],ele[1],ele[2]);
@@ -2415,7 +2422,7 @@
 					var tid = div.attr("id");
 					
 					// init couponData
-					couponData[tid] = opt.couponData;
+					couponData[tid] = opt.data;
 					couponOpt[tid] = opt;
 
 					if (opt.bBarcode == true){
@@ -2437,25 +2444,25 @@
 					} else {
 						$("#"+tid+" > .coupon_tip > .barcodeTarget").html('<p class="coupon_text_exam">쿠폰번호  1234567890128</p>');
 					} 
-					div.children(':input[name=startDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date()  });
-					div.children(':input[name=startDate]').datepicker('setDate', new Date());
-					div.children(':input[name=endDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date() });
-					div.children(':input[name=endDate]').datepicker('setDate', new Date());
 					
 					
 					// init textInputData
 					couponData[tid] = opt.data;
-					
-					if (couponData[tid].startDate) $("#"+tid+" input[name=startDate]").val(couponData[tid].startDate);
-					if (couponData[tid].endDate) $("#"+tid+" input[name=endDate]").val(couponData[tid].endDate);
-					
-					
-					
+
 					
 					div.children(':input[name=startDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date()  });
-					div.children(':input[name=startDate]').datepicker('setDate', new Date());
 					div.children(':input[name=endDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date() });
-					div.children(':input[name=endDate]').datepicker('setDate', new Date());
+					
+					if (couponData[tid].startDate) {
+						var from = couponData[tid].startDate.split("-");
+						$("#"+tid+" input[name=startDate]").val(couponData[tid].startDate);
+						div.children(':input[name=startDate]').datepicker('setDate', new Date(from[0], from[1]-1, from[2]));
+					}
+					if (couponData[tid].endDate) {
+						var to = couponData[tid].endDate.split("-");
+						$("#"+tid+" input[name=endDate]").val(couponData[tid].endDate);
+						div.children(':input[name=endDate]').datepicker('setDate',  new Date(to[0], to[1] - 1, to[2]));
+					}
 					
 					instanceCnt++;
 					d("coupon -> init");
@@ -2538,25 +2545,33 @@
 					
 					$("#"+tid+" > .coupon_tip > .barcodeTarget").html('<p class="coupon_text_exam">쿠폰번호  1234567890128</p>');
 
-					div.children(':input[name=startDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date()  });
-					div.children(':input[name=startDate]').datepicker('setDate', new Date());
-					div.children(':input[name=endDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date() });
-					div.children(':input[name=endDate]').datepicker('setDate', new Date());
-					
 					
 					// init textInputData
 					couponTextData[tid] = opt.data;
-					
-					if (couponTextData[tid].startDate) $("#"+tid+" input[name=startDate]").val(couponTextData[tid].startDate);
-					if (couponTextData[tid].endDate) $("#"+tid+" input[name=endDate]").val(couponTextData[tid].endDate);
-					
-					
-					
-					
 					div.children(':input[name=startDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date()  });
-					div.children(':input[name=startDate]').datepicker('setDate', new Date());
 					div.children(':input[name=endDate]').datepicker({ dateFormat: "yy-mm-dd",defaultDate: new Date() });
-					div.children(':input[name=endDate]').datepicker('setDate', new Date());
+					
+					if (couponTextData[tid].startDate) {
+						var from = couponTextData[tid].startDate.split("-");
+						$("#"+tid+" input[name=startDate]").val(couponTextData[tid].startDate);
+						div.children(':input[name=startDate]').datepicker('setDate', new Date(from[0], from[1] - 1, from[2]));
+					}
+					if (couponTextData[tid].endDate) {
+						var to = couponTextData[tid].endDate.split("-");
+						$("#"+tid+" input[name=endDate]").val(couponTextData[tid].endDate);
+						div.children(':input[name=endDate]').datepicker('setDate',  new Date(to[0], to[1] - 1, to[2]));
+					}
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
 					
 					instanceCnt++;
 					d("couponText -> init");
@@ -2995,11 +3010,16 @@
 						else if (m[0] == "linkInput") {rsData.type = m[0]; rsData.result = $(this).linkInput("getResult");}
 						else if (m[0] == "linkEnter") {rsData.type = m[0]; rsData.result = $(this).linkEnter("getResult");}
 						else if (m[0] == "coupon") {rsData.type = m[0]; rsData.result = $(this).coupon("getResult");}
+						else if (m[0] == "couponText") {rsData.type = m[0]; rsData.result = $(this).couponText("getResult");}
 						else if (m[0] == "couponBtn") {rsData.type = m[0]; rsData.result = "'couponBtn'";}
 						else if (m[0] == "facebook") {rsData.type = m[0]; rsData.result = $(this).facebook("getResult");}
 						else if (m[0] == "htmlWrite") {rsData.type = m[0]; rsData.result = $(this).htmlWrite("getResult");}
 						else if (m[0] == "bar") {rsData.type = m[0]; rsData.result = "'bar'";}
-						else if (m[0] == "cert") {rsData.type = m[0]; rsData.result = $(this).cert("getResult");}
+						else if (m[0] == "cert") {
+							rsData.result = $(this).cert("getResult");
+							rsData.type = rsData.result.certType;
+							alert(rsData.type);
+						}
 						//else if (m[0] == "imageThumb") {rsData.type = m[0]; rsData.result = $(this).imageThumb("getResult");}
 						
 						if(rsData.result && rsData.result != "")
