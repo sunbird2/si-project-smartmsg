@@ -283,6 +283,8 @@ public class EditorDAO {
 		return vo;
 	}
 	
+	
+	
 	private int getImageCnt(ArrayList<HtmlTagVO> al) {
 		
 		int rslt = 0;
