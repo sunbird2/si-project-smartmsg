@@ -9,6 +9,7 @@
 	
 	String session_id = SLibrary.IfNull((String)session.getAttribute("user_id"));
 	String html_key = SLibrary.IfNull( request.getParameter("htmlKey") );
+	String message_key = SLibrary.IfNull( request.getParameter("msgKey") );
 	
 	String errorMsg = "";
 	
