@@ -17,7 +17,7 @@
 // global
 //--------------------------------
 	var instanceCnt = 0;
-	var bDebug = true;
+	var bDebug = false;
 //--------------------------------
 // imageOne : (image:, link:, merge:)
 //--------------------------------
@@ -213,7 +213,10 @@
 				var dtd = layoutData[attID].item;
 			
 				var html = '';
-				var dCnt = dtd.length;
+				var dCnt = 0;
+				if (dtd.length){
+					dCnt = dtd.length;
+				}
 				
 				for (var i = 0; i < dCnt; i++) {
 					html += eleAtt[0];
@@ -649,12 +652,10 @@
 		init: function (options) {
 			d("facebook -> init");
 			var defaults = {
-				'bEdit' : true
+				'data' : ""
 			};
 			
-			var ele = ['<div class="facebook_wrap">',
-						'	<p class="facebook_tip"><img src="_images/good.png" /></p>',
-						'</div>'];
+			var ele = ['<a href="" class="facebook_link"/>좋아요</a>'];
 
 			var opt = $.extend(defaults, options);
 
@@ -667,10 +668,9 @@
 				
 				facebookData[attID] = opt.data;
 				var dtd = facebookData[attID];
+				$(this).append(ele.join(""));
 
-				var target = $(this);
-				// create UI
-				target.append(ele.join(""));
+				$(this).find(".facebook_link").attr("href", dtd);
 
 			});// each
 
@@ -695,14 +695,10 @@
 		init: function (options) {
 			d("htmlWrite -> init");
 			var defaults = {
-				'bEdit' : true
+				'data' : ""
 			};
 			
-			var ele = ['<div class="htmlWrite_wrap">',
-						'	<div class="htmlWrite_box"><textarea class="htmlWrite_textarea"></textarea></div>',
-						'	<button class="htmlWrite_previewBtn">미리보기</button>',
-						'</div>'];
-
+			
 			var opt = $.extend(defaults, options);
 
 			return this.each( function () {
@@ -711,13 +707,10 @@
 				var attID = "attrBox_"+instanceCnt;
 				// create UI
 				$(this).attr("id", attID);
-				
 				htmlWriteData[attID] = opt.data;
 				var dtd = htmlWriteData[attID];
+				$(this).html(dtd);
 				
-				var target = $(this);
-				// create UI
-				target.append(dtd.data);
 			});// each
 
 		}
@@ -749,8 +742,6 @@
 				var attID = "attrBox_"+instanceCnt;
 				// create UI
 				$(this).attr("id", attID);
-				
-
 				var target = $(this);
 				// create UI
 				target.append(ele.join(""));

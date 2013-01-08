@@ -46,9 +46,10 @@
 			throw new Exception("이미지 파일이 업로드 되지 않았습니다.\\r\\n\\r\\n- "+um.getErrorMsg());
 		
 		// create org
-		/*
+		System.out.println("###"+um.getUploadedFileName());
 		try {
 			HashMap<String, String> hm = um.getParameter();
+			
 			int parW = SLibrary.intValue( SLibrary.IfNull(hm, "width") );
 			
 			int resizeW = parW > 0 ? parW: SLibrary.intValue( VbyP.getValue("thumb_org_w") );
@@ -56,6 +57,7 @@
 			VbyP.accessLog(request.getRequestURI()+" ==>"+resizeW);
 
             img = ImageLoader.fromFile(file);
+
             if ( img.getWidth() > resizeW ) {
             	resized = img.getResizedToWidth( resizeW );
             	
@@ -64,6 +66,7 @@
             	else
             		resized.writeToFile( new File(VbyP.getValue("image_upload_path")+ um.getUploadedFileName()) );
             } else {
+
             	img.writeToFile( new File(VbyP.getValue("image_upload_path")+ um.getUploadedFileName()) );
             }
 
@@ -74,7 +77,7 @@
 			if (resized != null) resized.dispose();
 			if (square != null) resized.dispose();
 		}
-		*/
+		
 		
 
 	}catch(Exception e) {
@@ -93,11 +96,12 @@
 		StringBuffer sbuf = new StringBuffer();
 		sbuf.append("{");
 		sbuf.append("\"b\" : \""+b+"\",");
-		sbuf.append("\"img\" : \""+um.getUploadedFileName()+"\",");
+		sbuf.append("\"img\" : \"/urlImage/"+um.getUploadedFileName()+"\",");
 		sbuf.append("\"err\" : \""+errorMsg+"\"");
 		sbuf.append("}");
 		
 		out.println( sbuf.toString() );
+		System.out.println( sbuf.toString() );
 		// if (errorMsg != null) out.println(SLibrary.alertScript(errorMsg.toString(),""));
 
 	}

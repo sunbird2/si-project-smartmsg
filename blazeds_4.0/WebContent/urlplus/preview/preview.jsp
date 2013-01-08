@@ -74,7 +74,7 @@
 <script type="text/javascript" src="../js/galleria/galleria-1.2.8.js"></script>
 <script type="text/javascript" src="../js/masonry/jquery.masonry.min.js"></script>
 <script type="text/javascript" src="../js/barcode/jquery-barcode-2.0.2.min.js"></script>
-<script type="text/javascript" src="js/jquery-urlplus-mw-0.1.0.js"></script>
+<script type="text/javascript" src="../js/jquery-urlplus-mw-0.1.0.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function(){

@@ -1,3 +1,4 @@
+<%@page import="com.urlplus.MWInfoVO"%>
 <%@page import="com.urlplus.EditorDAO"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="com.urlplus.HtmlTagVO"%>
@@ -5,15 +6,52 @@
 <%@page import="com.urlplus.HtmlVO"%>
 <%@page import="com.common.VbyP"%>
 <%@page import="com.common.util.SLibrary"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%!
+
+private MWInfoVO testData( String yyyymm, int seq) {
 	
-	String session_id = SLibrary.IfNull((String)session.getAttribute("user_id"));
-	String html_key = SLibrary.IfNull( request.getParameter("htmlKey") );
+	MWInfoVO mvo = new MWInfoVO();
+	mvo.setCLI_ID("urlplus");
+	mvo.setSVR_KEY("");
+	mvo.setBILL_ID("");
+	mvo.setNO_RCV("");
+	mvo.setHTML_TYPE("");
+	mvo.setHTML_KEY("1357608154");
+	mvo.setCOUP_NUM("");
+	mvo.setDT_CONN("");
+	mvo.setDT_EVNT1("");
+	mvo.setDT_EVNT2("");
+	mvo.setDT_EVNT3("");
+	mvo.setEVNT_ANSWER1("");
+	mvo.setEVNT_ANSWER2("");
+	mvo.setEVNT_ANSWER3("");
+	mvo.setDT_COUPON1("");
+	mvo.setDT_COUPON2("");
+	mvo.setDT_COUPON3("");
+	mvo.setMW_TEXT("");
+	mvo.setMW_IMAGE("");
+	mvo.setCERT_TYPE1("");
+	mvo.setCERT_USER_RES1("");
+	mvo.setDT_CERT_REQ1("");
+	mvo.setCERT_TYPE2("");
+	mvo.setCERT_USER_RES2("");
+	mvo.setDT_CERT_REQ2("");
+	return mvo;
+}
+
+%><%
 	
+	//String session_id = SLibrary.IfNull((String)session.getAttribute("user_id"));
+	String messageKey = SLibrary.IfNull( request.getParameter("k") );
 	String errorMsg = "";
-	
 	int pg = SLibrary.intValue(SLibrary.IfNull( request.getParameter("page") ));
 	
+	// key sub value
+	String yyyymm = "";
+	String dbNumber = "";
+	int urlSeq = 0;
+	
+	MWInfoVO mvo = null;
 	EditorDAO edao = null;
 	HtmlVO hvo = null;
 	ArrayList<HtmlTagVO> ahtvo = null;
@@ -27,25 +65,39 @@
 		#		variable & init			#
 		###############################*/
 		edao = new EditorDAO();
-		conn = VbyP.getDB();
-		if (pg == 0) pg = 1;
 		
-		session_id = "urlplus";
-		html_key = "1357088786";
+		// get Decode value
+		yyyymm = "";
+		dbNumber = "00";
+		urlSeq = 100;
+		
+		// DB connect (dbNumber)
+		conn = VbyP.getDB();
+		
+		// page
+		if (pg == 0) pg = 1;
 		
 		
 		/*###############################
 		#		validity check			#
 		###############################*/
-		if (SLibrary.isNull(session_id)) throw new Exception("잘못된 접근입니다.(session error)");
-		if (SLibrary.isNull(html_key)) throw new Exception("잘못된 접근입니다.(htmlKey error)");
+		if (SLibrary.isNull(messageKey)) throw new Exception("잘못된 접근입니다.(k error)");
+		if (urlSeq == 0) throw new Exception("잘못된 접근입니다.(urlSeq error)");
 		if (conn == null) throw new Exception("DB 접속 실패");
 		
 		
 		/*###############################
 		#		Process					#
 		###############################*/
-		hvo = edao.getHTML(conn, html_key, session_id);
+		
+		// get MWInfoVO
+		mvo = testData(yyyymm, urlSeq);
+		if (mvo != null) {
+			session.setAttribute("mw", mvo);
+		}
+		
+		
+		hvo = edao.getHTML(conn, mvo.getHTML_KEY(), mvo.getCLI_ID());
 		ahtvo = edao.getHTMLTag(conn, hvo, pg);
 		
 		int cnt = ahtvo.size();
@@ -71,66 +123,13 @@
 <link rel="stylesheet" type="text/css" href="urlplus.css">
 <script src="../js/jquery-1.8.2.js"></script>
 <script type="text/javascript" src="../js/galleria/galleria-1.2.8.js"></script>
-<script type="text/javascript" src="../js/masonry/jquery.masonry.min.js"></script>
 <script type="text/javascript" src="../js/barcode/jquery-barcode-2.0.2.min.js"></script>
-<script type="text/javascript" src="js/jquery-urlplus-mw-0.1.0.js"></script>
+<script type="text/javascript" src="../js/jquery-urlplus-mw-0.1.0.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function(){
 	var ele = $('#mw_wrap');
 	<%=buf.toString()%>
-	/*
-	$('<li class="att"></li>').appendTo(ele).imageOne( { "data":{image :'/urlImage/1.png', link: "", merge: "" } } );
-	$('<li class="att"></li>').appendTo(ele).imageThumb( { "data":[
-	                              	                 {image: '/urlImage/1.png', thumb: '/urlImage/thumb/1.png', link :'', merge : '' },
-	                            	                 {image: '/urlImage/2.png', thumb: '/urlImage/thumb/2.jpg', link :'', merge : '' },
-	                            	                 {image: '/urlImage/3.png', thumb: '/urlImage/thumb/3.jpg', link :'', merge : '' },
-	                            	                 {image: '/urlImage/4.jpg', thumb: '/urlImage/thumb/4.jpg', link :'', merge : '' },
-	                            	                 {image: '/urlImage/5.jpg', thumb: '/urlImage/thumb/5.jpg', link :'', merge : '' },
-	                            	                 {image: '/urlImage/6.png', thumb: '/urlImage/thumb/6.jpg', link :'', merge : '' },
-	                            	                 {image: '/urlImage/7.jpg', thumb: '/urlImage/thumb/7.jpg', link :'', merge : '' }
-	                            	                ] 
-											} );
-	$('<li class="att"></li>').appendTo(ele).imageSlide( { "data":[
-		                       							{image: '/urlImage/1.png', thumb: '/urlImage/thumb/1.png', big: '', link: '', bMovie: false },
-		                    							{image: '/urlImage/2.png', thumb: '/urlImage/thumb/2.jpg', big: '', link: '', bMovie: false },
-		                    							{image: '/urlImage/3.png', thumb: '/urlImage/thumb/3.jpg', big: '', link: '', bMovie: false },
-		                    							{image: '/urlImage/4.jpg', thumb: '/urlImage/thumb/4.jpg', big: '', link: '', bMovie: false },
-		                    							{image: '/urlImage/5.jpg', thumb: '/urlImage/thumb/5.jpg', big: '', link: '', bMovie: false },
-		                    							{image: '/urlImage/3.png', thumb: '/urlImage/thumb/3.jpg', big: '', link: '', bMovie: false },
-		                    							{image: '/urlImage/4.jpg', thumb: '/urlImage/thumb/4.jpg', big: '', link: '', bMovie: false },
-		                    							{image: '/urlImage/5.jpg', thumb: '/urlImage/thumb/5.jpg', big: '', link: '', bMovie: false },
-		                    	                     ]
-											} );
-	*/
- 	//$('<li class="att"></li>').appendTo(ele).imageLayout( { "data":{"width":310,"height":171,"item":[{"image":"/urlImage/1.png","width":100,"height":50},{"image":"/urlImage/2.png","width":188,"height":48},{"image":"/urlImage/3.png","width":300,"height":50},{"image":"/urlImage/4.jpg","width":100,"height":50}]}	} );
-	
-	/*
-	$('<li class="att"></li>').appendTo(ele).movieOne( { "data" : {image:"/urlImage/5.jpg", link:""} } );
-	
-	$('<li class="att"></li>').appendTo(ele).imageSlide( { "data":[
-		                       							{image: '/urlImage/1.png', thumb: '/urlImage/thumb/1.png', big: '', link: '', bMovie: true },
-		                    							{image: '/urlImage/2.png', thumb: '/urlImage/thumb/2.jpg', big: '', link: '', bMovie: true },
-		                    							{image: '/urlImage/3.png', thumb: '/urlImage/thumb/3.jpg', big: '', link: '', bMovie: true },
-		                    							{image: '/urlImage/4.jpg', thumb: '/urlImage/thumb/4.jpg', big: '', link: '', bMovie: true },
-		                    							{image: '/urlImage/5.jpg', thumb: '/urlImage/thumb/5.jpg', big: '', link: '', bMovie: true },
-		                    							{image: '/urlImage/3.png', thumb: '/urlImage/thumb/3.jpg', big: '', link: '', bMovie: false },
-		                    							{image: '/urlImage/4.jpg', thumb: '/urlImage/thumb/4.jpg', big: '', link: '', bMovie: false },
-		                    							{image: '/urlImage/5.jpg', thumb: '/urlImage/thumb/5.jpg', big: '', link: '', bMovie: false },
-		                    	                     ]
-											} );
-	
-	$('<li class="att"></li>').appendTo(ele).movieOne( { "data" : {image:"/urlImage/5.jpg", link:""} } );
-	$('<li class="att"></li>').appendTo(ele).textEditor( { "data" : "<p><p>hi</p>dddddasdfasdfasdf<br></p>" } );
-	$('<li class="att"></li>').appendTo(ele).textInput( { "data" : {"textInputType":"comment","keywordText":"정답입니다.","nextPage":"1","keywordCheck":"squence","keywordCheckCntsq":"","startDate":"2012-12-31","endDate":"2012-12-31"} } );
-	$('<li class="att"></li>').appendTo(ele).textInput( { "data" : {"textInputType":"","keywordText":"정답입니다.","nextPage":"1","keywordCheck":"squence","keywordCheckCntsq":"","startDate":"2012-12-31","endDate":"2012-12-31"} } );
-	$('<li class="att"></li>').appendTo(ele).linkInput( { "data" : [{"bPhone":true,"linkInputType":"text","linkInputName":"바로","nextPage":"","linkInputURL":"01000000000"},{"bPhone":true,"linkInputType":"button","linkInputName":"바로","nextPage":"","linkInputURL":"01000000002"},{"bPhone":true,"linkInputType":"button","linkInputName":"표시이름","nextPage":"","linkInputURL":"01000000001"}] } );
-	$('<li class="att"></li>').appendTo(ele).linkInput( { "data" : [{"bPhone":false,"linkInputType":"text","linkInputName":"바로","nextPage":"page","linkInputURL":"http://www.naver.com"},{"bPhone":false,"linkInputType":"button","linkInputName":"바로","nextPage":"url","linkInputURL":"http://www.daum.com"}]} );
-	$('<li class="att"></li>').appendTo(ele).coupon( {"barcodeValue": "1234567890128", "data" : {"bBarcode":false,"startDate":"2012-12-31","endDate":"2012-12-31"} } );
-	$('<li class="att"></li>').appendTo(ele).couponBtn();
-	*/
-	
-	
 }) // $(document).ready
 </script>
 </head>

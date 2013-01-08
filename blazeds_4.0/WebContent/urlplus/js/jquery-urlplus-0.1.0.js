@@ -104,6 +104,8 @@
 					var upBtn = $(this).find("input:eq(0)");
 					var delBtn = $(this).find(".imageOne_deleteBtn");
 					var imgType = $(this).find("input:radio[name=img_type]");
+					var imgTypeName = "img_type_"+instanceCnt;
+					imgType.attr("name", imgTypeName);
 					
 					var upBtnID = "imageOneUploadBtn_"+instanceCnt;
 					upBtn.attr("id", upBtnID);
@@ -117,7 +119,7 @@
 																					try {
 																						rslt = jQuery.parseJSON(data);
 																						if (rslt.b == "true") { 
-																							img.find(".imageOne_img").attr('src','/urlImage/'+rslt.img);
+																							img.find(".imageOne_img").attr('src',rslt.img);
 																							imageOneData[tid] = {image:rslt.img, link:"", merge: "" }
 																						} 
 																						else { alert("에러 : "+rslt.err); }
@@ -131,28 +133,32 @@
 						img.find(".imageOne_img").attr("src", "_images/image_menu_cont01300.png");
 					});
 					
-					imgType.change( function() {
+					$(this).find("input:radio[name="+imgTypeName+"]").change( {atid:tid, atID:attID, aupBtnID:upBtnID},function(e) {
 						
 						if ($(this).is(":checked")) {
 							var val = $(this).val();
-							img.find(".imageOne_img").attr("src", "_images/image_menu_cont01300.png");
+							var ttid = e.data.atid;
+							var aattID = e.data.atID;
+							var aupBtnID = e.data.upBtnID;
+							
+							$("#"+ttid).find(".imageOne_img").attr("src", "_images/image_menu_cont01300.png");
 							
 							if (val == 1) {
 								
-								imageOneData[tid] = {image:"", link:"", merge: MERGE_IMAGE_TAG };
-								$('#'+attID+" > .imageOne_merg_text").show();
-								$('#'+attID+" > .imageOne_merg_text").html(MERGE_IMAGE_TAG);
+								imageOneData[ttid] = {image:"", link:"", merge: MERGE_IMAGE_TAG };
+								$('#'+aattID+" > .imageOne_merg_text").show();
+								$('#'+aattID+" > .imageOne_merg_text").html(MERGE_IMAGE_TAG);
 								globalMethod.autoMergeImageNumber();
 								
-								$('#'+upBtnID).hide();
-								$('#'+attID+" > .imageOne_deleteBtn").hide();
+								$('#'+aupBtnID).hide();
+								$('#'+aattID+" > .imageOne_deleteBtn").hide();
 								
-								$('#'+tid).imageOne("editUI");
+								$('#'+ttid).imageOne("editUI");
 							}else {
 								
-								$('#'+attID+" > .imageOne_merg_text").html("");
+								$('#'+aattID+" > .imageOne_merg_text").html("");
 								globalMethod.autoMergeImageNumber();
-								$('#'+attID+" > .imageOne_merg_text").hide();
+								$('#'+aattID+" > .imageOne_merg_text").hide();
 								
 								
 								$('#'+upBtnID).show();
@@ -200,7 +206,7 @@
 				var tid = target.attr("id");
 				var left = target.width() - 24;
 				var top = target.height() - 11;
-
+				
 				// ui
 				if ( $(this).find(".imageOne_link_icon").length > 0 ) $(this).find(".imageOne_link_icon").remove();
 				
@@ -416,8 +422,8 @@
 
 						$('#'+tid).imageThumb("sortAble", true);
 						
-						target.children('.imageThumb_removall').click(function(){
-							$('#'+tid).imageThumb("removeAllImage");
+						$(this).find(".imageThumb_btn_wrap > .imageThumb_removall").click({etid:tid},function(e){
+							$('#'+e.data.etid).imageThumb("removeAllImage");
 							return false;
 						});
 						
@@ -523,17 +529,17 @@
 				});
 
 				// delete click event
-				target.find( 'li > img' ).click(function(){
+				target.find( 'li > .imgdel' ).click({etid:tid},function(e){
 					var idx = $(this).parent().prevAll().length;
 					$(this).parent().remove();
-					var stid = tid;
-					if (imageThumbData[tid][idx].merge && imageThumbData[tid][idx].merge != "") {
-						//$("#"+tid).siblings('.imageThumb_etcBox').find('.imageThumb_radioBox').append('<button class="whiteBtn">'+MERGE_IMAGE_TAG+'</button>');
+					var stid = e.data.etid;
+					if (imageThumbData[stid][idx].merge && imageThumbData[stid][idx].merge != "") {
+						//$("#"+stid).siblings('.imageThumb_etcBox').find('.imageThumb_radioBox').append('<button class="whiteBtn">'+MERGE_IMAGE_TAG+'</button>');
 						
-						$('<button class="whiteBtn">합성이미지</button>').appendTo($("#"+tid).siblings('.imageThumb_etcBox').find('.imageThumb_radioBox')).click(function(){
+						$('<button class="whiteBtn">합성이미지</button>').appendTo($("#"+stid).siblings('.imageThumb_etcBox').find('.imageThumb_radioBox')).click(function(){
 							
 							var mergeText = $(this).text();
-							imageThumbData[tid].push({image: "", thumb: "" , link:"", merge: MERGE_IMAGE_TAG });
+							imageThumbData[stid].push({image: "", thumb: "" , link:"", merge: MERGE_IMAGE_TAG });
 							$(this).remove();
 							$('#'+stid).imageThumb("view");
 							$('#'+stid).imageThumb("editUI");
@@ -549,8 +555,8 @@
 				});
 				
 				// link click event				
-				target.find( 'li > .imageThumb_link_icon' ).click(function(){
-					var stid = tid;
+				target.find( 'li > .imageThumb_link_icon' ).click({etid:tid},function(e){
+					var stid = e.data.etid;
 					var idx = $(this).parent().prevAll().length;
 					var link = imageThumbData[tid][idx].link;
 					var cancleLable = "취소";
@@ -561,11 +567,11 @@
 					}
 					
 					var linkEle = '<div class="imageThumb_link_layer"><p class="imageThumb_link_layer_tip">이미지 클릭시 이동할 주소를 설정 합니다.</p><input type="text" name="imageThumb_link_text" value="'+link+'" title="http://" class="imageThumb_link_text" /><button class="whiteBtn accept">적용</button><button class="whiteBtn cancle">'+cancleLable+'</button></div>';
-					var target = $(linkEle).appendTo($('#'+tid));
+					var target = $(linkEle).appendTo($('#'+stid));
 					target.find("button.accept").click(function(){
 						var inputLink = $(this).prev().val();
 						if (inputLink != null && inputLink != "") {
-							imageThumbData[tid][idx].link = inputLink;
+							imageThumbData[stid][idx].link = inputLink;
 							alert((idx+1)+" 번 이미지 클릭시 \r\n "+inputLink+" 주소로 링크 설정 되었습니다.");
 							$(this).parent().remove();
 							$('#'+stid).imageThumb("view");
@@ -579,8 +585,8 @@
 					
 					target.find("button.cancle").click(function(){
 						var inputLink = $(this).prev().val();
-						if (imageThumbData[tid][idx].link != null && imageThumbData[tid][idx].link != "") {
-							imageThumbData[tid][idx].link = "";
+						if (imageThumbData[stid][idx].link != null && imageThumbData[tid][idx].link != "") {
+							imageThumbData[stid][idx].link = "";
 							alert("링크가 삭제 되었습니다.");
 							
 							$('#'+stid).imageThumb("view");
@@ -602,6 +608,7 @@
 				
 				var target = $(this);
 				var tid = target.attr("id");
+				alert(tid);
 				imageThumbData[tid] = [];
 				target.find( 'li' ).remove();
 
@@ -824,8 +831,8 @@
 						) );
 						
 						
-						target.children('.imageSlide_removall').click(function(){
-							$('#'+tid).imageSlide("removeAllImage");
+						$(this).find(".imageSlide_btn_wrap > .imageSlide_removall").click({etid:tid}, function(e){
+							$('#'+e.data.etid).imageSlide("removeAllImage");
 							return false;
 						});
 						
@@ -881,7 +888,7 @@
 					gallery.load(imageSlideData[tid]);
 				}else {
 					d("create");
-					Galleria.run($('#'+tid), {dataSource: imageSlideData[tid], width:300, height:320, idleMode:false, lightbox: true});
+					Galleria.run($('#'+tid), {dataSource: imageSlideData[tid], width:300, height:320, idleMode:false, lightbox: false, showCounter:false, showInfo:false, showImagenav:false});
 				}
 				
 
@@ -901,6 +908,7 @@
 					imageSlideData[tid] = [];
 					d(imageSlideData[tid].length+" data count");
 					gallery.load(imageSlideData[tid]);
+					$('#'+tid).find(".imageSlide_link_icon").remove();
 					$('#'+tid+" > .galleria-container > .galleria-stage > .galleria-images > .galleria-image > img").remove();
 				}
 
@@ -1251,7 +1259,7 @@
 			var defaults = {
 				'cellCount'      : 6, 
 				'bEdit' : false,
-				'data' : []
+				'data' : [ ]
 			};
 
 			
@@ -1264,32 +1272,40 @@
 					instanceCnt++;
 					// create UI
 					var html = '';
+					var dCnt = opt.data.length;
+
 					if (opt.bEdit == true){
 						html = eleHelp.join("");
 						html += ele[0];
-						var dCnt = opt.data.length;
-						if (opt.data.length > 0) bCnt = opt.data.length;
-						else bCnt = opt.cellCount;
 						
-						for (var i = 0; i < dCnt ; i++) {
-							
+						var cellCount = 0;
+						if (opt.data.length > 0) cellCount = dCnt;
+						else cellCount = opt.cellCount;
+
+						for (var i = 0; i < cellCount ; i++) {
 							html += ele[1];
-							//if (dCnt-1 >= i) html += opt.data[i];
+							if (dCnt-1 >= i) {
+								html += opt.data[i].image;
+							}else {
+								opt.data.push({image:"" , width:100, height:100});
+							}
 							html += ele[2];
 							html += eleEdit[0];
 							html += ele[3];
+							
 						}
+						
 						html += ele[4];
 						html += eleEditFunction.join("");
 					} else {
-						var dCnt = opt.data.length;
-						if (opt.data.length > 0) bCnt = opt.data.length;
-						else bCnt = opt.cellCount;
+						var cellCount = 0;
+						if (opt.data.length > 0) cellCount = opt.data.length;
+						else cellCount = opt.cellCount;
 						
 						html += ele[0];
-						for (var i = 0; i < opt.cellCount ; i++) {
+						for (var i = 0; i < cellCount ; i++) {
 							html += ele[1];
-							//if (dCnt-1 >= i) html += opt.data[i];
+							if (dCnt-1 >= i) html += opt.data[i].image;
 							html += ele[2];
 							html += ele[3];
 						}
@@ -1314,7 +1330,7 @@
 					instanceCnt++;
 
 					// init layoutData
-					layoutData[tid] = opt.layoutData;
+					layoutData[tid] = opt.data;
 					if (layoutData[tid]) {
 						var cnt = layoutData[tid].length;
 						for (var i = 0; i < cnt; i++) {
@@ -1474,8 +1490,10 @@
 							},
 							stop: function(event, ui) {
 								t.siblings('select').val("-1");
+								alert(layoutData[tid][idx].width);
 								layoutData[tid][idx].width = ui.size.width;
 								layoutData[tid][idx].height = ui.size.height;
+								alert(ui.size.height);
 								
 							},
 							minWidth: 20,
@@ -1498,7 +1516,7 @@
 				var t = $(this);
 				var tid = t.attr("id");
 
-				$("#"+tid).masonry('reload');
+				//$("#"+tid).masonry('reload');
 				// edit mode
 				if ($('#'+tid+" > .imageLayout_cell > .imageLayout_edit > .imageLayout_label").length > 0) {
 					$("#"+tid).sortable('refresh');
@@ -1610,9 +1628,11 @@
 					
 					var index = $('option:selected', this).val();
 					var width = 100;
+					var height = 100;
 					if (index >= 0){
 						width = $('#'+tid).children().eq(index-1).width();
-						$('#'+uid).uploadify( _uplodifyOption('uploadify.jsp', tid, index, {'width' : width} ) );//#imgOne_upload
+						height = $('#'+tid).children().eq(index-1).height();
+						$('#'+uid).uploadify( _uplodifyOption('uploadify.jsp', tid, index, {'width' : width, 'height' : height} ) );//#imgOne_upload
 						$('#'+uid).show();
 					}else {
 						$('#'+uid).hide();
@@ -1641,14 +1661,14 @@
 					try {
 						rslt = jQuery.parseJSON(data);
 						if (rslt.b == "true") {
-							d($('#'+tid).children().eq(index-1).html());
+							//d($('#'+tid).children().eq(index-1).html());
 							layoutData[tid][index-1] = {image:rslt.img , width: formData.width, height: 0};
-							$('#'+tid).children().eq(index-1).children('.imageLayout_image').attr('src','/urlImage/'+rslt.img);
+							$('#'+tid).children().eq(index-1).children('.imageLayout_image').attr('src',rslt.img);
 						} else {
 							alert("에러 : "+rslt.err);
 						}
 						
-					}catch(err){ alert("업로드 실패");}
+					}catch(err){ alert("업로드 실패"+err);}
 				}
 			};
 		}), // _uplodifyOption

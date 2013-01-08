@@ -19,8 +19,13 @@ out.println("coupon3_end : " +request.getParameter("coupon3_end")+"<br/>");
 out.println("startDate : " +request.getParameter("startDate")+"<br/>");
 out.println("endDate : " +request.getParameter("endDate")+"<br/>");
 out.println("cert_cnt : " +request.getParameter("cert_cnt")+"<br/>");
-out.println("cert_SMS : " +request.getParameter("cert_SMS")+"<br/>");
+//out.println("cert_SMS : " +request.getParameter("cert_SMS")+"<br/>");
+out.println("cert_type1 : " +request.getParameter("cert_type1")+"<br/>");
+out.println("cert_type2 : " +request.getParameter("cert_type2")+"<br/>");
+out.println("cert_type3 : " +request.getParameter("cert_type3")+"<br/>");
+out.println("cert_type4 : " +request.getParameter("cert_type4")+"<br/>");
 out.println("cert_text1 : " +request.getParameter("cert_text1")+"<br/>");
 out.println("cert_text2 : " +request.getParameter("cert_text2")+"<br/>");
 out.println("cert_text3 : " +request.getParameter("cert_text3")+"<br/>");
+out.println("cert_text4 : " +request.getParameter("cert_text4")+"<br/>");
 %>
