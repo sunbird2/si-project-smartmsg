@@ -237,7 +237,7 @@ input {font-size:11px;}
 .imageLayout_tip b{background: url("images/ui-icons_c02669_256x240.png") -68px -228px no-repeat;font-size:11px;border:none;}
 .imageLayout_box {list-style: none;clear:both;width:310px;overflow:hidden;margin-bottom:5px; }
 .imageLayout_box .ui-selected { border:1px solid #F62CA2; }
-.imageLayout_box li.imageLayout_cell {position:relative;float:left;width:95px;height:100px;overflow:hidden;margin-right:7px;margin-bottom:7px;background-color:#F0F0F0}
+.imageLayout_box li.imageLayout_cell {position:relative;float:left;width:95px;height:100px;overflow:hidden;margin-right:2px;margin-bottom:2px;background-color:#F0F0F0}
 .imageLayout_box li .imageLayout_edit {position:absolute;top:0px;left:0px;width:100%;overflow:hidden;text-align:right;}
 .imageLayout_box li .imageLayout_edit img{ cursor:pointer }
 .imageLayout_box li .imageLayout_label {float:left;padding:0px;width:16px;height:16px;font-size:11px;background-color:#999;color:#FFF;text-align:center;}

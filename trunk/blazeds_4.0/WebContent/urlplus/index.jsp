@@ -38,12 +38,14 @@
 		if (pg == 0) pg = 1;
 		
 		pageAttArray = pageAtt.split(",");
+		//out.println(request.getParameter("pageAtt")+"asdfasdfasf");
 		if (!pageAtt.equals("") && pageAttArray != null && pageAttArray.length > 0) {
-
+			
 			for (int i = 0; i < pageAttArray.length; i++) {
 				pageAttMap.put(pageAttArray[i], "dummy");
 			}
 		} else {
+			
 			for (int i = 0; i < 17; i++) {
 				pageAttMap.put(Integer.toString(i), "dummy");
 			}
@@ -617,7 +619,6 @@
 						f.mergeText.value = json.mergeText;
 						f.mergeImage.value = json.mergeImage;
 						f.coupon.value = json.coupon;
-						f.event.value = json.event;
 						
 						f.event1_start.value = json.dt_event1_start;
 						f.event2_start.value = json.dt_event2_start;
@@ -636,11 +637,16 @@
 						//f.endDate.value = json.endDate;
 						
 						f.cert_cnt.value = json.cert_cnt;
-						f.cert_SMS.value = json.bSMS;
+						f.cert_type1.value = json.cert_type1;
+						f.cert_type2.value = json.cert_type2;
+						f.cert_type3.value = json.cert_type3;
+						f.cert_type4.value = json.cert_type4;
 						
+						alert(json.cert_text1);
 						f.cert_text1.value = json.cert_text1;
 						f.cert_text2.value = json.cert_text2;
 						f.cert_text3.value = json.cert_text3;
+						f.cert_text4.value = json.cert_text4;
 						
 						f.action = RETURN_URL;
 						f.submit();
@@ -799,7 +805,6 @@
 		<input type="hidden" name="mergeText" />
 		<input type="hidden" name="mergeImage" />
 		<input type="hidden" name="coupon" />
-		<input type="hidden" name="event" />
 		<input type="hidden" name="event1_start" />
 		<input type="hidden" name="event2_start" />
 		<input type="hidden" name="event3_start" />
@@ -815,10 +820,14 @@
 <!-- 		<input type="hidden" name="startDate" /> -->
 <!-- 		<input type="hidden" name="endDate" /> -->
 		<input type="hidden" name="cert_cnt" />
-		<input type="hidden" name="cert_SMS" />
+		<input type="hidden" name="cert_type1" />
+		<input type="hidden" name="cert_type2" />
+		<input type="hidden" name="cert_type3" />
+		<input type="hidden" name="cert_type4" />
 		<input type="hidden" name="cert_text1" />
 		<input type="hidden" name="cert_text2" />
 		<input type="hidden" name="cert_text3" />
+		<input type="hidden" name="cert_text4" />
 	</form>
     
 <!-- <a href="http://www.ehancast.com/img.zip">샘플이미지 다운로드</a> -->

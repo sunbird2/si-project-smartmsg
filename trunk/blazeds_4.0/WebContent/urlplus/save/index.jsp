@@ -160,8 +160,9 @@ json-lib-2.4-jdk15.jar
 		//JSONParser.add(jobj, "cert_text1", rvo.getCert_text1());
 		//JSONParser.add(jobj, "cert_text2", rvo.getCert_text2());
 		//JSONParser.add(jobj, "cert_text3", rvo.getCert_text3());
-		
+		System.out.println(jobj.toString());
 		response.setCharacterEncoding("UTF-8");
+		System.out.println(jobj.toString());
 		response.getWriter().print( jobj.toString() );
 		//out.println( jobj.toString() );
 	}

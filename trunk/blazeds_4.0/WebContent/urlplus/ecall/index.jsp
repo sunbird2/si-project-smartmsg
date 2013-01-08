@@ -49,7 +49,7 @@
 
 	}catch(Exception e) {
 		if (mode.equals("test")) errorMsg = e.getMessage();
-		else errorMsg = "페이지 접근에 실패 하였습니다.";
+		else errorMsg = "1페이지 접근에 실패 하였습니다."+e.getMessage();
 		
 		System.out.println(e.toString());
 		//VbyP.errorLog(request.getRequestURI()+"("+mode+","+client_id+","+modify_key+","+return_url+") : "+e.toString());
