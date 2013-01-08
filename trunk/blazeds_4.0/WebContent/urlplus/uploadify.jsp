@@ -25,7 +25,7 @@
 		um = new UploadMultipart();
 		tmb = new Thumbnail();
 		path = VbyP.getValue("image_upload_path_temp");
-		encoding = "euc-kr";
+		encoding = "utf8";
 		checkContentType = SLibrary.split(VbyP.getValue("image_content_type"),"|",true);
 		
 		/*###############################
@@ -46,6 +46,7 @@
 			throw new Exception("이미지 파일이 업로드 되지 않았습니다.\\r\\n\\r\\n- "+um.getErrorMsg());
 		
 		// create org
+		/*
 		try {
 			HashMap<String, String> hm = um.getParameter();
 			int parW = SLibrary.intValue( SLibrary.IfNull(hm, "width") );
@@ -73,7 +74,7 @@
 			if (resized != null) resized.dispose();
 			if (square != null) resized.dispose();
 		}
-		
+		*/
 		
 
 	}catch(Exception e) {

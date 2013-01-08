@@ -128,13 +128,42 @@ json-lib-2.4-jdk15.jar
 		JSONParser.add(jobj, "startDate", hvo.getDT_START());
 		JSONParser.add(jobj, "endDate", hvo.getDT_END());
 		
-		JSONParser.add(jobj, "bSMS", rvo.isbSMS());
+		//JSONParser.add(jobj, "bSMS", rvo.isbSMS());
+		if (rvo.isbSMS()) rvo.setCert_cnt(rvo.getCert_cnt()+1);
 		JSONParser.add(jobj, "cert_cnt", rvo.getCert_cnt());
-		JSONParser.add(jobj, "cert_text1", rvo.getCert_text1());
-		JSONParser.add(jobj, "cert_text2", rvo.getCert_text2());
-		JSONParser.add(jobj, "cert_text3", rvo.getCert_text3());
+		
+		int start = 0;
+		if (rvo.isbSMS()) { 
+			JSONParser.add(jobj, "cert_type1", "0");
+			JSONParser.add(jobj, "cert_text1", "");
+			start = 1;
+		}
+		
+		for (int i = start; i < rvo.getCert_cnt(); i++) {
+			
+			if (i == 0) {
+				JSONParser.add(jobj, "cert_type1", "1");
+				JSONParser.add(jobj, "cert_text1", rvo.getCert_text1());
+			}else if (i == 1) {
+				JSONParser.add(jobj, "cert_type2", "1");
+				JSONParser.add(jobj, "cert_text2", rvo.isbSMS()?rvo.getCert_text2():rvo.getCert_text1());
+			}else if (i == 2) {
+				JSONParser.add(jobj, "cert_type3", "1");
+				JSONParser.add(jobj, "cert_text3", rvo.isbSMS()?rvo.getCert_text3():rvo.getCert_text2());
+			}else if (i == 3) {
+				JSONParser.add(jobj, "cert_type4", "1");
+				JSONParser.add(jobj, "cert_text4", rvo.getCert_text3());
+			}
+		}
 
-		out.println( jobj.toString() );
+
+		//JSONParser.add(jobj, "cert_text1", rvo.getCert_text1());
+		//JSONParser.add(jobj, "cert_text2", rvo.getCert_text2());
+		//JSONParser.add(jobj, "cert_text3", rvo.getCert_text3());
+		
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().print( jobj.toString() );
+		//out.println( jobj.toString() );
 	}
 
 %>

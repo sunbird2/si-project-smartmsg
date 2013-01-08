@@ -38,12 +38,12 @@
 		if (pg == 0) pg = 1;
 		
 		pageAttArray = pageAtt.split(",");
-		
-		if (pageAttArray != null && pageAttArray.length > 0) {
+		if (!pageAtt.equals("") && pageAttArray != null && pageAttArray.length > 0) {
+
 			for (int i = 0; i < pageAttArray.length; i++) {
 				pageAttMap.put(pageAttArray[i], "dummy");
 			}
-		}else {
+		} else {
 			for (int i = 0; i < 17; i++) {
 				pageAttMap.put(Integer.toString(i), "dummy");
 			}
@@ -617,6 +617,7 @@
 						f.mergeText.value = json.mergeText;
 						f.mergeImage.value = json.mergeImage;
 						f.coupon.value = json.coupon;
+						f.event.value = json.event;
 						
 						f.event1_start.value = json.dt_event1_start;
 						f.event2_start.value = json.dt_event2_start;
@@ -798,6 +799,7 @@
 		<input type="hidden" name="mergeText" />
 		<input type="hidden" name="mergeImage" />
 		<input type="hidden" name="coupon" />
+		<input type="hidden" name="event" />
 		<input type="hidden" name="event1_start" />
 		<input type="hidden" name="event2_start" />
 		<input type="hidden" name="event3_start" />

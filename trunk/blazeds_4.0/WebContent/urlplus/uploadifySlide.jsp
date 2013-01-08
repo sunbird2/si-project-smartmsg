@@ -23,7 +23,7 @@
 		um = new UploadMultipart();
 		tmb = new Thumbnail();
 		path = VbyP.getValue("image_upload_path_temp");
-		encoding = "euc-kr";
+		encoding = "utf8";
 		checkContentType = SLibrary.split(VbyP.getValue("image_content_type"),"|",true);
 		
 		/*###############################
