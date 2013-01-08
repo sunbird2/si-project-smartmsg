@@ -23,6 +23,7 @@ public class UnixtimeFileRenamePolicy implements FileRenamePolicy {
         //Get the extension if the file has one
         String fileExt = "";
         int i = -1;
+        //System.out.println(fname+"$$$$$$$$$$$$$$$$");
         if(( i = fname.indexOf(".")) != -1){
       
             fileExt = fname.substring(i);
