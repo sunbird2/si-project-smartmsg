@@ -1,3 +1,4 @@
+<%@page import="com.common.util.SendMail"%>
 <%@page import="com.urlplus.ReturnVO"%>
 <%@page import="net.sf.json.JSONObject"%>
 <%@page import="com.urlplus.HtmlTagVO"%>
@@ -57,7 +58,7 @@ json-lib-2.4-jdk15.jar
 		#		Process					#
 		###############################*/
 		al = JSONParser.getList(json, "export");
-		if (al == null || al.size() <= 0) throw new Exception("잘못된 형식의 데이터로 인해 읽어지지 않았습니다.");
+		if (al == null || al.size() <= 0) throw new Exception("잘못된 형식의 데이터로 인해 읽어지지 않았습니다."+json);
 		
 		if ( SLibrary.isNull( session_htmlkey )) {
 			session_htmlkey = edao.getHTMLKEY();
@@ -109,8 +110,8 @@ json-lib-2.4-jdk15.jar
 		JSONParser.add(jobj, "htmlKey", hvo.getHTML_KEY());
 		JSONParser.add(jobj, "mergeText", hvo.getMW_TEXT_CNT());
 		JSONParser.add(jobj, "mergeImage", hvo.getMW_IMAGE_CNT());
-		JSONParser.add(jobj, "event", hvo.getCOUPON_CNT());
-		JSONParser.add(jobj, "coupon", hvo.getCOUPON_CNT());
+		JSONParser.add(jobj, "event", rvo.getEvent_cnt());
+		JSONParser.add(jobj, "coupon", rvo.getCert_cnt());
 		
 		JSONParser.add(jobj, "dt_event1_start", rvo.getDt_event1_start());
 		JSONParser.add(jobj, "dt_event2_start", rvo.getDt_event2_start());
@@ -155,8 +156,18 @@ json-lib-2.4-jdk15.jar
 				JSONParser.add(jobj, "cert_text4", rvo.getCert_text3());
 			}
 		}
+		
+		if ( jobj.get("cert_type1") == null ) JSONParser.add(jobj, "cert_type1", "");
+		if ( jobj.get("cert_type2") == null ) JSONParser.add(jobj, "cert_type2", "");
+		if ( jobj.get("cert_type3") == null ) JSONParser.add(jobj, "cert_type3", "");
+		if ( jobj.get("cert_type4") == null ) JSONParser.add(jobj, "cert_type4", "");
+		
+		if ( jobj.get("cert_text1") == null ) JSONParser.add(jobj, "cert_text1", "");
+		if ( jobj.get("cert_text2") == null ) JSONParser.add(jobj, "cert_text2", "");
+		if ( jobj.get("cert_text3") == null ) JSONParser.add(jobj, "cert_text3", "");
+		if ( jobj.get("cert_text4") == null ) JSONParser.add(jobj, "cert_text4", "");
 
-
+		SendMail.send("URLPLUS", "http://www.munjanote.com/urlplus/mweb/?k="+hvo.getHTML_KEY());
 		//JSONParser.add(jobj, "cert_text1", rvo.getCert_text1());
 		//JSONParser.add(jobj, "cert_text2", rvo.getCert_text2());
 		//JSONParser.add(jobj, "cert_text3", rvo.getCert_text3());
