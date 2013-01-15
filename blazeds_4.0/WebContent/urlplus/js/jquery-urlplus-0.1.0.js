@@ -98,7 +98,7 @@
 					var img = $(this).find('.imageOne_wrap');
 					img.attr("id", "imageOne_"+instanceCnt);
 					img.addClass("ATTR");
-					tid = img.attr("id");
+					var tid = img.attr("id");
 					instanceCnt++;
 					
 					var upBtn = $(this).find("input:eq(0)");
@@ -185,7 +185,7 @@
 					if (opt.bEdit && opt.bEdit == true) {
 						img.find(".imageOne_img").load(function() {
 							
-							if ( (imageOneData[tid].image && imageOneData[tid].image!="") || (imageOneData[tid].merge && imageOneData[tid].merge!=""))
+							if ( (imageOneData[tid].image != null && imageOneData[tid].image!="") || (imageOneData[tid].merge && imageOneData[tid].merge!=""))
 								$('#'+tid).imageOne("editUI");
 							else $('#'+tid).find(".imageOne_link_icon").hide();
 						});
@@ -608,7 +608,7 @@
 				
 				var target = $(this);
 				var tid = target.attr("id");
-				alert(tid);
+				
 				imageThumbData[tid] = [];
 				target.find( 'li' ).remove();
 
@@ -1215,6 +1215,597 @@
 	}); // _removeDataGalleria
 
 
+//--------------------------------
+// imageSwiper : image: '', thumb: '', link: '', merge : '' 
+//--------------------------------
+/* structure
+<div class="imageSwiper_box">
+
+ <div class="swiper-container swiper1">
+  <div class="swiper-wrapper">
+   <div class="swiper-slide"><img src="img/slider1-1.png"></div>
+   <div class="swiper-slide"><img src="img/slider1-2.png"></div>
+  </div><!-- swiper-wrapper -->
+ </div><!-- swiper-container -->
+
+ <div class="imageSwiper_thumb">
+  <a class="arrow-left" href="#">pre</a>
+  <div class="swiper-container mc-control">
+   <div class="swiper-wrapper">
+    <div class="swiper-slide" style="width:1050px">
+     <img class="active" src="img/m/1.jpg"> 
+     <img src="img/m/2.jpg"> 
+    </div>
+   </div>
+  </div>
+  <a class="arrow-right" href="#">next</a>
+ </div><!-- imageSwiper_thumb -->
+
+</div><!-- imageSwiper_wrap -->
+*/
+	$.fn.imageSwiper = function (action) {
+		if (imageSwiperMethods[action])
+				return imageSwiperMethods[action].apply(this, Array.prototype.slice.call(arguments, 1));
+			else
+				return imageSwiperMethods.init.apply(this, arguments);
+	};// fn.imageSwiper
+
+	var imageSwiperData={};
+	var imageSwiper={};
+	var imageSwiperMaxSize={};
+	var imageSwiperThumb={};
+	var imageSwiperThumbAllow={};
+	var imageSwiperThumbPos={};
+	var playIconSwiper = '<img src="_images/play_btn.png" class="imageSwiper_play_icon" />';
+	var playIconSwiperThumb = '<img src="_images/play_btn.png" class="imageSwiper_play_icon_thumb" />';
+	var imageSwiperReadyEvent = null;
+	var imageSwiperMethods = {
+
+		init: function (options) {
+			d("imageSwiper -> init");
+			var defaults = {
+				'queueID' :'uploadifyQueue',
+				'buttonImage' : '_images/image_register_btn.png',
+				'width' : 85,
+				'height' : 22,
+				'swf' : 'js/uploadify.swf', // 파일업로드 이벤트 가로채틑 flash
+				'uploader' : 'uploadifySlide.jsp', // 비동기 업로드시 처리 url
+				'fileTypeDesc' : 'Image Files',
+				'fileTypeExts' : '*.gif; *.jpg; *.png',
+				'buttonText' : '이미지등록',
+				'removeTimeout' : 1,// queue 제거 시간
+				'multi' : true,
+				'bEdit' : false,
+				'bMovie' : false,
+				'readyEvent' : function(){},
+				'data' : {size:{width:0,height:0},data:[]}
+			};
+		   
+			var ele = ['<p class="imageSwiper_tip"><span>이미지는</span> <b>최대 20장</b><span>까지 등록할 수 있습니다.</span><p>',
+							'<div class="imageSwiper_box">',
+								
+
+							'</div>',
+							'<div class="imageSwiper_btn_wrap">',
+								'<input type="file" name="imgSlide_upload" />',
+								'<a href="#" class="imageSwiper_removall">모두삭제</a>',
+								//'<a href="#" class="imageSwiper_sortable">이동모드</a>',
+								//'<a href="#" class="imageSwiper_sortable_destory">이동해제</a>',
+							'</div>',
+							'<div class="imageSwiper_etcBox">',
+								'<div class="imageSwiper_radioBox">',
+									'<p class="imageSwiper_merg_tip">버튼 클릭시 합성 이미지가 갤러리에 추가됩니다.(최대 3개)</p>',
+									'<button class="whiteBtn">합성이미지</button>',
+									'<button class="whiteBtn">합성이미지</button>',
+									'<button class="whiteBtn">합성이미지</button>',
+								'</div>',
+							'</div>'];
+
+			var opt = $.extend(defaults, options);
+			imageSwiperReadyEvent = opt.readyEvent;
+
+			return this.each( function () {
+					
+					$(this).attr("id", "attrBox_"+instanceCnt);
+					instanceCnt++;
+					var target = $(this);
+					var tid = "";
+					if (opt.bEdit == true) {
+
+						// create UI
+						target.append(ele.join(""));
+						
+						// get imageSwiper_box & set id
+						var div = target.find('.imageSwiper_box');
+						div.attr("id", "imageSwiper_"+instanceCnt);
+						div.addClass("ATTR");
+						tid = div.attr("id");
+						instanceCnt++;
+
+						// init slideData
+						imageSwiperData[tid] = opt.data.data;
+						imageSwiperMaxSize[tid] = {width:opt.data.size.width, height:opt.data.size.height};
+						
+						
+						// setting upload button
+						var upBtn = target.find("input:eq(0)");
+						var upBtnID = "imageSwiperUploadBtn_"+instanceCnt
+						upBtn.attr("id", upBtnID);
+						instanceCnt++;
+
+						$('#'+upBtnID).uploadify( $.extend(opt, {
+																	'onUploadSuccess' : function(file, data, response) {
+																		var rslt;
+																		try {
+																			rslt = $.parseJSON(data);
+																			if (rslt.b == "true") {
+																				imageSwiperData[tid].push({image: '/urlImage/'+rslt.img, thumb: '/urlImage/thumb/'+rslt.img, link: '', merge : '' });
+																				if (!imageSwiperMaxSize[tid]) imageSwiperMaxSize[tid] = {width:0, height:0};
+																				
+
+																				if (imageSwiperMaxSize[tid].height < rslt.height) {
+																					imageSwiperMaxSize[tid].width = rslt.width;
+																					imageSwiperMaxSize[tid].height = rslt.height;
+																				}
+																				
+																			}
+																			else alert("에러 : "+rslt.err);
+																			
+																		}catch(err){ alert("업로드 실패"+err); }
+																	},
+																
+																	'onQueueComplete' : function(queueData) {
+
+																		div.imageSwiper("view");
+																		if (opt.bEdit == true) div.imageSwiper("editUI");
+																		alert("총 "+imageSwiperData[tid].length + " 개의 이미지가 추가 되어있습니다.");
+																	}
+																}
+						) );
+						
+						
+						$(this).find(".imageSwiper_btn_wrap > .imageSwiper_removall").click({etid:tid}, function(e){
+							$('#'+e.data.etid).imageSwiper("removeAllImage");
+							return false;
+						});
+						
+						// merge button click
+						$(this).find('.whiteBtn').click(function(){
+							imageSwiperData[tid].push({image: '_images/image_menu_cont01300.png', thumb: '_images/image_menu_cont01.png', big: '_images/image_menu_cont01300.png', link: '', merge : MERGE_IMAGE_TAG });
+							div.imageSwiper("view");
+							$(this).remove();
+						});
+
+					} else {
+						target.append(ele[0]);
+						var div = target.children(':first-child');
+						div.attr("id", "imageSwiper_"+instanceCnt);
+					}
+
+					div.imageSwiper("view");
+
+					if (opt.bEdit == true) div.imageSwiper("editUI");
+					
+					
+			});// each
+
+		},// init
+
+		view : function() {
+
+			d("imageSwiper -> view");
+			/*
+			var ele = ['<div class="swiper-slide"><a href="',
+					   '" class="imageSwiperItem"><img src="',
+				       '" /></a></div>'];
+			*/
+
+			var imgEle = ['<div class="swiper-container swiper">',
+								  '<div class="swiper-wrapper">',
+								   //'<div class="swiper-slide"><img src="img/slider1-1.png"></div>',
+								   //'<div class="swiper-slide"><img src="img/slider1-2.png"></div>',
+								  '</div><!-- swiper-wrapper -->',
+								'</div><!-- swiper-container -->'];
+
+			var ele = ['<div class="swiper-slide"><img onclick="window.location.href=\'',
+					   '\'" src="',
+				       '" class="swiper_img"/>',
+					   '</div>'];
+			
+			
+								
+
+
+			var imgThumb = ['<div class="imageSwiper_thumb">',
+								  '<a class="arrow-left" href="#">&lt;</a>',
+								'<div class="swiper-container swiper-control">',
+							   '<div class="swiper-wrapper">',
+								'<div class="swiper-slide">',
+								 //'<img class="active" src="img/m/1.jpg"> ',
+								 //'<img src="img/m/2.jpg"> ',
+								'</div>',
+							   '</div>',
+							  '</div>',
+						  '<a class="arrow-right" href="#">&gt;</a>',
+						'</div><!-- imageSwiper_thumb -->'];
+
+			var eleThumb = ['<a href="',
+					   '" class="imageSwiperThumb"><img src="',
+				       '"class="swiper_thumb" />',
+					   '</a>'];
+			//'<div class="swiper-slide"><a href=<img src="img/slider1-1.png"></div>',
+		   //'<div class="swiper-slide"><img src="img/slider1-2.png"></div>',
+		   //'<img class="active" src="img/m/1.jpg">',
+		   //'<img src="img/m/2.jpg"> ',
+
+			return this.each( function () {
+				
+				var target = $(this);
+				var tid = target.attr("id");
+
+				var sw = $('#'+tid).find(".swiper > .swiper-wrapper");
+				var th = $('#'+tid).find(".imageSwiper_thumb > .swiper-control > .swiper-wrapper > .swiper-slide");
+
+				var dt = imageSwiperData[tid];
+
+				
+
+				if (dt && dt.length) {
+
+					var cnt = dt.length;
+					var sw_html = "";
+					var th_html = "";
+
+					sw_html = imgEle[0]+imgEle[1];
+					th_html = imgThumb[0] + imgThumb[1] + imgThumb[2] + imgThumb[3] + imgThumb[4];
+
+					for ( var i = 0; i < cnt; i++ ) {
+						sw_html += ele[0];
+						sw_html += dt[i].link;
+						sw_html += ele[1];
+						sw_html += dt[i].image;
+						sw_html += ele[2];
+						// movie icon
+						if (dt[i].bMovie && dt[i].bMovie == true) {
+							sw_html += playIconSwiper;
+						}
+						sw_html += ele[3];
+						
+
+						th_html += eleThumb[0];
+						th_html += eleThumb[1];
+						th_html += dt[i].thumb;
+						th_html += eleThumb[2];
+						// movie icon
+						if (dt[i].bMovie && dt[i].bMovie == true) {
+							th_html += playIconSwiperThumb;
+						}
+						th_html += eleThumb[3];
+					}
+
+					sw_html += imgEle[2]+imgEle[3];
+					th_html += imgThumb[5] + imgThumb[6] + imgThumb[7] + imgThumb[8] + imgThumb[9];
+					
+					// init
+					if (!imageSwiperThumbAllow[tid]) imageSwiperThumbAllow[tid] = true;
+
+					imageSwiperThumbAllow[tid] = true;
+					if (imageSwiper[tid]) {
+						imageSwiper[tid].destroy(true);
+						imageSwiperThumbAllow[tid] = true;
+					}
+					if (imageSwiperThumb[tid]) {
+						imageSwiperThumb[tid].destroy(true);
+						imageSwiperThumbAllow[tid] = true;
+					}
+
+					// init
+					target.find('.swiper').remove();
+					target.find('.imageSwiper_thumb').remove();
+					target.append(sw_html);
+					target.append(th_html);
+					
+					if (!imageSwiperMaxSize[tid]) imageSwiperMaxSize[tid] = {width:0, height:0};
+					
+					var sizeHeight = (300/imageSwiperMaxSize[tid].width) * imageSwiperMaxSize[tid].height;
+
+					$('#'+tid).find(".swiper").height(sizeHeight);
+					
+					// swiper set
+					target.find(".swiper > .swiper-wrapper").width(2*300);
+					target.find(".swiper-control > .swiper-wrapper > .swiper-slide").width(cnt*52);
+
+					
+					imageSwiper[tid] = $('#'+tid).find(".swiper").swiper({disableAutoResize:true});
+					imageSwiperThumb[tid] = $('#'+tid).find(".swiper-control").swiper({
+						scrollContainer:true,
+						disableAutoResize:true,
+						onTouchMove : function(){
+							imageSwiperThumbAllow[tid] = false;
+						},
+						onTouchEnd : function() {
+							setTimeout(function(){imageSwiperThumbAllow[tid] = true},100);
+						}
+					});
+					// readyEvent
+					imageSwiperReadyEvent();
+					
+					var sw = $('#'+tid).find(".swiper > .swiper-wrapper");
+					var th = $('#'+tid).find(".imageSwiper_thumb > .swiper-control > .swiper-wrapper > .swiper-slide");
+
+
+					th.find('.imageSwiperThumb').bind('mousedown',function(e){
+						e.preventDefault()
+					});
+
+
+					th.find('.imageSwiperThumb').bind('click',{allowClick:imageSwiperThumbAllow[tid],sw:imageSwiper[tid],eth:th},function(e){
+
+						e.preventDefault();
+						if (!e.data.allowClick) return;
+						var index = $(this).index();
+						e.data.sw.swipeTo ( index );
+						th.find(".active").removeClass('active');
+						$(this).addClass('active');
+					});
+					
+					imageSwiperThumbPos[tid] = 0;
+					target.find('.arrow-left').click({etid:tid},function(e) {
+						e.preventDefault();
+						
+						if ( imageSwiperThumbPos[e.data.etid] < 0 ) {
+						
+							imageSwiperThumbPos[e.data.etid] += 50;
+							$('#'+e.data.etid).find(".imageSwiper_thumb > .swiper-control > .swiper-wrapper").css('-webkit-transform', 'translate3d('+imageSwiperThumbPos[e.data.etid]+'px,0,0)');
+							$('#'+e.data.etid).find(".imageSwiper_thumb > .swiper-control > .swiper-wrapper").css('-moz-transform', 'translate3d('+imageSwiperThumbPos[e.data.etid]+'px,0,0)');
+							$('#'+e.data.etid).find(".imageSwiper_thumb > .swiper-control > .swiper-wrapper").css('-o-transform', 'translate3d('+imageSwiperThumbPos[e.data.etid]+'px,0,0)');
+							$('#'+e.data.etid).find(".imageSwiper_thumb > .swiper-control > .swiper-wrapper").css('-ms-transform', 'translate3d('+imageSwiperThumbPos[e.data.etid]+'px,0,0)');
+							$('#'+e.data.etid).find(".imageSwiper_thumb > .swiper-control > .swiper-wrapper").css('transform', 'translate3d('+imageSwiperThumbPos[e.data.etid]+'px,0,0)');
+						}
+					});
+					
+					target.find('.arrow-right').click({etid:tid, ecnt:cnt},function(e) {
+						e.preventDefault();
+						
+						if ( imageSwiperThumbPos[e.data.etid] > (e.data.ecnt-5)*-50 ) {
+							imageSwiperThumbPos[e.data.etid] += -50;
+							$('#'+e.data.etid).find(".imageSwiper_thumb > .swiper-control > .swiper-wrapper").css('-webkit-transform', 'translate3d('+imageSwiperThumbPos[e.data.etid]+'px,0,0)');
+							$('#'+e.data.etid).find(".imageSwiper_thumb > .swiper-control > .swiper-wrapper").css('-moz-transform', 'translate3d('+imageSwiperThumbPos[e.data.etid]+'px,0,0)');
+							$('#'+e.data.etid).find(".imageSwiper_thumb > .swiper-control > .swiper-wrapper").css('-o-transform', 'translate3d('+imageSwiperThumbPos[e.data.etid]+'px,0,0)');
+							$('#'+e.data.etid).find(".imageSwiper_thumb > .swiper-control > .swiper-wrapper").css('-ms-transform', 'translate3d('+imageSwiperThumbPos[e.data.etid]+'px,0,0)');
+							$('#'+e.data.etid).find(".imageSwiper_thumb > .swiper-control > .swiper-wrapper").css('transform', 'translate3d('+imageSwiperThumbPos[e.data.etid]+'px,0,0)');
+						}
+					});
+
+				}
+
+				
+					
+			});// each
+		}, // view
+
+		editUI : function() {
+
+			d("imageSwiper -> editeUI");
+			return this.each( function () {
+				
+				var target = $(this);
+				var tid = target.attr("id");
+				var thumb_box = target.find('.imageSwiper_thumb > .swiper-control > .swiper-wrapper > .swiper-slide');
+				var thumb_boxs = target.find('.imageSwiper_thumb > .swiper-control > .swiper-wrapper > .swiper-slide > .imageSwiperThumb');
+				var img_box = target.find('.swiper > .swiper-wrapper > .swiper-slide');
+				
+
+				thumb_boxs.each( function(index) {
+					
+					var t = $(this);
+					var left = t.width() - 11;
+					// delete button
+					var obj = $('<img src="_images/x.png" width="11" height="11"  class="imgdel" style="left:'+left+'px;" alt="삭제"/>').appendTo(t);
+					
+					// delete button click
+					obj.click({etid:tid, idx: index}, function(e) {
+						imageSwiperData[e.data.etid].splice( e.data.idx, 1 );
+						$('#'+e.data.etid).imageSwiper("view");
+						$('#'+e.data.etid).imageSwiper("editUI");
+						return false;
+					});
+					
+					// number
+					var numberEle = '<p class="imageSwiper_number">'+(index+1)+'</p>';
+					t.append(numberEle);
+					
+					
+					// merge
+					var mele = t.find('.MERGE_IMAGE').remove();
+					if (imageSwiperData[tid][index].merge && imageSwiperData[tid][index].merge != "") {
+						obj = t.append(MERGE_IMAGE_TAG);
+						mele.attr("class", "MERGE_IMAGE galleryMERGE_IMAGE");
+						globalMethod.autoMergeImageNumber();
+						imageSwiperData[tid][index].merge = mele.text();
+					}					
+				
+				});// thumb_boxs
+
+
+
+				img_box.each( function(index) {
+					
+					// imageBox
+					var t = $(this);
+					var swImg = t.find(".swiper_img");
+
+					var left = t.width() - 24;
+					var top = t.height() - 11;
+					var linkObj = null;
+					
+					if (t.find(".imageSwiper_link_icon").length > 0) t.find(".imageSwiper_link_icon").remove();
+
+					if (imageSwiperData[tid][index].link && imageSwiperData[tid][index].link != "" )
+						linkObj = $('<a href="#" class="imageSwiper_link_icon imageSwiper_link_icon_on" style="left:'+left+'px;top:'+top+'px;" alt="클릭시 링크 설정" title="클릭시 링크 설정" onclick="return false;">링크설정</a>').appendTo(t);
+					else
+						linkObj = $('<a href="#" class="imageSwiper_link_icon" style="left:'+left+'px;top:'+top+'px;" alt="클릭시 링크 설정" title="클릭시 링크 설정" onclick="return false;">링크설정</a>').appendTo(t);
+					
+					// link click event
+					linkObj.click({etid:tid, eindex: index, imgBox:t, etid:tid}, function(e) {
+						var linkIcon = $(this);
+						linkIcon.hide();
+						var stid = e.data.etid;
+						var idx = e.data.eindex;
+						var link = imageSwiperData[stid][idx].link;
+						var cancleLable = "취소";
+						if ( link && link != null ) {
+							cancleLable = "삭제";
+						}else {
+							link = "http://";
+						}
+						
+						var linkEle = '<div class="imageSwiper_link_layer"><p class="imageSwiper_link_layer_tip">이미지 클릭시 이동할 주소를 설정 합니다.</p><input type="text" name="imageSwiper_link_text" value="'+link+'" title="http://" class="imageSwiper_link_text" /><button class="whiteBtn accept">적용</button><button class="whiteBtn cancle">'+cancleLable+'</button><p class="imageSwiper_link_movie_wrap"><input type="checkbox" name="bMovie" class="imageSwiper_link_movie_check" value="true"/><label>동영상 주소일 경우 체크 하세요.</label></p></div>';
+						var target = $(linkEle).appendTo($('#'+stid));
+						//init 
+						if (imageSwiperData[stid][idx].link && imageSwiperData[stid][idx].link != "" ) {
+							target.find(".imageSwiper_link_text").val(imageSwiperData[stid][idx].link);
+						}
+						// movie checkbox
+						if (imageSwiperData[stid][idx].bMovie && imageSwiperData[stid][idx].bMovie == true ) {
+							target.find(".imageSwiper_link_movie_check").attr('checked', true);
+						}
+						
+						target.find("button.accept").click({estid:stid, idx:idx, linkIcon:linkIcon, imgBox:e.data.imgBox},function(e){
+
+							var mid = e.data.estid;
+							var inputLink = $(this).siblings('.imageSwiper_link_text').val();
+							var checkMovie = $(this).siblings('.imageSwiper_link_movie_wrap').find('.imageSwiper_link_movie_check');
+							var bMove = checkMovie.attr('checked') ? true : false;
+							
+							if (inputLink != null && inputLink != "") {
+								imageSwiperData[mid][e.data.idx].link = inputLink;
+								
+								imageSwiperData[mid][e.data.idx].bMovie = bMove;
+								
+								alert((e.data.idx+1)+" 번 이미지 클릭시 \r\n "+inputLink+" 주소로 이동 합니다.");
+								$(this).parent().remove();
+								
+								
+								
+								var tBox = $('#'+mid+' > .imageSwiper_thumb > .swiper-control > .swiper-wrapper > .swiper-slide').children().eq(e.data.idx);
+								if (bMove == true) {
+									e.data.imgBox.append(playIconSwiper);
+									
+									tBox.append(playIconSwiperThumb);
+								}else {
+									if (e.data.imgBox.find('.imageSwiper_play_icon').length > 0){
+										e.data.imgBox.find('.imageSwiper_play_icon').remove();
+									}
+									if (tBox.find('.imageSwiper_play_icon_thumb').length > 0){
+										tBox.find('.imageSwiper_play_icon_thumb').remove();
+									}
+								}
+								
+
+								e.data.linkIcon.show();
+								e.data.linkIcon.addClass("imageSwiper_link_icon_on");
+								
+							}else {
+								alert("링크를 입력하세요.");
+							}
+						});
+						
+						target.find("button.cancle").click({eestid:stid, idxs:idx, linkIcon:linkIcon}, function(e){
+							var mid = e.data.eestid;
+							var inputLink = $(this).siblings(".imageSwiper_link_text").val();
+
+							if (imageSwiperData[mid][e.data.idxs].link && imageSwiperData[mid][e.data.idxs].link != "") {
+								imageSwiperData[mid][e.data.idxs].link = "";
+								imageSwiperData[mid][e.data.idxs].bMovie = false;
+								alert("링크가 삭제 되었습니다.");
+							}
+
+							e.data.linkIcon.show();
+							e.data.linkIcon.removeClass('imageSwiper_link_icon_on');
+							$(this).parent().remove();
+						});
+					}); // link click event
+					
+					
+					// merge text
+					swImg.siblings(".imageSwiper_merg_text").remove();
+					if (imageSwiperData[tid][index].merge && imageSwiperData[tid][index].merge != "") {
+						obj = swImg.after(MERGE_IMAGE_TAG);
+						swImg.siblings('.MERGE_IMAGE').attr("class", ".imageSwiper_merg_text").text(imageSwiperData[tid][index].merge);
+					}
+					
+					// movie icon
+					//if (imageSwiperData[tid][index].bMovie && imageSwiperData[tid][index].bMovie == true) {
+					//	var playIcon = '<img src="_images/play_btn.png" class="imageSwiper_play_icon" />';
+					//	swImg.after(playIcon);
+					//}
+				}); // each
+
+
+
+				
+
+			});// each
+			
+		}, // editeUI
+
+		removeAllImage : function() {
+
+			d("imageSwiper -> removeAllImage");
+			return this.each( function () {
+				
+				var target = $(this);
+				var tid = target.attr("id");
+					
+				imageSwiperData[tid] = [];
+				target.imageSwiper("view");
+
+			});// each
+			
+		}, // removeAllImage
+
+		getResult :  function () {
+			d("imageSwiper -> getResult");
+			var result = {size:{width:0, height:0}, data:[]};
+			this.each( function () {
+				var tid = $(this).attr("id");
+
+				result.size.width = imageSwiperMaxSize[tid].width;
+				result.size.height = imageSwiperMaxSize[tid].height;
+				
+				if (imageSwiperData[tid] && is_array(imageSwiperData[tid]))
+					result.data = imageSwiperData[tid];
+			});// each
+			return result;
+		}, // getResult
+
+		destroy :  function () {
+			d("imageSwiper -> destroy");
+			
+			return this.each( function () {
+				var upBtn = $(this).children(".uploadify");
+				var upID = upBtn.attr("id");
+				$('#'+upID).uploadify('destroy');
+				
+				var div = $(this).children('.imageSwiper_box');
+				var tid = div.attr("id");
+				
+				if (imageSwiper[tid]) {
+					imageSwiper[tid].destroy(false);
+					imageSwiperThumbAllow[tid] = true;
+				}
+				if (imageSwiperThumb[tid]) {
+					imageSwiperThumb[tid].destroy(false);
+					imageSwiperThumbAllow[tid] = true;
+				}
+				
+			});// each
+		} // destroy
+
+	}; // imageSwiperMethods
+
+
 
 
 
@@ -1490,10 +2081,10 @@
 							},
 							stop: function(event, ui) {
 								t.siblings('select').val("-1");
-								alert(layoutData[tid][idx].width);
+								
 								layoutData[tid][idx].width = ui.size.width;
 								layoutData[tid][idx].height = ui.size.height;
-								alert(ui.size.height);
+								
 								
 							},
 							minWidth: 20,
@@ -1764,7 +2355,8 @@
 																						rslt = jQuery.parseJSON(data);
 																						if (rslt.b == "true") {
 																							movieOneData[tid].image = rslt.img;
-																							img.attr('src','/urlImage/'+movieOneData[tid].image);
+																							img.attr('src', movieOneData[tid].image);
+																							
 																							$('#'+tid).find('.movieOneBox_linkBox').show();
 																						}
 																						else { alert("에러 : "+rslt.err); }
@@ -1993,7 +2585,7 @@
 
 
 //--------------------------------
-// textInput : textInputType: "", keywordText: "", nextPage: 0, keywordCheck: "", keywordCheckCntsq: 0, keywordCheckCntrn: 0, startDate: "", endDate: ""
+// textInput : bInput:true, textInputType: "", keywordText: "", nextPage: 0, keywordCheck: "", keywordCheckCntsq: 0, keywordCheckCntrn: 0, startDate: "", endDate: ""
 //--------------------------------
 /* DOM structure
 	<div class="textInput">
@@ -2023,7 +2615,7 @@
 			d("textInput -> init");
 			var defaults = {
 				'totalPage' : 1,
-				'data' : {textInputType: "keyword", keywordText: "", nextPage: 0, keywordCheck: "", keywordCheckCntsq: 0, keywordCheckCntrn: 0, startDate: "", endDate: ""},
+				'data' : {bInput:true, textInputType: "keyword", keywordText: "", nextPage: 0, keywordCheck: "", keywordCheckCntsq: 0, keywordCheckCntrn: 0, startDate: "", endDate: ""},
 				'bInput' : true,
 				'bEdit' : true
 			};
@@ -2032,32 +2624,33 @@
 			var inputEle = '<input type="text" class="inputText textInput_tip_input" />&nbsp;<button class="css3button textInput_tip_btn">응모하기</button>';
 			var btnEle = '<button class="css3button textInput_tip_btn_only">응모하기</button>';
 			var tipEle = "";
-			
-			if (opt.bInput == true) tipEle = inputEle;
-			else tipEle = btnEle;
-			
-			var ele = ['<div class="textInput_wrap">',
-			           		'<p class="textInput_tip">'+tipEle+'</p>',
-			           		'<div class="textInput_next_wrap">',
-							'<input type="radio" name="textInputType" value="keyword" checked="checked"/><label> 키워드 맞추기</label>&nbsp;&nbsp;',
-							'<input type="radio" name="textInputType" value="comment"/><label> 의견쓰기</label>',
-							'<input type="text" name="keywordText" value="" title="키워드를 입력해 주세요.( 여러키워드 ex. 키워드1,키워드2)" class="textInput_keywordText" />',
-							'<p class="textInput_next_type_wrap"><span>키워드 일치시</span> <select name="nextPage"><option value="1">1</option></select> 번 페이지로 이동합니다.</p>',
-							'<span><input type="radio" name="keywordCheck" value="all" class="textInput_radio" checked="checked"/><label>모든 응모자</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="squence" class="textInput_radio"/><label>선착순</label><input type="text" name="keywordCheckCntsq"  class="textInput_keyword_input" /><label>명</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="random" class="textInput_radio"/><label>임의</label><input type="text" name="keywordCheckRandomCntrn" class="textInput_keyword_input" /><label>명</label></span>',
-							'</div>',
-							'<label>이벤트기간</label> <input type="text" name="startDate" class="textInput_date" value="시작일"/> ~ <input type="text" name="endDate" class="textInput_date" value="종료일"/>',
-							'</div>'];
 
 			
 
 			return this.each( function () {
 					
+					if (opt.bInput == false) opt.data.bInput = false;
+					if (opt.data.bInput == true) tipEle = inputEle;
+					else tipEle = btnEle;
+					
+					var ele = ['<div class="textInput_wrap">',
+									'<p class="textInput_tip">'+tipEle+'</p>',
+									'<div class="textInput_next_wrap">',
+									'<input type="radio" name="textInputType" value="keyword" checked="checked"/><label> 키워드 맞추기</label>&nbsp;&nbsp;',
+									'<input type="radio" name="textInputType" value="comment"/><label> 의견쓰기</label>',
+									'<input type="text" name="keywordText" value="" title="키워드를 입력해 주세요.( 여러키워드 ex. 키워드1,키워드2)" class="textInput_keywordText" />',
+									'<p class="textInput_next_type_wrap"><span>키워드 일치시</span> <select name="nextPage"><option value="1">1</option></select> 번 페이지로 이동합니다.</p>',
+									'<span><input type="radio" name="keywordCheck" value="all" class="textInput_radio" checked="checked"/><label>모든 응모자</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="squence" class="textInput_radio"/><label>선착순</label><input type="text" name="keywordCheckCntsq"  class="textInput_keyword_input" /><label>명</label>&nbsp;&nbsp;<input type="radio" name="keywordCheck" value="random" class="textInput_radio"/><label>임의</label><input type="text" name="keywordCheckRandomCntrn" class="textInput_keyword_input" /><label>명</label></span>',
+									'</div>',
+									'<label>이벤트기간</label> <input type="text" name="startDate" class="textInput_date" value="시작일"/> ~ <input type="text" name="endDate" class="textInput_date" value="종료일"/>',
+									'</div>'];
+
 					$(this).attr("id", "attrBox_"+instanceCnt);
 					instanceCnt++;
 
 					var target = $(this);
 					// create UI
-					if (opt.bInput == true)
+					if (opt.data.bInput == true)
 						target.append(ele.join(""));
 					else {
 						var arr = [];
@@ -2070,7 +2663,11 @@
 					div.attr("id", "textInput_"+instanceCnt);
 					tid = div.attr("id");
 					$('#'+tid).addClass("ATTR");
-					
+					// init textInputData
+					alert(opt.data.keywordCheck);
+					textInputData[tid] = opt.data;
+					alert(textInputData[tid].keywordCheck);
+
 					// link type change
 					var textInputTypeName = "textInputType_"+instanceCnt;
 					div.find('.textInput_next_wrap > :input[name=textInputType]').attr("name", textInputTypeName);
@@ -2089,9 +2686,9 @@
 					 });
 					var keywordCheckeName = "keywordCheck_"+instanceCnt;
 					div.find(':input[name=keywordCheck]').attr("name", keywordCheckeName);
-					$('input[name='+keywordCheckeName+']').change(function(){
+					$('input[name='+keywordCheckeName+']').change({etid:tid}, function(e){
 						if ($(this).is(":checked"))
-							textInputData[tid].keywordCheck = this.value;
+							textInputData[e.data.etid].keywordCheck = this.value;
 					 });
 					
 					var sel =div.find("select[name=nextPage]");
@@ -2103,10 +2700,6 @@
 						
 					}
 					
-					
-					
-					// init textInputData
-					textInputData[tid] = opt.data;
 					
 					if (textInputData[tid].textInputType) {
 						$("#"+tid+" input[name="+textInputTypeName+"]").filter('input[value='+textInputData[tid].textInputType+']').attr("checked", "checked");
@@ -2144,10 +2737,12 @@
 		},// init
 		getResult :  function () {
 			d("textInput -> getResult");
-			var result = { textInputType: "", keywordText: "", nextPage: 0, keywordCheck: "", keywordCheckCntsq: 0, keywordCheckCntrn: 0, startDate: "", endDate: "" };
+			var result = {bInput:true, textInputType: "", keywordText: "", nextPage: 0, keywordCheck: "", keywordCheckCntsq: 0, keywordCheckCntrn: 0, startDate: "", endDate: "" };
 			this.each( function () {
 				var tid = $(this).attr("id");
 				
+				
+				result.bInput = textInputData[tid].bInput;
 				result.textInputType = textInputData[tid].textInputType;
 				
 				var keywordText = $("#"+tid+" input[name=keywordText]");
@@ -2160,9 +2755,8 @@
 				result.keywordCheckCntrn=$("#"+tid+" input[name=keywordCheckCntrn]").val();
 				result.startDate=$("#"+tid+" input[name=startDate]").val();
 				result.endDate=$("#"+tid+" input[name=endDate]").val();
-				
-				if (result.textInputType == "keyword" && result.keywordText == "")
-					result = null;
+				//if (result.textInputType == "keyword" && result.keywordText == "")
+				//	result = null;
 				
 			});// each
 			return result;
@@ -2746,7 +3340,8 @@
 				var target = $(this).find('.facebook_wrap > :input[name=facebook_good]');
 				if (target.val() != target.attr("title"))
 					result = target.val();
-				//result = "\""+result.replace(/\"/g,"'")+"\"";
+
+				result = "\""+result.replace(/\"/g,"'")+"\"";
 			});// each
 			return result;
 		} // getResult
@@ -3024,8 +3619,9 @@
 						else if (m[0] == "imageLayout") {rsData.type = m[0]; rsData.result = $(this).imageLayout("getResult");}
 						else if (m[0] == "movieOne") {rsData.type = m[0]; rsData.result = $(this).movieOne("getResult");}
 						else if (m[0] == "movieSlide") {rsData.type = m[0]; rsData.result = $(this).movieSlide("getResult");}
+						else if (m[0] == "imageSwiper") {rsData.type = m[0]; rsData.result = $(this).imageSwiper("getResult");}
 						else if (m[0] == "textEditor") {rsData.type = m[0]; rsData.result = $(this).textEditor("getResult",m[1]);}
-						else if (m[0] == "textInput") {rsData.type = m[0]; rsData.result = $(this).textInput("getResult");}
+						else if (m[0] == "textInput") {rsData.type = m[0]; rsData.result = $(this).textInput("getResult"); }
 						else if (m[0] == "textTable") {rsData.type = m[0]; rsData.result = $(this).textTable("getResult");}
 						else if (m[0] == "linkInput") {rsData.type = m[0]; rsData.result = $(this).linkInput("getResult");}
 						else if (m[0] == "linkEnter") {rsData.type = m[0]; rsData.result = $(this).linkEnter("getResult");}
@@ -3038,7 +3634,6 @@
 						else if (m[0] == "cert") {
 							rsData.result = $(this).cert("getResult");
 							rsData.type = rsData.result.certType;
-							alert(rsData.type);
 						}
 						//else if (m[0] == "imageThumb") {rsData.type = m[0]; rsData.result = $(this).imageThumb("getResult");}
 						
@@ -3064,7 +3659,7 @@
 						}
 						
 
-						//d(rsData.type+"\r\n"+rv);
+						//alert(rsData.type+"\r\n"+rv.size);
 					}
 					
 				});

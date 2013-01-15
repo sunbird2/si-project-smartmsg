@@ -1,11 +1,4 @@
-<%@page import="com.urlplus.EditorDAO"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="com.urlplus.HtmlTagVO"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.urlplus.HtmlVO"%>
-<%@page import="com.common.VbyP"%>
-<%@page import="com.common.util.SLibrary"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
+<%@page import="com.urlplus.EditorDAO"%><%@page import="java.sql.Connection"%><%@page import="com.urlplus.HtmlTagVO"%><%@page import="java.util.ArrayList"%><%@page import="com.urlplus.HtmlVO"%><%@page import="com.common.VbyP"%><%@page import="com.common.util.SLibrary"%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
 	
 	String client_id = SLibrary.IfNull( request.getParameter("client_id"));
 	String html_key = SLibrary.IfNull( request.getParameter("htmlKey") );
@@ -83,9 +76,9 @@
 			out.println(SLibrary.alertScript(errorMsg, "window.close();"));
 		} else {
 			if (bSuc == true) {
-				out.println(SLibrary.alertScript("처리 되었습니다.", ""));
+				out.println( request.getParameter("callback") + "({\"result\":\"ok\"})" );
 			} else {
-				out.println(SLibrary.alertScript("처리 실패 입니다.", ""));
+				out.println(request.getParameter("callback") + "({\"result\":\"no\"})");
 			}
 		}
 		//if(!errorMsg.equals("")) {
