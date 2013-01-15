@@ -389,13 +389,13 @@ public class EditorDAO {
 					json = JSONParser.getJSON(htvo.getTAG_VALUE());
 					if (event_cnt == 0) {
 						rslt.setDt_event1_start( json.get("startDate").toString());
-						rslt.setDt_event1_start( json.get("endDate").toString());
+						rslt.setDt_event1_end( json.get("endDate").toString());
 					} else if (event_cnt == 1) {
 						rslt.setDt_event2_start( json.get("startDate").toString());
-						rslt.setDt_event3_start( json.get("endDate").toString());
+						rslt.setDt_event2_end( json.get("endDate").toString());
 					} else if (event_cnt == 2) {
 						rslt.setDt_event3_start( json.get("startDate").toString());
-						rslt.setDt_event3_start( json.get("endDate").toString());
+						rslt.setDt_event3_end( json.get("endDate").toString());
 					}
 					event_cnt++;
 					
@@ -417,7 +417,7 @@ public class EditorDAO {
 				} // if
 			}
 		}
-		
+		rslt.setEvent_cnt(event_cnt);
 		return rslt;
 	}
 	
