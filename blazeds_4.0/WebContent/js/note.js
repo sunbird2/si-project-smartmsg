@@ -380,10 +380,12 @@
 		if (b == "true") {
 			$("#login").hide();
 			$("#join").hide();
+			$("#topbar1").hide();
 			$("#logout").show();
 		}else {
 			$("#login").show();
 			$("#join").show();
+			$("#topbar1").show();
 			$("#logout").hide();
 		}
 	}
