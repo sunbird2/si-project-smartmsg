@@ -386,6 +386,8 @@
 	    return false;
 	}
 	
+	var blinkCnt = 0;
+	var blinkInterval = null;
 	function login_view(b) {
 		if (b == "true") {
 			$("#login").hide();
@@ -394,8 +396,25 @@
 			$("#logout").show();
 			
 			// 도움말
-			$("#useage").show();
+			var ele = $("#useage");
+			ele.show();
 			$("#freeuse").hide();
+			
+			
+			// 깜박임
+			blinkCnt = 5;
+			blinkInterval = setInterval(function() {  
+				
+		    	if (ele.css('visibility') == 'visible') {ele.css('visibility', 'hidden');}
+		    	else { ele.css('visibility', 'visible'); }
+		    	
+		    	if (blinkCnt == 0) {
+		    		clearInterval(blinkInterval);
+		    		ele.css('visibility', 'visible');
+		    	}
+		    	blinkCnt--;
+		    },500);
+		    
 		}else {
 			$("#login").show();
 			$("#join").show();
