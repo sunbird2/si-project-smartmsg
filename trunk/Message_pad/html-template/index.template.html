@@ -70,10 +70,10 @@
 <div id="header">
 		<div id="top_right">
 			<a href="javascript:" id="login" onclick="changeMenu('send')" title="로그인" onfocus="this.blur()">로그인</a>
-			<span>&nbsp;|&nbsp;</span>
+			<span id="topbar1">&nbsp;|&nbsp;</span>
 			<a href="javascript:" id="join" onclick="join()" title="회원가입" onfocus="this.blur()">회원가입</a>
-			<span>&nbsp;|&nbsp;</span>
 			<a href="javascript:" id="logout" title="로그아웃" onclick="logout_flex()" style="display:none" onfocus="this.blur()">로그아웃</a>
+			<span id="topbar2">&nbsp;|&nbsp;</span>
 			<a href="javascript:"  onclick="_addFavorite('문자노트 -빠르고 안정적인 문자시스템','http://www.munjanote.com')" title="즐겨찾기" onfocus="this.blur()"><img src="/images/start.png"> 즐겨찾기</a>
 		</div><!-- top_right -->
 		<div id="logo"><a href="javascript:" onclick="window.location.href='/'" title="MunjaNote"><img src="/images/logo.png" alt="MunjaNote"></a></div>
@@ -84,7 +84,8 @@
 				<li><a href="javascript:" id="address" onclick="changeMenu('address')" class="address" title="주소록" onfocus="this.blur()">주소록</a></li>
 				<li><a href="javascript:" id="bill" onclick="changeMenu('bill')" class="bill" title="결제" onfocus="this.blur()">결제</a></li>
 				
-				<li><img src="/images/useage_2.png" class="hand" alt="무료체험" onfocus="this.blur()" onclick="join()"></li>
+				<li id="freeuse"><img src="/images/useage_2.png" class="hand" alt="무료체험" onfocus="this.blur()" onclick="join()"></li>
+				<li id="useage" style="display:none;"><img src="/images/useage_2.png" class="hand" alt="무료체험" onfocus="this.blur()" onclick="join()"></li>
 			</ul>
 		</div><!-- navi -->
 		
