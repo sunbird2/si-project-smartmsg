@@ -94,6 +94,16 @@
 			items: [{title:"", content:"", writer:"", timeWrite:"", cnt:0},{title:"", content:"", writer:"", timeWrite:"", cnt:0}]
 		}
 		*/
+       // session chk
+       $.getJSON(
+   			"/member/chk.jsp", {},
+   			function(data) {
+   				
+   				if (data != null) {
+   					if (data.code && data.code == "0000") login_view("true");
+   				}
+   			}
+   		);
 		$.getJSON(
 			"/custom/notic.jsp",
 			{count: 5},
