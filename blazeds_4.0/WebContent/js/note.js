@@ -392,11 +392,19 @@
 			$("#join").hide();
 			$("#topbar1").hide();
 			$("#logout").show();
+			
+			// 도움말
+			$("#useage").show();
+			$("#freeuse").hide();
 		}else {
 			$("#login").show();
 			$("#join").show();
 			$("#topbar1").show();
 			$("#logout").hide();
+			
+			// 도움말
+			$("#useage").hide();
+			$("#freeuse").show();
 		}
 	}
 	
