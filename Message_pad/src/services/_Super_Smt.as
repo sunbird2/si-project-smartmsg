@@ -342,6 +342,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
 
         dmQuery = new mx.data.ManagedQuery("getSentListDetail_pagedFiltered");
         dmQuery.propertySpecifier = "sendMode,rsltDate,phone,idx,imagePath,rslt,failAddDate,msg,stat,sendDate,groupKey,name,callback,user_id";
+		dmQuery.countOperation = "getSentListDetail_countFiltered";
         dmQuery.pagingEnabled = true;
         dmQuery.positionalPagingParameters = true;
         dmQuery.pageSize = 30;
