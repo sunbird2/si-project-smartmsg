@@ -9,6 +9,13 @@ public class PhoneVO implements Serializable {
 	
 	private String pName;
 	private String pNo;
+	
+	public PhoneVO() {}
+	public PhoneVO(String no, String name) {
+		this.pNo = no;
+		this.pName = name;
+	}
+	
 	public String getpName() {
 		return pName;
 	}

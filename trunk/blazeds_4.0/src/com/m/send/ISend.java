@@ -12,6 +12,7 @@ public interface ISend {
 	int insertData(Connection conn, String mode, UserInformationVO uvo, ArrayList<MessageVO> al, String line) throws Exception;
 
 	LogVO send(Connection conn, UserInformationVO uvo, SendMessageVO smvo) throws Exception;
+	LogVO Adminsend(Connection conn, UserInformationVO uvo, SendMessageVO smvo)	throws Exception;
 	
 	
 }
