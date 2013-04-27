@@ -68,8 +68,8 @@ public class _Super_SQLWarning extends flash.events.EventDispatcher implements c
      */
     private var _internal_SQLState : String;
     private var _internal_message : String;
-    private var _internal_localizedMessage : String;
     private var _internal_nextWarning : valueObjects.SQLWarning;
+    private var _internal_localizedMessage : String;
     private var _internal_cause : valueObjects.Throwable;
     private var _internal_errorCode : int;
     private var _internal_nextException : valueObjects.SQLException;
@@ -111,15 +111,15 @@ public class _Super_SQLWarning extends flash.events.EventDispatcher implements c
     }
 
     [Bindable(event="propertyChange")]
-    public function get localizedMessage() : String
-    {
-        return _internal_localizedMessage;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get nextWarning() : valueObjects.SQLWarning
     {
         return _internal_nextWarning;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get localizedMessage() : String
+    {
+        return _internal_localizedMessage;
     }
 
     [Bindable(event="propertyChange")]
@@ -174,16 +174,6 @@ public class _Super_SQLWarning extends flash.events.EventDispatcher implements c
         }
     }
 
-    public function set localizedMessage(value:String) : void
-    {
-        var oldValue:String = _internal_localizedMessage;
-        if (oldValue !== value)
-        {
-            _internal_localizedMessage = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "localizedMessage", oldValue, _internal_localizedMessage));
-        }
-    }
-
     public function set nextWarning(value:valueObjects.SQLWarning) : void
     {
         var oldValue:valueObjects.SQLWarning = _internal_nextWarning;
@@ -191,6 +181,16 @@ public class _Super_SQLWarning extends flash.events.EventDispatcher implements c
         {
             _internal_nextWarning = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "nextWarning", oldValue, _internal_nextWarning));
+        }
+    }
+
+    public function set localizedMessage(value:String) : void
+    {
+        var oldValue:String = _internal_localizedMessage;
+        if (oldValue !== value)
+        {
+            _internal_localizedMessage = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "localizedMessage", oldValue, _internal_localizedMessage));
         }
     }
 

@@ -23,14 +23,14 @@ internal class _StatementEntityMetadata extends com.adobe.fiber.valueobjects.Abs
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("fetchSize", "connection", "resultSetHoldability", "queryTimeout", "resultSetType", "resultSetConcurrency", "fetchDirection", "maxFieldSize", "poolable", "maxRows", "closed", "resultSet", "updateCount", "warnings", "generatedKeys");
+    model_internal static var allProperties:Array = new Array("fetchSize", "connection", "resultSetHoldability", "queryTimeout", "resultSetType", "resultSetConcurrency", "fetchDirection", "maxFieldSize", "poolable", "maxRows", "resultSet", "closed", "updateCount", "warnings", "generatedKeys");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("fetchSize", "connection", "resultSetHoldability", "queryTimeout", "resultSetType", "resultSetConcurrency", "fetchDirection", "maxFieldSize", "poolable", "maxRows", "closed", "resultSet", "updateCount", "warnings", "generatedKeys");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("fetchSize", "connection", "resultSetHoldability", "queryTimeout", "resultSetType", "resultSetConcurrency", "fetchDirection", "maxFieldSize", "poolable", "maxRows", "resultSet", "closed", "updateCount", "warnings", "generatedKeys");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("fetchSize", "connection", "resultSetHoldability", "queryTimeout", "resultSetType", "resultSetConcurrency", "fetchDirection", "maxFieldSize", "poolable", "maxRows", "closed", "resultSet", "updateCount", "warnings", "generatedKeys");
+    model_internal static var dataProperties:Array = new Array("fetchSize", "connection", "resultSetHoldability", "queryTimeout", "resultSetType", "resultSetConcurrency", "fetchDirection", "maxFieldSize", "poolable", "maxRows", "resultSet", "closed", "updateCount", "warnings", "generatedKeys");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("fetchSize", "connection", "resultSetHoldability", "queryTimeout", "resultSetType", "resultSetConcurrency", "fetchDirection", "maxFieldSize", "poolable", "maxRows", "closed", "resultSet", "updateCount", "warnings", "generatedKeys");
+    model_internal static var nonDerivedProperties:Array = new Array("fetchSize", "connection", "resultSetHoldability", "queryTimeout", "resultSetType", "resultSetConcurrency", "fetchDirection", "maxFieldSize", "poolable", "maxRows", "resultSet", "closed", "updateCount", "warnings", "generatedKeys");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -60,8 +60,8 @@ internal class _StatementEntityMetadata extends com.adobe.fiber.valueobjects.Abs
             model_internal::dependentsOnMap["maxFieldSize"] = new Array();
             model_internal::dependentsOnMap["poolable"] = new Array();
             model_internal::dependentsOnMap["maxRows"] = new Array();
-            model_internal::dependentsOnMap["closed"] = new Array();
             model_internal::dependentsOnMap["resultSet"] = new Array();
+            model_internal::dependentsOnMap["closed"] = new Array();
             model_internal::dependentsOnMap["updateCount"] = new Array();
             model_internal::dependentsOnMap["warnings"] = new Array();
             model_internal::dependentsOnMap["generatedKeys"] = new Array();
@@ -82,8 +82,8 @@ internal class _StatementEntityMetadata extends com.adobe.fiber.valueobjects.Abs
         model_internal::propertyTypeMap["maxFieldSize"] = "int";
         model_internal::propertyTypeMap["poolable"] = "Boolean";
         model_internal::propertyTypeMap["maxRows"] = "int";
-        model_internal::propertyTypeMap["closed"] = "Boolean";
         model_internal::propertyTypeMap["resultSet"] = "valueObjects.ResultSet";
+        model_internal::propertyTypeMap["closed"] = "Boolean";
         model_internal::propertyTypeMap["updateCount"] = "int";
         model_internal::propertyTypeMap["warnings"] = "valueObjects.SQLWarning";
         model_internal::propertyTypeMap["generatedKeys"] = "valueObjects.ResultSet";
@@ -376,13 +376,13 @@ internal class _StatementEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]
-    public function get isClosedAvailable():Boolean
+    public function get isResultSetAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isResultSetAvailable():Boolean
+    public function get isClosedAvailable():Boolean
     {
         return true;
     }
@@ -476,13 +476,13 @@ internal class _StatementEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]   
-    public function get closedStyle():com.adobe.fiber.styles.Style
+    public function get resultSetStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get resultSetStyle():com.adobe.fiber.styles.Style
+    public function get closedStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

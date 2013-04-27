@@ -63,13 +63,13 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     private var _internal_cnt : int;
     private var _internal_line : String;
     private var _internal_timeSend : String;
-    private var _internal_user_ip : String;
     private var _internal_mode : String;
+    private var _internal_user_ip : String;
     private var _internal_message : String;
-    private var _internal_search : String;
     private var _internal_timeWrite : String;
-    private var _internal_method : String;
+    private var _internal_search : String;
     private var _internal_user_id : String;
+    private var _internal_method : String;
     private var _internal_timeDel : String;
     private var _internal_delType : String;
 
@@ -126,15 +126,15 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     }
 
     [Bindable(event="propertyChange")]
-    public function get user_ip() : String
-    {
-        return _internal_user_ip;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get mode() : String
     {
         return _internal_mode;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get user_ip() : String
+    {
+        return _internal_user_ip;
     }
 
     [Bindable(event="propertyChange")]
@@ -144,27 +144,27 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     }
 
     [Bindable(event="propertyChange")]
-    public function get search() : String
-    {
-        return _internal_search;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get timeWrite() : String
     {
         return _internal_timeWrite;
     }
 
     [Bindable(event="propertyChange")]
-    public function get method() : String
+    public function get search() : String
     {
-        return _internal_method;
+        return _internal_search;
     }
 
     [Bindable(event="propertyChange")]
     public function get user_id() : String
     {
         return _internal_user_id;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get method() : String
+    {
+        return _internal_method;
     }
 
     [Bindable(event="propertyChange")]
@@ -237,16 +237,6 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         }
     }
 
-    public function set user_ip(value:String) : void
-    {
-        var oldValue:String = _internal_user_ip;
-        if (oldValue !== value)
-        {
-            _internal_user_ip = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_ip", oldValue, _internal_user_ip));
-        }
-    }
-
     public function set mode(value:String) : void
     {
         var oldValue:String = _internal_mode;
@@ -254,6 +244,16 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         {
             _internal_mode = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "mode", oldValue, _internal_mode));
+        }
+    }
+
+    public function set user_ip(value:String) : void
+    {
+        var oldValue:String = _internal_user_ip;
+        if (oldValue !== value)
+        {
+            _internal_user_ip = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_ip", oldValue, _internal_user_ip));
         }
     }
 
@@ -267,16 +267,6 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         }
     }
 
-    public function set search(value:String) : void
-    {
-        var oldValue:String = _internal_search;
-        if (oldValue !== value)
-        {
-            _internal_search = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "search", oldValue, _internal_search));
-        }
-    }
-
     public function set timeWrite(value:String) : void
     {
         var oldValue:String = _internal_timeWrite;
@@ -287,13 +277,13 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         }
     }
 
-    public function set method(value:String) : void
+    public function set search(value:String) : void
     {
-        var oldValue:String = _internal_method;
+        var oldValue:String = _internal_search;
         if (oldValue !== value)
         {
-            _internal_method = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "method", oldValue, _internal_method));
+            _internal_search = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "search", oldValue, _internal_search));
         }
     }
 
@@ -304,6 +294,16 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         {
             _internal_user_id = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_id", oldValue, _internal_user_id));
+        }
+    }
+
+    public function set method(value:String) : void
+    {
+        var oldValue:String = _internal_method;
+        if (oldValue !== value)
+        {
+            _internal_method = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "method", oldValue, _internal_method));
         }
     }
 
