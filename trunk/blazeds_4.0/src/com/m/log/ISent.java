@@ -10,4 +10,6 @@ public interface ISent {
 	ArrayList<LogVO> getList(Connection conn, String user_id, String yyyymm);
 	int updateLog(Connection conn, LogVO slvo);
 	
+	ArrayList<LogVO> getListAll(Connection conn, String dtStart, String dtEnd);
+	
 }

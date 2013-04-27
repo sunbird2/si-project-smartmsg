@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import com.common.VbyP;
 import com.common.db.PreparedExecuteQueryManager;
 import com.common.util.SLibrary;
+import com.m.returnphone.ReturnPhone;
 
 public class Join {
 	
@@ -110,6 +111,8 @@ public class Join {
 			
 			count = pq.executeUpdate();
 			
+			ReturnPhone rtp = new ReturnPhone();
+			rtp.setReturnPhone(conn, vo.getUser_id(), vo.getHp());
 			
 		}catch(Exception e) {}
 		finally {
