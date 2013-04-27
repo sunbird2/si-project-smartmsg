@@ -149,6 +149,13 @@ package component
 				userhp3.maxChars = 4;
 				userhp3.removeEventListener(KeyboardEvent.KEY_UP, tiHp_keyUpHandler);
 			}
+			else if (instance == certBtn) {
+				certBtn.removeEventListener(MouseEvent.CLICK, certBtn_clickHandler);
+			}
+			else if (instance == certNumber) {
+				certNumber.maxChars = 5;
+				certNumber.removeEventListener(KeyboardEvent.KEY_UP, certNumber_keyUpHandler);
+			}
 			else if (instance == next2) next2.removeEventListener(MouseEvent.CLICK, next2_clickHandler);
 			else if (instance == sec) {
 				inTimer.stop();

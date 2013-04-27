@@ -58,7 +58,7 @@ package component
 	import valueObjects.MessageVO;
 	import valueObjects.SentStatusVO;
 	
-	
+	[Event(name="failAdd", type="flash.events.Event")]
 	/* A component must identify the view states that its skin supports. 
 	Use the [SkinState] metadata tag to define the view states in the component class. 
 	[SkinState("normal")] */
@@ -67,6 +67,7 @@ package component
 	
 	public class Log extends SkinnableComponent
 	{
+		public static const FAIL_ADD:String = "failAdd";
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
 		[SkinPart(required="true")] */
 		
@@ -270,6 +271,7 @@ package component
 			var rslt:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			SLibrary.alert(rslt.strDescription);
 			getDetailList();
+			this.dispatchEvent(new Event(FAIL_ADD));
 		}
 		
 		
