@@ -63,7 +63,7 @@ public class SentManager implements ISent {
 		ArrayList<LogVO> al = new ArrayList<LogVO>();
 		ArrayList<HashMap<String, String>> temp = null;
 		
-		String SQL = VbyP.getSQL("sent_list");
+		String SQL = VbyP.getSQL("sent_list_all");
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
 		
 		pq.setPrepared(conn, SQL);
