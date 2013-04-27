@@ -30,6 +30,8 @@ public class LogVO implements Serializable {
 		
 		if (hm != null) {
 			setIdx(SLibrary.intValue(SLibrary.IfNull(hm, "idx")));
+			setUser_id(SLibrary.IfNull(hm, "user_id"));
+			setIdx(SLibrary.intValue(SLibrary.IfNull(hm, "idx")));
 			setLine(SLibrary.IfNull(hm, "line"));
 			setMode(SLibrary.IfNull(hm, "mode"));
 			setMethod(SLibrary.IfNull(hm, "method"));
