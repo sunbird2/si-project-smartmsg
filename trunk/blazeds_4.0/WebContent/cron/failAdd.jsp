@@ -1,0 +1,85 @@
+<%@page import="java.sql.SQLException"%>
+<%@page import="com.m.member.SessionManagement"%>
+<%@page import="com.m.member.UserInformationVO"%>
+<%@page import="com.m.common.PointManager"%>
+<%@page import="com.m.send.LogVO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.m.log.telecom.KTSent"%>
+<%@page import="com.m.log.telecom.PPSent"%>
+<%@page import="com.m.log.telecom.LGSent"%>
+<%@page import="com.m.log.ISentData"%>
+<%@page import="com.m.log.ISent"%>
+<%@page import="com.m.log.SentManager"%>
+<%@page import="com.m.send.SendManager"%>
+<%@page import="com.common.VbyP"%>
+<%@page import="com.common.util.SLibrary"%>
+<%@page import="java.sql.Connection"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %><%
+
+String dtStart = SLibrary.IfNull(request.getParameter("dts"));
+String dtEnd = SLibrary.IfNull(request.getParameter("dte"));
+
+ISent sm = null;
+Connection conn = null;
+ArrayList<LogVO> lines = null;
+
+ISentData sentData = null;
+
+try {
+	
+	if (SLibrary.isNull(dtStart)) dtStart = SLibrary.getDateTimeString("yyyyMMdd");
+	if (SLibrary.isNull(dtEnd)) dtEnd = SLibrary.getDateTimeString("yyyyMMdd");
+	
+	// init
+	dtStart = dtStart+" 00:00:00";
+	dtEnd = dtEnd+" 23:59:59";
+	
+	VbyP.accessLog("failAdd : dts="+dtStart+" dte="+dtEnd+" ip="+ request.getRemoteAddr());
+	
+	// process ( getLine from sent_log -> getFailCnt -> addPoint );
+	conn = VbyP.getDB();
+	if (conn == null) throw new Exception("DB fail");
+	
+	sm = SentManager.getInstance();
+	lines = sm.getListAll(conn, dtStart, dtEnd);
+	
+	if (lines != null && lines.size() > 0) {
+		
+		int cnt = lines.size();
+		int code = 0;
+		int point = 0;
+		UserInformationVO uvo = null;
+		LogVO lvo = null;
+		SessionManagement smm = new SessionManagement();
+		for (int i = 0; i < cnt; i++) {
+			
+			lvo = lines.get(i);
+			if (lvo.getLine().equals("lg")) sentData = LGSent.getInstance();
+			else if (lvo.getLine().equals("pp")) sentData = PPSent.getInstance();
+			else if (lvo.getLine().equals("kt")) sentData = KTSent.getInstance();
+			
+			cnt = sentData.failUpdate(conn, lvo);
+			
+			if (cnt > 0) {
+				if (lvo.getMode().equals("LMS")) { code = 47; point = cnt*SLibrary.intValue(VbyP.getValue("LMS_COUNT")); }
+				else if (lvo.getMode().equals("MMS")) { code = 27; point = cnt*SLibrary.intValue(VbyP.getValue("MMS_COUNT")); }
+				else { code = 17; point = cnt*SLibrary.intValue(VbyP.getValue("SMS_COUNT")); } 
+				
+				
+				uvo = smm.getInformation(conn, lvo.getUser_id());
+				if ( PointManager.getInstance().insertUserPoint(conn, uvo, code, point) <= 0 ) {
+					VbyP.accessLog("failAddError : user_id="+uvo.getUser_id()+" mode="+lvo.getMode()+" cnt="+cnt+" point="+point);
+				} else {
+					VbyP.accessLog("failAdd : user_id="+uvo.getUser_id()+" mode="+lvo.getMode()+" cnt="+cnt+" point="+point);
+				}
+			} // if
+
+		} // for
+	} // if
+	
+}catch (Exception e) { VbyP.errorLog("failAdd : "+e.getMessage()); }
+finally {
+	try {if ( conn != null ) conn.close(); }catch(SQLException e) {VbyP.errorLog("failAdd.jsp >> conn.close() Exception!");}
+	conn = null;
+}
+%>
