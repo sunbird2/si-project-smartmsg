@@ -36,6 +36,7 @@ import com.m.member.Join;
 import com.m.member.JoinVO;
 import com.m.member.SessionManagement;
 import com.m.member.UserInformationVO;
+import com.m.member.UserSession;
 import com.m.returnphone.ReturnPhone;
 import com.m.send.ISend;
 import com.m.send.LogVO;
@@ -45,6 +46,7 @@ import com.m.send.SendManager;
 import com.m.send.SendMessageVO;
 
 import flex.messaging.FlexContext;
+import flex.messaging.FlexSession;
 
 public class SmartDS extends SessionManagement {
 	
@@ -137,11 +139,15 @@ public class SmartDS extends SessionManagement {
 		ArrayList<PhoneVO> al = null;
 		String rnd = "";
 		try {
-
+			
+			// hp check
+			Join join = new Join();
+			if (join.hpDupleCheck(hp) == false) throw new Exception("가입된 휴대폰 번호가 있습니다.");
+			
 			conn = VbyP.getDB();
 			uvo = new UserInformationVO();
 			uvo.setUser_id(VbyP.getValue("cert_id"));
-			uvo.setUser_id(VbyP.getValue("cert_line"));
+			uvo.setLine(VbyP.getValue("cert_line"));
 			
 			
 			smvo = new SendMessageVO();
@@ -167,19 +173,43 @@ public class SmartDS extends SessionManagement {
 			if (lvo == null) lvo = new LogVO();
 			lvo.setIdx(0);
 			lvo.setMessage(e.getMessage());
-			VbyP.accessLog("send Exception : "+e.getMessage());
+			VbyP.accessLog("sendCert Exception : "+e.getMessage());
 			System.out.println(e.toString());
 		}
 		finally { close(conn); }
-		VbyP.accessLog("send End : "+sw.getTime()+" sec, "+lvo.getUser_id()+", "+lvo.getMode()+", "+lvo.getCnt()+" count");
+		VbyP.accessLog("sendCert End : "+sw.getTime()+" sec, "+lvo.getUser_id()+", "+lvo.getMode()+", "+lvo.getCnt()+" count");
 		
 		if (lvo.getIdx() < 1) {
 			bvo.setbResult(false);
-			bvo.setstrDescription("정보수정 실패");
+			bvo.setstrDescription(lvo.getMessage());
 		}else {
+			FlexSession session =  FlexContext.getFlexSession();
+			session.setAttribute(user_id , rnd);
+			VbyP.accessLog("cert : " + user_id+" -> " + rnd);
 			bvo.setbResult(true);
 			bvo.setstrDescription(rnd);
 		}
+		return bvo;
+	}
+	
+	public BooleanAndDescriptionVO getCert(String user_id, String certNumber) {
+		
+		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		
+		FlexSession session =  FlexContext.getFlexSession();
+		String rnd = "";
+		if ( session.getAttribute(user_id) != null ) {
+			rnd = (String)session.getAttribute(user_id);
+		}
+		VbyP.accessLog("getCert : user_id="+user_id+" certNumber="+certNumber+" sessionNum="+rnd);
+
+		if (SLibrary.IfNull(rnd).equals(certNumber)) {
+			bvo.setbResult(true);
+		} else {
+			bvo.setbResult(false);
+			bvo.setstrDescription("잘못된 인증번호 입니다.");
+		}
+
 		return bvo;
 	}
 	
@@ -644,7 +674,8 @@ public class SmartDS extends SessionManagement {
 		buf.append(" - reqIP:"+smvo.getReqIP());
 		
 		VbyP.accessLog(buf.toString());
-		SendMail.send("[send] "+user_id+" "+getMode(smvo)+" "+ Integer.toString(smvo.getAl().size())+" 건", buf.toString());
+		if (!smvo.getReqIP().equals("127.0.0.1"))
+			SendMail.send("[send] "+user_id+" "+getMode(smvo)+" "+ Integer.toString(smvo.getAl().size())+" 건", buf.toString());
 	}
 	
 	/*###############################

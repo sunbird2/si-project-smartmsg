@@ -1,6 +1,6 @@
 /**
 *  Class Name, Log
-*  Class Description, ¼³Á¤ ·Î±×¸¦ ±â·Ï ÇÑ´Ù.
+*  Class Description, ï¿½ï¿½d ï¿½Î±×¸ï¿½ ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
 *  Version Information, 0.1
 *  Make date, 2008.07.08
 *  Author, si hoon park
@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /** 
-* <B>Log Class</B>´Â ·Î±×¸¦ ÆÄÀÏ·Î ±â·Ï ÇÑ´Ù.. </br>
+* <B>Log Class</B>ï¿½ï¿½ ï¿½Î±×¸ï¿½ ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.. </br>
 * @author sihoon 
 * @version 1.0 2007.05
 */
@@ -33,9 +33,9 @@ public class Log
 		return Log.class.getResource("../../").getPath();
 	}
 	/**  
-	* ÆÄÀÏ ÀúÀå
-	* @param filename -  ÀúÀå ÆÄÀÏ 
-	* @param log - ÀÔ·ÂÇÒ ¹®ÀÚ¿­ 
+	* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	* @param filename -  ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
+	* @param log - ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ 
 	*/
 	public void println(String log_path , String filename, String log){
 				
@@ -53,8 +53,8 @@ public class Log
 	}
 	
 	/**  
-	* ÆÄÀÏ ÀúÀå
-	* @param log - ÀÔ·ÂÇÒ ¹®ÀÚ¿­ 
+	* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	* @param log - ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ 
 	*/
 	public void println(String log_path ,String log) {
 		
@@ -72,12 +72,13 @@ public class Log
 				
 			}catch(Exception e){ 
 				System.out.println(e.getMessage());  
+				System.out.println(log);
 			}
 	}
 	
 	/**  
-	* ÆÄÀÏ ÀúÀå
-	* @param log - ÀÔ·ÂÇÒ ¹®ÀÚ¿­ 
+	* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	* @param log - ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½ 
 	*/
 	public void Testprintln(String log_path ,String log) throws Exception {
 		
