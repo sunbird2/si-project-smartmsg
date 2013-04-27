@@ -39,6 +39,34 @@ public class Join {
 		return b;
 	}
 	
+	public boolean hpDupleCheck(String phone) {
+		
+		boolean b = false;
+		
+		Connection conn = null;
+		int count = 0;
+		try {
+			conn = VbyP.getDB();
+			PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+			pq.setPrepared( conn, VbyP.getSQL("joinHpDupleCheck") );
+			pq.setString(1, SLibrary.IfNull(phone));
+			count = pq.ExecuteQueryNum();
+		}catch(Exception e) {}
+		finally {
+			try {
+				if ( conn != null )
+					conn.close();
+			}catch(SQLException e) {
+				VbyP.errorLog("Join >> conn.close() Exception!"); 
+			}
+		}
+		
+		if (count <= SLibrary.intValue(VbyP.getValue("cert_hp_cnt")))
+			b = true;
+		
+		return b;
+	}
+	
 	public boolean juminDupleCheck(String jumin) {
 		
 		boolean b = false;

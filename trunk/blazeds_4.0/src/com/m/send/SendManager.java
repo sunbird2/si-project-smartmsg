@@ -94,7 +94,7 @@ public class SendManager implements ISend {
 		Gv.setStatus(uvo.getUser_id(), "save log..");
 
 		
-		if (idx <= 0){
+		if (idx > 0){
 			al = makeMessageVOArrayList(uvo, smvo, idx);
 			Gv.setStatus(uvo.getUser_id(), "list make");
 			rslt = insertData(conn, lvo.getMode(), uvo, al, uvo.getLine());
