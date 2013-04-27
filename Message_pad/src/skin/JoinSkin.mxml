@@ -21,7 +21,7 @@
 	<s:Group width="1024" height="696" horizontalCenter="0">
 		<s:Rect left="0" right="0" bottom="0" top="0">
 			<s:fill>
-				<s:SolidColor color="#E9E9E9" />
+				<s:SolidColor color="#FEFEFE" />
 			</s:fill>
 		</s:Rect>
 		<!-- actionbar -->
@@ -652,35 +652,35 @@
 			<s:RichText horizontalCenter="0" whiteSpaceCollapse="preserve" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
 				<s:content><s:p><s:span>사용자 정보를</s:span><s:span color="#8d8d8d"> 입력해주세요.</s:span></s:p></s:content>
 			</s:RichText>
-			<s:Label text="저희 사이트는 개정된 정보통신망 이용촉진 및 정보보호 등에 관한 법률에 의거 주민등록번호를 수집 하지 않습니다." />
-			<s:Form x="264" width="496">
+			<s:Label text="문자노트는 개정된 정보통신망 이용촉진 및 정보보호 등에 관한 법률에 의거 주민등록번호를 수집 하지 않습니다." />
+			<s:Form x="264" width="510">
 				<s:layout>
 					<s:FormLayout gap="0"/>
 				</s:layout>
-				<s:FormHeading/>
-				<s:FormItem width="475" height="65" label="아이디" required="true">
+				<s:FormHeading height="0" />
+				<s:FormItem width="495" height="65" label="아이디" required="true">
 					<s:TextInput id="userid" width="210" prompt="아이디"
 								 styleName="textinput_light"/>
 					<s:helpContent>
-						<s:Label id="useridh" text="아이디를 입력하세요." color="0xFF0000"/>
+						<s:Label id="useridh" text="아이디를 입력하세요." color="0xFF4444"/>
 					</s:helpContent>
 				</s:FormItem>
 				
-				<s:FormItem width="475" height="65" label="비밀번호" required="true">
+				<s:FormItem width="495" height="65" label="비밀번호" required="true">
 					<s:TextInput id="userpw" width="210" prompt="비밀번호" displayAsPassword="true" styleName="textinput_light" />
 					<s:helpContent>
-						<s:Label id="userpwh" text="비밀번호를 입력하세요." color="0xFF0000"/>
+						<s:Label id="userpwh" text="비밀번호를 입력하세요." color="0xFF4444"/>
 					</s:helpContent>
 				</s:FormItem>
 				
-				<s:FormItem width="475" height="65" label="비밀번호확인" required="true">
+				<s:FormItem width="495" height="65" label="비밀번호확인" required="true">
 					<s:TextInput id="userrepw" width="210" prompt="비밀번호확인" displayAsPassword="true" styleName="textinput_light" />
 					<s:helpContent>
-						<s:Label id="userrepwh" text="비밀번호확인을 입력하세요." color="0xFF0000"/>
+						<s:Label id="userrepwh" text="비밀번호확인을 입력하세요." color="0xFF4444"/>
 					</s:helpContent>
 				</s:FormItem>
 				
-				<s:FormItem width="475" label="휴대폰번호" required="true">
+				<s:FormItem width="495" label="휴대폰번호" required="true">
 					<s:HGroup gap="9">
 						<s:ComboBox id="userhp1" selectedIndex="0" width="60" styleName="comboBox_light">
 							<s:ArrayCollection>
@@ -698,11 +698,21 @@
 					
 					<s:helpContent>
 						<s:VGroup>
-							<s:Label id="userhph" text="휴대폰번호를 입력하세요." color="0xFF0000"/>
-							<s:Label text="비밀번호찾기시 이용됩니다."/>
+							<s:Label id="userhph" text="휴대폰번호를 입력하세요." color="0xFF4444"/>
+							<s:Label text="비밀번호 찾기 시 이용됩니다."/>
 							<s:Label text="정확히 입력하세요."/>
 						</s:VGroup>
 						
+					</s:helpContent>
+				</s:FormItem>
+				<s:FormItem id="certItem" width="495" height="65" label="휴대폰인증" required="true" visible="false">
+					<s:Group>
+						<s:Button id="certBtn" label="인증번호요청" fontSize="12" fontWeight="bold" styleName="button_light" width="210" height="28" />
+						<s:TextInput id="certNumber" width="210" prompt="인증번호입력" styleName="textinput_light"  visible="false"/>
+					</s:Group>
+					
+					<s:helpContent>
+						<s:Label id="certh" text="인증번호 요청을 클릭하세요." color="0xFF4444"/>
 					</s:helpContent>
 				</s:FormItem>
 			</s:Form>
