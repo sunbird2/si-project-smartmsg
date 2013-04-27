@@ -26,9 +26,9 @@ ArrayList<LogVO> lines = null;
 ISentData sentData = null;
 
 try {
-	
-	if (SLibrary.isNull(dtStart)) dtStart = SLibrary.getDateTimeString("yyyyMMdd");
-	if (SLibrary.isNull(dtEnd)) dtEnd = SLibrary.getDateTimeString("yyyyMMdd");
+	// 3 day ago
+	if (SLibrary.isNull(dtStart)) dtStart = SLibrary.getDateAddSecond("yyyy-MM-dd", SLibrary.getDateTimeString("yyyy-MM-dd"), -1*60*60*24*3);
+	if (SLibrary.isNull(dtEnd)) dtEnd = SLibrary.getDateAddSecond("yyyy-MM-dd", SLibrary.getDateTimeString("yyyy-MM-dd"), -1*60*60*24*3);
 	
 	// init
 	dtStart = dtStart+" 00:00:00";
@@ -45,13 +45,14 @@ try {
 	
 	if (lines != null && lines.size() > 0) {
 		
-		int cnt = lines.size();
+		int cntLines = lines.size();
 		int code = 0;
 		int point = 0;
+		int cnt = 0;
 		UserInformationVO uvo = null;
 		LogVO lvo = null;
 		SessionManagement smm = new SessionManagement();
-		for (int i = 0; i < cnt; i++) {
+		for (int i = 0; i < cntLines; i++) {
 			
 			lvo = lines.get(i);
 			if (lvo.getLine().equals("lg")) sentData = LGSent.getInstance();
