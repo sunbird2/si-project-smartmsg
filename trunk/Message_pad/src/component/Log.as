@@ -269,9 +269,10 @@ package component
 			
 			RemoteSingleManager.getInstance.removeEventListener("failAdd", getSentList_resultHandler);
 			var rslt:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+			this.dispatchEvent(new Event(Log.FAIL_ADD));
 			SLibrary.alert(rslt.strDescription);
 			getDetailList();
-			this.dispatchEvent(new Event(FAIL_ADD));
+			
 		}
 		
 		
