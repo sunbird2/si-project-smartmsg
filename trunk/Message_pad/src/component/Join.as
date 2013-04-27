@@ -22,6 +22,7 @@ package component
 	import spark.components.Button;
 	import spark.components.CheckBox;
 	import spark.components.ComboBox;
+	import spark.components.FormItem;
 	import spark.components.Label;
 	import spark.components.TextInput;
 	import spark.components.supportClasses.SkinnableComponent;
@@ -60,10 +61,15 @@ package component
 		[SkinPart(required="false")]public var cancel2:Button;
 		[SkinPart(required="false")]public var sec:Label;
 		
+		[SkinPart(required="false")]public var certItem:FormItem;
+		[SkinPart(required="false")]public var certBtn:Button;
+		[SkinPart(required="false")]public var certNumber:TextInput;
+		[SkinPart(required="false")]public var certh:Label;
+		
 		private var inTimer:Timer;
 		
-		private var VALID_COLOR:Number = 0x0000FF;
-		private var INVALID_COLOR:Number = 0xFF0000;
+		private var VALID_COLOR:Number = 0x33B5E5;
+		private var INVALID_COLOR:Number = 0xFF4444;
 		
 		private var _step:uint = 0;
 		public function get step():uint { return _step; }
@@ -111,6 +117,14 @@ package component
 				userhp3.maxChars = 4;
 				userhp3.addEventListener(KeyboardEvent.KEY_UP, tiHp_keyUpHandler);
 			}
+			else if (instance == certBtn) {
+				certBtn.addEventListener(MouseEvent.CLICK, certBtn_clickHandler);
+			}
+			else if (instance == certNumber) {
+				certNumber.maxChars = 5;
+				certNumber.addEventListener(KeyboardEvent.KEY_UP, certNumber_keyUpHandler);
+			}
+			
 			else if (instance == next2) next2.addEventListener(MouseEvent.CLICK, next2_clickHandler);
 			else if (instance == sec) autoIn();
 			else if (instance == cancel2) cancel2.addEventListener(MouseEvent.CLICK, cancel_clickHandler);
@@ -284,12 +298,116 @@ package component
 			if (arr.length > 0) {
 				userhph.setStyle("color",INVALID_COLOR);
 				userhph.text = ValidationResult(arr[0]).errorMessage;
+				
+				showCert(false);
 			}else {
 				userhph.setStyle("color",VALID_COLOR);
 				userhph.text = "확인";
+				
+				showCert(true);
+			}
+			
+			// focus move
+			var tg:TextInput = TextInput(event.currentTarget);
+			if (tg.id == "userhp2" && tg.text.length == 4) userhp3.setFocus();
+		}
+		
+		/**
+		 * cert view
+		 * */
+		private function showCert(b:Boolean):void {
+			
+			if (b == true) {
+				certItem.visible = true;
+				certBtn.visible = true;
+				certNumber.visible = false;	
+			} else {
+				certItem.visible = false;
+			}
+			
+		}
+		
+		/**
+		 * request certNumber
+		 * */
+		private function certBtn_clickHandler(event:MouseEvent):void {
+			
+			var phone:String = String(userhp1.selectedItem.data)+userhp2.text+userhp3.text;
+			if (phone != "" && userid.text != "") {
+				RemoteSingleManager.getInstance.addEventListener("sendCert", certBtn_CustomEventHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.sendCert(userid.text, phone);
+			} else {
+				SLibrary.alert("아이디와 휴대폰번호를 입력해 주세요.");
+			}
+		}
+		private function certBtn_CustomEventHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("sendCert", idCheck_CustomEventHandler);
+			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+			if (bVO.bResult) {
+				certh.setStyle("color",INVALID_COLOR);
+				certh.text = "인증번호를 입력해 주세요.";
+				
+				certBtn.visible = false;
+				certNumber.visible = true;
+				
+			} else {
+				certh.setStyle("color",INVALID_COLOR);
+				certh.text = bVO.strDescription;
 			}
 		}
 		
+		/**
+		 * certNumber valid
+		 * */
+		protected function certNumber_keyUpHandler(event:KeyboardEvent):void
+		{
+			var cert:String = certNumber.text;
+			sv.minLength = 5;
+			sv.maxLength = 5;
+			sv.tooShortError = "5자리 입력하세요";
+			sv.tooLongError = "5자리 입력하세요";
+			
+			var arr:Array = StringValidator.validateString(sv, cert);
+			
+			if (arr.length > 0) {
+				certh.setStyle("color",INVALID_COLOR);
+				certh.text = ValidationResult(arr[0]).errorMessage;
+				
+			}else {
+				certh.setStyle("color",VALID_COLOR);
+				certh.text = "확인";
+				certCheck();
+			}
+		}
+		
+		/**
+		 * certNumber server valid
+		 * */
+		private function certCheck():void {
+			
+			var uid:String = userid.text;
+			var cn:String = certNumber.text;
+			
+			if (uid != "" && cn != "") {
+				RemoteSingleManager.getInstance.addEventListener("getCert", certCheck_CustomEventHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.getCert(uid, cn);
+			}
+		}
+		private function certCheck_CustomEventHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("getCert", certCheck_CustomEventHandler);
+			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+			if (bVO.bResult) {
+				certh.setStyle("color",VALID_COLOR);
+				certh.text = "확인";
+			} else {
+				certh.setStyle("color",INVALID_COLOR);
+				certh.text = "잘못된 인증번호 입니다.";
+			}
+		}
 		
 		/**
 		 * all valid
@@ -301,6 +419,7 @@ package component
 				&&userpwh.getStyle("color") == VALID_COLOR
 				&&userrepwh.getStyle("color") == VALID_COLOR
 				&&userhph.getStyle("color") == VALID_COLOR
+				&&certh.getStyle("color") == VALID_COLOR
 			) b = true;
 			
 			return b;
