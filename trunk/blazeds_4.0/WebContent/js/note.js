@@ -403,6 +403,9 @@
 			
 			// 깜박임
 			blinkCnt = 5;
+			
+			if (blinkInterval != null) clearInterval(blinkInterval);
+			
 			blinkInterval = setInterval(function() {  
 				
 		    	if (ele.css('visibility') == 'visible') {ele.css('visibility', 'hidden');}
@@ -428,6 +431,7 @@
 	}
 	
 	function logout_flex() {
+		var MunjaNote = document.getElementById("MunjaNote");
 		if (MunjaNote) MunjaNote.flexFunction("logout", "");
 	}
 	
