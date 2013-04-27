@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.common.VbyP;
+import com.common.util.RandomString;
 import com.common.util.SLibrary;
 import com.common.util.SendMail;
 import com.common.util.StopWatch;
@@ -39,6 +40,7 @@ import com.m.returnphone.ReturnPhone;
 import com.m.send.ISend;
 import com.m.send.LogVO;
 import com.m.send.MessageVO;
+import com.m.send.PhoneVO;
 import com.m.send.SendManager;
 import com.m.send.SendMessageVO;
 
@@ -114,6 +116,69 @@ public class SmartDS extends SessionManagement {
 			bvo.setstrDescription("정보수정 실패");
 		}else {
 			bvo.setbResult(true);
+		}
+		return bvo;
+	}
+	
+	public BooleanAndDescriptionVO sendCert(String user_id, String hp) {
+		
+		VbyP.accessLog(user_id+" >> sendCert");
+		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		
+		StopWatch sw = new StopWatch();
+		sw.play();
+		
+		Connection conn = null;
+		ISend send = SendManager.getInstance();
+		UserInformationVO uvo = null;
+		LogVO lvo = null;
+		SendMessageVO smvo = null;
+		
+		ArrayList<PhoneVO> al = null;
+		String rnd = "";
+		try {
+
+			conn = VbyP.getDB();
+			uvo = new UserInformationVO();
+			uvo.setUser_id(VbyP.getValue("cert_id"));
+			uvo.setUser_id(VbyP.getValue("cert_line"));
+			
+			
+			smvo = new SendMessageVO();
+			smvo.setReturnPhone(VbyP.getValue("cert_returnphone"));
+			
+			RandomString rndStr = new RandomString();
+			rnd = rndStr.getString(5,"1");
+			smvo.setMessage("[문자노트]\n" +rnd+ "\n인증번호를 입력해 주세요.");
+			
+			al = new ArrayList<PhoneVO>();
+			al.add(new PhoneVO(hp,""));
+			smvo.setAl(al);
+			
+			smvo.setReqIP(FlexContext.getHttpRequest().getRemoteAddr());
+			
+			sendLogWrite(uvo.getUser_id(), smvo);
+			lvo = send.Adminsend(conn, uvo, smvo);
+			
+			Gv.removeStatus(uvo.getUser_id());
+			
+		}catch (Exception e) {
+			
+			if (lvo == null) lvo = new LogVO();
+			lvo.setIdx(0);
+			lvo.setMessage(e.getMessage());
+			VbyP.accessLog("send Exception : "+e.getMessage());
+			System.out.println(e.toString());
+		}
+		finally { close(conn); }
+		VbyP.accessLog("send End : "+sw.getTime()+" sec, "+lvo.getUser_id()+", "+lvo.getMode()+", "+lvo.getCnt()+" count");
+		
+		if (lvo.getIdx() < 1) {
+			bvo.setbResult(false);
+			bvo.setstrDescription("정보수정 실패");
+		}else {
+			bvo.setbResult(true);
+			bvo.setstrDescription(rnd);
 		}
 		return bvo;
 	}
@@ -501,6 +566,7 @@ public class SmartDS extends SessionManagement {
 	    
 		return bvo;
 	}
+	
 	public LogVO sendSMSconf( SendMessageVO smvo ) {
 		
 		VbyP.accessLog("send Start");
