@@ -57,6 +57,31 @@ public class SentManager implements ISent {
 		return rsltCount;
 	}
 	
+	@Override
+	public ArrayList<LogVO> getListAll(Connection conn, String dtStart, String dtEnd) {
+		
+		ArrayList<LogVO> al = new ArrayList<LogVO>();
+		ArrayList<HashMap<String, String>> temp = null;
+		
+		String SQL = VbyP.getSQL("sent_list");
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		
+		pq.setPrepared(conn, SQL);
+		pq.setString(1, dtStart);
+		pq.setString(2, dtEnd);
+		
+		temp = pq.ExecuteQueryArrayList();
+		
+		if (temp != null && temp.size() > 0) {
+			int cnt = temp.size();
+			for (int i = 0; i < cnt; i++) {
+				al.add(new LogVO(temp.get(i)));
+			}
+		}
+		return al;
+		
+	}
+	
 	private ArrayList<LogVO> parseVO(ArrayList<HashMap<String, String>> al) {
 		
 		ArrayList<LogVO> result = new ArrayList<LogVO>();
