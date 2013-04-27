@@ -132,8 +132,10 @@
 					log.minWidth = 1024;
 					log.minHeight = 420;
 					log.horizontalCenter = 0;
+					log.addEventListener(Log.FAIL_ADD, loginCheck);
 					main_group.addElement(log);
 				} else if (log != null) {
+					log.removeEventListener(Log.FAIL_ADD, loginCheck);
 					main_group.removeElement(log);
 					log.destroy();
 					
