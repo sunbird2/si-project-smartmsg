@@ -65,6 +65,7 @@ public class SendManager implements ISend {
 			
 			if (rslt*typePoint < point) {
 				VbyP.accessLog(uvo.getUser_id()+" >> fail add : "+ (point - (rslt*typePoint)));
+				uvo.setPoint(Integer.toString( PointManager.getInstance().getUserPoint( conn, uvo.getUser_id() ) ));
 				rslt = updateFailPoint(conn, uvo, lvo.getMode(), point - (rslt*typePoint));
 				if ( rslt <= 0 ) VbyP.errorLog(uvo.getUser_id()+" >> fail add : "+ (point - (rslt*typePoint))+" "+lvo.getMode()+" Fail!!!!!");
 			}
