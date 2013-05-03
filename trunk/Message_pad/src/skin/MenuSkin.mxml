@@ -33,14 +33,14 @@
 		</s:Group>
 		
 		<s:Group id="labelAddress" buttonMode="true" excludeFrom="address">
-			<ics:BitmapImageReflection source="@Embed('/skin/ics/assets/menu_address.png')" top="8" 
+			<ics:BitmapImageReflection source="/skin/ics/assets/menu_address.png" top="8" 
 									   imageWidth="48" imageHeight="48" imageWidth.small="32" imageHeight.small="32" reflectionVisible.small="false"
 									   gap="-11"/>
 			<s:RichText text="주소록" includeIn="home" color="#DDDDDD" horizontalCenter="0" top="56" />
 		</s:Group>
 		
 		<s:Group id="labelBill" buttonMode="true" excludeFrom="bill">
-			<ics:BitmapImageReflection source="@Embed('/skin/ics/assets/menu_bill.png')" top="4"
+			<ics:BitmapImageReflection source="/skin/ics/assets/menu_bill.png" top="4"
 									   imageWidth="48" imageHeight="48" imageWidth.small="32" imageHeight.small="32" reflectionVisible.small="false"
 									   gap="-7"/>
 			<s:RichText text="결제" includeIn="home" color="#DDDDDD" horizontalCenter="0" top="56" />

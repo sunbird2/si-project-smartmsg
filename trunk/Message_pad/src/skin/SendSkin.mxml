@@ -106,7 +106,7 @@
 								 toolTip="중복번호 삭제" width="30" height="30"
 								 />
 						<s:Image id="phoneRemoveAll"
-								 source="@Embed('/skin/ics/assets/light/icon/5-content-discard.png')" buttonMode="true"
+								 source="/skin/ics/assets/light/icon/5-content-discard.png" buttonMode="true"
 								 toolTip="전체삭제" width="30" height="30"
 								 />	
 					</s:HGroup>
