@@ -45,6 +45,6 @@
 		<s:Label id="labelField" paddingTop="2"/>
 	</s:HGroup>
 	<s:Group right="2">
-		<s:Image source="@Embed('assets/post_btn_send.gif')"  visible="{data.attribute('type')!='all'}" click="send_clickHandler(event)"/>
+		<s:Image source="assets/post_btn_send.gif"  visible="{data.attribute('type')!='all'}" click="send_clickHandler(event)"/>
 	</s:Group>
 </s:MXTreeItemRenderer>

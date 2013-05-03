@@ -38,7 +38,7 @@
 							<s:content><s:p><s:span id="nameCount">0</s:span><s:span kerning="auto"> </s:span><s:span fontSize="12" lineHeight="166.65%" kerning="auto">명</s:span></s:p></s:content>
 						</s:RichText>
 						<s:Image id="nameMultSelectBtn" source="skin/ics/assets/light/icon/1-navigation-accept.png" alpha="0.4" buttonMode="true" toolTip="여러개 선택하기" />
-						<s:Image id="selectSend" buttonMode="true" source="@Embed('assets/post_btn_send.gif')" toolTip="선택 전화번호 전송"/>
+						<s:Image id="selectSend" buttonMode="true" source="assets/post_btn_send.gif" toolTip="선택 전화번호 전송"/>
 					</s:HGroup>
 				</s:SkinnableContainer>
 				
