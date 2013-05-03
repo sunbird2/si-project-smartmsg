@@ -378,6 +378,7 @@ package component
 				failCount = ssvo.fail;
 				failAdd.enabled = failCount > 0 ? true : false;
 				
+				//SLibrary.alert(failCount+ " 건의 실패 내역이 있습니다.\r\n오른쪽 상단의 실패보상을 클릭 하세요.");
 			}
 			if (message)
 				message.text = detailVO.message;
