@@ -63,7 +63,7 @@
 	<s:Image id="icon_image" width="32" height="32" fillMode="scale"  />
 	<s:Label id="title" fontSize="14" color="#222222" />
 	<s:Label id="sub" fontSize="12" color="#999999"/>
-	<s:Image right="5" verticalCenter="0" buttonMode="true" source="@Embed('assets/post_btn_send.gif')"  click="send_clickHandler(event)"/>
+	<s:Image right="5" verticalCenter="0" buttonMode="true" source="assets/post_btn_send.gif"  click="send_clickHandler(event)"/>
 	<s:Rect width="100%" bottom="0" height="0.5">
 		<s:stroke>
 			<s:SolidColorStroke color="#D9D9D9" />
