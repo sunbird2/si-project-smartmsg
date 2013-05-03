@@ -54,6 +54,10 @@
         <servlet-name>MessageBrokerServlet</servlet-name>
         <url-pattern>/messagebroker/*</url-pattern>
     </servlet-mapping>
+    
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
 
     <welcome-file-list>
         <welcome-file>MunjaNote.html</welcome-file>
@@ -73,6 +77,7 @@
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
     -->
+    
 	<resource-ref>
       <description>Mysql Datasource</description>
       <res-ref-name>jdbc/smart</res-ref-name>
