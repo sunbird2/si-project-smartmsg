@@ -15,5 +15,11 @@
 		<source>com.m.SmartDS</source>
 		</properties>
 	</destination>
+	
+	<destination id="mst">
+		<properties>
+		<source>com.m.MasterDS</source>
+		</properties>
+	</destination>
 
 </service>
