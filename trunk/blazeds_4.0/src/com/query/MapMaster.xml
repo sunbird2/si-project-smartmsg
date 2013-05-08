@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.query.MapMaster">
+	<resultMap id="hashmap" type="java.util.HashMap">
+	</resultMap>
+	
+	<!-- member S -->
+	<select id="select_member" parameterType="MemberVO" resultType="MemberVO">
+		select
+			m.idx, m.user_id, m.passwd, m.hp, m.unit_cost, m.line, m.memo, m.timeLogin, m.timeJoin, m.leaveYN 
+			, p.point 
+		from member m left outer join point p
+		on (m.user_id = p.user_id)
+		where
+		m.user_id = #{user_id}
+	</select>
+	
+	<select id="select_member_list_page" parameterType="MemberVO" resultType="MemberVO">
+		select
+			m.idx, m.user_id, m.passwd, m.hp, m.unit_cost, m.line, m.memo, m.timeLogin, m.timeJoin, m.leaveYN 
+			, p.point 
+		from member m left outer join point p
+		on (m.user_id = p.user_id)
+		<where>
+			<if test="user_id != null">
+				m.user_id like #{user_id}
+			</if>
+			<if test="hp != null">
+				or m.hp like #{hp}
+			</if>
+		</where>
+		order by m.idx desc
+		limit #{start}, #{end}
+		
+	</select>
+	
+	<select id="select_member_list_page_count" parameterType="com.m.admin.vo.MemberVO" resultType="int" >
+		select
+			count(*) as cnt 
+		from member m left outer join point p
+		on (m.user_id = p.user_id)
+		<where>
+			<if test="user_id != null">
+				m.user_id like #{user_id}
+			</if>
+			<if test="hp != null">
+				or m.hp like #{hp}
+			</if>
+		</where>
+		
+	</select>
+	
+	<update id="update_member" parameterType="MemberVO">
+		update member
+		<set>
+			<if test="hp != null">hp = #{hp} , </if>
+			<if test="memo != null">memo = #{memo} , </if>
+			<if test="unit_cost != null">unit_cost = #{unit_cost} </if>
+			<if test="line != null">line = #{line} </if>
+			<if test="leaveYN != null">leaveYN = #{leaveYN} </if>
+		</set>
+		where
+		user_id = #{user_id}
+	</update>
+	<!-- member E -->
+	
+	<!-- billing S -->
+	<insert id="insert_billing" parameterType="com.m.admin.vo.BillingVO">
+		INSERT INTO billing
+		(user_id, method, amount, order_no, unit_cost, point, remain_point, memo, admin_id, timeWrite) 
+		VALUES (
+		#{user_id},
+		#{method}, 
+		#{amount}, 
+		#{order_no}, 
+		#{unit_cost}, 
+		#{point}, 
+		#{remain_point}, 
+		#{memo}, 
+		#{admin_id}, 
+		#{timeWrite} 
+		)
+	</insert>
+	<!-- billing E -->
+	
+	<!-- point S -->
+	<insert id="insert_point_log" parameterType="com.m.point.PointLogVO">
+		insert into point_log(user_id, point, code, memo, timeWrite, old_point, now_point) 
+		values (#{user_id}, #{point}, #{code}, #{memo}, #{timeWrite}, #{old_point}, #{now_point})
+	</insert>
+	
+	<update id="update_point" parameterType="com.m.point.PointVO">
+		update point set
+		point=point+#{point}, timeWrite=#{timeWrite} where user_id=#{user_id}
+	</update>
+	<!-- point E -->
+
+</mapper>

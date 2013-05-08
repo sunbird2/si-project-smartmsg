@@ -189,7 +189,8 @@ public class Billing {
 			else if (bvo.getAmount() == ( 300000+( 300000 *0.1 ) ) ) point = SLibrary.intValue( VbyP.getValue("b300000") );
 			else if (bvo.getAmount() == ( 500000+( 500000 *0.1 ) ) ) point = SLibrary.intValue( VbyP.getValue("b500000") );
 			else if (bvo.getAmount() == ( 1000000+( 1000000 *0.1 ) ) ) point = SLibrary.intValue( VbyP.getValue("b1000000") );
-			else point = SLibrary.intValue( SLibrary.fmtBy.format( Math.ceil(bvo.getAmount()/uvo.getUnit_cost()) ) );
+			else if (bvo.getAmount() == ( 2000000+( 2000000 *0.1 ) ) ) point = SLibrary.intValue( VbyP.getValue("b2000000") );
+			else point = SLibrary.intValue( SLibrary.fmtBy.format( Math.ceil(bvo.getAmount()/(uvo.getUnit_cost()+(uvo.getUnit_cost()*0.1))) ) );
 			
 			VbyP.accessLog(" >> 결제등록 요청 "+ user_id +" : "+ Integer.toString(point)+" 건 ");
 			
@@ -217,6 +218,33 @@ public class Billing {
 			
 		}
 		return rvo;
+	}
+	
+	public int getCost(int amount) {
+		
+		int rslt = 18;
+		
+		if (amount <= 11000 ) rslt = SLibrary.intValue( SLibrary.fmtBy.format(Math.ceil(10000/SLibrary.intValue( VbyP.getValue("b10000") ))));
+		else if (amount <= 33000 ) rslt = SLibrary.intValue( SLibrary.fmtBy.format(Math.ceil(30000/SLibrary.intValue( VbyP.getValue("b30000") ))));
+		else if (amount <= 55000 ) rslt = SLibrary.intValue( SLibrary.fmtBy.format(Math.ceil(50000/SLibrary.intValue( VbyP.getValue("b50000") ))));
+		else if (amount <= 110000 ) rslt = SLibrary.intValue( SLibrary.fmtBy.format(Math.ceil(100000/SLibrary.intValue( VbyP.getValue("b100000") ))));
+		else if (amount <= 330000 ) rslt = SLibrary.intValue( SLibrary.fmtBy.format(Math.ceil(300000/SLibrary.intValue( VbyP.getValue("b300000") ))));
+		else if (amount <= 550000 ) rslt = SLibrary.intValue( SLibrary.fmtBy.format(Math.ceil(500000/SLibrary.intValue( VbyP.getValue("b500000") ))));
+		else if (amount <= 1100000 ) rslt = SLibrary.intValue( SLibrary.fmtBy.format(Math.ceil(1000000/SLibrary.intValue( VbyP.getValue("b1000000") ))));
+		else if (amount <= 2200000 ) rslt = SLibrary.intValue( SLibrary.fmtBy.format(Math.ceil(2000000/SLibrary.intValue( VbyP.getValue("b2000000") ))));
+		else rslt = SLibrary.intValue( SLibrary.fmtBy.format(Math.ceil(2000000/SLibrary.intValue( VbyP.getValue("b2000000") ))));
+		
+		//rslt = SLibrary.intValue( SLibrary.fmtBy.format(Math.ceil(rslt+(rslt*0.1))));
+		
+		return rslt;
+	}
+	
+	public int getPoint(int amount) {
+		
+		int unit = getCost(amount);
+		int noVat = SLibrary.intValue( SLibrary.fmtBy.format(amount - amount*1/11));
+		int rslt = SLibrary.intValue( SLibrary.fmtBy.format(Math.ceil(noVat/unit)));
+		return rslt;
 	}
 	
 	private int insert(Connection conn, BillingVO vo) {
