@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:services="services.*"
+		title="Auth"
+		backKeyPressed="backKeyPressedHandler(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import valueObjects.BooleanAndDescriptionVO;
+			protected function loginBtn_clickHandler(event:MouseEvent):void
+			{
+				loginResult.token = mst.login(masterID.text, masterPW.text);
+			}
+			
+			protected function loginResult_resultHandler(event:ResultEvent):void
+			{
+				var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+				if (bvo != null && bvo.bResult == true) navigator.pushView(MainView);
+			}
+			
+			private function changeField(ti:TextInput):void {
+				// Before changing focus to a new control, set the stage's focus to null:
+				stage.focus = null;
+				
+				// Set focus on the TextInput that was passed in:
+				ti.setFocus();
+			}
+			
+			protected function backKeyPressedHandler(event:FlexEvent):void
+			{
+				NativeApplication.nativeApplication.exit();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:CallResponder id="loginResult" result="loginResult_resultHandler(event)"/>
+		<services:Mst id="mst"/>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:VGroup width="80%" horizontalCenter="0" verticalCenter="0" gap="10">
+		<s:TextInput prompt="id" id="masterID" width="100%" returnKeyLabel="next" enter="changeField(masterPW)" />
+		<s:TextInput prompt="pw" id="masterPW" width="100%" displayAsPassword="true" returnKeyLabel="go" enter="loginBtn_clickHandler(null)" />
+		<s:Button id="loginBtn" width="100%" label="login" click="loginBtn_clickHandler(event)"/>
+	</s:VGroup>
+</s:View>

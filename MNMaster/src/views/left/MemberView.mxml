@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:services="services.*"
+		xmlns:valueObjects="valueObjects.*"
+		title="Member">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import spark.components.SplitViewNavigator;
+			import spark.components.ViewNavigator;
+			import spark.events.IndexChangeEvent;
+			
+			import views.right.MemberDetailView;
+			
+			protected function list_creationCompleteHandler(event:FlexEvent):void
+			{
+				var s:String = "";
+				if (search.text != "") s = search.text;
+				getMember_pagedFilteredResult.token = mst.getMember_pagedFiltered(s, s);
+			}
+			
+			
+			
+			protected function list_changeHandler(event:IndexChangeEvent):void
+			{
+				var mvo:MemberVO = event.currentTarget.selectedItem as MemberVO;
+					
+				var splitNavigator:SplitViewNavigator = navigator.parentNavigator as SplitViewNavigator;
+				var detailNavigator:ViewNavigator = splitNavigator.getViewNavigatorAt(1) as ViewNavigator;
+				splitNavigator.hideViewNavigatorPopUp();
+				
+				detailNavigator.pushView(MemberDetailView, mvo);
+				detailNavigator.title = mvo.user_id;
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="getMember_pagedFilteredResult"/>
+		<services:Mst id="mst"/>
+		<valueObjects:MemberVO id="memberVO"/>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Binding destination="memberVO" source="list.selectedItem as MemberVO"/>
+	<s:navigationContent>
+		<s:Button label="M" click="navigator.popToFirstView()"/>
+	</s:navigationContent>
+	<s:titleContent>
+		<s:TextInput id="search" width="100%" />
+	</s:titleContent>
+	<s:actionContent>
+		<s:Button label="S" click="list_creationCompleteHandler(null)" />
+	</s:actionContent>
+	
+	<s:List id="list" width="100%" height="100%"
+			creationComplete="list_creationCompleteHandler(event)"
+			itemRenderer="renderer.MemberListRenderer"
+			change="list_changeHandler(event)">
+		<s:AsyncListView list="{getMember_pagedFilteredResult.lastResult}"/>
+	</s:List>
+	
+</s:View>

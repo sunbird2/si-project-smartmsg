@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Menu">
+	<fx:Script>
+		<![CDATA[
+			import views.MainView;
+			protected function list_clickHandler(event:MouseEvent):void
+			{
+				var sel:String = list.selectedItem as String;
+				if (sel == "Member") navigator.pushView(MemberView);
+				else if (sel == "Bill") navigator.pushView(BillView);
+				else if (sel == "Point") navigator.pushView(PointView);
+				else if (sel == "Sent") navigator.pushView(SentView);
+				//(this.parentDocument as MainView).rightNav.activeView.data=list.selectedItem;
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:navigationContent>
+		<s:Button label="M" click="navigator.popToFirstView()" />
+	</s:navigationContent>
+	<s:List id="list" width="100%" height="100%" click="list_clickHandler(event)">
+		<s:dataProvider>
+			<s:ArrayCollection>
+				<fx:String>Member</fx:String>
+				<fx:String>Bill</fx:String>
+				<fx:String>Point</fx:String>
+				<fx:String>Sent</fx:String>
+			</s:ArrayCollection>
+		</s:dataProvider>
+	</s:List>
+</s:View>

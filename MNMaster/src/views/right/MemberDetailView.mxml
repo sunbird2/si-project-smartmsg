@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:services="services.*"
+		title="MemberDetailView">
+	
+	<fx:Script>
+		<![CDATA[
+			import comm.Popup;
+			import comm.SLibrary;
+			
+			import mx.rpc.events.ResultEvent;
+			
+			import spark.components.SplitViewNavigator;
+			import spark.components.ViewNavigator;
+			
+			import valueObjects.BooleanAndDescriptionVO;
+			import valueObjects.MemberVO;
+			
+			import views.left.MemberView;
+			
+			[Bindable]
+			private var memberVO:MemberVO = null;
+			
+			protected function button_clickHandler(event:MouseEvent):void
+			{
+//				memberVO.passwd = passwdTextInput.text;
+				memberVO.hp = hpTextInput.text;
+//				memberVO.idx = parseInt(idxTextInput.text);
+				memberVO.memo = memoTextInput.text;
+				memberVO.unit_cost = unit_costTextInput.text;
+				memberVO.timeJoin = timeJoinTextInput.text;
+				memberVO.line = lineTextInput.text;
+				memberVO.leaveYN = leaveYNTextInput.text;
+				memberVO.point = parseInt(pointTextInput.text);
+				//memberVO.rownum = parseInt(rownumTextInput.text);
+				//memberVO.start = parseInt(startTextInput.text);
+				memberVO.user_id = user_idTextInput.text;
+				memberVO.timeLogin = timeLoginTextInput.text;
+				//memberVO.end = parseInt(endTextInput.text);
+			}
+			
+			 
+			
+			override public function set data(value:Object):void
+			{
+				// TODO Auto Generated method stub
+				super.data = value;
+				memberVO = super.data as MemberVO;
+				
+			}
+			
+			protected function update_clickHandler(col:String, event:MouseEvent):void
+			{
+				var mvo:MemberVO = new MemberVO();
+				mvo.user_id = memberVO.user_id;
+				mvo.idx = memberVO.idx;
+				
+				if (col == "hp") {
+					mvo.hp = hpTextInput.text;
+					memberVO.hp = hpTextInput.text;
+				}
+				else if (col == "memo") {
+					mvo.memo = memoTextInput.text;
+					memberVO.memo = memoTextInput.text;
+				}
+				else if (col == "unit_cost") {
+					mvo.unit_cost = unit_costTextInput.text;
+					memberVO.unit_cost = unit_costTextInput.text;
+				}
+				else if (col == "line") {
+					mvo.line = lineTextInput.text;
+					memberVO.line = lineTextInput.text;
+				}
+				else if (col == "leaveYN") {
+					mvo.leaveYN = leaveYNTextInput.text;
+					memberVO.leaveYN = leaveYNTextInput.text;
+				}
+				
+				setMember(mvo);
+				
+			}
+			
+			
+			protected function setMember(arg0:MemberVO):void {
+				setMemberResult.token = mst.setMember(arg0);
+			}
+			
+			protected function setMemberResult_resultHandler(event:ResultEvent):void
+			{
+				var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+				
+				if (bvo.bResult == true) {
+					SLibrary.alert("update Success.");
+				} else {
+					SLibrary.alert("update Fail.");
+				}
+				
+				/*
+				var splitNavigator:SplitViewNavigator = navigator.parentNavigator as SplitViewNavigator;
+				var detailNavigator:ViewNavigator = splitNavigator.getViewNavigatorAt(0) as ViewNavigator;
+				splitNavigator.hideViewNavigatorPopUp();
+				
+				var mv:MemberView = detailNavigator.activeView as MemberView;
+				var listMv:MemberVO = mv.list.selectedItem as MemberVO;
+				listMv = memberVO;
+				*/
+			}
+			
+			protected function btnCharge_clickHandler(event:MouseEvent):void
+			{
+				SLibrary.alert("update Success.");
+				navigator.pushView(ChargeView, memberVO);
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="setMemberResult" result="setMemberResult_resultHandler(event)"/>
+		<services:Mst id="mst"/>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:actionContent>
+		<s:Button id="btnCharge" label="Charge" click="btnCharge_clickHandler(event)"/>	
+	</s:actionContent>
+	
+	<s:Scroller width="100%" height="100%">
+		<s:VGroup>
+		<s:Form width="100%">
+			<s:FormItem label="User_id" width="100%">
+				<s:TextInput id="user_idTextInput" text="{memberVO.user_id}" editable="false"/>
+			</s:FormItem>
+			<s:FormItem label="Point" width="100%">				
+				<s:TextInput id="pointTextInput" text="{memberVO.point}" editable="false"/>
+			</s:FormItem>
+			<s:FormItem label="Hp" width="100%">
+				<s:HGroup>
+					<s:TextInput id="hpTextInput" text="{memberVO.hp}"/>
+					<s:Button height="64" label="▣" click="update_clickHandler('hp',event)" />
+				</s:HGroup>
+			</s:FormItem>
+			<s:FormItem label="Memo" width="100%">
+				<s:HGroup>
+					<s:TextInput id="memoTextInput" text="{memberVO.memo}"/>
+					<s:Button height="64" label="▣" click="update_clickHandler('memo',event)" />
+				</s:HGroup>
+			</s:FormItem>
+			<s:FormItem label="Unit_cost" width="100%">
+				<s:HGroup>
+					<s:TextInput id="unit_costTextInput" text="{memberVO.unit_cost}"/>
+					<s:Button height="64" label="▣" click="update_clickHandler('unit_cost',event)"/>
+				</s:HGroup>
+			</s:FormItem>
+			<s:FormItem label="TimeJoin" width="100%">
+				<s:TextInput id="timeJoinTextInput" text="{memberVO.timeJoin}" editable="false"/>
+			</s:FormItem>
+			<s:FormItem label="TimeLogin" width="100%">
+				<s:TextInput id="timeLoginTextInput" text="{memberVO.timeLogin}" editable="false"/>
+			</s:FormItem>
+			<s:FormItem label="Line" width="100%">
+				<s:HGroup>
+					<s:TextInput id="lineTextInput" text="{memberVO.line}"/>
+					<s:Button height="64" label="▣" click="update_clickHandler('line',event)" />
+				</s:HGroup>
+			</s:FormItem>
+			<s:FormItem label="LeaveYN" width="100%">
+				<s:HGroup>
+					<s:TextInput id="leaveYNTextInput" text="{memberVO.leaveYN}"/>
+					<s:Button height="64" label="▣" click="update_clickHandler('leaveYN',event)" />
+				</s:HGroup>
+			</s:FormItem>
+			
+			<!--
+			<s:FormItem label="Passwd" visible="false">
+				<s:TextInput id="passwdTextInput" text="{memberVO.passwd}" editable="false"/>
+			</s:FormItem>
+			<s:FormItem label="Idx" visible="false">
+				<s:TextInput id="idxTextInput" text="{memberVO.idx}" editable="false"/>
+			</s:FormItem>
+			<s:FormItem label="Rownum" visible="false">
+				<s:TextInput id="rownumTextInput" text="{memberVO.rownum}"/>
+			</s:FormItem>
+			<s:FormItem label="Start" visible="false">
+				<s:TextInput id="startTextInput" text="{memberVO.start}"/>
+			</s:FormItem>
+			<s:FormItem label="End" visible="false">
+				<s:TextInput id="endTextInput" text="{memberVO.end}"/>
+			</s:FormItem>
+			-->
+		</s:Form>
+		
+		</s:VGroup>
+	</s:Scroller>
+</s:View>
