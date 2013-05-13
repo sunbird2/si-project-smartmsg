@@ -109,7 +109,7 @@
 			
 			protected function btnCharge_clickHandler(event:MouseEvent):void
 			{
-				SLibrary.alert("update Success.");
+				//SLibrary.alert("update Success.");
 				navigator.pushView(ChargeView, memberVO);
 			}
 			
@@ -121,7 +121,7 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:actionContent>
-		<s:Button id="btnCharge" label="Charge" click="btnCharge_clickHandler(event)"/>	
+		<s:Button id="btnCharge" label="Charge" click="btnCharge_clickHandler(event)"/>
 	</s:actionContent>
 	
 	<s:Scroller width="100%" height="100%">
