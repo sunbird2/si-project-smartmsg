@@ -115,8 +115,62 @@
 
 #sideBanner {position:absolute;left:1120px;top:90px;width:140px;height:54px;background:url("../images/naver.png") no-repeat;}
 
+#mypage {font-family: 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
+#mypage .title {display:block;margin-top:10px;width:100%;font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;text-align:center;}
+#mypage .title .user {color:#33B5E5;font:bold 24px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
+#mypage .title .point {color:#FFBB33;font:bold 24px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
+#mypage .category {font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;border-bottom:1px solid #ccc;margin-top:20px;}
+#mypage .category_sub {font:normal 14px/18px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;margin:.5em 0px;}
+#mypage .txt {display:block;float:left;margin-right:10px;width:100px;height:22px;font:normal 14px/22px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
+#mypage .txtmini {display:block;float:left;width:50px;font:normal 14px/22px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
+#mypage .dash {display:block;float:left;font:normal 14px/22px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
+
+.dTable {display:block;clear:both;width:1024px;font-size:12px;color:#333333;border-width: 1px;border-color: #999999;border-collapse: collapse;}
+.dTable th {background-color:#EFEFEF;border-width: 1px;padding: 8px;border-style: solid;border-color: #EEEEEE;text-align:left;}
+.dTable tr {background-color:#FFFFFF;}
+.dTable td {border-width: 1px;padding: 4px;padding-left:8px;border-style: solid;border-color: #EEEEEE;}
+.dTable td span {color:#999;font-size:11px;line-height:100%;}
+
+
+/* Pagination */
+.pagination{ padding:15px 0; text-align:center; line-height:normal;}
+.pagination a,
+.pagination strong{ position:relative; color:#323232; font:bold 12px/16px Tahoma, Sans-serif; vertical-align:top; display:inline-block; text-decoration:none; padding:1px 8px; margin:0 -3px; border-left:1px solid #d6d6d6; border-right:1px solid #d6d6d6; background-color:#fff; z-index:2;}
+.pagination a:hover,
+.pagination a:active,
+.pagination a:focus{ background-color:#f8f8f8;}
+.pagination strong{ color:#ff8600;}
+.pagination .direction{ font-weight:normal; color:#767676; text-decoration:none !important; border:0; z-index:1;}
+.pagination .direction:hover,
+.pagination .direction:active,
+.pagination .direction:focus{ color:#323232; background-color:#fff;}
+.pagination .prev{ border-left:0;}
+.pagination .next{ border-right:0;}
+.pagination .direction span{ position:relative; display:inline-block; width:0; height:0; font-size:0; line-height:0; vertical-align:top; top:4px;}
+.pagination .prev span{ border:3px solid; border-top:solid #fff; border-bottom:solid #fff; border-left:0; margin-right:1px; *left:-4px;}
+.pagination .next span{ border:3px solid; border-top:solid #fff; border-bottom:solid #fff; border-right:0; margin-left:1px;}
+
+
 
 /* ----------------------------------- c ------------------------------------------ */
+.buttonmini {
+	display: block;
+	float:left;
+	margin-left:0px;
+	width:110px;
+	height:10px;
+	cursor: pointer;
+	padding:0.6em 5px .6em 5px;
+	position: relative;
+	text-align: center;
+	font: 1em/100% Dotum, Arial, Helvetica, sans-serif;
+	text-decoration: none;
+	vertical-align: baseline;
+	outline: none;
+	-webkit-border-radius: .5em;
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+}
 .button {
 	display: block;
 	float:left;
