@@ -22,8 +22,11 @@ public class BillingVO implements Serializable {
 	String delYN;
 	String tid;
 	String timestamp;
+	
 	int start;
 	int end;
+	int rownum;
+	int total;
 	
 	public int getIdx() {
 		return idx;
@@ -120,6 +123,18 @@ public class BillingVO implements Serializable {
 	}
 	public void setEnd(int end) {
 		this.end = end;
+	}
+	public int getRownum() {
+		return rownum;
+	}
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
 	}
 	
 	

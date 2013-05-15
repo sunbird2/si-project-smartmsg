@@ -62,6 +62,13 @@
 		where
 		user_id = #{user_id}
 	</update>
+	
+	<update id="update_member_passwd" parameterType="MemberVO">
+		update member set
+		passwd=password(#{passwd})
+		where
+		user_id = #{user_id}
+	</update>
 	<!-- member E -->
 	
 	<!-- billing S -->
@@ -81,6 +88,31 @@
 		#{timeWrite} 
 		)
 	</insert>
+	
+	<select id="select_bill_list_page" parameterType="com.m.admin.vo.BillingVO" resultType="com.m.admin.vo.BillingVO">
+		select
+			idx, user_id, method, amount, order_no, unit_cost, point, remain_point, memo, admin_id, timeWrite
+		from billing
+		<where>
+			<if test="user_id != null">
+				user_id like #{user_id}
+			</if>
+		</where>
+		order by idx desc
+		limit #{start}, #{end}
+	</select>
+	<select id="select_bill_list_page_count" parameterType="com.m.admin.vo.BillingVO" resultType="int" >
+		select
+			count(*) as cnt 
+		from billing
+		<where>
+			<if test="user_id != null">
+				user_id like #{user_id}
+			</if>
+		</where>
+		
+	</select>
+	
 	<!-- billing E -->
 	
 	<!-- point S -->
@@ -93,6 +125,56 @@
 		update point set
 		point=point+#{point}, timeWrite=#{timeWrite} where user_id=#{user_id}
 	</update>
+	
+	<select id="select_pointlog_list_page" parameterType="com.m.admin.vo.PointLogVO" resultType="com.m.admin.vo.PointLogVO">
+		select
+			idx, user_id, point, code, memo, timeWrite, old_point, now_point 
+		from point_log
+		<where>
+			<if test="user_id != null">
+				user_id like #{user_id}
+			</if>
+		</where>
+		order by idx desc
+		limit #{start}, #{end}
+	</select>
+	<select id="select_pointlog_list_page_count" parameterType="com.m.admin.vo.PointLogVO" resultType="int" >
+		select
+			count(*) as cnt 
+		from point_log
+		<where>
+			<if test="user_id != null">
+				user_id like #{user_id}
+			</if>
+		</where>
+		
+	</select>
 	<!-- point E -->
+	
+	<!-- sent S -->
+	<select id="select_sentlog_list_page" parameterType="com.m.admin.vo.SentLogVO" resultType="com.m.admin.vo.SentLogVO">
+		select
+			idx, user_id, line, mode, method, message, cnt, user_ip, timeSend, timeWrite, ynDel, delType, timeDel 
+		from sent_log
+		<where>
+			<if test="user_id != null">
+				user_id like #{user_id}
+			</if>
+		</where>
+		order by idx desc
+		limit #{start}, #{end}
+	</select>
+	<select id="select_sentlog_list_page_count" parameterType="com.m.admin.vo.SentLogVO" resultType="int" >
+		select
+			count(*) as cnt 
+		from sent_log
+		<where>
+			<if test="user_id != null">
+				user_id like #{user_id}
+			</if>
+		</where>
+		
+	</select>
+	<!-- sent E -->
 
 </mapper>
