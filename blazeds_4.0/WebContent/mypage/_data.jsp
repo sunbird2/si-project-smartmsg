@@ -12,7 +12,7 @@
 String ip = SLibrary.IfNull(request.getRemoteAddr());
 /*
 if (!ip.equals("112.216.246.130")) {
-	SendMail.send("[bill] 결제 페이지 요청", "ref:"+ip);
+	SendMail.send("[mypage] 마이 페이지 요청", "ref:"+ip);
 }
 */
 UserSession us = null;
@@ -33,8 +33,8 @@ try {
 	us = (UserSession)session.getAttribute("user_id");
 	
 	//test
-	us = new UserSession();
-	us.setUser_id("superman");
+//	us = new UserSession();
+//	us.setUser_id("superman");
 	
 	if (us == null) { throw new Exception("no login"); }
 	
