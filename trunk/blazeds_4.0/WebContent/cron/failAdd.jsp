@@ -55,6 +55,9 @@ try {
 		for (int i = 0; i < cntLines; i++) {
 			
 			lvo = lines.get(i);
+			
+			VbyP.accessLog("failAdd Start : user_id="+lvo.getUser_id()+" mode="+lvo.getMode());
+			
 			if (lvo.getLine().equals("lg")) sentData = LGSent.getInstance();
 			else if (lvo.getLine().equals("pp")) sentData = PPSent.getInstance();
 			else if (lvo.getLine().equals("kt")) sentData = KTSent.getInstance();
