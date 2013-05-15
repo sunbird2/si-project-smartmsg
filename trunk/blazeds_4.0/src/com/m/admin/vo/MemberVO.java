@@ -23,6 +23,7 @@ public class MemberVO implements Serializable {
 	int start;
 	int end;
 	int rownum;
+	int total;
 	
 	public int getIdx() {
 		return idx;
@@ -107,6 +108,12 @@ public class MemberVO implements Serializable {
 	}
 	public void setRownum(int rownum) {
 		this.rownum = rownum;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
 	}
 	
 	
