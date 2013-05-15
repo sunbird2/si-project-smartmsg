@@ -73,8 +73,8 @@
 
 /*slider*/
 .clear {clear:both}
-#gallery { position:relative; height:550px }
-#gallery a {float:left;width:1024px;position:absolute;}
+#gallery { position:relative; height:550px; }
+#gallery a.show {float:left;width:1024px;position:absolute;}
 #gallery a img {border:none;}
 #gallery a.show {z-index:500}
 #gallery a.show img{display:block;float:right;margin-top:-15px;}
@@ -116,6 +116,7 @@
 #sideBanner {position:absolute;left:1120px;top:90px;width:140px;height:54px;background:url("../images/naver.png") no-repeat;}
 
 #mypage {font-family: 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
+#mypage a {position:static;}
 #mypage .title {display:block;margin-top:10px;width:100%;font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;text-align:center;}
 #mypage .title .user {color:#33B5E5;font:bold 24px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
 #mypage .title .point {color:#FFBB33;font:bold 24px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
