@@ -117,7 +117,7 @@
 
 #mypage {font-family: 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
 #mypage a {position:static;}
-#mypage .title {display:block;margin-top:10px;width:100%;font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;text-align:center;}
+#mypage .title {display:block;margin-top:30px;width:100%;font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;text-align:center;}
 #mypage .title .user {color:#33B5E5;font:bold 24px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
 #mypage .title .point {color:#FFBB33;font:bold 24px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
 #mypage .category {font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;border-bottom:1px solid #ccc;margin-top:20px;}
