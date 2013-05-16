@@ -16,31 +16,31 @@ import mx.events.PropertyChangeEvent;
 use namespace model_internal;
 
 [ExcludeClass]
-internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.AbstractEntityMetadata
+internal class _SentLogVOEntityMetadata extends com.adobe.fiber.valueobjects.AbstractEntityMetadata
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("total", "passwd", "hp", "idx", "memo", "unit_cost", "timeJoin", "line", "leaveYN", "rownum", "point", "start", "user_id", "timeLogin", "end");
+    model_internal static var allProperties:Array = new Array("total", "ynDel", "idx", "cnt", "line", "timeSend", "user_ip", "mode", "message", "rownum", "timeWrite", "start", "user_id", "method", "end", "timeDel", "delType");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array("rownum");
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("total", "passwd", "hp", "idx", "memo", "unit_cost", "timeJoin", "line", "leaveYN", "rownum", "point", "start", "user_id", "timeLogin", "end");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("total", "ynDel", "idx", "cnt", "line", "timeSend", "user_ip", "mode", "message", "rownum", "timeWrite", "start", "user_id", "method", "end", "timeDel", "delType");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("total", "passwd", "hp", "idx", "memo", "unit_cost", "timeJoin", "line", "leaveYN", "rownum", "point", "start", "user_id", "timeLogin", "end");
+    model_internal static var dataProperties:Array = new Array("total", "ynDel", "idx", "cnt", "line", "timeSend", "user_ip", "mode", "message", "rownum", "timeWrite", "start", "user_id", "method", "end", "timeDel", "delType");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("total", "passwd", "hp", "idx", "memo", "unit_cost", "timeJoin", "line", "leaveYN", "rownum", "point", "start", "user_id", "timeLogin", "end");
+    model_internal static var nonDerivedProperties:Array = new Array("total", "ynDel", "idx", "cnt", "line", "timeSend", "user_ip", "mode", "message", "rownum", "timeWrite", "start", "user_id", "method", "end", "timeDel", "delType");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
-    model_internal static var entityName:String = "MemberVO";
+    model_internal static var entityName:String = "SentLogVO";
     model_internal static var dependentsOnMap:Object;
     model_internal static var dependedOnServices:Array = new Array();
     model_internal static var propertyTypeMap:Object;
 
 
-    model_internal var _instance:_Super_MemberVO;
+    model_internal var _instance:_Super_SentLogVO;
     model_internal static var _nullStyle:com.adobe.fiber.styles.Style = new com.adobe.fiber.styles.Style();
 
-    public function _MemberVOEntityMetadata(value : _Super_MemberVO)
+    public function _SentLogVOEntityMetadata(value : _Super_SentLogVO)
     {
         // initialize property maps
         if (model_internal::dependentsOnMap == null)
@@ -48,20 +48,22 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
             // dependents map
             model_internal::dependentsOnMap = new Object();
             model_internal::dependentsOnMap["total"] = new Array();
-            model_internal::dependentsOnMap["passwd"] = new Array();
-            model_internal::dependentsOnMap["hp"] = new Array();
+            model_internal::dependentsOnMap["ynDel"] = new Array();
             model_internal::dependentsOnMap["idx"] = new Array();
-            model_internal::dependentsOnMap["memo"] = new Array();
-            model_internal::dependentsOnMap["unit_cost"] = new Array();
-            model_internal::dependentsOnMap["timeJoin"] = new Array();
+            model_internal::dependentsOnMap["cnt"] = new Array();
             model_internal::dependentsOnMap["line"] = new Array();
-            model_internal::dependentsOnMap["leaveYN"] = new Array();
+            model_internal::dependentsOnMap["timeSend"] = new Array();
+            model_internal::dependentsOnMap["user_ip"] = new Array();
+            model_internal::dependentsOnMap["mode"] = new Array();
+            model_internal::dependentsOnMap["message"] = new Array();
             model_internal::dependentsOnMap["rownum"] = new Array();
-            model_internal::dependentsOnMap["point"] = new Array();
+            model_internal::dependentsOnMap["timeWrite"] = new Array();
             model_internal::dependentsOnMap["start"] = new Array();
             model_internal::dependentsOnMap["user_id"] = new Array();
-            model_internal::dependentsOnMap["timeLogin"] = new Array();
+            model_internal::dependentsOnMap["method"] = new Array();
             model_internal::dependentsOnMap["end"] = new Array();
+            model_internal::dependentsOnMap["timeDel"] = new Array();
+            model_internal::dependentsOnMap["delType"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
@@ -70,20 +72,22 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
         // Property type Map
         model_internal::propertyTypeMap = new Object();
         model_internal::propertyTypeMap["total"] = "int";
-        model_internal::propertyTypeMap["passwd"] = "String";
-        model_internal::propertyTypeMap["hp"] = "String";
+        model_internal::propertyTypeMap["ynDel"] = "String";
         model_internal::propertyTypeMap["idx"] = "int";
-        model_internal::propertyTypeMap["memo"] = "String";
-        model_internal::propertyTypeMap["unit_cost"] = "String";
-        model_internal::propertyTypeMap["timeJoin"] = "String";
+        model_internal::propertyTypeMap["cnt"] = "int";
         model_internal::propertyTypeMap["line"] = "String";
-        model_internal::propertyTypeMap["leaveYN"] = "String";
+        model_internal::propertyTypeMap["timeSend"] = "String";
+        model_internal::propertyTypeMap["user_ip"] = "String";
+        model_internal::propertyTypeMap["mode"] = "String";
+        model_internal::propertyTypeMap["message"] = "String";
         model_internal::propertyTypeMap["rownum"] = "int";
-        model_internal::propertyTypeMap["point"] = "int";
+        model_internal::propertyTypeMap["timeWrite"] = "String";
         model_internal::propertyTypeMap["start"] = "int";
         model_internal::propertyTypeMap["user_id"] = "String";
-        model_internal::propertyTypeMap["timeLogin"] = "String";
+        model_internal::propertyTypeMap["method"] = "String";
         model_internal::propertyTypeMap["end"] = "int";
+        model_internal::propertyTypeMap["timeDel"] = "String";
+        model_internal::propertyTypeMap["delType"] = "String";
 
         model_internal::_instance = value;
     }
@@ -136,7 +140,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     override public function getDependants(propertyName:String):Array
     {
        if (model_internal::nonDerivedProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a data property of entity MemberVO");
+            throw new Error(propertyName + " is not a data property of entity SentLogVO");
             
        return model_internal::dependentsOnMap[propertyName] as Array;  
     }
@@ -154,7 +158,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     override public function getCollectionBase(propertyName:String):String
     {
         if (model_internal::collectionProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a collection property of entity MemberVO");
+            throw new Error(propertyName + " is not a collection property of entity SentLogVO");
 
         return model_internal::collectionBaseMap[propertyName];
     }
@@ -162,7 +166,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     override public function getPropertyType(propertyName:String):String
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a property of MemberVO");
+            throw new Error(propertyName + " is not a property of SentLogVO");
 
         return model_internal::propertyTypeMap[propertyName];
     }
@@ -176,7 +180,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " does not exist for entity MemberVO");
+            throw new Error(propertyName + " does not exist for entity SentLogVO");
         }
 
         return model_internal::_instance[propertyName];
@@ -186,7 +190,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     {
         if (model_internal::nonDerivedProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " is not a modifiable property of entity MemberVO");
+            throw new Error(propertyName + " is not a modifiable property of entity SentLogVO");
         }
 
         model_internal::_instance[propertyName] = value;
@@ -218,7 +222,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " does not exist for entity MemberVO");
+            throw new Error(propertyName + " does not exist for entity SentLogVO");
         }
 
         if (model_internal::allAlwaysAvailableProperties.indexOf(propertyName) != -1)
@@ -320,13 +324,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]
-    public function get isPasswdAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isHpAvailable():Boolean
+    public function get isYnDelAvailable():Boolean
     {
         return true;
     }
@@ -338,19 +336,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]
-    public function get isMemoAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isUnit_costAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isTimeJoinAvailable():Boolean
+    public function get isCntAvailable():Boolean
     {
         return true;
     }
@@ -362,7 +348,25 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]
-    public function get isLeaveYNAvailable():Boolean
+    public function get isTimeSendAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isUser_ipAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isModeAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isMessageAvailable():Boolean
     {
         return true;
     }
@@ -374,7 +378,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]
-    public function get isPointAvailable():Boolean
+    public function get isTimeWriteAvailable():Boolean
     {
         return true;
     }
@@ -392,13 +396,25 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]
-    public function get isTimeLoginAvailable():Boolean
+    public function get isMethodAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
     public function get isEndAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isTimeDelAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isDelTypeAvailable():Boolean
     {
         return true;
     }
@@ -420,13 +436,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]   
-    public function get passwdStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get hpStyle():com.adobe.fiber.styles.Style
+    public function get ynDelStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
@@ -438,19 +448,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]   
-    public function get memoStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get unit_costStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get timeJoinStyle():com.adobe.fiber.styles.Style
+    public function get cntStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
@@ -462,7 +460,25 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]   
-    public function get leaveYNStyle():com.adobe.fiber.styles.Style
+    public function get timeSendStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get user_ipStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get modeStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get messageStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
@@ -474,7 +490,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]   
-    public function get pointStyle():com.adobe.fiber.styles.Style
+    public function get timeWriteStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
@@ -492,13 +508,25 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]   
-    public function get timeLoginStyle():com.adobe.fiber.styles.Style
+    public function get methodStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
     public function get endStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get timeDelStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get delTypeStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

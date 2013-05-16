@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		xmlns:valueObjects="valueObjects.*"
+		xmlns:services="services.*"
+		title="Day">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import valueObjects.StatusVO;
+			
+			override public function set data(value:Object):void
+			{
+				// TODO Auto Generated method stub
+				super.data = value;
+				statusVO = super.data as StatusVO;
+			}
+			
+			protected function list_creationCompleteHandler(event:FlexEvent):void
+			{
+				getStatus_dayResult.token = mst.getStatus_day(statusVO.dt);
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<valueObjects:StatusVO id="statusVO" />
+		<s:CallResponder id="getStatus_dayResult"/>
+		<services:Mst id="mst"/>
+	</fx:Declarations>
+	<s:List id="list" width="100%" height="100%"
+			creationComplete="list_creationCompleteHandler(event)"
+			itemRenderer="renderer.StatusRenderer">
+		<s:AsyncListView list="{getStatus_dayResult.lastResult}"/>
+	</s:List>
+</s:View>

@@ -11,6 +11,8 @@
 				else if (sel == "Bill") navigator.pushView(BillView);
 				else if (sel == "Point") navigator.pushView(PointView);
 				else if (sel == "Sent") navigator.pushView(SentView);
+				else if (sel == "Status") navigator.pushView(StatusView);
+				
 				//(this.parentDocument as MainView).rightNav.activeView.data=list.selectedItem;
 			}
 		]]>
@@ -25,9 +27,10 @@
 		<s:dataProvider>
 			<s:ArrayCollection>
 				<fx:String>Member</fx:String>
-				<fx:String>Bill</fx:String>
-				<fx:String>Point</fx:String>
+				<!--<fx:String>Bill</fx:String>
+				<fx:String>Point</fx:String>-->
 				<fx:String>Sent</fx:String>
+				<fx:String>Status</fx:String>
 			</s:ArrayCollection>
 		</s:dataProvider>
 	</s:List>

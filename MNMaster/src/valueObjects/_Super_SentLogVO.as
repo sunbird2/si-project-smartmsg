@@ -1,6 +1,6 @@
 /**
  * This is a generated class and is not intended for modification.  To customize behavior
- * of this value object you may modify the generated sub-class of this class - MemberVO.as.
+ * of this value object you may modify the generated sub-class of this class - SentLogVO.as.
  */
 
 package valueObjects
@@ -21,20 +21,20 @@ use namespace model_internal;
 
 [Managed]
 [ExcludeClass]
-public class _Super_MemberVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
+public class _Super_SentLogVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
 {
     model_internal static function initRemoteClassAliasSingle(cz:Class) : void
     {
         try
         {
-            if (flash.net.getClassByAlias("com.m.admin.vo.MemberVO") == null)
+            if (flash.net.getClassByAlias("com.m.admin.vo.SentLogVO") == null)
             {
-                flash.net.registerClassAlias("com.m.admin.vo.MemberVO", cz);
+                flash.net.registerClassAlias("com.m.admin.vo.SentLogVO", cz);
             }
         }
         catch (e:Error)
         {
-            flash.net.registerClassAlias("com.m.admin.vo.MemberVO", cz);
+            flash.net.registerClassAlias("com.m.admin.vo.SentLogVO", cz);
         }
     }
 
@@ -42,7 +42,7 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
     {
     }
 
-    model_internal var _dminternal_model : _MemberVOEntityMetadata;
+    model_internal var _dminternal_model : _SentLogVOEntityMetadata;
     model_internal var _changedObjects:mx.collections.ArrayCollection = new ArrayCollection();
 
     public function getChangedObjects() : Array
@@ -60,20 +60,22 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
      * properties
      */
     private var _internal_total : int;
-    private var _internal_passwd : String;
-    private var _internal_hp : String;
+    private var _internal_ynDel : String;
     private var _internal_idx : int;
-    private var _internal_memo : String;
-    private var _internal_unit_cost : String;
-    private var _internal_timeJoin : String;
+    private var _internal_cnt : int;
     private var _internal_line : String;
-    private var _internal_leaveYN : String;
+    private var _internal_timeSend : String;
+    private var _internal_user_ip : String;
+    private var _internal_mode : String;
+    private var _internal_message : String;
     private var _internal_rownum : int;
-    private var _internal_point : int;
+    private var _internal_timeWrite : String;
     private var _internal_start : int;
     private var _internal_user_id : String;
-    private var _internal_timeLogin : String;
+    private var _internal_method : String;
     private var _internal_end : int;
+    private var _internal_timeDel : String;
+    private var _internal_delType : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -85,9 +87,9 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
 
     model_internal var _changeWatcherArray:Array = new Array();
 
-    public function _Super_MemberVO()
+    public function _Super_SentLogVO()
     {
-        _model = new _MemberVOEntityMetadata(this);
+        _model = new _SentLogVOEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
 
@@ -104,15 +106,9 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
     }
 
     [Bindable(event="propertyChange")]
-    public function get passwd() : String
+    public function get ynDel() : String
     {
-        return _internal_passwd;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get hp() : String
-    {
-        return _internal_hp;
+        return _internal_ynDel;
     }
 
     [Bindable(event="propertyChange")]
@@ -122,21 +118,9 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
     }
 
     [Bindable(event="propertyChange")]
-    public function get memo() : String
+    public function get cnt() : int
     {
-        return _internal_memo;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get unit_cost() : String
-    {
-        return _internal_unit_cost;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get timeJoin() : String
-    {
-        return _internal_timeJoin;
+        return _internal_cnt;
     }
 
     [Bindable(event="propertyChange")]
@@ -146,9 +130,27 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
     }
 
     [Bindable(event="propertyChange")]
-    public function get leaveYN() : String
+    public function get timeSend() : String
     {
-        return _internal_leaveYN;
+        return _internal_timeSend;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get user_ip() : String
+    {
+        return _internal_user_ip;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get mode() : String
+    {
+        return _internal_mode;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get message() : String
+    {
+        return _internal_message;
     }
 
     [Bindable(event="propertyChange")]
@@ -158,9 +160,9 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
     }
 
     [Bindable(event="propertyChange")]
-    public function get point() : int
+    public function get timeWrite() : String
     {
-        return _internal_point;
+        return _internal_timeWrite;
     }
 
     [Bindable(event="propertyChange")]
@@ -176,15 +178,27 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
     }
 
     [Bindable(event="propertyChange")]
-    public function get timeLogin() : String
+    public function get method() : String
     {
-        return _internal_timeLogin;
+        return _internal_method;
     }
 
     [Bindable(event="propertyChange")]
     public function get end() : int
     {
         return _internal_end;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get timeDel() : String
+    {
+        return _internal_timeDel;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get delType() : String
+    {
+        return _internal_delType;
     }
 
     public function clearAssociations() : void
@@ -204,21 +218,12 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
         }
     }
 
-    public function set passwd(value:String) : void
+    public function set ynDel(value:String) : void
     {
-        var oldValue:String = _internal_passwd;
+        var oldValue:String = _internal_ynDel;
         if (oldValue !== value)
         {
-            _internal_passwd = value;
-        }
-    }
-
-    public function set hp(value:String) : void
-    {
-        var oldValue:String = _internal_hp;
-        if (oldValue !== value)
-        {
-            _internal_hp = value;
+            _internal_ynDel = value;
         }
     }
 
@@ -231,30 +236,12 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
         }
     }
 
-    public function set memo(value:String) : void
+    public function set cnt(value:int) : void
     {
-        var oldValue:String = _internal_memo;
+        var oldValue:int = _internal_cnt;
         if (oldValue !== value)
         {
-            _internal_memo = value;
-        }
-    }
-
-    public function set unit_cost(value:String) : void
-    {
-        var oldValue:String = _internal_unit_cost;
-        if (oldValue !== value)
-        {
-            _internal_unit_cost = value;
-        }
-    }
-
-    public function set timeJoin(value:String) : void
-    {
-        var oldValue:String = _internal_timeJoin;
-        if (oldValue !== value)
-        {
-            _internal_timeJoin = value;
+            _internal_cnt = value;
         }
     }
 
@@ -267,12 +254,39 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
         }
     }
 
-    public function set leaveYN(value:String) : void
+    public function set timeSend(value:String) : void
     {
-        var oldValue:String = _internal_leaveYN;
+        var oldValue:String = _internal_timeSend;
         if (oldValue !== value)
         {
-            _internal_leaveYN = value;
+            _internal_timeSend = value;
+        }
+    }
+
+    public function set user_ip(value:String) : void
+    {
+        var oldValue:String = _internal_user_ip;
+        if (oldValue !== value)
+        {
+            _internal_user_ip = value;
+        }
+    }
+
+    public function set mode(value:String) : void
+    {
+        var oldValue:String = _internal_mode;
+        if (oldValue !== value)
+        {
+            _internal_mode = value;
+        }
+    }
+
+    public function set message(value:String) : void
+    {
+        var oldValue:String = _internal_message;
+        if (oldValue !== value)
+        {
+            _internal_message = value;
         }
     }
 
@@ -285,12 +299,12 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
         }
     }
 
-    public function set point(value:int) : void
+    public function set timeWrite(value:String) : void
     {
-        var oldValue:int = _internal_point;
+        var oldValue:String = _internal_timeWrite;
         if (oldValue !== value)
         {
-            _internal_point = value;
+            _internal_timeWrite = value;
         }
     }
 
@@ -312,12 +326,12 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
         }
     }
 
-    public function set timeLogin(value:String) : void
+    public function set method(value:String) : void
     {
-        var oldValue:String = _internal_timeLogin;
+        var oldValue:String = _internal_method;
         if (oldValue !== value)
         {
-            _internal_timeLogin = value;
+            _internal_method = value;
         }
     }
 
@@ -327,6 +341,24 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
         if (oldValue !== value)
         {
             _internal_end = value;
+        }
+    }
+
+    public function set timeDel(value:String) : void
+    {
+        var oldValue:String = _internal_timeDel;
+        if (oldValue !== value)
+        {
+            _internal_timeDel = value;
+        }
+    }
+
+    public function set delType(value:String) : void
+    {
+        var oldValue:String = _internal_delType;
+        if (oldValue !== value)
+        {
+            _internal_delType = value;
         }
     }
 
@@ -390,14 +422,14 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
 
     [Transient]
     [Bindable(event="propertyChange")]
-    public function get _model() : _MemberVOEntityMetadata
+    public function get _model() : _SentLogVOEntityMetadata
     {
         return model_internal::_dminternal_model;
     }
 
-    public function set _model(value : _MemberVOEntityMetadata) : void
+    public function set _model(value : _SentLogVOEntityMetadata) : void
     {
-        var oldValue : _MemberVOEntityMetadata = model_internal::_dminternal_model;
+        var oldValue : _SentLogVOEntityMetadata = model_internal::_dminternal_model;
         if (oldValue !== value)
         {
             model_internal::_dminternal_model = value;

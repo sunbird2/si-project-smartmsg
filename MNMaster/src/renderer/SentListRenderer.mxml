@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:IconItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					xmlns:s="library://ns.adobe.com/flex/spark"  labelField="user_id"
+					messageFunction="messagefunction" iconWidth="64" iconHeight="64">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import valueObjects.SentLogVO;
+			
+			private function messagefunction(data:Object):Object
+			{
+				var rslt:String = "";
+				if (data != null) {
+					var mvo:SentLogVO = data as SentLogVO;
+					rslt = mvo.mode+" "+mvo.cnt;
+				}
+				
+				return rslt;
+				
+				
+			} 
+			
+		]]>
+	</fx:Script>
+</s:IconItemRenderer>

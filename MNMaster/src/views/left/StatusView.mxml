@@ -11,36 +11,34 @@
 			import spark.components.ViewNavigator;
 			import spark.events.IndexChangeEvent;
 			
-			import valueObjects.SentLogVO;
+			import valueObjects.StatusVO;
 			
-			import views.right.SentDetailView;
+			import views.right.StatusDayView;
 			
 			
 			
 			
 			protected function list_creationCompleteHandler(event:FlexEvent):void
 			{
-				var s:String = "";
-				if (search.text != "") s = search.text;
-				getSentlog_pagedFilteredResult.token = mst.getSentlog_pagedFiltered(s);
+				getStatus_monthResult.token = mst.getStatus_month(null);
 			}
 			
 			protected function list_changeHandler(event:IndexChangeEvent):void
 			{
-				var mvo:SentLogVO = event.currentTarget.selectedItem as SentLogVO;
+				var mvo:StatusVO = event.currentTarget.selectedItem as StatusVO;
 				
 				var splitNavigator:SplitViewNavigator = navigator.parentNavigator as SplitViewNavigator;
 				var detailNavigator:ViewNavigator = splitNavigator.getViewNavigatorAt(1) as ViewNavigator;
 				splitNavigator.hideViewNavigatorPopUp();
 				
-				detailNavigator.pushView(SentDetailView, mvo);
-				detailNavigator.title = mvo.user_id;
+				detailNavigator.pushView(StatusDayView, mvo);
+				//detailNavigator.title = mvo.user_id;
 			}
 			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
-		<s:CallResponder id="getSentlog_pagedFilteredResult"/>
+		<s:CallResponder id="getStatus_monthResult"/>
 		<services:Mst id="mst"/>
 		
 	</fx:Declarations>
@@ -51,13 +49,13 @@
 		<s:TextInput id="search" width="100%" />
 	</s:titleContent>
 	<s:actionContent>
-		<s:Button label="S" click="list_creationCompleteHandler(null)" />
+		<!--<s:Button label="S" click="list_creationCompleteHandler(null)" />-->
 	</s:actionContent>
 	
 	<s:List id="list" width="100%" height="100%"
 			creationComplete="list_creationCompleteHandler(event)"
-			change="list_changeHandler(event)"
-			itemRenderer="renderer.SentListRenderer">
-		<s:AsyncListView list="{getSentlog_pagedFilteredResult.lastResult}"/>
+			itemRenderer="renderer.StatusRenderer"
+			change="list_changeHandler(event)">
+		<s:AsyncListView list="{getStatus_monthResult.lastResult}"/>
 	</s:List>
 </s:View>

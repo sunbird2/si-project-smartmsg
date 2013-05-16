@@ -1,6 +1,6 @@
 /**
  * This is a generated class and is not intended for modification.  To customize behavior
- * of this value object you may modify the generated sub-class of this class - MemberVO.as.
+ * of this value object you may modify the generated sub-class of this class - StatusVO.as.
  */
 
 package valueObjects
@@ -19,22 +19,21 @@ import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 
 use namespace model_internal;
 
-[Managed]
 [ExcludeClass]
-public class _Super_MemberVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
+public class _Super_StatusVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
 {
     model_internal static function initRemoteClassAliasSingle(cz:Class) : void
     {
         try
         {
-            if (flash.net.getClassByAlias("com.m.admin.vo.MemberVO") == null)
+            if (flash.net.getClassByAlias("com.m.admin.vo.StatusVO") == null)
             {
-                flash.net.registerClassAlias("com.m.admin.vo.MemberVO", cz);
+                flash.net.registerClassAlias("com.m.admin.vo.StatusVO", cz);
             }
         }
         catch (e:Error)
         {
-            flash.net.registerClassAlias("com.m.admin.vo.MemberVO", cz);
+            flash.net.registerClassAlias("com.m.admin.vo.StatusVO", cz);
         }
     }
 
@@ -42,7 +41,7 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
     {
     }
 
-    model_internal var _dminternal_model : _MemberVOEntityMetadata;
+    model_internal var _dminternal_model : _StatusVOEntityMetadata;
     model_internal var _changedObjects:mx.collections.ArrayCollection = new ArrayCollection();
 
     public function getChangedObjects() : Array
@@ -59,21 +58,12 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
     /**
      * properties
      */
-    private var _internal_total : int;
-    private var _internal_passwd : String;
-    private var _internal_hp : String;
-    private var _internal_idx : int;
-    private var _internal_memo : String;
-    private var _internal_unit_cost : String;
-    private var _internal_timeJoin : String;
-    private var _internal_line : String;
-    private var _internal_leaveYN : String;
-    private var _internal_rownum : int;
-    private var _internal_point : int;
-    private var _internal_start : int;
-    private var _internal_user_id : String;
-    private var _internal_timeLogin : String;
-    private var _internal_end : int;
+    private var _internal_dt : String;
+    private var _internal_start : String;
+    private var _internal_mms : int;
+    private var _internal_sms : int;
+    private var _internal_end : String;
+    private var _internal_lms : int;
 
     private static var emptyArray:Array = new Array();
 
@@ -85,9 +75,9 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
 
     model_internal var _changeWatcherArray:Array = new Array();
 
-    public function _Super_MemberVO()
+    public function _Super_StatusVO()
     {
-        _model = new _MemberVOEntityMetadata(this);
+        _model = new _StatusVOEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
 
@@ -98,93 +88,39 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
      */
 
     [Bindable(event="propertyChange")]
-    public function get total() : int
+    public function get dt() : String
     {
-        return _internal_total;
+        return _internal_dt;
     }
 
     [Bindable(event="propertyChange")]
-    public function get passwd() : String
-    {
-        return _internal_passwd;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get hp() : String
-    {
-        return _internal_hp;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get idx() : int
-    {
-        return _internal_idx;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get memo() : String
-    {
-        return _internal_memo;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get unit_cost() : String
-    {
-        return _internal_unit_cost;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get timeJoin() : String
-    {
-        return _internal_timeJoin;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get line() : String
-    {
-        return _internal_line;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get leaveYN() : String
-    {
-        return _internal_leaveYN;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get rownum() : int
-    {
-        return _internal_rownum;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get point() : int
-    {
-        return _internal_point;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get start() : int
+    public function get start() : String
     {
         return _internal_start;
     }
 
     [Bindable(event="propertyChange")]
-    public function get user_id() : String
+    public function get mms() : int
     {
-        return _internal_user_id;
+        return _internal_mms;
     }
 
     [Bindable(event="propertyChange")]
-    public function get timeLogin() : String
+    public function get sms() : int
     {
-        return _internal_timeLogin;
+        return _internal_sms;
     }
 
     [Bindable(event="propertyChange")]
-    public function get end() : int
+    public function get end() : String
     {
         return _internal_end;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get lms() : int
+    {
+        return _internal_lms;
     }
 
     public function clearAssociations() : void
@@ -195,138 +131,63 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
      * data/source property setters
      */
 
-    public function set total(value:int) : void
+    public function set dt(value:String) : void
     {
-        var oldValue:int = _internal_total;
+        var oldValue:String = _internal_dt;
         if (oldValue !== value)
         {
-            _internal_total = value;
+            _internal_dt = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "dt", oldValue, _internal_dt));
         }
     }
 
-    public function set passwd(value:String) : void
+    public function set start(value:String) : void
     {
-        var oldValue:String = _internal_passwd;
-        if (oldValue !== value)
-        {
-            _internal_passwd = value;
-        }
-    }
-
-    public function set hp(value:String) : void
-    {
-        var oldValue:String = _internal_hp;
-        if (oldValue !== value)
-        {
-            _internal_hp = value;
-        }
-    }
-
-    public function set idx(value:int) : void
-    {
-        var oldValue:int = _internal_idx;
-        if (oldValue !== value)
-        {
-            _internal_idx = value;
-        }
-    }
-
-    public function set memo(value:String) : void
-    {
-        var oldValue:String = _internal_memo;
-        if (oldValue !== value)
-        {
-            _internal_memo = value;
-        }
-    }
-
-    public function set unit_cost(value:String) : void
-    {
-        var oldValue:String = _internal_unit_cost;
-        if (oldValue !== value)
-        {
-            _internal_unit_cost = value;
-        }
-    }
-
-    public function set timeJoin(value:String) : void
-    {
-        var oldValue:String = _internal_timeJoin;
-        if (oldValue !== value)
-        {
-            _internal_timeJoin = value;
-        }
-    }
-
-    public function set line(value:String) : void
-    {
-        var oldValue:String = _internal_line;
-        if (oldValue !== value)
-        {
-            _internal_line = value;
-        }
-    }
-
-    public function set leaveYN(value:String) : void
-    {
-        var oldValue:String = _internal_leaveYN;
-        if (oldValue !== value)
-        {
-            _internal_leaveYN = value;
-        }
-    }
-
-    public function set rownum(value:int) : void
-    {
-        var oldValue:int = _internal_rownum;
-        if (oldValue !== value)
-        {
-            _internal_rownum = value;
-        }
-    }
-
-    public function set point(value:int) : void
-    {
-        var oldValue:int = _internal_point;
-        if (oldValue !== value)
-        {
-            _internal_point = value;
-        }
-    }
-
-    public function set start(value:int) : void
-    {
-        var oldValue:int = _internal_start;
+        var oldValue:String = _internal_start;
         if (oldValue !== value)
         {
             _internal_start = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "start", oldValue, _internal_start));
         }
     }
 
-    public function set user_id(value:String) : void
+    public function set mms(value:int) : void
     {
-        var oldValue:String = _internal_user_id;
+        var oldValue:int = _internal_mms;
         if (oldValue !== value)
         {
-            _internal_user_id = value;
+            _internal_mms = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "mms", oldValue, _internal_mms));
         }
     }
 
-    public function set timeLogin(value:String) : void
+    public function set sms(value:int) : void
     {
-        var oldValue:String = _internal_timeLogin;
+        var oldValue:int = _internal_sms;
         if (oldValue !== value)
         {
-            _internal_timeLogin = value;
+            _internal_sms = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "sms", oldValue, _internal_sms));
         }
     }
 
-    public function set end(value:int) : void
+    public function set end(value:String) : void
     {
-        var oldValue:int = _internal_end;
+        var oldValue:String = _internal_end;
         if (oldValue !== value)
         {
             _internal_end = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "end", oldValue, _internal_end));
+        }
+    }
+
+    public function set lms(value:int) : void
+    {
+        var oldValue:int = _internal_lms;
+        if (oldValue !== value)
+        {
+            _internal_lms = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "lms", oldValue, _internal_lms));
         }
     }
 
@@ -390,14 +251,14 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
 
     [Transient]
     [Bindable(event="propertyChange")]
-    public function get _model() : _MemberVOEntityMetadata
+    public function get _model() : _StatusVOEntityMetadata
     {
         return model_internal::_dminternal_model;
     }
 
-    public function set _model(value : _MemberVOEntityMetadata) : void
+    public function set _model(value : _StatusVOEntityMetadata) : void
     {
-        var oldValue : _MemberVOEntityMetadata = model_internal::_dminternal_model;
+        var oldValue : _StatusVOEntityMetadata = model_internal::_dminternal_model;
         if (oldValue !== value)
         {
             model_internal::_dminternal_model = value;
