@@ -8,6 +8,21 @@
 			
 		]]>
 	</fx:Script>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		s|ActionBar
+		{
+			chromeColor: #000000;
+			defaultButtonAppearance: beveled;
+			textAlign : left;
+		}
+		s|Button {
+			skinClass: ClassReference("spark.skins.mobile.DefaultButtonSkin");
+		
+		}
+		
+	</fx:Style>
+	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>

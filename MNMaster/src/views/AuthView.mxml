@@ -44,8 +44,8 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:VGroup width="80%" horizontalCenter="0" verticalCenter="0" gap="10">
-		<s:TextInput prompt="id" id="masterID" width="100%" returnKeyLabel="next" enter="changeField(masterPW)" softKeyboardType="email" />
+		<s:TextInput prompt="id" id="masterID" width="100%" returnKeyLabel="next" enter="changeField(masterPW)" softKeyboardType="email"/>
 		<s:TextInput prompt="pw" id="masterPW" width="100%" displayAsPassword="true" returnKeyLabel="done" enter="loginBtn_clickHandler(null)" softKeyboardType="email" />
-		<s:Button id="loginBtn" width="100%" label="login" click="loginBtn_clickHandler(event)"/>
+		<s:Button id="loginBtn" width="100%" label="LOGIN" click="loginBtn_clickHandler(event)" skinClass="spark.skins.mobile.DefaultButtonSkin" color="0xFFFFFF"/>
 	</s:VGroup>
 </s:View>
