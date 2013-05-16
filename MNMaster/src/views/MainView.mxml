@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" title="" viewActivate="navigator.hideActionBar()"
-		resize="resizeHandler(event)" backKeyPressed="view1_backKeyPressedHandler(event)">
+		resize="resizeHandler(event)">
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
@@ -12,13 +12,7 @@
 			{
 				currentState = parentApplication.aspectRatio;
 			}
-			
-			protected function view1_backKeyPressedHandler(event:FlexEvent):void
-			{
-				navigator.showActionBar();
-				event.preventDefault();
-			}
-			
+
 		]]>
 	</fx:Script>
 	<fx:Declarations>

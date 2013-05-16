@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:ViewNavigatorApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
 			   xmlns:s="library://ns.adobe.com/flex/spark" applicationDPI="320"
-			   firstView="views.AuthView" >
+			   firstView="views.AuthView" creationComplete="appCompleteHandler(event)" >
 	<fx:Script>
 		<![CDATA[
 			import mx.events.FlexEvent;
 			
+			import views.AuthView;
+			
+			// Add the hardware key event handlers to the stage.
+			protected function appCompleteHandler(event:FlexEvent):void {
+				NativeApplication.nativeApplication.addEventListener(KeyboardEvent.KEY_UP, handleButtons);
+			}
+			
+			// Event handler to handle hardware keyboard keys.
+			protected function handleButtons(event:KeyboardEvent):void
+			{
+				if (event.keyCode == Keyboard.HOME) {
+					// Handle Home button.
+				}
+				else if (event.keyCode == Keyboard.BACK) {
+					if (navigator.activeView is AuthView ) {
+						event.preventDefault();
+						NativeApplication.nativeApplication.exit();
+					}
+				}
+			}
 		]]>
 	</fx:Script>
 	<fx:Style>
@@ -17,8 +37,8 @@
 			textAlign : left;
 		}
 		s|Button {
-			skinClass: ClassReference("spark.skins.mobile.DefaultButtonSkin");
-		
+			chromeColor: #000000;
+			color: #FFFFFF;
 		}
 		
 	</fx:Style>
