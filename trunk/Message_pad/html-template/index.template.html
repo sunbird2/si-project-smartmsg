@@ -69,22 +69,22 @@
 <!-- header-->
 <div id="header">
 		<div id="top_right">
-			<a href="javascript:" id="login" onclick="changeMenu('send')" title="로그인" onfocus="this.blur()">로그인</a>
+			<a href="javascript:" id="login" onclick="return changeMenu('send')" title="로그인" onfocus="this.blur()">로그인</a>
 			<span id="topbar1">&nbsp;|&nbsp;</span>
-			<a href="javascript:" id="join" onclick="join()" title="회원가입" onfocus="this.blur()">회원가입</a>
-			<a href="javascript:" id="mypage" title="마이페이지" onclick="changeMenu('mypage')" style="display:none" onfocus="this.blur()">마이페이지</a>
+			<a href="javascript:" id="join" onclick="return join();" title="회원가입" onfocus="this.blur()">회원가입</a>
+			<a href="javascript:" id="mypage" title="마이페이지" onclick="return changeMenu('mypage');" style="display:none" onfocus="this.blur()">마이페이지</a>
 			<span id="topbar2">&nbsp;|&nbsp;</span>
-			<a href="javascript:" id="logout" title="로그아웃" onclick="logout_flex()" style="display:none" onfocus="this.blur()">로그아웃</a>
+			<a href="javascript:" id="logout" title="로그아웃" onclick="return logout_flex();" style="display:none" onfocus="this.blur()">로그아웃</a>
 			<span id="topbar3" style="display:none">&nbsp;|&nbsp;</span>
 			<a href="javascript:"  onclick="_addFavorite('문자노트 -빠르고 안정적인 문자시스템','http://www.munjanote.com')" title="즐겨찾기" onfocus="this.blur()"><img src="/images/start.png"> 즐겨찾기</a>
 		</div><!-- top_right -->
 		<div id="logo"><a href="javascript:" onclick="window.location.href='/'" title="MunjaNote"><img src="/images/logo.png" alt="MunjaNote"></a></div>
 		<div id="navi">
 			<ul>
-				<li><a href="javascript:" id="send" onclick="changeMenu('send')" class="send" title="전송서비스" onfocus="this.blur()">전송서비스</a></li>
-				<li><a href="javascript:" id="log" onclick="changeMenu('log')" class="log" title="내역" onfocus="this.blur()">내역</a></li>
-				<li><a href="javascript:" id="address" onclick="changeMenu('address')" class="address" title="주소록" onfocus="this.blur()">주소록</a></li>
-				<li><a href="javascript:" id="bill" onclick="changeMenu('bill')" class="bill" title="결제" onfocus="this.blur()">결제</a></li>
+				<li><a href="javascript:" id="send" onclick="return changeMenu('send')" class="send" title="전송서비스" onfocus="this.blur()">전송서비스</a></li>
+				<li><a href="javascript:" id="log" onclick="return changeMenu('log')" class="log" title="내역" onfocus="this.blur()">내역</a></li>
+				<li><a href="javascript:" id="address" onclick="return changeMenu('address')" class="address" title="주소록" onfocus="this.blur()">주소록</a></li>
+				<li><a href="javascript:" id="bill" onclick="return changeMenu('bill')" class="bill" title="결제" onfocus="this.blur()">결제</a></li>
 				
 				<li id="freeuse"><img src="/images/useage_2.png" class="hand" alt="무료체험" onfocus="this.blur()" onclick="join()"></li>
 				<li id="useage" style="display:none;"><img src="/images/useage_1.png" class="hand" alt="사용방법" onfocus="this.blur()" onclick="openUseage()"></li>
