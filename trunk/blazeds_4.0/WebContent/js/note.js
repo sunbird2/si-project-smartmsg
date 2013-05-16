@@ -477,7 +477,8 @@
    	var start = Math.floor(page/block) * block;
     	var html = "";
     	html += "<div class=\"pagination\">";
-		if (page != 0)
+    	
+		if (page >= block)
 			html += "<a href=\"#\" class=\"direction prev\" onclick=\"return "+method+"("+(start-block)+")\"><span></span> 이전</a>";
 		for (var p = start; p < (start+block) && p < tPage; p++) {
 			if (p == page)
