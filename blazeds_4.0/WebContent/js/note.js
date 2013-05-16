@@ -36,6 +36,8 @@
         }
     	
        document.getElementById(menu).className = menu + " on";
+       
+       return false;
       
     }
 
@@ -56,6 +58,8 @@
 		$('#bar1').hide();
 		log("회원가입 클릭");
         document.MunjaNote.focus();
+        
+        return false;
      }
 	 function sendDir() {
 		 changeMenu('send');
@@ -681,6 +685,9 @@
 	function logout_flex() {
 		var MunjaNote = document.getElementById("MunjaNote");
 		if (MunjaNote) MunjaNote.flexFunction("logout", "");
+		else window.location.href="/member/logout.jsp";
+		
+		return false;
 	}
 	
 	function _addFavorite(title, url) {
