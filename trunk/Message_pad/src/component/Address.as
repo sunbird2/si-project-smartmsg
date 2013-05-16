@@ -659,10 +659,10 @@ package component
 		 * */
 		private function activeAddress(code:Number, avo:AddressVO):void {
 			
-			if (avo.grpName == "") {
+			if (avo.grpName == null || avo.grpName == "") {
 				SLibrary.alert("그룹이름이 없습니다.");
 			} 
-			else if (code >= 20 && avo.phone == ""){
+			else if (code >= 20 && (avo.phone == "" || avo.phone == null )){
 				SLibrary.alert("전화번호를 입력 하세요.");
 			}else {
 				activeCode = code;
