@@ -62,8 +62,8 @@ public class _Super_StatusVO extends flash.events.EventDispatcher implements com
     private var _internal_start : String;
     private var _internal_mms : int;
     private var _internal_sms : int;
-    private var _internal_end : String;
     private var _internal_lms : int;
+    private var _internal_end : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -112,15 +112,15 @@ public class _Super_StatusVO extends flash.events.EventDispatcher implements com
     }
 
     [Bindable(event="propertyChange")]
-    public function get end() : String
-    {
-        return _internal_end;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get lms() : int
     {
         return _internal_lms;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get end() : String
+    {
+        return _internal_end;
     }
 
     public function clearAssociations() : void
@@ -171,16 +171,6 @@ public class _Super_StatusVO extends flash.events.EventDispatcher implements com
         }
     }
 
-    public function set end(value:String) : void
-    {
-        var oldValue:String = _internal_end;
-        if (oldValue !== value)
-        {
-            _internal_end = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "end", oldValue, _internal_end));
-        }
-    }
-
     public function set lms(value:int) : void
     {
         var oldValue:int = _internal_lms;
@@ -188,6 +178,16 @@ public class _Super_StatusVO extends flash.events.EventDispatcher implements com
         {
             _internal_lms = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "lms", oldValue, _internal_lms));
+        }
+    }
+
+    public function set end(value:String) : void
+    {
+        var oldValue:String = _internal_end;
+        if (oldValue !== value)
+        {
+            _internal_end = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "end", oldValue, _internal_end));
         }
     }
 

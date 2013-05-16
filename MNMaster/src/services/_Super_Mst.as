@@ -224,7 +224,6 @@ internal class _Super_Mst extends com.adobe.fiber.services.wrapper.RemoteObjectS
         _memberVORPCDataManager.addManagedOperation(dmQuery);
 
         dmQuery = new mx.data.ManagedQuery("getSentlog_pagedFiltered");
-        dmQuery.propertySpecifier = "total,ynDel,idx,cnt,line,timeSend,user_ip,mode,message,rownum,timeWrite,start,user_id,method,end,timeDel,delType";
         dmQuery.countOperation = "getSentlog_countFiltered";
         dmQuery.pagingEnabled = true;
         dmQuery.positionalPagingParameters = true;
