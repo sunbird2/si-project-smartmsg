@@ -9,6 +9,8 @@ import com.common.db.SessionFactory;
 import com.common.db.SessionManager;
 import com.common.util.SLibrary;
 import com.m.admin.vo.MemberVO;
+import com.m.admin.vo.SentLogVO;
+import com.m.admin.vo.StatusVO;
 import com.m.billing.Billing;
 import com.m.billing.BillingVO;
 import com.m.common.BooleanAndDescriptionVO;
@@ -25,6 +27,8 @@ public class MasterDS {
 	SqlSessionFactory sqlMapper = SessionFactory.getSqlSession();
 	String ns = "com.query.MapMaster.";
 	
+	
+	// login
 	public BooleanAndDescriptionVO login(String user_id, String password) {
 
 		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
@@ -50,6 +54,7 @@ public class MasterDS {
 		return rvo;
 	}
 	
+	// member list
 	public List<MemberVO> getMember_pagedFiltered(String user_id, String hp, int startIndex, int numItems) {
 		
 		MemberVO mvo = new MemberVO();
@@ -64,6 +69,7 @@ public class MasterDS {
 
 	}
 	
+	// member list count
 	public Integer getMember_countFiltered(String user_id, String hp) {
 		
 		MemberVO mvo = new MemberVO();
@@ -75,6 +81,7 @@ public class MasterDS {
 
 	}
 	
+	// member update
 	public BooleanAndDescriptionVO setMember(MemberVO mvo) {
 		
 		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
@@ -88,7 +95,7 @@ public class MasterDS {
 
 	}
 	
-	
+	// bill add
 	public BooleanAndDescriptionVO setCharge(String user_id, int amount, int point) {
 		
 		VbyP.accessLog("setCharge : user_id"+user_id+" amount="+amount+" point="+point);
@@ -126,6 +133,7 @@ public class MasterDS {
 
 	}
 	
+	// bill add
 	public BooleanAndDescriptionVO setChargeAuto(String user_id, int amount) {
 		
 		VbyP.accessLog("setCharge : user_id"+user_id+" amount="+amount);
@@ -168,7 +176,72 @@ public class MasterDS {
 
 	}
 	
+	// sent log list
+	public List<SentLogVO> getSentlog_pagedFiltered(String user_id, int startIndex, int numItems) {
+		
+		SentLogVO svo = new SentLogVO();
+		
+		if (!SLibrary.isNull(user_id)) svo.setUser_id("%"+user_id+"%");
+		svo.setStart(startIndex);
+		svo.setEnd(numItems);
+		
+		List<SentLogVO> rs = setRowNumSentLog(MultiDao.getInstance().getSentLog(svo), startIndex);
+		
+		return rs;
+
+	}
+	
+	// sent log count
+	public Integer getSentlog_countFiltered(String user_id) {
+		
+		SentLogVO svo = new SentLogVO();
+		
+		if (!SLibrary.isNull(user_id)) svo.setUser_id("%"+user_id+"%");
+		
+		return MultiDao.getInstance().getSentLogCount(svo);
+	}
+	
+	// status month
+	public List<StatusVO> getStatus_month(String year) {
+		
+		if (SLibrary.isNull(year)) year = SLibrary.getDateTimeString("yyyy");
+		
+		StatusVO stvo = new StatusVO();
+		stvo.setStart(year+"0101000000");
+		stvo.setEnd(year+"1231235959");
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (List)sm.selectList(ns + "select_status_month_list", stvo);
+
+	}
+	
+	// status day
+	public List<StatusVO> getStatus_day(String yearMonth) {
+		
+		if (SLibrary.isNull(yearMonth)) yearMonth = SLibrary.getDateTimeString("yyyyMM");
+		
+		StatusVO stvo = new StatusVO();
+		stvo.setStart(yearMonth+"000000");
+		stvo.setEnd(yearMonth+"235959");
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (List)sm.selectList(ns + "select_status_day_list", stvo);
+
+	}
+	
+	
 	List<MemberVO> setRowNum(List<MemberVO> lvo, int start) {
+		if (lvo != null) {
+			int cnt = lvo.size();
+			for (int i = 0; i < cnt; i++) {
+				lvo.get(i).setRownum(start);
+				start++;
+			}
+		}
+		return lvo;
+	}
+	
+	List<SentLogVO> setRowNumSentLog(List<SentLogVO> lvo, int start) {
 		if (lvo != null) {
 			int cnt = lvo.size();
 			for (int i = 0; i < cnt; i++) {

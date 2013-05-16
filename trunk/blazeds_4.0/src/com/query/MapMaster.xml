@@ -176,5 +176,37 @@
 		
 	</select>
 	<!-- sent E -->
+	
+	<!-- status S -->
+	<select id="select_status_month_list" parameterType="com.m.admin.vo.StatusVO" resultType="com.m.admin.vo.StatusVO">
+		select 
+		 b.dt as dt, 
+		 sum(if(b.t = 'sms',b.cnt,0)) as sms,
+		 sum(if(b.t = 'lms',b.cnt,0)) as lms,
+		 sum(if(b.t = 'mms',b.cnt,0)) as mms
+		from (
+		select  substring( SEND_DATE,1,6) as dt, 'sms' as t, sum(SUCC_COUNT) as cnt from SDK_SMS_REPORT where SEND_DATE between #{start} and #{end} group by substring( SEND_DATE,1,6)
+		union all
+		select substring( SEND_DATE,1,6) as dt, 'lms' as t, sum(SUCC_COUNT) as cnt from SDK_MMS_REPORT where SEND_DATE between #{start} and #{end} and CONTENT_COUNT = 0 group by substring( SEND_DATE,1,6)
+		union all
+		select substring( SEND_DATE,1,6) as dt, 'mms' as t, sum(SUCC_COUNT) as cnt from SDK_MMS_REPORT where SEND_DATE between #{start} and #{end} and CONTENT_COUNT > 0 group by substring( SEND_DATE,1,6)
+		) b group by b.dt order by b.dt desc
+	</select>
+	<select id="select_status_day_list" parameterType="com.m.admin.vo.StatusVO" resultType="com.m.admin.vo.StatusVO">
+		select 
+		 b.dt as dt, 
+		 sum(if(b.t = 'sms',b.cnt,0)) as sms,
+		 sum(if(b.t = 'lms',b.cnt,0)) as lms,
+		 sum(if(b.t = 'mms',b.cnt,0)) as mms
+		from (
+		select  substring( SEND_DATE,1,8) as dt, 'sms' as t, sum(SUCC_COUNT) as cnt from SDK_SMS_REPORT where SEND_DATE between #{start} and #{end} group by substring( SEND_DATE,1,8)
+		union all
+		select substring( SEND_DATE,1,8) as dt, 'lms' as t, sum(SUCC_COUNT) as cnt from SDK_MMS_REPORT where SEND_DATE between #{start} and #{end} and CONTENT_COUNT = 0 group by substring( SEND_DATE,1,8)
+		union all
+		select substring( SEND_DATE,1,8) as dt, 'mms' as t, sum(SUCC_COUNT) as cnt from SDK_MMS_REPORT where SEND_DATE between #{start} and #{end} and CONTENT_COUNT > 0 group by substring( SEND_DATE,1,8)
+		) b group by b.dt order by b.dt desc
+	</select>
+	<!-- status E -->
+	
 
 </mapper>

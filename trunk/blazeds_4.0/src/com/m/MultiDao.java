@@ -138,6 +138,12 @@ public class MultiDao {
 		}
 		return lvo;
 	}
+	public int getSentLogCount(SentLogVO vo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (Integer)sm.selectOne(ns + "select_sentlog_list_page_count", vo);
+		
+	}
 	
 	
 	
