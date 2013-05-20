@@ -176,7 +176,10 @@ package component
 				groupList.addEventListener(IndexChangeEvent.CHANGE, groupList_changeHandler, false, 0, true);
 				groupList.addEventListener(KeyboardEvent.KEY_UP, groupList_keyUpHandler, false, 0, true);
 			}
-			else if (instance == detailList) detailList.dataProvider = asyncListView;
+			else if (instance == detailList) {
+				detailList.dataProvider = asyncListView;
+				detailList.addEventListener(IndexChangeEvent.CHANGE, detailList_changeHandler, false, 0, true);
+			}
 			else if (instance == chart) {
 				
 				chart.series = [getPieSeries()];
@@ -233,6 +236,7 @@ package component
 				//alDetailColumn.removeAll(); 
 				//acDetail.removeAll();
 				//acDetail = null;
+				detailList.removeEventListener(IndexChangeEvent.CHANGE, detailList_changeHandler);
 			}
 			else if (instance == chart) {
 				Object(chart.dataProvider).removeAll();
@@ -405,6 +409,17 @@ package component
 				cstat = "normal";
 			}
 		}
+		
+		private function detailList_changeHandler(event:IndexChangeEvent):void {
+			
+			var vo:LogVO = detailList.dataProvider.getItemAt(event.newIndex) as LogVO;
+			
+			if (vo != null) {
+				message.text = vo.message;
+			}
+		}
+		
+		
 		
 		private function getDetailList():void {
 			
