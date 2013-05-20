@@ -20,6 +20,7 @@ package component.excel
 	import mx.data.ItemReference;
 	import mx.rpc.events.ResultEvent;
 	
+	import skin.excel.ExcelMearg_GridItemRenderer;
 	import skin.excel.ExcelName_GridItemRenderer;
 	import skin.excel.ExcelPhone_GridItemRenderer;
 	import skin.excel.ExcelSkin;
@@ -55,6 +56,9 @@ package component.excel
 		[SkinPart(required="false")]public var phoneCombo:ComboBox;
 		[SkinPart(required="false")]public var nameCombo:ComboBox;
 		[SkinPart(required="false")]public var memoCombo:ComboBox;
+		[SkinPart(required="false")]public var meargCombo1:ComboBox;
+		[SkinPart(required="false")]public var meargCombo2:ComboBox;
+		[SkinPart(required="false")]public var meargCombo3:ComboBox;
 		[SkinPart(required="false")]public var addressCombo:ComboBox;
 		[SkinPart(required="false")]public var addressBtn:ButtonSpinner;
 		[SkinPart(required="false")]public var sendBtn:Button;
@@ -120,6 +124,18 @@ package component.excel
 			else if (instance == memoCombo) {
 				setComboBoxData(memoCombo, "메모열");
 				memoCombo.addEventListener(IndexChangeEvent.CHANGE, memoCombo_changeHandler);
+			}
+			else if (instance == meargCombo1) {
+				setComboBoxData(meargCombo1, "합성1");
+				meargCombo1.addEventListener(IndexChangeEvent.CHANGE, meargCombo_changeHandler);
+			}
+			else if (instance == meargCombo2) {
+				setComboBoxData(meargCombo2, "합성2");
+				meargCombo2.addEventListener(IndexChangeEvent.CHANGE, meargCombo_changeHandler);
+			}
+			else if (instance == meargCombo3) {
+				setComboBoxData(meargCombo3, "합성3");
+				meargCombo3.addEventListener(IndexChangeEvent.CHANGE, meargCombo_changeHandler);
 			}
 			else if (instance == sendBtn) sendBtn.addEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
 			/*else if (instance == resultList) {
@@ -219,6 +235,18 @@ package component.excel
 			} 
 		}
 		
+		
+		private function meargCombo_changeHandler(event:IndexChangeEvent):void {
+			
+			if (event.oldIndex > 0)
+				GridColumn( excelView.columns.getItemAt(event.oldIndex) ).itemRenderer = new ClassFactory(DefaultGridItemRenderer);	
+			
+			if ( event.newIndex > 0 ) {
+				GridColumn( excelView.columns.getItemAt(event.newIndex) ).itemRenderer = new ClassFactory(ExcelMearg_GridItemRenderer);
+				convertPhoneAcFromExcel();
+			} 
+		}
+		
 		private function convertPhoneAcFromExcel():void {
 			
 			if (acExcel != null) {
@@ -228,6 +256,9 @@ package component.excel
 				var memo:String = "";
 				var bName:Boolean = nameCombo.selectedIndex > 0 ? true : false;
 				var bMemo:Boolean = memoCombo.selectedIndex > 0 ? true : false;
+				var bMearg1:Boolean = meargCombo1.selectedIndex > 0 ? true : false;
+				var bMearg2:Boolean = meargCombo2.selectedIndex > 0 ? true : false;
+				var bMearg3:Boolean = meargCombo3.selectedIndex > 0 ? true : false;
 				var chkInvaildChar:RegExp = /[^0-9]/g;	
 				
 				acRslt.removeAll();
@@ -237,6 +268,7 @@ package component.excel
 					
 					phone = acExcel[i][phoneCombo.dataProvider.getItemAt(phoneCombo.selectedIndex).label] as String;
 					
+					name = "";
 					if (phone != null)
 						phone = phone.replace(chkInvaildChar,"");
 					if (bName) {
@@ -246,6 +278,26 @@ package component.excel
 					if (bMemo) {
 						var obj2:Object = acExcel[i][memoCombo.dataProvider.getItemAt(memoCombo.selectedIndex).label];
 						memo = (obj2 != null)? obj2 as String:"";
+					}
+					
+					if (currStat == "actionSend") {
+						var m1:String = "";
+						var m2:String = "";
+						var m3:String = "";
+						if (bMearg1) {
+							var mobj1:Object = acExcel[i][meargCombo1.dataProvider.getItemAt(meargCombo1.selectedIndex).label];
+							m1 = (mobj1 != null)? mobj1 as String:"";
+						}
+						if (bMearg2) {
+							var mobj2:Object = acExcel[i][meargCombo2.dataProvider.getItemAt(meargCombo2.selectedIndex).label];
+							m2 = (mobj2 != null)? mobj2 as String:"";
+						}
+						if (bMearg3) {
+							var mobj3:Object = acExcel[i][meargCombo3.dataProvider.getItemAt(meargCombo3.selectedIndex).label];
+							m3 = (mobj3 != null)? mobj3 as String:"";
+						}
+						name += "|"+m1+"|"+m2+"|"+m3; 
+						
 					}
 					
 					// 0 이 빠진경우
