@@ -73,6 +73,8 @@ package component
 	{
 		public static const SEND_COMPLET:String = "sendComplet";
 		public static const CHANGE_MODE:String = "changeMode";
+		
+		public static const PHONE_DIV:String = "|";
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
 		[SkinPart(required="true")] */
 		
@@ -87,14 +89,18 @@ package component
 		[SkinPart(required="false")]public var message:TextArea;
 		[SkinPart(required="false")]public var byte:SpanElement;
 		[SkinPart(required="false")]public var sMode:SpanElement;
-
+		
 		[SkinPart(required="false")]public var addImage:Image;
+		[SkinPart(required="false")]public var addTxt:Image;
+		[SkinPart(required="false")]public var addTxtLayer:List;
+		
 		[SkinPart(required="false")]public var messageSaveBtn:Image;
 		[SkinPart(required="false")]public var removeMsg:Image;
 		[SkinPart(required="false")]public var mBox:VGroup;
 		
 		
-
+		
+		
 		// phones
 		[SkinPart(required="false")]public var sendListInput:TextInput;
 		[SkinPart(required="false")]public var sendListInputBtn:Image;
@@ -103,6 +109,17 @@ package component
 		[SkinPart(required="false")]public var dupleDelete:Image;
 		[SkinPart(required="false")]public var phoneRemoveAll:Image;
 		
+		[SkinPart(required="false")]public var ePhone:TextInput;
+		[SkinPart(required="false")]public var eName:TextInput;
+		[SkinPart(required="false")]public var eMearge1:TextInput;
+		[SkinPart(required="false")]public var eMearge2:TextInput;
+		[SkinPart(required="false")]public var eMearge3:TextInput;
+		
+		[SkinPart(required="false")]public var eLayer:VGroup;
+		[SkinPart(required="false")]public var ePre:Button;
+		[SkinPart(required="false")]public var eUpdate:Button;
+		[SkinPart(required="false")]public var eCancel:Button;
+		[SkinPart(required="false")]public var eNext:Button;
 		
 		
 		// callback
@@ -120,6 +137,8 @@ package component
 		[SkinPart(required="false")]public var confirm_count:SpanElement;
 		[SkinPart(required="false")]public var confirm_reservation:SpanElement;
 		[SkinPart(required="false")]public var confirm_delay:SpanElement;
+		[SkinPart(required="false")]public var confirm_mearge:SpanElement;
+		
 		[SkinPart(required="false")]public var confirm_text:RichText;
 		
 		
@@ -132,17 +151,24 @@ package component
 		public function set cstat(value:String):void { _cstat = value; invalidateSkinState(); }
 		
 		private var acFunction:ArrayCollection =  new ArrayCollection([
-			{icon:"skin/ics/assets/light/icon/3-rating-important.png", label:"내메시지", label_sub:"저장된 메시지 발송", name:"myMessage"},
-			{icon:"skin/ics/assets/light/icon/5-content-email.png", label:"최근발송메시지", label_sub:"죄근발송한 메시지 발송", name:"sentMessage"},
-			{icon:"skin/ics/assets/light/icon/4-collections-view-as-grid.png", label:"이모티콘", label_sub:"다양한 무료 이모티콘 발송", name:"emoticon"},
-			{icon:"skin/ics/assets/light/icon/12-hardware-keyboard.png", label:"특수문자", label_sub:"특수문자 입력", name:"specialChar"},
+			{icon:"/skin/ics/assets/light/icon/3-rating-important.png", label:"내메시지", label_sub:"저장된 메시지 발송", name:"myMessage"},
+			{icon:"/skin/ics/assets/light/icon/5-content-email.png", label:"최근발송메시지", label_sub:"죄근발송한 메시지 발송", name:"sentMessage"},
+			{icon:"/skin/ics/assets/light/icon/4-collections-view-as-grid.png", label:"이모티콘", label_sub:"다양한 무료 이모티콘 발송", name:"emoticon"},
+			{icon:"/skin/ics/assets/light/icon/12-hardware-keyboard.png", label:"특수문자", label_sub:"특수문자 입력", name:"specialChar"},
 			
-			{icon:"skin/ics/assets/light/icon/5-content-cut.png", label:"복사붙여넣기,대량입력", label_sub:"복사한 전화번호 발송 및 입력", name:"sendListFromCopy"},
-			{icon:"skin/ics/assets/light/icon/6-social-group.png", label:"주소록 발송", label_sub:"주소록 선택 발송", name:"sendListFromAddress"},
-			{icon:"skin/ics/assets/light/icon/5-content-import-export.png", label:"엑셀을 업로드 발송", label_sub:"엑셀을 업로드 발송", name:"sendListFromExcel"},
-			{icon:"skin/ics/assets/light/icon/9-av-repeat.png", label:"최근발송 목록 재발송", label_sub:"최근발송 전화번호 발송", name:"sendListFromSent"}
+			{icon:"/skin/ics/assets/light/icon/5-content-cut.png", label:"복사붙여넣거,대량입력", label_sub:"복사한 전화번호 발송 및 입력", name:"sendListFromCopy"},
+			{icon:"/skin/ics/assets/light/icon/6-social-group.png", label:"주소록 발송", label_sub:"주소록 선택 발송", name:"sendListFromAddress"},
+			{icon:"/skin/ics/assets/light/icon/5-content-import-export.png", label:"엑셀을 업로드 발송", label_sub:"엑셀을 업로드 발송", name:"sendListFromExcel"},
+			{icon:"/skin/ics/assets/light/icon/9-av-repeat.png", label:"최근발송 목록 재발송", label_sub:"최근발송 전화번호 발송", name:"sendListFromSent"}
 		]);
-
+		
+		private var acMearge:ArrayCollection =  new ArrayCollection([
+			{label:"이름", data:"{이름}"},
+			{label:"합성1", data:"{합성1}"},
+			{label:"합성2", data:"{합성2}"},
+			{label:"합성3", data:"{합성3}"}
+		]);
+		
 		public var reservation:ReservationCalendar;
 		public var interval:Interval;
 		
@@ -217,7 +243,7 @@ package component
 		 * returnPhone properties
 		 * */
 		public var rt:ReturnPhone;
-
+		
 		public function Send() { 
 			super();
 			setStyle("skinClass", SendSkin);
@@ -245,7 +271,7 @@ package component
 			removeSending();
 			
 			destroy(null);
-		
+			
 		}
 		
 		override protected function getCurrentSkinState():String { return cstat; } 
@@ -277,19 +303,30 @@ package component
 				callbackSave.addEventListener(MouseEvent.CLICK, rt.callbackSave_clickHandler);
 			}
 			else if (instance == phoneRemoveAll) phoneRemoveAll.addEventListener(MouseEvent.CLICK, phoneRemoveAll_clickHandler);
-			
+				
 			else if (instance == sendReservation) sendReservation.addEventListener(Event.CHANGE, sendReservation_changeHandler);
 			else if (instance == sendInterval) sendInterval.addEventListener(Event.CHANGE, sendInterval_changeHandler);
 			else if (instance == addImage) addImage.addEventListener(MouseEvent.CLICK, addImage_clickHandler);
+			else if (instance == addTxt) addTxt.addEventListener(MouseEvent.CLICK, addTxt_clickHandler);
+			else if (instance == addTxtLayer) {
+				addTxtLayer.dataProvider = acMearge;
+				addTxtLayer.labelField = "label";
+				addTxtLayer.addEventListener(IndexChangeEvent.CHANGE, addTxtLayer_changeHandler);
+			}
+				
 			else if (instance == removeMsg) removeMsg.addEventListener(MouseEvent.CLICK, removeMsg_clickHandler);
-			
+				
+			else if (instance == ePre) ePre.addEventListener(MouseEvent.CLICK, ePre_clickHandler);
+			else if (instance == eUpdate) eUpdate.addEventListener(MouseEvent.CLICK, eUpdate_clickHandler);
+			else if (instance == eCancel) eCancel.addEventListener(MouseEvent.CLICK, eCancel_clickHandler);
+			else if (instance == eNext) eNext.addEventListener(MouseEvent.CLICK, eNext_clickHandler);
 			
 			if (instance is LinkElement) {
 				instance.addEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
 				instance.addEventListener(FlowElementMouseEvent.ROLL_OUT, tooltip_outHandler);
 			}
 			
-
+			
 		}
 		override protected function partRemoved(partName:String, instance:Object) : void {
 			
@@ -317,6 +354,15 @@ package component
 				
 			else if (instance == sendReservation) sendReservation.removeEventListener(Event.CHANGE, sendReservation_changeHandler);
 			else if (instance == sendInterval) sendInterval.removeEventListener(Event.CHANGE, sendInterval_changeHandler);
+			else if (instance == addImage) addImage.removeEventListener(MouseEvent.CLICK, addImage_clickHandler);
+			else if (instance == addTxt) addTxt.removeEventListener(MouseEvent.CLICK, addTxt_clickHandler);
+			else if (instance == removeMsg) removeMsg.removeEventListener(MouseEvent.CLICK, removeMsg_clickHandler);
+			else if (instance == addTxtLayer) {
+				addTxtLayer.removeEventListener(IndexChangeEvent.CHANGE, addTxtLayer_changeHandler);
+				addTxtLayer.dataProvider.removeAll();
+				acMearge.removeAll();
+				acMearge = null;
+			}
 			
 			
 			if (instance is LinkElement) {
@@ -340,7 +386,7 @@ package component
 		private function functionList_changeHandler(event:IndexChangeEvent):void {
 			
 			var item:Object = functionList.selectedItem;
-
+			
 			// remove
 			if (viewFunction == "myMessage") emoticonView("myMessage");
 			else if (viewFunction == "specialChar") emoticonView("specialChar");
@@ -348,7 +394,7 @@ package component
 			else if (viewFunction == "sentMessage") emoticonView("sentMessage");
 				
 			else if (viewFunction == "sendListFromExcel")toggleExcel(); 
-			//else if (viewFunction == "sendListFromAddress") toggleSendModeAddress();
+				//else if (viewFunction == "sendListFromAddress") toggleSendModeAddress();
 			else if (viewFunction == "sendListFromAddress") toggleSendAddress();
 			else if (viewFunction == "sendListFromSent") toggleSendModeLog();
 			else if (viewFunction == "sendListFromCopy") togglePaste();
@@ -359,9 +405,9 @@ package component
 			else if (item.name == "specialChar") emoticonView("specialChar");
 			else if (item.name == "emoticon") emoticonView("emoticon");
 			else if (item.name == "sentMessage") emoticonView("sentMessage");
-			
+				
 			else if (item.name == "sendListFromExcel")toggleExcel(); 
-			//else if (item.name == "sendListFromAddress") toggleSendModeAddress();
+				//else if (item.name == "sendListFromAddress") toggleSendModeAddress();
 			else if (item.name == "sendListFromAddress") toggleSendAddress();
 			else if (item.name == "sendListFromSent") toggleSendModeLog();
 			else if (item.name == "sendListFromCopy") togglePaste();
@@ -395,9 +441,14 @@ package component
 			else {
 				validMessage = "보내기 버튼을 누르면 전송 됩니다.";
 				subMessage = "예약 설정 또는 간격설정을 하실 수 있습니다.";
+				
+				if (isMearge() == true) { confirm_mearge.text = " 합성 "; }
+				else { confirm_mearge.text = "";}
+				
 				sendBtn.enabled = true;
 				
 			}
+			
 			
 			
 			confirm_text.visible = sendBtn.enabled;
@@ -408,6 +459,13 @@ package component
 		}
 		public function initReturnPhone():void {
 			rt.getReturnPhone();
+		}
+		
+		private function isMearge():Boolean {
+			var chkMearg:RegExp = /(\{이름\}|\{합성1\}|\{합성2\}|\{합성3\})+/g;
+			
+			if (chkMearg.test(msg)) return true;
+			else return false;
 		}
 		
 		/**
@@ -457,13 +515,14 @@ package component
 					if (SLibrary.bKoreaPhoneCheck( sendListInput.text )) {
 						addPhone(sendListInput.text, "");
 						sendListInput.text = "";
+						if (eLayer.visible) eLayer.visible = false;
 					}
 					else SLibrary.alert("잘못된 전화번호 입니다.");
 				}
 				else
 					SLibrary.alert("전화번호를 입력하세요.");
 			}
-				
+			
 		}
 		private function getPvo(pno:String, pname:String):PhoneVO {
 			
@@ -473,6 +532,86 @@ package component
 			
 			return pvo;
 		}
+		
+		// edite Phone
+		private var editePhoneIndex:int = -1;
+		/**
+		 * Edite phone
+		 * */
+		public function editePhone(pvo:PhoneVO):void {
+			
+			this.editePhoneIndex = this.alPhone.getItemIndex(pvo);
+			var arr:Array = getEditePhone(pvo);
+			ePhone.text = arr[0];
+			eName.text = arr[1];
+			eMearge1.text = arr[2];
+			eMearge2.text = arr[3];
+			eMearge3.text = arr[4];
+			eLayer.visible = true;
+			sendList.visible = false;
+			autoEditeBtnView();
+		}
+		
+		private function getEditePhone(pvo:PhoneVO):Array {
+			
+			var arr:Array = [pvo.pNo,"","","",""];
+			
+			var arrTemp:Array = pvo.pName.split(Send.PHONE_DIV);
+			if (arrTemp != null && arrTemp.length > 0) {arr[1] = arrTemp[0];}
+			if (arrTemp != null && arrTemp.length > 1) {arr[2] = arrTemp[1];}
+			if (arrTemp != null && arrTemp.length > 2) {arr[3] = arrTemp[2];}
+			if (arrTemp != null && arrTemp.length > 3) {arr[4] = arrTemp[3];}
+			
+			return arr;
+		}
+		private function getEditePhoneVO():PhoneVO {
+			
+			var pvo:PhoneVO = new PhoneVO();
+			pvo.pNo = ePhone.text;
+			pvo.pName = eName.text + Send.PHONE_DIV + eMearge1.text + Send.PHONE_DIV + eMearge2.text + Send.PHONE_DIV + eMearge3.text;
+			
+			return pvo;
+		}
+		private function ePre_clickHandler(event:MouseEvent):void {
+			var idx:int = this.editePhoneIndex -1;
+			if (this.editePhoneIndex >= 0) {
+				eUpdateRun();
+				editePhone(this.alPhone.getItemAt(idx) as PhoneVO);
+			}
+		}
+		private function eUpdate_clickHandler(event:MouseEvent):void {
+			
+			eUpdateRun();
+			eCancel_clickHandler(null);
+		}
+		private function eUpdateRun():void {
+			var idx:int = this.editePhoneIndex;
+			if (this.editePhoneIndex >= 0) {
+				var vo:PhoneVO = this.alPhone.getItemAt(idx) as PhoneVO;
+				var evo:PhoneVO = getEditePhoneVO();
+				vo.pNo = evo.pNo;
+				vo.pName = evo.pName;
+			}
+		}
+		private function eCancel_clickHandler(event:MouseEvent):void {
+			eLayer.visible = false;
+			sendList.visible = true;
+		}
+		private function eNext_clickHandler(event:MouseEvent):void {
+			var idx:int = this.editePhoneIndex +1;
+			if (this.editePhoneIndex < this.alPhone.length) {
+				eUpdateRun();
+				editePhone(this.alPhone.getItemAt(idx) as PhoneVO);
+			}
+		}
+		
+		private function autoEditeBtnView():void {
+			
+			ePre.enabled = (this.editePhoneIndex > 0);
+			eNext.enabled = (this.editePhoneIndex < (this.alPhone.length-1));
+		}
+		
+		
 		public function removePhone(pvo:PhoneVO):void {	this.alPhone.removeItemAt( this.alPhone.getItemIndex(pvo) );setTotalCount(); }
 		public function phoneFormat(ph:String):String {	return Kpf.format(ph);	}
 		private function setTotalCount():void { 
@@ -579,7 +718,7 @@ package component
 			var smvo:SendMessageVO = new SendMessageVO();
 			
 			smvo.bInterval = false;
-			smvo.bMerge = false;
+			smvo.bMerge = isMearge();
 			
 			if (sendReservation.selected) {
 				smvo.bReservation = true;
@@ -622,9 +761,9 @@ package component
 		 * Sending
 		 * */
 		/*private function toggleSending():void {
-			
-			if (sending == null) createSending();
-			else removeSending();
+		
+		if (sending == null) createSending();
+		else removeSending();
 		}*/
 		private function createSending():void {
 			if (sending == null) 
@@ -742,7 +881,7 @@ package component
 				this.functionGroup.removeElement(sml);
 				sml = null;
 			}
-		
+			
 		}
 		
 		/**
@@ -856,7 +995,7 @@ package component
 		private function reservation_setReservationHandler(event:CustomEvent):void {
 			
 			sendReservation.label = event.result as String;
-			confirm_reservation.text = " "+sendReservation.label+" 시간에 ";
+			confirm_reservation.text = sendReservation.label;
 		}
 		private function reservation_cancelReservationHandler(event:Event):void {
 			
@@ -974,13 +1113,13 @@ package component
 		private function removeImage():void {
 			
 			/*if (arrImage.length > 2) {
-				arrImage.pop();
-				SLibrary.alert("3개까지만 추가 가능 합니다. 마지막 이미지가 지워졌습니다.");
-				trace(arrImage.join(";"));
+			arrImage.pop();
+			SLibrary.alert("3개까지만 추가 가능 합니다. 마지막 이미지가 지워졌습니다.");
+			trace(arrImage.join(";"));
 			}
 			
 			if (mBox.numElements == 4) {
-				mBox.removeElementAt(0);
+			mBox.removeElementAt(0);
 			}*/
 			
 			if (arrImage.length > 0) {
@@ -1034,6 +1173,40 @@ package component
 				this.fur.destroy();
 				this.fur = null;
 			}
+		}
+		
+		
+		/**
+		 * addTxt
+		 * */
+		private function addTxt_clickHandler(event:MouseEvent):void {
+			
+			addTxtLayer.visible = !addTxtLayer.visible;
+		}
+		private function addTxtLayer_changeHandler(event:IndexChangeEvent):void {
+			
+			var item:Object = addTxtLayer.selectedItem;
+			
+			if (item != null) {
+				var lable:String = item.data;
+				var pos:int = message.selectionActivePosition;
+				
+				if (pos != -1)
+				{
+					message.text = message.text.substr(0, pos) + lable + message.text.substr(pos, message.text.length - pos);
+				} else {
+					message.text += lable;
+				}
+				message.selectRange(pos + lable.length, pos + lable.length);
+				
+				addTxtLayer.selectedIndex = -1;
+				addTxtLayer.visible = false;
+				
+				// byte check
+				message_keyUpHandlerAutoMode(null);
+				SLibrary.alert("SMS로 합성 할 경우 90byte 이상 문자는 잘릴 수 있습니다.");
+			}
+			
 		}
 		
 		
