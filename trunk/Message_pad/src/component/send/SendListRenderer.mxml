@@ -16,7 +16,25 @@
 				if (data) {
 					var obj:Send = parentApplication.send as Send;
 					idx.text = String(obj.alPhone.getItemIndex(data)+1);
-					pna.text = data.pName;
+					
+					var pn:String = data.pName;
+					var arr:Array = pn.split(Send.PHONE_DIV);
+					if (arr != null && arr.length > 1) {
+						var b:Boolean = false;
+						for (var i:int = 0; i < arr.length; i++) {
+							if (i > 0 && arr[i] != "") {
+								b = true;
+								break;
+							}
+						}
+						if (b == true)	
+							pna.text = arr[0]+" {합성}";
+						else
+							pna.text = arr[0];
+					} else {
+						pna.text = pn;
+					}
+					
 					pno.text = obj.phoneFormat( data.pNo );
 				}
 					
@@ -26,6 +44,14 @@
 			{
 				var obj:Send = parentApplication.send as Send;
 				obj.removePhone(this.data as PhoneVO);
+				event.stopPropagation();
+			}
+			
+			protected function modify_clickHandler(event:MouseEvent):void
+			{
+				var obj:Send = parentApplication.send as Send;
+				obj.editePhone(this.data as PhoneVO);
+				event.stopPropagation();
 			}
 			
 		]]>
@@ -33,7 +59,8 @@
 	<s:Group width="100%" height="20">
 		<s:Label id="idx" left="5" verticalCenter="0" fontSize="12"/>
 		<s:Label id="pno" left="50" verticalCenter="0" fontSize="12"/>
-		<s:Label id="pna" left="170" verticalCenter="0" fontSize="12"/>
+		<s:Label id="pna" left="150" verticalCenter="0" fontSize="12"/>
+		<s:Image source="@Embed('/skin/ics/assets/open_folder.png')" buttonMode="true" click="modify_clickHandler(event)" verticalCenter="0" right="20" />
 		<s:Image source="@Embed('/skin/ics/assets/close.gif')" buttonMode="true" click="del_clickHandler(event)" verticalCenter="0" right="5" />
 	</s:Group>
 	
