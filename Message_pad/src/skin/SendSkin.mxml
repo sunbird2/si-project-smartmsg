@@ -47,23 +47,25 @@
 				<s:Rect left="0" top="0" bottom="0" width="1" ><s:fill><s:SolidColor color="0xDBDBDB" /></s:fill></s:Rect>
 				<s:Rect left="1" top="0" bottom="0" width="1" ><s:fill><s:SolidColor color="0xEAEAEA" /></s:fill></s:Rect>
 				
-				
+				<s:List id="addTxtLayer" depth="2" top="40" right="69" width="50" visible="false">
+				</s:List>
 				<s:VGroup horizontalCenter="0"
 						  gap="2"
 						  horizontalAlign="center">
 					
 					<!-- Message -->
 					<s:Group width="100%" height="40">
-						<s:Image source="/images/gbar.png" bottom="2" left="3" />
-						<s:RichText color="#999999" left="22" bottom="0">
-							<s:content><s:p><s:span id="sMode" fontSize="16" color.LMS="0x33B5E5"
-													color.MMS="0xFF4444">SMS</s:span><s:span>  </s:span><s:span id="byte" fontSize="14">0</s:span><s:span>byte</s:span></s:p></s:content>
+						<s:Image source="/images/gbar.png" bottom="8" left="3" width="14" height="11" />
+						<s:RichText color="#999999" left="22" bottom="6">
+							<s:content><s:p><s:span id="sMode" fontSize="14" color.LMS="0x33B5E5"
+													color.MMS="0xFF4444">SMS</s:span><s:span>  </s:span><s:span id="byte" fontSize="12">0</s:span><s:span>byte</s:span></s:p></s:content>
 						</s:RichText>
 						<s:HGroup  bottom="0" right="5" gap="0">
-							<s:Image id="addImage" source="skin/ics/assets/light/icon/5-content-picture.png" buttonMode="true" toolTip="이미지 첨부" width="30" height="30" />
-							<s:Image id="messageSaveBtn" source="skin/ics/assets/light/icon/5-content-save.png" buttonMode="true" toolTip="메시지 저장" width="30" height="30" />
-							<s:Image id="removeMsg" source="skin/ics/assets/light/icon/5-content-remove.png" buttonMode="true" toolTip="메시지 삭제" width="30" height="30" />
-						</s:HGroup> 
+							<s:Image id="addImage" source="/skin/ics/assets/light/icon/5-content-picture.png" buttonMode="true" toolTip="이미지 첨부" />
+							<s:Image id="addTxt" source="/skin/ics/assets/light/icon/4-collections-new-label.png" buttonMode="true" toolTip="합성추가" />
+							<s:Image id="messageSaveBtn" source="/skin/ics/assets/light/icon/5-content-save.png" buttonMode="true" toolTip="메시지 저장" />
+							<s:Image id="removeMsg" source="/skin/ics/assets/light/icon/5-content-remove.png" buttonMode="true" toolTip="메시지 삭제" />
+						</s:HGroup>
 					</s:Group>
 					<s:Scroller width="265" height="200">
 						<s:VGroup id="mBox" width="100%" gap="0">
@@ -90,12 +92,29 @@
 					
 					
 					<!-- send List -->
-					<s:List id="sendList"
-							focusEnabled="false"
-							borderColor="#DDDDDD" contentBackgroundColor="0xFFFFFF"
-							itemRenderer="component.send.SendListRenderer"
-							width="265" height="162">
-					</s:List>
+					<s:Group width="265" height="162">
+						<s:Rect left="0" right="0" top="0" bottom="0"><s:fill><s:SolidColor color="#FFFFFF" /></s:fill></s:Rect>
+						<s:List id="sendList"
+								focusEnabled="false"
+								borderColor="#DDDDDD" contentBackgroundColor="0xFFFFFF"
+								itemRenderer="component.send.SendListRenderer"
+								width="265" height="162">
+						</s:List>
+						<s:VGroup id="eLayer" width="265" height="162" top="0" horizontalAlign="center" gap="1" visible="false">
+							<s:HGroup verticalAlign="middle"><s:Label text="번호 " /><s:TextInput id="ePhone" width="165" styleName="textinput_light" restrict="0-9 -"/></s:HGroup>
+							<s:HGroup verticalAlign="middle"><s:Label text="이름 " /><s:TextInput id="eName" width="165" styleName="textinput_light"/></s:HGroup>
+							<s:HGroup verticalAlign="middle"><s:Label text="합성1" /><s:TextInput id="eMearge1" width="165" styleName="textinput_light"/></s:HGroup>
+							<s:HGroup verticalAlign="middle"><s:Label text="합성2" /><s:TextInput id="eMearge2" width="165" styleName="textinput_light"/></s:HGroup>
+							<s:HGroup verticalAlign="middle"><s:Label text="합성3" /><s:TextInput id="eMearge3" width="165" styleName="textinput_light"/></s:HGroup>
+							<s:HGroup verticalAlign="middle">
+								<s:Button id="ePre" label="&lt;이전" styleName="button_light" width="70" height="25" />
+								<s:Button id="eUpdate" label="적용" styleName="button_light" width="50" height="25"/>
+								<s:Button id="eCancel" label="취소" styleName="button_light" width="50" height="25"  />
+								<s:Button id="eNext" label="다음&gt;" styleName="button_light" width="70" height="25"/>
+							</s:HGroup>
+						</s:VGroup>
+					</s:Group>
+					
 					<!-- send List count -->
 					<s:HGroup width="100%" horizontalAlign="right" paddingRight="5" gap="0" verticalAlign="bottom">
 						<s:RichText whiteSpaceCollapse="preserve" color="#999999" paddingBottom="5">
@@ -133,7 +152,7 @@
 					<!-- confirm -->
 					<s:RichText id="confirm_text" width="265" fontSize="14" showEffect="{showEff}" >
 						<s:content><s:p><s:span id="confirm_mode" color.LMS="#33B5E5"
-												color.MMS="#FF4444">SMS</s:span><s:span> 를 </s:span><s:span id="confirm_count" color="#33B5E5">0</s:span><s:span> 명에게 </s:span><s:span id="confirm_delay" backgroundColor="#FFBB33"></s:span></s:p><s:p><s:span id="confirm_reservation" backgroundColor="#99CC00"></s:span><s:span>발송하시겠습니까?</s:span></s:p></s:content>
+												color.MMS="#FF4444">SMS</s:span><s:span> 를 </s:span><s:span id="confirm_count" color="#33B5E5">0</s:span><s:span> 명에게 </s:span><s:span id="confirm_delay" backgroundColor="#FFBB33"></s:span></s:p><s:p><s:span id="confirm_reservation" backgroundColor="#99CC00"></s:span><s:span id="confirm_mearge" backgroundColor="#FF8800"></s:span><s:span>발송 하시겠습니까?</s:span></s:p></s:content>
 					</s:RichText>
 					
 					<s:Spacer height="4"/>
