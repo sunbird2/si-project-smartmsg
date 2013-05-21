@@ -208,5 +208,46 @@
 	</select>
 	<!-- status E -->
 	
+	<!-- KT S -->
+	<select id="select_ktsms_list" parameterType="com.m.send.LogVO" resultType="com.m.send.MessageVO">
+		select 
+		 s.MSG_ID as idx,
+		 s.SEND_DATE as sendDate,
+		 s.USER_ID as user_id,
+		 '2' as stat,
+		 d.RESULT as rslt,
+		 d.PHONE_NUMBER as phone,
+		 d.DEST_NAME as name,
+		 s.CALLBACK as callback,
+		 s.SMS_MSG as msg,
+		 s.RESERVED1 as groupKey,
+		 '' as imagePath,
+		 d.DELIVER_DATE as rsltDate,
+		 s.RESERVED3 as failAddDate
+		from 
+		 SDK_SMS_REPORT s left outer join SDK_SMS_REPORT_DETAIL d on(s.MSG_ID = d.MSG_ID) 
+		where s.USER_ID=#{user_id} and s.RESERVED1=#{idx,jdbcType=VARCHAR}
+	</select>
+	<select id="select_ktmms_list" parameterType="com.m.send.LogVO" resultType="com.m.send.MessageVO">
+		select 
+		 s.MSG_ID as idx,
+		 s.SEND_DATE as sendDate,
+		 s.USER_ID as user_id,
+		 '2' as stat,
+		 d.RESULT as rslt,
+		 d.PHONE_NUMBER as phone,
+		 d.DEST_NAME as name,
+		 s.CALLBACK as callback,
+		 s.MMS_MSG as msg,
+		 s.RESERVED1 as groupKey,
+		 s.CONTENT_DATA as imagePath,
+		 d.DELIVER_DATE as rsltDate,
+		 s.RESERVED3 as failAddDate
+		from 
+		 SDK_MMS_REPORT s left outer join SDK_MMS_REPORT_DETAIL d on(s.MSG_ID = d.MSG_ID) 
+		where s.USER_ID=#{user_id} and s.RESERVED1=#{idx,jdbcType=VARCHAR}
+	</select>
+	<!-- KT E -->
+	
 
 </mapper>

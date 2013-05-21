@@ -26,8 +26,16 @@ public class KTSent implements ISentData {
 		ArrayList<HashMap<String, String>> al = null;
 		
 		String SQL = "";
-		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_kt_select_mms" );
-		else SQL = VbyP.getSQL( "sent_kt_select" );
+		String where = "";
+		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) {
+			if ( !SLibrary.isNull( slvo.getSearch() )) where = whereMMS(slvo.getSearch());
+			SQL = VbyP.getSQL( "sent_kt_select_mms_search" );
+		}
+		else {
+			if ( !SLibrary.isNull( slvo.getSearch() )) where = whereSMS(slvo.getSearch());
+			SQL = VbyP.getSQL( "sent_kt_select_search" );
+		}
+		SQL = SLibrary.messageFormat( SQL , new Object[]{where} );
 		
 		
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
@@ -335,10 +343,19 @@ public class KTSent implements ISentData {
 		String rslt = "";
 		String where = "";
 		String where2 = "";
-		if (type.equals("1")) where = " d.RESULT=2 "; // 성공
-		else if (type.equals("2")) where = " d.RESULT not in (0,2) "; // 실패
-		else if (type.equals("3")) where = " d.RESULT in (0) "; // 전송중
-		else if (type.equals("4")) where = " d.RESULT is null "; // 대기
+		
+		if (type != null && type.length() > 1) {
+			int cnt = type.length();
+			where +="(";
+			for (int i = 0; i < cnt; i++) {
+				where += searchMMS(type.substring(i, i+1));
+				if (i+1 != cnt) where += " or ";
+			}
+			where +=")";
+		}else {
+			where = searchMMS(type);
+		}
+		
 		
 		if ( !SLibrary.isNull(text) ) {
 			where2 = " s.DEST_INFO like '%"+text+"%' ";
@@ -364,10 +381,19 @@ public class KTSent implements ISentData {
 		String rslt = "";
 		String where = "";
 		String where2 = "";
-		if (type.equals("1")) where = " d.RESULT=2 "; // 성공
-		else if (type.equals("2")) where = " d.RESULT not in (0,2) "; // 실패
-		else if (type.equals("3")) where = " d.RESULT in (0) "; // 전송중
-		else if (type.equals("4")) where = " d.RESULT is null "; // 대기
+		
+		if (type != null && type.length() > 1) {
+			int cnt = type.length();
+			where +="(";
+			for (int i = 0; i < cnt; i++) {
+				where += searchSMS(type.substring(i, i+1));
+				if (i+1 != cnt) where += " or ";
+			}
+			where +=")";
+		}else {
+			where = searchSMS(type);
+		}
+		
 		
 		if ( !SLibrary.isNull(text) ) {
 			where2 = " s.DEST_INFO like '%"+text+"%' ";
@@ -383,6 +409,34 @@ public class KTSent implements ISentData {
 		
 		return rslt;
 		
+	}
+	
+	private String searchSMS(String type) {
+		
+		String where = "";
+		
+		if (type != null) {
+			if (type.equals("1")) where = " d.RESULT=2 "; // 성공
+			else if (type.equals("2")) where = " (d.RESULT is not null and  d.RESULT not in (0,2,6,54)) "; // 실패
+			else if (type.equals("3")) where = " d.RESULT in (0) "; // 전송중
+			else if (type.equals("4")) where = " d.RESULT is null "; // 대기
+			else if (type.equals("5")) where = " d.RESULT in (6,54) "; // 없는번호
+		}
+		return where;
+	}
+	
+	private String searchMMS(String type) {
+		
+		String where = "";
+		
+		if (type != null) {
+			if (type.equals("1")) where = " d.RESULT=2 "; // 성공
+			else if (type.equals("2")) where = " (d.RESULT is not null and  d.RESULT not in (0,2,6,54)) "; // 실패
+			else if (type.equals("3")) where = " d.RESULT in (0) "; // 전송중
+			else if (type.equals("4")) where = " d.RESULT is null "; // 대기
+			else if (type.equals("5")) where = " d.RESULT in (6,54) "; // 없는번호
+		}
+		return where;
 	}
 	
 	private String getPhone(String str) {

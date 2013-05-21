@@ -47,7 +47,7 @@ public class KT implements ILineSet {
 	private void smsSetFail(PreparedExecuteQueryManager pq, MessageVO vo, String rsltCode) {
 		pq.setString(1, vo.getSendDate());
 		pq.setString(2, vo.getUser_id());
-		pq.setString(3, vo.getName()+"^"+vo.getPhone());
+		pq.setString(3, SLibrary.replaceAll(vo.getName(), "|", "") +"^"+vo.getPhone());
 		pq.setString(4, vo.getCallback());
 		pq.setString(5, vo.getMsg());
 		pq.setString(6, Integer.toString(vo.getGroupKey()));
