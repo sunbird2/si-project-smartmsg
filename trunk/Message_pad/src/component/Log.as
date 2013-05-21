@@ -412,10 +412,10 @@ package component
 		
 		private function detailList_changeHandler(event:IndexChangeEvent):void {
 			
-			var vo:LogVO = detailList.dataProvider.getItemAt(event.newIndex) as LogVO;
+			var vo:MessageVO = detailList.dataProvider.getItemAt(event.newIndex) as MessageVO;
 			
 			if (vo != null) {
-				message.text = vo.message;
+				message.text = vo.msg;
 			}
 		}
 		
