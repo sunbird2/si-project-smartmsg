@@ -176,6 +176,7 @@ package lib
 			var u:URLRequest = new URLRequest("javascript:" + msg + "");
 			navigateToURL(u,"_self");
 		}
+
 		
 		public static function addComma(str:String):String {
 			var rslt:String = new String(str);
