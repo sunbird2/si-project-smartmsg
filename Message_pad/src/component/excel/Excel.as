@@ -254,11 +254,11 @@ package component.excel
 				var phone:String = "";
 				var name:String = "";
 				var memo:String = "";
-				var bName:Boolean = nameCombo.selectedIndex > 0 ? true : false;
-				var bMemo:Boolean = memoCombo.selectedIndex > 0 ? true : false;
-				var bMearg1:Boolean = meargCombo1.selectedIndex > 0 ? true : false;
-				var bMearg2:Boolean = meargCombo2.selectedIndex > 0 ? true : false;
-				var bMearg3:Boolean = meargCombo3.selectedIndex > 0 ? true : false;
+				var bName:Boolean = nameCombo && nameCombo.selectedIndex > 0 ? true : false;
+				var bMemo:Boolean = memoCombo && memoCombo.selectedIndex > 0 ? true : false;
+				var bMearg1:Boolean = meargCombo1 && meargCombo1.selectedIndex > 0 ? true : false;
+				var bMearg2:Boolean = meargCombo2 && meargCombo2.selectedIndex > 0 ? true : false;
+				var bMearg3:Boolean = meargCombo3 && meargCombo3.selectedIndex > 0 ? true : false;
 				var chkInvaildChar:RegExp = /[^0-9]/g;	
 				
 				acRslt.removeAll();
