@@ -23,9 +23,27 @@
 			<s:Label id="nextMonth" text="다음달" buttonMode="true" color="0x999999"  />
 		</s:HGroup>
 		<s:HSlider id="monthSlider" width="250" />
+		<s:HGroup verticalAlign="middle">
+			<s:Label text="추가 조건(옵션) : " />
+			<s:CheckBox id="cbsuc" label="성공" fontWeight="bold"
+						skinClass="com.flexpad.skin.CheckBoxSkin"
+						color="#6F6F6F" />
+			<s:CheckBox id="cbfail" label="실패" fontWeight="bold"
+						skinClass="com.flexpad.skin.CheckBoxSkin"
+						color="#6F6F6F"/>
+			<s:CheckBox id="cbnonum" label="없는번호" fontWeight="bold"
+						skinClass="com.flexpad.skin.CheckBoxSkin"
+						color="#6F6F6F"/>
+			<s:CheckBox id="cbing" label="전송중" fontWeight="bold"
+						skinClass="com.flexpad.skin.CheckBoxSkin"
+						color="#6F6F6F"/>
+			<s:CheckBox id="cbready" label="대기중" fontWeight="bold"
+						skinClass="com.flexpad.skin.CheckBoxSkin"
+						color="#6F6F6F"/>
+		</s:HGroup>
 		<s:List id="groupList"
 				width="100%"
-				height="550"
+				height="500"
 				borderVisible="false"
 				itemRenderer="skin.log.GroupListRendererNoSel" />
 	</s:VGroup>

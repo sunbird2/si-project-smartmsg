@@ -20,6 +20,7 @@ package component.log
 	import skin.log.SendModeLogSkin;
 	
 	import spark.components.Button;
+	import spark.components.CheckBox;
 	import spark.components.HSlider;
 	import spark.components.Label;
 	import spark.components.List;
@@ -48,6 +49,12 @@ package component.log
 		[SkinPart(required="false")]public var monthSlider:HSlider;
 		
 		[SkinPart(required="false")]public var groupList:List;
+		
+		[SkinPart(required="false")]public var cbsuc:CheckBox;
+		[SkinPart(required="false")]public var cbfail:CheckBox;
+		[SkinPart(required="false")]public var cbnonum:CheckBox;
+		[SkinPart(required="false")]public var cbing:CheckBox;
+		[SkinPart(required="false")]public var cbready:CheckBox;
 		
 		private var _yyyymm:String;
 		private var acGroup:ArrayCollection = new ArrayCollection();
@@ -95,6 +102,11 @@ package component.log
 				groupList.dataProvider = acGroup;
 				groupList.addEventListener(IndexChangeEvent.CHANGE, groupList_changeHandler);
 			}
+			else if (instance == cbsuc) cbsuc.addEventListener(Event.CHANGE, cb_changeHandler);
+			else if (instance == cbfail) cbfail.addEventListener(Event.CHANGE, cb_changeHandler);
+			else if (instance == cbnonum) cbnonum.addEventListener(Event.CHANGE, cb_changeHandler);
+			else if (instance == cbing) cbing.addEventListener(Event.CHANGE, cb_changeHandler);
+			else if (instance == cbready) cbready.addEventListener(Event.CHANGE, cb_changeHandler);
 		}
 		
 		/* Implement the partRemoved() method to remove the even handlers added in partAdded() */
@@ -113,6 +125,11 @@ package component.log
 				ArrayCollection(groupList.dataProvider).removeAll();
 				groupList.removeEventListener(IndexChangeEvent.CHANGE, groupList_changeHandler);
 			}
+			else if (instance == cbsuc) cbsuc.removeEventListener(Event.CHANGE, cb_changeHandler);
+			else if (instance == cbfail) cbfail.removeEventListener(Event.CHANGE, cb_changeHandler);
+			else if (instance == cbnonum) cbnonum.removeEventListener(Event.CHANGE, cb_changeHandler);
+			else if (instance == cbing) cbing.removeEventListener(Event.CHANGE, cb_changeHandler);
+			else if (instance == cbready) cbready.removeEventListener(Event.CHANGE, cb_changeHandler);
 		}
 		
 		private function preMonth_clickHandler(event:MouseEvent):void { --monthSlider.value; }
@@ -160,6 +177,7 @@ package component.log
 			
 			var vo:LogVO = acGroup.getItemAt(event.newIndex) as LogVO;
 			if (vo != null) {
+				vo.search = phoneType();
 				RemoteSingleManager.getInstance.addEventListener("getSentListDetail", groupList_changeResultHandler, false, 0, true);
 				RemoteSingleManager.getInstance.callresponderToken 
 					= RemoteSingleManager.getInstance.service.getSentListDetail(vo);
@@ -194,8 +212,25 @@ package component.log
 			return acVO;
 		}
 		
+		private function phoneType():String {
+			
+			var rslt:String = "";
+			if (cbsuc.selected) rslt +="1";
+			if (cbfail.selected) rslt +="2";
+			if (cbnonum.selected) rslt +="5";
+			if (cbing.selected) rslt +="3";
+			if (cbready.selected) rslt +="4";
+			
+			return rslt;
+			
+		}
+		
 		private function close_clickHandler(event:MouseEvent):void {
 			this.dispatchEvent(new Event("close"));
+		}
+		
+		private function cb_changeHandler(event:Event):void {
+			groupList.selectedIndex = -1;
 		}
 		
 		
