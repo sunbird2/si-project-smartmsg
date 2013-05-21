@@ -69,9 +69,9 @@
 							<s:Image id="addImage" source="/skin/ics/assets/light/icon/5-content-picture.png" buttonMode="true" toolTip=" " 
 									 toolTipCreate="SLibrary.iosTip('이미지 첨부','MMS 발송을 위해 이미지를 첨부 하실 수 있습니다.', event)" />
 							<s:Image id="addTxt" source="/skin/ics/assets/light/icon/4-collections-new-label.png" buttonMode="true" toolTip=" " 
-									 toolTipCreate="SLibrary.iosTip('합성 추가','전화번호별 다른 메시지를 발송하기 위해 합성할 문자를 추가 합니다. 추가된 {이름},{합성1}.. 등이 전화번호의 이름, 합성1.. 로 변경되어 발송 됩니다.', event)"/>
+									 toolTipCreate="SLibrary.iosTip('합성 추가','전화번호별 다른 메시지를 발송하기 위해 합성할 문자를 추가 합니다.\n추가된 {이름},{합성1}.. 등이 전화번호의 이름, 합성1.. 로 변경되어 발송 됩니다.', event)"/>
 							<s:Image id="messageSaveBtn" source="/skin/ics/assets/light/icon/5-content-save.png" buttonMode="true" toolTip=" " 
-									 toolTipCreate="SLibrary.iosTip('메시지 저장','아래 입력된 메시지를 저장 합니다. 저장된 메시지는 왼쪽 내메시지 에서 확인 하실 수 있습니다.', event)" />
+									 toolTipCreate="SLibrary.iosTip('메시지 저장','아래 입력된 메시지를 저장 합니다.\n저장된 메시지는 왼쪽 내메시지 에서 확인 하실 수 있습니다.', event)" />
 							<s:Image id="removeMsg" source="/skin/ics/assets/light/icon/5-content-remove.png" buttonMode="true" toolTip=" " 
 									 toolTipCreate="SLibrary.iosTip('메시지 삭제','입력된 메시지를 모두 삭제 합니다.', event)" />
 						</s:HGroup>
@@ -94,7 +94,7 @@
 							<s:Image id="sendListInputBtn"
 									 source="@Embed('/skin/ics/assets/light/icon/9-av-download.png')" buttonMode="true"
 									 toolTip=" " 
-									 toolTipCreate="SLibrary.iosTip('전화번호 추가','입력된 전화번호를 아래로 추가 합니다. 또한 키보드의 Enter 를 눌러도 추가 가능합니다. ', event)"  width="30" height="30"
+									 toolTipCreate="SLibrary.iosTip('전화번호 추가','입력된 전화번호를 아래로 추가 합니다.\n또한 키보드의 Enter 를 눌러도 추가 가능합니다. ', event)"  width="30" height="30"
 									 />
 						</s:HGroup>
 						
