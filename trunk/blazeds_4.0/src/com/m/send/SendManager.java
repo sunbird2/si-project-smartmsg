@@ -267,6 +267,7 @@ public class SendManager implements ISend {
 		sendDate = ls.parseDate(sendDate);
 		img = ls.parseMMSPath(smvo.getImagePath());
 		
+		String[] dt = null;
 		for (int i = 0; i < count; i++) {
 			
 			vo = new MessageVO();
@@ -274,14 +275,21 @@ public class SendManager implements ISend {
 			if (smvo.isbInterval() && i != 0 && (i+1) % smvo.getItCount() == 0) 
 				sendDate = SLibrary.getDateAddSecond(dFormat, sendDate, smvo.getItMinute() * 60);
 			
-			
 			vo.setGroupKey(groupKey);
 			vo.setSendDate(sendDate);
 			vo.setUser_id(uvo.getUser_id());
 			vo.setPhone(pvo.getpNo());
-			vo.setName(pvo.getpName());
 			vo.setCallback(smvo.getReturnPhone());
-			vo.setMsg(smvo.getMessage());
+			
+			if (smvo.isbMerge()) {
+				
+				dt = getMeargArray(pvo.getpName());
+				vo.setMsg(getMeargMsg(dt, smvo.getMessage(), pvo.getpName()));
+				vo.setName(dt[0]);
+			}
+			else
+				vo.setMsg(smvo.getMessage());
+			
 			vo.setSendMode( smvo.isbReservation() ? "R" : "I");
 			vo.setImagePath( img );
 			
@@ -323,6 +331,32 @@ public class SendManager implements ISend {
 		else if ( SLibrary.getByte( smvo.getMessage() ) > SendManager.SMS_BYTE)
 			mode = "LMS";
 		return mode;
+	}
+	
+	private String getMeargMsg(String[] dt, String msg, String pName) {
+		
+		String rslt = msg;
+		
+		rslt = SLibrary.replaceAll(rslt, "{이름}", dt[0] );
+		rslt = SLibrary.replaceAll(rslt, "{합성1}", dt[1] );
+		rslt = SLibrary.replaceAll(rslt, "{합성2}", dt[2] );
+		rslt = SLibrary.replaceAll(rslt, "{합성3}", dt[3] );
+		
+		return rslt;
+	}
+	private String[] getMeargArray(String pName) {
+		String[] arr = {"","","",""};
+		if (!SLibrary.isNull(pName)) {
+			String[] temp = pName.split("\\|");
+			if (temp != null && temp.length > 0) {
+				arr[0] = (temp.length > 0)? temp[0] : "";
+				arr[1] = (temp.length > 1)? temp[1] : "";
+				arr[2] = (temp.length > 2)? temp[2] : "";
+				arr[3] = (temp.length > 3)? temp[3] : "";
+			}
+		}
+		
+		return arr;
 	}
 
 	private void checkAuth(Connection conn, UserInformationVO uvo, SendMessageVO smvo) throws Exception{

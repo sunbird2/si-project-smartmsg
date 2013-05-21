@@ -26,6 +26,19 @@ public class LGSent implements ISentData {
 		ArrayList<HashMap<String, String>> al = null;
 		
 		String SQL = "";
+		String where = "";
+		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")){
+			if ( !SLibrary.isNull( slvo.getSearch() )) {
+				where = whereMMS(slvo.getSearch());
+			}
+			SQL = SLibrary.messageFormat( VbyP.getSQL( "sent_lg_select_mms_paged_count" ) , new Object[]{where} );
+		}
+		else {
+			if ( !SLibrary.isNull( slvo.getSearch() )) {
+				where = whereSMS(slvo.getSearch());
+			}
+			SQL = SLibrary.messageFormat( VbyP.getSQL( "sent_lg_select_paged_count" ) , new Object[]{where} );
+		}
 		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_select_mms" );
 		else SQL = VbyP.getSQL( "sent_lg_select" );
 		
@@ -75,14 +88,15 @@ public class LGSent implements ISentData {
 		
 		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")){
 			if ( !SLibrary.isNull( slvo.getSearch() )) {
-				
 				where = whereMMS(slvo.getSearch());
-				
 			}
 			SQL = SLibrary.messageFormat( VbyP.getSQL( "sent_lg_select_mms_paged_count" ) , new Object[]{where} );
 		}
 		else {
-			SQL = VbyP.getSQL( "sent_lg_select_paged_count" );
+			if ( !SLibrary.isNull( slvo.getSearch() )) {
+				where = whereSMS(slvo.getSearch());
+			}
+			SQL = SLibrary.messageFormat( VbyP.getSQL( "sent_lg_select_paged_count" ) , new Object[]{where} );
 		}
 		
 		
@@ -330,10 +344,18 @@ public class LGSent implements ISentData {
 		String rslt = "";
 		String where = "";
 		String where2 = "";
-		if (type.equals("1")) where = " RSLT='1000' "; // 성공
-		else if (type.equals("2")) where = " STATUS='3' AND RSLT!='1000' "; // 실패
-		else if (type.equals("3")) where = " STATUS in ('1','2') "; // 전송중
-		else if (type.equals("4")) where = " STATUS='0' "; // 대기
+		
+		if (type != null && type.length() > 1) {
+			int cnt = type.length();
+			where +="(";
+			for (int i = 0; i < cnt; i++) {
+				where += searchMMS(type.substring(i, i+1));
+				if (i+1 != cnt) where += " or ";
+			}
+			where +=")";
+		}else {
+			where = searchMMS(type);
+		}
 		
 		if ( !SLibrary.isNull(text) ) {
 			where2 = " ( ETC2 like '%"+text+"%' or PHONE like '%"+text+"%' )";
@@ -348,6 +370,71 @@ public class LGSent implements ISentData {
 		
 		return rslt;
 		
+	}
+	
+	private String whereSMS(String str) {
+		
+		String [] arr = getSearchValue(str);
+		String type = arr[0];
+		String text = arr[1];
+		
+		String rslt = "";
+		String where = "";
+		String where2 = "";
+		
+		if (type != null && type.length() > 1) {
+			int cnt = type.length();
+			where +="(";
+			for (int i = 0; i < cnt; i++) {
+				where += searchSMS(type.substring(i, i+1));
+				if (i+1 != cnt) where += " or ";
+			}
+			where +=")";
+		}else {
+			where = searchSMS(type);
+		}
+		
+		if ( !SLibrary.isNull(text) ) {
+			where2 = " ( TR_ETC2 like '%"+text+"%' or PHONE like '%"+text+"%' )";
+		}
+		
+		if (!SLibrary.isNull(where) && !SLibrary.isNull(where2)) rslt = where+" AND "+where2;
+		else if (!SLibrary.isNull(where) && SLibrary.isNull(where2)) rslt = where;
+		else if (SLibrary.isNull(where) && !SLibrary.isNull(where2)) rslt = where2;
+		
+		
+		if (!SLibrary.isNull(rslt)) rslt = " AND "+rslt;
+		
+		return rslt;
+		
+	}
+	
+	private String searchSMS(String type) {
+		
+		String where = "";
+		
+		if (type != null) {
+			if (type.equals("1")) where = " TR_RSLTSTAT='06' "; // 성공
+			else if (type.equals("2")) where = " TR_SENDSTAT='2' AND TR_RSLTSTAT not in ('06','05','07','21') "; // 실패
+			else if (type.equals("3")) where = " TR_SENDSTAT in ('1') "; // 전송중
+			else if (type.equals("4")) where = " TR_SENDSTAT='0' "; // 대기
+			else if (type.equals("5")) where = " TR_RSLTSTAT in (,'05','07','21') "; // 없는번호
+		}
+		return where;
+	}
+	
+	private String searchMMS(String type) {
+		
+		String where = "";
+		
+		if (type != null) {
+			if (type.equals("1")) where = " RSLT='1000' "; // 성공
+			else if (type.equals("2")) where = " STATUS='3' AND RSLT not in ('1000', '2001','9002') "; // 실패
+			else if (type.equals("3")) where = " STATUS in ('1','2') "; // 전송중
+			else if (type.equals("4")) where = " STATUS='0' "; // 대기
+			else if (type.equals("5")) where = " RSLT in ('2001','9002') "; // 없는번호
+		}
+		return where;
 	}
 	
 	
