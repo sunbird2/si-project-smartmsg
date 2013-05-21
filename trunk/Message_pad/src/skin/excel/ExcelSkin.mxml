@@ -39,7 +39,7 @@
 			<s:ComboBox id="meargCombo1" includeIn="upload, actionSend" width="80" styleName="comboBox_light" color="#669900"/>
 			<s:ComboBox id="meargCombo2" includeIn="upload, actionSend" width="80" styleName="comboBox_light" color="#669900"/>
 			<s:ComboBox id="meargCombo3" includeIn="upload, actionSend" width="80" styleName="comboBox_light" color="#669900"/>
-			<s:ComboBox id="memoCombo" includeIn="upload, actionAddress" width="80" styleName="comboBox_light" />
+			<s:ComboBox id="memoCombo" includeIn="actionAddress" width="80" styleName="comboBox_light" />
 			<s:Button id="sendBtn" includeIn="actionSend" label="추가 >>" styleName="button_light" width="100" height="26" />
 			
 			<s:ComboBox id="addressCombo" includeIn="actionAddress" width="80" styleName="comboBox_light" />
