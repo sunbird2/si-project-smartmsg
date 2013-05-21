@@ -586,7 +586,7 @@ package component
 			deleteGroupList();
 		}
 		private function excelDownBtn_clickHandler(event:MouseEvent):void {
-			
+			ExternalInterface.call("excelDownload", "/custom/sentExcel.jsp?idx="+detailVO.idx+"&mode="+detailVO.mode+"&line="+detailVO.line);
 		}
 		
 		/**
