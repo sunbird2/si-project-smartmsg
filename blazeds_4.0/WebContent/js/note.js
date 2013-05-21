@@ -755,4 +755,7 @@
 
 	}
 
-	
+	function excelDownload(url) {
+		var z = window.open(url , "excel", "scrollbars=no,width=640,height=625,resizable=no");
+		z.focus();
+	}
