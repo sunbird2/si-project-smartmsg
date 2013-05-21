@@ -1,6 +1,7 @@
 /* CSS file */
 @namespace s "library://ns.adobe.com/flex/spark";
 @namespace mx "library://ns.adobe.com/flex/mx";
+@namespace flexpad "com.flexpad.*";
 /*
 @font-face
 {
@@ -203,8 +204,12 @@ s|Scroller {
 
 
 mx|Alert, mx|ToolTip, mx|DataTip, mx|UIComponent {
-	fontFamily : "Dotum";
+	fontFamily : "Malgun Gothic","Dotum","Gulim",AppleGothic,sans-serif;
 }
 
+flexpad|AlertPanelTextLabel , flexpad|AlertPanelTitleLabel , flexpad|ButtonBarGreyButtonLabel , flexpad|ButtonBarBlackButtonLabel
+, flexpad|LargeButtonBarGreyButtonLabel , flexpad|ListItemRendererLabel , flexpad|TabBarBlackButtonLabel{
+	fontFamily : "Malgun Gothic","Dotum","Gulim",AppleGothic,sans-serif;
+}
 
 
