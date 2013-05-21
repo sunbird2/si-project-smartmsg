@@ -1,5 +1,7 @@
 package lib
 {
+	import component.util.ToolTipPanel;
+	
 	import flash.events.TimerEvent;
 	import flash.external.ExternalInterface;
 	import flash.net.URLRequest;
@@ -8,6 +10,7 @@ package lib
 	
 	import mx.controls.Alert;
 	import mx.events.CloseEvent;
+	import mx.events.ToolTipEvent;
 	import mx.managers.PopUpManager;
 	
 
@@ -225,6 +228,13 @@ package lib
 				}
 			}
 			return result;
+		}
+		
+		public static function iosTip(title:String, body:String, event:ToolTipEvent):void {
+			var ptt:ToolTipPanel = new ToolTipPanel();
+			ptt.title = title;
+			ptt.bodyText = body;
+			event.toolTip = ptt;
 		}
 	}
 }

@@ -36,16 +36,18 @@
 				   left="0" right="0" top="0" bottom="0"
 				   source="@Embed('/skin/ics/assets/widget_lite.png', scaleGridTop='10', scaleGridBottom='320', scaleGridLeft='10', scaleGridRight='314')"
 				   fillMode="scale" alpha="0.9"/>
-	<s:Label top="15" left="15" text="간격설정" fontSize="20" />
+	<s:Label top="15" left="15" text="간격설정" fontSize="16" />
+	<s:Rect width="100%" top="40" left="8" right="8"><s:stroke><s:SolidColorStroke color="#33B5E5" weight="2" /></s:stroke></s:Rect>
+	
 	<s:Group top="50" horizontalCenter="0">
 		<s:layout><s:VerticalLayout verticalAlign="middle" horizontalAlign="left"/></s:layout>
-		<s:HGroup verticalAlign="middle"><s:TextInput id="cnt" width="50" restrict="0-9" styleName="textinput_light" /><s:Label text="건 마다" /></s:HGroup>
-		<s:HGroup verticalAlign="middle"><s:TextInput id="minute" width="50" restrict="0-9" styleName="textinput_light" /><s:Label text="분 간격으로 전송" /></s:HGroup>
+		<s:HGroup verticalAlign="middle"><s:TextInput id="cnt" width="50" restrict="0-9" styleName="textinput_light" prompt="0" /><s:Label text="건 마다" /></s:HGroup>
+		<s:HGroup verticalAlign="middle"><s:TextInput id="minute" width="50" restrict="0-9" styleName="textinput_light" prompt="0" /><s:Label text="분 간격으로 전송" /></s:HGroup>
 		<s:HGroup paddingTop="10">
 			<s:Button label="적용" click="confirm()"  styleName="button_light"  width="85" height="30" fontSize="12"/>
 			<s:Button label="취소" click="{this.visible = false;this.dispatchEvent(new Event('cancelInterval'))}"  styleName="button_light"  width="85" height="30" fontSize="12"/>
 		</s:HGroup>
 		
 	</s:Group>
-	<s:Image source="skin/ics/assets/light/icon/1-navigation-cancel.png" id="close"  right="5" top="5" click="{this.visible = false;this.dispatchEvent(new Event('cancelInterval'))}" buttonMode="true"  />
+	<s:Image source="/skin/ics/assets/light/icon/1-navigation-cancel.png" id="close"  right="8" top="7" click="{this.visible = false;this.dispatchEvent(new Event('cancelInterval'))}" buttonMode="true"  />
 </s:Group>
