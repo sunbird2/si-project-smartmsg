@@ -38,7 +38,7 @@ if (!ip.equals("112.216.246.130")) {
 <div id="mypageWrap">
 <!-- my page -->
 <div id="mypage">
-      <h1 class="title"><b class="user" id="mp_user">superman</b> 님의 사용가능 건수는 <b class="point" id="mp_point">20,000</b> 건 입니다.</h1>
+      <h1 class="title"><b class="user" id="mp_user"></b> 님의 사용가능 건수는 <b class="point" id="mp_point"></b> 건 입니다.</h1>
       
       <h1 class="category">가입정보</h1>
       <p class="category_sub">고객님의 가입 정보입니다.</p>
@@ -50,7 +50,7 @@ if (!ip.equals("112.216.246.130")) {
 	        <th width="324">가입일</th>
 	    </tr>
 	    <tr>
-			<td id="mp_user_info">superman</td>
+			<td id="mp_user_info"></td>
 	        <td>
 	        	<input type="text" name="pwd" id="pwd" class="txt" />
 	        	<a href="#" class="buttonmini blue" style="display:block;float:left;width:70px;color:#FFF;font-weight:bold;" onclick="return setPwd()">변경하기</a>
@@ -59,7 +59,7 @@ if (!ip.equals("112.216.246.130")) {
 	        	<input type="text" name="hp" id="hp" class="txt" />
 	        	<a href="#" class="buttonmini blue" style="display:block;float:left;width:70px;color:#FFF;font-weight:bold;" onclick="return setHp()">변경하기</a>
 	        </td>
-	        <td id="mp_join_info">2013-05-01 00:00:00</td>
+	        <td id="mp_join_info"></td>
 	    </tr>
       </table>
       
@@ -79,24 +79,11 @@ if (!ip.equals("112.216.246.130")) {
 	   <tfoot id="billTableFoot">
 	   	<tr>
 	   		<td colspan="6">
-			   	<div class="pagination">
-					<a href="#" class="direction prev"><span></span> 이전</a>
-					<a href="#">1</a>
-					<strong>2</strong>
-					<a href="#" class="direction next">다음 <span></span></a>
-				  </div>
 	   		</td>
 	   	</tr>
 	   </tfoot>
 	   <tbody id="billTableBody">
-		    <tr onmouseover="this.style.backgroundColor='#ffffCC';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-				<td>1</td>
-		        <td>2013-05-01 00:00:00</td>
-		        <td>카드</td>
-		        <td>11,000</td>
-		        <td>500</td>
-		        <td></td>
-		    </tr>
+		   
 	    </tbody>
       </table>
       
@@ -117,24 +104,12 @@ if (!ip.equals("112.216.246.130")) {
 	   <tfoot id="pointlogTableFoot">
 	   	<tr>
 	   		<td colspan="6">
-			   	<div class="pagination">
-					<a href="#" class="direction prev"><span></span> 이전</a>
-					<a href="#">1</a>
-					<strong>2</strong>
-					<a href="#" class="direction next">다음 <span></span></a>
-				  </div>
+			   	
 	   		</td>
 	   	</tr>
 	   </tfoot>
 	   <tbody id="pointlogTableBody">
-		    <tr onmouseover="this.style.backgroundColor='#ffffCC';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-				<td>1</td>
-		        <td>단문 1건</td>
-		        <td>2</td>
-		        <td>12,343</td>
-		        <td>12,345</td>
-		        <td>2013-05-01 00:00:00</td>
-		    </tr>
+		    
 	    </tbody>
       </table>
       
@@ -155,24 +130,12 @@ if (!ip.equals("112.216.246.130")) {
 	   <tfoot id="sentTableFoot">
 	   	<tr>
 	   		<td colspan="6">
-			   	<div class="pagination">
-					<a href="#" class="direction prev"><span></span> 이전</a>
-					<a href="#">1</a>
-					<strong>2</strong>
-					<a href="#" class="direction next">다음 <span></span></a>
-				  </div>
+			   	
 	   		</td>
 	   	</tr>
 	   </tfoot>
 	   <tbody id="sentTableBody">
-		    <tr onmouseover="this.style.backgroundColor='#ffffCC';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-				<td>1</td>
-		        <td>단문발송입니다. 잘나오요??..</td>
-		        <td>SMS</td>
-		        <td>100</td>
-		        <td>2013-05-01 00:00:00</td>
-		        <td>2013-05-01 00:00:00</td>
-		    </tr>
+		    
 	    </tbody>
       </table>
 </div>
