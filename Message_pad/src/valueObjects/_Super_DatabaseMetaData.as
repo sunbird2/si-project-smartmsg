@@ -71,9 +71,9 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     private var _internal_userName : String;
     private var _internal_driverName : String;
     private var _internal_maxCatalogNameLength : int;
-    private var _internal_catalogAtStart : Boolean;
     private var _internal_catalogSeparator : String;
     private var _internal_databaseProductVersion : String;
+    private var _internal_catalogAtStart : Boolean;
     private var _internal_driverMajorVersion : int;
     private var _internal_connection : valueObjects.Connection;
     private var _internal_SQLKeywords : String;
@@ -86,8 +86,8 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     private var _internal_procedureTerm : String;
     private var _internal_catalogTerm : String;
     private var _internal_JDBCMinorVersion : int;
-    private var _internal_JDBCMajorVersion : int;
     private var _internal_searchStringEscape : String;
+    private var _internal_JDBCMajorVersion : int;
     private var _internal_databaseMinorVersion : int;
     private var _internal_maxProcedureNameLength : int;
     private var _internal_maxTableNameLength : int;
@@ -196,12 +196,6 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     }
 
     [Bindable(event="propertyChange")]
-    public function get catalogAtStart() : Boolean
-    {
-        return _internal_catalogAtStart;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get catalogSeparator() : String
     {
         return _internal_catalogSeparator;
@@ -211,6 +205,12 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     public function get databaseProductVersion() : String
     {
         return _internal_databaseProductVersion;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get catalogAtStart() : Boolean
+    {
+        return _internal_catalogAtStart;
     }
 
     [Bindable(event="propertyChange")]
@@ -286,15 +286,15 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     }
 
     [Bindable(event="propertyChange")]
-    public function get JDBCMajorVersion() : int
-    {
-        return _internal_JDBCMajorVersion;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get searchStringEscape() : String
     {
         return _internal_searchStringEscape;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get JDBCMajorVersion() : int
+    {
+        return _internal_JDBCMajorVersion;
     }
 
     [Bindable(event="propertyChange")]
@@ -575,16 +575,6 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         }
     }
 
-    public function set catalogAtStart(value:Boolean) : void
-    {
-        var oldValue:Boolean = _internal_catalogAtStart;
-        if (oldValue !== value)
-        {
-            _internal_catalogAtStart = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "catalogAtStart", oldValue, _internal_catalogAtStart));
-        }
-    }
-
     public function set catalogSeparator(value:String) : void
     {
         var oldValue:String = _internal_catalogSeparator;
@@ -602,6 +592,16 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         {
             _internal_databaseProductVersion = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "databaseProductVersion", oldValue, _internal_databaseProductVersion));
+        }
+    }
+
+    public function set catalogAtStart(value:Boolean) : void
+    {
+        var oldValue:Boolean = _internal_catalogAtStart;
+        if (oldValue !== value)
+        {
+            _internal_catalogAtStart = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "catalogAtStart", oldValue, _internal_catalogAtStart));
         }
     }
 
@@ -725,16 +725,6 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         }
     }
 
-    public function set JDBCMajorVersion(value:int) : void
-    {
-        var oldValue:int = _internal_JDBCMajorVersion;
-        if (oldValue !== value)
-        {
-            _internal_JDBCMajorVersion = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "JDBCMajorVersion", oldValue, _internal_JDBCMajorVersion));
-        }
-    }
-
     public function set searchStringEscape(value:String) : void
     {
         var oldValue:String = _internal_searchStringEscape;
@@ -742,6 +732,16 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         {
             _internal_searchStringEscape = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "searchStringEscape", oldValue, _internal_searchStringEscape));
+        }
+    }
+
+    public function set JDBCMajorVersion(value:int) : void
+    {
+        var oldValue:int = _internal_JDBCMajorVersion;
+        if (oldValue !== value)
+        {
+            _internal_JDBCMajorVersion = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "JDBCMajorVersion", oldValue, _internal_JDBCMajorVersion));
         }
     }
 
