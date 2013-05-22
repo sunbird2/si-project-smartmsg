@@ -9,7 +9,7 @@
 			   initialize="app_initializeHandler(event)"
 			   creationComplete="app_creationCompleteHandler(event)"
 			   focusIn="app_focusInHandler(event)"
-			   stateChangeComplete="app_stateChangeCompleteHandler(event)" xmlns:component="component.*">
+			   stateChangeComplete="app_stateChangeCompleteHandler(event)" xmlns:component="component.*" xmlns:components="com.google.analytics.components.*">
 	<fx:Style source="/skin/ics/ics.css"/>
 	<fx:Script>
 		<![CDATA[
@@ -205,7 +205,9 @@
 			}
 			
 			
-			
+			public function googleTracker(msg:String):void {
+				tracker.trackPageview( "/FLEX/"+msg );
+			}
 			
 			
 			// Memory view
@@ -256,6 +258,11 @@
 								valueTo="350"
 								property="verticalCenter" />
 		</s:Animate>
+		<components:FlexTracker xmlns:analytics="com.google.analytics.components.*"
+								id="tracker"
+								account="UA-41118010-1"
+								mode="AS3"
+		visualDebug="false" />
 	</fx:Declarations>
 	<s:states>
 		<s:State name="send"/>

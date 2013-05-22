@@ -308,12 +308,17 @@ package component
 			
 		}
 		
+		private function tracker(msg:String):void {
+			MunjaNote(parentApplication).googleTracker("Address/"+msg);
+		}
+		
 		// mini to send
 		public function addSend(type:String, avo:AddressVO):void {
 			
 			if (type == "group") {
 				
 				getListAndSendPhone(avo.grpName);
+				tracker("addSend/group");// tracker
 			}
 			else {
 				if (avo != null) {
@@ -321,7 +326,7 @@ package component
 					ac.addItem( getPhoneVO(avo.phone, avo.name) )
 					dispatchEvent(new CustomEvent("sendAddress", ac ) );
 				}
-				
+				tracker("addSend");// tracker
 			}
 		}
 		private function getListAndSendPhone(grpName:String):void {
@@ -338,6 +343,7 @@ package component
 			if (data != null) {
 				dispatchEvent(new CustomEvent("sendAddress", parsePhoneVO(data) ) );
 			}
+			tracker("getListAndSendPhone_resultHandler");// tracker
 			
 		}
 		
@@ -374,6 +380,7 @@ package component
 				}else {
 					SLibrary.alert("검색 내용을 입력하세요.");
 				}
+				tracker("search_clickHandler");// tracker
 				
 			}
 		}
@@ -390,7 +397,7 @@ package component
 				RemoteSingleManager.getInstance.callresponderToken 
 					= RemoteSingleManager.getInstance.service.getAddrList(0, "");
 			}
-			
+			tracker("getGroup");// tracker
 		}
 		private function getGroup_resultHandler(event:CustomEvent):void {
 			
@@ -448,6 +455,7 @@ package component
 			confirmAlert = null;
 			acGroup.removeItemAt( int(event.result) );
 			acName.removeAll();
+			tracker("deleteGroup_confirmHandler");// tracker
 		}
 		
 		/**
@@ -461,6 +469,7 @@ package component
 				currentGroupName = gName;
 				getNameList();
 			}
+			tracker("groupList_changeHandler");// tracker
 		}
 		private function getNameList():void {
 			RemoteSingleManager.getInstance.addEventListener("getAddrList", getNameList_resultHandler, false, 0, true);
@@ -617,10 +626,12 @@ package component
 			}
 			nameCount.text = String(acName.length);
 			viewCard();
+			
 		}
 		private function deleteName_resultHandler(event:CustomEvent):void {
 			
 			SLibrary.alert( String(event.result) +"건의 전화번호가 삭제 되었습니다." );
+			tracker("deleteName_resultHandler");// tracker
 		}
 		
 		private function selectSend_clickHandler(event:MouseEvent):void {
@@ -638,6 +649,7 @@ package component
 			}else {
 				dispatchEvent(new CustomEvent("sendAddress", parsePhoneVO(ac) ) );
 			}
+			tracker("selectSend_clickHandler");// tracker
 		}
 		
 		
@@ -651,7 +663,7 @@ package component
 			var avo:AddressVO = new AddressVO();
 			avo.grpName = "";
 			acGroup.addItem( avo );
-			
+			tracker("groupAddBtn_clickHandler");// tracker
 		}
 		
 		/**
