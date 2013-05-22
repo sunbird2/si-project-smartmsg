@@ -259,6 +259,10 @@ package component
 			super.createChildren();
 		}
 		
+		private function tracker(msg:String):void {
+			MunjaNote(parentApplication).googleTracker("Address/"+msg);
+		}
+		
 		private function failAdd_clickHandler(event:MouseEvent):void {
 			
 			if (!detailVO) SLibrary.alert("그룹내역에서 항목을 선택 후 진행 하실 수 있습니다." );
@@ -268,6 +272,7 @@ package component
 				RemoteSingleManager.getInstance.callresponderToken 
 					= RemoteSingleManager.getInstance.service.failAdd(detailVO);
 			}
+			tracker("failAdd_clickHandler");// tracker
 		}
 		private function failAdd_resultHandler(event:CustomEvent):void {
 			
@@ -408,6 +413,7 @@ package component
 			}else {
 				cstat = "normal";
 			}
+			tracker("groupList_changeHandler");// tracker
 		}
 		
 		private function detailList_changeHandler(event:IndexChangeEvent):void {

@@ -382,6 +382,10 @@ package component
 			isValid();
 		}
 		
+		private function tracker(msg:String):void {
+			MunjaNote(parentApplication).googleTracker("Send/"+msg);
+		}
+		
 		private var viewFunction:String = "";
 		private function functionList_changeHandler(event:IndexChangeEvent):void {
 			
@@ -413,6 +417,8 @@ package component
 			else if (item.name == "sendListFromCopy") togglePaste();
 			
 			viewFunction = item.name;
+			
+			tracker("sendListInput/"+item.name);// tracker
 		}
 		
 		
@@ -509,6 +515,7 @@ package component
 		}
 		protected function sendListInput_enterHandler(event:Event):void {
 			
+			tracker("sendListInput/enter");// tracker
 			if ( alPhone ) {
 				
 				if (sendListInput.text != "") {
@@ -643,6 +650,7 @@ package component
 			alPhone.removeAll();
 			alPhone.addAll(arr);
 			setTotalCount();
+			tracker("dupleDelete_clickHandler");// tracker
 			SLibrary.alert(dupCnt + " 건의 중복번호가 제거 되었습니다.");
 		}
 		
@@ -690,6 +698,7 @@ package component
 			}else {
 				SLibrary.alert("메시지를 입력 후 저장하세요.");
 			}
+			tracker("messageSaveBtn_clickHandler");// tracker
 		}
 		private function messageSaveBtn_resultHandler(event:CustomEvent):void {
 			
@@ -704,7 +713,10 @@ package component
 		/**
 		 * returnPhone function
 		 * */
-		private function callback_changeHandler(event:Event):void { isValid(); }
+		private function callback_changeHandler(event:Event):void { 
+			isValid();
+			tracker("callback_changeHandler");// tracker 
+		}
 		
 		
 		
@@ -742,7 +754,8 @@ package component
 			RemoteSingleManager.getInstance.callresponderToken 
 				= RemoteSingleManager.getInstance.service.sendSMSconf(smvo);
 			
-			createSending();			
+			createSending();
+			tracker("sendBtn_clickHandler");// tracker
 		}
 		private function sendBtn_resultHandler(event:CustomEvent):void {
 			
@@ -773,6 +786,8 @@ package component
 			sending.verticalCenter = 0;
 			sending.addEventListener("close", sending_closeHandler);
 			this.contentGroup.addElement(sending);
+			
+			tracker("createSending");// tracker
 		}
 		private function sending_closeHandler(event:Event):void {
 			removeSending();
@@ -979,6 +994,7 @@ package component
 				removeReaervation();
 				
 			}
+			tracker("sendReservation_changeHandler");// tracker
 		}
 		private function createReaervation():void {
 			
@@ -1029,6 +1045,7 @@ package component
 				confirm_delay.text = "";
 				removeInterval();
 			}
+			tracker("sendInterval_changeHandler");// tracker
 		}
 		private function createInterval():void {
 			
@@ -1094,6 +1111,7 @@ package component
 				for (var i:int = 0; i < cnt-1; i++ )
 					mBox.removeElementAt(0);
 			}
+			
 		}
 		public function setPhoto(source:String):void {
 			
@@ -1108,6 +1126,7 @@ package component
 			
 			
 			sendMode = "MMS";
+			
 		}
 		
 		private function removeImage():void {
@@ -1182,6 +1201,7 @@ package component
 		private function addTxt_clickHandler(event:MouseEvent):void {
 			
 			addTxtLayer.visible = !addTxtLayer.visible;
+			tracker("addTxt_clickHandler");// tracker
 		}
 		private function addTxtLayer_changeHandler(event:IndexChangeEvent):void {
 			
@@ -1206,6 +1226,7 @@ package component
 				message_keyUpHandlerAutoMode(null);
 				SLibrary.alert("SMS로 합성 할 경우 90byte 이상 문자는 잘릴 수 있습니다.");
 			}
+			tracker("addTxtLayer_changeHandler");// tracker
 			
 		}
 		
