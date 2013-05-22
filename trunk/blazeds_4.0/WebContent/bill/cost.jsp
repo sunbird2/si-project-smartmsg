@@ -19,6 +19,8 @@ SendMail.send("[bill] 단가 페이지 요청", "ref:"+ip);
      <link rel="stylesheet" type="text/css" href="/css/base.css" />
      <link rel="stylesheet" type="text/css" href="/css/main.css">
 	 <script type="text/javascript">
+	  
+
          $(document).ready(function() { 
 
                if (parent.document) {
