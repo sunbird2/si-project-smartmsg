@@ -1,4 +1,20 @@
-	var menu = "send";
+
+// google analytics
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-41118010-1']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+function trackPageview(url, title) {
+    url = url.replace(location.protocol + '//' + location.host, '');
+    document.title = document.title.split(' : ')[0] + (title && ' : ' + title || '');
+    _gaq.push(['_trackPageview', url]);
+}
+
+
+var menu = "send";
     function changeMenu(str) {
 
        document.getElementById(menu).className = menu;
@@ -37,6 +53,7 @@
     	
        document.getElementById(menu).className = menu + " on";
        
+       trackPageview("flex_"+menu, menu);
        return false;
       
     }
@@ -114,6 +131,7 @@
    				if (data != null) {
    					if (data.code && data.code == "0000") login_view("true");
    				}
+   				trackPageview("/member/chk.jsp","로그인 체크");
    			}
    		);
 		$.getJSON(
@@ -128,9 +146,11 @@
 				});
 				html += "</ul>";
 				$('#notic').append(html);
+				trackPageview("/custom/notic.jsp","공지사항");
 			}
 		);
 		
+		// category
 		$.getJSON(
 			"/custom/emoticon.jsp",
 			{mode: "category", gubun: "테마문자"},
@@ -142,13 +162,13 @@
 					html += "<li onclick=\"getThema('"+item+"')\">"+item+"</li>";
 				});
 				$('#emoticon > .category').append(html);
+				trackPageview("/custom/emoticon.jsp","이모티콘(테마문자)");
 			}
 		);
+		// content
 		getThema("");
 
-
-		
-
+		// category
 		$.getJSON(
 			"/custom/emoticon.jsp",
 			{mode: "category", gubun: "업종별문자"},
@@ -160,10 +180,11 @@
 					html += "<li onclick=\"getUpjong('"+item+"')\">"+item+"</li>";
 				});
 				$('#emoticon > .category_up').append(html);
+				trackPageview("/custom/emoticon.jsp","이모티콘(업종별문자)");
 				//$('#notic').append(html);
 			}
 		);
-
+		// content
 		getUpjong("");
 		
 		$.post("accLog.jsp", { ref: document.referrer } );
@@ -208,6 +229,7 @@
 					html += "<li><textarea cols=\"20\" rows=\"6\" readonly=\"readonly\">"+item+"</textarea></li>";
 				});
 				$('#emoticon > .emti').append(html);
+				trackPageview("/custom/emoticon.jsp","이모티콘(테마문자)");
 				//$('#notic').append(html);
 			}
 		);
@@ -225,6 +247,7 @@
 					html += "<li><textarea cols=\"20\" rows=\"6\" readonly=\"readonly\">"+item+"</textarea></li>";
 				});
 				$('#emoticon > .emti_up').append(html);
+				trackPageview("/custom/emoticon.jsp","이모티콘(업종별문자)");
 				//$('#notic').append(html);
 			}
 		);
@@ -237,6 +260,7 @@
        stop();
        showIndex = idx;
        showSlide();
+	   trackPageview("/function/"+idx,"기능보기");
        return false;
    }
 
@@ -302,6 +326,7 @@
    						$("#mp_join_info").text(data.timeJoin);
    						
    					}
+   					trackPageview("/mypage/_data.jsp","마이페이지(info)");
    				}
    			   );
     }
@@ -318,6 +343,7 @@
          					if (data != null && data > 0) {
          						alert("변경되었습니다.");
          					}
+         					trackPageview("/mypage/_data.jsp","마이페이지(passwd)");
          				}
          			   );
    		 }
@@ -339,6 +365,7 @@
 	        				if (data != null && data > 0) {
 	       						alert("변경되었습니다.");
 	       					}
+	        				trackPageview("/mypage/_data.jsp","마이페이지(hp)");
          				}
          			   );
    		 }
@@ -386,6 +413,7 @@
    							
    						}
    					}
+   					trackPageview("/mypage/_data.jsp","마이페이지(billList)");
    				}
    			   );
    	 return false;
@@ -429,6 +457,7 @@
    							
    						}
    					}
+   					trackPageview("/mypage/_data.jsp","마이페이지(pointlog)");
    				}
    			   );
    	 return false;
@@ -470,6 +499,7 @@
    							
    						}
    					}
+   					trackPageview("/mypage/_data.jsp","마이페이지(sentList)");
    				}
    			   );
    	 return false;
@@ -628,6 +658,9 @@
 	    // dialog창  effect
 	    $('#dialog').fadeIn(1000);
 	    
+	    
+	    trackPageview(path, path);
+	    
 	    return false;
 	}
 	
@@ -756,6 +789,7 @@
 	}
 
 	function excelDownload(url) {
+		trackPageview(url, "전송내역 엑셀 다운");
 		var z = window.open(url , "excel", "scrollbars=no,width=640,height=625,resizable=no");
 		z.focus();
 	}

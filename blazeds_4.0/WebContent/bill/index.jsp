@@ -23,6 +23,7 @@ if (!ip.equals("112.216.246.130")) {
      <link rel="stylesheet" type="text/css" href="/css/base.css" />
      <link rel="stylesheet" type="text/css" href="/css/main.css">
       <script type="text/javascript">
+    
          $(document).ready(function() { 
 
                if (parent.document) {
