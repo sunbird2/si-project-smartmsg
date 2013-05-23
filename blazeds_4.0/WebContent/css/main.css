@@ -15,6 +15,7 @@
 #header #navi ul li a:hover {background-position: 0 -35px;}
 #header #navi ul li a.on {background-position:0 -35px;}
 
+#install_wrap {position:absolute;left:115px;top:430px;width:172px;height:144px;}
 #bar {clear:both;width:1200px;height:15px; background-image:url("../images/top_shade.png")}
 
 #main-image {position:relative;margin:0 auto;width:1024px;height:auto;}

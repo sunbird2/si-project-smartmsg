@@ -1,23 +1,23 @@
 
-// google analytics
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-41118010-1']);
-(function() {
-var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-function trackPageview(url, title) {
-    url = url.replace(location.protocol + '//' + location.host, '');
-    document.title = document.title.split(' : ')[0] + (title && ' : ' + title || '');
-    _gaq.push(['_trackPageview', url]);
-}
+	// google analytics
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-41118010-1']);
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+	function trackPageview(url, title) {
+	    url = url.replace(location.protocol + '//' + location.host, '');
+	    document.title = document.title.split(' : ')[0] + (title && ' : ' + title || '');
+	    _gaq.push(['_trackPageview', url]);
+	}
 
 
-var menu = "send";
+	var menu = "send";
     function changeMenu(str) {
-
-       document.getElementById(menu).className = menu;
+    	$("#install_wrap").hide();
+        document.getElementById(menu).className = menu;
     	menu = str;
     	var MunjaNote = document.getElementById("MunjaNote");
 
@@ -188,7 +188,7 @@ var menu = "send";
 		getUpjong("");
 		
 		$.post("accLog.jsp", { ref: document.referrer } );
-		
+		viewInstall();
 		
 		// 이벤트
 		// center : true 팝업 가운데 출력 
@@ -213,6 +213,23 @@ var menu = "send";
 */
 	
     });
+    
+    function viewInstall() {
+    	$("<div id='install_wrap'><div id='install'></div></div>").appendTo($("#wrap"));
+    	
+    	var params = {};
+        params.airversion = "3.7.0";
+        params.appname = "MunjaNote 10.1";
+        params.appurl = "http://www.munjanote.com/badge/MunjaNote.air";
+		params.appid = "com.adsoft.MunjaNote";
+		params.pubid = "";
+		params.appversion = "1.1.0";
+		params.hidehelp = "true";
+		//params.helpurl = "help.html";
+		//params.image = "test.jpg"; 215 * 180
+        swfobject.embedSWF("/badge/AIRInstallBadge.swf", "install", "172", "144", "9.0.0","/badge/expressInstall.swf",params);
+        
+    }
 	
 	function log(val) {
 		$.post("gLog.jsp", { ref: val } );
