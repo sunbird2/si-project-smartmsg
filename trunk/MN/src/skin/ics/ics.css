@@ -1,0 +1,215 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+@namespace flexpad "com.flexpad.*";
+
+@font-face
+{
+	fontFamily: Droid;
+	src: url("/skin/ics/assets/fonts/DroidSansFallback.ttf");
+	embedAsCFF: true;
+/*	unicodeRange: U+0020-U+007E,U+1100-U+11F9,U+3000-U+303F,U+3131-U+318E,U+327F-U+327F,U+AC00-U+D7A3,U+FF01-U+FF60;*/
+}
+
+/*s|RichText, s|TextInput, s|TextArea, s|ComboBox, s|Button, s|Label, s|DataGrid*/
+global
+{
+/*	chromeColor: #474747;
+	color: #D6D6D6;
+	contentBackgroundColor: #000000;
+	symbolColor: #000000;*/
+	rollOverColor: #85D3EF;
+	selectionColor: #5CC4EA;
+	focusColor: #037EA7;
+	accentColor: #037EA7;
+
+	fontFamily : "Droid","Malgun Gothic","Dotum","Gulim",AppleGothic,sans-serif;
+/*	fontFamily : "Malgun Gothic","Dotum","Gulim",AppleGothic,sans-serif;*/
+	fontSize : 12px;
+}
+
+s|Scroller {
+	skinClass : ClassReference("skin.ics.scroller.ThinScrooller");
+}
+
+/* actionbar */
+.actionBar_dark {
+	skinClass : ClassReference("skin.ics.ActionBar");
+	backgroundColor : #222222;
+}
+.actionBar_light {
+	skinClass : ClassReference("skin.ics.ActionBar");
+	backgroundColor : #DDDDDD;
+}
+.actionBar_blue {
+	skinClass : ClassReference("skin.ics.ActionBar");
+	backgroundColor : #33B5E5;
+}
+.actionBar_green {
+	skinClass : ClassReference("skin.ics.ActionBar");
+	backgroundColor : #99CC00;
+}
+.actionBar_purple {
+	skinClass : ClassReference("skin.ics.ActionBar");
+	backgroundColor : #AA66CC;
+}
+.actionBar_red {
+	skinClass : ClassReference("skin.ics.ActionBar");
+	backgroundColor : #FF4444;
+}
+.actionBar_orange {
+	skinClass : ClassReference("skin.ics.ActionBar");
+	backgroundColor : #FF8800;
+}
+.actionBar_contextuar_dark {
+	skinClass : ClassReference("skin.ics.ActionBar_contextuar");
+	backgroundColor : #222222;
+}
+.actionBar_contextuar_light {
+	skinClass : ClassReference("skin.ics.ActionBar_contextuar");
+	backgroundColor : #DDDDDD;
+}
+.actionBar_contextuar_blue {
+	skinClass : ClassReference("skin.ics.ActionBar_contextuar");
+	backgroundColor : #33B5E5;
+}
+.actionBar_contextuar_white {
+	skinClass : ClassReference("skin.ics.ActionBar_contextuar");
+	backgroundColor : #FFFFFF;
+}
+
+/* tabbar */
+.tabbar_dark {
+	skinClass : ClassReference("skin.ics.TabBarSkin");
+	focusAlpha : 0;
+}
+.tabbar_light {
+	skinClass : ClassReference("skin.ics.TabBarSkin_light");
+	focusAlpha : 0;
+}
+
+/* textinput */
+.textinput_dark {
+	skinClass : ClassReference("skin.ics.TextInput_dark");
+	focusSkin : ClassReference("skin.ics.TextInputFocus");
+	paddingLeft : 5;
+	paddingBottom : 5;
+	ime-mode:active;
+}
+
+.textinput_light {
+	skinClass : ClassReference("skin.ics.TextInput_light");
+	focusSkin : ClassReference("skin.ics.TextInputFocus");
+	paddingLeft : 5;
+	paddingBottom : 5;
+	ime-mode:active;
+}
+
+/* textarea */
+.textarea_dark {
+	contentBackgroundColor : #000000;
+	borderColor : #222222;
+	focusAlpha : 0;
+	ime-mode:active;
+}
+.textarea_light {
+	contentBackgroundColor : #FFFFFF;
+	borderColor : #DDDDDD;
+	ime-mode:active;
+/*	focusAlpha : 0;*/
+}
+/* combobox */
+.comboBox_dark {
+	skinClass : ClassReference("skin.ics.ComboBox");
+	dropShadowVisible : false;
+	focusAlpha : 0;
+	color:#DDDDDD;
+	paddingLeft : 5;
+	paddingBottom : 5;
+}
+
+.comboBox_light {
+	skinClass : ClassReference("skin.ics.ComboBox");
+	dropShadowVisible : true;
+	focusAlpha : 0;
+	color:#222222;
+	paddingLeft : 5;
+	paddingBottom : 5;
+}
+
+.dropDownList_dark {
+	skinClass : ClassReference("skin.ics.DropDownListSkin");
+	dropShadowVisible : true;
+	focusAlpha : 0;
+	color:#DDDDDD;
+	paddingLeft : 5;
+	paddingBottom : 5;
+}
+
+
+.dropDownList_light {
+	skinClass : ClassReference("skin.ics.DropDownListSkin");
+	dropShadowVisible : false;
+	focusAlpha : 0;
+	color:#222222;
+	paddingLeft : 5;
+	paddingBottom : 5;
+}
+
+/* checkbox */
+.checkbox_dark {
+	skinClass : ClassReference("skin.ics.CheckBoxSkin_dark");
+}
+
+.checkbox_light {
+	skinClass : ClassReference("skin.ics.CheckBoxSkin_light");
+}
+
+/* button */
+.button_dark {
+	skinClass : ClassReference("skin.ics.ButtonSkin_dark");
+	color:#DDDDDD;
+}
+.button_light {
+	skinClass : ClassReference("skin.ics.ButtonSkin_light");
+	color:#3D3D3D;
+}
+.button_label {
+	skinClass : ClassReference("skin.ics.ButtonLabel");
+}
+.button_first_dark {
+	skinClass : ClassReference("skin.ics.ButtonFirstSkin");
+}
+.button_last_dark {
+	skinClass : ClassReference("skin.ics.ButtonLastSkin");
+}
+
+/* list */
+.list_parent {
+	skinClass : ClassReference("skin.ics.ListParentSkin");
+}
+.list {
+	skinClass : ClassReference("skin.ics.ListSkin");
+}
+
+/* datagrid */
+.datagrid_dark {
+	chromeColor : #FFFFFF;
+	caretColor : #037EA7;
+}
+.datagrid_light {
+	caretColor : #037EA7;
+}
+
+
+
+mx|Alert, mx|ToolTip, mx|DataTip, mx|UIComponent {
+	fontFamily : "Droid","Malgun Gothic","Dotum","Gulim",AppleGothic,sans-serif;
+}
+
+flexpad|AlertPanelTextLabel , flexpad|AlertPanelTitleLabel , flexpad|ButtonBarGreyButtonLabel , flexpad|ButtonBarBlackButtonLabel
+, flexpad|LargeButtonBarGreyButtonLabel , flexpad|ListItemRendererLabel , flexpad|TabBarBlackButtonLabel{
+	fontFamily : "Droid","Malgun Gothic","Dotum","Gulim",AppleGothic,sans-serif;
+}
+
+

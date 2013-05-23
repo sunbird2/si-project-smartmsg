@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" xmlns:util="component.util.*">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("component.Address")]
+	</fx:Metadata>
+	<s:Group id="contentGroup" width="524" height="100%" horizontalCenter="0" >
+		
+		<s:Label text="전송버튼을 클릭하면 수신에 추가됩니다." top="10" left="5" />
+		<util:TextInputSearch id="search" right="5" top="0" prompt="이름 or 전화번호" depth="5"
+							  focusSkin="skin.ics.TextInputFocus" fontSize="12" />
+		
+		<s:HGroup width="100%" top="30" depth="0" gap="0" height="610">
+			
+			<!-- group -->
+			<s:VGroup gap="0" width="200" height="100%">
+				<s:SkinnableContainer styleName="actionBar_contextuar_white" width="100%" height="40" depth="4">
+					<s:Label text="그룹" color="#222222" verticalCenter="0" left="5" />
+				</s:SkinnableContainer>
+				
+				<s:List id="groupList"
+						styleName="list"
+						borderVisible="false"
+						width="100%"
+						height="100%"
+						itemRenderer="skin.address.GroupRenderer_mini">
+				</s:List>
+			</s:VGroup>
+			<s:Rect width="1" height="100%"><s:fill><s:SolidColor color="#eeeeee"/></s:fill></s:Rect>
+			<!-- name -->
+			<s:VGroup gap="0" width="320" height="100%">
+				<s:SkinnableContainer styleName="actionBar_contextuar_white" width="100%" height="40" depth="4">
+					<s:Label text="전화번호" color="#222222" verticalCenter="0" left="5" />
+					<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="0">
+						<s:RichText width="100%" height="40" textAlign="right" fontSize="18" verticalAlign="middle" whiteSpaceCollapse="preserve" color="#515151" kerning="off">
+							<s:content><s:p><s:span id="nameCount">0</s:span><s:span kerning="auto"> </s:span><s:span fontSize="12" lineHeight="166.65%" kerning="auto">명</s:span></s:p></s:content>
+						</s:RichText>
+						<s:Image id="nameMultSelectBtn" source="skin/ics/assets/light/icon/1-navigation-accept.png" alpha="0.4" buttonMode="true" toolTip="여러개 선택하기" />
+						<s:Image id="selectSend" buttonMode="true" source="assets/post_btn_send.gif" toolTip="선택 전화번호 전송"/>
+					</s:HGroup>
+				</s:SkinnableContainer>
+				
+				<util:ListCheckAble id="nameList" width="100%" height="100%" borderVisible="false" />
+				
+			</s:VGroup>
+
+		</s:HGroup>
+	</s:Group><!--contentGroup-->
+	
+	
+	
+	
+	
+	
+</s:Skin>

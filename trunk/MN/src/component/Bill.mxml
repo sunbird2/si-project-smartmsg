@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:bill="component.bill.*"
+		 stateChangeComplete="bill_stateChangeCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			protected function bill_stateChangeCompleteHandler(event:FlexEvent):void
+			{
+				if (currentState == "method") {
+					helpText.text = "결제 방식을 선택해 주세요.";
+					subHelpText.text = "결제 방식을 선택 하면 금액 선택 창이 나타납니다.";
+				}
+				else if (currentState == "amount") {
+					helpText.text = "결제 하실 금액을 선택 하세요.";
+					subHelpText.text = "결제방식을 변경 하시려면 선택한 결제방식 글씨를 클릭 하세요.";
+				}
+				else if (currentState == "charge") {
+					helpText.text = "결제하기 버튼을 눌러 결제하세요.";
+					subHelpText.text = "결제방식 또는 금액을 변경 하시려면 선택한 항목의 글씨를 클릭 하세요.";
+				}
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		
+	</fx:Declarations>
+	<s:states>
+		<s:State name="method" />
+		<s:State name="amount" />
+		<s:State name="charge" />
+	</s:states>
+	
+	<s:transitions>
+		<s:Transition id="transition" fromState="*" toState="*">
+			<s:Parallel id="t1" targets="{[method, amount, charge]}">
+				<s:Move  duration="200"/>
+				<s:Resize duration="200"/>
+			</s:Parallel>
+		</s:Transition>
+	</s:transitions>
+	
+	<s:Group width="1024" height="696" horizontalCenter="0">
+		<!-- actionbar -->
+		<s:SkinnableContainer styleName="actionBar_red" width="100%" height="48" depth="4">
+			<s:layout>
+				<s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" />
+			</s:layout>
+			<s:BitmapImage id="back" source="@Embed('/skin/ics/assets/light/icon/1-navigation-previous-item.png')" smooth="true" alpha="0.6" width="20" height="20"/>
+			<s:BitmapImage id="icon" source="@Embed('/skin/ics/assets/menu_bill.png')" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:VGroup gap="4">
+				<s:RichText id="helpText" color="#FFFFFF" text="결제 방식을 선택해 주세요." fontSize="14"/>
+				<s:RichText id="subHelpText" color="#DFDFDF" text="방식을 선택 하면 금액 선택 창이 나타납니다." fontSize="12"/>
+			</s:VGroup>
+			
+		</s:SkinnableContainer>
+		
+		<s:Group top="48" left="0" right="0" height="100%">
+			<bill:Method id="method"
+						 verticalCenter.method="0"
+						 horizontalCenter.method="0"
+						 verticalCenter="-250"
+						 horizontalCenter="-150"
+						 select="{this.currentState='method'}"
+						 selected="{this.currentState='amount';amount.currentState='select'}"/>
+			
+			<bill:Amount id="amount"
+						 includeIn="amount, charge" 
+						 verticalCenter.amount="0"
+						 horizontalCenter.amount="0"
+						 verticalCenter="-250"
+						 horizontalCenter="150"
+						 select="{this.currentState='amount'}"
+						 selected="{this.currentState='charge'}"/>
+			
+			<bill:Charge id="charge"
+						 includeIn="charge"
+						 verticalCenter="0" horizontalCenter="0"/>
+		</s:Group>
+		
+	</s:Group>
+	
+	
+</s:Group>

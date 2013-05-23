@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx"
+					   xmlns:ics="component.ics.*"
+					   title="MunjaNote 10.1"
+					   showStatusBar="false"
+					   skinClass="skin.SparkChromeWindowedApplicationSkinMN"
+					   width="1024" height="764"
+					   preloaderChromeColor="0xFFFFFF"
+					   frameRate="45"
+					   initialize="app_initializeHandler(event)"
+					   creationComplete="app_creationCompleteHandler(event)"
+					   focusIn="app_focusInHandler(event)"
+					   stateChangeComplete="app_stateChangeCompleteHandler(event)" xmlns:component="component.*" xmlns:components="com.google.analytics.components.*">
+	<fx:Style>
+		
+	</fx:Style>
+	<fx:Style source="/skin/ics/ics.css"/>
+	<fx:Script>
+		<![CDATA[
+			import component.Address;
+			import component.Bill;
+			import component.Home;
+			import component.Join;
+			import component.Log;
+			import component.Menus;
+			import component.Send;
+			
+			import lib.GC;
+			import lib.Gv;
+			import lib.SLibrary;
+			
+			import mx.collections.ArrayCollection;
+			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
+			
+			private var join:Join;
+			private var home:Home;
+			public var send:Send;
+			public var address:Address;
+			public var bill:Bill;
+			public var log:Log;
+			
+			
+			protected function app_initializeHandler(event:FlexEvent):void { this.currentState = "home"; }
+			
+			protected function app_creationCompleteHandler(event:FlexEvent):void { 
+				
+				//ExternalInterface.addCallback("flexFunction",flexFunction_callback);
+				//ExternalInterface.call("flexCreateComplete");
+			}
+			protected function app_focusInHandler(event:FocusEvent):void { if(Capabilities.hasIME && !IME.enabled) IME.enabled = true; }
+			
+			private function flexFunction_callback(key:String, value:String):String {
+				
+				var re:String = "";
+				if (key == "menu") this.currentState = value;
+				else if (key == "logout") {
+					if (login != null) {
+						login.logout_clickHandler(null);
+					}
+				}
+				return re;
+			}
+			
+			private function join_completeHandler(event:Event):void { 
+				this.currentState = "send";
+				if (login) login.login_check();
+			}
+			
+			protected function app_stateChangeCompleteHandler(event:FlexEvent):void
+			{
+				Gv.appState = currentState;
+				
+				if (!Gv.bLogin) bg.visible = true;
+				else bg.visible = false;
+				
+				
+				// home create
+				if (home == null && currentState == "home") {
+					bg.visible = false;
+					home = new Home();
+					home.minWidth = 1024;
+					home.minHeight = 420;
+					home.horizontalCenter = 0;
+					main_group.addElement(home);
+					
+				} else if (home != null) {
+					this.main_group.removeElement(home);
+					home = null;
+				}
+				
+				// join create
+				if (join == null && currentState == "join") {
+					bg.visible = false;
+					join = new Join();
+					join.minWidth = 1024;
+					join.minHeight = 420;
+					join.horizontalCenter = 0;
+					join.addEventListener("cancel", join_completeHandler);
+					join.addEventListener("complete", join_completeHandler);
+					main_group.addElement(join);
+				} else if (join != null) {
+					join.removeEventListener("cancel", join_completeHandler);
+					join.removeEventListener("complete", join_completeHandler);
+					this.main_group.removeElement(join);
+					join = null;
+				}
+				
+				
+				// send create
+				if (send == null && currentState == "send") {
+					send = new Send();
+					send.minWidth = 1024;
+					send.minHeight = 420;
+					send.horizontalCenter = 0;
+					send.addEventListener(Send.SEND_COMPLET, loginCheck);
+					send.addEventListener(Send.CHANGE_MODE, sendModeChange_handler);
+					main_group.addElement(send);
+					
+				} else if (send != null) {
+					send.removeEventListener(Send.SEND_COMPLET, loginCheck);
+					send.removeEventListener(Send.CHANGE_MODE, sendModeChange_handler);
+					main_group.removeElement(send);
+					send.destroy(null);
+					send = null;
+				}
+				
+				// Address create
+				if (address == null && currentState == "address") {
+					address = new Address();
+					address.minWidth = 1024;
+					address.minHeight = 420;
+					address.horizontalCenter = 0;
+					main_group.addElement(address);
+				} else if (address != null) {
+					main_group.removeElement(address);
+					address.destory();
+					address = null;
+				}
+				
+				// bill create
+				if (bill == null && currentState == "bill") {
+					bill = new Bill();
+					bill.minWidth = 1024;
+					bill.minHeight = 420;
+					bill.horizontalCenter = 0;
+					main_group.addElement(bill);
+				} else if (bill != null) {
+					main_group.removeElement(bill);
+					bill = null;
+				}
+				
+				// log create
+				if (log == null && currentState == "log") {
+					log = new Log();
+					log.minWidth = 1024;
+					log.minHeight = 420;
+					log.horizontalCenter = 0;
+					log.addEventListener(Log.FAIL_ADD, loginCheck);
+					main_group.addElement(log);
+				} else if (log != null) {
+					log.removeEventListener(Log.FAIL_ADD, loginCheck);
+					main_group.removeElement(log);
+					log.destroy();
+					
+					log = null;
+				}
+				
+				GC.run();
+			}
+			
+			protected function login_loginHandler(event:Event):void	{
+				
+				ap.valueFrom = 0;
+				ap.valueTo = 350;
+				a.play();
+				
+				if (!Gv.bLogin) bg.visible = true;
+				else bg.visible = false;
+				
+				if (address != null)
+					address.addedtostage_handler(null);
+				else if (log != null) log.getSentList();
+				else if (send != null) send.initReturnPhone();
+				
+				// battery
+				if (Gv.bLogin) {
+					var p:Number = Math.floor( (Gv.point / 10000)*100 );
+					if (p > 100) p = 100;
+					battery.percent = p;
+				}
+				//ExternalInterface.call("login_view", Gv.bLogin ? "true":"false" );
+				
+				
+			}
+			
+			protected function login_logoutHandler(event:Event):void {
+				
+				ap.valueFrom = 350;
+				ap.valueTo = 0;
+				a.play();
+				login.user_id.setFocus();
+				
+				if (!Gv.bLogin) bg.visible = true;
+				else bg.visible = false;
+				
+				//ExternalInterface.call("login_view", Gv.bLogin ? "true":"false" );
+			}
+			
+			protected function login_joinHandler(event:Event):void { this.currentState = "join"; }
+			
+			protected function sendModeChange_handler(event:Event):void {
+				if (send != null) loginMode(send.sendMode);
+			}
+			
+			
+			public function loginCheck(event:Event=null):void {
+				login.login_check();
+			}
+			public function loginMode(mode:String):void {
+				
+				var index:int = 0;
+				if (mode == "LMS") index = 1;
+				else if (mode == "MMS") index = 2;
+				else index = 0;
+				
+				login.mType.selectedIndex = index;
+				login.setPoint();
+			}
+			
+			
+			public function googleTracker(msg:String):void {
+				tracker.trackPageview( "/AIR/"+msg );
+			}
+			
+			
+			
+			protected function home_clickHandler(event:MouseEvent):void
+			{
+				menus.clickStat = "home";
+			}
+			
+			protected function bill_clickHandler(event:MouseEvent):void
+			{
+				var url:String = "http://www.munjanote.com:7837/bill/";
+				
+				webCall(url);
+			}
+			
+			private function webCall(url:String):void {
+				
+				var urlReq:URLRequest = new URLRequest(url); 
+				navigateToURL(urlReq);
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:Animate id="a" 
+				   duration="750"
+				   target="{login}">
+			<s:SimpleMotionPath id="ap" valueFrom="0"
+								valueTo="350"
+								property="verticalCenter" />
+		</s:Animate>
+		<analytics:FlexTracker xmlns:analytics="com.google.analytics.components.*"
+							   id="tracker"
+							   account="UA-41118010-1"
+							   mode="AS3"
+							   visualDebug="false" />
+	</fx:Declarations>
+	<s:states>
+		<s:State name="home"/>
+		<s:State name="send"/>
+		<s:State name="address"/>
+		<s:State name="bill"/>
+		<s:State name="log"/>
+		<s:State name="join"/>
+	</s:states>
+	<s:transitions>
+		<s:Transition id="transition" fromState="*" toState="*">
+			<s:Parallel id="t1" targets="{[menus]}">
+				<s:Move  duration="200"/>
+			</s:Parallel>
+		</s:Transition>
+	</s:transitions>
+	
+	<s:VGroup width="1024" height="740" gap="0" depth="0">
+		
+		<s:Group id="main_group" width="100%" height="696"></s:Group><!-- main_group -->
+		
+		<s:Group id="navigationBar" width="100%" height="44" >
+			<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#000000"/></s:fill></s:Rect>
+			<s:HGroup top="12" left="20" gap="20" verticalAlign="bottom">
+				<s:Image source="skin/ics/assets/back.png" alpha="0.4" smooth="true" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4"
+						 toolTip=" " toolTipCreate="SLibrary.iosTip('정보새로고침','로그인 여부 및 건수를 새로고침 합니다.', event)"
+						 click="login.login_check();"/>
+				<s:Image source="skin/ics/assets/home.png" alpha="0.4" smooth="true" buttonMode="true"
+						 toolTip=" " toolTipCreate="SLibrary.iosTip('HOME','Home로 이동 합니다.', event)" 
+						 mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4" click="home_clickHandler(event)"/>
+				<s:Image source="skin/ics/assets/menus.png" alpha="0.4" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4"
+						 toolTip=" " toolTipCreate="SLibrary.iosTip('충전','충전하기 창을 띄웁니다.', event)"
+						 click="bill_clickHandler(event)"/>
+			</s:HGroup>
+			<s:HGroup right="4" verticalCenter="0" >
+				<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#FF0000"/></s:fill></s:Rect>
+				<s:Image source="skin/ics/assets/signal.png"/>
+				<ics:Battery id="battery" percent="10"/>
+				<ics:CurrentTime />
+			</s:HGroup>
+		</s:Group><!-- navigationBar -->
+		
+	</s:VGroup>
+	<component:Menus id="menus" depth="5" 
+					 left.home="250"
+					 left="800"
+					 bottom.home="100"
+					 bottom="5"
+					 change="{this.currentState=event.result as String}"/>
+	
+	<s:Rect id="bg" visible="false" width="1024" height="740">
+		<s:fill>
+			<s:SolidColor color="#999999" alpha="0.5" />
+		</s:fill>
+	</s:Rect> 
+	
+	<component:Login id="login" excludeFrom="join"
+					 login="login_loginHandler(event)"
+					 logout="login_logoutHandler(event)"
+					 join="login_joinHandler(event)"
+					 verticalCenter="0" horizontalCenter="0"
+					 skinClass="skin.LoginSkin" />
+	
+</s:WindowedApplication>
