@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true" 
+				showsCaret="false"
+				creationComplete="itemrenderer1_creationCompleteHandler(event)"
+				>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import spark.components.List;
+			import spark.components.supportClasses.ListBase;
+			
+			import valueObjects.AddressVO;
+			[Bindable]
+			private var bSelected:Boolean = false;
+			
+			[Bindable]
+			private var bLast:Boolean = false;
+			
+			override public function set data(value:Object):void
+			{
+				// TODO Auto Generated method stub
+				super.data = value;
+				bSelected = selected;
+				//if (this.itemIndex == List(this.owner).dataProvider.length-1)
+				//	bLast = true;
+				
+				if (data && data.grpName) labelDisplay.text = data.grpName;
+			}
+			
+			protected function itemrenderer1_creationCompleteHandler(event:FlexEvent):void
+			{
+				if (data.idx == 0 && data.grpName != "모두")
+					onEdit(null);
+			}
+			
+			private function onChange(event:Event):void 
+			{
+				if (labelDisplay && this.owner&& data) {
+					var oldValue:String = labelDisplay.text;
+					var list:ListBase = this.owner as ListBase;
+					if (data.idx == 0 && data.grpName != "모두" && inputTxt.text == "") {
+						list.dataProvider.removeItemAt( this.itemIndex );
+						return;
+					}
+					
+					if (oldValue != inputTxt.text)
+					{
+						data.grpName = inputTxt.text;
+						labelDisplay.text = inputTxt.text;
+						//dispatch the data update event
+						//list.dataProvider.itemUpdated(data, "grpName", oldValue, inputTxt.text); 
+					}
+					isEdit(false);
+				}
+			}
+			
+			public function onEdit(event:Event):void 
+			{
+				inputTxt.text = data.grpName;
+				isEdit(true);
+				//set cursor postion to end
+				inputTxt.selectRange(inputTxt.text.length,inputTxt.text.length+1);
+				inputTxt.setFocus();
+				
+			}
+			
+			private function isEdit(value:Boolean):void 
+			{
+				labelDisplay.visible = !value;
+				inputTxt.visible =  value;
+			}
+
+			
+			protected function inputTxt_enterHandler(event:FlexEvent):void
+			{
+				inputTxt.selectRange(inputTxt.text.length,inputTxt.text.length);
+				inputTxt.dispatchEvent( new FocusEvent(FocusEvent.FOCUS_OUT));
+			}
+			
+			override public function set selected(value:Boolean):void
+			{
+				// TODO Auto Generated method stub
+				super.selected = value;
+				
+				sel.visible = value;
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:Group>
+		<s:Label id="labelDisplay" 
+				 doubleClick="onEdit(event)"
+				 top="7" bottom="5" left="5" right="3"/>
+		<s:TextInput id="inputTxt" 
+					 visible="false"
+					 focusOut="onChange(event)"
+					 enter="inputTxt_enterHandler(event)"
+					 top="1" bottom="1" left="1" right="0"/>
+		
+	</s:Group>
+	
+	<s:BitmapImage id="sel" source="@Embed('/skin/ics/assets/list_select.png')" smooth="true" right="0" visible="false"/>	
+	
+	<s:Rect width="100%" bottom="0" height="0.5">
+		<s:stroke>
+			<s:SolidColorStroke color="#D9D9D9" />
+		</s:stroke>
+	</s:Rect>
+	
+	
+	
+</s:ItemRenderer>

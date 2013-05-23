@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" xmlns:lib="lib.*" height="696" xmlns:address="component.address.*">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("component.Send")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import lib.SLibrary;
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="SMS"/>
+		<s:State name="LMS"/>
+		<s:State name="MMS"/>
+	</s:states>
+	<fx:Declarations>
+		<s:Parallel id="showEff" repeatCount="2" duration="500">
+			<s:Fade alphaFrom="0.0" alphaTo="1.0" />
+		</s:Parallel>
+	</fx:Declarations>
+	
+	
+	<s:Group id="contentGroup" width="1024" height="696" horizontalCenter="0">
+		
+		<!-- actionbar -->
+		<s:SkinnableContainer styleName="actionBar_dark" width="100%" height="48" depth="4">
+			<s:layout>
+				<s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" />
+			</s:layout>
+			<s:BitmapImage id="icon" source="@Embed('/skin/ics/assets/icon.png')" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:VGroup gap="4">
+				<s:RichText id="title_text" color="#FFFFFF" fontSize="14"/>
+				<s:RichText id="titleSub_text" color="#DFDFDF" fontSize="12"/>
+			</s:VGroup>
+			
+		</s:SkinnableContainer>
+		
+		<s:HGroup width="100%" top="48" depth="0" gap="0" height="100%">
+			
+			<s:List id="functionList" width="200" height="100%" styleName="list_parent" focusEnabled="false" itemRenderer="skin.ics.renderer.ListParentRender">
+			</s:List>
+			
+			<!-- contentGroup -->
+			<s:Group id="functionGroup" width="524" height="100%"></s:Group>
+			
+			<s:Group width="300" height="100%">
+				<s:Rect left="0" right="0" top="0" bottom="0" ><s:fill><s:SolidColor color="0xEEEEEE" /></s:fill></s:Rect>
+				<s:Rect left="-1" top="0" bottom="0" width="1" ><s:fill><s:SolidColor color="0xFCFCFC" /></s:fill></s:Rect>
+				<s:Rect left="0" top="0" bottom="0" width="1" ><s:fill><s:SolidColor color="0xDBDBDB" /></s:fill></s:Rect>
+				<s:Rect left="1" top="0" bottom="0" width="1" ><s:fill><s:SolidColor color="0xEAEAEA" /></s:fill></s:Rect>
+				
+				<s:List id="addTxtLayer" depth="2" top="40" right="69" width="50" visible="false">
+				</s:List>
+				<s:VGroup horizontalCenter="0"
+						  gap="2"
+						  horizontalAlign="center">
+					
+					<!-- Message -->
+					<s:Group width="100%" height="40">
+						<s:Image source="/assets/gbar.png" bottom="8" left="3" width="14" height="11" />
+						<s:RichText color="#999999" left="22" bottom="6">
+							<s:content><s:p><s:span id="sMode" fontSize="14" color.LMS="0x33B5E5"
+													color.MMS="0xFF4444">SMS</s:span><s:span>  </s:span><s:span id="byte" fontSize="12">0</s:span><s:span>byte</s:span></s:p></s:content>
+						</s:RichText>
+						<s:HGroup  bottom="0" right="5" gap="0">
+							<s:Image id="addImage" source="/skin/ics/assets/light/icon/5-content-picture.png" buttonMode="true" toolTip=" " 
+									 toolTipCreate="SLibrary.iosTip('이미지 첨부','MMS 발송을 위해 이미지를 첨부 하실 수 있습니다.', event)" />
+							<s:Image id="addTxt" source="/skin/ics/assets/light/icon/4-collections-new-label.png" buttonMode="true" toolTip=" " 
+									 toolTipCreate="SLibrary.iosTip('합성 추가','전화번호별 다른 메시지를 발송하기 위해 합성할 문자를 추가 합니다.\n추가된 {이름},{합성1}.. 등이 전화번호의 이름, 합성1.. 로 변경되어 발송 됩니다.', event)"/>
+							<s:Image id="messageSaveBtn" source="/skin/ics/assets/light/icon/5-content-save.png" buttonMode="true" toolTip=" " 
+									 toolTipCreate="SLibrary.iosTip('메시지 저장','아래 입력된 메시지를 저장 합니다.\n저장된 메시지는 왼쪽 내메시지 에서 확인 하실 수 있습니다.', event)" />
+							<s:Image id="removeMsg" source="/skin/ics/assets/light/icon/5-content-remove.png" buttonMode="true" toolTip=" " 
+									 toolTipCreate="SLibrary.iosTip('메시지 삭제','입력된 메시지를 모두 삭제 합니다.', event)" />
+						</s:HGroup>
+					</s:Group>
+					<s:Scroller width="265" height="200">
+						<s:VGroup id="mBox" width="100%" gap="0">
+							<s:TextArea id="message" width="100%" height="200" fontSize="14" styleName="textarea_light" prompt="메시지를 입력하세요."/>	
+						</s:VGroup>
+					</s:Scroller>
+					
+					<!-- send List title -->
+					<s:Group width="100%">
+						<s:HGroup left="4" verticalCenter="0" verticalAlign="middle">
+							<s:Image source="/assets/gbar.png" />
+							<s:Label text="수신 : "  color="#999999" />
+							<s:TextInput id="sendListInput" styleName="textinput_light" prompt="전화번호입력.." width="165" restrict="0-9 -"/>	
+						</s:HGroup>
+						
+						<s:HGroup gap="0" verticalCenter="0" right="5">
+							<s:Image id="sendListInputBtn"
+									 source="@Embed('/skin/ics/assets/light/icon/9-av-download.png')" buttonMode="true"
+									 toolTip=" " 
+									 toolTipCreate="SLibrary.iosTip('전화번호 추가','입력된 전화번호를 아래로 추가 합니다.\n또한 키보드의 Enter 를 눌러도 추가 가능합니다. ', event)"  width="30" height="30"
+									 />
+						</s:HGroup>
+						
+					</s:Group>
+					
+					
+					<!-- send List -->
+					<s:Group width="265" height="162">
+						<s:Rect left="0" right="0" top="0" bottom="0"><s:fill><s:SolidColor color="#FFFFFF" /></s:fill></s:Rect>
+						<s:List id="sendList"
+								focusEnabled="false"
+								borderColor="#DDDDDD" contentBackgroundColor="0xFFFFFF"
+								itemRenderer="component.send.SendListRenderer"
+								width="265" height="162">
+						</s:List>
+						<s:VGroup id="eLayer" width="265" height="162" top="0" horizontalAlign="center" gap="1" visible="false">
+							<s:HGroup verticalAlign="middle"><s:Label text="번호 " /><s:TextInput id="ePhone" width="165" styleName="textinput_light" restrict="0-9 -"/></s:HGroup>
+							<s:HGroup verticalAlign="middle"><s:Label text="이름 " /><s:TextInput id="eName" width="165" styleName="textinput_light"/></s:HGroup>
+							<s:HGroup verticalAlign="middle"><s:Label text="합성1" /><s:TextInput id="eMearge1" width="165" styleName="textinput_light"/></s:HGroup>
+							<s:HGroup verticalAlign="middle"><s:Label text="합성2" /><s:TextInput id="eMearge2" width="165" styleName="textinput_light"/></s:HGroup>
+							<s:HGroup verticalAlign="middle"><s:Label text="합성3" /><s:TextInput id="eMearge3" width="165" styleName="textinput_light"/></s:HGroup>
+							<s:HGroup verticalAlign="middle">
+								<s:Button id="ePre" label="&lt;이전" styleName="button_light" width="70" height="25" />
+								<s:Button id="eUpdate" label="적용" styleName="button_light" width="50" height="25"/>
+								<s:Button id="eCancel" label="취소" styleName="button_light" width="50" height="25"  />
+								<s:Button id="eNext" label="다음&gt;" styleName="button_light" width="70" height="25"/>
+							</s:HGroup>
+						</s:VGroup>
+					</s:Group>
+					
+					<!-- send List count -->
+					<s:HGroup width="100%" horizontalAlign="right" paddingRight="5" gap="0" verticalAlign="bottom">
+						<s:RichText whiteSpaceCollapse="preserve" color="#999999" paddingBottom="5">
+							<s:content><s:p><s:span id="countPhone" fontSize="16">0</s:span><s:span kerning="auto"> </s:span><s:span kerning="auto">명 </s:span></s:p></s:content>
+						</s:RichText>
+						<s:Image id="dupleDelete"
+								 source="@Embed('/skin/ics/assets/light/icon/10-device-access-storage.png')" buttonMode="true"
+								 toolTip=" " 
+								 toolTipCreate="SLibrary.iosTip('중복번호 삭제','추가된 전화번호중 중복된 전화번호를 삭제 합니다.', event)"  width="30" height="30"
+								 />
+						<s:Image id="phoneRemoveAll"
+								 source="/skin/ics/assets/light/icon/5-content-discard.png" buttonMode="true"
+								 toolTip=" " 
+								 toolTipCreate="SLibrary.iosTip('모두 삭제','추가된 모든 전화번호를 삭제 합니다.', event)" width="30" height="30"
+								 />	
+					</s:HGroup>
+					
+					
+					<!-- callback -->
+					<s:HGroup verticalAlign="middle" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
+						<s:Image source="/assets/gbar.png" />
+						<s:Label text="회신 : "  color="#999999" />
+						<s:ComboBox id="callback" width="165"  
+									itemRenderer="component.send.ReturnPhoneRenderer"
+									prompt="회신 전화번호입력.."
+									restrict="0-9 -"
+									styleName="comboBox_light"
+									
+									/>
+						<s:Image id="callbackSave"
+								 source="@Embed('/skin/ics/assets/light/icon/5-content-new-event.png')" buttonMode="true"								 
+								  fillMode="scale" toolTip=" " 
+								  toolTipCreate="SLibrary.iosTip('회신번호 저장','왼쪽 입력된 회신번호를 저장 합니다.', event)"  />
+					</s:HGroup>
+					
+					<s:Spacer height="14"/>
+					
+					<!-- confirm -->
+					<s:RichText id="confirm_text" width="265" fontSize="14" showEffect="{showEff}" >
+						<s:content><s:p><s:span id="confirm_mode" color.LMS="#33B5E5"
+												color.MMS="#FF4444">SMS</s:span><s:span> 를 </s:span><s:span id="confirm_count" color="#33B5E5">0</s:span><s:span> 명에게 </s:span><s:span id="confirm_delay" backgroundColor="#FFBB33"></s:span></s:p><s:p><s:span id="confirm_reservation" backgroundColor="#99CC00"></s:span><s:span id="confirm_mearge" backgroundColor="#FF8800"></s:span><s:span>발송 하시겠습니까?</s:span></s:p></s:content>
+					</s:RichText>
+					
+					<s:Spacer height="4"/>
+					
+					<!-- send Button -->
+					<s:Button id="sendBtn" label="전송하기" fontSize="12" fontWeight="bold" width="265" styleName="button_light" enabled="false" />
+					<s:Spacer height="4"/>
+					<s:HGroup width="265">
+						<s:CheckBox id="sendReservation" label="예약설정" fontWeight="bold"
+									skinClass="com.flexpad.skin.CheckBoxSkin"
+									color="#6F6F6F"/>
+						<s:CheckBox id="sendInterval" label="간격설정" fontWeight="bold"
+									skinClass="com.flexpad.skin.CheckBoxSkin"
+									color="#6F6F6F"/>
+					</s:HGroup>
+				</s:VGroup>
+				
+				<s:BitmapImage source="@Embed('/skin/ics/assets/list_normal.png', scaleGridTop='1', scaleGridBottom='37', scaleGridLeft='1', scaleGridRight='17')" smooth="true"
+							   width="18" right="1" top="0" bottom="0" visible="true"/>
+				
+			</s:Group>
+		</s:HGroup>
+	</s:Group>
+	
+</s:Skin>

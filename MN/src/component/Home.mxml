@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:home="component.home.*" xmlns:ics="component.ics.*">
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<!--<s:Image source="/skin/ics/assets/bg.jpg" width="100%" height="100%" fillMode="repeat" />-->
+	
+	<s:Group width="100%" height="100%" clipAndEnableScrolling="true">
+		<s:BitmapImage source="skin/ics/assets/wallpaper_01.jpg"/>
+	</s:Group>
+	
+	<!--<s:BitmapImage source="@Embed('/skin/ics/assets/wallpaper_01.jpg')" width="100%" height="100%" fillMode="scale"/>-->
+	
+	<s:Group id="service" right="20" top="10" width="250" height="500">
+		
+		<s:List styleName="list" top="40" width="250" height="460" 
+				borderVisible="false" contentBackgroundColor="#000000" contentBackgroundAlpha="0.8" 
+				itemRenderer="skin.ics.renderer.IconListRenderer">
+			<s:dataProvider>
+				<s:ArrayCollection>
+					<fx:Object icon="skin/ics/assets/icon.png" label="SMS 90Byte 발송" label_sub="기존 SMS보다 10자를 더 보내실 수 있습니다."/>
+					<fx:Object icon="skin/ics/assets/icon.png" label="장문발송" label_sub="2000Byte의 장문 메시지 발송"/>
+					<fx:Object icon="skin/ics/assets/icon.png" label="이미지발송" label_sub="이미지를 발송"/>
+					<fx:Object icon="skin/ics/assets/icon.png" label="엑셀업로드발송" label_sub="시트선택, 주소록저장 또는 즉시발송가능"/>
+					<fx:Object icon="skin/ics/assets/icon.png" label="외부주소록연동" label_sub="여러문서의 전화번호를 복사하여 발송 가능"/>
+					<fx:Object icon="skin/ics/assets/icon.png" label="최근발송 재발송" label_sub="최근발송한 내역을 원클릭으로 재발송"/>
+					<fx:Object icon="skin/ics/assets/icon.png" label="메시지함" label_sub="자주발송하는 메시지를 저장 관리"/>
+					<fx:Object icon="skin/ics/assets/icon.png" label="다양한 이모티콘" label_sub="테마별, 업종별 이모티콘을 무료로 제공"/>
+					<fx:Object icon="skin/ics/assets/icon.png" label="예약, 간격발송" label_sub="예약, 발송시 특정건마다 시차간격발송"/>
+					<fx:Object icon="skin/ics/assets/menu_address.png" label="그룹별 주소록관리" label_sub="그룹으로 분리하여 주소록 관리"/>
+					<fx:Object icon="skin/ics/assets/menu_address.png" label="무제한 주소록 저장" label_sub="제한없이 주소록에 데이터저장가능"/>
+					<fx:Object icon="skin/ics/assets/menu_address.png" label="주소록엑셀받기" label_sub="저장된 주소록을 엑셀로 보관하실 수 있습니다."/>
+					<fx:Object icon="skin/ics/assets/menu_calendar.png" label="기간별발송내역" label_sub="발송내역 그룹별 보기"/>
+					<fx:Object icon="skin/ics/assets/menu_calendar.png" label="발송내역통계" label_sub="발송 그룹별 결과 통계 확인"/>
+					<fx:Object icon="skin/ics/assets/menu_calendar.png" label="상세발송결과" label_sub="전화번호별 상세 결과 확인"/>
+					<fx:Object icon="skin/ics/assets/menu_calendar.png" label="실패재전송" label_sub="실패한 내역만 재발송"/>
+					<fx:Object icon="skin/ics/assets/menu_calendar.png" label="발송내역저장" label_sub="주소록 또는 엑셀로 발송내역 저장"/>
+					<fx:Object icon="skin/ics/assets/menu_calendar.png" label="실패즉시보상" label_sub="실패내역 즉시 보상처리 기능"/>
+				</s:ArrayCollection>
+			</s:dataProvider>
+		</s:List>
+		<s:SkinnableContainer styleName="actionBar_light" width="100%" height="40" depth="4" >
+			<s:HGroup top="5" left="5" verticalAlign="middle">
+				<s:Image source="skin/ics/assets/service_icon.png" />
+				<s:Label text="서비스" />	
+			</s:HGroup>
+		</s:SkinnableContainer>
+	</s:Group>
+	
+</s:Group>

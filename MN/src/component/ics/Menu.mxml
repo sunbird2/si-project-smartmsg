@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:Image source="component/ice/assets/dock.png" horizontalCenter="0" bottom="0" alpha="0.8" />
+	<s:HGroup horizontalCenter="0" gap="50" bottom="20">
+		
+		<s:VGroup horizontalAlign="center">
+			<s:Image source="component/ice/assets/ICSIcons/HDPI/ic_launcher_smsmms.png" />
+			<s:RichText text="메시지" />
+		</s:VGroup>
+		
+		<s:VGroup horizontalAlign="center">
+			<s:Image source="component/ice/assets/ICSIcons/HDPI/ic_launcher_contacts.png" />
+			<s:RichText text="주소록" />
+		</s:VGroup>
+		
+		<s:VGroup horizontalAlign="center">
+			<s:Image source="component/ice/assets/ICSIcons/HDPI/ic_launcher_calculator.png" />
+			<s:RichText text="결제" />
+		</s:VGroup>
+		
+		<s:VGroup horizontalAlign="center">
+			<s:Image source="component/ice/assets/ICSIcons/HDPI/ic_launcher_calendar.png" />
+			<s:RichText text="내역" />
+		</s:VGroup>
+	</s:HGroup>
+	
+	
+</s:Group>

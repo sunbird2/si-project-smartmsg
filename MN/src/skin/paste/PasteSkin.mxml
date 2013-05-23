@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("component.paste.Paste")]
+	</fx:Metadata>
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="phones"/>
+	</s:states>
+	
+	<s:VGroup width="524" height="100%" gap="0">
+		<!-- actionbar -->
+		<s:SkinnableContainer styleName="actionBar_contextuar_white" width="100%" height="48" depth="4">
+			<s:layout><s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" /></s:layout>
+			<s:BitmapImage id="icon" source="skin/ics/assets/light/icon/5-content-cut.png" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:VGroup gap="4">
+				<s:RichText id="title_text" color="#222222" fontSize="14" text="복사붙여넣거,대량입력"/>
+				<s:RichText id="titleSub_text" color="#999999" fontSize="12" text="전화번호를 복사하여 붙여 넣으시거나, 직접 전화번호를 입력 후 추가 하시기 바랍니다."/>
+			</s:VGroup>
+			
+		</s:SkinnableContainer>
+		
+		
+		<s:HGroup horizontalCenter="0" gap="0" height="100%">
+			<s:Group height="100%">
+				<s:TextArea id="ta" top="40" width="200" height="560"  prompt="전화번호를 입력하거나 붙여넣으세요. ※입력시 자동으로 전화번호가 추출되어 보여 집니다." styleName="textarea_light"/>
+				
+				<s:SkinnableContainer styleName="actionBar_contextuar_light" backgroundColor="#EEEEEE" width="100%" height="40">
+					<s:Label color="#33B5E5" text="입력 또는 붙여넣기" verticalCenter="0" left="10" />
+					<s:BitmapImage source="@Embed('/skin/ics/assets/light/icon/1-navigation-next-item.png')" verticalCenter="0" right="5" smooth="true" width="20" height="20"/>
+				</s:SkinnableContainer>
+				
+			</s:Group>
+			
+			<s:Group includeIn="phones" height="100%">
+				<s:TextArea id="phones" top="40" width="154"  height="560" prompt="입력된 내용에서 추출한 전화번호가 보여집니다." borderVisible="false"/>
+				
+				<s:SkinnableContainer styleName="actionBar_contextuar_light" backgroundColor="#EEEEEE" width="100%" height="40">
+					<s:Label color="#33B5E5" text="추출된 전화번호" verticalCenter="0" left="10" />
+					<s:BitmapImage source="@Embed('/skin/ics/assets/light/icon/1-navigation-next-item.png')" verticalCenter="0" right="5" smooth="true" width="20" height="20"/>
+				</s:SkinnableContainer>
+				
+			</s:Group>
+			
+			<s:Group includeIn="phones" width="170" height="100%">
+				<s:VGroup top="50" horizontalCenter="0">
+					<s:CheckBox id="dupCheck" label="중복번호제거" styleName="checkbox_light" selected="true" enabled="false" />
+					<s:Button id="send" top="50" label="추가  >>" width="120" height="30" styleName="button_light"/>
+				</s:VGroup>
+				
+				
+				<s:SkinnableContainer styleName="actionBar_contextuar_light" backgroundColor="#EEEEEE" width="100%" height="40">
+					<s:Label color="#33B5E5" text="수신추가" verticalCenter="0" left="10" />
+					<s:BitmapImage source="@Embed('/skin/ics/assets/light/icon/1-navigation-next-item.png')" verticalCenter="0" right="5" smooth="true" width="20" height="20"/>
+				</s:SkinnableContainer>
+				
+			</s:Group>
+			
+			
+		</s:HGroup>
+	</s:VGroup>
+	
+
+	
+</s:Skin>

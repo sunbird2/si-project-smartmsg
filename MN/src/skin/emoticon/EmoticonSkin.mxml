@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:lib="lib.*">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("component.emoticon.Emoticon")]
+	</fx:Metadata>
+	<s:states>
+		<s:State name="specialChar"/>
+		<s:State name="myMessage"/>
+		<s:State name="emoticon"/>
+		<s:State name="sentMessage"/>
+	</s:states>
+
+	<s:VGroup width="524" height="100%" gap="0" horizontalAlign="center">
+		<!-- actionbar -->
+		<s:SkinnableContainer styleName="actionBar_contextuar_white" width="100%" height="48" depth="4">
+			<s:layout><s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" /></s:layout>
+			<s:BitmapImage id="icon" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:VGroup gap="4">
+				<s:RichText id="title_text" color="#222222" fontSize="14"/>
+				<s:RichText id="titleSub_text" color="#999999" fontSize="12"/>
+			</s:VGroup>
+			
+		</s:SkinnableContainer>
+		
+		<s:VGroup gap="0" >
+			<s:TabBar id="gubunBar" includeIn="emoticon" styleName="tabbar_dark"/>	
+			<s:List id="category" includeIn="emoticon"
+					borderColor="#333333"
+					color="#FFFFFF"
+					contentBackgroundColor="#333333"
+					width="480" height="70"
+					itemRenderer="skin.emoticon.CategoryRenderer" >
+				<s:layout><lib:FlowLayout verticalGap="3" horizontalGap="5" paddingTop="4" paddingLeft="4" /></s:layout>
+			</s:List>
+		</s:VGroup>
+		
+		<s:Spacer height="5" />
+		<s:List id="msgBox" includeIn="emoticon, myMessage, sentMessage" width="480" height.emoticon="490" height="590"
+				contentBackgroundColor="#FFFFFF"
+				itemRenderer="skin.emoticon.EmoticonRenderer"
+				borderVisible="false"
+				>
+			<s:layout><s:TileLayout horizontalGap="3" verticalGap="5" requestedColumnCount="3"/></s:layout>
+		</s:List>
+		
+		<s:List id="specialCharGroup" includeIn="specialChar" width="435" borderVisible="false" contentBackgroundColor="#FFFFFF">
+			<s:layout><s:TileLayout /></s:layout>
+		</s:List>	
+		
+		<s:Spacer height="5" />
+		<!--<lib:Paging id="paging" includeIn="emoticon, myMessage, sentMessage" bottom="10" horizontalCenter="0" />-->
+	</s:VGroup>
+	
+
+</s:Skin>

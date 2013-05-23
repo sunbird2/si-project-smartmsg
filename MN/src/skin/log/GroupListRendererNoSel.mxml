@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			import lib.SLibrary;
+			
+			import valueObjects.LogVO;
+			
+			override public function set data(value:Object):void
+			{
+				// TODO Auto Generated method stub
+				super.data = value;
+				if (super.data != null) {
+					var vo:LogVO = super.data as LogVO;
+					main.text = vo.mode + "   " + vo.cnt + "건   " + vo.timeSend;
+					sub.text = SLibrary.cutByteTo( LogVO(super.data).message.replace(/\n/g,"") , 400 );
+				}
+					
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	<s:VGroup top="7" bottom="5" left="5" right="3">
+		<s:Label id="main" fontSize="12" color="#222222"/>
+		<s:Label id="sub" fontSize="10" color="0x999999" />
+	</s:VGroup>
+	
+	<s:Rect width="100%" bottom="0" height="0.5">
+		<s:stroke>
+			<s:SolidColorStroke color="#D9D9D9" />
+		</s:stroke>
+	</s:Rect>
+	
+</s:ItemRenderer>

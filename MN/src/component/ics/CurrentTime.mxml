@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="50" creationComplete="group1_creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			
+			private var timer:Timer;
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+				timerHandler(null);
+				timer = new Timer(1000);
+				timer.addEventListener(TimerEvent.TIMER, timerHandler);
+				timer.start();
+			}
+			
+			private function timerHandler(event:TimerEvent):void {
+				
+				var date:Date = new Date;
+				var hour:String = (date.hours < 10)? "0"+date.hours.toString() : date.hours.toString();
+				var minute:String = (date.minutes < 10)?"0"+date.minutes.toString() : date.minutes.toString();
+				timeDisplay.text = hour + ":"+minute;
+					
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:RichText id="timeDisplay"  color="#33B5E5" fontSize="18" />
+</s:Group>

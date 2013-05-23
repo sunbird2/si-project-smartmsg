@@ -1,0 +1,1047 @@
+
+<model xmlns="http://ns.adobe.com/Fiber/1.0">
+  <annotation name="ActionScriptGeneration">
+    <item name="FullyQualifyReferences">true</item>
+  </annotation>
+  <service name="Smt">
+    <annotation name="ActionScriptGeneration">
+      <item name="ServiceType">RemoteObject</item>
+      <item name="Package">services</item>
+      <item name="Destination">smt</item>
+      <item name="Endpoint">http://www.munjanote.com:7837//messagebroker/amf</item>
+    </annotation>
+    <annotation name="ServiceConfig">
+      <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
+      <item name="contextRoot">/</item>
+      <item name="rootUrl">http://www.munjanote.com:7837</item>
+      <item name="LINKED_FILE"></item>
+      <item name="ABSOLUTE_ENDPOINT">http://www.munjanote.com:7837//messagebroker/amf</item>
+    </annotation>
+    <annotation name="ServiceTypeGroup">
+      <item name="ServiceBackendType">BlazeDS</item>
+    </annotation>
+    <function name="bAdminSession" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="bSession" return-type="boolean">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">boolean</item>
+      </annotation>
+    </function>
+    <function name="checkID" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+    </function>
+    <function name="count" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">integer</item>
+      </annotation>
+    </function>
+    <function name="createSession" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+    </function>
+    <function name="deleteManySent" return-type="BooleanAndDescriptionVO[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">LogVO</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">bResult,strDescription</item>
+      </annotation>
+      <parameter name="arg0" type="LogVO[]"/>
+    </function>
+    <function name="deleteReturnPhone" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <parameter name="arg0" type="integer"/>
+    </function>
+    <function name="deleteSent" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">LogVO</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">bResult,strDescription</item>
+      </annotation>
+      <parameter name="arg0" type="LogVO"/>
+    </function>
+    <function name="delMymsg" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <parameter name="arg0" type="integer"/>
+    </function>
+    <function name="failAdd" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">LogVO</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">bResult,strDescription</item>
+      </annotation>
+      <parameter name="arg0" type="LogVO"/>
+    </function>
+    <function name="getAddrList" return-type="AddressVO[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,string</item>
+        <item name="returnType">AddressVO</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">writedate,grpName,grp,phone,idx,memo,name,user_id,etcInfo</item>
+      </annotation>
+      <parameter name="arg0" type="integer"/>
+      <parameter name="arg1" type="string"/>
+    </function>
+    <function name="getAddrTree" return-type="string">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">string</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+    </function>
+    <function name="getAdminSession" return-type="string">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">string</item>
+      </annotation>
+    </function>
+    <function name="getCert" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+      <parameter name="arg1" type="string"/>
+    </function>
+    <function name="getEmotiCateList" return-type="string[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">string</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+    </function>
+    <function name="getEmotiList_countFiltered" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string</item>
+        <item name="returnType">integer</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+      <parameter name="arg1" type="string"/>
+    </function>
+    <function name="getEmotiList_paged" return-type="EmoticonPagedObject[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,integer</item>
+        <item name="returnType">EmoticonPagedObject</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">message,index</item>
+      </annotation>
+      <parameter name="arg0" type="integer"/>
+      <parameter name="arg1" type="integer"/>
+    </function>
+    <function name="getEmotiList_pagedFiltered" return-type="EmoticonPagedObject[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string,integer,integer</item>
+        <item name="returnType">EmoticonPagedObject</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">message,index</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+      <parameter name="arg1" type="string"/>
+      <parameter name="arg2" type="integer"/>
+      <parameter name="arg3" type="integer"/>
+    </function>
+    <function name="getEmotiListPage" return-type="opaque[]">
+      <annotation name="original signature">
+        <item name="inputParams">string,string,integer,integer</item>
+        <item name="returnType">opaque</item>
+      </annotation>
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+      <parameter name="arg1" type="string"/>
+      <parameter name="arg2" type="integer"/>
+      <parameter name="arg3" type="integer"/>
+    </function>
+    <function name="getExcelLoaderData" return-type="ExcelLoaderResultVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">blob,string</item>
+        <item name="returnType">ExcelLoaderResultVO</item>
+      </annotation>
+      <parameter name="arg0" type="blob"/>
+      <parameter name="arg1" type="string"/>
+    </function>
+    <function name="getInformation" return-type="UserInformationVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">Connection,string</item>
+        <item name="returnType">UserInformationVO</item>
+      </annotation>
+      <parameter name="arg0" type="Connection"/>
+      <parameter name="arg1" type="string"/>
+    </function>
+    <function name="getReturnPhone" return-type="opaque[]">
+      <annotation name="original signature">
+        <item name="returnType">opaque</item>
+      </annotation>
+      <annotation name="analyze group">
+        <item name="analyzed">false</item>
+      </annotation>
+    </function>
+    <function name="getSentList" return-type="LogVO[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">LogVO</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">ynDel,idx,cnt,line,timeSend,mode,user_ip,message,search,timeWrite,user_id,method,timeDel,delType</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+    </function>
+    <function name="getSentListDetail_countFiltered" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">LogVO</item>
+        <item name="returnType">integer</item>
+      </annotation>
+      <parameter name="arg0" type="LogVO"/>
+    </function>
+    <function name="getSentListDetail_pagedFiltered" return-type="MessageVO[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">LogVO,integer,integer</item>
+        <item name="returnType">MessageVO</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">sendMode,rsltDate,phone,idx,imagePath,rslt,msg,failAddDate,stat,sendDate,groupKey,name,callback,user_id</item>
+      </annotation>
+      <parameter name="arg0" type="LogVO"/>
+      <parameter name="arg1" type="integer"/>
+      <parameter name="arg2" type="integer"/>
+    </function>
+    <function name="getSentListDetail" return-type="MessageVO[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">LogVO</item>
+        <item name="returnType">MessageVO</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">sendMode,rsltDate,phone,idx,imagePath,rslt,msg,failAddDate,stat,sendDate,groupKey,name,callback,user_id</item>
+      </annotation>
+      <parameter name="arg0" type="LogVO"/>
+    </function>
+    <function name="getSentResultStatus" return-type="SentStatusVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">LogVO</item>
+        <item name="returnType">SentStatusVO</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">fail,telecom,local,success</item>
+      </annotation>
+      <parameter name="arg0" type="LogVO"/>
+    </function>
+    <function name="getSession" return-type="string">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">string</item>
+      </annotation>
+    </function>
+    <function name="getState" return-type="string">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">string</item>
+      </annotation>
+    </function>
+    <function name="getUserInformation" return-type="UserInformationVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">UserInformationVO</item>
+      </annotation>
+    </function>
+    <function name="join" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string,string,string</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+      <parameter name="arg1" type="string"/>
+      <parameter name="arg2" type="string"/>
+      <parameter name="arg3" type="string"/>
+    </function>
+    <function name="login" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+      <parameter name="arg1" type="string"/>
+    </function>
+    <function name="loginAdmin" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">Connection,string,string</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <parameter name="arg0" type="Connection"/>
+      <parameter name="arg1" type="string"/>
+      <parameter name="arg2" type="string"/>
+    </function>
+    <function name="loginSuper" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">Connection,string,string</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <parameter name="arg0" type="Connection"/>
+      <parameter name="arg1" type="string"/>
+      <parameter name="arg2" type="string"/>
+    </function>
+    <function name="logout_session" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+    </function>
+    <function name="modify" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string,string,string</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+      <parameter name="arg1" type="string"/>
+      <parameter name="arg2" type="string"/>
+      <parameter name="arg3" type="string"/>
+    </function>
+    <function name="modifyAddr" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,AddressVO</item>
+        <item name="returnType">integer</item>
+      </annotation>
+      <parameter name="arg0" type="integer"/>
+      <parameter name="arg1" type="AddressVO"/>
+    </function>
+    <function name="modifyManyAddr" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer,AddressVO,string</item>
+        <item name="returnType">integer</item>
+      </annotation>
+      <parameter name="arg0" type="integer"/>
+      <parameter name="arg1" type="AddressVO[]"/>
+      <parameter name="arg2" type="string"/>
+    </function>
+    <function name="run" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+    </function>
+    <function name="saveMymsg" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+    </function>
+    <function name="sendCert" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+      <parameter name="arg1" type="string"/>
+    </function>
+    <function name="sendSMSconf" return-type="LogVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">SendMessageVO</item>
+        <item name="returnType">LogVO</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">ynDel,idx,cnt,line,timeSend,mode,user_ip,message,search,timeWrite,user_id,method,timeDel,delType</item>
+      </annotation>
+      <parameter name="arg0" type="SendMessageVO"/>
+    </function>
+    <function name="session_logout" return-type="void">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+    </function>
+    <function name="setMMSUpload" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">blob,string</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <parameter name="arg0" type="blob"/>
+      <parameter name="arg1" type="string"/>
+    </function>
+    <function name="setReturnPhone" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+    </function>
+    <function name="setReturnPhoneTimeWrite" return-type="BooleanAndDescriptionVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">integer</item>
+        <item name="returnType">BooleanAndDescriptionVO</item>
+      </annotation>
+      <parameter name="arg0" type="integer"/>
+    </function>
+    <function name="test" return-type="string">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">string</item>
+      </annotation>
+    </function>
+  </service>
+  <entity name="MessageVO" persistent="true">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">MessageVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.send.MessageVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <annotation name="getSentListDetail_pagedFiltered">
+      <item name="pagingEnabled">true</item>
+      <item name="positionalPagingParameters">true</item>
+      <item name="pageSize">30</item>
+      <item name="propertySpecifier">sendMode,rsltDate,phone,idx,imagePath,rslt,msg,failAddDate,stat,sendDate,groupKey,name,callback,user_id</item>
+    </annotation>
+    <annotation name="DataManagement">
+      <item name="managingService">Smt</item>
+      <item name="fillFunc">getSentListDetail_pagedFiltered</item>
+    </annotation>
+    <annotation name="getSentListDetail">
+      <item name="propertySpecifier">sendMode,rsltDate,phone,idx,imagePath,rslt,msg,failAddDate,stat,sendDate,groupKey,name,callback,user_id</item>
+    </annotation>
+    <property name="sendMode" type="string"/>
+    <property name="rsltDate" type="string"/>
+    <property name="phone" type="string"/>
+    <id name="idx" type="integer" generated="false"/>
+    <property name="imagePath" type="string"/>
+    <property name="rslt" type="string"/>
+    <property name="msg" type="string"/>
+    <property name="failAddDate" type="string"/>
+    <property name="stat" type="string"/>
+    <property name="sendDate" type="string"/>
+    <property name="groupKey" type="integer"/>
+    <property name="name" type="string"/>
+    <property name="callback" type="string"/>
+    <property name="user_id" type="string"/>
+  </entity>
+  <entity name="SendMessageVO">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">SendMessageVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.send.SendMessageVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="message" type="string"/>
+    <property name="al" type="PhoneVO[]"/>
+    <property name="itMinute" type="integer"/>
+    <property name="imagePath" type="string"/>
+    <property name="bMerge" type="boolean"/>
+    <property name="itCount" type="integer"/>
+    <property name="bReservation" type="boolean"/>
+    <property name="returnPhone" type="string"/>
+    <property name="reservationDate" type="string"/>
+    <property name="bInterval" type="boolean"/>
+    <property name="reqIP" type="string"/>
+  </entity>
+  <entity name="ResultSet">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">ResultSet</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.sql.ResultSet</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="fetchSize" type="integer"/>
+    <property name="holdability" type="integer"/>
+    <property name="last" type="boolean"/>
+    <property name="beforeFirst" type="boolean"/>
+    <property name="type" type="integer"/>
+    <property name="cursorName" type="string"/>
+    <property name="row" type="integer"/>
+    <property name="statement" type="Statement"/>
+    <property name="fetchDirection" type="integer"/>
+    <property name="afterLast" type="boolean"/>
+    <property name="concurrency" type="integer"/>
+    <property name="closed" type="boolean"/>
+    <property name="first" type="boolean"/>
+    <property name="warnings" type="SQLWarning"/>
+    <property name="metaData" type="ResultSetMetaData"/>
+  </entity>
+  <entity name="UserInformationVO">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">UserInformationVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.member.UserInformationVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="point" type="string"/>
+    <property name="levaeYN" type="string"/>
+    <property name="hp" type="string"/>
+    <property name="unit_cost" type="integer"/>
+    <property name="line" type="string"/>
+    <property name="user_id" type="string"/>
+  </entity>
+  <entity name="Statement">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Statement</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.sql.Statement</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="fetchSize" type="integer"/>
+    <property name="connection" type="Connection"/>
+    <property name="resultSetHoldability" type="integer"/>
+    <property name="queryTimeout" type="integer"/>
+    <property name="resultSetType" type="integer"/>
+    <property name="resultSetConcurrency" type="integer"/>
+    <property name="fetchDirection" type="integer"/>
+    <property name="maxFieldSize" type="integer"/>
+    <property name="poolable" type="boolean"/>
+    <property name="maxRows" type="integer"/>
+    <property name="closed" type="boolean"/>
+    <property name="resultSet" type="ResultSet"/>
+    <property name="updateCount" type="integer"/>
+    <property name="warnings" type="SQLWarning"/>
+    <property name="generatedKeys" type="ResultSet"/>
+  </entity>
+  <entity name="AddressVO">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">AddressVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.address.AddressVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <annotation name="getAddrList">
+      <item name="propertySpecifier">writedate,grpName,grp,phone,idx,memo,name,user_id,etcInfo</item>
+    </annotation>
+    <property name="writedate" type="string"/>
+    <property name="grpName" type="string"/>
+    <property name="grp" type="integer"/>
+    <property name="phone" type="string"/>
+    <property name="idx" type="integer"/>
+    <property name="memo" type="string"/>
+    <property name="name" type="string"/>
+    <property name="user_id" type="string"/>
+    <property name="etcInfo" type="string"/>
+  </entity>
+  <entity name="LogVO">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">LogVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.send.LogVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <annotation name="getSentList">
+      <item name="propertySpecifier">ynDel,idx,cnt,line,timeSend,mode,user_ip,message,search,timeWrite,user_id,method,timeDel,delType</item>
+    </annotation>
+    <annotation name="sendSMSconf">
+      <item name="propertySpecifier">ynDel,idx,cnt,line,timeSend,mode,user_ip,message,search,timeWrite,user_id,method,timeDel,delType</item>
+    </annotation>
+    <property name="ynDel" type="string"/>
+    <property name="idx" type="integer"/>
+    <property name="cnt" type="integer"/>
+    <property name="line" type="string"/>
+    <property name="timeSend" type="string"/>
+    <property name="mode" type="string"/>
+    <property name="user_ip" type="string"/>
+    <property name="message" type="string"/>
+    <property name="search" type="string"/>
+    <property name="timeWrite" type="string"/>
+    <property name="user_id" type="string"/>
+    <property name="method" type="string"/>
+    <property name="timeDel" type="string"/>
+    <property name="delType" type="string"/>
+  </entity>
+  <entity name="Connection">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Connection</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.sql.Connection</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="autoCommit" type="boolean"/>
+    <property name="readOnly" type="boolean"/>
+    <property name="holdability" type="integer"/>
+    <property name="typeMap" type="opaque"/>
+    <property name="catalog" type="string"/>
+    <property name="closed" type="boolean"/>
+    <property name="clientInfo" type="opaque"/>
+    <property name="transactionIsolation" type="integer"/>
+    <property name="warnings" type="SQLWarning"/>
+    <property name="metaData" type="DatabaseMetaData"/>
+  </entity>
+  <entity name="StackTraceElement">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">StackTraceElement</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.lang.StackTraceElement</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="fileName" type="string"/>
+    <property name="lineNumber" type="integer"/>
+    <property name="className" type="string"/>
+    <property name="methodName" type="string"/>
+    <property name="nativeMethod" type="boolean"/>
+  </entity>
+  <entity name="SentStatusVO">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">SentStatusVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.log.SentStatusVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <annotation name="getSentResultStatus">
+      <item name="propertySpecifier">fail,telecom,local,success</item>
+    </annotation>
+    <property name="fail" type="integer"/>
+    <property name="telecom" type="integer"/>
+    <property name="local" type="integer"/>
+    <property name="success" type="integer"/>
+  </entity>
+  <entity name="ExcelLoaderResultVO">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">ExcelLoaderResultVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.excel.ExcelLoaderResultVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="bResult" type="boolean"/>
+    <property name="list" type="opaque[]"/>
+    <property name="strDescription" type="string"/>
+  </entity>
+  <entity name="EmoticonPagedObject" persistent="true">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">EmoticonPagedObject</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.emoticon.EmoticonPagedObject</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <annotation name="getEmotiList_pagedFiltered">
+      <item name="pagingEnabled">true</item>
+      <item name="positionalPagingParameters">true</item>
+      <item name="pageSize">18</item>
+      <item name="countOperation">getEmotiList_countFiltered</item>
+      <item name="propertySpecifier">message,index</item>
+    </annotation>
+    <annotation name="DataManagement">
+      <item name="managingService">Smt</item>
+      <item name="fillFunc">getEmotiList_pagedFiltered</item>
+    </annotation>
+    <annotation name="getEmotiList_paged">
+      <item name="propertySpecifier">message,index</item>
+    </annotation>
+    <property name="message" type="string"/>
+    <id name="index" type="integer" generated="false"/>
+  </entity>
+  <entity name="DatabaseMetaData">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">DatabaseMetaData</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.sql.DatabaseMetaData</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="databaseProductName" type="string"/>
+    <property name="defaultTransactionIsolation" type="integer"/>
+    <property name="maxCursorNameLength" type="integer"/>
+    <property name="SQLStateType" type="integer"/>
+    <property name="typeInfo" type="ResultSet"/>
+    <property name="maxStatements" type="integer"/>
+    <property name="userName" type="string"/>
+    <property name="driverName" type="string"/>
+    <property name="maxCatalogNameLength" type="integer"/>
+    <property name="catalogSeparator" type="string"/>
+    <property name="databaseProductVersion" type="string"/>
+    <property name="catalogAtStart" type="boolean"/>
+    <property name="driverMajorVersion" type="integer"/>
+    <property name="connection" type="Connection"/>
+    <property name="SQLKeywords" type="string"/>
+    <property name="timeDateFunctions" type="string"/>
+    <property name="maxBinaryLiteralLength" type="integer"/>
+    <property name="extraNameCharacters" type="string"/>
+    <property name="maxColumnsInIndex" type="integer"/>
+    <property name="databaseMajorVersion" type="integer"/>
+    <property name="maxColumnNameLength" type="integer"/>
+    <property name="procedureTerm" type="string"/>
+    <property name="catalogTerm" type="string"/>
+    <property name="JDBCMinorVersion" type="integer"/>
+    <property name="JDBCMajorVersion" type="integer"/>
+    <property name="searchStringEscape" type="string"/>
+    <property name="databaseMinorVersion" type="integer"/>
+    <property name="maxProcedureNameLength" type="integer"/>
+    <property name="maxTablesInSelect" type="integer"/>
+    <property name="maxTableNameLength" type="integer"/>
+    <property name="driverMinorVersion" type="integer"/>
+    <property name="maxCharLiteralLength" type="integer"/>
+    <property name="maxIndexLength" type="integer"/>
+    <property name="stringFunctions" type="string"/>
+    <property name="maxColumnsInOrderBy" type="integer"/>
+    <property name="maxRowSize" type="integer"/>
+    <property name="URL" type="string"/>
+    <property name="clientInfoProperties" type="ResultSet"/>
+    <property name="maxStatementLength" type="integer"/>
+    <property name="maxConnections" type="integer"/>
+    <property name="schemas" type="ResultSet"/>
+    <property name="maxUserNameLength" type="integer"/>
+    <property name="rowIdLifetime" type="string"/>
+    <property name="resultSetHoldability" type="integer"/>
+    <property name="schemaTerm" type="string"/>
+    <property name="driverVersion" type="string"/>
+    <property name="maxSchemaNameLength" type="integer"/>
+    <property name="identifierQuoteString" type="string"/>
+    <property name="maxColumnsInSelect" type="integer"/>
+    <property name="systemFunctions" type="string"/>
+    <property name="maxColumnsInGroupBy" type="integer"/>
+    <property name="readOnly" type="boolean"/>
+    <property name="tableTypes" type="ResultSet"/>
+    <property name="numericFunctions" type="string"/>
+    <property name="catalogs" type="ResultSet"/>
+    <property name="maxColumnsInTable" type="integer"/>
+  </entity>
+  <entity name="SQLException">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">SQLException</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.sql.SQLException</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="message" type="string"/>
+    <property name="SQLState" type="string"/>
+    <property name="localizedMessage" type="string"/>
+    <property name="cause" type="Throwable"/>
+    <property name="errorCode" type="integer"/>
+    <property name="nextException" type="SQLException"/>
+    <property name="stackTrace" type="StackTraceElement[]"/>
+  </entity>
+  <entity name="SQLWarning">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">SQLWarning</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.sql.SQLWarning</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="message" type="string"/>
+    <property name="SQLState" type="string"/>
+    <property name="localizedMessage" type="string"/>
+    <property name="nextWarning" type="SQLWarning"/>
+    <property name="cause" type="Throwable"/>
+    <property name="errorCode" type="integer"/>
+    <property name="nextException" type="SQLException"/>
+    <property name="stackTrace" type="StackTraceElement[]"/>
+  </entity>
+  <entity name="ResultSetMetaData">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">ResultSetMetaData</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.sql.ResultSetMetaData</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="columnCount" type="integer"/>
+  </entity>
+  <entity name="PhoneVO">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">PhoneVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.send.PhoneVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="pName" type="string"/>
+    <property name="pNo" type="string"/>
+  </entity>
+  <entity name="Throwable">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">Throwable</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">java.lang.Throwable</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="message" type="string"/>
+    <property name="localizedMessage" type="string"/>
+    <property name="cause" type="Throwable"/>
+    <property name="stackTrace" type="StackTraceElement[]"/>
+  </entity>
+  <entity name="BooleanAndDescriptionVO">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">BooleanAndDescriptionVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.common.BooleanAndDescriptionVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <annotation name="deleteManySent">
+      <item name="propertySpecifier">bResult,strDescription</item>
+    </annotation>
+    <annotation name="deleteSent">
+      <item name="propertySpecifier">bResult,strDescription</item>
+    </annotation>
+    <annotation name="failAdd">
+      <item name="propertySpecifier">bResult,strDescription</item>
+    </annotation>
+    <property name="bResult" type="boolean"/>
+    <property name="strDescription" type="string"/>
+  </entity>
+</model>

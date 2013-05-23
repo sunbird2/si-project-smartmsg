@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"  width="11" height="15"
+		 
+		 >
+	<fx:Script>
+		<![CDATA[
+			
+			
+			public function set percent(value:int):void {
+				
+				fill.height = Math.round(15/100 * value);
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Group width="11" height="15">
+		<s:mask>
+			<s:Group x="0" y="0">
+				<s:Path winding="evenOdd" data="M 11 14.9 L 11 1 L 8 1 L 8 0 L 3.95 0 L 3.95 1 L 0.95 1 L 0.95 14.9 L 11 14.9">
+					<s:fill>
+						<s:SolidColor color="#ff0000"/>
+					</s:fill>
+				</s:Path>
+			</s:Group>
+		</s:mask>
+		<s:Rect width="11" height="15"><s:fill><s:SolidColor color="#404040"/></s:fill></s:Rect>
+		<s:Rect id="fill" bottom="0" width="11"><s:fill><s:SolidColor color="#33B5E5"/></s:fill></s:Rect>
+	</s:Group>
+	
+</s:Group>

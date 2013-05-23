@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Metadata>
+		[Event(name="selected", type="flash.events.Event")]
+		[Event(name="select", type="flash.events.Event")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			[Bindable]
+			public var amount:String = "";
+			
+			protected function select_clickHandler(s:String):void
+			{
+				amount = s;
+				this.currentState = "selected";
+				dispatchEvent(new Event("selected"));
+			}
+			
+			protected function selected_clickHandler(event:MouseEvent):void
+			{
+				this.currentState = "select";
+				dispatchEvent(new Event("select"));
+			}
+		]]>
+	</fx:Script>
+	
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:states>
+		<s:State name="select" />
+		<s:State name="selected" />
+	</s:states>
+	<s:TileGroup includeIn="select" requestedColumnCount="2" horizontalGap="40">
+		<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="26" kerning="auto" color="#222222" height="30"
+							click="select_clickHandler('10,000')" buttonMode="true" useHandCursor="true" >
+			<s:content><s:p><s:span>     10,000</s:span><s:span fontSize="20" color="#999999">원   </s:span><s:span>       666</s:span><s:span fontSize="20" color="#999999">건   </s:span><s:span>15.0</s:span><s:span fontSize="20" color="#999999">원/건</s:span></s:p></s:content>
+		</s:RichText>
+		<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="26" kerning="auto" color="#222222" height="30"
+							click="select_clickHandler('30,000')" buttonMode="true" useHandCursor="true" >
+			<s:content><s:p><s:span>     30,000</s:span><s:span fontSize="20" color="#999999">원   </s:span><s:span>    2,000</s:span><s:span fontSize="20" color="#999999">건   </s:span><s:span>15.0</s:span><s:span fontSize="20" color="#999999">원/건</s:span></s:p></s:content>
+		</s:RichText>
+		<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="26" kerning="auto" color="#222222" height="30"
+							click="select_clickHandler('50,000')" buttonMode="true" useHandCursor="true" >
+			<s:content><s:p><s:span>     50,000</s:span><s:span fontSize="20" color="#999999">원   </s:span><s:span>    3,333</s:span><s:span fontSize="20" color="#999999">건   </s:span><s:span>15.0</s:span><s:span fontSize="20" color="#999999">원/건</s:span></s:p></s:content>
+		</s:RichText>
+		<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="26" kerning="auto" color="#222222" height="30"
+							click="select_clickHandler('100,000')" buttonMode="true" useHandCursor="true" >
+			<s:content><s:p><s:span>   100,000</s:span><s:span fontSize="20" color="#999999">원   </s:span><s:span>    7,143</s:span><s:span fontSize="20" color="#999999">건   </s:span><s:span>14.0</s:span><s:span fontSize="20" color="#999999">원/건</s:span></s:p></s:content>
+		</s:RichText>
+		<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="26" kerning="auto" color="#222222" height="30"
+							click="select_clickHandler('300,000')" buttonMode="true" useHandCursor="true" >
+			<s:content><s:p><s:span>   300,000</s:span><s:span fontSize="20" color="#999999">원   </s:span><s:span>  21,429</s:span><s:span fontSize="20" color="#999999">건   </s:span><s:span>14.0</s:span><s:span fontSize="20" color="#999999">원/건</s:span></s:p></s:content>
+		</s:RichText>
+		<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="26" kerning="auto" color="#222222" height="30"
+							click="select_clickHandler('500,000')" buttonMode="true" useHandCursor="true" >
+			<s:content><s:p><s:span>   500,000</s:span><s:span fontSize="20" color="#999999">원   </s:span><s:span>  38,426</s:span><s:span fontSize="20" color="#999999">건   </s:span><s:span>12.0</s:span><s:span fontSize="20" color="#999999">원/건</s:span></s:p></s:content>
+		</s:RichText>
+		<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="26" kerning="auto" color="#222222" height="30"
+							click="select_clickHandler('1,000,000')" buttonMode="true" useHandCursor="true" >
+			<s:content><s:p><s:span>1,000,000</s:span><s:span fontSize="20" color="#999999">원   </s:span><s:span>  83,333</s:span><s:span fontSize="20" color="#999999">건   </s:span><s:span>12.0</s:span><s:span fontSize="20" color="#999999">원/건</s:span></s:p></s:content>
+		</s:RichText>
+		<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="26" kerning="auto" color="#222222" height="30"
+							click="select_clickHandler('2,000,000')" buttonMode="true" useHandCursor="true" >
+			<s:content><s:p><s:span>2,000,000</s:span><s:span fontSize="20" color="#999999">원   </s:span><s:span>166,667</s:span><s:span fontSize="20" color="#999999">건   </s:span><s:span>12.0</s:span><s:span fontSize="20" color="#999999">원/건</s:span></s:p></s:content>
+		</s:RichText>
+		
+	</s:TileGroup>
+	<s:Label id="amountLabel" text="{amount}" includeIn="selected" fontSize="26" click="selected_clickHandler(event)" buttonMode="true" />
+</s:Group>

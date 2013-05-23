@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			import spark.components.List;
+			
+			import valueObjects.AddressVO;
+			
+			[Bindable]
+			private var bSelected:Boolean = false;
+			
+			[Bindable]
+			private var bLast:Boolean = false;
+			
+			override public function set data(value:Object):void
+			{
+				// TODO Auto Generated method stub
+				super.data = value;
+				bSelected = selected;
+				if (this.itemIndex == List(this.owner).dataProvider.length-1)
+					bLast = true;
+				
+				if (super.data != null) {
+					var avo:AddressVO = super.data as AddressVO;
+					viewName.text = (avo.name != "") ? avo.name : avo.phone;	
+				}
+				
+			}
+			
+		]]>
+	</fx:Script>	
+	
+	<s:Rect width="100%" bottom="0" height="0.5" visible="{!bLast}">
+		<s:stroke>
+			<s:SolidColorStroke color="#D9D9D9" />
+		</s:stroke>
+	</s:Rect>
+
+	<s:Label id="viewName"
+			 top="7" bottom="5" left="5" right="3"/>
+	
+</s:ItemRenderer>

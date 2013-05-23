@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 gap="0">
+	<fx:Declarations>
+		<s:BlurFilter id="blur" blurX="5" blurY="5" quality="0" />
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			[Bindable] public var source:Object;
+			[Bindable] public var imageWidth:Object;
+			[Bindable] public var imageHeight:Object;
+			
+			
+			private var _reflectionVisible:Boolean = true;
+			public function set reflectionVisible(b:Boolean):void {
+				if (b == true) {
+					currentState = "normal";
+				} else {
+					currentState = "small";
+				}
+			}
+			public function get reflectionVisible():Boolean {
+				return _reflectionVisible;
+			}
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="small"/>
+	</s:states>
+	
+	<s:BitmapImage id="image" source="{source}" smooth="true"
+				   width="{imageWidth}" height="{imageHeight}" />
+	
+	<s:BitmapImage source="{source}" smooth="true" includeIn="normal"
+				   width="{image.width}" height="{image.height}"
+				   maskType="alpha" scaleY="-1" id="reflection"
+				   filters="{[blur]}">
+		<s:mask>
+			<s:Group>
+				<s:Rect width="{image.width}" height="{image.height}">
+					<s:fill>
+						<s:LinearGradient rotation="-90">
+							<s:GradientEntry color="white" alpha="1" />
+							<s:GradientEntry color="white" alpha="0" ratio=".4" />
+						</s:LinearGradient>
+					</s:fill>
+				</s:Rect>
+			</s:Group>
+		</s:mask>
+	</s:BitmapImage>
+</s:VGroup>
