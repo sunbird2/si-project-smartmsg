@@ -35,6 +35,8 @@
 			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
 			
+			public static var HOST:String = "http://www.munjanote.com:7837";
+			
 			private var join:Join;
 			private var home:Home;
 			public var send:Send;
@@ -43,13 +45,84 @@
 			public var log:Log;
 			
 			
+			public var iconLoader:Loader;
+			public var iconMenu:NativeMenu = new NativeMenu();
+			public var visibleCommand:NativeMenuItem = iconMenu.addItem(new NativeMenuItem("Visible"));
+			public var exitCommand:NativeMenuItem = iconMenu.addItem(new NativeMenuItem("Exit"));
+			
 			protected function app_initializeHandler(event:FlexEvent):void { this.currentState = "home"; }
 			
+			/**
+			 * Tray Start
+			 * */
 			protected function app_creationCompleteHandler(event:FlexEvent):void { 
 				
-				//ExternalInterface.addCallback("flexFunction",flexFunction_callback);
-				//ExternalInterface.call("flexCreateComplete");
+				iconLoader= new Loader();        
+				visibleCommand.addEventListener(Event.SELECT,traySelectHandle);
+				exitCommand.addEventListener(Event.SELECT,trayExitHandle);
+				nativeWindow.addEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGING, trayOnChange); 
+				nativeWindow.addEventListener(Event.CLOSING,trayExitEvent);
+
 			}
+			public function trayExitEvent(e:Event):void{
+				NativeApplication.nativeApplication.icon.bitmaps = [];
+				NativeApplication.nativeApplication.exit();
+				trace("exting");
+			}
+			
+			public function trayOnChange(event:NativeWindowDisplayStateEvent):void{
+				if (event.afterDisplayState == NativeWindowDisplayState.MINIMIZED)
+				{ 
+					event.preventDefault();
+					nativeWindow.visible = false;
+					
+					if(NativeApplication.supportsSystemTrayIcon){
+						NativeApplication.nativeApplication.autoExit = false;
+						iconLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,iconLoadComp);
+						iconLoader.load(new URLRequest("assets/wasi_16.png"));
+						var sysTray:SystemTrayIcon = NativeApplication.nativeApplication.icon as SystemTrayIcon;
+						sysTray.addEventListener(ScreenMouseEvent.CLICK,clickHandler);
+						sysTray.tooltip = "ezmo!!";
+						sysTray.menu= iconMenu;
+					}
+					
+					//Mac일때는 아래처럼 처리한다. 
+					if (NativeApplication.supportsDockIcon){
+						iconLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,iconLoadComp);
+						iconLoader.load(new URLRequest("assets/wasi_16.png"));
+						var dock:DockIcon = NativeApplication.nativeApplication.icon as DockIcon; 
+						dock.menu = iconMenu;
+					}
+					
+				}
+			}
+			public function clickHandler(e:Event):void{
+				var isFront:Boolean = stage.nativeWindow.alwaysInFront;
+				
+				stage.nativeWindow.alwaysInFront = false;
+				stage.nativeWindow.alwaysInFront = true;
+				
+				if(!isFront){
+					stage.nativeWindow.alwaysInFront=false;
+				}
+				stage.nativeWindow.visible = true;
+				NativeApplication.nativeApplication.icon.bitmaps = [];
+			}
+			private function iconLoadComp(event:Event):void {
+				NativeApplication.nativeApplication.icon.bitmaps = [event.target.content.bitmapData];
+			}
+			public function traySelectHandle(e:Event):void{
+				stage.nativeWindow.visible = true;
+				NativeApplication.nativeApplication.icon.bitmaps = [];
+			}
+			public function trayExitHandle(e:Event):void{
+				NativeApplication.nativeApplication.icon.bitmaps = [];
+				NativeApplication.nativeApplication.exit();
+			}
+			/**
+			 * Tray End
+			 * */
+			
 			protected function app_focusInHandler(event:FocusEvent):void { if(Capabilities.hasIME && !IME.enabled) IME.enabled = true; }
 			
 			private function flexFunction_callback(key:String, value:String):String {
@@ -244,12 +317,12 @@
 			
 			protected function bill_clickHandler(event:MouseEvent):void
 			{
-				var url:String = "http://www.munjanote.com:7837/bill/";
+				var url:String = MunjaNote.HOST+"/bill/";
 				
 				webCall(url);
 			}
 			
-			private function webCall(url:String):void {
+			public function webCall(url:String):void {
 				
 				var urlReq:URLRequest = new URLRequest(url); 
 				navigateToURL(urlReq);
