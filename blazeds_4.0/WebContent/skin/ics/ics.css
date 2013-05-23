@@ -1,14 +1,16 @@
 /* CSS file */
 @namespace s "library://ns.adobe.com/flex/spark";
 @namespace mx "library://ns.adobe.com/flex/mx";
+@namespace flexpad "com.flexpad.*";
 
 @font-face
 {
 	fontFamily: Droid;
 	src: url("/skin/ics/assets/fonts/DroidSansFallback.ttf");
 	embedAsCFF: true;
-	unicodeRange: U+0020-U+007E,U+1100-U+11F9,U+3000-U+303F,U+3131-U+318E,U+327F-U+327F,U+AC00-U+D7A3,U+FF01-U+FF60;
+/*	unicodeRange: U+0020-U+007E,U+1100-U+11F9,U+3000-U+303F,U+3131-U+318E,U+327F-U+327F,U+AC00-U+D7A3,U+FF01-U+FF60;*/
 }
+
 /*s|RichText, s|TextInput, s|TextArea, s|ComboBox, s|Button, s|Label, s|DataGrid*/
 global
 {
@@ -21,7 +23,8 @@ global
 	focusColor: #037EA7;
 	accentColor: #037EA7;
 
-	fontFamily : "Droid";
+	fontFamily : "Droid","Malgun Gothic","Dotum","Gulim",AppleGothic,sans-serif;
+/*	fontFamily : "Malgun Gothic","Dotum","Gulim",AppleGothic,sans-serif;*/
 	fontSize : 12px;
 }
 
@@ -91,6 +94,7 @@ s|Scroller {
 	focusSkin : ClassReference("skin.ics.TextInputFocus");
 	paddingLeft : 5;
 	paddingBottom : 5;
+	ime-mode:active;
 }
 
 .textinput_light {
@@ -98,6 +102,7 @@ s|Scroller {
 	focusSkin : ClassReference("skin.ics.TextInputFocus");
 	paddingLeft : 5;
 	paddingBottom : 5;
+	ime-mode:active;
 }
 
 /* textarea */
@@ -105,11 +110,13 @@ s|Scroller {
 	contentBackgroundColor : #000000;
 	borderColor : #222222;
 	focusAlpha : 0;
+	ime-mode:active;
 }
 .textarea_light {
 	contentBackgroundColor : #FFFFFF;
 	borderColor : #DDDDDD;
-	focusAlpha : 0;
+	ime-mode:active;
+/*	focusAlpha : 0;*/
 }
 /* combobox */
 .comboBox_dark {
@@ -123,7 +130,7 @@ s|Scroller {
 
 .comboBox_light {
 	skinClass : ClassReference("skin.ics.ComboBox");
-	dropShadowVisible : false;
+	dropShadowVisible : true;
 	focusAlpha : 0;
 	color:#222222;
 	paddingLeft : 5;
@@ -132,7 +139,7 @@ s|Scroller {
 
 .dropDownList_dark {
 	skinClass : ClassReference("skin.ics.DropDownListSkin");
-	dropShadowVisible : false;
+	dropShadowVisible : true;
 	focusAlpha : 0;
 	color:#DDDDDD;
 	paddingLeft : 5;
@@ -165,7 +172,7 @@ s|Scroller {
 }
 .button_light {
 	skinClass : ClassReference("skin.ics.ButtonSkin_light");
-	color:#222222;
+	color:#3D3D3D;
 }
 .button_label {
 	skinClass : ClassReference("skin.ics.ButtonLabel");
@@ -197,8 +204,12 @@ s|Scroller {
 
 
 mx|Alert, mx|ToolTip, mx|DataTip, mx|UIComponent {
-	fontFamily : "Dotum";
+	fontFamily : "Droid","Malgun Gothic","Dotum","Gulim",AppleGothic,sans-serif;
 }
 
+flexpad|AlertPanelTextLabel , flexpad|AlertPanelTitleLabel , flexpad|ButtonBarGreyButtonLabel , flexpad|ButtonBarBlackButtonLabel
+, flexpad|LargeButtonBarGreyButtonLabel , flexpad|ListItemRendererLabel , flexpad|TabBarBlackButtonLabel{
+	fontFamily : "Droid","Malgun Gothic","Dotum","Gulim",AppleGothic,sans-serif;
+}
 
 
