@@ -10,7 +10,6 @@ package component
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	//import flash.external.ExternalInterface;
 	
 	import lib.AlertManager;
 	import lib.CustomEvent;
@@ -592,6 +591,7 @@ package component
 			deleteGroupList();
 		}
 		private function excelDownBtn_clickHandler(event:MouseEvent):void {
+			MunjaNote(parentApplication).webCall(MunjaNote.HOST+"/custom/sentExcel.jsp?idx="+detailVO.idx+"&mode="+detailVO.mode+"&line="+detailVO.line);
 			//ExternalInterface.call("excelDownload", "/custom/sentExcel.jsp?idx="+detailVO.idx+"&mode="+detailVO.mode+"&line="+detailVO.line);
 		}
 		

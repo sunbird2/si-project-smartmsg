@@ -56,8 +56,8 @@
         <s:fill>
             <!--- @private -->
             <s:LinearGradient id="bgFill" rotation="90">
-                <s:GradientEntry color="0x33B5E5" ratio=".90" />
-                <s:GradientEntry color="0x0099CC" />
+                <s:GradientEntry color="0xEFEFEF" ratio=".90" />
+                <s:GradientEntry color="0xFFFFFF" />
             </s:LinearGradient>
         </s:fill>
     </s:Rect>
@@ -74,8 +74,23 @@
         
         <!-- title -->
         <!--- @copy spark.components.windowClasses.TitleBar#titleText -->
-        <s:Label id="titleText" minWidth="0" fontSize="9" color="#FFFFFF" fontFamily="Droid" maxDisplayedLines="1" width="100%" />
-
+        <s:Label id="titleText" minWidth="0" fontSize="9" fontFamily="Droid" maxDisplayedLines="1" width="100%" />
+		
+		<!-- maximize button -->
+		<!--- 
+		By default, the button uses the spark.skins.spark.windowChrome.MinimizeButtonSkin class
+		to define the skin for the maximized button.
+		
+		@copy spark.components.windowClasses.TitleBar#maximizeButton
+		
+		@see spark.skins.spark.windowChrome.MaximizeButtonSkin 
+		-->
+		<s:Button id="maximizeButton" visible="false"
+				  skinClass="spark.skins.spark.windowChrome.MaximizeButtonSkin"
+				  skinClass.maximizedGroup="spark.skins.spark.windowChrome.RestoreButtonSkin"
+				  verticalCenter="0" 
+				  />
+		
         <!-- minimize button --> 
         <!--- 
             By default, the button uses the spark.skins.spark.windowChrome.MinimizeButtonSkin class
@@ -90,20 +105,7 @@
             top="2" bottom="2" verticalCenter="0" 
             />
         
-        <!-- maximize button -->
-        <!--- 
-            By default, the button uses the spark.skins.spark.windowChrome.MinimizeButtonSkin class
-            to define the skin for the maximized button.
-            
-            @copy spark.components.windowClasses.TitleBar#maximizeButton
-        
-            @see spark.skins.spark.windowChrome.MaximizeButtonSkin 
-        -->
-        <s:Button id="maximizeButton" 
-            skinClass="spark.skins.spark.windowChrome.MaximizeButtonSkin"
-            skinClass.maximizedGroup="spark.skins.spark.windowChrome.RestoreButtonSkin"
-            verticalCenter="0" 
-            />
+       
                         
         <!-- close button -->
         <!--- 
