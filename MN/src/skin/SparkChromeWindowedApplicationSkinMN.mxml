@@ -140,7 +140,7 @@
     <!-- the border alpha.inactiveGroup="0.5" -->
     <s:Rect left="0" right="0" top="0" bottom="0">
         <s:stroke>
-            <s:SolidColorStroke weight="1" color="0xA6A6A6" alpha="0" />
+            <s:SolidColorStroke weight="1" color="0x000000" alpha="1" />
         </s:stroke>
     </s:Rect>
         
