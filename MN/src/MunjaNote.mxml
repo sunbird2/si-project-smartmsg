@@ -311,7 +311,7 @@
 				//ExternalInterface.call("login_view", Gv.bLogin ? "true":"false" );
 			}
 			
-			protected function login_joinHandler(event:Event):void { this.currentState = "join"; }
+			protected function login_joinHandler(event:Event):void { menus.clickStat = "join"; }
 			
 			protected function sendModeChange_handler(event:Event):void {
 				if (send != null) loginMode(send.sendMode);
