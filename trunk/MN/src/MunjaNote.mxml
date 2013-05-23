@@ -19,6 +19,10 @@
 	<fx:Style source="/skin/ics/ics.css"/>
 	<fx:Script>
 		<![CDATA[
+			import air.update.ApplicationUpdaterUI;
+			import air.update.events.StatusUpdateEvent;
+			import air.update.events.UpdateEvent;
+			
 			import component.Address;
 			import component.Bill;
 			import component.Home;
@@ -36,6 +40,9 @@
 			import mx.events.FlexEvent;
 			
 			public static var HOST:String = "http://www.munjanote.com:7837";
+			
+			// update
+			private var appUpdater:ApplicationUpdaterUI = new ApplicationUpdaterUI(); 
 			
 			private var join:Join;
 			private var home:Home;
@@ -57,6 +64,13 @@
 			 * */
 			protected function app_creationCompleteHandler(event:FlexEvent):void { 
 				
+				// update
+				appUpdater.configurationFile = new File("app:/updateConfig.xml"); 
+				appUpdater.addEventListener(UpdateEvent.INITIALIZED, updateIni_Handle);
+				appUpdater.initialize();
+				
+				
+				
 				iconLoader= new Loader();        
 				visibleCommand.addEventListener(Event.SELECT,traySelectHandle);
 				exitCommand.addEventListener(Event.SELECT,trayExitHandle);
@@ -64,10 +78,25 @@
 				nativeWindow.addEventListener(Event.CLOSING,trayExitEvent);
 
 			}
+			
+			private function updateIni_Handle(event:UpdateEvent):void {
+				trace("init ok");
+				appUpdater.addEventListener(UpdateEvent.DOWNLOAD_COMPLETE, updateDownloadCompleteHandle);
+				appUpdater.addEventListener(StatusUpdateEvent.UPDATE_STATUS, updateStatus_Handler);
+				appUpdater.checkNow();
+				
+			}
+			private function updateDownloadCompleteHandle(event:UpdateEvent):void {
+				trace("ok");
+			}
+			
 			public function trayExitEvent(e:Event):void{
 				NativeApplication.nativeApplication.icon.bitmaps = [];
 				NativeApplication.nativeApplication.exit();
 				trace("exting");
+			}
+			private function updateStatus_Handler(event:StatusUpdateEvent):void {
+				trace("is update:"+ event.available +" version:"+ event.version  );
 			}
 			
 			public function trayOnChange(event:NativeWindowDisplayStateEvent):void{
@@ -393,13 +422,13 @@
 					 bottom="5"
 					 change="{this.currentState=event.result as String}"/>
 	
-	<s:Rect id="bg" visible="false" width="1024" height="740">
+	<s:Rect id="bg" visible="false" width="1024" height="740" depth="6">
 		<s:fill>
 			<s:SolidColor color="#999999" alpha="0.5" />
 		</s:fill>
 	</s:Rect> 
 	
-	<component:Login id="login" excludeFrom="join"
+	<component:Login id="login" excludeFrom="join"  depth="7"
 					 login="login_loginHandler(event)"
 					 logout="login_logoutHandler(event)"
 					 join="login_joinHandler(event)"

@@ -56,8 +56,8 @@
         <s:fill>
             <!--- @private -->
             <s:LinearGradient id="bgFill" rotation="90">
-                <s:GradientEntry color="0xEFEFEF" ratio=".90" />
-                <s:GradientEntry color="0xFFFFFF" />
+                <s:GradientEntry color="0x000000" ratio=".90" />
+                <s:GradientEntry color="0x999999" />
             </s:LinearGradient>
         </s:fill>
     </s:Rect>
@@ -74,7 +74,7 @@
         
         <!-- title -->
         <!--- @copy spark.components.windowClasses.TitleBar#titleText -->
-        <s:Label id="titleText" minWidth="0" fontSize="9" fontFamily="Droid" maxDisplayedLines="1" width="100%" />
+        <s:Label id="titleText" minWidth="0" fontSize="9" fontFamily="Droid" color="0xFFFFFF" maxDisplayedLines="1" width="100%" />
 		
 		<!-- maximize button -->
 		<!--- 
