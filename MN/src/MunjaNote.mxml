@@ -66,7 +66,7 @@
 				
 				// update
 				appUpdater.configurationFile = new File("app:/updateConfig.xml"); 
-				appUpdater.addEventListener(UpdateEvent.INITIALIZED, updateIni_Handle);
+				//appUpdater.addEventListener(UpdateEvent.INITIALIZED, updateIni_Handle);
 				appUpdater.initialize();
 				
 				
@@ -81,14 +81,12 @@
 			
 			private function updateIni_Handle(event:UpdateEvent):void {
 				trace("init ok");
-				appUpdater.addEventListener(UpdateEvent.DOWNLOAD_COMPLETE, updateDownloadCompleteHandle);
-				appUpdater.addEventListener(StatusUpdateEvent.UPDATE_STATUS, updateStatus_Handler);
-				appUpdater.checkNow();
+				//appUpdater.addEventListener(UpdateEvent.DOWNLOAD_COMPLETE, updateDownloadCompleteHandle);
+				//appUpdater.addEventListener(StatusUpdateEvent.UPDATE_STATUS, updateStatus_Handler);
+				//appUpdater.checkNow();
 				
 			}
-			private function updateDownloadCompleteHandle(event:UpdateEvent):void {
-				trace("ok");
-			}
+			
 			
 			public function trayExitEvent(e:Event):void{
 				NativeApplication.nativeApplication.icon.bitmaps = [];
