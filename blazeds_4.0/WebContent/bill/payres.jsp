@@ -10,7 +10,6 @@
 <%@page import="com.m.member.SessionManagement"%>
 <%@page import="java.sql.Connection"%>
 <%@ page import="lgdacom.XPayClient.XPayClient"%>
-
 <%
     /*
      * [최종결제요청 페이지(STEP2-2)]
@@ -169,7 +168,7 @@
          	}
 			
 			if (isDBOK) {
-				out.println(SLibrary.alertScript("결제가 완료 되었습니다.","parent.window.location.reload();"));
+				out.println(SLibrary.alertScript("결제가 완료 되었습니다.","parent.changeMenu('mypage');"));
 				SendMail.send("[bill] "+session_id + " " +amount+"원 완료!!", "");
 			}else {
 				out.println(SLibrary.alertScript("결제가 실패 하였습니다. 카드한도등을 확인 후 다시 시도 하세요.","parent.window.location.reload();"));
