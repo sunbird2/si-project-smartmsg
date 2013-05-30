@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+<body>
+	<script>
+
+var _mnq = _mnq || [];
+_mnq.push(['_setDebug', true]);
+_mnq.push(['_setUid', 'UA-41118010-1']);
+
+
+
+(function(s,o,m,a,g) {
+	a=s.createElement(o),g=s.getElementsByTagName(o)[0];
+	a.async = 1;a.src = 'http://'+m+'/API/mn.js';
+	g.parentNode.insertBefore(a, g);
+})(document,'script','192.168.11.10:8080');
+
+function call() {
+	_mnq.push(['_send', {
+		msg:"test 메시지",
+		phone:$("#msg").val(),
+		callback:"1111111",
+		reservation:"",
+		image:""
+	}]);
+}
+
+function MUNJANOTE_CallBack(obj) {
+	
+	if (obj.rslt=="true") {
+		alert("Success");
+	} else {
+		var failMsg = (obj.msg)?obj.msg:"";
+		alert("fail : "+failMsg);
+	}
+}
+
+</script>
+<textarea id="msg" cols="50" rows="20"></textarea>
+<button onclick="call()">call</button>
+</body>
+</html>
+
+
