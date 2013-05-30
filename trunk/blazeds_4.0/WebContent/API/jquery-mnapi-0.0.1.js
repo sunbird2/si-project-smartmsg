@@ -86,29 +86,38 @@ var TP='<div id="MunjaNoteAPISkin"><div class="msg_box"><p class="msg_title">메
 			return erMsg;
 		},
 		call: function(arg) {
-			alert("call");
+
 			var vo = $.extend(this._defaultVo, arg);
 			var er = this._check(vo);
 			if (er == "") {
 
 				var strJson = JSON.stringify({send:vo});
 				d("_sendClass call:"+JSON.stringify(vo));
-				$.ajax({
-				    type: "POST",
-				    url: HOST+"/API/",
-				    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-				    dataType: "json",
-				    data: {uid: $.M_N._getUid(), dt: strJson},
-				    success: function(json) {
-				    	var rs = json;
-						if (rs && rs.rslt!="true") {
-							d(rs.msg);
-						}
-				    },
-				    error: function (xhr, textStatus, errorThrown) {
-				        alert("server error");
-				    }
-				});
+				
+				if ($.M_N._getUid() == "발급 받은 코드") {
+					callback(getRsltJson("true","테스트"));
+				} else {
+					$.ajax({
+					    type: "POST",
+					    url: HOST+"/API/",
+					    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					    dataType: "json",
+					    data: {uid: $.M_N._getUid(), dt: strJson},
+					    success: function(json) {
+					    	var rs = json;
+							if (rs && rs.rslt!="true") {
+								d(rs.msg);
+							}
+							callback(rs);
+					    },
+					    error: function (xhr, textStatus, errorThrown) {
+					    	
+					    	callback(getRsltJson("false","server error!"));
+					        //alert("server error");
+					    }
+					});
+				}
+				
 				
 			}else{
 				d(er);
@@ -225,6 +234,9 @@ var TP='<div id="MunjaNoteAPISkin"><div class="msg_box"><p class="msg_title">메
 		if(typeof MUNJANOTE_CallBack != "undefined"){
 			MUNJANOTE_CallBack(json);
 		}
+	}
+	function getRsltJson(rslt, msg) {
+		return {rslt:rslt, msg:msg};
 	}
 	
 	function isVaildDate(strDt){
