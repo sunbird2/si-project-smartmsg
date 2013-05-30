@@ -75,7 +75,7 @@
 /*slider*/
 .clear {clear:both}
 #gallery { position:relative; height:550px; }
-#gallery a.show {float:left;width:1024px;position:absolute;}
+#gallery a.show {float:right;width:824px;}
 #gallery a img {border:none;}
 #gallery a.show {z-index:500}
 #gallery a.show img{display:block;float:right;margin-top:-15px;}
@@ -126,6 +126,16 @@
 #mypage .txt {display:block;float:left;margin-right:10px;width:100px;height:22px;font:normal 14px/22px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
 #mypage .txtmini {display:block;float:left;width:50px;font:normal 14px/22px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
 #mypage .dash {display:block;float:left;font:normal 14px/22px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
+
+
+#api {font-family: 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;width:1024px;overflow:hidden;}
+#api textarea {border:1px solid #eee;overflow:hidden;padding-left:25px;width:972px;background-color:#efefef}
+#api dl dd {margin-left:25px;}
+#api .title {display:block;margin-top:30px;width:100%;font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;text-align:center;}
+#api .category {padding-left:25px;background:url('../images/arrow.png') 0px 8px no-repeat;font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;border-bottom:1px solid #ccc;margin-top:40px;display:block;font-weight:bold;}
+#api .category b {font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;font-weight:bold;color:#0099CC}
+#api .category_sub {font:normal 14px/18px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;margin:.5em 0px;}
+
 
 .dTable {display:block;clear:both;width:1024px;font-size:12px;color:#333333;border-width: 1px;border-color: #999999;border-collapse: collapse;}
 .dTable th {background-color:#EFEFEF;border-width: 1px;padding: 8px;border-style: solid;border-color: #EEEEEE;text-align:left;}
