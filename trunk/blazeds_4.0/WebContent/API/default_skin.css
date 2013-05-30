@@ -1,0 +1,90 @@
+#MunjaNoteAPISkin div,#MunjaNoteAPISkin p {margin:0px;padding:0px;}
+#MunjaNoteAPISkin {text-align:center;font-size:12px;width: 200px;height:auto;padding: 20px 5px;border-radius: 20px;background: #111;border: 3px solid white;position: relative;box-shadow: 0px 0px 5px #000;}
+/* msg */
+#MunjaNoteAPISkin .msg_box {width:100%;margin:5px 0;}
+#MunjaNoteAPISkin .msg_title {color:#fff;text-align:left;}
+#MunjaNoteAPISkin .msg {width:95%}
+#MunjaNoteAPISkin .msg_byte {color:#fff;text-align:right;}
+/* phone */
+#MunjaNoteAPISkin .phone_box {width:100%;margin:5px 0;}
+#MunjaNoteAPISkin .phone_title {color:#fff;text-align:left;}
+#MunjaNoteAPISkin .phone {width:95%}
+/* callback */
+#MunjaNoteAPISkin .callback_box {width:100%;margin:5px 0;}
+#MunjaNoteAPISkin .callback_title {color:#fff;text-align:left;}
+#MunjaNoteAPISkin .callback {width:95%}
+/* reservation */
+#MunjaNoteAPISkin .reservation_box {width:100%;margin:5px 0;}
+#MunjaNoteAPISkin .reservation_title {color:#fff;text-align:left;}
+#MunjaNoteAPISkin .reservation {width:95%}
+
+/* send */
+#MunjaNoteAPISkin a.send {width:68%;;margin:5px 0;}
+#MunjaNoteAPISkin a.cancel {width:68%;;margin:5px 0;}
+
+
+.btn {
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font: 14px/100% Arial, Helvetica, sans-serif;
+  padding: .5em 2em .55em;
+  text-shadow: 0 1px 1px rgba(0,0,0,.3);
+  -webkit-border-radius: .5em;
+  -moz-border-radius: .5em;
+  border-radius: .5em;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+  box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.btn:hover {
+  text-decoration: none;
+}
+.btn:active {
+  position: relative;
+  top: 1px;
+}
+
+.scolor {
+	color: #FFFFFF;
+	border: solid 1px #333;
+	background: #333;
+	background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#000));
+	background: -moz-linear-gradient(top,  #666,  #000);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#000000');
+}
+.scolor:hover {
+	background: #000;
+	background: -webkit-gradient(linear, left top, left bottom, from(#444), to(#000));
+	background: -moz-linear-gradient(top,  #444,  #000);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#000000');
+}
+.scolor:active {
+	color: #666;
+	background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#444));
+	background: -moz-linear-gradient(top,  #000,  #444);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#666666');
+}
+
+.ccolor {
+	color: #606060;
+	border: solid 1px #b7b7b7;
+	background: #fff;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+	background: -moz-linear-gradient(top,  #fff,  #ededed);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+}
+.ccolor:hover {
+	background: #ededed;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));
+	background: -moz-linear-gradient(top,  #fff,  #dcdcdc);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+}
+.ccolor:active {
+	color: #999;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));
+	background: -moz-linear-gradient(top,  #ededed,  #fff);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
+}
