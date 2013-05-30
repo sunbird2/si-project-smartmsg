@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	
+	<link rel="stylesheet" type="text/css" href="default_skin.css" />
+	<script>
+		var _mnq = _mnq || [];
+		_mnq.push(['_setUid', '발급 받은 코드']);
+		(function(s,o,m,a,g) {
+			a=s.createElement(o),g=s.getElementsByTagName(o)[0];
+			a.async = 1;a.src = 'http://'+m+'/API/mn.js';
+			g.parentNode.insertBefore(a, g);
+		})(document,'script','www.munjanote.com');
+		
+		function MUNJANOTE_CallBack(obj) {
+			
+			if (obj.rslt=="true") {
+				alert("메시지가 발송 되었습니다.");
+			} else {
+				var failMsg = (obj.msg)?obj.msg:"";
+				alert("fail : "+failMsg);
+			}
+		}
+		
+		
+		// button click
+		function button_click() {
+			// 메시지 발송 부분.. (함수로 구현하여 클릭 시 발송 되도록 할 수도 있습니다. 재사용가능.)
+			_mnq.push(['_send', {
+				msg:"test 메시지", // 메시지
+				phone:"01000000000", // 전화번호(여러건 발송시 : 0100000000\r\n0110002222\r\n010...)
+				callback:"022345678", // 보내는사람 번호
+				reservation:"", // 예약시간 (2013-05-05 13:03), 없으면 즉시발송
+				image:"" // 미사용..
+			}]);
+		}
+		
+		
+		// msg button click
+		// 아래 고정된 전화번호(01000000000)와 회신 번호(022345678)로 입력된 메시지가 발송 되겠죠?
+		function button_msg_click() {
+			// 메시지 발송 부분.. (함수로 구현하여 클릭 시 발송 되도록 할 수도 있습니다. 재사용가능.)
+			_mnq.push(['_send', {
+				msg:document.form.msg.value, // 메시지
+				phone:"01000000000", // 전화번호(여러건 발송시 : 0100000000\r\n0110002222\r\n010...)
+				callback:"022345678", // 보내는사람 번호
+				reservation:"", // 예약시간 (2013-05-05 13:03), 없으면 즉시발송
+				image:"" // 미사용..
+			}]);
+		}
+		
+		// msg button click
+		// 아래 고정된 회신 번호(022345678)로 입력된 메시지와 전화번호가 발송 되겠죠?
+		function button_msg_callback_click() {
+			// 메시지 발송 부분.. (함수로 구현하여 클릭 시 발송 되도록 할 수도 있습니다. 재사용가능.)
+			_mnq.push(['_send', {
+				msg:document.form_callback.msg.value, // 메시지
+				phone:document.form_callback.callback.value, // 전화번호(여러건 발송시 : 0100000000\r\n0110002222\r\n010...)
+				callback:"022345678", // 보내는사람 번호
+				reservation:"", // 예약시간 (2013-05-05 13:03), 없으면 즉시발송
+				image:"" // 미사용..
+			}]);
+		}
+		
+		
+	</script>
+</head>
+<body>
+<h1>아래 버튼을 클릭 하면 발송 됩니다.</h1>
+<button onclick="button_click()">메시지 발송</button>
+<h1>아래 입력한 메시지를 발송해 볼까요?</h1>
+<form name="form" >
+	<textarea name="msg" cols="10" rows="10">요기에 입력한 메시지를 발송..</textarea>
+	<button onclick="button_msg_click()">입력메시지 발송</button>
+</form>
+<h1>메시지와 보내는사람 번호를 입력받아 발송해 볼까요?(상담 신청 용도?)</h1>
+<form name="form_callback" >
+	<textarea name="msg" cols="10" rows="10">메시지....</textarea>
+	<input type="text" name="callback" value="020000" />
+	<button onclick="button_msg_callback_click()">입력메시지 발송</button>
+</form>
+
+<h1>메시지와 받는사람을 입력받아 발송해 보는건 직접 한번 해보세요;</h1>
+<h2>마우스 오른쪽을 눌러 소스보기 하실 수 있습니다.</h2>
+
+
+
+</body>
+</html>
+
+
