@@ -471,9 +471,19 @@
    							var cnt = data.length;
    							var html = "";
    							
+   							var btn = "";
    							for (var i = 0; i < cnt; i++) {
+
+   								if (data[i].method == "무통장" || data[i].method == "계좌이체") {
+   									btn = "<a href=\"#\" class=\"buttonmini blue\" style=\"display:block;float:left;width:70px;color:#FFF;font-weight:bold;\" onclick=\"return viewTax("+data[i].idx+")\">세금계산서</a>";
+   								} else if (data[i].method == "카드") {
+   									btn = "";
+   									//btn = "<a href=\"#\" class=\"buttonmini blue\" style=\"display:block;float:left;width:70px;color:#FFF;font-weight:bold;\" onclick=\"return cardView("+data[i].idx+")\">전표출력</a>";
+   								} else {
+   									btn = "";
+   								}
    								html += "<tr onmouseover=\"this.style.backgroundColor='#ffffCC';\" onmouseout=\"this.style.backgroundColor='#FFFFFF';\">";
-   								html += "<td>"+data[i].rownum+"</td><td>"+addComma(data[i].point)+"</td><td>"+data[i].method+"</td><td>"+addComma(data[i].amount)+"</td><td>"+data[i].timeWrite+"</td><td></td>";
+   								html += "<td>"+data[i].rownum+"</td><td>"+addComma(data[i].point)+"</td><td>"+data[i].method+"</td><td>"+addComma(data[i].amount)+"</td><td>"+data[i].timeWrite+"</td><td>"+btn+"</td>";
    								html += "</tr>";
    								billTotal = data[i].total;
    							}
@@ -495,6 +505,43 @@
    				}
    			   );
    	 return false;
+    }
+    function viewTax(idx) {
+    	modal_window('/bill/tax.jsp?idx='+idx);
+    	return false;
+    }
+    
+    function tax_req(f) {
+    	
+    	var err = "";
+    	if (f.billIdx.value == "" || f.billIdx.value == "0") {err += "결제 키가 없습니다.\r\n";}
+    	if (f.comp_no.value == "") {err += "사업자번호가 없습니다.\r\n";}
+    	if (f.comp_name.value == "") {err += "상호가 없습니다.\r\n";}
+    	if (f.comp_ceo.value == "") {err += "대표자 이름이 없습니다.\r\n";}
+    	if (f.comp_addr.value == "") {err += "사업장주소가 없습니다.\r\n";}
+    	if (f.comp_up.value == "") {err += "업태가 없습니다.\r\n";}
+    	if (f.comp_jong.value == "") {err += "종목이 없습니다.\r\n";}
+    	if (f.comp_email.value == "") {err += "이메일이 없습니다.\r\n";}
+    	
+    	if (err != "") alert(err);
+    	else {
+    		if (f.taxYN.value == "Y") {
+    			alert("발행 완료된 내역은 수정 하실 수 없습니다.");
+    		} else {
+    			if (confirm("위 입력된 내용으로 세금계산서를 신청 하시겠습니까?")) {
+    				$.getJSON("/mypage/_tax.jsp",$(f).serialize(),
+    	     				function(data) {
+    	     					if (data != null && data.rslt*1 > 0) {
+    	     						alert("신청 되었습니다.\r\n발행은 1~2일 소요 됩니다.");
+    	     					}else {
+    	     						alert("신청에 실패 하였습니다.\r\n다시 시도해 주세요.");
+    	     					}
+    	     				}
+    	     			   );
+    				
+    			}
+    		}
+    	}
     }
     
     
