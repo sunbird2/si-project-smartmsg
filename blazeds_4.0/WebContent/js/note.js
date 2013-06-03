@@ -37,6 +37,14 @@
 			$('#costInfo').hide();
 			$('#bar1').hide();
 			$('#eventPop').hide();
+        } else if (str == "api") {
+            $("#nobody").attr("src", "/API/help.html");
+
+			$('#function-navi').hide();
+			$('#emoticon').hide();
+			$('#costInfo').hide();
+			$('#bar1').hide();
+			$('#eventPop').hide();
         } else {
 
             if (MunjaNote) MunjaNote.flexFunction("menu", menu);
@@ -64,10 +72,12 @@
     }
     
     function join() {
+    	
         var MunjaNote = document.getElementById("MunjaNote");
         if (MunjaNote) MunjaNote.flexFunction("menu", "join");
      	else embedSWF("join");
 		
+        $("#install_wrap").hide();
 		$('#eventPop').hide();
 		$('#function-navi').hide();
 		$('#emoticon').hide();
@@ -141,8 +151,11 @@
 
 				var html = "<ul style='border-top:1px solid #ccc'>";
 				
+				var mp = "";
 				$.each(data.items, function(i,item){
-					html += "<li><a href='#' onclick='alert(\""+item.content+"\"); return false'>"+item.title+"</a></li>";
+					mp = "<p class=\\'notic_title\\'>"+item.title+"</p>";
+					mp += "<p class=\\'notic_content\\'>"+item.content+"</p>";
+					html += "<li><a href=\"#\" onclick=\"modal_window_html('"+mp+"'); return false;\">"+item.title+"</a></li>";
 				});
 				html += "</ul>";
 				$('#notic').append(html);
@@ -226,8 +239,8 @@
 		params.appversion = "1.1.0";
 		params.hidehelp = "true";
 		//params.helpurl = "help.html";
-		//params.image = "test.jpg"; 215 * 180
-        swfobject.embedSWF("/badge/AIRInstallBadge.swf", "install", "172", "144", "9.0.0","/badge/expressInstall.swf",params);
+		params.image = "/badge/MNimg.png"; //215 * 180
+        swfobject.embedSWF("/badge/AIRInstallBadge.swf", "install", "215", "180", "9.0.0","/badge/expressInstall.swf",params);
         
     }
 	
@@ -392,6 +405,54 @@
    	 
     }
     
+    function viewAPI() {
+    	modal_window('/mypage/createAPIKey.jsp');
+    	return false;
+    }
+    
+    function createAPI_Key() {
+    	
+    	$.getJSON("/mypage/_api.jsp",{mode: "create"},
+ 				function(data) {
+ 					if (data != null && data.rslt) {
+ 						$("#apiCode").val(data.rslt);
+ 					}else {
+ 						alert("코드 생성에 실패 하였습니다.\r\n다시 시도해 주세요.");
+ 					}
+ 				}
+ 			   );
+    	return false;
+    }
+    function submitAPI_Key() {
+    	
+    	var chk = "";
+    	var code = $("#apiCode").val();
+    	var domain = $("#apiDomain").val();
+    	if (code == "") {
+    		alert("코드 생성을 눌러 주세요.");
+    		return false;
+    	}
+    	
+    	if (domain == "") chk = "보안을 위해 도메인을 설정 하는게 좋습니다.\r\n";
+    	
+    	var yn = $("#apiY").attr("checked")=="checked" ? "Y":"N";
+    	
+    	if (confirm(chk+"등록 하시겠습니까?")) {
+    		$.getJSON("/mypage/_api.jsp",{mode: "insertorupdate",code:code, domain:domain, yn:yn},
+     				function(data) {
+     					if (data != null && data.rslt*1 > 0) {
+     						alert("등록 되었습니다. \r\n 상단 오른쪽의 메시지연동 에서 도움을 받아 보세요.");
+     					}else {
+     						alert("등록에 실패 하였습니다.\r\n다시 시도해 주세요.");
+     					}
+     				}
+     			   );
+    	}
+    	
+    	return false;
+    }
+    
+    
     var pageBlock = 10;
     
     var billPageBlock = 3;
@@ -552,13 +613,26 @@
 
    	 return n;
     }
+    function showAPI( htm ) {
+    	
+		removeFlash();
+        stop();
+        if ($('#gallery').length > 0) $('#gallery').css("height","auto");
+        //$('#gallery').html( htm );
+        //if ($('#gallery').length > 0) $('#gallery').css("height","auto");
+        //alert(htm);
+        $('#gallery').empty();
+        $('#gallery').append( htm );
+        
+        viewPopBlock(false);
+    }
     function showMy( htm ) {
 		
 		removeFlash();
         stop();
+        if ($('#gallery').length > 0) $('#gallery').css("height","auto");
         $('#gallery').html( htm );
-        if ($('#gallery').length > 0)
-        	$('#gallery').css("height","auto");
+        
         viewPopBlock(false);
         getMypageLoad();
     }
@@ -589,21 +663,42 @@
 	}
 	
 	function showCustom( htm ) {
-        $('#dialog').html( htm );
+        $('#dialog .content').html( htm );
+        loading(false);
     }
 	
 	function billSubmit(f) {
 		var m = $(":input:radio[name=LGD_CUSTOM_FIRSTPAY]:checked").val();
 		if (m == "SC0040") {
-			alert("무통장 입금이 예약 되었습니다. \r\n\r\n홈페이지 하단의 정보로 입금 부탁 드리겠습니다.");
+			modal_window('/bill/cash.jsp?amount='+$(":input:radio[name=LGD_AMOUNT]:checked").val());
+			//alert("무통장 입금이 예약 되었습니다. \r\n\r\n홈페이지 하단의 정보로 입금 부탁 드리겠습니다.");
 		}else {
 			f.submit();
 		}
 		
 	}
 	
+	function cash_req() {
+		
+		var cn = $("#cashName").val();
+		var uid = $("#cashid").val();
+		var amt = $("#cashAmount").text();
+		
+		if (cn == "") alert("입금자명을 입력해 주세요.");
+		else {
+			if (confirm(cn+" 으로 입금 예약 하시겠습니까?")) {
+				alert("["+uid+"] "+cn+" 무통장 예약 "+amt );
+				$.post("/gLog.jsp", { ref: "["+uid+"] "+cn+" 무통장 예약 "+amt } );
+				alert("예약 되었습니다.");
+			}
+		}
+		
+		return false;
+	}
+	
 	
 	var is_mask_run =false;
+	/*
     // 창 리사이즈할때 마다 갱신
     $(window).resize(function () {
         if(is_mask_run){
@@ -626,24 +721,36 @@
 	 
 	    is_mask_run =false;
 	});
-	 
+	 */
 	/*레이어 윈도우창 닫기*/
 	function close_layer_window(){
 	    $('#mask').hide();
 	    $('#dialog').hide();
 	    is_mask_run= false;
+	    loading(false);
+	}
+	
+	function modal_window(path)
+	{
+		loading(true);
+        $("#nobody").attr("src", path);
+        modal_window_view();
+        trackPageview(path, path);
+	}
+	function modal_window_html(htm) {
+		
+        $("#dialog > .content").html(htm);
+        modal_window_view();
 	}
 	 
 	// 창 사이즈 설정
-	function modal_window(path)
+	function modal_window_view()
 	{
-        $("#nobody").attr("src", path);
-	    // 활성화
 	    is_mask_run = true;
 	     
 	    // 마스크 사이즈
 	    var maskHeight = $(document).height();
-	    var maskWidth = $(window).width();
+	    var maskWidth = $(document).width();
 	    $('#mask').css({'width':maskWidth,'height':maskHeight});
 	 
 	    // 마스크 effect  
@@ -658,12 +765,8 @@
 	    : (document.documentElement && document.documentElement.scrollTop) ? document.documentElement.scrollTop
 	    : (document.body) ? document.body.scrollTop
 	    : 0;
-	 
-	    if(_y<1){
-	    var h = winH/2;
-	    }else{
-	    var h = winH/2+_y;
-	    }
+	    
+	    var h = (_y<1)? winH/2 : winH/2+_y;
 	 
 	    // dialog창 리사이즈
 	    var dial_width =$('#dialog').width();
@@ -674,10 +777,6 @@
 	 
 	    // dialog창  effect
 	    $('#dialog').fadeIn(1000);
-	    
-	    
-	    trackPageview(path, path);
-	    
 	    return false;
 	}
 	
@@ -810,3 +909,5 @@
 		var z = window.open(url , "excel", "scrollbars=no,width=640,height=625,resizable=no");
 		z.focus();
 	}
+	
+	function loading(show) {if (show == true) {$("#ajax-loader").show();}else {$("#ajax-loader").hide();}}
