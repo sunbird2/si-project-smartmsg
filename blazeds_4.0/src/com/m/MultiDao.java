@@ -11,6 +11,7 @@ import com.m.admin.vo.BillingVO;
 import com.m.admin.vo.MemberVO;
 import com.m.admin.vo.PointLogVO;
 import com.m.admin.vo.SentLogVO;
+import com.m.billing.BillingTaxVO;
 
 public class MultiDao {
 	
@@ -62,7 +63,6 @@ public class MultiDao {
 			sm.close();
 		}
 		
-		
 		return rs;
 	}
 	List<BillingVO> setRowNumBill(List<BillingVO> lvo, int start, int tot) {
@@ -76,6 +76,26 @@ public class MultiDao {
 		}
 		return lvo;
 	}
+	
+	public BillingTaxVO getBillingTax(BillingTaxVO vo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (BillingTaxVO)sm.selectOne(ns + "select_bill_tax", vo);
+	}
+	
+	public int setBillingTax(BillingTaxVO vo) {
+		
+		BillingTaxVO btvo = getBillingTax(vo);
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		if (btvo != null) {
+			return sm.update(ns + "update_billing_tax", vo);
+		} else {
+			return sm.update(ns + "insert_billing_tax", vo);
+		}
+	}
+	
+	
 	
 	public List<PointLogVO> getPointLog(PointLogVO vo) {
 		
