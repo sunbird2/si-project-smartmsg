@@ -61,6 +61,9 @@
 #etc #bank { float:left;margin-right:15px;width:248px;height:143px;background:url("../images/bank3.png") no-repeat}
 #etc #cost { float:left;width:210px;height:143px;background:url("../images/cost2.png");cursor:pointer}
 
+.notic_title {font-size:14px; font-weight:bold;line-height:28px;}
+.notic_content {}
+
 #footer {margin:0 auto; width:1024px;height:61px; margin-top:15px;margin-bottom:30px;overflow:hidden;}
 #info {float:left;width:356px;height:auto;overflow:hidden;}
 #info ul li {float:left;}
@@ -106,7 +109,9 @@
 #bill .billTable td span {color:#999;font-size:11px;line-height:100%;}
 
 #mask {position:absolute;left:0;top:0;z-index:1999;background-color:#000;display:none;}
-#dialog {position:absolute;left:0;top:0; width:600px;height:600px;display:none;z-index:2000;background:url("../images/bg.png");}
+#dialog {position:absolute;left:0;top:0; display:none;z-index:2000;width:680px;height:500px;padding: 10px;overflow:hidden;}
+#dialog .close {position: absolute;right: 0;top: 0;cursor: pointer;border:none;}
+#dialog .content {overflow:hidden;min-height: 395px;background: #fff;padding: 40px;border: 1px solid #000;border-radius: 5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
 
 #billCost {width:580px;margin-left:10px;font-size:12px;color:#333333;border-width: 1px;border-color: #999999;border-collapse: collapse;}
 #billCost th {background-color:#EFEFEF;border-width: 1px;padding: 8px;border-style: solid;border-color: #EEEEEE;}
@@ -128,14 +133,20 @@
 #mypage .dash {display:block;float:left;font:normal 14px/22px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
 
 
-#api {font-family: 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;width:1024px;overflow:hidden;}
-#api textarea {border:1px solid #eee;overflow:hidden;padding-left:25px;width:972px;background-color:#efefef}
-#api dl dd {margin-left:25px;}
-#api .title {display:block;margin-top:30px;width:100%;font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;text-align:center;}
-#api .category {padding-left:25px;background:url('../images/arrow.png') 0px 8px no-repeat;font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;border-bottom:1px solid #ccc;margin-top:40px;display:block;font-weight:bold;}
-#api .category b {font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;font-weight:bold;color:#0099CC}
-#api .category_sub {font:normal 14px/18px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;margin:.5em 0px;}
+#apiHelp {font-family: 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
+#apiHelp .code {padding-left:25px;background-color:#efefef}
+#apiHelp .category_wrap {margin-left:25px;}
+#apiHelp .title {display:block;margin-top:30px;font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;text-align:center;}
+#apiHelp .category {padding-left:25px;background:url('../images/arrow.png') 0px 8px no-repeat;font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;border-bottom:1px solid #ccc;margin-top:40px;display:block;font-weight:bold;}
+#apiHelp .category b {font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;font-weight:bold;}
+#apiHelp .category_sub {font:normal 14px/18px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;margin:.5em 0px;}
 
+#createAPI_box .title {font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;font-weight:bold;}
+#createAPI_box .apiCode {width:150px;display:block;float:left; margin-right:10px; height:22px;}
+#createAPI_box .apiDomain {width:500px; height:22px;}
+#createAPI_box .api_ul li {display:block;width:100%;margin:20px 0px;clear:both;overflow:hidden;	}
+#createAPI_box .api_ul .type_txt {font-size:14px;font-weight:bold}
+#createAPI_box .api_ul .action {padding-left:25px;background:url('../images/arrow.png') 0px 2px no-repeat;overflow:hidden;}
 
 .dTable {display:block;clear:both;width:1024px;font-size:12px;color:#333333;border-width: 1px;border-color: #999999;border-collapse: collapse;}
 .dTable th {background-color:#EFEFEF;border-width: 1px;padding: 8px;border-style: solid;border-color: #EEEEEE;text-align:left;}
@@ -162,7 +173,24 @@
 .pagination .prev span{ border:3px solid; border-top:solid #fff; border-bottom:solid #fff; border-left:0; margin-right:1px; *left:-4px;}
 .pagination .next span{ border:3px solid; border-top:solid #fff; border-bottom:solid #fff; border-right:0; margin-left:1px;}
 
-
+#ajax-loader {
+-moz-border-radius: 10px;
+-moz-box-shadow: 0 0 10px #000;
+-webkit-border-radius: 10px;
+-webkit-box-shadow: 0 0 10px #000;
+border-radius: 10px;
+box-shadow: 0 0 10px #000;
+background: none repeat scroll 0 0 #000;
+border: 1px solid #fff;
+left: 50%;
+margin-left: -24px;
+margin-top: -24px;
+padding: 10px;
+position: fixed;
+top: 50%;
+z-index: 6000;
+display: none;
+}
 
 /* ----------------------------------- c ------------------------------------------ */
 .buttonmini {
