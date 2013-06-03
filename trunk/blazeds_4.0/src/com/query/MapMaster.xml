@@ -112,6 +112,31 @@
 		</where>
 		
 	</select>
+	<select id="select_bill_tax" parameterType="com.m.billing.BillingTaxVO" resultType="com.m.billing.BillingTaxVO" >
+		select
+			idx, billing_idx, user_id, comp_no, comp_name, comp_ceo, comp_addr, comp_up, comp_jong, comp_email, taxYN, timeWrite, memo 
+		from billing_tax
+		<where>
+			<if test="user_id != null">
+				user_id = #{user_id}
+			</if>
+			<if test="billing_idx != null">
+				and billing_idx = #{billing_idx} 
+			</if>
+		</where>
+		order by idx desc limit 0,1
+	</select>
+	<insert id="insert_billing_tax" parameterType="com.m.billing.BillingTaxVO">
+		INSERT INTO billing_tax(billing_idx, user_id, comp_no, comp_name, comp_ceo, comp_addr, comp_up, comp_jong, comp_email, taxYN, timeWrite, memo)
+		VALUES (#{billing_idx}, #{user_id}, #{comp_no}, #{comp_name}, #{comp_ceo}, #{comp_addr}, #{comp_up}, #{comp_jong}, #{comp_email}, #{taxYN}, #{timeWrite}, #{memo})
+	</insert>
+	<update id="update_billing_tax" parameterType="com.m.billing.BillingTaxVO">
+		UPDATE billing_tax SET
+		billing_idx = #{billing_idx}, user_id = #{user_id}, comp_no = #{comp_no}, comp_name = #{comp_name}, comp_ceo = #{comp_ceo}, comp_addr = #{comp_addr}, comp_up = #{comp_up}, comp_jong = #{comp_jong}, comp_email = #{comp_email}, taxYN = #{taxYN}, timeWrite = #{timeWrite}, memo = #{memo}
+		where
+		user_id = #{user_id}
+		and billing_idx = #{billing_idx} 
+	</update>
 	
 	<!-- billing E -->
 	
