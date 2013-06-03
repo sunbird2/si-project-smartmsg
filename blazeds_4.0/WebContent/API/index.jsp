@@ -1,4 +1,4 @@
-<%@page import="java.util.ArrayList"%><%@page import="com.m.APIDao"%><%@page import="com.m.api.MemberAPIVO"%><%@page import="com.m.send.PhoneVO"%><%@page import="com.m.send.LogVO"%><%@page import="com.common.util.JSONParser"%><%@page import="java.util.HashMap"%><%@page import="com.m.send.SendMessageVO"%><%@page import="com.m.SmartDS"%><%@page import="com.common.util.SendMail"%><%@page import="com.common.VbyP"%><%@page import="com.common.util.SLibrary"%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%!
+<%@page import="com.common.util.AESCrypto"%><%@page import="java.util.ArrayList"%><%@page import="com.m.APIDao"%><%@page import="com.m.api.MemberAPIVO"%><%@page import="com.m.send.PhoneVO"%><%@page import="com.m.send.LogVO"%><%@page import="com.common.util.JSONParser"%><%@page import="java.util.HashMap"%><%@page import="com.m.send.SendMessageVO"%><%@page import="com.m.SmartDS"%><%@page import="com.common.util.SendMail"%><%@page import="com.common.VbyP"%><%@page import="com.common.util.SLibrary"%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%!
 private String parseJSON(String val) {
 	
 	String str = val;
@@ -49,6 +49,7 @@ private ArrayList<PhoneVO> getPhoneVO(String phones) {
 
 String dt = SLibrary.IfNull(request.getParameter("dt"));
 String uid = SLibrary.IfNull(request.getParameter("uid"));
+String callback = SLibrary.IfNull(request.getParameter("callback"));
 
 APIDao adao = null;
 MemberAPIVO apivo = null;
@@ -59,12 +60,19 @@ HashMap<String, String> map = null;
 String errorMsg = "";
 int sendCnt = 0;
 
+
+
 try {
-	VbyP.accessLog("API call : "+ dt);
+	VbyP.accessLog("API call : uid="+uid+" dt="+ dt+" callback="+callback);
 	System.out.println("API call : "+ dt);
 	
 	if (SLibrary.isNull(uid)) throw new Exception("uid is null");
 	if (SLibrary.isNull(dt)) throw new Exception("value is null");
+	
+	
+	
+	AESCrypto aes = new AESCrypto();
+	String enc = aes.Encrypt(uid);
 	
 	map = JSONParser.getHashMap(dt, "send");
 	
@@ -73,10 +81,11 @@ try {
 	smvo = getSmVO(map);
 	smvo.setReqIP(request.getRemoteAddr());
 	adao = new APIDao();
-	apivo = adao.getMemberAPIInfo(uid);
+	apivo = adao.getMemberAPIInfo(enc);
 	
 	// apivo check!! 
-	
+	if (apivo == null) throw new Exception("no uid info");
+	else if (apivo.getYN().equals("N")) throw new Exception("YN is N");
 	
 	
 	lvo = adao.sendSMSconf(apivo, smvo);
@@ -95,10 +104,12 @@ finally {
 	
 	StringBuffer buf = new StringBuffer();
 	
+	buf.append(callback+"(");
 	buf.append("{");
 	buf.append("\"rslt\":\""+rslt+"\",");
 	buf.append("\"msg\":\""+parseJSON(msg)+"\"");
 	buf.append("}");
+	buf.append(")");
 	
 	out.println(buf.toString());
 	System.out.println(buf.toString());
