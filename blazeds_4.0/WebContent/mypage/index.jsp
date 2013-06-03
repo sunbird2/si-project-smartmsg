@@ -21,18 +21,14 @@ if (!ip.equals("112.216.246.130")) {
 
      <script type="text/javascript" src="/js/jquery-1.8.1.min.js"></script>
      <link rel="stylesheet" type="text/css" href="/css/base.css" />
-     <link rel="stylesheet" type="text/css" href="/css/main.css">
-      <script type="text/javascript">
+     <link rel="stylesheet" type="text/css" href="/css/main.css" />
+     <script type="text/javascript">
          $(document).ready(function() { 
-
               if (parent.document) {
                     parent.showMy( $('#mypageWrap').html() );
               }
-              
             });
-         
-         
-      </script>
+     </script>
    </head>
   <body class="main">
 <div id="mypageWrap">
@@ -62,7 +58,7 @@ if (!ip.equals("112.216.246.130")) {
 	        <td id="mp_join_info"></td>
 	    </tr>
       </table>
-      
+      <a href="#" class="buttonmini orange" style="display:block;float:right;width:170px;color:#FFF;font-weight:bold;" onclick="return viewAPI()">메시지 연동 정보</a>
       <h1 class="category">결제내역</h1>
       <p class="category_sub">발송을 위해 결제하신 내역입니다.</p>
       <table class="dTable">
