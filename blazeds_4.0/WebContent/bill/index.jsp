@@ -21,7 +21,7 @@ if (!ip.equals("112.216.246.130")) {
 
      <script type="text/javascript" src="/js/jquery-1.8.1.min.js"></script>
      <link rel="stylesheet" type="text/css" href="/css/base.css" />
-     <link rel="stylesheet" type="text/css" href="/css/main.css">
+     <link rel="stylesheet" type="text/css" href="/css/main.css" />
 <!--      <script type="text/javascript" src="/js/note.js"></script> -->
       <script type="text/javascript">
     
@@ -152,7 +152,7 @@ if (!ip.equals("112.216.246.130")) {
                                 <td><b id="tcnt" style="font-weight:bold;font-size:16px;color:#FF8800;"><%=SLibrary.addComma(VbyP.getValue("b30000")) %></b> <span>건</span></td>
                             </tr>
                         </table><br/>
-                        <a href="#" class="button blue" style="width:110px;color:#FFF;font-weight:bold" onclick="billSubmit(document.billForm)">결제하기</a>
+                        <a href="#" class="button blue" style="width:110px;color:#FFF;font-weight:bold" onclick="billSubmit(document.billForm);return false;">결제하기</a>
                     </div>
 
                 </div>
