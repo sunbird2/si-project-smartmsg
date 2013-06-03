@@ -249,5 +249,28 @@
 	</select>
 	<!-- KT E -->
 	
+	<!-- API S -->
+	<select id="select_api_member" parameterType="com.m.api.MemberAPIVO" resultType="com.m.api.MemberAPIVO">
+		SELECT idx, uid, user_id, domain, check_url, timeWrite, YN 
+		FROM member_api
+		<where>
+			<if test="user_id != null">
+				user_id = #{user_id}
+			</if>
+			<if test="uid != null">
+				uid = #{uid}
+			</if>
+		</where>
+	</select>
+	<insert id="insert_api_member" parameterType="com.m.api.MemberAPIVO">
+		insert into member_api( uid, user_id, domain, check_url, timeWrite, YN ) 
+		values (#{uid}, #{user_id}, #{domain}, #{check_url}, #{timeWrite}, #{YN})
+	</insert>
+	<update id="update_api_member" parameterType="com.m.api.MemberAPIVO">
+		update member_api set uid=#{uid}, domain=#{domain}, check_url=#{check_url}, timeWrite=now(), YN=#{YN} 
+		where user_id=#{user_id}
+	</update>
+	<!-- API E -->
+	
 
 </mapper>
