@@ -477,8 +477,7 @@
    								if (data[i].method == "무통장" || data[i].method == "계좌이체") {
    									btn = "<a href=\"#\" class=\"buttonmini blue\" style=\"display:block;float:left;width:70px;color:#FFF;font-weight:bold;\" onclick=\"return viewTax("+data[i].idx+")\">세금계산서</a>";
    								} else if (data[i].method == "카드") {
-   									btn = "";
-   									//btn = "<a href=\"#\" class=\"buttonmini blue\" style=\"display:block;float:left;width:70px;color:#FFF;font-weight:bold;\" onclick=\"return cardView("+data[i].idx+")\">전표출력</a>";
+   									btn = "<a href=\"https://pgweb.dacom.net/pg/wmp/etc/jsp/SettlementSearch.jsp\" target=\"blank\" class=\"buttonmini blue\" style=\"display:block;float:left;width:70px;color:#FFF;font-weight:bold;\">전표출력</a>";
    								} else {
    									btn = "";
    								}
