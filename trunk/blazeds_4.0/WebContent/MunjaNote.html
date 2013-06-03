@@ -15,7 +15,7 @@
              Firefox 3.6 focus border issues.  Initially, don't display flashContent div so it won't show 
              if JavaScript disabled.
         -->
-        <link rel="shortcut icon" href="http://www.munjanote.com/images/note_icon.ico">
+        <link rel="shortcut icon" href="http://www.munjanote.com/images/note_icon.ico" />
         
         <!-- Enable Browser History by replacing useBrowserHistory tokens with two hyphens -->
         <!-- BEGIN Browser History required section -->
@@ -32,14 +32,15 @@
 		  ga('send', 'pageview');
 
 		</script>
-        <script type="text/javascript" src="/js/swfobject.js"></script>
+        <script type="text/javascript" src="/badge/swfobject.js"></script>
         <script type="text/javascript" src="/js/jquery-1.8.1.min.js"></script>
         <script type="text/javascript" src="/js/note.js"></script>
         <script type="text/javascript">
             // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. 
             var swfVersionStr = "11.1.0";
             // To use express install, set to playerProductInstall.swf, otherwise the empty string. 
-            var xiSwfUrlStr = "playerProductInstall.swf";
+            var xiSwfUrlStr = "/badge/expressInstall.swf";
+            //var xiSwfUrlStr = "playerProductInstall.swf";
             var flashvars = {};
             var params = {};
             params.quality = "high";
@@ -70,9 +71,10 @@
        </script>
        
       <link rel="stylesheet" type="text/css" href="/css/base.css" />
-      <link rel="stylesheet" type="text/css" href="/css/main.css">
+      <link rel="stylesheet" type="text/css" href="/css/main.css" />
    </head>
   <body class="main">
+  <div id="ajax-loader" style="display: none;"><img src="/images/ajax-loader.gif" width="49" height="48" alt="ajax" /></div>
   
   <div id="wrap">
 <!-- header-->
@@ -81,22 +83,24 @@
 			<a href="javascript:" id="login" onclick="return changeMenu('send')" title="로그인" onfocus="this.blur()">로그인</a>
 			<span id="topbar1">&nbsp;|&nbsp;</span>
 			<a href="javascript:" id="join" onclick="return join();" title="회원가입" onfocus="this.blur()">회원가입</a>
-			<a href="javascript:" id="mypage" title="마이페이지" onclick="return changeMenu('mypage');" style="display:none" onfocus="this.blur()">마이페이지</a>
+			<a href="#" id="mypage" title="마이페이지" onclick="changeMenu('mypage');return false;" style="display:none" onfocus="this.blur()">마이페이지</a>
 			<span id="topbar2">&nbsp;|&nbsp;</span>
 			<a href="javascript:" id="logout" title="로그아웃" onclick="return logout_flex();" style="display:none" onfocus="this.blur()">로그아웃</a>
 			<span id="topbar3" style="display:none">&nbsp;|&nbsp;</span>
-			<a href="javascript:"  onclick="_addFavorite('문자노트 -빠르고 안정적인 문자시스템','http://www.munjanote.com')" title="즐겨찾기" onfocus="this.blur()"><img src="/images/start.png"> 즐겨찾기</a>
+			<a href="javascript:" id="api"  onclick="return changeMenu('api');" title="메시지연동" onfocus="this.blur()">메시지연동</a>
+			<span>&nbsp;|&nbsp;</span>
+			<a href="javascript:"  onclick="_addFavorite('문자노트 -빠르고 안정적인 문자시스템','http://www.munjanote.com')" title="즐겨찾기" onfocus="this.blur()"><img src="/images/start.png" /> 즐겨찾기</a>
 		</div><!-- top_right -->
-		<div id="logo"><a href="javascript:" onclick="window.location.href='/'" title="MunjaNote"><img src="/images/logo.png" alt="MunjaNote"></a></div>
+		<div id="logo"><a href="javascript:" onclick="window.location.href='/'" title="MunjaNote"><img src="/images/logo.png" alt="MunjaNote" /></a></div>
 		<div id="navi">
 			<ul>
-				<li><a href="javascript:" id="send" onclick="return changeMenu('send')" class="send" title="전송서비스" onfocus="this.blur()">전송서비스</a></li>
-				<li><a href="javascript:" id="log" onclick="return changeMenu('log')" class="log" title="내역" onfocus="this.blur()">내역</a></li>
-				<li><a href="javascript:" id="address" onclick="return changeMenu('address')" class="address" title="주소록" onfocus="this.blur()">주소록</a></li>
-				<li><a href="javascript:" id="bill" onclick="return changeMenu('bill')" class="bill" title="결제" onfocus="this.blur()">결제</a></li>
+				<li><a href="#" id="send" onclick="changeMenu('send');return false;" class="send" title="전송서비스" onfocus="this.blur()">전송서비스</a></li>
+				<li><a href="#" id="log" onclick="changeMenu('log');return false;" class="log" title="내역" onfocus="this.blur()">내역</a></li>
+				<li><a href="#" id="address" onclick="changeMenu('address');return false;" class="address" title="주소록" onfocus="this.blur()">주소록</a></li>
+				<li><a href="#" id="bill" onclick="changeMenu('bill');return false;" class="bill" title="결제" onfocus="this.blur()">결제</a></li>
 				
-				<li id="freeuse"><img src="/images/useage_2.png" class="hand" alt="무료체험" onfocus="this.blur()" onclick="join()"></li>
-				<li id="useage" style="display:none;"><img src="/images/useage_1.png" class="hand" alt="사용방법" onfocus="this.blur()" onclick="openUseage()"></li>
+				<li id="freeuse"><img src="/images/useage_2.png" class="hand" alt="무료체험" onclick="join()" /></li>
+				<li id="useage" style="display:none;"><img src="/images/useage_1.png" class="hand" alt="사용방법" onclick="openUseage()" /></li>
 			</ul>
 		</div><!-- navi -->
 		
@@ -139,8 +143,8 @@
 			<li class="f03">
 				<a href="javascript:" class="title" onclick="showFunction(11)" onfocus='this.blur()' >주소록 관리</a>
 				<a href="javascript:" class="sub1" onclick="showFunction(12)" onfocus='this.blur()' >그룹별 전화번호 관리</a>
-				<a href="javascript:" class="sub2" onclick="showFunction(13)" onfocus='this.blur()' >엑셀 업로드&다운로드</a>
-				<a href="javascript:" class="sub3" onclick="showFunction(14)" onfocus='this.blur()' >그룹 이동&복사</a>
+				<a href="javascript:" class="sub2" onclick="showFunction(13)" onfocus='this.blur()' >엑셀 업로드&amp;다운로드</a>
+				<a href="javascript:" class="sub3" onclick="showFunction(14)" onfocus='this.blur()' >그룹 이동&amp;복사</a>
 				<a href="javascript:" class="sub4" onclick="showFunction(15)" onfocus='this.blur()' >휴지통 기능</a>
 			</li>
 			<li class="f04">
@@ -203,7 +207,7 @@
 		</div>
 		<div id="copy">
 			<div class="address"></div>
-			<div id="logo"><a href="javascript:" onclick="window.loction.href=''" title="MunjaNote"><img src="/images/logo.png" alt="MunjaNOte"></a></div>
+			<div id="logo"><a href="javascript:" onclick="window.loction.href=''" title="MunjaNote"><img src="/images/logo.png" alt="MunjaNOte"/></a></div>
 		</div>
 	</div>
 <!-- //footer -->
@@ -215,7 +219,10 @@
 
 
 
-<div id="dialog"></div>
+<div id="dialog">
+	<img class="close" src="/images/close_layer.png" width="32" height="32" alt="X"  onclick="close_layer_window(); return false;"/>
+	<div class="content" style="height: auto;"></div>
+</div>
 <div id="mask" onclick="close_layer_window(); return false;"></div>
 
 <!-- 
