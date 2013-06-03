@@ -136,7 +136,7 @@
 #apiHelp {font-family: 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
 #apiHelp .code {padding-left:25px;background-color:#efefef}
 #apiHelp .category_wrap {margin-left:25px;}
-#apiHelp .title {display:block;margin-top:30px;font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;text-align:center;}
+#apiHelp .title {display:block;margin-top:15px;font:bold 24px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;text-align:center;}
 #apiHelp .category {padding-left:25px;background:url('../images/arrow.png') 0px 8px no-repeat;font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;border-bottom:1px solid #ccc;margin-top:40px;display:block;font-weight:bold;}
 #apiHelp .category b {font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;font-weight:bold;}
 #apiHelp .category_sub {font:normal 14px/18px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;margin:.5em 0px;}
