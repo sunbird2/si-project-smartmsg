@@ -154,15 +154,10 @@ public class Address implements IAddress {
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
 		
 		pq.setPrepared(conn, SQL);
-		pq.setString(1, vo.getUser_id());
-		pq.setInt(2, Address.GROUP);
+		
+		pq.setString(1, vo.getGrpName());
+		pq.setString(2, vo.getUser_id());
 		pq.setString(3, vo.getGrpName());
-		pq.setString(4, vo.getGrpName());
-		pq.setString(5, "");
-		pq.setString(6, "");
-		pq.setString(7, SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss"));
-		pq.setString(8, "");
-		pq.setInt(9, vo.getIdx());
 		
 		rsltCount = pq.executeUpdate();			
 		
