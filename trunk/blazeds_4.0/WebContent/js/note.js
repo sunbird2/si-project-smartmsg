@@ -687,7 +687,6 @@
 		if (cn == "") alert("입금자명을 입력해 주세요.");
 		else {
 			if (confirm(cn+" 으로 입금 예약 하시겠습니까?")) {
-				alert("["+uid+"] "+cn+" 무통장 예약 "+amt );
 				$.post("/gLog.jsp", { ref: "["+uid+"] "+cn+" 무통장 예약 "+amt } );
 				alert("예약 되었습니다.");
 			}
