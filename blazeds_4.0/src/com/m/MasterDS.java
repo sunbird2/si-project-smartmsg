@@ -221,8 +221,8 @@ public class MasterDS {
 		if (SLibrary.isNull(yearMonth)) yearMonth = SLibrary.getDateTimeString("yyyyMM");
 		
 		StatusVO stvo = new StatusVO();
-		stvo.setStart(yearMonth+"000000");
-		stvo.setEnd(yearMonth+"235959");
+		stvo.setStart(yearMonth+"01000000");
+		stvo.setEnd(yearMonth+"31235959");
 		
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
 		return (List)sm.selectList(ns + "select_status_day_list", stvo);
