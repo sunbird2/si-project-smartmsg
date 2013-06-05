@@ -1,4 +1,4 @@
-<%@page import="com.common.util.AESCrypto"%><%@page import="java.util.ArrayList"%><%@page import="com.m.APIDao"%><%@page import="com.m.api.MemberAPIVO"%><%@page import="com.m.send.PhoneVO"%><%@page import="com.m.send.LogVO"%><%@page import="com.common.util.JSONParser"%><%@page import="java.util.HashMap"%><%@page import="com.m.send.SendMessageVO"%><%@page import="com.m.SmartDS"%><%@page import="com.common.util.SendMail"%><%@page import="com.common.VbyP"%><%@page import="com.common.util.SLibrary"%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%!
+<%@page import="java.net.URL"%><%@page import="java.util.regex.Pattern"%><%@page import="com.common.util.AESCrypto"%><%@page import="java.util.ArrayList"%><%@page import="com.m.APIDao"%><%@page import="com.m.api.MemberAPIVO"%><%@page import="com.m.send.PhoneVO"%><%@page import="com.m.send.LogVO"%><%@page import="com.common.util.JSONParser"%><%@page import="java.util.HashMap"%><%@page import="com.m.send.SendMessageVO"%><%@page import="com.m.SmartDS"%><%@page import="com.common.util.SendMail"%><%@page import="com.common.VbyP"%><%@page import="com.common.util.SLibrary"%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%!
 private String parseJSON(String val) {
 	
 	String str = val;
@@ -60,6 +60,8 @@ HashMap<String, String> map = null;
 String errorMsg = "";
 int sendCnt = 0;
 
+String host = "";
+
 
 
 try {
@@ -84,9 +86,15 @@ try {
 	apivo = adao.getMemberAPIInfo(enc);
 	
 	// apivo check!! 
+	URL url = null;
+	if ( request.getHeader("REFERER") != null ) {
+		url = new URL(request.getHeader("REFERER"));
+		host = url.getHost();
+	}
+	
 	if (apivo == null) throw new Exception("no uid info");
 	else if (apivo.getYN().equals("N")) throw new Exception("YN is N");
-	
+	else if (Pattern.matches(apivo.getDomain(), host) == false) throw new Exception("["+host+"] is not Domain"); 
 	
 	lvo = adao.sendSMSconf(apivo, smvo);
 	
