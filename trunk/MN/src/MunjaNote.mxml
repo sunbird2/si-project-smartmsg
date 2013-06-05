@@ -105,8 +105,8 @@
 					
 					if(NativeApplication.supportsSystemTrayIcon){
 						NativeApplication.nativeApplication.autoExit = false;
-						iconLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,iconLoadComp);
-						iconLoader.load(new URLRequest("assets/wasi_16.png"));
+						//iconLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,iconLoadComp);
+						iconLoader.load(new URLRequest("assets/MN_16.png"));
 						var sysTray:SystemTrayIcon = NativeApplication.nativeApplication.icon as SystemTrayIcon;
 						sysTray.addEventListener(ScreenMouseEvent.CLICK,clickHandler);
 						sysTray.tooltip = "ezmo!!";
@@ -116,7 +116,7 @@
 					//Mac일때는 아래처럼 처리한다. 
 					if (NativeApplication.supportsDockIcon){
 						iconLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,iconLoadComp);
-						iconLoader.load(new URLRequest("assets/wasi_16.png"));
+						iconLoader.load(new URLRequest("assets/MN_16.png"));
 						var dock:DockIcon = NativeApplication.nativeApplication.icon as DockIcon; 
 						dock.menu = iconMenu;
 					}
