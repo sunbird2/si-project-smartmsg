@@ -322,6 +322,14 @@ public class Address implements IAddress {
 		if (count > 0) {
 			
 			AddressVO vo = null;
+			vo = new AddressVO();
+			vo.setUser_id(user_id);
+			vo.setGrpName(group);
+			vo.setName(group);
+			vo.setGrp(Address.GROUP);
+			if (getGroupCnt(conn, vo) < 1) {
+				insertGroup(conn, vo);
+			}
 			
 			SQL = VbyP.getSQL("address_insert_name");
 			
@@ -512,6 +520,23 @@ public class Address implements IAddress {
 		pq.setPrepared( conn, VbyP.getSQL("address_last_insert_id") );
 		return pq.ExecuteQueryNum();
 				
+	}
+	
+	private int getGroupCnt(Connection conn, AddressVO avo){
+		
+		int rsltCount = 0;
+		String SQL = VbyP.getSQL("address_group_cnt");
+		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
+		
+		pq.setPrepared(conn, SQL);
+		
+		pq.setString(1, avo.getUser_id());
+		pq.setInt(2, avo.getGrp());
+		pq.setString(3, avo.getGrpName());
+		
+		rsltCount = pq.ExecuteQueryNum();			
+		
+		return rsltCount;
 	}
 
 }
