@@ -94,7 +94,7 @@ try {
 	
 	if (apivo == null) throw new Exception("no uid info");
 	else if (apivo.getYN().equals("N")) throw new Exception("YN is N");
-	else if (Pattern.matches(apivo.getDomain(), host) == false) throw new Exception("["+host+"] is not Domain"); 
+	else if (Pattern.matches(host, apivo.getDomain()) == false) throw new Exception("["+host+"] is not Domain"); 
 	
 	lvo = adao.sendSMSconf(apivo, smvo);
 	
