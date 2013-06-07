@@ -4,16 +4,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-import org.apache.ibatis.session.SqlSessionFactory;
-
 import com.common.VbyP;
 import com.common.db.PreparedExecuteQueryManager;
-import com.common.db.SessionFactory;
 import com.common.db.SessionManager;
 import com.common.util.SLibrary;
 import com.common.util.SendMail;
 import com.common.util.StopWatch;
-import com.m.admin.vo.MemberVO;
 import com.m.api.MemberAPIVO;
 import com.m.common.Gv;
 import com.m.common.PointManager;
@@ -22,8 +18,6 @@ import com.m.send.ISend;
 import com.m.send.LogVO;
 import com.m.send.SendManager;
 import com.m.send.SendMessageVO;
-
-import flex.messaging.FlexContext;
 
 public class APIDao implements MybatisAble {
 
