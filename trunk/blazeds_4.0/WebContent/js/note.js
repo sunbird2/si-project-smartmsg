@@ -84,7 +84,7 @@
 		$('#costInfo').hide();
 		$('#bar1').hide();
 		log("회원가입 클릭");
-        document.MunjaNote.focus();
+		if (document.getElementById("MunjaNote")) document.MunjaNote.focus();
         
         return false;
      }
@@ -718,7 +718,11 @@
 		if (m == "SC0040") {
 			modal_window('/bill/cash.jsp?amount='+$(":input:radio[name=LGD_AMOUNT]:checked").val());
 			//alert("무통장 입금이 예약 되었습니다. \r\n\r\n홈페이지 하단의 정보로 입금 부탁 드리겠습니다.");
-		}else {
+		} else if (m == "SC0060") {
+			f.action = "/bill/payreq_hp.jsp";
+			f.submit();
+		} else {
+			f.action = "/bill/payreq.jsp";
 			f.submit();
 		}
 		
@@ -919,6 +923,8 @@
 			$('#mt').text('신용카드');
 		}else if (mval == "SC0030"){
 			$('#mt').text('즉시이체');
+		}else if (mval == "SC0060"){
+			$('#mt').text('휴대폰');
 		}else {
 			$('#mt').text('무통장입금');
 		}
@@ -926,11 +932,15 @@
 		var vat = samt * (1/11);
 		var amt = samt - vat;
 			
-		if (mval == "SC0010"){
-			$('#mt').text('신용카드');
-		}else if (mval == "SC0030"){
-			$('#mt').text('즉시이체');
-		}
+//		if (mval == "SC0010"){
+//			$('#mt').text('신용카드');
+//		}else if (mval == "SC0030"){
+//			$('#mt').text('즉시이체');
+//		}else if (mval == "SC0030"){
+//			$('#mt').text('즉시이체');
+//		}else {
+//			$('#mt').text('무통장입금');
+//		}
 
 		$('#amt').text(numberFormat(amt));
 		$('#vat').text(numberFormat(vat));
