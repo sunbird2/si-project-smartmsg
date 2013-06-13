@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" clipAndEnableScrolling="true" width="400" height="300">
+	<fx:Script>
+		<![CDATA[
+			[Bindable]
+			private var _tops:Number = 0;
+			[Bindable]
+			private var _lefts:Number = 0;
+			[Bindable]
+			private var _source:String = "";
+			
+			public function set tops(v:Number):void {this._tops = v;}
+			public function set lefts(v:Number):void {this._lefts = v;}
+			public function set source(v:String):void {this._source = v;}
+			
+			public function get tops():Number { return this._tops;}
+			public function get lefts():Number { return this._lefts;}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Rect id="shadow" left="-1" right="-1" top="-1" bottom="-1" radiusX="2">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0x000000" alpha="0.01"/>
+				<s:GradientEntry color="0x000000" alpha="0.07"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	<s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="2">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0xFFFFFF"/>
+				<s:GradientEntry color="0xEFEFEF"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	<!-- layer 3: fill lowlight -->
+	<!--- @private -->
+	<s:Rect id="lowlight" left="1" right="1" top="1" bottom="1" radiusX="2">
+		<s:fill>
+			<s:LinearGradient rotation="270">
+				<s:GradientEntry color="0x000000" ratio="0.0" alpha="0.0627"/>
+				<s:GradientEntry color="0x000000" ratio="0.48" alpha="0.0099"/>
+				<s:GradientEntry color="0x000000" ratio="0.48001" alpha="0"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	
+	<!-- layer 4: fill highlight -->
+	<!--- @private -->
+	<s:Rect id="highlight" left="1" right="1" top="1" bottom="1" radiusX="2">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0xFFFFFF" ratio="0.0" alpha="0.33"
+								 />
+				<s:GradientEntry color="0xFFFFFF" ratio="0.48" alpha="0.33"
+								 />
+				<s:GradientEntry color="0xFFFFFF" ratio="0.48001" alpha="0"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	
+	
+	
+	<!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+	<!--- @private -->
+	<s:Rect id="border" left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="2">
+		<s:stroke>
+			<s:LinearGradientStroke rotation="90" weight="1">
+				<s:GradientEntry color="0x000000" alpha="0.1625"/>
+				<s:GradientEntry color="0x000000" alpha="0.35"/>
+			</s:LinearGradientStroke>
+		</s:stroke>
+	</s:Rect>
+	<s:Image id="img" top="{_tops}" left="{_lefts}" source="{_source}" />
+</s:Group>

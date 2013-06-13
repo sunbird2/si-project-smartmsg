@@ -1,0 +1,32 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+@font-face
+{
+	fontFamily: NanumGothic;
+	src: url("css/font/NanumGothic.ttf");
+	embedAsCFF: true;
+	unicodeRange: U+0020-U+007E,U+1100-U+11F9,U+3000-U+303F,U+3131-U+318E,U+327F-U+327F,U+AC00-U+D7A3,U+FF01-U+FF60;
+}
+@font-face
+{
+	fontFamily: NanumMyeongjo;
+	src: url("css/font/NanumMyeongjo.ttf");
+	embedAsCFF: true;
+	unicodeRange: U+0020-U+007E,U+1100-U+11F9,U+3000-U+303F,U+3131-U+318E,U+327F-U+327F,U+AC00-U+D7A3,U+FF01-U+FF60;
+}
+@font-face
+{
+	fontFamily: NanumBrush;
+	src: url("css/font/NanumBrush.ttf");
+	embedAsCFF: true;
+	unicodeRange: U+0020-U+007E,U+1100-U+11F9,U+3000-U+303F,U+3131-U+318E,U+327F-U+327F,U+AC00-U+D7A3,U+FF01-U+FF60;
+}
+@font-face
+{
+	fontFamily: NanumPen;
+	src: url("css/font/NanumPen.ttf");
+	embedAsCFF: true;
+	unicodeRange: U+0020-U+007E,U+1100-U+11F9,U+3000-U+303F,U+3131-U+318E,U+327F-U+327F,U+AC00-U+D7A3,U+FF01-U+FF60;
+}
