@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"  xmlns:ie="module.ie.component.ie.*"
+		  width="266" height="432" xmlns:tlf="module.ie.net.asciiworks.tlf.*"
+		  creationComplete="init()">
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace ie "component.ie.*";
+		@namespace tlf "net.asciiworks.tlf.*";
+		
+		@font-face{	src:url("module/ie/assets/font.swf");	fontFamily : NanumGothic;	}
+		@font-face{	src:url("module/ie/assets/font.swf");	fontFamily : NanumMyeongjo;	}
+		@font-face{	src:url("module/ie/assets/font.swf");	fontFamily : NanumBrush;	}
+		@font-face{	src:url("module/ie/assets/font.swf");	fontFamily : NanumPen;	}
+		
+		
+		s|Scroller {
+			skinClass : ClassReference("module.ie.skin.ie.scroller.ThinScrooller");
+		}
+	</fx:Style>
+	<fx:Script>
+		<![CDATA[
+			import module.ie.component.ie.AttImage;
+			import module.ie.component.ie.AttTextEditor;
+			import module.ie.component.ie.IAtt;
+			
+			import mx.controls.Alert;
+			import mx.core.IVisualElement;
+			import mx.formatters.NumberFormatter;
+			import mx.graphics.codec.JPEGEncoder;
+			import mx.graphics.codec.PNGEncoder;
+			
+			import spark.components.Image;
+			
+			public static const CANVAS_W:int = 242;
+			public static const CANVAS_H:int = 362;
+			
+			private var activeAtt:IAtt;
+			
+			// icon
+			[Embed('module/ie/assets/5-content-new-picture.png')]  
+			[Bindable]  
+			public var iconAddImage:Class;
+			[Embed('module/ie/assets/5-content-new-event.png')]  
+			[Bindable]  
+			public var iconAddText:Class;
+			[Embed('module/ie/assets/5-content-save.png')]  
+			[Bindable]  
+			public var iconSave:Class;
+			[Embed('module/ie/assets/5-content-remove.png')]  
+			[Bindable]  
+			public var iconClose:Class;
+			
+			
+			
+			// encoder to create file to save
+			private var png:PNGEncoder = new PNGEncoder();
+			private var jpg:JPEGEncoder = new JPEGEncoder(100);
+			
+			
+			// allowed file types : 파일 타입을 정의하는 변수
+			private var fileTypes:FileFilter = new FileFilter("Image", "*.jpg;*.jpeg;*;*.gif;*.png;*");
+			
+			// FileReference classes for upload and download
+			[Bindable]
+			private var loadFileRef:FileReference = new FileReference();
+			private var saveFileRef:FileReference = new FileReference();
+			
+			// Shaders
+			private var pixelateShader:Shader;
+			private var smartNormalMapShader:Shader;
+			private var twirlShader:Shader;
+			private var zoomBlurFocusShader:Shader;
+			
+			
+			// format file size
+			private var numberFormatter:NumberFormatter = new NumberFormatter();
+			
+			// timers to track upload time
+			private var startTime:Date;
+			private var endTime:Date;
+			
+			// call on applicationComplete
+			private function init():void {
+				
+				// add event listeners for upload
+				loadFileRef.addEventListener(Event.SELECT, fileSelected);
+				loadFileRef.addEventListener(ProgressEvent.PROGRESS, loadProgress);
+				loadFileRef.addEventListener(Event.COMPLETE, loadCompleted);
+				loadFileRef.addEventListener(IOErrorEvent.IO_ERROR, ioerror);
+				
+				// create new shaders and filters
+			}
+			
+			// launch the file system browse dialog and filter file types - Load File 버튼을 눌렀을 때 호출되는 메소드
+			private function browseAndUpload():void {
+				//log.text="";                 // Textarea 컴포넌트의 text를 지운다.
+				loadFileRef.browse([fileTypes]);        // fileTypes에 의한 파일 불러오기
+			}
+			
+			// called after a file has been selected within the file system browser - 파일을 선택했을 때 호출되는 메소드
+			private function fileSelected(evt:Event):void {
+				//log.text += "file size: " + numberFormatter.format(loadFileRef.size) +" bytes\n";
+				//log.text += "file name: " + loadFileRef.name +"\n";
+				startTime = new Date();
+				loadFileRef.load();
+			}
+			// load progress captured for progress bar
+			private function loadProgress(evt:ProgressEvent):void {
+				progressBar.visible = true;
+				progressBar.setProgress( Number(evt.bytesLoaded / evt.bytesTotal), 1 );
+				progressBar.label = numberFormatter.format(evt.bytesLoaded) + " of " + 
+					numberFormatter.format(evt.bytesTotal) + " bytes uploaded";
+			}
+			// load has completed
+			private function loadCompleted(evt:Event):void {
+				createAttImage(loadFileRef.data);
+				progressBar.setProgress(1,1);
+				progressBar.visible = false;
+				endTime = new Date();
+				//log.text += "upload time: " + (endTime.time - startTime.time) + " milliseconds";
+			}
+			// load error
+			public function ioerror(evt:IOErrorEvent):void{
+				Alert.show(evt.text,"Error");
+			}
+			
+			// capture image and save back to client
+			private function capture():void {
+				
+				if (activeAtt != null) activeAtt.hideFunction();
+				
+				var bitmapData:BitmapData = new BitmapData(canvas.width, canvas.height);
+				bitmapData.draw(canvas);
+				var ba:ByteArray = png.encode(bitmapData);
+				// split off the original extension and replace with png
+				var ext:String = loadFileRef.name.split(".").pop();
+				saveFileRef.save(ba,loadFileRef.name.replace(ext,"png"));
+			}
+			
+			// capture image and save back to client
+			private function captureJPG():void{
+				
+				if (activeAtt != null) activeAtt.hideFunction();
+				
+				var bitmapData:BitmapData = new BitmapData(canvas.width, canvas.height);
+				bitmapData.draw(canvas);
+				var ba:ByteArray = jpg.encode(bitmapData);
+				// split off the original extension and replace with png
+				var ext:String = loadFileRef.name.split(".").pop();
+				var obj:Object = new Object();
+				obj.fileName = loadFileRef.name.replace(ext,"jpg");
+				obj.data = ba;
+				parentApplication.gateWay("mms",obj);
+				//saveFileRef.save(ba,loadFileRef.name.replace(ext,"jpg"));
+			}
+			
+			// return true when image is available
+			private function buttonsEnabled(bytes:ByteArray):Boolean{
+				if(bytes.length)return true;
+				return false;
+			}
+			
+			private function createAttImage(source:Object):void {
+				var img:AttImage = new AttImage();
+				img.maxWidth = CANVAS_W;
+				img.maxHeight = CANVAS_H;
+				img.source = source;
+				img.addEventListener("action", hideOldActive, false);
+				img.addEventListener("remove", removeActive, false);
+				addCanvas(img);
+			}
+			
+			private function addCanvas(obj:IVisualElement):void {
+				this.canvas.contentGroup.addElement(obj);
+			}
+			
+			
+			private function addText():void {
+				var tte:AttTextEditor = new AttTextEditor();
+				tte.minWidth = 100;
+				tte.minHeight = 30;
+				tte.addEventListener("action", hideOldActive, false);
+				tte.addEventListener("remove", removeActive, false);
+				addCanvas(tte);
+			}
+			
+			
+			/**
+			 * Active Att exception hide function
+			 * */
+			private function hideOldActive(event:Event):void {
+				
+				if (activeAtt != null && activeAtt != event.currentTarget) {
+					activeAtt.hideFunction();
+				}
+				if (event != null)
+					activeAtt = event.currentTarget as IAtt;
+			}
+			
+			private function removeActive(event:Event):void {
+				
+				var at:Group = event.currentTarget as Group;
+				at.removeEventListener("action", hideOldActive);
+				at.removeEventListener("remove", removeActive);
+				canvas.removeElement(at);
+				
+				if (activeAtt != null) activeAtt = null;
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		
+	</fx:Declarations>
+	
+	<s:Image width="100%" height="100%" source="assets/background.png" fillMode="repeat" />
+	<s:Rect left="0" right="0" top="0" bottom="0"><s:fill><s:SolidColor color="0x000000" alpha="0.7" /></s:fill></s:Rect>
+	<s:Rect left="0" right="0"><s:stroke><s:SolidColorStroke color="0xFF4444" weight="4" /></s:stroke></s:Rect>
+	
+	
+	<s:VGroup width="100%" top="2" horizontalAlign="center">
+		<s:Group width="100%" height="100%">
+			<s:Rect left="0" right="0" top="0" bottom="0"><s:fill><s:SolidColor color="0xFFFFFF" alpha="0.2" /></s:fill></s:Rect>
+			<s:Rect left="0" right="0" bottom="0"><s:stroke><s:SolidColorStroke color="0xffffff" alpha="0.5" weight="1" /></s:stroke></s:Rect>
+			<s:HGroup left="15" right="15" top="5" bottom="5" horizontalAlign="left" verticalAlign="middle">
+				<s:Label color="0xFFFFFF" text="이미지 편집" fontWeight="bold" fontFamily="Dotum" />
+				<s:Spacer width="15" />
+				<s:Image source="{iconAddImage}" click="browseAndUpload()" buttonMode="true" useHandCursor="true" />
+				<s:Image source="{iconAddText}" click="addText()" buttonMode="true" useHandCursor="true" />
+				<s:Image source="{iconSave}" click="captureJPG()" buttonMode="true" useHandCursor="true" />
+				<s:Image source="{iconClose}" click="parentApplication.gateWay('mmsClose',null)" buttonMode="true" useHandCursor="true" />
+			</s:HGroup>
+		</s:Group>
+		
+		
+		<s:Group  width="{CANVAS_W+20}" height="{CANVAS_H+20}" >
+			<!--<s:Rect left="0" right="0" top="0" bottom="0"><s:fill><s:SolidColor color="0xFFFFFF" alpha="1.0" /></s:fill></s:Rect>-->	
+			<s:SkinnableContainer id="canvas" skinClass="module.ie.skin.ie.IEGroup" 
+								  horizontalCenter="0" verticalCenter="0" 
+								  width="{CANVAS_W}" height="{CANVAS_H}"
+								  maxWidth="{CANVAS_W}" maxHeight="{CANVAS_H}">
+				<s:Rect left="0" right="0" top="0" bottom="0"><s:fill><s:SolidColor color="0xFFFFFF" /></s:fill></s:Rect>	
+			</s:SkinnableContainer>
+		</s:Group>
+	</s:VGroup>
+	
+	<mx:ProgressBar id="progressBar" visible="false" mode="manual" verticalCenter="0" horizontalCenter="0"/>
+</s:Module>
