@@ -72,7 +72,6 @@ try {
 	if (SLibrary.isNull(dt)) throw new Exception("value is null");
 	
 	
-	
 	AESCrypto aes = new AESCrypto();
 	String enc = aes.Encrypt(uid);
 	
