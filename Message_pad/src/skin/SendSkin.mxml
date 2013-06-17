@@ -52,8 +52,9 @@
 				<s:Rect left="0" top="0" bottom="0" width="1" ><s:fill><s:SolidColor color="0xDBDBDB" /></s:fill></s:Rect>
 				<s:Rect left="1" top="0" bottom="0" width="1" ><s:fill><s:SolidColor color="0xEAEAEA" /></s:fill></s:Rect>
 				
-				<s:List id="addTxtLayer" depth="2" top="40" right="69" width="50" visible="false">
-				</s:List>
+				<s:List id="addTxtLayer" depth="2" top="40" right="69" width="50" visible="false"></s:List>
+				<s:List id="addMMSLayer" depth="2" top="40" right="101" width="70" height="50" visible="false"></s:List>
+				
 				<s:VGroup horizontalCenter="0"
 						  gap="2"
 						  horizontalAlign="center">
@@ -185,6 +186,27 @@
 				
 				<s:BitmapImage source="@Embed('/skin/ics/assets/list_normal.png', scaleGridTop='1', scaleGridBottom='37', scaleGridLeft='1', scaleGridRight='17')" smooth="true"
 							   width="18" right="1" top="0" bottom="0" visible="true"/>
+				
+				<s:Group id="loading" width="60" height="60" horizontalCenter="0" top="42" visible="false">
+					<s:Rect left="1" right="1" top="1" bottom="1" radiusX="2">
+						<s:fill>
+							<s:LinearGradient rotation="90">
+								<s:GradientEntry color="0x000000"/>
+								<s:GradientEntry color="0x101010"/>
+							</s:LinearGradient>
+						</s:fill>
+					</s:Rect>
+					<s:Rect left="0" right="0" top="0" bottom="0" radiusX="2">
+						<s:stroke>
+							<s:LinearGradientStroke rotation="90" weight="1">
+								<s:GradientEntry color="0x000000" alpha="0.1625"/>
+								<s:GradientEntry color="0x000000" alpha="0.35"/>
+							</s:LinearGradientStroke>
+						</s:stroke>
+					</s:Rect>
+					<lib:AnimatedGIFImage source="/images/ajax-loader.gif" horizontalCenter="0" verticalCenter="0" width="49" height="48" />
+				</s:Group>
+				<s:ModuleLoader id="moduleLoaderIme" horizontalCenter="0" top="8"/>
 				
 			</s:Group>
 		</s:HGroup>

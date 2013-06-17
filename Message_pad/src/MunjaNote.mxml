@@ -19,6 +19,7 @@
 			import component.Log;
 			import component.Send;
 			
+			import lib.FileUploadByRemoteObjectEvent;
 			import lib.GC;
 			import lib.Gv;
 			
@@ -210,6 +211,18 @@
 			}
 			
 			
+			public function gateWay(code:String, value:Object):void {
+				
+				if (code != null) {
+					// mms Image pass
+					if (code == "mms" && send != null) {
+						send.upload(value.data, value.fileName);
+					}
+					else if (code == "mmsClose" && send != null) {
+						send.removeModuleIme();
+					}
+				}
+			}
 			// Memory view
 			/* private var timer:Timer;
 			private static var pageSize:int = 50;
@@ -279,14 +292,14 @@
 		<s:Group id="navigationBar" width="100%" height="44" >
 			<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#000000"/></s:fill></s:Rect>
 			<s:HGroup top="12" left="20" gap="20" verticalAlign="bottom">
-				<s:Image source="skin/ics/assets/back.png" alpha="0.4" smooth="true" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4" />
-				<s:Image source="skin/ics/assets/home.png" alpha="0.4" smooth="true" buttonMode="true"
+				<s:Image source="/skin/ics/assets/back.png" alpha="0.4" smooth="true" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4" />
+				<s:Image source="/skin/ics/assets/home.png" alpha="0.4" smooth="true" buttonMode="true"
 						 mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4"/>
-				<s:Image source="skin/ics/assets/menus.png" alpha="0.4" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4"/>
+				<s:Image source="/skin/ics/assets/menus.png" alpha="0.4" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4"/>
 			</s:HGroup>
 			<s:HGroup right="4" verticalCenter="0" >
 				<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#FF0000"/></s:fill></s:Rect>
-				<s:Image source="skin/ics/assets/signal.png"/>
+				<s:Image source="/skin/ics/assets/signal.png"/>
 				<ics:Battery id="battery" percent="10"/>
 				<ics:CurrentTime />
 			</s:HGroup>

@@ -247,15 +247,15 @@
 			<s:Group id="navigationBar" width="100%" height="48" >
 				<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#000000"/></s:fill></s:Rect>
 				<s:HGroup top="12" left="20" gap="20" verticalAlign="bottom">
-					<s:Image source="skin/ics/assets/back.png" alpha="0.4" smooth="true" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4" />
-					<s:Image source="skin/ics/assets/home.png" alpha="0.4" smooth="true" buttonMode="true"
+					<s:Image source="/skin/ics/assets/back.png" alpha="0.4" smooth="true" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4" />
+					<s:Image source="/skin/ics/assets/home.png" alpha="0.4" smooth="true" buttonMode="true"
 							 mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4"
 							 click="{this.menus.clickStat='home'}"/>
-					<s:Image source="skin/ics/assets/menus.png" alpha="0.4" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4"/>
+					<s:Image source="/skin/ics/assets/menus.png" alpha="0.4" buttonMode="true" mouseOver="event.currentTarget.alpha=1" mouseOut="event.currentTarget.alpha=0.4"/>
 				</s:HGroup>
 				<s:HGroup right="4" verticalCenter="0" >
 					<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#FF0000"/></s:fill></s:Rect>
-					<s:Image source="skin/ics/assets/signal.png"/>
+					<s:Image source="/skin/ics/assets/signal.png"/>
 					<ics:Battery percent="10"/>
 					<ics:CurrentTime />
 				</s:HGroup>

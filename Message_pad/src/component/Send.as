@@ -15,6 +15,7 @@ package component
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.utils.ByteArray;
 	
 	import flashx.textLayout.elements.LinkElement;
 	import flashx.textLayout.elements.SpanElement;
@@ -31,6 +32,7 @@ package component
 	
 	import mx.collections.ArrayCollection;
 	import mx.events.FlexEvent;
+	import mx.events.ModuleEvent;
 	import mx.managers.PopUpManager;
 	
 	import skin.SendSkin;
@@ -50,6 +52,7 @@ package component
 	import spark.components.VGroup;
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
+	import spark.modules.ModuleLoader;
 	import spark.primitives.BitmapImage;
 	
 	import valueObjects.BooleanAndDescriptionVO;
@@ -93,10 +96,14 @@ package component
 		[SkinPart(required="false")]public var addImage:Image;
 		[SkinPart(required="false")]public var addTxt:Image;
 		[SkinPart(required="false")]public var addTxtLayer:List;
+		[SkinPart(required="false")]public var addMMSLayer:List;
+		
 		
 		[SkinPart(required="false")]public var messageSaveBtn:Image;
 		[SkinPart(required="false")]public var removeMsg:Image;
 		[SkinPart(required="false")]public var mBox:VGroup;
+		// ImageEditor Module
+		[SkinPart(required="false")]public var moduleLoaderIme:ModuleLoader;
 		
 		
 		
@@ -141,7 +148,8 @@ package component
 		
 		[SkinPart(required="false")]public var confirm_text:RichText;
 		
-		
+		// loading
+		[SkinPart(reqired='false')]public var loading:Group;
 		
 		[SkinPart(required="false")]public var title_text:RichText;
 		[SkinPart(required="false")]public var titleSub_text:RichText;
@@ -169,8 +177,14 @@ package component
 			{label:"합성3", data:"{합성3}"}
 		]);
 		
+		private var acMMS:ArrayCollection =  new ArrayCollection([
+			{label:"직접업로드", data:"upload"},
+			{label:"편집툴", data:"ime"}
+		]);
+		
 		public var reservation:ReservationCalendar;
 		public var interval:Interval;
+		
 		
 		private var customToolTip:CustomToolTip;
 		
@@ -312,6 +326,11 @@ package component
 				addTxtLayer.dataProvider = acMearge;
 				addTxtLayer.labelField = "label";
 				addTxtLayer.addEventListener(IndexChangeEvent.CHANGE, addTxtLayer_changeHandler);
+			}
+			else if (instance == addMMSLayer) {
+				addMMSLayer.dataProvider = acMMS;
+				addMMSLayer.labelField = "label";
+				addMMSLayer.addEventListener(IndexChangeEvent.CHANGE, addMMSLayer_changeHandler);
 			}
 				
 			else if (instance == removeMsg) removeMsg.addEventListener(MouseEvent.CLICK, removeMsg_clickHandler);
@@ -1150,14 +1169,19 @@ package component
 		/**
 		 * upload
 		 * */
-		private function addImage_clickHandler(event:MouseEvent):void {
-			
+		public function uploadInit():void {
 			// 업로드 초기화
 			this.fur = new FileUploadByRemoteObject("smt");
 			this.fur.addEventListener(FileUploadByRemoteObjectEvent.COMPLETE, FileUploadByRemoteObjectCOMPLETEHandler);
 			this.fur.addEventListener(FileUploadByRemoteObjectEvent.RESULT, FileUploadByRemoteObjectRESULTHandler);
 			this.fur.addEventListener(FileUploadByRemoteObjectEvent.FAULT, FileUploadByRemoteObjectFAULTHandler);
+		}
+		private function addImage_clickHandler(event:MouseEvent):void {
 			
+			addMMSLayer.visible = !addMMSLayer.visible;
+		}
+		private function uploadImage():void {
+			uploadInit();
 			this.fur.addFiles();
 		}
 		
@@ -1168,8 +1192,12 @@ package component
 				destoryUpload();
 				SLibrary.alert("1MB 이상의 파일은 사용 하실 수 없습니다.");
 			}else {
-				this.fur.remoteObject.setMMSUpload( e.data, e.fileName );
+				upload( e.data, e.fileName );
 			}
+		}
+		public function upload(data:ByteArray, fName:String):void {
+			uploadInit();
+			this.fur.remoteObject.setMMSUpload( data, fName );
 		}
 		private function FileUploadByRemoteObjectRESULTHandler(e:FileUploadByRemoteObjectEvent):void {
 			
@@ -1192,6 +1220,8 @@ package component
 				this.fur.destroy();
 				this.fur = null;
 			}
+			if (moduleLoaderIme != null)
+				moduleLoaderIme.unloadModule();
 		}
 		
 		
@@ -1230,7 +1260,42 @@ package component
 			
 		}
 		
+		/**
+		 * ImageEditor Moduel
+		 * */
+		private function addMMSLayer_changeHandler(event:IndexChangeEvent):void {
+			
+			var item:Object = addMMSLayer.selectedItem;
+			
+			if (item != null) {
+				var data:String = item.data;
+				addMMSLayer.selectedIndex = -1;
+				addMMSLayer.visible = false;
+				if (data == "upload") uploadImage();
+				else createModuleIme("/module/ie/ImageEditor.swf");
+			}
+			
+		}
+		public function createModuleIme(s:String):void {
+			
+			if (moduleLoaderIme == null) { moduleLoaderIme = new ModuleLoader(); }
+			loading.visible = true;
+			moduleLoaderIme.addEventListener(ModuleEvent.READY, ime_moduleReadyHandler);
+			if (!moduleLoaderIme.url) { moduleLoaderIme.url = s; }
+			moduleLoaderIme.loadModule();
+		}
+		private function ime_moduleReadyHandler(event:ModuleEvent):void {
+			loading.visible = false;
+		}
 		
+		public function removeModuleIme():void {
+			
+			if (moduleLoaderIme != null) {
+				moduleLoaderIme.removeEventListener(ModuleEvent.READY, ime_moduleReadyHandler);
+				moduleLoaderIme.unloadModule();
+			}
+			loading.visible = false;
+		}
 		
 		
 		/**

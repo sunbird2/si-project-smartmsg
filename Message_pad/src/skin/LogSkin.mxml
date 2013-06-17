@@ -37,9 +37,9 @@
 				<s:SkinnableContainer styleName="actionBar_contextuar_light" width="100%" height="40" depth="4">
 					<s:Label text="그룹내역" color="#222222" verticalCenter="0" left="5" />
 					<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="0">
-						<s:Image id="listMultSelectBtn" source="skin/ics/assets/light/icon/1-navigation-accept.png" alpha="0.4" buttonMode="true" toolTip=" " 
+						<s:Image id="listMultSelectBtn" source="/skin/ics/assets/light/icon/1-navigation-accept.png" alpha="0.4" buttonMode="true" toolTip=" " 
 								 toolTipCreate="SLibrary.iosTip('다중선택','클릭시 아래 내역을 여러개 동시 선택 할 수 있습니다.\n한번 더 클릭 하면 다중선택이 해제 됩니다.', event)" />
-						<s:Image id="listDelBtn" source="skin/ics/assets/light/icon/5-content-discard.png" buttonMode="true" toolTip=" " 
+						<s:Image id="listDelBtn" source="/skin/ics/assets/light/icon/5-content-discard.png" buttonMode="true" toolTip=" " 
 								 toolTipCreate="SLibrary.iosTip('삭제 or 예약취소','선택된 내역을 삭제 하거나 예약 취소 합니다.\n예약된 내역은 취소되며, 전송완료된 내역은 삭제 됩니다.', event)" />
 					</s:HGroup>
 				</s:SkinnableContainer>
@@ -77,9 +77,9 @@
 						<s:DropDownList id="searchType" width="70" styleName="dropDownList_light" />
 						<util:TextInputSearch id="search" prompt="이름 or 전화번호" focusSkin="skin.ics.TextInputFocus" color="#222222" fontSize="12" toolTip=" " 
 											  toolTipCreate="SLibrary.iosTip('상세내역검색','검색할 이름 또는 전화번호를 입력 하여 상세내역을 검색 할 수 있습니다.\n왼쪽 전송결과 조건을 추가하여 검색 가능 합니다.', event)"/>
-						<s:Image id="excelDownBtn" source="skin/ics/assets/light/icon/5-content-import-export.png" buttonMode="true" toolTip=" " 
+						<s:Image id="excelDownBtn" source="/skin/ics/assets/light/icon/5-content-import-export.png" buttonMode="true" toolTip=" " 
 								 toolTipCreate="SLibrary.iosTip('엑셀다운로드','상세 내역을 엑셀로 저장 합니다.', event)"/>
-						<s:Image id="failAdd" source="skin/ics/assets/light/icon/5-content-undo.png" buttonMode="true" toolTip=" " 
+						<s:Image id="failAdd" source="/skin/ics/assets/light/icon/5-content-undo.png" buttonMode="true" toolTip=" " 
 								 toolTipCreate="SLibrary.iosTip('실패보상지금받기','상세 내역의 실패 건수를 보상 받습니다.\n기본 실패보상은 3일 후 자동 보상됩니다.', event)"/>
 						
 					</s:HGroup>

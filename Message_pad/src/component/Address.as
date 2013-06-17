@@ -226,7 +226,7 @@ package component
 					irFactory = new ClassFactory(IconItemRenderer);
 				
 				irFactory.properties = {
-					icon:"skin/ics/assets/light/icon/6-social-person.png",
+					icon:"/skin/ics/assets/light/icon/6-social-person.png",
 					labelTitle:"name",
 					labelSub:"phone"};
 				nameList.itemRenderer = irFactory;
