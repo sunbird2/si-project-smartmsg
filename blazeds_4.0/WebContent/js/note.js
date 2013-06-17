@@ -727,9 +727,6 @@
 		if (m == "SC0040") {
 			modal_window('/bill/cash.jsp?amount='+$(":input:radio[name=LGD_AMOUNT]:checked").val());
 			//alert("무통장 입금이 예약 되었습니다. \r\n\r\n홈페이지 하단의 정보로 입금 부탁 드리겠습니다.");
-		} else if (m == "SC0060") {
-			f.action = "/bill/payreq_hp.jsp";
-			f.submit();
 		} else {
 			f.action = "/bill/payreq.jsp";
 			f.submit();
