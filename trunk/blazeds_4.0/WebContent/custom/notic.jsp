@@ -16,8 +16,8 @@
 Connection conn = null;
 ArrayList<NoticVO> al = null;
 int cnt = SLibrary.intValue(SLibrary.IfNull(request.getParameter("count")));
-int startPage = 0;
-int endPage = cnt;
+int startPage = 3;
+int endPage = cnt+2;
 
 try {
 	VbyP.accessLog("notic list call : "+ request.getRemoteAddr());
