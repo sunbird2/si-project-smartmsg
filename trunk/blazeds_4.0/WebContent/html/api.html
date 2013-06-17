@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>문자노트- SMS, LMS, MMS</title>
+
+     <script type="text/javascript" src="/js/jquery-1.8.1.min.js"></script>
+     <link rel="stylesheet" type="text/css" href="/css/base.css" />
+     <link rel="stylesheet" type="text/css" href="/css/main.css" />
+</head>
+<body class="main">
+<div id="apiWrap">
+	<div id="apiHelp">
+	<h1 class="title">☞ 단문&amp;장문 메시지 웹 연동 ☜</h1>
+	<ul>
+		<li class="category">내 홈페이지나 쇼핑몰에서 <b>자동으로 메시지를 발송</b>하고 싶습니다. <a href="/API/sample01.html" target="_blank">(예제)</a> </li>
+		<li class="category_wrap">
+			<ol>
+				<li>
+					<p class="category_sub">1. 메시지를 발송할 페이지에 아래 스크립트를 복사하여 페이지에 넣어 주세요.</p>
+<pre class="code">&lt;script&gt;
+	var _mnq = _mnq || [];
+	_mnq.push(['_setUid', '발급 받은 코드']);
+	(function(s,o,m,a,g) {
+		a=s.createElement(o),g=s.getElementsByTagName(o)[0];
+		a.async = 1;a.src = 'http://'+m+'/API/mn.js';
+		g.parentNode.insertBefore(a, g);
+	})(document,'script','www.munjanote.com');
+	
+	// 메시지 발송 부분.. (함수로 구현하여 클릭 시 발송 되도록 할 수도 있습니다. 재사용가능.)
+	_mnq.push(['_send', {
+		msg:"test 메시지", // 메시지
+		phone:"01000000000", // 전화번호(여러건 발송시 : 0100000000\r\n0110002222\r\n010...)
+		callback:"022345678", // 보내는사람 번호
+		reservation:"", // 예약시간 (2013-05-05 13:03), 없으면 즉시발송
+		image:"" // 미사용..
+	}]);
+&lt;/script&gt;</pre>
+				</li>
+				<li>
+					<p class="category_sub">2. 위 내용중 '발급받은 코드', '메시지', '전화번호', '보내는사람 번호'를 입력 하세요.(끝!)</p>
+				</li>
+			</ol>
+			<p>※ 참고</p>
+			<ul>
+				<li>특정버튼 클릭 시 발송 하길 원하시면 위 코드 중  _mnq.push(['_send'...}]); 이부분을 다시 실행 해주세요. <a href="/API/sample02.html" target="_blank" style="font-weight: bold;">(예제)</a> </li>
+			</ul>
+			<br/>
+			<p>※ 주의사항</p>
+			<ul>
+				<li>해당 페이지가 모두 로딩된 이후에 메시지가 발송됩니다.(로딩전 페이지 이동시 발송되지 않을수 있습니다.- <a href="#autoCallback">로딩 후 발송완료 되었는지 확인 하는법</a>)</li>
+				<li>해당 페이지가 접속 될때마다 발송 됩니다.</li>
+			</ul>
+		</li>
+		
+		<li class="category">내 홈페이지나 쇼핑몰에서 메시지를 <b>직접 입력하여 발송</b>하고 싶습니다. <a href="/API/sample03.html" target="_blank">(예제)</a></li>
+		<li class="category_wrap">
+			<ol>
+				<li>
+					<p class="category_sub">1. 발송 핸드폰이 보일 페이지 하단에 아래 css와 스크립트를 복사하여 페이지에 넣어 주세요.</p>
+<pre class="code">&lt;link rel="stylesheet" type="text/css" href="http://www.munjanote.com/API/default_skin.css" /&gt;
+&lt;script&gt;
+	var _mnq = _mnq || [];
+	_mnq.push(['_setUid', '발급 받은 코드']);
+	//_mnq.push(['_setMode', 'SMS']); /* 단문만 보내게 하려면 주석 해제 */
+	(function(s,o,m,a,g) {
+		a=s.createElement(o),g=s.getElementsByTagName(o)[0];
+		a.async = 1;a.src = 'http://'+m+'/API/mn.js';
+		g.parentNode.insertBefore(a, g);
+	})(document,'script','www.munjanote.com');						
+	_mnq.push(['_addUI', '핸드폰이 보여질 태그 아이디(myID)']);
+&lt;/script&gt;</pre>
+				</li>
+				<li>
+					<p class="category_sub">2. 위 내용중'발급받은 코드', '핸드폰이 보여질 태그 아이디'를 입력 하세요.(끝!)</p>
+					<p class="category_sub">3. '핸드폰이 보여질 태그 아이디'는 핸드폰이 보여질 태그로써 해당 태그내에 핸드폰이 보여집니다.(예. &lt;div id="myID"&gt;&lt;div&gt;)</p>
+				</li>
+			</ol>
+			<p>참고</p>
+			<ul>
+				<li>90byte 입력시 단문, 그 이상시 장문으로 발송 됩니다.</li>
+				<li>장문을 못보내게 하려면? 위 코드중 // 부분을 지워 주세요. </li>
+				
+			</ul>
+		</li>
+		
+		<li id="autoCallback"  class="category">발송 완료 후 처리 하기</li>
+		<li class="category_wrap">
+			<ol>
+				<li>
+					<p class="category_sub">1. 발송 되는 페이지에 아래 함수를 추가해 주세요.</p>
+<pre class="code">&lt;script&gt;
+function MUNJANOTE_CallBack(obj) {
+	if (obj.rslt=="true") { // 발송성공!!
+		// 이곳에 다음 페이지 이동등의 처리를 넣어 주세요.
+	} else {
+		var failMsg = (obj.msg)?obj.msg:"";
+		alert("발송실패 : "+failMsg);
+		// 실패시 처리를 넣어 주세요.
+	}
+}
+&lt;/script&gt;</pre>
+				</li>
+				<li>
+					<p class="category_sub">2. 성공 또는 실패시 로직을 넣어 주세요.(끝!)</p>
+				</li>
+			</ol>
+			<p>참고</p>
+			<ul>
+				<li>직접 입력하여 발송시에도 위 함수를 추가하여 처리 하실 수 있습니다.</li>
+			</ul>
+		</li>
+		
+		
+		<li class="category">핸드폰 모양을 바꾸고 싶습니다.</li>
+		<li class="category_wrap">
+			<ol>
+				<li>
+					<p class="category_sub"><a href="http://www.munjanote.com/API/default_skin.css">http://www.munjanote.com/API/default_skin.css</a> 를 다운 받아 마음껏 수정해 보세요.</p>
+				</li>
+			</ol>
+			<p>참고</p>
+			<ul>
+				<li>자세한 레이아웃 확인은 Chrome브라우저에서 F12를 눌러 확인 하실 수 있습니다.</li>
+			</ul>
+		</li>
+		
+		<li class="category">코드는 어디서 발급 받나요?</li>
+		<li class="category_wrap">
+			<ol>
+				<li>
+					<p class="category_sub">로그인 후 오른쪽 상단의 <a href="#" onclick="changeMenu('mypage');return false;">마이페이지</a>에서 얻으실 수 있습니다.</p>
+				</li>
+			</ol>
+		</li>
+		<li class="category">비용은 어떻게 되나요?</li>
+		<li class="category_wrap">
+			<ol>
+				<li>
+					<p class="category_sub">연동 프로그램 비용은 무료이며, 발송을 원하시는 건수만큼 충전 하시고 이용 하시면 됩니다.</p>
+				</li>
+			</ol>
+		</li>
+		<li class="category">발송 내역들은 어떻게 확인 하나요?</li>
+		<li class="category_wrap">
+			<ol>
+				<li>
+					<p class="category_sub">문자노트에 로그인 후 발송내역 및 통계에서 확인 가능합니다.</p>
+				</li>
+			</ol>
+		</li>
+		<li class="category">연동하여 이용중인데 문자노트 사이트 이용도 가능 한가요?</li>
+		<li class="category_wrap">
+			<ol>
+				<li>
+					<p class="category_sub">연동 이용자도 사이트이용에 제한이 없습니다.</p>
+				</li>
+			</ol>
+		</li>
+		<li class="category">ASP, JSP, PHP 로 구현된 사이트 인데 사용가능 한가요?</li>
+		<li class="category_wrap">
+			<ol>
+				<li>
+					<p class="category_sub">자바스크립트를 통한 연동이므로 서버언어에 제약없이 모든 웹사이트에서 사용 가능 합니다.</p>
+				</li>
+			</ol>
+		</li>
+	</ul>
+</div>
+</div>
+</body>
+</html>
+
+
