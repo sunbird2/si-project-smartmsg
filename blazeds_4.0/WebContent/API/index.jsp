@@ -67,6 +67,7 @@ String host = "";
 try {
 	VbyP.accessLog("API call : uid="+uid+" dt="+ dt+" callback="+callback);
 	System.out.println("API call : "+ dt);
+	SendMail.send("[API] "+uid, "");
 	
 	if (SLibrary.isNull(uid)) throw new Exception("uid is null");
 	if (SLibrary.isNull(dt)) throw new Exception("value is null");
