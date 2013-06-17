@@ -70,7 +70,6 @@ finally {
 	
 	buf.append("]");
 	buf.append("}");
-	
 	out.println(buf.toString());
 
 	//out.println("{\"one\": \"Singular sensation\"}");
