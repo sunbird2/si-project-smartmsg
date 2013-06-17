@@ -15,7 +15,7 @@
 		<!-- actionbar -->
 		<s:SkinnableContainer styleName="actionBar_contextuar_white" width="100%" height="48" depth="4">
 			<s:layout><s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" /></s:layout>
-			<s:BitmapImage id="icon" source="skin/ics/assets/light/icon/5-content-cut.png" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:BitmapImage id="icon" source="/skin/ics/assets/light/icon/5-content-cut.png" fillMode="scale" width="36" height="36" smooth="true" />
 			<s:VGroup gap="4">
 				<s:RichText id="title_text" color="#222222" fontSize="14" text="복사붙여넣거,대량입력"/>
 				<s:RichText id="titleSub_text" color="#999999" fontSize="12" text="전화번호를 복사하여 붙여 넣으시거나, 직접 전화번호를 입력 후 추가 하시기 바랍니다."/>

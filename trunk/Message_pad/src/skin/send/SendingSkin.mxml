@@ -34,7 +34,7 @@
 	<s:VGroup horizontalCenter="0" horizontalAlign="center">
 		<s:Group width="300" height="40">
 			<s:Label id="title" left="20" verticalCenter="5" fontSize="16" color="#D6D6D6" />
-			<s:Image id="close" right="15" verticalCenter="2" source="skin/ics/assets/dark/icon/1-navigation-cancel.png" buttonMode="true" />
+			<s:Image id="close" right="15" verticalCenter="2" source="/skin/ics/assets/dark/icon/1-navigation-cancel.png" buttonMode="true" />
 		</s:Group>
 		
 		<s:Spacer height="10" />
@@ -75,7 +75,7 @@
 			<s:RichText focusEnabled="false" whiteSpaceCollapse="preserve" fontSize="12" kerning="auto" color="#D6D6D6">
 				<s:content><s:p><s:span>실시간결과(성공/실패) : </s:span><s:span id="succ" color="#079DD0"></s:span><s:span> / </s:span><s:span id="fail" color="#D30A0A"></s:span></s:p></s:content>
 			</s:RichText>
-			<s:Image id="resultViewBtn" top="6" right="10" source="skin/ics/assets/dark/icon/2-action-search.png" source.result_list="skin/ics/assets/dark/icon/1-navigation-refresh.png" alpha="0.6" buttonMode="true" />
+			<s:Image id="resultViewBtn" top="6" right="10" source="/skin/ics/assets/dark/icon/2-action-search.png" source.result_list="skin/ics/assets/dark/icon/1-navigation-refresh.png" alpha="0.6" buttonMode="true" />
 		</s:HGroup>
 		
 		<s:List id="resultList" width="280" height="100" 

@@ -69,6 +69,29 @@ package component.emoticon
 		private var currTotalCount:int = 0;
 		private var viewDataCount:int = 9;
 		
+		private var spcChar:ArrayCollection = new ArrayCollection( new Array(
+			"＃","＆","＊","＠","※","☆","★","○","●","◎","◇","◆","§",
+			"□","■","△","▲","▽","▼","→","←","↑","↓","↔","〓","◁",
+			"◀","▷","▶","♤","♠","♡","♥","♧","♣","∠","◈","▣","◐",
+			"◑","▒","▤","▥","▨","▧","▦","▩","♨","☏","☎","☜","☞",
+			"¶","†","‡","↕","↗","↙","↖","↘","♭","♩","♪","♬","㉿",
+			"㈜","№","㏇","™","㏂","㏘","℡","®","ª","º","！","˝","＇",
+			"．","／","：","；","？","＾","＿","｀","｜","￣","、","。","·",
+			"」","『","』","【","】","＋","－","√","＝","∽","±","×","÷",
+			"≠","≤","≥","∞","♂","♀","∝","∵","∫","∬","∈","∋","⊆",
+			"⊇","⊂","⊃","∪","∩","∧","∨","￢","⇒","⇔","∀","∃","∮",
+			"∑","∏","＋","－","＜","＝","＞","±","×","÷","≠","≤","≥",
+			"∞","∴","♂","♀","∠","⊥","⌒","∂","∇","≡","≒","≡","≒",
+			"‥","¨","…","〃","⊥","⌒","∥","＼","∴","´","～","ˇ","˘",
+			"˚","˙","¸","˛","¡","¿","∂","，","＂","（","）","［","］",
+			"｛","｝","‘","’","“","”","〔","〕","〈","〉","《","》","「",
+			"㉠","㉡","㉢","㉣","㉤","㉥","㉦","㉧","㉨","㉩","㉪","㉫","㉬",
+			"㉭","㉮","㉯","㉰","㉱","㉲","㉳","㉴","㉵","㉶","㉷","㉸","㉹",
+			"㉺","㉻","ⓐ","ⓑ","ⓒ","ⓓ","ⓔ","ⓕ","ⓖ","ⓗ","ⓘ","ⓙ","ⓚ",
+			"ⓛ","ⓜ","ⓝ","ⓞ","ⓟ","ⓠ","ⓡ","ⓢ","ⓣ","ⓤ","ⓥ","ⓦ","ⓧ",
+			"ⓨ","ⓩ","①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩","½"
+		));
+		
 		// paging
 		[Bindable] public var asyncListView:AsyncListView = new AsyncListView();
 		[Bindable] public var callResponder:CallResponder =  new CallResponder();
@@ -149,28 +172,7 @@ package component.emoticon
 				paging.addEventListener("clickPage", paging_clickPageHandler);
 			}*/
 			else if (instance == specialCharGroup) {
-				specialCharGroup.dataProvider = new ArrayCollection( new Array(
-					"＃","＆","＊","＠","※","☆","★","○","●","◎","◇","◆","§",
-					"□","■","△","▲","▽","▼","→","←","↑","↓","↔","〓","◁",
-					"◀","▷","▶","♤","♠","♡","♥","♧","♣","∠","◈","▣","◐",
-					"◑","▒","▤","▥","▨","▧","▦","▩","♨","☏","☎","☜","☞",
-					"¶","†","‡","↕","↗","↙","↖","↘","♭","♩","♪","♬","㉿",
-					"㈜","№","㏇","™","㏂","㏘","℡","®","ª","º","！","˝","＇",
-					"．","／","：","；","？","＾","＿","｀","｜","￣","、","。","·",
-					"」","『","』","【","】","＋","－","√","＝","∽","±","×","÷",
-					"≠","≤","≥","∞","♂","♀","∝","∵","∫","∬","∈","∋","⊆",
-					"⊇","⊂","⊃","∪","∩","∧","∨","￢","⇒","⇔","∀","∃","∮",
-					"∑","∏","＋","－","＜","＝","＞","±","×","÷","≠","≤","≥",
-					"∞","∴","♂","♀","∠","⊥","⌒","∂","∇","≡","≒","≡","≒",
-					"‥","¨","…","〃","⊥","⌒","∥","＼","∴","´","～","ˇ","˘",
-					"˚","˙","¸","˛","¡","¿","∂","，","＂","（","）","［","］",
-					"｛","｝","‘","’","“","”","〔","〕","〈","〉","《","》","「",
-					"㉠","㉡","㉢","㉣","㉤","㉥","㉦","㉧","㉨","㉩","㉪","㉫","㉬",
-					"㉭","㉮","㉯","㉰","㉱","㉲","㉳","㉴","㉵","㉶","㉷","㉸","㉹",
-					"㉺","㉻","ⓐ","ⓑ","ⓒ","ⓓ","ⓔ","ⓕ","ⓖ","ⓗ","ⓘ","ⓙ","ⓚ",
-					"ⓛ","ⓜ","ⓝ","ⓞ","ⓟ","ⓠ","ⓡ","ⓢ","ⓣ","ⓤ","ⓥ","ⓦ","ⓧ",
-					"ⓨ","ⓩ","①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩","½"
-				));
+				specialCharGroup.dataProvider = spcChar;
 				specialCharGroup.addEventListener(IndexChangeEvent.CHANGE, specialCharGroup_changeHandler);
 			}
 			else if (instance == icon)	icon.source = getTitleIcon();
@@ -197,8 +199,11 @@ package component.emoticon
 			}
 			//else if (instance == paging) paging.removeEventListener("clickPage", paging_clickPageHandler);
 			else if (instance == specialCharGroup) {
-				removeSpecialChar();
 				specialCharGroup.removeEventListener(IndexChangeEvent.CHANGE, specialCharGroup_changeHandler);
+				removeSpecialChar();
+				spcChar.removeAll();
+				spcChar = null;
+				
 			}
 
 		}
@@ -216,10 +221,10 @@ package component.emoticon
 		
 		private function getTitleIcon():String {
 			
-			if (state == "myMessage") return "skin/ics/assets/light/icon/3-rating-important.png";
-			else if (state == "emoticon") return "skin/ics/assets/light/icon/4-collections-view-as-grid.png";
-			else if (state == "specialChar") return "skin/ics/assets/light/icon/12-hardware-keyboard.png";
-			else return "skin/ics/assets/light/icon/5-content-email.png";
+			if (state == "myMessage") return "/skin/ics/assets/light/icon/3-rating-important.png";
+			else if (state == "emoticon") return "/skin/ics/assets/light/icon/4-collections-view-as-grid.png";
+			else if (state == "specialChar") return "/skin/ics/assets/light/icon/12-hardware-keyboard.png";
+			else return "/skin/ics/assets/light/icon/5-content-email.png";
 
 		}
 		private function getTitle():String {
