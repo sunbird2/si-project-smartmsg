@@ -128,6 +128,7 @@
                  	
     	         	if (pay_code.equals("SC0010")) pay_name="카드";
     	         	else if (pay_code.equals("SC0030")) pay_name="계좌이체";
+    	         	else if (pay_code.equals("SC0060")) pay_name="휴대폰";
     	         	
     	         	if (SLibrary.isNull(session_id)) throw new Exception("로그인이 필요 합니다.");
     	         	if (SLibrary.isNull(pay_code) || SLibrary.isNull(pay_name)) throw new Exception("결제 방식이 없습니다.");

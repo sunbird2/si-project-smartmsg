@@ -18,12 +18,12 @@
 	String user_id = us.getUser_id();
    
     String CST_PLATFORM         = "service"; //(test, service)
-    String CST_MID              = "fd_adsoft2";
+    String CST_MID              = "fd_adsoft3";
     String LGD_MID              = ("test".equals(CST_PLATFORM.trim())?"t":"")+CST_MID;
                                                                                       
     String LGD_OID              = user_id+"_"+SLibrary.getUnixtimeStringSecond();
     String LGD_AMOUNT           = request.getParameter("LGD_AMOUNT");
-    String LGD_MERTKEY          = "be40663ff0756bbc25c90073def17e74";
+    String LGD_MERTKEY          = "ba94906ccef7182396cca7531ae3a69b";
 	String LGD_BUYER            = user_id;
     String LGD_PRODUCTINFO      = "문자노트";
     String LGD_BUYEREMAIL       = "";
@@ -181,7 +181,7 @@ function isActiveXOK(){
 <input type="hidden" name="LGD_BUYERIP"                 value="<%= LGD_BUYERIP %>">           			<!-- 구매자IP -->
 <input type="hidden" name="LGD_BUYERID"                 value="<%= LGD_BUYERID %>">           			<!-- 구매자ID -->
 <input type="hidden" name="LGD_CUSTOM_FIRSTPAY"                 value="<%= LGD_CUSTOM_FIRSTPAY %>">           			<!-- 결제 방식 -->
-<input type="hidden" name="LGD_CUSTOM_USABLEPAY" value="SC0010-SC0030" />
+<input type="hidden" name="LGD_CUSTOM_USABLEPAY" value="<%= LGD_CUSTOM_FIRSTPAY %>" />
 
 
 <!-- 가상계좌(무통장) 결제연동을 하시는 경우  할당/입금 결과를 통보받기 위해 반드시 LGD_CASNOTEURL 정보를 LG 유플러스에 전송해야 합니다 . -->
