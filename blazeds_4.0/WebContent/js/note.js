@@ -84,7 +84,9 @@
 		$('#costInfo').hide();
 		$('#bar1').hide();
 		log("회원가입 클릭");
+
 		if (document.getElementById("MunjaNote")) document.MunjaNote.focus();
+		
         
         return false;
      }
@@ -141,7 +143,7 @@
    				if (data != null) {
    					if (data.code && data.code == "0000") login_view("true");
    				}
-   				trackPageview("/member/chk.jsp","로그인 체크");
+   				//trackPageview("/member/chk.jsp","로그인 체크");
    			}
    		);
 		$.getJSON(
@@ -338,6 +340,7 @@
 		
 		removeFlash();
         stop();
+		
         $('#gallery').html( htm );
         if ($('#gallery').length > 0)
         	$('#gallery').height("810px");
@@ -668,7 +671,10 @@
         //if ($('#gallery').length > 0) $('#gallery').css("height","auto");
         //alert(htm);
         $('#gallery').empty();
+		
         $('#gallery').append( htm );
+		
+       
         
         viewPopBlock(false);
     }
@@ -677,7 +683,10 @@
 		removeFlash();
         stop();
         if ($('#gallery').length > 0) $('#gallery').css("height","auto");
+
+		
         $('#gallery').html( htm );
+		
         
         viewPopBlock(false);
         getMypageLoad();
