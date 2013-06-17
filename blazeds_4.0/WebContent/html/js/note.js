@@ -111,10 +111,12 @@
     		try {document.getElementById(FLEX_ID).flexFunction("menu", MENU);}catch(e){}
     	}
     	$("#mainContent").hide();
+    	$("#flexWrap").width(1024);
     	$("#flexWrap").height(740);
     	$("#flexWrap").css("visibility","visible");
     }
     function flexHide() {
+    	$("#flexWrap").width(1);
     	$("#flexWrap").height(1);
     	$("#flexWrap").css("visibility","hidden");
     }

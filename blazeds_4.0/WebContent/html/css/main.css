@@ -48,7 +48,7 @@
 
 #bar1 {clear:both;margin:0 auto; width:1024px; height:2px; background-color:#c8c8c8;font-size:1px;}
 
-#flexWrap {margin:0 auto; width:1024px;height:1px;overflow:hidden;visibility: hidden;}
+#flexWrap {margin:0 auto; width:1x;height:1px;overflow:hidden;}
 #mainContent {width:1024px;height:auto;overflow:hidden;margin:0 auto;}
 
 #emoticon {margin:0 auto; width:1024px; margin-top:20px;margin-bottom:30px;overflow:hidden;}
