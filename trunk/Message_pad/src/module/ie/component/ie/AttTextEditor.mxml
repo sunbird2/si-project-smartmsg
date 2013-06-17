@@ -423,13 +423,14 @@
             private function bold_clickHandler(event:MouseEvent):void {
                 var boldFormat:TextLayoutFormat = new TextLayoutFormat();
                 boldFormat.fontWeight = bold.selected ? "bold" : "normal";
-                editManager.applyLeafFormat(boldFormat);
+               	editManager.applyLeafFormat(boldFormat);
+				
                 displaySetFocus();
             }
 
             private function italic_clickHandler(event:MouseEvent):void {
                 var italicFormat:TextLayoutFormat = new TextLayoutFormat();
-                italicFormat.fontStyle = italic.selected ? "italic" : "normal";
+                //italicFormat.fontStyle = italic.selected ? "italic" : "normal";
                 editManager.applyLeafFormat(italicFormat);
                 displaySetFocus();
             }
@@ -521,7 +522,7 @@
                 var boldFormat:* = format.fontWeight;
                 bold.selected = boldFormat == "bold";
                 var italicFormat:* = format.fontStyle;
-                italic.selected = italicFormat == "italic";
+                //italic.selected = italicFormat == "italic";
                 var underlineFormat:* = format.textDecoration;
                 underline.selected = underlineFormat == "underline";
 
@@ -664,11 +665,11 @@
 						click="bold_clickHandler(event)"
 						skinClass="module.ie.skin.ie.IconToggleButtonSkin"
 						content="{Icons.getIcon(3)}" toolTip="Bold"/>
-		<!--- @private -->
+		<!--- @private 
 		<s:ToggleButton id="italic" width="23" height="23" cornerRadius="2"
 						click="italic_clickHandler(event)"
 						skinClass="module.ie.skin.ie.IconToggleButtonSkin"
-						content="{Icons.getIcon(7)}" toolTip="Italic"/>
+						content="{Icons.getIcon(7)}" toolTip="Italic"/>-->
 		<!--- @private -->
 		<s:ToggleButton id="underline" width="23" height="23" cornerRadius="2"
 						click="underline_clickHandler(event)"
