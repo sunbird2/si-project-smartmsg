@@ -53,14 +53,14 @@ if (!ip.equals("112.216.246.130")) {
                         <img src="/images/01_sub.png" class="title01"/>
 						<table class="billTable">
                             <tr>
-<!--                                 <td width="225"><input type="radio" id="card" name="LGD_CUSTOM_FIRSTPAY" value="SC0010" onfocus="this.blur()" onclick="selBill()" checked="checked" /> <label for="card">신용카드</label></td> -->
-<!-- 								<td width="225"><input type="radio" id="online" name="LGD_CUSTOM_FIRSTPAY" value="SC0030" onfocus="this.blur()" onclick="selBill()" /> <label for="online">즉시이체</label></td> -->
-<!-- 								<td width="225"><input type="radio" id="hp" name="LGD_CUSTOM_FIRSTPAY" value="SC0060" onfocus="this.blur()" onclick="selBill()" /> <label for="hp">휴대폰</label></td> -->
-<!-- 								<td width="225"><input type="radio" id="cash" name="LGD_CUSTOM_FIRSTPAY" value="SC0040" onfocus="this.blur()" onclick="selBill()" /> <label for="cash">무통장입금</label></td> -->
+                                <td width="225"><input type="radio" id="card" name="LGD_CUSTOM_FIRSTPAY" value="SC0010" onfocus="this.blur()" onclick="selBill()" checked="checked" /> <label for="card">신용카드</label></td>
+								<td width="225"><input type="radio" id="online" name="LGD_CUSTOM_FIRSTPAY" value="SC0030" onfocus="this.blur()" onclick="selBill()" /> <label for="online">즉시이체</label></td>
+								<td width="225"><input type="radio" id="hp" name="LGD_CUSTOM_FIRSTPAY" value="SC0060" onfocus="this.blur()" onclick="selBill()" /> <label for="hp">휴대폰</label></td>
+								<td width="225"><input type="radio" id="cash" name="LGD_CUSTOM_FIRSTPAY" value="SC0040" onfocus="this.blur()" onclick="selBill()" /> <label for="cash">무통장입금</label></td>
 								
-								<td width="300"><input type="radio" id="card" name="LGD_CUSTOM_FIRSTPAY" value="SC0010" onfocus="this.blur()" onclick="selBill()" checked="checked" /> <label for="card">신용카드</label></td>
-								<td width="300"><input type="radio" id="online" name="LGD_CUSTOM_FIRSTPAY" value="SC0030" onfocus="this.blur()" onclick="selBill()" /> <label for="online">즉시이체</label></td>
-								<td width="300"><input type="radio" id="cash" name="LGD_CUSTOM_FIRSTPAY" value="SC0040" onfocus="this.blur()" onclick="selBill()" /> <label for="cash">무통장입금</label></td>
+<!-- 								<td width="300"><input type="radio" id="card" name="LGD_CUSTOM_FIRSTPAY" value="SC0010" onfocus="this.blur()" onclick="selBill()" checked="checked" /> <label for="card">신용카드</label></td> -->
+<!-- 								<td width="300"><input type="radio" id="online" name="LGD_CUSTOM_FIRSTPAY" value="SC0030" onfocus="this.blur()" onclick="selBill()" /> <label for="online">즉시이체</label></td> -->
+<!-- 								<td width="300"><input type="radio" id="cash" name="LGD_CUSTOM_FIRSTPAY" value="SC0040" onfocus="this.blur()" onclick="selBill()" /> <label for="cash">무통장입금</label></td> -->
                             </tr>
 						</table>
                         
