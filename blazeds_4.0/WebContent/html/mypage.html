@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>문자노트</title>
+	<link rel="shortcut icon" href="http://www.munjanote.com/images/note_icon.ico" />
+	<link rel="stylesheet" type="text/css" href="/html/css/base.css" />
+	<link rel="stylesheet" type="text/css" href="/html/css/main.css" />
+	<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');	ga('create', 'UA-41118010-1', 'munjanote.com');	ga('send', 'pageview');	</script>
+	<script type="text/javascript" src="/html/js/swfobject.js"></script>
+	<script type="text/javascript" src="/html/js/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="/html/js/note.js"></script>
+	
+</head>
+<body>
+<div id="mypageWrap">
+<!-- my page -->
+<div id="mypage">
+      <h1 class="title"><b class="user" id="mp_user"></b> 님의 사용가능 건수는 <b class="point" id="mp_point"></b> 건 입니다.</h1>
+      
+      <h1 class="category">가입정보</h1>
+      <p class="category_sub">고객님의 가입 정보입니다.</p>
+      <table class="dTable">
+      	<tr>
+			<th width="100">아이디</th>
+	        <th width="300">비밀번호</th>
+	        <th width="300">휴대폰번호</th>
+	        <th width="324">가입일</th>
+	    </tr>
+	    <tr>
+			<td id="mp_user_info"></td>
+	        <td>
+	        	<input type="text" name="pwd" id="pwd" class="txt" />
+	        	<a href="#" class="buttonmini blue" style="display:block;float:left;width:70px;color:#FFF;font-weight:bold;" onclick="return setPwd()">변경하기</a>
+	        </td>
+	        <td>
+	        	<input type="text" name="hp" id="hp" class="txt" />
+	        	<a href="#" class="buttonmini blue" style="display:block;float:left;width:70px;color:#FFF;font-weight:bold;" onclick="return setHp()">변경하기</a>
+	        </td>
+	        <td id="mp_join_info"></td>
+	    </tr>
+      </table>
+      <a href="#" class="buttonmini orange" style="display:block;float:right;width:170px;color:#FFF;font-weight:bold;" onclick="return viewAPI()">메시지 연동 정보</a>
+      <h1 class="category">결제내역</h1>
+      <p class="category_sub">발송을 위해 결제하신 내역입니다.</p>
+      <table class="dTable">
+      <thead>
+      	<tr>
+			<th width="30">번호</th>
+	        <th width="200">충전건수</th>
+	        <th width="100">결제방식</th>
+	        <th width="300">금액</th>
+	        <th width="200">결제일</th>
+	        <th width="196">비고</th>
+	    </tr>
+	   </thead>
+	   <tfoot id="billTableFoot">
+	   	<tr>
+	   		<td colspan="6">
+	   		</td>
+	   	</tr>
+	   </tfoot>
+	   <tbody id="billTableBody">
+		   
+	    </tbody>
+      </table>
+      
+      
+      <h1 class="category">건수사용내역</h1>
+      <p class="category_sub">발송, 결제, 실패보상들 건수를 사용하신 내역입니다.</p>
+      <table class="dTable">
+      <thead>
+      	<tr>
+			<th width="30">번호</th>
+	        <th width="200">메모</th>
+	        <th width="100">건수</th>
+	        <th width="300">적용후건수</th>
+	        <th width="200">이전건수</th>
+	        <th width="196">적용일</th>
+	    </tr>
+	   </thead>
+	   <tfoot id="pointlogTableFoot">
+	   	<tr>
+	   		<td colspan="6">
+			   	
+	   		</td>
+	   	</tr>
+	   </tfoot>
+	   <tbody id="pointlogTableBody">
+		    
+	    </tbody>
+      </table>
+      
+      
+      <h1 class="category">최근발송내역</h1>
+      <p class="category_sub">최근 발송하신 내역입니다.</p>
+      <table class="dTable">
+      <thead>
+      	<tr>
+			<th width="30">번호</th>
+	        <th width="200">메시지</th>
+	        <th width="100">방식</th>
+	        <th width="300">건수</th>
+	        <th width="200">발송일</th>
+	        <th width="196">작성일</th>
+	    </tr>
+	   </thead>
+	   <tfoot id="sentTableFoot">
+	   	<tr>
+	   		<td colspan="6">
+			   	
+	   		</td>
+	   	</tr>
+	   </tfoot>
+	   <tbody id="sentTableBody">
+		    
+	    </tbody>
+      </table>
+</div>
+<!-- my page -->
+</div>
+
+</body>
+</html>
+
+
