@@ -729,8 +729,8 @@
 		} else {
 			var amount = $(":input:radio[name=LGD_AMOUNT]:checked").val();
 
-			if (m == "SC0060" && amount > 110000) {
-				alert("휴대폰 결제는 11만원 이상 결제 하실 수 없습니다.");
+			if (m == "SC0060" && amount > 55000) {
+				alert("휴대폰 결제는 5만원 이상 결제 하실 수 없습니다.");
 			} else {
 				f.action = "/bill/payreq.jsp";
 				f.submit();
