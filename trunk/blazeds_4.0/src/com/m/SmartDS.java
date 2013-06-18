@@ -608,6 +608,9 @@ public class SmartDS extends SessionManagement {
 		LogVO lvo = null;
 		try {
 			if (!bSession()) throw new Exception("no login");
+			
+			if (SLibrary.IfNull(VbyP.getValue("STOP_SEND")).equals("Y")) throw new Exception("stop Send");
+			
 			conn = VbyP.getDB();
 			uvo = getInformation(conn, getSession());
 			
