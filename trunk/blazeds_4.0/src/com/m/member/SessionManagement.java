@@ -131,8 +131,11 @@ public class SessionManagement {
 		if (bTest) return true;
 		else {
 			String user_id = getSession();
-			if (user_id != null && !user_id.equals(""))
+			String noId = SLibrary.IfNull(VbyP.getValue("STOP_SEND_ID"));
+			
+			if (user_id != null && !user_id.equals("") && SLibrary.pattenCnt(noId, user_id) == 0) {
 				return true;
+			}
 			else
 				return false;
 		}
