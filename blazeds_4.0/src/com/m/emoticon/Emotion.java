@@ -115,7 +115,7 @@ public class Emotion {
 		List<EmoticonPagedObject> rslt = null;
 		ArrayList<HashMap<String, String>> al = null;
 		
-		VbyP.accessLog(" >>  emotion("+gubun+"/"+category+"/"+startIndex+"/"+numItems+") ");
+		//VbyP.accessLog(" >>  emotion("+gubun+"/"+category+"/"+startIndex+"/"+numItems+") ");
 		
 		StringBuffer buf = new StringBuffer();
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
