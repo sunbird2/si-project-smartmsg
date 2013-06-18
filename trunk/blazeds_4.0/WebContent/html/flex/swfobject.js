@@ -686,14 +686,14 @@ var swfobject = function() {
 					}
 					else if (xiSwfUrlStr && canExpressInstall()) { // show Adobe Express Install
 						$('#main-image').html('<img src="images/noflash.png" style="cursor:pointer" onclick="window.location.href=\'/noflash/index_movie.html\';" />');
-						$.post("gLog.jsp", { ref: "no version flash-"+ua.pv[0]+"."+ua.pv[1]+"."+ua.pv[2] } );
+						$.post("/gLog.jsp", { ref: "no version flash-"+ua.pv[0]+"."+ua.pv[1]+"."+ua.pv[2] } );
 						att.data = xiSwfUrlStr;
 						showExpressInstall(att, par, replaceElemIdStr, callbackFn);
 						return;
 					}
 					else { // show alternative content
 						$('#main-image').html('<img src="images/noflash.png" style="cursor:pointer" onclick="window.location.href=\'/noflash/index_movie.html\';" />');
-						$.post("gLog.jsp", { ref: "no flash-"+ua.pv[0]+"."+ua.pv[1]+"."+ua.pv[2] } );
+						$.post("/gLog.jsp", { ref: "no flash-"+ua.pv[0]+"."+ua.pv[1]+"."+ua.pv[2] } );
 						setVisibility(replaceElemIdStr, true);
 					}
 					if (callbackFn) { callbackFn(callbackObj); }
