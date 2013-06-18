@@ -229,6 +229,45 @@ public class MasterDS {
 
 	}
 	
+	// stop Member
+	public BooleanAndDescriptionVO setMemberStop(MemberVO mvo) {
+		
+		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		
+		String stopId = SLibrary.IfNull(VbyP.getValue("STOP_SEND_ID"));
+		VbyP.setProperties("STOP_SEND_ID", stopId+","+mvo.getUser_id());
+		
+		bvo.setbResult(true);
+		bvo.setstrDescription(SLibrary.IfNull(VbyP.getValue("STOP_SEND_ID")));
+		
+		
+		return bvo;
+
+	}
+	
+	// stop sent
+	public BooleanAndDescriptionVO setStopSend() {
+		
+		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		
+		String stop = SLibrary.IfNull(VbyP.getValue("STOP_SEND"));
+		
+		String flag = "";
+		if (stop.equals("N"))
+			flag = "Y";
+		else
+			flag = "N";
+		
+		VbyP.setProperties("STOP_SEND", flag);
+		
+		bvo.setbResult(true);
+		bvo.setstrDescription(flag);
+		
+		
+		return bvo;
+
+	}
+	
 	
 	List<MemberVO> setRowNum(List<MemberVO> lvo, int start) {
 		if (lvo != null) {
