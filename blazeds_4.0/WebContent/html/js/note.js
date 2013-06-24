@@ -121,8 +121,10 @@
     	$("#flexWrap").css("visibility","hidden");
     }
     function flexCreateComplete() {
-    	if (MENU == "send" ||MENU == "address" ||MENU == "bill" ||MENU == "log" ||MENU == "join" )
-    		document.getElementById(FLEX_ID).flexFunction("menu", MENU);
+    	if (MENU == "send" ||MENU == "address" ||MENU == "bill" ||MENU == "log" ||MENU == "join" ) {
+    		try {document.getElementById(FLEX_ID).flexFunction("menu", MENU);}catch(e){}
+    	}
+    		
     }
 
     /**
@@ -728,13 +730,18 @@
 			modal_window('/bill/cash.jsp?amount='+$(":input:radio[name=LGD_AMOUNT]:checked").val());
 		} else {
 			var amount = $(":input:radio[name=LGD_AMOUNT]:checked").val();
-
-			if (m == "SC0060" && amount > 55000) {
-				alert("휴대폰 결제는 5만원 이상 결제 하실 수 없습니다.");
+			
+			if (m == "SC0060") {
+				alert("최근 스미싱을 통한 휴대폰 불법 결제로 인한 피해를 최소화 하고자 휴대폰 결제 서비스 중지 하였습니다.\r\n\r\n 다른 결제 방식을 선택하여 진행 하시기 바랍니다.");
 			} else {
-				f.action = "/bill/payreq.jsp";
-				f.submit();
+				if (m == "SC0060" && amount > 55000) {
+					alert("휴대폰 결제는 5만원 이상 결제 하실 수 없습니다.");
+				} else {
+					f.action = "/bill/payreq.jsp";
+					f.submit();
+				}
 			}
+			
 			
 		}
 		
