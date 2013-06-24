@@ -851,7 +851,7 @@ package component
 			else removeExcel();
 		}
 		private function createExcel():void {
-			excel = new Excel();
+			excel = new Excel(true);
 			excel.horizontalCenter = 0;
 			excel.top = 48;
 			excel.bFromAddress = true;

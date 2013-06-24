@@ -4,6 +4,7 @@ package component.excel
 	import component.util.ButtonSpinner;
 	
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.net.FileReference;
 	import flash.utils.ByteArray;
@@ -20,6 +21,7 @@ package component.excel
 	import mx.data.ItemReference;
 	import mx.rpc.events.ResultEvent;
 	
+	import skin.excel.ExcelAddressSkin;
 	import skin.excel.ExcelMearg_GridItemRenderer;
 	import skin.excel.ExcelName_GridItemRenderer;
 	import skin.excel.ExcelPhone_GridItemRenderer;
@@ -28,9 +30,12 @@ package component.excel
 	import spark.components.Button;
 	import spark.components.ComboBox;
 	import spark.components.DataGrid;
+	import spark.components.DropDownList;
 	import spark.components.Image;
+	import spark.components.Label;
 	import spark.components.List;
 	import spark.components.RichText;
+	import spark.components.TextArea;
 	import spark.components.gridClasses.GridColumn;
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
@@ -67,6 +72,14 @@ package component.excel
 		[SkinPart(required="false")]public var close:Image;
 		
 		
+		[SkinPart(required="false")]public var pasteLabel:Label;
+		[SkinPart(required="false")]public var pasteCombo:DropDownList;
+		[SkinPart(required="false")]public var pasteOk:Button;
+		[SkinPart(required="false")]public var excelInput:TextArea;
+		[SkinPart(required="false")]public var pasteCancel:Button;
+		
+		
+		
 		
 		private const NONE:int = 0;
 		private const UPLOADED:int = 1;
@@ -85,11 +98,21 @@ package component.excel
 		
 		private var _bFromAddress:Boolean = false;
 		
+		private var acDelimiter:ArrayCollection =  new ArrayCollection([
+			{label:"탭", data:"\t"},
+			{label:"쉼표", data:","},
+			{label:"공백", data:" "},
+			{label:"줄바꿈", data:"\n"}
+		]);
 		
-		public function Excel()	{
+		
+		public function Excel(bAddress:Boolean=false)	{
 			super();
 			
-			setStyle("skinClass", ExcelSkin);
+			if (bAddress == true)
+				setStyle("skinClass", ExcelAddressSkin);
+			else
+				setStyle("skinClass", ExcelSkin);
 			
 			addEventListener(Event.REMOVED_FROM_STAGE, destroy, false, 0, true);
 		}
@@ -112,7 +135,7 @@ package component.excel
 			super.partAdded(partName, instance);
 			
 			if (instance == openBtn) openBtn.addEventListener(MouseEvent.CLICK, openBtn_clickHandler );
-			else if (instance == helpText) helpText.text = "엑셀열기 를 클릭하세요.";
+			else if (instance == helpText) helpText.text = "엑셀열기를 클릭 하거나 붙여 넣으세요.";
 			else if (instance == phoneCombo) {
 				setComboBoxData(phoneCombo, "전화번호열");
 				phoneCombo.addEventListener(IndexChangeEvent.CHANGE, phoneCombo_changeHandler);
@@ -145,9 +168,9 @@ package component.excel
 			else if (instance == excelView) excelView.dataProvider = acExcel;
 			else if (instance == addressCombo){
 				addressCombo.dataProvider = Gv.addressGroupList;
-				if (Gv.addressGroupList.length > 0) {
-					addressCombo.selectedIndex = 0;
-				}
+				//if (Gv.addressGroupList.length > 0) {
+				//	addressCombo.selectedIndex = 0;
+				//}
 			}
 			else if (instance == addressBtn) addressBtn.addEventListener(MouseEvent.CLICK, addressBtn_clickHandler);
 			else if (instance == close) {
@@ -157,6 +180,20 @@ package component.excel
 				}
 				else close.visible = false;
 			}
+			else if (instance == excelInput){
+				excelInput.addEventListener(KeyboardEvent.KEY_UP, excelInput_keyboardUpHandler);
+			}
+			else if (instance == pasteCombo){
+				pasteCombo.dataProvider = acDelimiter;
+				pasteCombo.addEventListener(IndexChangeEvent.CHANGE, pasteCombo_changeHandler);
+			}
+			else if (instance == pasteOk){
+				pasteOk.addEventListener(MouseEvent.CLICK, pasteOk_clickHandler);
+			}
+			else if (instance == pasteCancel){
+				pasteCancel.addEventListener(MouseEvent.CLICK, pasteCancel_clickHandler);
+			}
+			
 			
 			
 			
@@ -246,6 +283,104 @@ package component.excel
 				convertPhoneAcFromExcel();
 			} 
 		}
+		
+		
+		private function viewPasteComponent(b:Boolean):void {
+			pasteLabel.visible = b;
+			pasteCombo.visible = b;
+			pasteOk.visible = b;
+			pasteCancel.visible = b;
+			
+			excelView.visible = b;
+			excelInput.visible = !b;
+		}
+		private function pasteCombo_changeHandler(event:IndexChangeEvent):void {
+			
+			var rows:String = parseChar("\n");
+			var cols:String = parseChar(pasteCombo.selectedItem.data);
+			
+			var str:String = excelInput.text;
+			
+			if (str == "") SLibrary.alert("입력 또는 붙여 넣으세요.");
+			else if (cols == "") SLibrary.alert("구분자를 선택 하세요.");
+			else {
+				
+				acExcel.removeAll();
+				var arrRow:Array = str.split(rows);
+				var cnt:int = arrRow.length;
+				for ( var i:int = 0; i < cnt; i++ ) {
+					acExcel.addItem( parseCol( String(arrRow[i]).split(cols), i+1 ));
+				}
+				if (acExcel.length > 0) {
+					
+				}else SLibrary.alert("구분자를 올바르게 선택하세요.");
+			}
+		}
+		private function excelInput_keyboardUpHandler(event:KeyboardEvent):void {
+			
+			if (excelInput) {
+				if (excelInput.text && excelInput.text.length > 0) {
+					viewPasteComponent(true);
+					if (pasteCombo) {
+						pasteCombo.selectedIndex = 0;
+						pasteCombo.dispatchEvent(new IndexChangeEvent(IndexChangeEvent.CHANGE));
+					}
+				} else {
+					viewPasteComponent(false);
+				}
+			}
+		}
+		
+		private function pasteOk_clickHandler(event:MouseEvent):void {
+			setStep(UPLOADED);
+		}
+		private function pasteCancel_clickHandler(event:MouseEvent):void {
+			excelInput.text = "";
+			excelInput.dispatchEvent(new KeyboardEvent(KeyboardEvent.KEY_UP));
+		}
+		
+		// 역슬래시 인식위함.
+		private function parseChar(s:String):String {
+			
+			var rslt:String = "";
+			if (s == "\\n") rslt = "\n";else if (s == "\\t") rslt = "\t";else rslt = s;
+			return rslt;
+		}
+		// 열 배열을 object로 변경
+		private function parseCol(a:Array, no:int):Object {
+			
+			var obj:Object = new Object();
+			if ( a != null) {
+				var cnt:int = a.length;
+				obj["/"] = String(no);
+				for ( var i:int = 0; i < cnt; i++) {
+					obj[azCol(i+1)] = a[i];
+				}
+				
+			}
+			return obj;
+		}
+		// A~Z 열 타이틀 생성
+		private function azCol(no:int):String {
+			
+			var rslt:String = "";
+			var base:int = int("A".charCodeAt(0));
+			var div:int = int("Z".charCodeAt(0)) - base + 1;		
+			
+			if ( (no-1) >= 0 ){
+				
+				//twoLength String
+				if ( no-1 >= div ) {
+					rslt = String.fromCharCode( (base + (int)( (no-1)/div ) -1) ) ;
+					rslt += String.fromCharCode( (base + (int)( (no-1)%div ) ) ) ;
+				}else {
+					rslt = String.fromCharCode( base+no-1 );
+				}
+			}
+			return rslt;
+		}
+		
+		
 		
 		private function convertPhoneAcFromExcel():void {
 			
@@ -451,7 +586,7 @@ package component.excel
 			switch(step) {
 				
 				case NONE:
-					helpText.text = "엑셀열기 를 클릭하세요.";
+					helpText.text = "엑셀열기를 클릭 하거나 붙여 넣으세요.";
 					currStat = "normal";
 					break;
 				case UPLOADED:
