@@ -26,7 +26,7 @@
 			
 		</s:SkinnableContainer>
 		<s:Image id="addressFromExcel"  depth="5" right="5" top="5" source="/skin/ics/assets/light/icon/5-content-import-export.png" buttonMode="true" toolTip=" " 
-				 toolTipCreate="SLibrary.iosTip('엑셀업로드','엑셀을 업로드 하여 주소록에 저장합니다.\n xls,xlsx 를 지원 합니다.', event)" />
+				 toolTipCreate="SLibrary.iosTip('대량입력','엑셀을 업로드 하여 주소록에 저장합니다.\n 또는 다른 문서에서 복사하여 붙여넣은 후 주소록에 저장 합니다.', event)" />
 		<util:TextInputSearch id="search" right="40" top="5" prompt="이름 or 전화번호" depth="5"
 							  focusSkin="skin.ics.TextInputFocus" color="#FFFFFF" fontSize="12" toolTip=" " 
 							  toolTipCreate="SLibrary.iosTip('주소록검색','검색할 이름 또는 전화번호를 입력 하여 검색 할 수 있습니다.', event)" />
