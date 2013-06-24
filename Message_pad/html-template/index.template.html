@@ -1,46 +1,46 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="Content-Script-Type" content="text/javascript" />
-	<meta http-equiv="Content-Style-Type" content="text/css" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>문자노트- SMS, LMS, MMS, 문자대량전송,문자,문자메세지,문자메시지,문자서비스,문자전송,문자발송,이모티콘,문자보내기,고객관리,웹문자,예약전송,핸드폰문자,기업SMS,대량문자,대량발송,단체문자,기업SMS,기업형SMS전문서비스</title>
-	<meta name="description" content="문자노트,munja119,sms,lms,mms문자메세지,문자,문자메시지,문자서비스,문자전송,이모티콘,문자대량전송,문자보내기,문자발송,고객관리,웹문자,예약전송,핸드폰문자,기업SMS,대량문자,대량발송,단체문자,기업SMS,기업형SMS전문서비스"/>
-	<meta name="Keywords" content="문자노트,munja119,sms,lms,mms,문자메세지,문자,문자메시지,문자서비스,문자전송,이모티콘,문자대량전송,문자보내기,문자발송,고객관리,웹문자,예약전송,핸드폰문자,기업SMS,대량문자,대량발송,단체문자,기업SMS,기업형SMS전문서비스"/>
+<!-- saved from url=(0014)about:internet -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"> 
+    <!-- 
+    Smart developers always View Source. 
+    
+    This application was built using Adobe Flex, an open source framework
+    for building rich Internet applications that get delivered via the
+    Flash Player or to desktops via Adobe AIR. 
+    
+    Learn more about Flex at http://flex.org 
+    // -->
+    <head>
+        <title>${title}</title>
+        <meta name="google" value="notranslate" />         
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <!-- Include CSS to eliminate any default margins/padding and set the height of the html element and 
              the body element to 100%, because Firefox, or any Gecko based browser, interprets percentage as 
              the percentage of the height of its parent container, which has to be set explicitly.  Fix for
              Firefox 3.6 focus border issues.  Initially, don't display flashContent div so it won't show 
              if JavaScript disabled.
         -->
-        <link rel="shortcut icon" href="http://www.munjanote.com/images/note_icon.ico">
+        <style type="text/css" media="screen"> 
+            html, body  { height:100%; }
+            body { margin:0; padding:0; overflow:auto; text-align:center; 
+                   background-color: ${bgcolor}; }   
+            object:focus { outline:none; }
+            #flashContent { display:none; }
+        </style>
         
         <!-- Enable Browser History by replacing useBrowserHistory tokens with two hyphens -->
         <!-- BEGIN Browser History required section ${useBrowserHistory}>
         <link rel="stylesheet" type="text/css" href="history/history.css" />
         <script type="text/javascript" src="history/history.js"></script>
         <!${useBrowserHistory} END Browser History required section -->  
-        <script>
-		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-		  ga('create', 'UA-41118010-1', 'munjanote.com');
-		  ga('send', 'pageview');
-
-		</script>
-        <script type="text/javascript" src="/js/swfobject.js"></script>
-        <script type="text/javascript" src="/js/jquery-1.8.1.min.js"></script>
-        <script type="text/javascript" src="/js/note.js"></script>
+            
+        <script type="text/javascript" src="swfobject.js"></script>
         <script type="text/javascript">
             // For version detection, set to min. required Flash Player version, or 0 (or 0.0.0), for no version detection. 
             var swfVersionStr = "${version_major}.${version_minor}.${version_revision}";
             // To use express install, set to playerProductInstall.swf, otherwise the empty string. 
             var xiSwfUrlStr = "${expressInstallSwf}";
-            var flashvars = {};
+            var flashvars = {menu:"address"};
             var params = {};
             params.quality = "high";
             params.bgcolor = "${bgcolor}";
@@ -50,185 +50,59 @@
             attributes.id = "${application}";
             attributes.name = "${application}";
             attributes.align = "middle";
-           
-            
-            function embedSWF(m) {
-            	viewPopBlock(false);
-                if (interval) clearInterval(interval); 
-            	flashvars.menu = m;
-          		swfobject.embedSWF(
-                       "${application}.swf", "gallery", 
-                       "1024", "740", 
-                       swfVersionStr, xiSwfUrlStr, 
-                       flashvars, params, attributes);
-                   // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
-                swfobject.createCSS("#flashContent", "display:block;text-align:left;");
-                
-                return false;
-             }
-            
-       </script>
-       
-      <link rel="stylesheet" type="text/css" href="/css/base.css" />
-      <link rel="stylesheet" type="text/css" href="/css/main.css">
-   </head>
-  <body class="main">
-  
-  <div id="wrap">
-<!-- header-->
-<div id="header">
-		<div id="top_right">
-			<a href="javascript:" id="login" onclick="return changeMenu('send')" title="로그인" onfocus="this.blur()">로그인</a>
-			<span id="topbar1">&nbsp;|&nbsp;</span>
-			<a href="javascript:" id="join" onclick="return join();" title="회원가입" onfocus="this.blur()">회원가입</a>
-			<a href="javascript:" id="mypage" title="마이페이지" onclick="return changeMenu('mypage');" style="display:none" onfocus="this.blur()">마이페이지</a>
-			<span id="topbar2">&nbsp;|&nbsp;</span>
-			<a href="javascript:" id="logout" title="로그아웃" onclick="return logout_flex();" style="display:none" onfocus="this.blur()">로그아웃</a>
-			<span id="topbar3" style="display:none">&nbsp;|&nbsp;</span>
-			<a href="javascript:"  onclick="_addFavorite('문자노트 -빠르고 안정적인 문자시스템','http://www.munjanote.com')" title="즐겨찾기" onfocus="this.blur()"><img src="/images/start.png"> 즐겨찾기</a>
-		</div><!-- top_right -->
-		<div id="logo"><a href="javascript:" onclick="window.location.href='/'" title="MunjaNote"><img src="/images/logo.png" alt="MunjaNote"></a></div>
-		<div id="navi">
-			<ul>
-				<li><a href="javascript:" id="send" onclick="return changeMenu('send')" class="send" title="전송서비스" onfocus="this.blur()">전송서비스</a></li>
-				<li><a href="javascript:" id="log" onclick="return changeMenu('log')" class="log" title="내역" onfocus="this.blur()">내역</a></li>
-				<li><a href="javascript:" id="address" onclick="return changeMenu('address')" class="address" title="주소록" onfocus="this.blur()">주소록</a></li>
-				<li><a href="javascript:" id="bill" onclick="return changeMenu('bill')" class="bill" title="결제" onfocus="this.blur()">결제</a></li>
-				
-				<li id="freeuse"><img src="/images/useage_2.png" class="hand" alt="무료체험" onfocus="this.blur()" onclick="join()"></li>
-				<li id="useage" style="display:none;"><img src="/images/useage_1.png" class="hand" alt="사용방법" onfocus="this.blur()" onclick="openUseage()"></li>
-			</ul>
-		</div><!-- navi -->
-		
-	</div>
-<!-- //header-->
-	<div id="bar"></div>
-
-<!-- contents -->
-	<div id="main-image">
-		 <img id="pop1" src="/images/bbg.png" style="display:block;position:absolute; top:350px; left:-70px;" />
-		<div id="gallery">
-			
-       </div><!-- gallery -->
-      
-		<img id="pop2" src="/images/mtitle.png" style="display:block;position:absolute; top:40px; left:5px;" />
-		<!--
-		<a id="pop3" href="javascript:" class="left_arrow" onclick="showNextAndPrev(-2)"  onfocus='this.blur()'>이전</a>
-		<a id="pop4" href="javascript:" class="right_arrow" onclick="showNextAndPrev(0)"  onfocus='this.blur()'>다음</a>
-		-->
-	</div>
-<!-- //contents -->
-	
-	<div id="function-navi">
-		<ul>
-			<li class="f01">
-				<a href="javascript:" class="title" onclick="showFunction(0)"  onfocus='this.blur()'>다양한 메시지 발송</a>
-				<a href="javascript:" class="sub1" onclick="showFunction(1)"  onfocus='this.blur()'>단문, 장문, 멀티(자동전환)</a>
-				<a href="javascript:" class="sub2" onclick="showFunction(2)" onfocus='this.blur()'>업종별 다양한 메시지 제공</a>
-				<a href="javascript:" class="sub3" onclick="showFunction(3)" onfocus='this.blur()'>예약설정</a>
-				<a href="javascript:" class="sub4" onclick="showFunction(4)" onfocus='this.blur()'>건별 시간차 발송</a>
-				<a href="javascript:" class="sub5" onclick="showFunction(5)" onfocus='this.blur()'>전화번호별 다른메시지 발송</a>
-			</li>
-			<li class="f02">
-				<a href="javascript:" class="title" onclick="showFunction(6)" onfocus='this.blur()' >대용량 일괄발송</a>
-				<a href="javascript:" class="sub1" onclick="showFunction(7)" onfocus='this.blur()' >1회 최대 50만건 발송</a>
-				<a href="javascript:" class="sub2" onclick="showFunction(8)" onfocus='this.blur()' >실시간 발송현황 확인</a>
-				<a href="javascript:" class="sub3" onclick="showFunction(9)" onfocus='this.blur()' >엑셀 업로드</a>
-				<a href="javascript:" class="sub4" onclick="showFunction(10)" onfocus='this.blur()' >외부문서 붙여넣기 발송</a>
-			</li>
-			<li class="f03">
-				<a href="javascript:" class="title" onclick="showFunction(11)" onfocus='this.blur()' >주소록 관리</a>
-				<a href="javascript:" class="sub1" onclick="showFunction(12)" onfocus='this.blur()' >그룹별 전화번호 관리</a>
-				<a href="javascript:" class="sub2" onclick="showFunction(13)" onfocus='this.blur()' >엑셀 업로드&다운로드</a>
-				<a href="javascript:" class="sub3" onclick="showFunction(14)" onfocus='this.blur()' >그룹 이동&복사</a>
-				<a href="javascript:" class="sub4" onclick="showFunction(15)" onfocus='this.blur()' >휴지통 기능</a>
-			</li>
-			<li class="f04">
-				<a href="javascript:" class="title" onclick="showFunction(16)" onfocus='this.blur()' >발송내역 통계</a>
-				<a href="javascript:" class="sub1" onclick="showFunction(17)" onfocus='this.blur()' >월별내역관리</a>
-				<a href="javascript:" class="sub2" onclick="showFunction(18)" onfocus='this.blur()' >통계그래프</a>
-				<a href="javascript:" class="sub3" onclick="showFunction(19)" onfocus='this.blur()' >내역검색</a>
-				<a href="javascript:" class="sub4" onclick="showFunction(20)" onfocus='this.blur()' >내역별 엑셀 다운로드</a>
-			</li>
-			<li class="f05 nomargin">
-				<a href="javascript:" class="title" onclick="showFunction(21)" onfocus='this.blur()' >사용자편의성</a>
-				<a href="javascript:" class="sub1" onclick="showFunction(22)" onfocus='this.blur()' >메시지 형식 자동전환</a>
-				<a href="javascript:" class="sub2" onclick="showFunction(23)" onfocus='this.blur()' >최근발송 재발송</a>
-				<a href="javascript:" class="sub3" onclick="showFunction(24)" onfocus='this.blur()' >사용자 메시지함</a>
-				<a href="javascript:" class="sub4" onclick="showFunction(25)" onfocus='this.blur()' >회신번호 여러개 저장</a>
-				<a href="javascript:" class="sub5" onclick="showFunction(26)" onfocus='this.blur()' >실패보상 미리 받기</a>
-			</li>
-		</ul>
-	</div><!-- function-navi -->
-	<div id="bar1"></div>
-	<div id="costInfo" style="margin:0 auto;width:1024px;"><img src="/images/bill_title.png" class="title"/></div>
-<!-- 	 -->
-
-    <div id="emoticon">
-    	<img src="/images/thema_emoti2.png" />
-        <ul class="category">
-        </ul>
-        <ul class="emti">
-        </ul>
-		<img src="/images/upjong_emoticon2.png" />
-        <ul class="category_up">
-        </ul>
-        <ul class="emti_up">
-        </ul>
-    </div>
-
-    <div id="bar"></div>
-
-	<div id="etc">
-		<div id="custom"></div>
-		<div id="notic">
-            <img src="/images/notic.png"/>
+            swfobject.embedSWF(
+                "${swf}.swf", "flashContent", 
+                "${width}", "${height}", 
+                swfVersionStr, xiSwfUrlStr, 
+                flashvars, params, attributes);
+            // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
+            swfobject.createCSS("#flashContent", "display:block;text-align:left;");
+        </script>
+    </head>
+    <body>
+        <!-- SWFObject's dynamic embed method replaces this alternative HTML content with Flash content when enough 
+             JavaScript and Flash plug-in support is available. The div is initially hidden so that it doesn't show
+             when JavaScript is disabled.
+        -->
+        <div id="flashContent">
+            <p>
+                To view this page ensure that Adobe Flash Player version 
+                ${version_major}.${version_minor}.${version_revision} or greater is installed. 
+            </p>
+            <script type="text/javascript"> 
+                var pageHost = ((document.location.protocol == "https:") ? "https://" : "http://"); 
+                document.write("<a href='http://www.adobe.com/go/getflashplayer'><img src='" 
+                                + pageHost + "www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a>" ); 
+            </script> 
         </div>
-		<div id="bank"></div>
-		<div id="cost" onclick="modal_window('/bill/cost.jsp')"></div>
-	</div>
-
-	<div id="bar"></div>
-
-<!-- footer -->
-	<div id="footer">
-		<div id="info">
-			<ul>
-				<li><a href="javascirpt:" onclick="return modal_window('/custom/company.html');" title="회사소개" class="i01">회사소개</a></li>
-				<li><a href="javascirpt" onclick="return modal_window('/custom/personal.html');" title="개인정보보호정책" class="i02">개인정보보호정책</a></li>
-				<li><a href="javascirpt" onclick="return modal_window('/custom/use.html');" title="이용약관" class="i03">이용약관</a></li>
-				<li><a href="javascirpt" onclick="return modal_window('/custom/spam.html');" title="광고스팸문자" class="i04">광고스팸문자</a></li>
-			</ul>
-			<img src="/images/bottom_etc.png" alt="파트너"/>
-		</div>
-		<div id="copy">
-			<div class="address"></div>
-			<div id="logo"><a href="javascript:" onclick="window.loction.href=''" title="MunjaNote"><img src="/images/logo.png" alt="MunjaNOte"></a></div>
-		</div>
-	</div>
-<!-- //footer -->
-<!-- 	<div id="sideBanner"></div>	 -->
-</div><!-- wrap -->
-
-<iframe src="" id="nobody" name="nobody" frameborder="0" width="0" height="0" style="display:none"></iframe>
-<!-- <iframe src="" id="nobody" name="nobody" frameborder="0" width="200" height="200" style="display:block"></iframe> -->
-
-
-
-<div id="dialog"></div>
-<div id="mask" onclick="close_layer_window(); return false;"></div>
-
-<!-- 
-<div id="eventPop" style="position:absolute;top:70px;left:50%;margin-left:-510px;z-index:1000;background:url('images/HappyNewYearEventPopup.png') no-repeat;width:571px;height:611px">
-	<div style="position:relative;width:100%;height:100%">
-		<div style="position:absolute;top:0px;left:520px;width:50px;height:50px;cursor:pointer;text-indent:-9999px;" onclick="$('#eventPop').hide()">close</div>
-		<div style="position:absolute;top:410px;left:90px;width:120px;height:30px;cursor:pointer;text-indent:-9999px;" onclick="changeMenu('bill');$('#eventPop').hide();">결제센터</div>
-		<div style="position:absolute;top:410px;left:220px;width:120px;height:30px;cursor:pointer;text-indent:-9999px;" onclick="modal_window('/bill/cost.jsp');$('#eventPop').hide();">단가안내</div>
-		<div style="position:absolute;top:515px;left:310px;width:250px;height:25px;text-indent:-9999px;cursor:pointer;" onclick="$('#eventPop').hide()">창닫기</div>
-	</div>
-</div>-->
-
-  </body>
+        
+        <noscript>
+            <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="${width}" height="${height}" id="${application}">
+                <param name="movie" value="${swf}.swf" />
+                <param name="quality" value="high" />
+                <param name="bgcolor" value="${bgcolor}" />
+                <param name="allowScriptAccess" value="sameDomain" />
+                <param name="allowFullScreen" value="true" />
+                <!--[if !IE]>-->
+                <object type="application/x-shockwave-flash" data="${swf}.swf" width="${width}" height="${height}">
+                    <param name="quality" value="high" />
+                    <param name="bgcolor" value="${bgcolor}" />
+                    <param name="allowScriptAccess" value="sameDomain" />
+                    <param name="allowFullScreen" value="true" />
+                <!--<![endif]-->
+                <!--[if gte IE 6]>-->
+                    <p> 
+                        Either scripts and active content are not permitted to run or Adobe Flash Player version
+                        ${version_major}.${version_minor}.${version_revision} or greater is not installed.
+                    </p>
+                <!--<![endif]-->
+                    <a href="http://www.adobe.com/go/getflashplayer">
+                        <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash Player" />
+                    </a>
+                <!--[if !IE]>-->
+                </object>
+                <!--<![endif]-->
+            </object>
+        </noscript>     
+   </body>
 </html>
-
-
