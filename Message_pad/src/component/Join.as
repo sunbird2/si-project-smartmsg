@@ -169,6 +169,10 @@ package component
 			super.updateDisplayList(unscaledWidth, unscaledHeight);
 		}
 		
+		private function tracker(msg:String):void {
+			MunjaNote(parentApplication).googleTracker("join/"+msg);
+		}
+		
 		private function autoNext1(event:Event):void {
 			
 			if (agree1.selected == true && agree2.selected == true) {
@@ -185,6 +189,7 @@ package component
 			if (agree1.selected == false) SLibrary.alert("이용약관에 동의해 주세요");
 			else if (agree2.selected == false) SLibrary.alert("개인정보에 동의해 주세요");
 			else {
+				tracker("joinStart");
 				step = 1;
 				invalidateSkinState();
 			}
@@ -450,8 +455,10 @@ package component
 			RemoteSingleManager.getInstance.removeEventListener("join", next2_resultHandler);
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {
+				tracker("joinComplete");
 				step = 2;
 				invalidateSkinState();
+				
 			} else {
 				SLibrary.alert("가입 실패");
 			}
