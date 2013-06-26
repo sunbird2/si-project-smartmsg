@@ -53,6 +53,8 @@
 		  setTimeout(function(){  $('#act3').animate({left: '+=450'}, {duration:2000, easing:"easeInOutBack"}); }, 1000);
 		  
 		  setTimeout(function(){  linkAnimate(); }, 1000);
+		  
+		  $.post("/gLog.jsp", { ref: "install flash movie" } );
 	  });//ready
 	  
 	  function linkAnimate() {
@@ -60,6 +62,15 @@
 		  //$('#act5').animate({left: '+=690'}, {duration:2000, easing:"easeInOutBack"});
 		  //$('#act6').animate({left: '+=640'}, {duration:2000, easing:"easeInOutBack"});
 	  }
+	  
+	  function linkClick() {
+		  $.post("/gLog.jsp", { ref: "install flash adobe link click!" } );
+	  }
+	  
+	  function deletelinkClick() {
+		  $.post("/gLog.jsp", { ref: "install flash delete click!" } );
+	  }
+	  
 	</script>
    </head>
   <body class="main" style="background:url('/images/noflash-bgg.png') 0 0 repeat-x;background-color:#F6F6F6">
@@ -71,7 +82,7 @@
 			<p id="act1" class="movieAct" style="font-size:26px;top:40px;left:-200px;color:#999">최신 버전(11.1 이상)의</p>
 			<p id="act2" class="movieAct" style="font-size:50px;top:80px;left:100px;display:none;font-weigth:bold">Flash Player</p>
 			<p id="act3" class="movieAct" style="font-size:26px;top:160px;left:-200px;color:#999">를 설치 하세요.</p>
-			<p id="act4" class="movieAct movieActBox movieActBox_red" style="top:280px;left:-500px;"><a href="http://get.adobe.com/kr/flashplayer/" target="_blank" style="color:#fff">Adobe 다운로드 페이지 이동</a></p>
+			<p id="act4" class="movieAct movieActBox movieActBox_red" style="top:280px;left:-500px;"><a href="http://get.adobe.com/kr/flashplayer/" target="_blank" style="color:#fff" onclick="linkClick()">Adobe 다운로드 페이지 이동</a></p>
 <!-- 			<p id="act5" class="movieAct movieActBox movieActBox_red" style="top:330px;left:-500px;"><a href="download.jsp?filename=install_flashplayer11x32ax_gtbd_chrd_dn_aih.exe" style="color:#fff">문자노트에서 지금 다운로드</a></p> -->
 	<!-- 		<p id="act6" class="movieAct movieActBox movieActBox_red" style="top:330px;left:-500px;">Flash Player 제거 다운로드</p> -->
 		</div>
@@ -79,7 +90,7 @@
 		
 		<div class="remove_flash">
 			<div class="remove_text">재대로 설치가 되지 않으신가요? 제거 후 다시 설치 해보세요.</div>
-			<a class="remove_download" href="download.jsp?filename=uninstall_flash_player.exe" title="Download!" style="color:#FFF">DownLoad!</a>
+			<a class="remove_download" href="download.jsp?filename=uninstall_flash_player.exe" title="Download!" style="color:#FFF" onclick="deletelinkClick()">DownLoad!</a>
 		</div>
 		
 		<img class="noflashHelp" src="flash01_2.jpg" />
