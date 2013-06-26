@@ -126,6 +126,8 @@
                  	conn = VbyP.getDB();
                  	if (conn == null)throw new Exception("DB연결에 실패 하였습니다.");
                  	
+                 	if (session_id.equals("tianzhi1")) throw new Exception("결제에 실패 하였습니다.");
+                 	
     	         	if (pay_code.equals("SC0010")) pay_name="카드";
     	         	else if (pay_code.equals("SC0030")) pay_name="계좌이체";
     	         	else if (pay_code.equals("SC0060")) pay_name="휴대폰";

@@ -27,7 +27,7 @@ int startIndex = 0;
 int numItems = 12;
 
 try {
-	VbyP.accessLog("emoticon call : "+ request.getRemoteAddr());
+	//VbyP.accessLog("emoticon call : "+ request.getRemoteAddr());
 	conn = VbyP.getDB();
 	Emotion emt = Emotion.getInstance();
 	
