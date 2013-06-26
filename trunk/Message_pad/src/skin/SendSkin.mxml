@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
-		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" xmlns:lib="lib.*" height="696" xmlns:address="component.address.*">
+		xmlns:fc="http://ns.adobe.com/flashcatalyst/2009" xmlns:lib="lib.*" height="696" xmlns:address="component.address.*" xmlns:util="component.util.*">
 	<!-- host component -->
 	<fx:Metadata>
 		[HostComponent("component.Send")]
@@ -127,21 +127,35 @@
 					</s:Group>
 					
 					<!-- send List count -->
-					<s:HGroup width="100%" horizontalAlign="right" paddingRight="5" gap="0" verticalAlign="bottom">
-						<s:RichText whiteSpaceCollapse="preserve" color="#999999" paddingBottom="5">
-							<s:content><s:p><s:span id="countPhone" fontSize="16">0</s:span><s:span kerning="auto"> </s:span><s:span kerning="auto">명 </s:span></s:p></s:content>
-						</s:RichText>
-						<s:Image id="dupleDelete"
-								 source="@Embed('/skin/ics/assets/light/icon/10-device-access-storage.png')" buttonMode="true"
-								 toolTip=" " 
-								 toolTipCreate="SLibrary.iosTip('중복번호 삭제','추가된 전화번호중 중복된 전화번호를 삭제 합니다.', event)"  width="30" height="30"
-								 />
-						<s:Image id="phoneRemoveAll"
-								 source="/skin/ics/assets/light/icon/5-content-discard.png" buttonMode="true"
-								 toolTip=" " 
-								 toolTipCreate="SLibrary.iosTip('모두 삭제','추가된 모든 전화번호를 삭제 합니다.', event)" width="30" height="30"
-								 />	
-					</s:HGroup>
+					<s:Group width="100%">
+						<s:HGroup id="sendBox" width="100%" horizontalAlign="right" paddingRight="5" gap="0" verticalAlign="bottom">
+							<s:RichText whiteSpaceCollapse="preserve" color="#999999" paddingBottom="5">
+								<s:content><s:p><s:span id="countPhone" fontSize="16">0</s:span><s:span kerning="auto"> </s:span><s:span kerning="auto">명 </s:span></s:p></s:content>
+							</s:RichText>
+							<s:Image id="dupleDelete"
+									 source="@Embed('/skin/ics/assets/light/icon/10-device-access-storage.png')" buttonMode="true"
+									 toolTip=" " 
+									 toolTipCreate="SLibrary.iosTip('중복번호 삭제','추가된 전화번호중 중복된 전화번호를 삭제 합니다.', event)"  width="30" height="30"
+									 />
+							<s:Image id="addressView"
+									 source="/skin/ics/assets/light/icon/5-content-save.png" buttonMode="true"
+									 toolTip=" " 
+									 toolTipCreate="SLibrary.iosTip('주소록 저장','추가된 전화번호를 주소록에 저장합니다.', event)"  width="30" height="30"
+									 />
+							<s:Image id="phoneRemoveAll"
+									 source="/skin/ics/assets/light/icon/5-content-discard.png" buttonMode="true"
+									 toolTip=" " 
+									 toolTipCreate="SLibrary.iosTip('모두 삭제','추가된 모든 전화번호를 삭제 합니다.', event)" width="30" height="30"
+									 />	
+						</s:HGroup>
+						<s:HGroup id="addressBox" width="100%" horizontalAlign="right" paddingRight="5" verticalAlign="bottom" visible="false">
+							<s:ComboBox id="addressCombo" width="140" styleName="comboBox_light" prompt="그룹선택 또는 입력" height="25" />
+							<util:ButtonSpinner id="addressSave" width="50" height="25"  label="저장" styleName="button_light" />
+							<s:Button id="addressBoxClose" label="취소" styleName="button_light" width="50" height="25" />
+						</s:HGroup>
+						
+					</s:Group>
+					
 					
 					
 					<!-- callback -->
