@@ -113,12 +113,12 @@
     	$("#mainContent").hide();
     	$("#flexWrap").width(1024);
     	$("#flexWrap").height(740);
-    	$("#flexWrap").css("visibility","visible");
+    	//$("#flexWrap").css("visibility","visible");
     }
     function flexHide() {
     	$("#flexWrap").width(1);
     	$("#flexWrap").height(1);
-    	$("#flexWrap").css("visibility","hidden");
+    	//$("#flexWrap").css("visibility","hidden");
     }
     function flexCreateComplete() {
     	if (MENU == "send" ||MENU == "address" ||MENU == "bill" ||MENU == "log" ||MENU == "join" ) {
