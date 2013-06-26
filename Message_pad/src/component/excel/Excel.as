@@ -216,6 +216,19 @@ package component.excel
 					close.removeEventListener(MouseEvent.CLICK, close_clickHandler);
 				}
 			}
+			else if (instance == excelInput){
+				excelInput.removeEventListener(KeyboardEvent.KEY_UP, excelInput_keyboardUpHandler);
+			}
+			else if (instance == pasteCombo){
+				pasteCombo.dataProvider = null;
+				pasteCombo.removeEventListener(IndexChangeEvent.CHANGE, pasteCombo_changeHandler);
+			}
+			else if (instance == pasteOk){
+				pasteOk.removeEventListener(MouseEvent.CLICK, pasteOk_clickHandler);
+			}
+			else if (instance == pasteCancel){
+				pasteCancel.removeEventListener(MouseEvent.CLICK, pasteCancel_clickHandler);
+			}
 		}
 		
 		
@@ -612,10 +625,16 @@ package component.excel
 		
 		private function addressBtn_clickHandler(event:MouseEvent):void {
 			
-			addressBtn.bLoading = true;
-			RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", addressBtn_resultHandler, false, 0, true);
-			RemoteSingleManager.getInstance.callresponderToken 
-				= RemoteSingleManager.getInstance.service.modifyManyAddr(31, acRslt, addressCombo.selectedItem as String);
+			var grp:String = addressCombo.selectedItem as String;
+			if (grp == null || grp == "") {
+				SLibrary.alert("주소록 그룹을 선택하거나 입력하세요.");
+			} else {
+				addressBtn.bLoading = true;
+				RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", addressBtn_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.modifyManyAddr(31, acRslt, addressCombo.selectedItem as String);
+			}
+			
 		}
 		private function addressBtn_resultHandler(event:CustomEvent):void {
 			

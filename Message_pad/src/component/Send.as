@@ -10,6 +10,7 @@ package component
 	import component.send.ReservationCalendar;
 	import component.send.ReturnPhone;
 	import component.send.Sending;
+	import component.util.ButtonSpinner;
 	import component.util.CustomToolTip;
 	
 	import flash.events.Event;
@@ -41,6 +42,7 @@ package component
 	import spark.components.CheckBox;
 	import spark.components.ComboBox;
 	import spark.components.Group;
+	import spark.components.HGroup;
 	import spark.components.Image;
 	import spark.components.Label;
 	import spark.components.List;
@@ -55,6 +57,7 @@ package component
 	import spark.modules.ModuleLoader;
 	import spark.primitives.BitmapImage;
 	
+	import valueObjects.AddressVO;
 	import valueObjects.BooleanAndDescriptionVO;
 	import valueObjects.LogVO;
 	import valueObjects.PhoneVO;
@@ -115,6 +118,13 @@ package component
 		[SkinPart(required="false")]public var countPhone:SpanElement;
 		[SkinPart(required="false")]public var dupleDelete:Image;
 		[SkinPart(required="false")]public var phoneRemoveAll:Image;
+		[SkinPart(required="false")]public var addressView:Image;
+		[SkinPart(required="false")]public var sendBox:HGroup;
+		[SkinPart(required="false")]public var addressBox:HGroup;
+		[SkinPart(required="false")]public var addressSave:ButtonSpinner;
+		[SkinPart(required="false")]public var addressCombo:ComboBox;
+		[SkinPart(required="false")]public var addressBoxClose:Button;
+		
 		
 		[SkinPart(required="false")]public var ePhone:TextInput;
 		[SkinPart(required="false")]public var eName:TextInput;
@@ -238,6 +248,7 @@ package component
 		 * phones properties
 		 * */
 		public var alPhone:ArrayCollection = new ArrayCollection();
+		public var addressGroupList:ArrayCollection = new ArrayCollection();
 		private var Kpf:KoreaPhoneNumberFormatter;
 		private var excel:Excel;
 		private var sma:SendModeAddress;
@@ -339,6 +350,11 @@ package component
 			else if (instance == eUpdate) eUpdate.addEventListener(MouseEvent.CLICK, eUpdate_clickHandler);
 			else if (instance == eCancel) eCancel.addEventListener(MouseEvent.CLICK, eCancel_clickHandler);
 			else if (instance == eNext) eNext.addEventListener(MouseEvent.CLICK, eNext_clickHandler);
+			else if (instance == addressView) addressView.addEventListener(MouseEvent.CLICK, addressView_clickHandler);
+			else if (instance == addressCombo)	addressCombo.dataProvider = addressGroupList;
+			else if (instance == addressSave) addressSave.addEventListener(MouseEvent.CLICK, addressSave_clickHandler);
+			else if (instance == addressBoxClose) addressBoxClose.addEventListener(MouseEvent.CLICK, addressView_clickHandler);
+			
 			
 			if (instance is LinkElement) {
 				instance.addEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
@@ -636,6 +652,124 @@ package component
 			ePre.enabled = (this.editePhoneIndex > 0);
 			eNext.enabled = (this.editePhoneIndex < (this.alPhone.length-1));
 		}
+		
+		//-----------------------------------
+		// Save Address methods Start
+		//-----------------------------------
+		private function addressView_clickHandler(event:MouseEvent):void {
+			var bBox:Boolean = addressBox.visible;
+			addressBox.visible = !bBox;
+			sendBox.visible = bBox;
+			if (bBox == false) {
+				getGroup();
+			}
+		}
+		private function getGroup():void {
+			
+			if (Gv.bLogin) {
+				RemoteSingleManager.getInstance.addEventListener("getAddrList", getGroup_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.getAddrList(0, "");
+			}
+		}
+		private function getGroup_resultHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("getAddrList", getGroup_resultHandler);
+			var acGroup:ArrayCollection = event.result as ArrayCollection;
+			addressGroupList.removeAll();
+			var arr:Array = [];
+			if (acGroup != null && acGroup.length > 0) {
+				
+				var avo:AddressVO = null;
+				addressGroupList.removeAll();
+				for (var i:Number = 0; i < acGroup.length; i++) {
+					avo = acGroup.getItemAt(i) as AddressVO;
+					if (avo.idx != 0) {
+						addressGroupList.addItem(avo.grpName);
+					}
+					
+				}
+				
+			}
+		}
+		private function addressSave_clickHandler(event:MouseEvent):void {
+			
+			if (alPhone == null || alPhone.length <= 0) {
+				SLibrary.alert("전화번호를 추가 후 저장 하세요.");
+			} else {
+				var grp:String = addressCombo.selectedItem as String;
+				if (grp == null || grp == "") {
+					SLibrary.alert("주소록 그룹을 선택하거나 입력하세요.");
+				} else {
+					addressSave.bLoading = true;
+					addressBoxClose.enabled = false;
+					var acRslt:ArrayCollection = parseAddress(alPhone);
+					RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", addressSave_resultHandler, false, 0, true);
+					RemoteSingleManager.getInstance.callresponderToken 
+						= RemoteSingleManager.getInstance.service.modifyManyAddr(31, acRslt, grp);
+				}
+				
+			}
+		}
+		private function addressSave_resultHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("modifyManyAddr", addressSave_resultHandler);
+			var i:int = event.result as int;
+			if (i > 0) {
+				SLibrary.alert(String(addressCombo.selectedItem)+" 그룹에 저장 되었습니다.");
+				addressView_clickHandler(null);
+				//this.dispatchEvent( new CustomEvent("saveAddress", String(addressCombo.selectedItem) ));
+			}
+			else SLibrary.alert("저장 되지 않았습니다.");
+			
+			addressSave.bLoading = false;
+			addressBoxClose.enabled = true;
+		}
+		private function parseAddress(al:ArrayCollection):ArrayCollection {
+			
+			var rslt:ArrayCollection = new ArrayCollection();
+			if (al != null && al.length > 0) {
+				var cnt:int = al.length;
+				var avo:AddressVO = new AddressVO();
+				var pvo:PhoneVO = new PhoneVO();
+				for (var i:int = 0; i < cnt; i++) {
+					pvo = al.getItemAt(i) as PhoneVO;
+					avo = getAddressVO(pvo);
+					rslt.addItem(avo);
+				}
+			}
+			return rslt;
+		}
+		private function getAddressVO(pvo:PhoneVO):AddressVO {
+			var avo:AddressVO = null;
+			if (pvo != null) {
+				avo = new AddressVO();
+				avo.phone = pvo.pNo;
+				var arr:Array = getNameMemo(pvo.pName);
+				avo.name = arr[0];
+				avo.memo = arr[1];	
+			}
+			
+			return avo;
+		}
+		private function getNameMemo(str:String):Array {
+			var arr:Array = new Array(2);
+			if (str != null) {
+				var val:Array = str.split(Send.PHONE_DIV);
+				if (val != null) {
+					for (var i:int = 0; i < val.length; i++) {
+						if (i == 0) arr[0] = val[0];
+						else {
+							arr[1]+=val[i]+"\n";
+						}
+					}
+				}
+			}
+			return arr;
+		}
+		//-----------------------------------
+		// Save Address methods End
+		//-----------------------------------
 		
 		
 		public function removePhone(pvo:PhoneVO):void {	this.alPhone.removeItemAt( this.alPhone.getItemIndex(pvo) );setTotalCount(); }
