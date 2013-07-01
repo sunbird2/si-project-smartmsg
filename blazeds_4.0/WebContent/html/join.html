@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>SMS, LMS, MMS</title>
+
+    <script type="text/javascript" src="/html/js/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="/html/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/html/js/note.js"></script>
+    <link rel="stylesheet" type="text/css" href="/html/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/html/css/main.css" />
+    <script type="text/javascript">
+	    
+		$(document).ready(function() {
+			
+			initJoin();
+			//$.post("/accLog.jsp", { ref: document.referrer } );
+		});
+		
+		function initJoin() {
+			
+		}
+	</script>
+</head>
+<body>
+<div id="joinWrap">
+	<div id="joinBox">
+		<div class="joinContent">
+			<div class="joinInputBox">
+				<h3 class="join_title">문자노트 회원 가입</h3>
+				<input type="text" name="joinId" id="joinId"  class="inputtext"/>
+				<input type="text" name="joinPw" id="joinPw" class="inputtext" />
+				<input type="text" name="joinPwRe" id="joinPwRe" class="inputtext" />
+				<input type="text" name="joinHP" id="joinHP" class="inputtext" />
+			</div>
+			<div class="loginTxtBox">
+				<h3 class="join_title">약관에 동의해 주세요.</h3>
+				<h4>이용약관</h4>
+				<pre>약관....</pre>
+				<input type="checkbox" name="joinUseCheck" id="joinUseCheck" /><label for="joinUseCheck"> 위 이용 약관에 동의 합니다.</label>
+				<h4>개인정보보호약관</h4>
+				<pre>보호약관....</pre>
+				<input type="checkbox" name="joinPersonCheck" id="joinPersonCheck" /><label for="joinPersonCheck"> 위 개인정보보호 약관에 동의 합니다.</label>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+
+

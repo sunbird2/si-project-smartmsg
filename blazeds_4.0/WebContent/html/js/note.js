@@ -14,6 +14,7 @@
 	var INTERVAL_SLIDER;
 	var SLIDER_INDEX = 0;
 	var FLEX_ID = "MunjaNote";
+	var SAVE_ID = "MunjaNote_saveID";
 	var arrMain = ["<a href='#' class='show' onfocus='this.blur()'><img src='/images/m1.png' alt='Flowing Rock' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
 	               "<a href='#' class='show' onfocus='this.blur()'><img src='/images/sub_main1.png' alt='Flowing Rock' title='' alt='' rel='<h3>단문, 장문, 멀티 (자동전환)</h3> 기본 입력시 단문(SMS)으로 작성되며, 90Byte 초과 입력시 자동으로 장문(LMS)으로 전환됩니다. 그리고 사진 추가시 멀티(MMS) 전송으로 전환 됩니다. '/></a>",
 	               "<a href='#' class='show' onfocus='this.blur()'><img src='/images/sub_main2.png' alt='Flowing Rock' title='' alt='' rel='<h3>업종별 다양한 메시지 제공</h3> 이모티콘 기능에서 약 30분류의 업종에 대한 메시지가 무료로 제공 됩니다. 테마문자는 기본 이모티콘들이 제공 됩니다. '/></a>",
@@ -65,6 +66,8 @@
         	apiLoad(); 
         } else if (str == "home") {
         	homeLoad();
+        } else if (str == "custom") {
+        	customLoad();
         } else {/* flex */
         	flexLoad();
         }
@@ -126,6 +129,11 @@
     	}
     		
     }
+    function flexCheckLogin() {
+    	if ($("#"+FLEX_ID).length > 0) { 
+    		try {document.getElementById(FLEX_ID).flexFunction("checkLogin", "");}catch(e){} 
+    	}
+    }
 
     /**
      * billLoad
@@ -182,18 +190,29 @@
     			  loading(false);
   		          var posts = $(data).filter('#contentBox');
   		          $('#mainContent').empty().append(posts.html());
-  		          showSlide();
-  		          slideRun();
-  		          getEmoticonThema();
-  		          getEmoticonUpjong();
-  		          getNotic();
-  		          viewInstall();
-  		          /*preload flex*/
-  		          createFlex();
+  		          homeInit();
   		          
   		      }
       	);
     }
+    function homeInit() {
+    	//showSlide();
+		//slideRun();
+		getEmoticonThema();
+		getEmoticonUpjong();
+		getNotic();
+		viewInstall();
+		/*preload flex*/
+		createFlex();
+		mainMoviePlay();
+    }
+    function mainMoviePlay() {
+		setTimeout(function(){  mainMovieImg1(); }, 2000);
+	}
+	function mainMovieImg1() {
+		$('#main_movie1').fadeIn(1000);
+		$('#main_movie2').fadeOut(1000);
+	}
     
     
 
@@ -224,12 +243,15 @@
    function getNotic() {
 	   $.getJSON( "/custom/notic.jsp", {count: 5}, function(data) {
 		   
-					var html = "<ul style='border-top:1px solid #ccc'>";				
+					var html = "<ul>";				
 					var mp = "";
 					$.each(data.items, function(i,item){
+						var ti = item.title.replace("[안내]","<img src='/images/notic_info.png' />");
+						ti = ti.replace("[공지]","<img src='/images/notic_notic.png' />");
+						ti = ti.replace("[점검]","<img src='/images/notic_system.png' />");
 						mp = "<p class=\\'notic_title\\'>"+item.title+"</p>";
 						mp += "<p class=\\'notic_content\\'>"+item.content+"</p>";
-						html += "<li><a href=\"#\" onclick=\"modal_window_html('"+mp+"'); return false;\">"+item.title+"</a></li>";
+						html += "<li><a href=\"#\" onclick=\"modal_window_html('"+mp+"'); return false;\">"+ti+"</a></li>";
 					});
 					html += "</ul>";
 					$('#notic').append(html);
@@ -852,14 +874,10 @@
 	var blinkInterval = null;
 	function login_view(b) {
 		if (b == "true") {
-			$("#login").hide();
-			$("#join").hide();
-			$("#topbar1").hide();
+			$("#loginBtn").hide();
+			$("#joinBtn").hide();
 			
-			
-			$("#mypage").show();
-			$("#topbar3").show();
-			$("#logout").show();
+			$("#loginFunction").show();
 			
 			// 도움말
 			var ele = $("#useage");
@@ -885,23 +903,20 @@
 		    },500);
 		    
 		}else {
-			$("#login").show();
-			$("#join").show();
-			$("#topbar1").show();
+			$("#loginBtn").show();
+			$("#joinBtn").show();
 			
-			$("#mypage").hide();
-			$("#topbar3").hide();
-			$("#logout").hide();
+			$("#loginFunction").hide();
 			
 			// 도움말
-			$("#useage").hide();
-			$("#freeuse").show();
+			//$("#useage").hide();
+			//$("#freeuse").show();
 		}
 	}
 	
 	function logout_flex() {
 		var MunjaNote = document.getElementById("MunjaNote");
-		if (MunjaNote) MunjaNote.flexFunction("logout", "");
+		if (MunjaNote){ try {MunjaNote.flexFunction("logout", "");}catch(e){} }
 		else window.location.href="/member/logout.jsp";
 		
 		return false;
@@ -975,3 +990,288 @@
 	}
 	
 	function loading(show) {if (show == true) {$("#ajax-loader").show();}else {$("#ajax-loader").hide();}}
+	
+	/* ajax login Start*/
+	function loginTopView() {
+		
+		if ($("#loginBtn").text() == "↓로그인") {
+			$.get( "/html/login.html",
+		  		      function( data ) {
+		  			      loading(false);	
+		  		          var posts = $(data).filter('#loginWrap');
+		  		          $('#top_layer').empty().append(posts.html());
+		  		          topLayerAnimate('216px');
+						  initLogin();
+		  		      }
+		      	);
+			$("#loginBtn").text("↑로그인");
+		} else {
+			topLayerAnimate("0px");
+			$("#loginBtn").text("↓로그인");
+		}
+	}
+	function topLayerAnimate(val) {
+		 $('#top_layer').animate({height: val});
+	}
+	function loginIdCookie() {
+		
+		var id = $("#login_id").val();
+		if ( $('#saveId').is(':checked') == true ) {
+			$.cookie(SAVE_ID, id);
+		} else {
+			$.removeCookie(SAVE_ID);
+		}
+	}
+	function initLogin() {
+		
+		defaultValue("login_id");
+		defaultValue("login_pw",true);
+		
+		$("#login_id").keyup(function(e) {
+			if (e.which == 13) loginReq();
+
+			if ( checkPhone(this.value) == true ) $("#btnSMS").show();
+			else $("#btnSMS").hide();
+		});
+		$("#login_pw").keyup(function(e) {
+			if (e.which == 13) loginReq();
+		});
+		
+		$("#btnSMS").click(function(){smsReq();});
+		
+		loginInitFocus();
+		
+	}
+	function loginInitFocus() {
+		
+		var cook = $.cookie(SAVE_ID);
+		if (cook) {
+			$('#saveId').attr("checked", true);
+			$("#login_id").val(cook);
+			$("#login_pw").focus();
+			
+		} else {
+			$("#login_id").focus();
+		}
+	}
+	
+	function checkPhone(val) {
+		
+		var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+		if (val && val != "" && regExp.test(val)) return true;
+		else return false;
+	}
+	
+	function loginReq() {
+		
+		var id = $("#login_id").val();
+		var pw = $("#login_pw").val();
+		
+		if (id == "") alert("아이디를 입력하세요.");
+		else if (pw == "") alert("비밀번호를 입력하세요.");
+		else {
+			$.getJSON( "/member/login.jsp", {"login_id":id, "login_pw":pw}, function(data) {
+					if (data != null && data.code && data.code == "0000") { loginOkHandler() }
+					else alert("로그인에 실패 하였습니다.");
+				}
+			);
+			loginIdCookie();
+		}
+	}
+	function loginOkHandler() {
+		try {
+			login_view("true");
+			flexCheckLogin();
+			topLayerAnimate("0px");
+		}catch(e){}
+	}
+	
+	function smsReq() {
+		
+		var hp = $("#login_id").val();
+		
+		if (hp == "") alert("휴대폰번호를 입력하세요.");
+		else if (checkPhone(hp) == false) alert("올바른 번호가 아닙니다. 숫자만 넣어 주세요.");
+		else {
+			alert(hp+" Request!!");
+		}
+		
+	}
+	/* ajax login End*/
+	
+	function customLoad() {
+    	
+    	loading(true);
+    	$.get( "/html/custom.html",
+  		      function( data ) {
+    		
+    			  loading(false);
+  		          var posts = $(data).filter('#customWrap');
+  		          $('#mainContent').empty().append(posts.html());
+  		          custom_notic();
+  		          
+  		      }
+      	);
+    }
+	function customInit() {
+		custom_notic();
+	}
+	function customCategory(val) {
+		$("#customBox").find(".customCategory > li").removeClass("on");
+		if (val == "notic") $("#customBox").find(".customCategory > .custom1").addClass("on");
+		else if (val == "useage") $("#customBox").find(".customCategory > .custom2").addClass("on");
+		else if (val == "faq") $("#customBox").find(".customCategory > .custom3").addClass("on");
+		
+	}
+	function custom_notic() {
+		 
+		customCategory("notic");
+		 loading(true);
+		 $.getJSON( "/custom/notic.jsp", {count: 5}, function(data) {
+			 	loading(false);
+				var html = "<ul id=\"customNoticList\" class=\"customNotic\">";				
+				var mp = "";
+				$.each(data.items, function(i,item){
+					var month = item.timeWrite.substr(5,2);
+					var day = item.timeWrite.substr(8,2);
+					var ti = item.title;
+					
+					var content = item.content.replace("\\","");
+					content = content.replace("\\","");
+					html += "<li><div class=\"customNotic_date\"><p class=\"day\">"+day+"</p><p class=\"month\">"+month+" 월</p></div><p class=\"title\">"+ti+"</p><p class=\"content\">"+content+"</p></li>";
+				});
+				html += "</ul>";
+				$('#customRight').empty().append(html);
+			}
+		);
+	}
+	
+	function custom_useage() {
+		
+		customCategory("useage");
+		loading(true);
+		$.get( "/html/useage.html",
+   		      function( data ) {
+   			      loading(false);
+   		          var posts = $(data).filter('#customWrap');
+   		          $('#customRight').empty().append(posts.html());
+   		          usageClick('1');
+   		      }
+       	);
+	}
+	function custom_faq() {
+		
+		customCategory("faq");
+		loading(true);
+		$.get( "/html/faq.html",
+   		      function( data ) {
+   			      loading(false);
+   		          var posts = $(data).filter('#customWrap');
+   		          $('#customRight').empty().append(posts.html());
+   		          faqInit();
+   		      }
+       	);
+	}
+	/* useage Start */
+	function useageMoviePlay(obj) {
+		obj.find("p").each(function(index){
+			var el = $(this);
+			if (el.css("left").replace("px","") * 1 < 0)
+				setTimeout(useagePlay, 2000*index, el);
+		}); 
+	}
+	function useagePlay(obj) {
+		obj.animate({"left": '+=880'}, {duration:2000});
+	}
+	
+	function usageClick(val) {
+		
+		$("#useage_tab").find("li").each(function(index){
+			if (index == (val-1)) $(this).addClass("on");
+			else $(this).removeClass("on");
+		});
+		
+		var obj = $("#useage"+val);
+		$("#useage_content > .useageBox").hide();
+		obj.show();
+		useageMoviePlay(obj);
+	}
+	/* useage End*/
+	/* faq Start*/
+	function faqInit() {
+		$("#faq_content").find(".title").click(function(){
+			$("#faq_content").find(".on").removeClass("on");
+			$("#faq_content").find(".content").hide();
+			var el = $(this);
+			el.addClass("on");
+			el.next().show();
+		});
+	}
+	
+	function faq_click(val) {
+		
+
+		$("#faq_tab").find("li").each(function(index){
+			if (index == (val)) $(this).addClass("on");
+			else $(this).removeClass("on");
+		});
+		
+		
+		if (val == "0") $("#faq_content").find("ul").show();
+		else {
+			$("#faq_content").find("ul").hide();
+			$("#faq"+val).show();
+		}
+	}
+	/* faq End*/
+	
+	function defaultValue(tid,bPwd) {
+		
+		bPwd = typeof bPwd !== 'undefined' ? bPwd : false;
+		
+		var jqueryObj = $("#"+tid);
+		
+		if (jqueryObj.length > 0) {
+			var input = jqueryObj;
+			var def = input.attr("title");
+			input.off('focus');
+			input.off('blur');
+			input.focus({b:bPwd},function(e) {
+						var el = $(this);
+						if (e.data.b == true) {
+							var def = el.prev();
+							if (def.attr("parent") == el.attr("id")) {
+								def.hide();
+							}
+							el.show();
+							el.val('');	
+						} else {
+							if (el.attr("title") == el.val())
+								el.val('');	
+						}
+					}).blur({b:bPwd,v:def},function(e) {
+				        var el = $(this);
+						if(el.val() == '') {
+							if (e.data.b == true) {
+								var def = el.prev();
+								if (def.attr("parent") != el.attr("id")) {
+									$("<input type='text' size='20' />").attr({ "name": this.name, "value": this.title, "class": el.attr("class"), "parent":this.id }).insertBefore(this).focus(function(){
+										var eldef = $(this);
+										eldef.hide();
+										if (eldef.next().attr("id") == eldef.attr("parent"))
+											eldef.next().show().focus();
+									});
+								} else {
+									def.show();
+								}
+								el.hide();
+							} else 
+								el.val(e.data.v);
+						}
+			});
+			// ie7 예외
+		    try {input.blur();}catch(e){}
+		}
+		
+	}
+	

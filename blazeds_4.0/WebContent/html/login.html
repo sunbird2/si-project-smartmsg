@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>SMS, LMS, MMS</title>
+
+    <script type="text/javascript" src="/html/js/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="/html/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/html/js/note.js"></script>
+    <link rel="stylesheet" type="text/css" href="/html/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/html/css/main.css" />
+    <script type="text/javascript">
+	    
+		$(document).ready(function() {
+			
+			initLogin();
+			//$.post("/accLog.jsp", { ref: document.referrer } );
+		});
+	</script>
+</head>
+<body>
+<div id="loginWrap">
+	<div id="loginBox">
+		<div class="loginContent">
+			<div class="loginInputBox">
+				<h3 class="login_title">문자노트 멤버 로그인</h3>
+				<input type="text" name="log" id="login_id" class="inputtext" maxlength="20" size="20" tabindex="10" value="" title="아이디" />
+				<input type="password" name="pwd" id="login_pw" class="inputtext" maxlength="20" size="20" tabindex="20" value="" title="비밀번호" />
+				<a href="#" id="btnSMS" class="btnSMS" style="display:none">임시비밀번호 요청</a>
+				<a class="submit" href="#" onclick="loginReq();return false;">Enter 를 눌러 로그인 하세요.</a><br/>
+				<a class="submit" href="#" onclick="alert('아이디에 가입한 휴대폰번호를 넣어보세요.');return false;">아이디/비밀번호 찾기</a><input type="checkbox" name="saveId" id="saveId" /><label for="saveId"> 아이디 기억</label>
+			</div>
+			<div class="loginTxtBox">
+				<h5 style="padding-left:45px;">차별화된 메시지 서비스</h5>
+				<h3 style="padding-left:45px;" class="login_title">문자노트는 귀사의 일익 번창하심을 기원 합니다.</h3>
+				<br/>
+				<h6>저희 문자노트는 근 9년간의 운영 노하우를 바탕으로 제작된 서비스로써 <br/>현재도 사용자의 편의를 위해 최선을 다해 노력 하고 있습니다.<br/>보다 나은 서비스를 위해 소수 고객님의 의견 또한 지속적으로 수렴 하여<br/> 조금 더 나아가는 문자 노트가 되도록 노력 하겠습니다.</h6>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+
+
