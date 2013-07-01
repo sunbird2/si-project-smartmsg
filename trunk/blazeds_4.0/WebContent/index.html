@@ -15,6 +15,9 @@
 	<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-41118010-1', 'munjanote.com');ga('send', 'pageview');</script>
 	<script type="text/javascript" src="/html/flex/swfobject.js"></script>
 	<script type="text/javascript" src="/html/js/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="/js/plugin/animate/jquery.easing.min.js"></script>
+	<script type="text/javascript" src="/js/plugin/animate/jquery.easing.compatibility.js"></script>
+	<script type="text/javascript" src="/html/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="/html/js/note.js"></script>
 	<script type="text/javascript">
 	    
@@ -29,17 +32,19 @@
 	<link rel="stylesheet" type="text/css" href="/html/css/main.css" />
 </head>
 <body class="main">
+  <div id="top_layer"></div>
   <div id="ajax-loader" style="display: block;"><img src="/images/ajax-loader.gif" width="49" height="48" alt="ajax" /></div>
   <div id="wrap">
 	<div id="header">
 		<div id="top_right">
-			<a href="javascript:" id="login" onclick="return changeMenu('send')" title="로그인" onfocus="this.blur()">로그인</a><span id="topbar1">&nbsp;|&nbsp;</span>
-			<a href="javascript:" id="join" onclick="return changeMenu('join')" title="회원가입" onfocus="this.blur()">회원가입</a>
-			
-			<a href="#" id="mypage" title="마이페이지" onclick="changeMenu('mypage');return false;" style="display:none" onfocus="this.blur()">마이페이지</a><span id="topbar2">&nbsp;|&nbsp;</span>
-			<a href="javascript:" id="logout" title="로그아웃" onclick="return logout_flex();" style="display:none" onfocus="this.blur()">로그아웃</a><span id="topbar3" style="display:none">&nbsp;|&nbsp;</span>
-			<a href="javascript:" id="api"  onclick="return changeMenu('api');" title="메시지연동" onfocus="this.blur()">메시지연동</a>	<span>&nbsp;|&nbsp;</span>
-			<a href="javascript:"  onclick="_addFavorite('문자노트 -빠르고 안정적인 문자시스템','http://www.munjanote.com')" title="즐겨찾기" onfocus="this.blur()"><img src="/images/start.png" /> 즐겨찾기</a>
+			<div id="loginBtn" onclick="loginTopView()">↓로그인</div>
+			<div id="joinBtn" onclick="return changeMenu('join')">회원가입</div>
+			<div id="loginFunction">
+				<a href="#" id="mypage" title="마이페이지" onclick="changeMenu('mypage');return false;" onfocus="this.blur()"> 마이페이지 </a><span>&nbsp;|&nbsp;</span>
+				<a href="javascript:" id="logout" title="로그아웃" onclick="return logout_flex();" onfocus="this.blur()">로그아웃</a><span id="topbar3" style="display:none">&nbsp;|&nbsp;</span>
+			</div>
+			<!-- <a href="javascript:" id="api"  onclick="return changeMenu('api');" title="메시지연동" onfocus="this.blur()">메시지연동</a>	<span>&nbsp;|&nbsp;</span> -->
+			<a href="javascript:"  onclick="_addFavorite('문자노트 -빠르고 안정적인 문자시스템','http://www.munjanote.com')" title="즐겨찾기" onfocus="this.blur()" style="font-size:12px;"><img src="/images/start.png" width="12" height="13"/> 즐겨찾기&nbsp;</a><span>&nbsp;|&nbsp;</span>
 		</div><!-- top_right -->
 		<div id="logo"><a href="javascript:" onclick="window.location.href='/'" title="MunjaNote"><img src="/images/logo.png" alt="MunjaNote" /></a></div>
 		<div id="navi">
@@ -48,9 +53,12 @@
 				<li><a href="#" id="log" onclick="changeMenu('log');return false;" class="log" title="내역" onfocus="this.blur()">내역</a></li>
 				<li><a href="#" id="address" onclick="changeMenu('address');return false;" class="address" title="주소록" onfocus="this.blur()">주소록</a></li>
 				<li><a href="#" id="bill" onclick="changeMenu('bill');return false;" class="bill" title="결제" onfocus="this.blur()">결제</a></li>
-				
-				<li id="freeuse"><img src="/images/useage_2.png" class="hand" alt="무료체험" onclick="join()" /></li>
-				<li id="useage" style="display:none;"><img src="/images/useage_1.png" class="hand" alt="사용방법" onclick="openUseage()" /></li>
+				<li><a href="#" id="api" onclick="changeMenu('api');return false;" class="api" title="메시지연동" onfocus="this.blur()">메시지 연동</a></li>
+				<li><a href="#" id="custom" onclick="changeMenu('custom');return false;" class="custom" title="결제" onfocus="this.blur()">고객센터</a></li>
+				<!--<li style="margin-right:0px;"><a href="#" id="api" onclick="changeMenu('api');return false;" class="api" title="메시지연동" onfocus="this.blur()">메시지 연동</a></li>-->
+<!-- 				<li id="freeuse" style="margin-right:0px;"><img src="/images/asp.png" class="hand" alt="메시지연동"  onclick="return changeMenu('api');" /></li> -->
+<!-- 				<li id="freeuse"><img src="/images/useage_2.png" class="hand" alt="무료체험" onclick="join()" /></li> -->
+<!-- 				<li id="useage" style="display:none;"><img src="/images/useage_1.png" class="hand" alt="사용방법" onclick="openUseage()" /></li> -->
 			</ul>
 		</div><!-- navi -->	
 	</div><!-- header -->
@@ -72,9 +80,6 @@
 	<div id="mainContent"></div><!-- content -->
 	
 	
-	
-	
-    <div id="bar"></div>
 
 	<div id="etc">
 		<div id="custom"></div>
