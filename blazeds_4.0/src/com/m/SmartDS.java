@@ -93,7 +93,7 @@ public class SmartDS extends SessionManagement {
 			bvo.setstrDescription("가입 실패");
 		}else {
 			bvo.setbResult(true);
-			createSession(user_id);
+			createFlexSession(user_id);
 			SendMail.send("[join] "+user_id, hp);
 		}
 		return bvo;
@@ -631,7 +631,9 @@ public class SmartDS extends SessionManagement {
 			
 			smvo.setReqIP(FlexContext.getHttpRequest().getRemoteAddr());
 			
+			// system log write
 			sendLogWrite(uvo.getUser_id(), smvo);
+			
 			lvo = send.send(conn, uvo, smvo);
 			
 			Gv.removeStatus(uvo.getUser_id());

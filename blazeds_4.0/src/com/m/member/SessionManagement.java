@@ -17,8 +17,8 @@ public class SessionManagement {
 	
 	private Boolean bTest = false;
 	
-	private final String SESSION = "user_id";
-	private final String SESSION_ADMIN = "admin_id";
+	public static final String SESSION = "user_id";
+	public static final String SESSION_ADMIN = "admin_id";
 	
 	private void setSession(String user_id) {
 		
@@ -44,18 +44,21 @@ public class SessionManagement {
 		if (rslt == 0)
 			VbyP.accessLog(user_id+" >> loginUpdateTime fail");
 		
-		createSession(user_id);
+		createFlexSession(user_id);
 		
 		
 	}
 	
-	public void createSession(String user_id) {
+	public void createFlexSession(String user_id) {
 		
 		UserSession us = new UserSession();
 		us.setUser_id(user_id);
 		FlexSession session =  FlexContext.getFlexSession();
-		session.setAttribute(SESSION, us);
-		VbyP.accessLog(user_id+" Login");
+		if (session != null) {
+			session.setAttribute(SESSION, us);
+			VbyP.accessLog(user_id+" Login");
+		}
+		
 	}
 	
 	private void setSessionAdmin(String user_id) {
@@ -150,7 +153,7 @@ public class SessionManagement {
 			return false;
 	}
 	
-	protected BooleanAndDescriptionVO createSession(Connection conn, String user_id, String password) {
+	public BooleanAndDescriptionVO createSession(Connection conn, String user_id, String password) {
 		
 		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
 		rvo.setbResult(false);
