@@ -31,6 +31,19 @@ public class VbyP {
 		
 		return arrEncode;
 	}
+	
+	public static String[] getEncodeFromProperties() {
+		
+		String [] arrEncode = null;
+		try {
+			String rslt = ReadProperties.getInstance().getValue("propertiesEncode");
+			arrEncode = rslt.split("\\>");
+			
+		}catch(Exception e){}
+		
+		
+		return arrEncode;
+	}
 	/**
 	 * sql.properties ������ key �� ��; ��ȯ
 	 * @param key
@@ -76,7 +89,7 @@ public class VbyP {
 	 */
 	public static void setProperties(String key, String value) {
 		
-		String [] arrEncode = getDecodeFromProperties();
+		String [] arrEncode = getEncodeFromProperties();
 		
 		String rslt = "";
 		if (arrEncode.length == 2) {
