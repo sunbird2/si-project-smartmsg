@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>SMS, LMS, MMS</title>
+
+    <script type="text/javascript" src="/html/js/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="/js/plugin/animate/jquery.easing.min.js"></script>
+	<script type="text/javascript" src="/js/plugin/animate/jquery.easing.compatibility.js"></script>
+    <script type="text/javascript" src="/html/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/html/js/note.js"></script>
+    <link rel="stylesheet" type="text/css" href="/html/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/html/css/main.css" />
+    <script type="text/javascript">
+	    
+		$(document).ready(function() {
+			
+			faqInit();
+		});
+		
+		
+		
+	</script>
+</head>
+<body>
+<div id="customWrap">
+		<ul id="faq_tab">
+			<li class="on" onclick="faq_click('0')">전체</li>
+			<li onclick="faq_click('1')">메시지발송</li>
+			<li onclick="faq_click('2')">주소록관리</li>
+			<li onclick="faq_click('3')">내역</li>
+			<li onclick="faq_click('4')">충전하기</li>
+			<li onclick="faq_click('5')">기타</li>
+		</ul>
+		<div id="faq_content">
+			<ul id="faq1">
+				<li><p class="title">1회 최대 발송 건수는 몇건인가요?</p><p class="content">현재 50만건으로 제한되어 있습니다.</p></li>
+				<li><p class="title">엑셀업로드가 되지 않습니다.</p><p class="content">엑셀에서 파일을 열어 전화번호들을 복사하여 붙여 넣어(Ctrl+v) 추가도 가능 합니다.</p></li>
+				<li><p class="title">엑셀 이외의 한글이나 다른 문서도 업로드 가능한가요? </p><p class="content">어떤 문서든 전화번호 복사만 가능 하면 붙여 넣어 발송 가능 합니다.</p></li>
+				<li><p class="title">장문은 한글 몇자까지 가능 한가요? </p><p class="content">장문 및 멀티는 한글 1000자까지 발송 가능 합니다.</p></li>
+				<li><p class="title">멀티메시지 발송 시 이미지 편집이 가능 한가요? </p><p class="content">이미지툴을 선택 시 여러 이미지를 올려 간단하 문구를 삽입 하여 발송 가능 합니다.</p></li>
+				<li><p class="title">실패한 번호만 재발송 가능 한가요? </p><p class="content">전송한 내역을 전체 또는 결과별로 선택 하여 재발송 가능합니다.</p></li>
+				<li><p class="title">전화번호별로 다른 메시지를 일괄 발송 하고 싶습니다. </p><p class="content">메시지 내용에 합성을 추가 하시면 최대 4개까지 다른 내용을 합성 하여 발송 하실 수 있습니다.</p></li>
+				<li><p class="title">추가한 전화번호를 주소록에 저장 할 수 있나요? </p><p class="content">전송목록 하단의 저장 버튼을 통해 그룹을 선택하여 저장 하실 수 있습니다.</p></li>
+				<li><p class="title">예약 발송 또는 간격발송이 가능 한가요? </p><p class="content">발송시 예약 시간을 선택 할 수 있으며, 00건씩 00분 간격으로 발송 설정도 가능 합니다.</p></li>
+				<li><p class="title">회신번호를 여러개 저장해서 쓰고 싶습니다. </p><p class="content">발송페이지에서 입력한 회신번호를 여러개 저장하여 선택 발송 할 수 있으며, 기본 회신 번호도 설정 가능 합니다.</p></li>
+				<li><p class="title">중복번호는 어떻게 되나요? </p><p class="content">중복제거 버튼을 통해 제거가능 하며, 발송 시 중복번호는 무조건 실패 처리 되도록 되어있습니다.</p></li>
+			</ul>
+			<ul id="faq2">
+				<li><p class="title">그룹 수정은 어떻게 하나요?</p><p class="content">그룹 이름을 더블 클릭 하여 수정 할 수 있으며, Enter 입력 시 자동 저장 됩니다.</p></li>
+				<li><p class="title">전화번호 여러개를 선택 하는 방법 없나요?</p><p class="content">상단의 다중 선택 버튼을 클릭시 여러개를 선택 할 수 있으며, 선택 된 전화번호를 삭제 할 수도 있습니다.</p></li>
+				<li><p class="title">다른 그룹으로 이동 하려면 어떻게 하나요?</p><p class="content">선택된 전화번호를 드래그 하여 이동할 그룹에 놓아 보세요.</p></li>
+				<li><p class="title">주소록에 엑셀 업로드는 어떻게 하나요?</p><p class="content">상단 오른쪽의 엑셀 업로드 버튼을 통해 이름,전화번호,메모를 대량 등록 하실 수 있습니다.</p></li>
+			</ul>
+			<ul id="faq3">
+				<li><p class="title">실패보상은 어떻게 되나요?</p><p class="content">최장 3일 동안 이동통신사에서 발송을 시도 하므로 3일 이후 일괄 보상 됩니다.</p></li>
+				<li><p class="title">실패보상을 미리 받는 방법이 없나요?</p><p class="content">내역에서 왼쪽 리스트 선택시 오른쪽 상단의 실패보상 버튼을 클릭 하여 즉시 보상도 가능 합니다.</p></li>
+				<li><p class="title">내역은 언제까지 보관되나요?</p><p class="content">고객님이 발송 하시는 내역은 삭제 하지 않고 있습니다. 필요시 언제든 확인 가능 합니다.</p></li>
+			</ul>
+			<ul id="faq4">
+				<li><p class="title">장문 단가는 어떻게 되나요?</p><p class="content">기본 충전되는 건수 단가에 3배가 적용 됩니다. 멀티는 15배 입니다. 자세한 사항은 오른쪽 하단의 단가 안내를 클릭해 보시기 바랍니다.</p></li>
+			</ul>
+			<ul id="faq5">
+				<li><p class="title">플래시 설치가 되지 않습니다.</p><p class="content">해당 PC문제로 플래시를 제거 후 설치 하셔야 합니다.<a href="/noflash/index_movie.html">여기</a>를 클릭 하여 제거파일을 다운 받으실 수 있습니다. 단, 제거시 재부팅이 필요 합니다.</p></li>
+			</ul>
+		</div><!-- faq_content -->
+</div>
+</body>
+</html>
+
+
