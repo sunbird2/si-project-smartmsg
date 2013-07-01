@@ -47,7 +47,7 @@ if (!ip.equals("112.216.246.130")) {
 	<input type="hidden" name="c2000000" value="<%=SLibrary.addComma(VbyP.getValue("b2000000")) %>" />
 	
                 <div id="bill">
-                    <img src="/images/bill_title.png" class="title"/>
+<!--                     <img src="/images/bill_title.png" class="title"/> -->
                     <div class="step01">
                         <img src="/images/01.png"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <img src="/images/01_sub.png" class="title01"/>
