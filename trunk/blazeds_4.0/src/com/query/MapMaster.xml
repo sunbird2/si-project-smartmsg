@@ -69,6 +69,23 @@
 		where
 		user_id = #{user_id}
 	</update>
+	
+	<select id="select_member_hp_cnt" parameterType="MemberVO" resultType="int">
+		select
+			count(*) as cnt
+		from member 
+		where
+		hp = #{hp}
+	</select>
+	<select id="select_member_hp" parameterType="MemberVO" resultType="MemberVO">
+		select
+			m.idx, m.user_id, m.passwd, m.hp, m.unit_cost, m.line, m.memo, m.timeLogin, m.timeJoin, m.leaveYN 
+			, p.point 
+		from member m left outer join point p
+		on (m.user_id = p.user_id)
+		where
+		m.hp = #{hp}
+	</select>
 	<!-- member E -->
 	
 	<!-- billing S -->
