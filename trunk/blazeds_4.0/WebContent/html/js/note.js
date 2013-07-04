@@ -13,6 +13,8 @@
 	var MENU = "send";
 	var INTERVAL_SLIDER;
 	var SLIDER_INDEX = 0;
+	var SMS_LOGIN = false;
+	var SMS_REQ = false;
 	var FLEX_ID = "MunjaNote";
 	var SAVE_ID = "MunjaNote_saveID";
 	var arrMain = ["<a href='#' class='show' onfocus='this.blur()'><img src='/images/m1.png' alt='Flowing Rock' title='' alt='' rel='<h3>다양한 기능 과 성능</h3> 문자노트의 전송 서비스는 다양한 기능과 성능으로 고객의 사업번창에 기여하고자 합니다. '/></a>",
@@ -1000,18 +1002,19 @@
 		  			      loading(false);	
 		  		          var posts = $(data).filter('#loginWrap');
 		  		          $('#top_layer').empty().append(posts.html());
-		  		          topLayerAnimate('216px');
+		  		          topLayerAnimate(216);
 						  initLogin();
 		  		      }
 		      	);
 			$("#loginBtn").text("↑로그인");
 		} else {
-			topLayerAnimate("0px");
+			topLayerAnimate(0);
 			$("#loginBtn").text("↓로그인");
 		}
 	}
 	function topLayerAnimate(val) {
-		 $('#top_layer').animate({height: val});
+		if (val != $('#top_layer').height())
+			$('#top_layer').animate({height: val});
 	}
 	function loginIdCookie() {
 		
@@ -1030,8 +1033,8 @@
 		$("#login_id").keyup(function(e) {
 			if (e.which == 13) loginReq();
 
-			if ( checkPhone(this.value) == true ) $("#btnSMS").show();
-			else $("#btnSMS").hide();
+			if ( checkPhone(this.value) == true ) { SMS_LOGIN = true; $("#btnSMS").show(); topLayerAnimate(256);}
+			else { SMS_LOGIN = false;  $("#btnSMS").hide(); topLayerAnimate(216); }
 		});
 		$("#login_pw").keyup(function(e) {
 			if (e.which == 13) loginReq();
@@ -1070,21 +1073,37 @@
 		if (id == "") alert("아이디를 입력하세요.");
 		else if (pw == "") alert("비밀번호를 입력하세요.");
 		else {
-			$.getJSON( "/member/login.jsp", {"login_id":id, "login_pw":pw}, function(data) {
-					if (data != null && data.code && data.code == "0000") { loginOkHandler() }
-					else alert("로그인에 실패 하였습니다.");
+			if ( SMS_LOGIN == false ) {
+				$.getJSON( "/member/login.jsp", {"login_id":id, "login_pw":pw}, function(data) {
+						if (data != null && data.code && data.code == "0000") { loginOkHandler() }
+						else alert("로그인에 실패 하였습니다.");
+					}
+				);
+				loginIdCookie();
+			} else {
+				if (SMS_REQ == true) {
+					$.getJSON( "/member/smsLogin.jsp", {"login_id":id, "login_pw":pw}, function(data) {
+							if (data != null && data.code && data.code == "0000") { loginOkHandler() }
+							else alert(data.msg);
+						}
+					);
+				} else {
+					alert("임시 비밀번호 요청을 눌러 주세요.");
 				}
-			);
-			loginIdCookie();
+				
+			}
+			
 		}
 	}
 	function loginOkHandler() {
 		try {
 			login_view("true");
 			flexCheckLogin();
-			topLayerAnimate("0px");
+			topLayerAnimate(0);
 		}catch(e){}
 	}
+	
+	// sms req -> session,req -> login
 	
 	function smsReq() {
 		
@@ -1093,8 +1112,14 @@
 		if (hp == "") alert("휴대폰번호를 입력하세요.");
 		else if (checkPhone(hp) == false) alert("올바른 번호가 아닙니다. 숫자만 넣어 주세요.");
 		else {
-			alert(hp+" Request!!");
+			$.getJSON( "/member/smsLoginReq.jsp", {"hp":hp}, function(data) {
+					if (data != null && data.code && data.code == "0000") { SMS_REQ = true; alert("임시 비밀번호가 발송 되었습니다."); }
+					else  { SMS_REQ = false;alert(data.msg); }
+				}
+			);
 		}
+		
+		return false;
 		
 	}
 	/* ajax login End*/
