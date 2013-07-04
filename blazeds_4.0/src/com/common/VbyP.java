@@ -63,7 +63,7 @@ public class VbyP {
 	}
 	
 	/**
-	 * common.properties ������ key �� ��; ��ȯ
+	 * common.properties 
 	 * @param key
 	 * @return
 	 */
@@ -83,7 +83,7 @@ public class VbyP {
 	}
 	
 	/**
-	 * common.properties ������ key , value �� ��d
+	 * common.properties
 	 * @param key
 	 * @param value
 	 */
