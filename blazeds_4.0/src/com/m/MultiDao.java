@@ -1,17 +1,23 @@
 package com.m;
 
+import java.io.File;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.tika.Tika;
 
 import com.common.VbyP;
 import com.common.db.SessionFactory;
 import com.common.db.SessionManager;
+import com.common.util.SLibrary;
+import com.common.util.Thumbnail;
 import com.m.admin.vo.BillingVO;
 import com.m.admin.vo.MemberVO;
 import com.m.admin.vo.PointLogVO;
 import com.m.admin.vo.SentLogVO;
 import com.m.billing.BillingTaxVO;
+import com.m.common.BooleanAndDescriptionVO;
+import com.m.common.FileUtils;
 
 public class MultiDao {
 	
@@ -27,6 +33,8 @@ public class MultiDao {
 	
 	SqlSessionFactory sqlMapper = SessionFactory.getSqlSession();
 	String ns = "com.query.MapMaster.";
+	
+	
 	
 	public MemberVO getMember(MemberVO vo) {
 		
@@ -44,6 +52,19 @@ public class MultiDao {
 		
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
 		return sm.update(ns + "update_member", vo);
+	}
+	
+	public Integer getMemberHpCnt(MemberVO vo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		int rs = (Integer)sm.selectOne(ns + "select_member_hp_cnt", vo);
+		return rs;
+	}
+	
+	public MemberVO getMemberHp(MemberVO vo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (MemberVO)sm.selectOne(ns + "select_member_hp", vo);
 	}
 	
 	
@@ -164,6 +185,8 @@ public class MultiDao {
 		return (Integer)sm.selectOne(ns + "select_sentlog_list_page_count", vo);
 		
 	}
+	
+	
 	
 	
 	
