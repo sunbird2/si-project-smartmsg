@@ -39,6 +39,19 @@ public class FileUtils {
        return f.getName();
    }
    
+   public File doUploadRenameFile(byte[] bytes, String path, String fileName) throws Exception {
+	   
+       fileName = path + fileName;  
+       File f = new File(fileName);
+       f = this.rename(f);       
+       FileOutputStream fos = new FileOutputStream(f);  
+       fos.write(bytes);
+       f.setReadOnly();
+       fos.close();
+       
+       return f;
+   }
+   
    
    public List<String> getDownloadList(String path) {
 	   

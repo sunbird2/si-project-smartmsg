@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.tika.Tika;
+
 import com.common.VbyP;
 import com.common.util.RandomString;
 import com.common.util.SLibrary;
@@ -1162,6 +1164,74 @@ public class SmartDS extends SessionManagement {
 		}catch (Exception e) {VbyP.errorLog(e.toString());}	finally { close(conn); }
 		
 		return result;
+	}
+	
+	/* ############## URL ############### */
+	public BooleanAndDescriptionVO imageUpload(byte[] bytes, String fileName){
+		
+		VbyP.accessLog("image 업로드 요청 ");
+		String tempPath = VbyP.getValue("image_upload_path_temp");
+		String path = VbyP.getValue("image_upload_path");
+		String urlPath = VbyP.getValue("image_upload_path");
+		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		bvo.setbResult(false);
+		
+		try {
+			FileUtils fu = new FileUtils();
+			//파일 확장자가 대분자일경우를 대비해서 소문자로 변환
+			fileName = fileName.toLowerCase();
+			
+			File uploadFile = fu.doUploadRenameFile(bytes, tempPath, fileName);
+			fileName = uploadFile.getName();
+			
+			String maxMB = VbyP.getValue("max_size_image_upload_MB");
+			if (checkSize(uploadFile, SLibrary.intValue(maxMB) * 1024 * 1024) == false)  throw new Exception(maxMB+" MB 이상의 이미지는 업로드 할 수 없습니다.");
+			if (checkImageType(getContentType(uploadFile)) == false)  throw new Exception("지원하지 않는 이미지 형식 입니다.");
+			
+			SLibrary.fileMove(tempPath+fileName, path+fileName);
+			
+			bvo.setstrDescription( urlPath+fileName );
+			bvo.setbResult(true);
+			
+		}catch(Exception e){
+			VbyP.errorLog(e.toString());
+			bvo.setbResult(false);
+			bvo.setstrDescription("이미지 파일이 업로드 되지 않았습니다.\r\n"+e.getMessage());
+		}
+	    
+		return bvo;
+	}
+	
+	private String getContentType(File file) {
+		
+		String mime = "";  
+		try {
+			if (file != null && file.exists()) {
+				Tika tika = new Tika();
+				mime = tika.detect(file);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mime;
+	}
+	
+	private boolean checkImageType(String mime) {
+		
+		boolean b = false;
+		String[] arr = VbyP.getValue("image_content_type").split("\\|");
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i].equals(mime)) {b = true;break;}
+		}
+		return b;
+	}
+	
+	private boolean checkSize(File f, long maxSize) {
+		
+		boolean b = true;
+		if (f.length() > maxSize) b = false;
+		return b;
 	}
 	
 	
