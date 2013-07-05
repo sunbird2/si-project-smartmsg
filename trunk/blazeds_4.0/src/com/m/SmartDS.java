@@ -175,7 +175,7 @@ public class SmartDS extends SessionManagement {
 			lvo.setIdx(0);
 			lvo.setMessage(e.getMessage());
 			VbyP.accessLog("sendCert Exception : "+e.getMessage());
-			System.out.println(e.toString());
+			System.out.println(e);
 		}
 		finally { close(conn); }
 		VbyP.accessLog("sendCert End : "+sw.getTime()+" sec, "+lvo.getUser_id()+", "+lvo.getMode()+", "+lvo.getCnt()+" count");
@@ -682,7 +682,7 @@ public class SmartDS extends SessionManagement {
 		buf.append(" - reqIP:"+smvo.getReqIP());
 		
 		VbyP.accessLog(buf.toString());
-		if (!smvo.getReqIP().equals("127.0.0.1"))
+		if (!smvo.getReqIP().equals("127.0.0.1") && smvo.getAl().size() > SLibrary.intValue( VbyP.getValue("moniterSendCount") ) )
 			SendMail.send("[send] "+user_id+" "+getMode(smvo)+" "+ Integer.toString(smvo.getAl().size())+" 건", buf.toString());
 	}
 	
