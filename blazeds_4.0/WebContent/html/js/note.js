@@ -103,21 +103,42 @@
 	        "/html/flex/MunjaNote.swf", "flashContent", 
 	        "1024", "740",
 	        swfVersionStr, xiSwfUrlStr, 
-	        flashvars, params, attributes);
+	        flashvars, params, attributes, flexEmbedCallback);
 	    swfobject.createCSS("#flashContent", "display:block;text-align:left;");
 	}
+    
+    function flexEmbedCallback(e) {
+
+    	if (e.success == false) {
+    		var playerVersion = swfobject.getFlashPlayerVersion();
+    		
+    		if ( $("#mainContent").css("display") == "none" ) {
+    			window.location.href="/noflash/index_movie.html";
+    		} else {
+    			$.post("/gLog.jsp", { ref: "no version flash-"+playerVersion.major+"."+playerVersion.minor+"."+playerVersion.release } );
+    		}
+    		
+    		//$('#flexWrap').html('<img src="images/noflash.png" style="cursor:pointer" onclick="window.location.href=\'/noflash/index_movie.html\';" />');
+    		//$.post("/gLog.jsp", { ref: "no version flash-"+playerVersion.major+"."+playerVersion.minor+"."+playerVersion.release } );
+    	}
+    	
+    }
     
     /**
      * flexLoad
      */
     function flexLoad() {
+    	
+    	$("#mainContent").hide();
+    	$("#flexWrap").width(1024);
+    	$("#flexWrap").height(740);
+    	
     	if ($("#"+FLEX_ID).length < 1) { createFlex(); }
     	else {
     		try {document.getElementById(FLEX_ID).flexFunction("menu", MENU);}catch(e){}
     	}
-    	$("#mainContent").hide();
-    	$("#flexWrap").width(1024);
-    	$("#flexWrap").height(740);
+    	
+    	
     	//$("#flexWrap").css("visibility","visible");
     }
     function flexHide() {
@@ -176,9 +197,39 @@
     			      loading(false);
     		          var posts = $(data).filter('#apiWrap');
     		          $('#mainContent').empty().append(posts.html());
+    		          apiAnimate();
     		      }
         	);
     }
+    function apiAnimate() {
+		  $('#javascript').animate({width: '-=350'}, {duration:2000, easing:"easeInOutBack"});
+		  $('#module').animate({width: '-=400'}, {duration:2000, easing:"easeInOutBack"});
+		  
+		  setInterval(function(){
+			  $('#msg1').css("left","440px");
+			  $('#msg1').css("top","60px");
+			  
+			  $('#msg1').show().animate({left: '+=400',top: '+=30',width: 'toggle'}, {duration:2000, easing:"easeInOutBack"});}, 3000);
+		  
+		  setInterval(function(){
+			  $('#msg2').css("left","440px");
+			  $('#msg2').css("top","160px");
+			  
+		  	  $('#msg2').show().animate({left: '+=400',top: '+=30',width: 'toggle'}, {duration:2000, easing:"easeInOutBack"});}, 4000);
+		  //$('#act5').animate({left: '+=690'}, {duration:2000, easing:"easeInOutBack"});
+		  //$('#act6').animate({left: '+=640'}, {duration:2000, easing:"easeInOutBack"});
+	}
+    function apiTab() {
+		  
+		  var web = $("#apiTab1");
+		  var server = $("#apiTab2");
+		  
+		  if (web.hasClass("apiTabOn")) { web.removeClass("apiTabOn");$("#apiWebHelp").hide(); }
+		  else { web.addClass("apiTabOn"); $("#apiWebHelp").show(); }
+		  
+		  if (server.hasClass("apiTabOn")) { server.removeClass("apiTabOn"); $("#apiServerHelp").hide(); }
+		  else { server.addClass("apiTabOn"); $("#apiServerHelp").show(); }
+	  } 
     
     /**
      * homeLoad
@@ -1249,6 +1300,8 @@
 		}
 	}
 	/* faq End*/
+	
+	
 	
 	function defaultValue(tid,bPwd) {
 		

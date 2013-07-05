@@ -166,11 +166,17 @@
 #mypage .dash {display:block;float:left;font:normal 14px/22px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
 #logout {font-size:12px;}
 
+
+#apiMovie {position:relative;width:1024px;background:url('/images/noflash-bg.jpg') no-repeat;overflow:hidden;height:300px;}
+#apiMovie .attr {position:absolute;left:0px;top:0px;}
+.apiTab {cursor:pointer;float:left;margin-top:10px;width:150px;height:30px;line-height:30px;color:#ccc;font-weight:bold;background-color:#669900;text-align:center;font-size:14px;}
+.apiTabOn {color:#fff}
+
 #apiHelp {font-family: 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;}
 #apiHelp .code {padding-left:25px;background-color:#efefef}
 #apiHelp .category_wrap {margin-left:25px;}
 #apiHelp .title {display:block;margin-top:15px;font:bold 24px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;text-align:center;}
-#apiHelp .category {padding-left:25px;background:url('/images/arrow.png') 0px 8px no-repeat;font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;border-bottom:1px solid #ccc;margin-top:40px;display:block;font-weight:bold;}
+#apiHelp .category {padding-left:25px;background:url('/images/arrow.png') 0px 8px no-repeat;font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;border-bottom:1px solid #ccc;margin-top:20px;display:block;font-weight:bold;}
 #apiHelp .category b {font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;font-weight:bold;}
 #apiHelp .category_sub {font:normal 14px/18px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;margin:.5em 0px;}
 
