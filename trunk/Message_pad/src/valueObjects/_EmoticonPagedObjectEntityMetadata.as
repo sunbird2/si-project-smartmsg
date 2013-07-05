@@ -20,14 +20,14 @@ internal class _EmoticonPagedObjectEntityMetadata extends com.adobe.fiber.valueo
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("message", "index");
+    model_internal static var allProperties:Array = new Array("message", "index", "idx");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array("index");
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("message", "index");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("message", "index", "idx");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("message", "index");
+    model_internal static var dataProperties:Array = new Array("message", "index", "idx");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("message", "index");
+    model_internal static var nonDerivedProperties:Array = new Array("message", "index", "idx");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -49,6 +49,7 @@ internal class _EmoticonPagedObjectEntityMetadata extends com.adobe.fiber.valueo
             model_internal::dependentsOnMap = new Object();
             model_internal::dependentsOnMap["message"] = new Array();
             model_internal::dependentsOnMap["index"] = new Array();
+            model_internal::dependentsOnMap["idx"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
@@ -58,6 +59,7 @@ internal class _EmoticonPagedObjectEntityMetadata extends com.adobe.fiber.valueo
         model_internal::propertyTypeMap = new Object();
         model_internal::propertyTypeMap["message"] = "String";
         model_internal::propertyTypeMap["index"] = "int";
+        model_internal::propertyTypeMap["idx"] = "int";
 
         model_internal::_instance = value;
     }
@@ -299,6 +301,12 @@ internal class _EmoticonPagedObjectEntityMetadata extends com.adobe.fiber.valueo
         return true;
     }
 
+    [Bindable(event="propertyChange")]
+    public function get isIdxAvailable():Boolean
+    {
+        return true;
+    }
+
 
     /**
      * derived property recalculation
@@ -317,6 +325,12 @@ internal class _EmoticonPagedObjectEntityMetadata extends com.adobe.fiber.valueo
 
     [Bindable(event="propertyChange")]   
     public function get indexStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get idxStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

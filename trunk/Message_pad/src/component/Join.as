@@ -358,6 +358,7 @@ package component
 			RemoteSingleManager.getInstance.removeEventListener("sendCert", idCheck_CustomEventHandler);
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {
+				tracker("joinCertSend");
 				certh.setStyle("color",INVALID_COLOR);
 				certh.text = "인증번호를 입력해 주세요.";
 				
@@ -413,6 +414,7 @@ package component
 			RemoteSingleManager.getInstance.removeEventListener("getCert", certCheck_CustomEventHandler);
 			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 			if (bVO.bResult) {
+				tracker("joinCertOk");
 				certh.setStyle("color",VALID_COLOR);
 				certh.text = "확인";
 			} else {

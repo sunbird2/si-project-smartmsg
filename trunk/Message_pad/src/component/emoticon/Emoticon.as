@@ -379,6 +379,7 @@ package component.emoticon
 			
 			if (event.keyCode == 46
 				&& state == "myMessage"
+				&& msgBox.selectedItem
 				&& Object(msgBox.selectedItem).idx != null) {
 				
 				delMymessage( int(msgBox.selectedItem.idx) );

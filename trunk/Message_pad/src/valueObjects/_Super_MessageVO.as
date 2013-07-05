@@ -60,8 +60,8 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
      * properties
      */
     private var _internal_sendMode : String;
-    private var _internal_phone : String;
     private var _internal_rsltDate : String;
+    private var _internal_phone : String;
     private var _internal_idx : int;
     private var _internal_imagePath : String;
     private var _internal_rslt : String;
@@ -103,15 +103,15 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get phone() : String
-    {
-        return _internal_phone;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get rsltDate() : String
     {
         return _internal_rsltDate;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get phone() : String
+    {
+        return _internal_phone;
     }
 
     [Bindable(event="propertyChange")]
@@ -197,21 +197,21 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set phone(value:String) : void
-    {
-        var oldValue:String = _internal_phone;
-        if (oldValue !== value)
-        {
-            _internal_phone = value;
-        }
-    }
-
     public function set rsltDate(value:String) : void
     {
         var oldValue:String = _internal_rsltDate;
         if (oldValue !== value)
         {
             _internal_rsltDate = value;
+        }
+    }
+
+    public function set phone(value:String) : void
+    {
+        var oldValue:String = _internal_phone;
+        if (oldValue !== value)
+        {
+            _internal_phone = value;
         }
     }
 

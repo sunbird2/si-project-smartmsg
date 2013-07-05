@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("module.url.att.Image")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="active" />
+	</s:states>
+
+	<s:VGroup>
+		<s:Group id="ele">
+			<s:Image id="img" left="0" right="0" />
+		</s:Group>
+		<s:Group id="attribute" includeIn="active">
+			
+		</s:Group>
+	</s:VGroup>
+</s:Skin>

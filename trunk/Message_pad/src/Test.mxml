@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:services="services.*"
+			   minWidth="955" minHeight="600" xmlns:lib="lib.*">
+	<fx:Script>
+		<![CDATA[
+			import lib.FileUpload;
+			import lib.FileUploadByRemoteObjectEvent;
+			
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.CallResponder;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import services.Smt;
+			
+			import valueObjects.BooleanAndDescriptionVO;
+			
+			private var fu:FileUpload = new FileUpload(true);
+			
+			private var smt:Smt = new Smt();
+			private var cr:CallResponder = new CallResponder();
+			
+			private var _uploadingFileName:String = "";
+			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				smt.showBusyCursor = true;
+				imageUploadAddEvent();
+				fu.addEventListener(FileUploadByRemoteObjectEvent.COMPLETE, uploadHandler);
+				fu.addEventListener(ProgressEvent.PROGRESS, progressHandler);
+				fu.addEventListener("done", completeHandler);
+				fu.browse();
+			}
+			
+			private function progressHandler(event:ProgressEvent):void {
+
+				var percentage:Number = Math.round((event.bytesLoaded / event.bytesTotal) * 100);
+				updateProgressBar(percentage, _uploadingFileName);
+			}
+			private function uploadHandler(event:FileUploadByRemoteObjectEvent):void {
+				
+				_uploadingFileName = event.fileName;
+				imageUpload(event.data, _uploadingFileName);
+			}
+			private function completeHandler(event:Event):void {
+				imageUploadRemoveEvent();
+			}
+			
+			protected function imageUpload(arg0:ByteArray, arg1:String):void
+			{
+				cr.token = smt.imageUpload(arg0, arg1);
+			}
+			
+			private function imageUploadAddEvent():void {
+				cr.addEventListener(ResultEvent.RESULT, imageUploadResult_resultHandler);
+				cr.addEventListener(FaultEvent.FAULT, imageUploadResult_faultHandler);
+			}
+			
+			public function imageUploadRemoveEvent():void {
+				cr.removeEventListener(ResultEvent.RESULT, imageUploadResult_resultHandler);
+				cr.removeEventListener(FaultEvent.FAULT, imageUploadResult_faultHandler);
+			}
+			
+			
+			protected function imageUploadResult_resultHandler(event:ResultEvent):void
+			{
+				var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+				trace(bvo.strDescription);
+				fu.upload();
+			}
+			
+			protected function imageUploadResult_faultHandler(event:FaultEvent):void
+			{
+				fu.upload();
+			}
+			
+			
+			private function updateProgressBar(percentage:Number, message:String):void {
+				//progress.label = message;
+				trace(percentage+"/"+message);
+				progress.value = percentage;
+				progress.txt = message;
+			}
+			
+			protected function ddr_resultHandler(event:ResultEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="ddr" result="ddr_resultHandler(event)" />
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Button label="upload" click="button1_clickHandler(event)" />
+	<lib:ProgressBar id="progress" value="1" top="50" skinClass="lib.ProgressBarSkin" />
+</s:Application>

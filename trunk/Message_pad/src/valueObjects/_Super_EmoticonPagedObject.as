@@ -61,6 +61,7 @@ public class _Super_EmoticonPagedObject extends flash.events.EventDispatcher imp
      */
     private var _internal_message : String;
     private var _internal_index : int;
+    private var _internal_idx : int;
 
     private static var emptyArray:Array = new Array();
 
@@ -96,6 +97,12 @@ public class _Super_EmoticonPagedObject extends flash.events.EventDispatcher imp
         return _internal_index;
     }
 
+    [Bindable(event="propertyChange")]
+    public function get idx() : int
+    {
+        return _internal_idx;
+    }
+
     public function clearAssociations() : void
     {
     }
@@ -119,6 +126,15 @@ public class _Super_EmoticonPagedObject extends flash.events.EventDispatcher imp
         if (oldValue !== value)
         {
             _internal_index = value;
+        }
+    }
+
+    public function set idx(value:int) : void
+    {
+        var oldValue:int = _internal_idx;
+        if (oldValue !== value)
+        {
+            _internal_idx = value;
         }
     }
 

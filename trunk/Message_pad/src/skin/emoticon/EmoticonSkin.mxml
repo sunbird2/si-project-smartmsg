@@ -20,7 +20,11 @@
 			<s:BitmapImage id="icon" fillMode="scale" width="36" height="36" smooth="true" />
 			<s:VGroup gap="4">
 				<s:RichText id="title_text" color="#222222" fontSize="14"/>
-				<s:RichText id="titleSub_text" color="#999999" fontSize="12"/>
+				<s:HGroup>
+					<s:RichText id="titleSub_text" color="#999999" fontSize="12"/>
+					<s:RichText includeIn="myMessage" color="#FF4444" text="※선택 후 Delete 를 누르면 삭제 됩니다." fontSize="12"/>	
+				</s:HGroup>
+				
 			</s:VGroup>
 			
 		</s:SkinnableContainer>

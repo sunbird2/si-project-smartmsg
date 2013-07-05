@@ -64,8 +64,8 @@ public class _Super_SQLException extends flash.events.EventDispatcher implements
     /**
      * properties
      */
-    private var _internal_message : String;
     private var _internal_SQLState : String;
+    private var _internal_message : String;
     private var _internal_localizedMessage : String;
     private var _internal_cause : valueObjects.Throwable;
     private var _internal_errorCode : int;
@@ -96,15 +96,15 @@ public class _Super_SQLException extends flash.events.EventDispatcher implements
      */
 
     [Bindable(event="propertyChange")]
-    public function get message() : String
-    {
-        return _internal_message;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get SQLState() : String
     {
         return _internal_SQLState;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get message() : String
+    {
+        return _internal_message;
     }
 
     [Bindable(event="propertyChange")]
@@ -145,16 +145,6 @@ public class _Super_SQLException extends flash.events.EventDispatcher implements
      * data/source property setters
      */
 
-    public function set message(value:String) : void
-    {
-        var oldValue:String = _internal_message;
-        if (oldValue !== value)
-        {
-            _internal_message = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "message", oldValue, _internal_message));
-        }
-    }
-
     public function set SQLState(value:String) : void
     {
         var oldValue:String = _internal_SQLState;
@@ -162,6 +152,16 @@ public class _Super_SQLException extends flash.events.EventDispatcher implements
         {
             _internal_SQLState = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "SQLState", oldValue, _internal_SQLState));
+        }
+    }
+
+    public function set message(value:String) : void
+    {
+        var oldValue:String = _internal_message;
+        if (oldValue !== value)
+        {
+            _internal_message = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "message", oldValue, _internal_message));
         }
     }
 
