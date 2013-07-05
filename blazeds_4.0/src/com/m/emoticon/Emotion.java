@@ -266,7 +266,8 @@ public class Emotion {
 			startIndex++;
 			hm = al.get(i);
             String s = SLibrary.IfNull(hm, "msg");
-            rslt.add(new EmoticonPagedObject(s, startIndex));
+            int idx = SLibrary.intValue(SLibrary.IfNull(hm, "idx"));
+            rslt.add(new EmoticonPagedObject(s, startIndex, idx));
         }
 		
 		return rslt;
