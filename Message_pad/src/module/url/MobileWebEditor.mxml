@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			[Bindable]
+			private var ac:ArrayCollection = new ArrayCollection([[{type:"d",value:""},{type:"d",value:""}],[{type:"d",value:""},{type:"d",value:""}]]);
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:VGroup width="100%">
+		<s:Group width="100%">
+			<s:Label text="모바일웹에디터" left="5" />
+			<s:Button label="닫기" right="5" />	
+		</s:Group>
+		<s:Group width="100%">
+			<s:Button label="새페이지추가" left="5" />
+			<s:Button label="완료" right="5" />	
+		</s:Group>
+		<s:List id="mobileWebPages" dataProvider="{ac}" itemRenderer="module.url.MobileWebPagesRenderer">
+			<s:layout><s:HorizontalLayout /></s:layout>
+		</s:List>
+	</s:VGroup>
+	
+	<s:VGroup top="50" left="5">
+		<s:Label text="홍보형" />
+		<s:Label text="쇼핑몰형" />
+		<s:Label text="설문조사형" />
+	</s:VGroup>
+	
+</s:Module>

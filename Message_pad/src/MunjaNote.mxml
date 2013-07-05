@@ -13,6 +13,7 @@
 	<fx:Style source="/skin/ics/ics.css"/>
 	<fx:Script>
 		<![CDATA[
+			import module.url.att.Image;
 			import component.Address;
 			import component.Bill;
 			import component.Join;
@@ -33,6 +34,8 @@
 			public var bill:Bill;
 			public var log:Log;
 			
+			private var module_url_att_Image_obj:module.url.att.Image;
+			
 			protected function app_initializeHandler(event:FlexEvent):void { this.currentState = FlexGlobals.topLevelApplication.parameters.menu; }
 			
 			protected function app_creationCompleteHandler(event:FlexEvent):void { 
@@ -50,6 +53,8 @@
 					if (login != null) {
 						login.logout_clickHandler(null);
 					}
+				} else if (key == "checkLogin") {
+					loginCheck();
 				}
 				return re;
 			}
@@ -168,7 +173,7 @@
 				}
 				ExternalInterface.call("login_view", Gv.bLogin ? "true":"false" );
 				
-					
+				
 			}
 			
 			protected function login_logoutHandler(event:Event):void {
@@ -183,7 +188,7 @@
 				
 				ExternalInterface.call("login_view", Gv.bLogin ? "true":"false" );
 			}
-		
+			
 			protected function login_joinHandler(event:Event):void { this.currentState = "join"; }
 			
 			protected function sendModeChange_handler(event:Event):void {
@@ -236,29 +241,29 @@
 			
 			private function memoryRun():void
 			{
-				timer = new Timer(1*1000);
-				timer.addEventListener(TimerEvent.TIMER, onTimerEvent);
-				timer.start();
-				
+			timer = new Timer(1*1000);
+			timer.addEventListener(TimerEvent.TIMER, onTimerEvent);
+			timer.start();
+			
 			}
 			private function onTimerEvent(event:TimerEvent):void
 			{
-				if(memoryValues.length == 60)
-				{
-					memoryValues.removeItemAt(0);
-					pagesMaximumValues.removeItemAt(0);
-				}
-				
-				if (memoryValues.length > 10) memoryValues.removeItemAt(0);
-				if (pagesMaximumValues.length > 10) pagesMaximumValues.removeItemAt(0);
-				
-				var mem:Number = (System.totalMemory)/ 1024;
-				if (mem > max) max = mem;
-				memoryValues.addItem((System.totalMemory)/ 1024);
-				pagesMaximumValues.addItem(max);
-				
-				maxl.text = max.toString();
-				meml.text = mem.toString();
+			if(memoryValues.length == 60)
+			{
+			memoryValues.removeItemAt(0);
+			pagesMaximumValues.removeItemAt(0);
+			}
+			
+			if (memoryValues.length > 10) memoryValues.removeItemAt(0);
+			if (pagesMaximumValues.length > 10) pagesMaximumValues.removeItemAt(0);
+			
+			var mem:Number = (System.totalMemory)/ 1024;
+			if (mem > max) max = mem;
+			memoryValues.addItem((System.totalMemory)/ 1024);
+			pagesMaximumValues.addItem(max);
+			
+			maxl.text = max.toString();
+			meml.text = mem.toString();
 			} */
 			
 		]]>
@@ -275,7 +280,7 @@
 								id="tracker"
 								account="UA-41118010-1"
 								mode="AS3"
-		visualDebug="false" />
+								visualDebug="false" />
 	</fx:Declarations>
 	<s:states>
 		<s:State name="send"/>
@@ -284,7 +289,7 @@
 		<s:State name="log"/>
 		<s:State name="join"/>
 	</s:states>
-		
+	
 	<s:VGroup width="1024" height="740" gap="0" depth="0">
 		
 		<s:Group id="main_group" width="100%" height="696"></s:Group><!-- main_group -->
@@ -323,32 +328,32 @@
 	
 	
 	<!--<s:HGroup gap="1" top="0" horizontalCenter="0" width="1024" verticalAlign="middle" visible="true">
-		<s:VGroup gap="1">
-			<s:Button label="run" click="memoryRun()" />
-			<s:Button label="Force GC" click="System.gc()"/>
-			<s:Button label="GC" click="GC.run()"/>
-		</s:VGroup>
-		<mx:LineChart id="linechart1" width="100%" height="50" fontFamily="Dotum" >
-			
-			<mx:series>
-				<mx:LineSeries id="cs1" dataProvider="{pagesMaximumValues}"  displayName="Pages in memory">
-					<mx:verticalAxis>
-						<mx:LinearAxis id="v1" title="pages in memory" />
-					</mx:verticalAxis>
-				</mx:LineSeries>
-				
-				<mx:LineSeries id="cs2" dataProvider="{memoryValues}"  displayName="Memory in use">
-					<mx:verticalAxis>
-						<mx:LinearAxis id="v2" title="memory in use (kb)" />
-					</mx:verticalAxis>
-				</mx:LineSeries>
-			</mx:series>
-		</mx:LineChart>
-		
-		<s:Label id="meml" color="#FFFFFF" />
-		<s:Label text=" / " color="#FFFFFF" />
-		<s:Label id="maxl" color="#FFFFFF" />
+	<s:VGroup gap="1">
+	<s:Button label="run" click="memoryRun()" />
+	<s:Button label="Force GC" click="System.gc()"/>
+	<s:Button label="GC" click="GC.run()"/>
+	</s:VGroup>
+	<mx:LineChart id="linechart1" width="100%" height="50" fontFamily="Dotum" >
+	
+	<mx:series>
+	<mx:LineSeries id="cs1" dataProvider="{pagesMaximumValues}"  displayName="Pages in memory">
+	<mx:verticalAxis>
+	<mx:LinearAxis id="v1" title="pages in memory" />
+	</mx:verticalAxis>
+	</mx:LineSeries>
+	
+	<mx:LineSeries id="cs2" dataProvider="{memoryValues}"  displayName="Memory in use">
+	<mx:verticalAxis>
+	<mx:LinearAxis id="v2" title="memory in use (kb)" />
+	</mx:verticalAxis>
+	</mx:LineSeries>
+	</mx:series>
+	</mx:LineChart>
+	
+	<s:Label id="meml" color="#FFFFFF" />
+	<s:Label text=" / " color="#FFFFFF" />
+	<s:Label id="maxl" color="#FFFFFF" />
 	</s:HGroup>-->
-		
+	
 	
 </s:Application>
