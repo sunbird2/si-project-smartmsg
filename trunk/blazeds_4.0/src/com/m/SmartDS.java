@@ -646,6 +646,8 @@ public class SmartDS extends SessionManagement {
 			lvo.setIdx(0);
 			lvo.setMessage(e.getMessage());
 			VbyP.accessLog("send Exception : "+e.getMessage());
+			if (!smvo.getReqIP().equals("127.0.0.1"))
+				SendMail.send("[send Exception] "+uvo.getUser_id(), lvo.getMessage());
 			System.out.println(e.toString());
 		}
 		finally { close(conn); }
