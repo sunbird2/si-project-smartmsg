@@ -95,7 +95,7 @@ package component
 		private var acGroup:ArrayCollection = new ArrayCollection();
 		private var acDetail:ArrayCollection = new ArrayCollection();
 		private var acChart:ArrayCollection = new ArrayCollection();
-		private var arrSearch:ArrayCollection = new ArrayCollection([{label:"전체"},{label:"성공"},{label:"실패"},{label:"전송중"},{label:"대기"}]);
+		private var arrSearch:ArrayCollection = new ArrayCollection([{label:"전체"},{label:"성공"},{label:"실패"},{label:"전송중"},{label:"대기"},{label:"없는번호"}]);
 		private var failCount:int = 0; 
 		
 		private var confirmAlert:AlertManager;
