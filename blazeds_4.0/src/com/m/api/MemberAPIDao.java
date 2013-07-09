@@ -30,5 +30,24 @@ public class MemberAPIDao implements MybatisAble {
 		return (MemberAPIVO)sm.selectOne(ns + "select_api_member", mvo);
 	}
 	
+	
+	public int insert(MemberServerVO mvo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (Integer)sm.insert(ns + "insert_server_member", mvo);
+	}
+	
+	public int update(MemberServerVO mvo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (Integer)sm.update(ns + "update_server_member", mvo);
+	}
+	
+	public MemberServerVO select(MemberServerVO mvo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (MemberServerVO)sm.selectOne(ns + "select_server_member", mvo);
+	}
+	
 
 }

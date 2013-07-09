@@ -27,20 +27,15 @@ public class LGSent implements ISentData {
 		
 		String SQL = "";
 		String where = "";
-		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")){
-			if ( !SLibrary.isNull( slvo.getSearch() )) {
-				where = whereMMS(slvo.getSearch());
-			}
-			SQL = SLibrary.messageFormat( VbyP.getSQL( "sent_lg_select_mms_paged_count" ) , new Object[]{where} );
+		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) {
+			if ( !SLibrary.isNull( slvo.getSearch() )) where = whereMMS(slvo.getSearch());
+			SQL = VbyP.getSQL( "sent_lg_select_mms_search" );
 		}
 		else {
-			if ( !SLibrary.isNull( slvo.getSearch() )) {
-				where = whereSMS(slvo.getSearch());
-			}
-			SQL = SLibrary.messageFormat( VbyP.getSQL( "sent_lg_select_paged_count" ) , new Object[]{where} );
+			if ( !SLibrary.isNull( slvo.getSearch() )) where = whereSMS(slvo.getSearch());
+			SQL = VbyP.getSQL( "sent_lg_select_search" );
 		}
-		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_select_mms" );
-		else SQL = VbyP.getSQL( "sent_lg_select" );
+		SQL = SLibrary.messageFormat( SQL , new Object[]{where} );
 		
 		
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
@@ -61,8 +56,21 @@ public class LGSent implements ISentData {
 		ArrayList<HashMap<String, String>> al = null;
 		
 		String SQL = "";
-		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_select_mms_paged" );
-		else SQL = VbyP.getSQL( "sent_lg_select_paged" );
+		String where = "";
+		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")){
+			if ( !SLibrary.isNull( slvo.getSearch() )) {
+				where = whereMMS(slvo.getSearch());
+			}
+			SQL = SLibrary.messageFormat( VbyP.getSQL( "sent_lg_select_mms_paged" ) , new Object[]{where} );
+		}
+		else {
+			if ( !SLibrary.isNull( slvo.getSearch() )) {
+				where = whereSMS(slvo.getSearch());
+			}
+			SQL = SLibrary.messageFormat( VbyP.getSQL( "sent_lg_select_paged" ) , new Object[]{where} );
+		}
+		//if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_select_mms_paged" );
+		//else SQL = VbyP.getSQL( "sent_lg_select_paged" );
 		
 		
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
@@ -268,6 +276,7 @@ public class LGSent implements ISentData {
 			if (SLibrary.isNull(r)) r = "실패";
 			mvo.setRslt( r );
 			
+			System.out.println(SLibrary.IfNull(hm, "TR_RSLTDATE"));
 			mvo.setPhone(SLibrary.IfNull(hm, "TR_PHONE"));
 			mvo.setName(SLibrary.IfNull(hm, "TR_ETC2"));
 			mvo.setCallback(SLibrary.IfNull(hm, "TR_CALLBACK"));
@@ -275,11 +284,15 @@ public class LGSent implements ISentData {
 			mvo.setGroupKey(SLibrary.intValue(SLibrary.IfNull(hm, "TR_ETC1")));
 			mvo.setSendMode(SLibrary.IfNull(hm, "TR_ETC3"));
 			mvo.setImagePath("");
-			mvo.setRsltDate(SLibrary.IfNull(hm, "TR_RSLTDATE"));
+			mvo.setRsltDate(dateParse(SLibrary.IfNull(hm, "TR_RSLTDATE")));
 			mvo.setFailAddDate(SLibrary.IfNull(hm, "TR_ETC4"));
 		}
 		
 		return mvo;
+	}
+	private String dateParse(String str) {
+		
+		return str;
 	}
 	private MessageVO getMessageVOMMS(HashMap<String, String> hm) {
 		
@@ -395,7 +408,7 @@ public class LGSent implements ISentData {
 		}
 		
 		if ( !SLibrary.isNull(text) ) {
-			where2 = " ( TR_ETC2 like '%"+text+"%' or PHONE like '%"+text+"%' )";
+			where2 = " ( TR_ETC2 like '%"+text+"%' or TR_PHONE like '%"+text+"%' )";
 		}
 		
 		if (!SLibrary.isNull(where) && !SLibrary.isNull(where2)) rslt = where+" AND "+where2;
@@ -418,7 +431,7 @@ public class LGSent implements ISentData {
 			else if (type.equals("2")) where = " TR_SENDSTAT='2' AND TR_RSLTSTAT not in ('06','05','07','21') "; // 실패
 			else if (type.equals("3")) where = " TR_SENDSTAT in ('1') "; // 전송중
 			else if (type.equals("4")) where = " TR_SENDSTAT='0' "; // 대기
-			else if (type.equals("5")) where = " TR_RSLTSTAT in (,'05','07','21') "; // 없는번호
+			else if (type.equals("5")) where = " TR_RSLTSTAT in ('05','07','21') "; // 없는번호
 		}
 		return where;
 	}
