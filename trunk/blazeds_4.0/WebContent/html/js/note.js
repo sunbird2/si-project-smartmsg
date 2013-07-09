@@ -9,6 +9,34 @@
 	    _gaq.push(['_trackPageview', url]);
 	}
 
+	function trackPageviewOrder(url, title, method, amount) {
+		url = url.replace(location.protocol + '//' + location.host, '');
+	    document.title = document.title.split(' : ')[0] + (title && ' : ' + title || '');
+
+		var timeStamp = parseInt(new Date().getTime().toString().substring(0, 10));
+		_gaq.push(['_trackPageview', url]);
+		_gaq.push(['_addTrans',
+			method+"_"+amount+"_"+timeStamp,           // order ID - required
+			'MunjaNote',  // affiliation or store name
+			amount,          // total - required
+			amount*0.1,           // tax
+			'1',              // shipping
+			'Seoul',       // city
+			'Gangnam',     // state or province
+			'KOREA'             // country
+		  ]);
+	  _gaq.push(['_addItem',
+		method+"_"+amount+"_"+timeStamp,           // order ID - required
+		method+"_"+amount,           // SKU/code - required
+		'MSG'+"_"+amount,        // product name
+		'Munja',   // category or variation
+		amount,          // unit price - required
+		'1'               // quantity - required
+	  ]);
+	  _gaq.push(['_trackTrans']); //submits transaction to the Analytics servers
+
+	}
+
 	/* static value */
 	var MENU = "send";
 	var INTERVAL_SLIDER;
@@ -869,16 +897,16 @@
 		} else {
 			var amount = $(":input:radio[name=LGD_AMOUNT]:checked").val();
 			
-			if (m == "SC0060") {
-				alert("최근 스미싱을 통한 휴대폰 불법 결제로 인한 피해를 최소화 하고자 휴대폰 결제 서비스 중지 하였습니다.\r\n\r\n 다른 결제 방식을 선택하여 진행 하시기 바랍니다.");
-			} else {
+			//if (m == "SC0060") {
+			//	alert("최근 스미싱을 통한 휴대폰 불법 결제로 인한 피해를 최소화 하고자 휴대폰 결제 서비스 중지 하였습니다.\r\n\r\n 다른 결제 방식을 선택하여 진행 하시기 바랍니다.");
+			//} else {
 				if (m == "SC0060" && amount > 55000) {
 					alert("휴대폰 결제는 5만원 이상 결제 하실 수 없습니다.");
 				} else {
 					f.action = "/bill/payreq.jsp";
 					f.submit();
 				}
-			}
+			//}
 			
 			
 		}
