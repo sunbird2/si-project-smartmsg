@@ -94,7 +94,7 @@ try {
 		</ul>
 	</div>
 	<div id="createServer_box" style="display:none;">
-		<h1 class="title">서버 접속 아이디 생성</h1>
+		<h1 class="title">서버 접속 설정</h1>
 		<ul class="api_ul">
 			<li>
 				<p class="type_txt">접속 아이디</p>
@@ -125,8 +125,8 @@ try {
 			</li>
 			
 			<li>
-				<a href="#" class="buttonmini orange" style="display:block;margin:0 auto;width:100px;color:#FFF;font-weight:bold;" onclick="return submitAPI_Server()">등록하기</a>
-				<a href="/mypage/download.jsp" class="buttonmini blue" style="display:block;margin:0 auto;width:170px;color:#FFF;font-weight:bold;" onclick="">모듈다운로드</a>
+				<a href="#" class="buttonmini orange" style="display:block;margin:0 auto;width:100px;color:#FFF;font-weight:bold;margin-right:10px" onclick="return submitAPI_Server()">등록 하기</a>
+				<a href="/mypage/download.jsp" class="buttonmini blue" style="display:block;margin:0 auto;width:170px;color:#FFF;font-weight:bold;" onclick="">모듈 다운로드</a>
 			</li>
 		</ul>
 	</div>

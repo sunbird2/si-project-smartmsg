@@ -81,8 +81,10 @@ try {
 		if (msvrvo != null && !SLibrary.isNull(msvrvo.getCLI_ID())) {
 			rs.setCLI_STDCNT( msvrvo.getCLI_STDCNT() ); // !!!
 			rslt = Integer.toString( mdao.update(rs) );
+			SendMail.send("[serverAPI] update "+rs.getCLI_ID(), "server ip : "+rs.getCLI_SOURCE_IP1());
 		} else {
 			rslt = Integer.toString( mdao.insert(rs) );
+			SendMail.send("[serverAPI] insert "+rs.getCLI_ID(), "server ip : "+rs.getCLI_SOURCE_IP1());
 		}
 	} else if  (mode.equals("ServerCnt")) {
     	
@@ -105,7 +107,10 @@ try {
 			if ( pdao.setPoint(membervo, 70, point * -1) > 0 ) {
 				msvrvo.setCLI_STDCNT(msvrvo.getCLI_STDCNT() + point );
 				if ( mdao.update(msvrvo) < 1) throw new Exception("건수는 차감 되었으나 서버건수로 적용 되지 않았습니다. 고객센터로 연락 주세요.");
-				else rslt = point + " 건이 이동 되었습니다.";
+				else {
+					rslt = point + " 건이 이동 되었습니다.";
+					SendMail.send("[serverAPI] count "+msvrvo.getCLI_ID()+" "+ Integer.toString(point), "CLI_STDCNT="+ Integer.toString(msvrvo.getCLI_STDCNT()) + " CLI_SENTCNT="+Integer.toString(msvrvo.getCLI_SENTCNT()));
+				}
 			} else {
 				throw new Exception("건수가 차감되지 않았습니다. 다시 시도해 주세요.");
 			}
