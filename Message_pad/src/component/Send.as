@@ -913,12 +913,15 @@ package component
 		private function sendBtn_resultHandler(event:CustomEvent):void {
 			
 			var lvo:LogVO = event.result as LogVO;
-			if (lvo.idx != 0) {
+			if (lvo != null && lvo.idx != 0) {
 				sending.sendingCompleted(lvo);
 				this.dispatchEvent(new Event(Send.SEND_COMPLET));
 			} else {
 				removeSending();
-				SLibrary.alert(lvo.message);
+				if (lvo != null)
+					SLibrary.alert(lvo.message);
+				else
+					SLibrary.alert("발송 실패");
 			}
 			isValid();
 		}
