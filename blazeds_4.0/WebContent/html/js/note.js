@@ -230,6 +230,17 @@
 		  if (server.hasClass("apiTabOn")) { server.removeClass("apiTabOn"); $("#apiServerHelp").hide(); }
 		  else { server.addClass("apiTabOn"); $("#apiServerHelp").show(); }
 	  } 
+    function apiTabMyPage() {
+		  
+		  var web = $("#apiTab1");
+		  var server = $("#apiTab2");
+		  
+		  if (web.hasClass("apiTabOn")) { web.removeClass("apiTabOn");$("#createAPI_box").hide(); }
+		  else { web.addClass("apiTabOn"); $("#createAPI_box").show(); }
+		  
+		  if (server.hasClass("apiTabOn")) { server.removeClass("apiTabOn"); $("#createServer_box").hide(); }
+		  else { server.addClass("apiTabOn"); $("#createServer_box").show(); }
+	  } 
     
     /**
      * homeLoad
@@ -548,6 +559,54 @@
     	return false;
     }
     
+    function submitAPI_Server() {
+    	
+    	var pw = $("#serverPw").val();
+    	var ip = $("#serverIp").val();
+    	
+    	if (pw == "") alert("비밀번호를 입력하세요.");
+    	else if (ip == "") alert("서버 아이피를 입력하세요.");
+    	else if (checkIP(ip) == false) alert("잘못된 아이피 형식 입니다.");
+    	else {
+    		if (confirm("등록 하시겠습니까?")) {
+        		$.getJSON("/mypage/_api.jsp",{mode: "Serverinsertorupdate",code:pw, domain:ip, yn:""},
+         				function(data) {
+         					if (data != null && data.rslt.length == 1 && data.rslt*1 > 0) {
+         						alert("등록 되었습니다. \r\n 상단 오른쪽의 메시지연동 에서 도움을 받아 보세요.");
+         					} else if (data != null && data.rslt) {
+         						alert(data.rslt);
+         					} 
+         					else {
+         						alert("등록에 실패 하였습니다.\r\n다시 시도해 주세요.");
+         					}
+         				}
+         			   );
+        	}
+    	}
+    	
+    }
+    function checkIP(strIP) {
+        var expUrl = /^(1|2)?\d?\d([.](1|2)?\d?\d){3}$/;
+        return expUrl.test(strIP);
+    }
+    function serverCount() {
+    	if (confirm("현재 모든 건수를 서버건수로 이동 하시겠습니까?")) {
+    		$.getJSON("/mypage/_api.jsp",{mode: "ServerCnt"},
+     				function(data) {
+     					if (data != null && data.rslt.length == 1 && data.rslt*1 > 0) {
+     						alert("등록 되었습니다. \r\n 상단 오른쪽의 메시지연동 에서 도움을 받아 보세요.");
+     					} else if (data != null && data.rslt) {
+     						alert(data.rslt);
+     					} 
+     					else {
+     						alert("등록에 실패 하였습니다.\r\n다시 시도해 주세요.");
+     					}
+     				}
+     			   );
+    	}
+    }
+
+    
     
     var pageBlock = 10;
     
@@ -716,9 +775,10 @@
 
    							pg.append(phtml);
 
-   							loading(false);
+   							
    						}
    					}
+   					loading(false);
    					trackPageview("/mypage/_data.jsp","마이페이지(sentList)");
    				}
    			   );
