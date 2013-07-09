@@ -125,7 +125,8 @@ try {
 			</li>
 			
 			<li>
-				<a href="#" class="buttonmini orange" style="display:block;margin:0 auto;width:170px;color:#FFF;font-weight:bold;" onclick="return submitAPI_Server()">등록하기</a>
+				<a href="#" class="buttonmini orange" style="display:block;margin:0 auto;width:100px;color:#FFF;font-weight:bold;" onclick="return submitAPI_Server()">등록하기</a>
+				<a href="/mypage/download.jsp" class="buttonmini blue" style="display:block;margin:0 auto;width:170px;color:#FFF;font-weight:bold;" onclick="">모듈다운로드</a>
 			</li>
 		</ul>
 	</div>
