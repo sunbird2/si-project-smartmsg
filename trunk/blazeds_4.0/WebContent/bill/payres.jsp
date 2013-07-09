@@ -110,12 +110,13 @@
 			}
 			String session_id = us.getUser_id();
 			int amount = 0;
+			String pay_code = "";
+         	String pay_name = "";
          	if (!SLibrary.isNull(session_id)) {
          		VbyP.accessLog(session_id+" : bill process start..");
              	Connection conn = null;
              	SessionManagement sm = null;
-             	String pay_code = "";
-             	String pay_name = "";
+             	
              	amount = SLibrary.intValue(xpay.Response("LGD_AMOUNT",0));
              	BooleanAndDescriptionVO badvo = null;
              	
@@ -125,12 +126,16 @@
                  	
                  	conn = VbyP.getDB();
                  	if (conn == null)throw new Exception("DB연결에 실패 하였습니다.");
-                 	
-                 	if (session_id.equals("tianzhi1")) throw new Exception("결제에 실패 하였습니다.");
-                 	
+					// throw new Exception("결제에 실패 하였습니다.");
+
+
     	         	if (pay_code.equals("SC0010")) pay_name="카드";
     	         	else if (pay_code.equals("SC0030")) pay_name="계좌이체";
-    	         	else if (pay_code.equals("SC0060")) pay_name="휴대폰";
+    	         	else if (pay_code.equals("SC0060")) {
+						pay_name="휴대폰";
+						//throw new Exception("결제에 실패 하였습니다.");
+
+					}
     	         	
     	         	if (SLibrary.isNull(session_id)) throw new Exception("로그인이 필요 합니다.");
     	         	if (SLibrary.isNull(pay_code) || SLibrary.isNull(pay_name)) throw new Exception("결제 방식이 없습니다.");
@@ -171,10 +176,11 @@
          	}
 			
 			if (isDBOK) {
-				out.println(SLibrary.alertScript("결제가 완료 되었습니다.","parent.trackPageview('/billComplete');parent.changeMenu('mypage');"));
+				out.println(SLibrary.alertScript("결제가 완료 되었습니다.","parent.trackPageviewOrder('/billComplete','munjanote','"+pay_name+"',"+amount+" );parent.changeMenu('mypage');"));
 				SendMail.send("[bill] "+session_id + " " +amount+"원 완료!!", "");
 			}else {
-				out.println(SLibrary.alertScript("결제가 실패 하였습니다. 카드한도등을 확인 후 다시 시도 하세요.","parent.window.location.reload();"));
+				
+				out.println(SLibrary.alertScript("결제가 실패 하였습니다. 카드한도등을 확인 후 다시 시도 하세요.","parent.trackPageview('/billError');parent.window.location.reload();"));
 				
 			}
 			VbyP.accessLog(session_id+" : bill process end");

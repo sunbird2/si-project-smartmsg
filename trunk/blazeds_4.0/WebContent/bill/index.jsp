@@ -19,10 +19,10 @@ if (!ip.equals("112.216.246.130")) {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>문자노트- SMS, LMS, MMS</title>
 
-     <script type="text/javascript" src="/js/jquery-1.8.1.min.js"></script>
+     <script type="text/javascript" src="/html/js/jquery-1.8.1.min.js"></script>
      <link rel="stylesheet" type="text/css" href="/css/base.css" />
      <link rel="stylesheet" type="text/css" href="/css/main.css" />
-<!--      <script type="text/javascript" src="/js/note.js"></script> -->
+<!--      <script type="text/javascript" src="/html/js/note.js"></script> -->
       <script type="text/javascript">
     
          $(document).ready(function() { 
