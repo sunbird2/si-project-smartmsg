@@ -290,6 +290,46 @@
 		where s.USER_ID=#{user_id} and s.RESERVED1=#{idx,jdbcType=VARCHAR}
 	</select>
 	<!-- KT E -->
+	<!-- LG S -->
+	<select id="select_lgsms_list" parameterType="com.m.send.LogVO" resultType="com.m.send.MessageVO">
+		select 
+		 TR_NUM as idx,
+		 TR_SENDDATE as sendDate,
+		 TR_ID as user_id,
+		 TR_SENDSTAT as stat,
+		 TR_RSLTSTAT as rslt,
+		 TR_PHONE as phone,
+		 TR_ETC2 as name,
+		 TR_CALLBACK as callback,
+		 TR_MSG as msg,
+		 TR_ETC1 as groupKey,
+		 '' as imagePath,
+		 TR_RSLTDATE as rsltDate,
+		 TR_ETC4 as failAddDate
+		from 
+		 SC_LOG 
+		where TR_ID=#{user_id} and TR_ETC1=#{idx,jdbcType=VARCHAR}
+	</select>
+	<select id="select_lgmms_list" parameterType="com.m.send.LogVO" resultType="com.m.send.MessageVO">
+		select 
+		 MSGKEY as idx,
+		 REQDATE as sendDate,
+		 ID as user_id,
+		 '2' as stat,
+		 RSLT as rslt,
+		 PHONE as phone,
+		 ETC2 as name,
+		 CALLBACK as callback,
+		 MSG as msg,
+		 ETC1 as groupKey,
+		 FILE_PATH1 as imagePath,
+		 RSLTDATE as rsltDate,
+		 ETC4 as failAddDate
+		from 
+		 MMS_LOG
+		where ID=#{user_id} and ETC1=#{idx,jdbcType=VARCHAR}
+	</select>
+	<!-- LG E -->
 	
 	<!-- API S -->
 	<select id="select_api_member" parameterType="com.m.api.MemberAPIVO" resultType="com.m.api.MemberAPIVO">
@@ -311,6 +351,27 @@
 	<update id="update_api_member" parameterType="com.m.api.MemberAPIVO">
 		update member_api set uid=#{uid}, domain=#{domain}, check_url=#{check_url}, timeWrite=now(), YN=#{YN} 
 		where user_id=#{user_id}
+	</update>
+	
+	<select id="select_server_member" parameterType="com.m.api.MemberServerVO" resultType="com.m.api.MemberServerVO">
+		SELECT CLI_ID, CLI_PASSWD, CLI_SOURCE_IP1, CLI_STDCNT, CLI_SENTCNT 
+		FROM smrelay.SM_CLIENT
+		WHERE
+		CLI_ID = #{CLI_ID}
+	</select>
+	<insert id="insert_server_member" parameterType="com.m.api.MemberServerVO">
+		INSERT INTO smrelay.SM_CLIENT
+		(CLI_ID, CLI_PASSWD, CLI_NAME, CLI_ISVALID, CLI_REPORT, CLI_DUPCHECK, CLI_SESCHECK, CLI_IDLECHECK, CLI_IDLECHECKTIME, CLI_IDLECNT, CLI_CNTCHECK, CLI_CURMONTH, CLI_STDCNT, CLI_SENTCNT, CLI_CBURL, CLI_CNTRESET, CLI_PERMITCNT, CLI_SMSTYPE, CLI_QUEUENAME, CLI_SPAMLEVEL, CLI_ALARMLEVEL, CLI_ALARMTIME, CLI_SESALARMTIME, CLI_PHONE1, CLI_PHONE2, CLI_PHONE3, CLI_PHONE4, CLI_PHONE5, CLI_IPCHECK, CLI_SOURCE_IP1, CLI_SOURCE_IP2, CLI_SOURCE_IP3, CLI_MMS_USE) 
+		VALUES (#{CLI_ID}, #{CLI_PASSWD}, #{CLI_ID}, 'Y', 'Y', 'Y', 'N', 'N', 1, 0, 'Y', '201307', 0, 0, 'N', 'N', 0, 'N', '', '0', '0', '00:00,24:00', '00:00,24:00', '', '', '', '', '', 'Y', #{CLI_SOURCE_IP1}, '', '', 'Y');
+	</insert>
+	<update id="update_server_member" parameterType="com.m.api.MemberServerVO">
+		update smrelay.SM_CLIENT
+		<set>
+			<if test="CLI_PASSWD != null">CLI_PASSWD = #{CLI_PASSWD} , </if>
+			<if test="CLI_SOURCE_IP1 != null">CLI_SOURCE_IP1 = #{CLI_SOURCE_IP1} , </if>
+			<if test="CLI_STDCNT != null">CLI_STDCNT = #{CLI_STDCNT} </if>
+		</set> 
+		where CLI_ID=#{CLI_ID}
 	</update>
 	<!-- API E -->
 	

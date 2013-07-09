@@ -287,8 +287,11 @@ public class SendManager implements ISend {
 				vo.setMsg(getMeargMsg(dt, smvo.getMessage(), pvo.getpName()));
 				vo.setName(dt[0]);
 			}
-			else
+			else {
 				vo.setMsg(smvo.getMessage());
+				vo.setName(pvo.getpName());
+			}
+				
 			
 			vo.setSendMode( smvo.isbReservation() ? "R" : "I");
 			vo.setImagePath( img );

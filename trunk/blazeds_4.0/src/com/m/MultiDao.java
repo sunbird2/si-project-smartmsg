@@ -1,6 +1,7 @@
 package com.m;
 
 import java.io.File;
+import java.sql.Connection;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -18,6 +19,7 @@ import com.m.admin.vo.SentLogVO;
 import com.m.billing.BillingTaxVO;
 import com.m.common.BooleanAndDescriptionVO;
 import com.m.common.FileUtils;
+import com.m.member.UserInformationVO;
 
 public class MultiDao {
 	
@@ -185,7 +187,6 @@ public class MultiDao {
 		return (Integer)sm.selectOne(ns + "select_sentlog_list_page_count", vo);
 		
 	}
-	
 	
 	
 	
