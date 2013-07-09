@@ -584,6 +584,8 @@
         	}
     	}
     	
+    	return false;
+    	
     }
     function checkIP(strIP) {
         var expUrl = /^(1|2)?\d?\d([.](1|2)?\d?\d){3}$/;
@@ -604,6 +606,7 @@
      				}
      			   );
     	}
+    	return false;
     }
 
     
