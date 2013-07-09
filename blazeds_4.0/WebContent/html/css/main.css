@@ -180,12 +180,13 @@
 #apiHelp .category b {font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;font-weight:bold;}
 #apiHelp .category_sub {font:normal 14px/18px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;margin:.5em 0px;}
 
-#createAPI_box .title {font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;font-weight:bold;}
-#createAPI_box .apiCode {width:150px;display:block;float:left; margin-right:10px; height:22px;}
-#createAPI_box .apiDomain {width:500px; height:22px;}
-#createAPI_box .api_ul li {display:block;width:100%;margin:20px 0px;clear:both;overflow:hidden;	}
-#createAPI_box .api_ul .type_txt {font-size:14px;font-weight:bold}
-#createAPI_box .api_ul .action {padding-left:25px;background:url('/images/arrow.png') 0px 2px no-repeat;overflow:hidden;}
+#createAPI_box, #createServer_box {clear:both;}
+#createAPI_box .title, #createServer_box .title {font:bold 18px/24px 나눔고딕,NanumGothic,ng,Tahoma,Sans-serif,Dotum;line-height:1.7;font-weight:bold;}
+#createAPI_box .apiCode, #createServer_box .apiCode {width:150px;display:block;float:left; margin-right:10px; height:22px;}
+#createAPI_box .apiDomain, #createServer_box .apiDomain {width:500px; height:22px;}
+#createAPI_box .api_ul li, #createServer_box .api_ul li {display:block;width:100%;margin:20px 0px;clear:both;overflow:hidden;	}
+#createAPI_box .api_ul .type_txt, #createServer_box .api_ul .type_txt {font-size:14px;font-weight:bold}
+#createAPI_box .api_ul .action, #createServer_box .api_ul .action {padding-left:25px;background:url('/images/arrow.png') 0px 2px no-repeat;overflow:hidden;}
 
 .dTable {display:block;clear:both;width:1024px;font-size:12px;color:#333333;border-width: 1px;border-color: #999999;border-collapse: collapse;}
 .dTable th {background-color:#EFEFEF;border-width: 1px;padding: 8px;border-style: solid;border-color: #EEEEEE;text-align:left;}
