@@ -45,24 +45,24 @@
 		<s:Group>
 			<s:Rect width="100%" height="100%"><s:stroke><s:SolidColorStroke color="#999999"/></s:stroke></s:Rect>
 			<s:HGroup includeIn="rslt" gap="0">
-				<s:VGroup horizontalAlign="center" gap="2">
-					<s:Label text="문자노트(대기)" styleName="label"/>
+				<s:VGroup horizontalAlign="center" gap="2" width="85">
+					<s:Label text="문자노트" styleName="label"/>
 					<s:Rect width="100%" height="1"><s:fill><s:SolidColor color="#999999"/></s:fill></s:Rect>
 					<s:Label id="resultLocalCnt" text="0" fontSize="16" styleName="label"/>	
 				</s:VGroup>
 				
 				<s:Rect width="1" height="100%"><s:fill><s:SolidColor color="#999999"/></s:fill></s:Rect>
 				
-				<s:VGroup horizontalAlign="center" gap="2">
-					<s:Label text="이통사(전송중)" styleName="label"/>
+				<s:VGroup horizontalAlign="center" gap="2" width="85">
+					<s:Label text="이통사" styleName="label"/>
 					<s:Rect width="100%" height="1"><s:fill><s:SolidColor color="#999999"/></s:fill></s:Rect>
 					<s:Label id="resultTelecomCnt" text="0" fontSize="16" styleName="label" />	
 				</s:VGroup>
 				
 				<s:Rect width="1" height="100%"><s:fill><s:SolidColor color="#999999"/></s:fill></s:Rect>
 				
-				<s:VGroup horizontalAlign="center"  gap="2">
-					<s:Label text="휴대폰(완료)" styleName="label"/>
+				<s:VGroup horizontalAlign="center"  gap="2" width="85">
+					<s:Label text="휴대폰" styleName="label"/>
 					<s:Rect width="100%" height="1"><s:fill><s:SolidColor color="#999999"/></s:fill></s:Rect>
 					<s:Label id="resultPhoneCnt" text="0" fontSize="16" styleName="label" />
 				</s:VGroup>
