@@ -202,23 +202,23 @@
         	);
     }
     function apiAnimate() {
-		  $('#javascript').animate({width: '-=350'}, {duration:2000, easing:"easeInOutBack"});
-		  $('#module').animate({width: '-=400'}, {duration:2000, easing:"easeInOutBack"});
-		  
-		  setInterval(function(){
-			  $('#msg1').css("left","440px");
-			  $('#msg1').css("top","60px");
-			  
-			  $('#msg1').show().animate({left: '+=400',top: '+=30',width: 'toggle'}, {duration:2000, easing:"easeInOutBack"});}, 3000);
-		  
-		  setInterval(function(){
-			  $('#msg2').css("left","440px");
-			  $('#msg2').css("top","160px");
-			  
-		  	  $('#msg2').show().animate({left: '+=400',top: '+=30',width: 'toggle'}, {duration:2000, easing:"easeInOutBack"});}, 4000);
-		  //$('#act5').animate({left: '+=690'}, {duration:2000, easing:"easeInOutBack"});
-		  //$('#act6').animate({left: '+=640'}, {duration:2000, easing:"easeInOutBack"});
-	}
+  	  $('#javascript').animate({width: '-=350'}, {duration:2000, easing:"easeInOutBack"});
+  	  $('#module').animate({width: '-=400'}, {duration:2000, easing:"easeInOutBack"});
+  	  setInterval(apiMsg1Movie , 4000);
+  	  setInterval(apiMsg2Movie , 3000);
+  	  }
+  	  function apiMsg1Movie() {
+  		 $('#msg1').css("left","440px");
+  		 $('#msg1').css("top","60px");
+  			  
+  		 $('#msg1').show().animate({left: '+=400',top: '+=30',width: 'toggle'}, {duration:1000, easing:"easeInOutBack"});
+  	  }
+  	  function apiMsg2Movie() {
+  		 $('#msg2').css("left","440px");
+  		 $('#msg2').css("top","160px");
+  			  
+  		 $('#msg2').show().animate({left: '+=400',top: '+=30',width: 'toggle'}, {duration:1000, easing:"easeInOutBack"});
+  	  }
     function apiTab() {
 		  
 		  var web = $("#apiTab1");
