@@ -216,9 +216,9 @@ public class SendManager implements ISend {
 		
 		int code = 0;
 		
-		if (type.equals("LMS")) { code = 47; }
-		else if (type.equals("MMS")) { code = 27; }
-		else { code = 17; }
+		if (type.equals("LMS")) { code = 97; }
+		else if (type.equals("MMS")) { code = 97; }
+		else { code = 97; }
 		
 		PointManager pm = PointManager.getInstance();		
 		return pm.insertUserPoint(conn, uvo, code, count);
