@@ -25,6 +25,7 @@
 			'Gangnam',     // state or province
 			'KOREA'             // country
 		  ]);
+	 /*
 	  _gaq.push(['_addItem',
 		method+"_"+amount+"_"+timeStamp,           // order ID - required
 		method+"_"+amount,           // SKU/code - required
@@ -33,6 +34,7 @@
 		amount,          // unit price - required
 		'1'               // quantity - required
 	  ]);
+	  */
 	  _gaq.push(['_trackTrans']); //submits transaction to the Analytics servers
 
 	}
