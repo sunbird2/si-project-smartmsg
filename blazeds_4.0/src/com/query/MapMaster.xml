@@ -232,6 +232,12 @@
 		select substring( SEND_DATE,1,6) as dt, 'lms' as t, sum(SUCC_COUNT) as cnt from SDK_MMS_REPORT where SEND_DATE between #{start} and #{end} and CONTENT_COUNT = 0 group by substring( SEND_DATE,1,6)
 		union all
 		select substring( SEND_DATE,1,6) as dt, 'mms' as t, sum(SUCC_COUNT) as cnt from SDK_MMS_REPORT where SEND_DATE between #{start} and #{end} and CONTENT_COUNT > 0 group by substring( SEND_DATE,1,6)
+		union all 
+		select substring( SENDDATE,1,6) as dt, 'sms' as t, sum(SCNT) as cnt from smrelay.SM_STAT where SENDDATE between #{start} and #{end} group by substring( SENDDATE,1,6 )
+	    union all 
+		select substring( SENDDATE,1,6) as dt, 'lms' as t, sum(LMS) as cnt from smrelay.MM_STAT where SENDDATE between #{start} and #{end} and RSLT='1000' group by substring( SENDDATE,1,6 )
+    	union all 
+		select substring( SENDDATE,1,6) as dt, 'mms' as t, sum(MMS) as cnt from smrelay.MM_STAT where SENDDATE between #{start} and #{end} and RSLT='1000' group by substring( SENDDATE,1,6 )
 		) b group by b.dt order by b.dt desc
 	</select>
 	<select id="select_status_day_list" parameterType="com.m.admin.vo.StatusVO" resultType="com.m.admin.vo.StatusVO">
@@ -246,6 +252,12 @@
 		select substring( SEND_DATE,1,8) as dt, 'lms' as t, sum(SUCC_COUNT) as cnt from SDK_MMS_REPORT where SEND_DATE between #{start} and #{end} and CONTENT_COUNT = 0 group by substring( SEND_DATE,1,8)
 		union all
 		select substring( SEND_DATE,1,8) as dt, 'mms' as t, sum(SUCC_COUNT) as cnt from SDK_MMS_REPORT where SEND_DATE between #{start} and #{end} and CONTENT_COUNT > 0 group by substring( SEND_DATE,1,8)
+		union all 
+		select substring( SENDDATE,1,8) as dt, 'sms' as t, sum(SCNT) as cnt from smrelay.SM_STAT where SENDDATE between #{start} and #{end} group by substring( SENDDATE,1,8 )
+	    union all 
+		select substring( SENDDATE,1,8) as dt, 'lms' as t, sum(LMS) as cnt from smrelay.MM_STAT where SENDDATE between #{start} and #{end} and RSLT='1000' group by substring( SENDDATE,1,8 )
+    	union all 
+		select substring( SENDDATE,1,8) as dt, 'mms' as t, sum(MMS) as cnt from smrelay.MM_STAT where SENDDATE between #{start} and #{end} and RSLT='1000' group by substring( SENDDATE,1,8 )
 		) b group by b.dt order by b.dt desc
 	</select>
 	<!-- status E -->
