@@ -26,7 +26,7 @@ public class Emotion {
 		
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
 		pq.setPrepared( conn, VbyP.getSQL("selectEmtCate") );
-		pq.setString(1, gubun);
+		pq.setString(1, ""+gubun+"%");
 		
 		rslt = pq.ExecuteQuery();
 		
@@ -123,9 +123,9 @@ public class Emotion {
 			buf.append(VbyP.getSQL("selectEmtPageOfCate"));
 			
 			pq.setPrepared( conn, buf.toString() );
-			pq.setString(1, gubun);
+			pq.setString(1, ""+gubun+"%");
 			pq.setString(2, ""+category+"%");
-			pq.setString(3, gubun);
+			pq.setString(3, ""+gubun+"%");
 			pq.setString(4, ""+category+"%");
 			pq.setInt(5, startIndex);
 			pq.setInt(6, numItems);

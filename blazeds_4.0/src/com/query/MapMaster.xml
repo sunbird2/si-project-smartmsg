@@ -386,6 +386,13 @@
 		where CLI_ID=#{CLI_ID}
 	</update>
 	<!-- API E -->
+	<!-- EMOTICON S -->
+	<insert id="insert_emoticon" parameterType="com.m.emoticon.EmoticonVO">
+		INSERT INTO munjanote.emoticon
+		(gubun, category, level, msg) 
+		VALUES (#{gubun}, #{category}, #{level}, #{msg});
+	</insert>
+	<!-- EMOTICON E -->
 	
 
 </mapper>
