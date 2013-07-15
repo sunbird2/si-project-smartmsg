@@ -124,6 +124,7 @@
 	    params.bgcolor = "#ffffff";
 	    params.allowscriptaccess = "sameDomain";
 	    params.allowfullscreen = "true";
+	    params.wmode = "opaque";
 	    var attributes = {};
 	    attributes.id = FLEX_ID;
 	    attributes.name = FLEX_ID;
@@ -321,17 +322,19 @@
    }
    function viewInstall() {
     	$("<div id='install_wrap'><div id='install'></div></div>").appendTo($("#wrap"));
+    	var flashvars = {};
     	var params = {};
-        params.airversion = "3.7.0";
-        params.appname = "MunjaNote 10.1";
-        params.appurl = "http://www.munjanote.com/badge/MunjaNote.air";
-		params.appid = "com.adsoft.MunjaNote";
-		params.pubid = "";
-		params.appversion = "1.1.0";
-		params.hidehelp = "true";
+        flashvars.airversion = "3.7.0";
+        flashvars.appname = "MunjaNote 10.1";
+        flashvars.appurl = "http://www.munjanote.com/badge/MunjaNote.air";
+		flashvars.appid = "com.adsoft.MunjaNote";
+		flashvars.pubid = "";
+		flashvars.appversion = "1.1.0";
+		flashvars.hidehelp = "true";
+		params.wmode = "opaque";
 		//params.helpurl = "help.html";
-		params.image = "/badge/MNimg.png"; //215 * 180
-        swfobject.embedSWF("/badge/AIRInstallBadge.swf", "install", "215", "180", "9.0.0","/badge/expressInstall.swf",params);
+		flashvars.image = "/badge/MNimg.png"; //215 * 180
+        swfobject.embedSWF("/badge/AIRInstallBadge.swf", "install", "215", "180", "9.0.0","/badge/expressInstall.swf",flashvars,params);
    }
    
    function getNotic() {
@@ -1394,7 +1397,110 @@
 	}
 	/* faq End*/
 	
+	/* Emt Layer Start*/
+	var EMT_CATE = "";
+	var EMT_PAGE = 0;
+	var EMT_SC_POSITION = 0;
+	var EMT_B_ING = false;
 	
+	function viewEmtLayer() {
+		loading(true);
+		$.get( "/html/emoti.html",
+  		      function( data ) {
+  		          var posts = $(data).filter('#emtWrap');
+  		          modal_window_html(posts.html());
+  		          initEmt();
+  		          loading(false);
+  		      }
+      	);
+	}
+	function refererCheck() {
+		var url =document.referrer;
+		url = decodeURIComponent(url.replace(/\+/g, ' '));
+		var q = get_param_value(url,"query");
+		
+		if (q == "부고문자" || q == "부음문자" || q == "문상문자"|| q == "문상 문자") EMT_CATE = "부고/조의";
+
+		if (EMT_CATE != "") return true;
+		else return false;
+	}
+	
+	function initEmt() {
+		
+		getEmtCate();
+		getEmt(false);
+		// list scorll
+		$('#emtList').slimscroll({ alwaysVisible:true,wheelStep:10,width:'598px',height:'355px' }).bind('slimscrolling', function(e, pos) {
+			
+			if (pos != 0) {
+				if (EMT_SC_POSITION == pos) { getEmt(true); }
+				EMT_SC_POSITION = pos;
+			}
+		  });
+	}
+	function getEmt(bAppend) {
+		
+		
+		if (bAppend == true) EMT_PAGE++;
+		
+		if (EMT_B_ING == false) {
+			getEmtLoding( true );
+			$.getJSON(
+					"/custom/emoticon.jsp",
+					{mode: "emoti", gubun: "", cateGory: EMT_CATE, startIndex:EMT_PAGE, numItems:24},
+					function(data) {
+
+						var html = "";
+						$.each(data.items, function(i,item){ html += "<li><textarea cols=\"20\" rows=\"6\" readonly=\"readonly\">"+item+"</textarea></li>";	});
+						if (bAppend == true) { $('#emtList').append(html); }
+						else  {
+							EMT_PAGE = 1;
+							$('#emtList').html(html);
+						}
+						$('#emtList').slimscroll();
+						setInterval( function() { getEmtLoding( false ); }, 1000 );
+					}
+				);
+		}
+		
+	}
+	function getEmtLoding(b) { EMT_B_ING = b; }
+	function getEmtCate() {
+
+		$.getJSON("/custom/emoticon.jsp", {mode: "category", gubun: ""},
+				function(data) {
+
+					var html = "";
+					$.each(data.items, function(i,item){
+						if (EMT_CATE == item)
+							html += "<li class='act'>"+item+"</li>";
+						else
+							html += "<li>"+item+"</li>";
+					});
+					$('#emtCate').append(html);
+					$('#emtCate').find("li").hover(function(){$(this).toggleClass('on');});
+					$('#emtCate').find("li").click(function(){
+						$('#emtCate .act').removeClass("act");
+						$(this).addClass('act');
+						EMT_CATE = $(this).text();
+						getEmt(false);
+					});
+				}
+			);
+	}
+	/* Emt Layer End*/
+	
+	function get_param_value(url, name )
+	{
+	  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+	  var regexS = "[\\?&]"+name+"=([^&#]*)";
+	  var regex = new RegExp( regexS );
+	  var results = regex.exec( url );
+	  if( results == null )
+	    return "";
+	  else
+	    return results[1];
+	}
 	
 	function defaultValue(tid,bPwd) {
 		

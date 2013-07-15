@@ -86,6 +86,17 @@
 #emoticon .emti li ,#emoticon .emti_up li {display:block;float:left;position: relative;margin:3px 31px;margin-left:0px;width: 145px;height: 113px; cursor:pointer;overflow:hidden;background: url('/images/bg_msg_box.gif') no-repeat;}
 #emoticon .emti li textarea ,#emoticon .emti_up li textarea{margin: 0;padding: 0 10px 0 0;border: none;position: absolute;top: 16px;left: 14px;overflow: hidden;width: 110px;height: 86px;background-color: transparent;line-height: 1.4em;cursor: pointer;}
 
+#emtBox {}
+#emtBox h1 {background:url("/images/logo.png") no-repeat;height:35px;padding-left:175px;padding-top:10px;}
+#emtBox h2 {margin-top:15px;padding-left:20px;background:url('/images/arrow.png') 0px 3px no-repeat;height:20px;}
+#emtList {height:400px;}
+#emtList li  {display:block;float:left;position: relative;margin:0px 3px 3px 0px;width: 142px;height: 113px; cursor:pointer;overflow:hidden;border:1px solid #EFEFEF;border-top:2px solid #33b5e5}
+#emtList li textarea {margin: 0;padding: 0 10px 0 0;border: none;position: absolute;top: 16px;left: 14px;overflow: hidden;width: 110px;height: 86px;background-color: transparent;line-height: 1.4em;cursor: pointer;}
+#emtCate {clear:both;width:598px;height:145px;overflow:hidden;}
+#emtCate li {display:block;float:left;margin:0px 3px 3px 0px; height:22px;line-height:22px;padding:0px 12px;color:#FFF;background-color:#333;font-size:11px;cursor:pointer;}
+#emtCate li.on {background-color:#33b5e5;color:#FFF;}
+#emtCate li.act {background-color:#0099cc;color:#FFF;}
+
 #etc {margin:0 auto; width:1024px;height:143px; margin-top:20px;margin-bottom:30px;}
 #etc #custom { float:left;margin-right:15px;width:203px;height:143px;background:url("/images/custom_center2.png")}
 #etc #notic { float:left;margin-right:15px;width:300px;height:143px;}
@@ -140,7 +151,7 @@
 #bill .billTable td span {color:#999;font-size:11px;line-height:100%;}
 
 #mask {position:absolute;left:0;top:0;z-index:1999;background-color:#000;display:none;}
-#dialog {position:absolute;left:0;top:0; display:none;z-index:2000;width:680px;height:500px;padding: 10px;overflow:hidden;}
+#dialog {position:absolute;left:0;top:0; display:none;z-index:2000;width:680px;padding: 10px;overflow:hidden;}
 #dialog .close {position: absolute;right: 0;top: 0;cursor: pointer;border:none;}
 #dialog .content {overflow:hidden;min-height: 395px;background: #fff;padding: 40px;border: 1px solid #000;border-radius: 5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
 
