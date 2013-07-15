@@ -12,6 +12,7 @@ private String parseJSON(String val) {
 	
 	String str = val;
 	str = SLibrary.replaceAll(str, "\"", "&quot;");
+	str = SLibrary.replaceAll(str, "\r", "");
 	str = SLibrary.replaceAll(str, "\n", "\\n");
 	return str;
 }
@@ -21,15 +22,18 @@ Connection conn = null;
 String [] categroys = null;
 List<EmoticonPagedObject> al = null;
 String mode = SLibrary.IfNull(request.getParameter("mode"));
-String gubun = SLibrary.IfNull(request.getParameter("gubun"));
-String cateGory = SLibrary.IfNull(request.getParameter("cateGory"));
-int startIndex = 0;
-int numItems = 12;
+String gubun = SLibrary.IfNull(VbyP.getPOST(request.getParameter("gubun")));
+String cateGory = SLibrary.IfNull(VbyP.getPOST(request.getParameter("cateGory")));
+int startIndex = SLibrary.intValue( SLibrary.IfNull(request.getParameter("startIndex")) );
+int numItems = SLibrary.intValue( SLibrary.IfNull(request.getParameter("numItems")) );
 
 try {
 	//VbyP.accessLog("emoticon call : "+ request.getRemoteAddr());
 	conn = VbyP.getDB();
 	Emotion emt = Emotion.getInstance();
+	
+	if (numItems <= 1) numItems = 12;
+	startIndex *= numItems;
 	
 	if (mode.equals("category")) {
 		categroys = emt.getCategory(conn, gubun);	
@@ -71,6 +75,8 @@ finally {
 	buf.append("]");
 	buf.append("}");
 	out.println(buf.toString());
+	
+	System.out.println(buf.toString());
 
 	//out.println("{\"one\": \"Singular sensation\"}");
 }

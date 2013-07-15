@@ -1419,7 +1419,7 @@
 		url = decodeURIComponent(url.replace(/\+/g, ' '));
 		var q = get_param_value(url,"query");
 		
-		if (q == "부고문자" || q == "부음문자" || q == "문상문자"|| q == "문상 문자") EMT_CATE = "부고/조의";
+		if (q == "부고문자" || q == "부음문자" || q == "문상문자"|| q == "문상 문자" || q == "조문감사문자" || q == "조문문자") EMT_CATE = "부고/조의";
 
 		if (EMT_CATE != "") return true;
 		else return false;
@@ -1482,6 +1482,7 @@
 					$('#emtCate').find("li").click(function(){
 						$('#emtCate .act').removeClass("act");
 						$(this).addClass('act');
+						EMT_PAGE = 0;
 						EMT_CATE = $(this).text();
 						getEmt(false);
 					});
