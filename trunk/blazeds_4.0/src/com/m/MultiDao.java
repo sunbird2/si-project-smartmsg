@@ -19,6 +19,7 @@ import com.m.admin.vo.SentLogVO;
 import com.m.billing.BillingTaxVO;
 import com.m.common.BooleanAndDescriptionVO;
 import com.m.common.FileUtils;
+import com.m.emoticon.EmoticonVO;
 import com.m.member.UserInformationVO;
 
 public class MultiDao {
@@ -185,6 +186,13 @@ public class MultiDao {
 		
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
 		return (Integer)sm.selectOne(ns + "select_sentlog_list_page_count", vo);
+		
+	}
+	
+	public int insertEmoticon(EmoticonVO vo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (Integer)sm.insert(ns + "insert_emoticon", vo);
 		
 	}
 	

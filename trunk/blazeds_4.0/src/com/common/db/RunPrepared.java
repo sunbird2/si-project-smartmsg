@@ -332,7 +332,7 @@ public class RunPrepared implements RunPreparedAble {
     
     public void close(){
     	try {
-    		VbyP.debugLog(this.localSQL);
+    		System.out.println(this.getResultQuery());
     		if (this.pstmt != null)
     			this.pstmt.close();
 	    	
