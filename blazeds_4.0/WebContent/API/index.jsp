@@ -38,11 +38,34 @@ private ArrayList<PhoneVO> getPhoneVO(String phones) {
 	for (int i = 0; i < cnt; i++) {
 		pvo = new PhoneVO();
 		pvo.setpNo(arr[i]);
+		pvo.setpName("api");
 		if (!SLibrary.isNull(pvo.getpNo()))
 			al.add(pvo);
 	}
 	
 	return al;
+}
+
+private boolean isDomain(String host, String domain) {
+	
+	boolean b = false;
+	
+	if (!SLibrary.isNull(host) && !SLibrary.isNull(domain)) {
+		String [] arr = domain.split("\\|");
+		if (arr != null) {
+			int cnt = arr.length;
+			for (int i = 0; i < cnt; i++) {
+				System.out.println(arr[i]);
+				if (host.equals(arr[i])) {
+					b = true;
+					break;
+				}
+			}
+		}
+	}
+	
+	return b;
+	
 }
 %><%
 
@@ -94,7 +117,7 @@ try {
 	
 	if (apivo == null) throw new Exception("no uid info");
 	else if (apivo.getYN().equals("N")) throw new Exception("YN is N");
-	else if (Pattern.matches(host, apivo.getDomain()) == false) throw new Exception("["+host+"] is not Domain"); 
+	else if (isDomain(host, apivo.getDomain()) == false) throw new Exception("["+host+"] is not Domain"); 
 	
 	lvo = adao.sendSMSconf(apivo, smvo);
 	
