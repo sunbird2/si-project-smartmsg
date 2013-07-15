@@ -22,6 +22,7 @@ package component
 	import flashx.textLayout.elements.SpanElement;
 	import flashx.textLayout.events.FlowElementMouseEvent;
 	
+	import lib.CookieUtil;
 	import lib.CustomEvent;
 	import lib.FileUploadByRemoteObject;
 	import lib.FileUploadByRemoteObjectEvent;
@@ -150,11 +151,16 @@ package component
 		[SkinPart(required="false")]public var sendInterval:CheckBox;
 		[SkinPart(required="false")]public var sendBtn:Button;
 		[SkinPart(required="false")]public var resetBtn:Button;
+		[SkinPart(required="false")]public var sendSetting:Image;
+		[SkinPart(required="false")]public var sendSetBox:Group;
+		[SkinPart(required="false")]public var sendDelmsg:CheckBox;
+		[SkinPart(required="false")]public var sendDelList:CheckBox;
 		[SkinPart(required="false")]public var confirm_mode:SpanElement;
 		[SkinPart(required="false")]public var confirm_count:SpanElement;
 		[SkinPart(required="false")]public var confirm_reservation:SpanElement;
 		[SkinPart(required="false")]public var confirm_delay:SpanElement;
 		[SkinPart(required="false")]public var confirm_mearge:SpanElement;
+		
 		
 		[SkinPart(required="false")]public var confirm_text:RichText;
 		
@@ -257,6 +263,11 @@ package component
 		private var paste:Paste;
 		private var sending:Sending;
 		
+		public static const  SAVE_MSGDEL:String = "MunjaNote_save_msgdel";
+		public static const  SAVE_LISTDEL:String = "MunjaNote_save_listdel";
+		private var cookie_msgDel:String = "";
+		private var cookie_listDel:String = "";
+		
 		
 		/**
 		 * emoticon properties
@@ -274,15 +285,22 @@ package component
 			setStyle("skinClass", SendSkin);
 			addEventListener(Event.ADDED_TO_STAGE, addedtostage_handler, false, 0, true);
 			addEventListener(Event.REMOVED_FROM_STAGE, removedfromstage_handler, false, 0, true);
+			
+			// cookie get
+			cookie_msgDel = CookieUtil.getCookie(SAVE_MSGDEL) as String;
+			cookie_listDel = CookieUtil.getCookie(SAVE_LISTDEL) as String;
+			
 		}
 		
 		public function addedtostage_handler(event:Event):void {
 			
 			Kpf = new KoreaPhoneNumberFormatter();
+			
 		}
 		
 		public function removedfromstage_handler(event:Event):void {
 			
+			removeEventListener(Event.ADDED_TO_STAGE, addedtostage_handler);
 			alPhone.removeAll();
 			removeReaervation();
 			removeInterval();
@@ -354,6 +372,16 @@ package component
 			else if (instance == addressCombo)	addressCombo.dataProvider = addressGroupList;
 			else if (instance == addressSave) addressSave.addEventListener(MouseEvent.CLICK, addressSave_clickHandler);
 			else if (instance == addressBoxClose) addressBoxClose.addEventListener(MouseEvent.CLICK, addressView_clickHandler);
+			else if (instance == sendSetting) sendSetting.addEventListener(MouseEvent.CLICK, sendSetting_clickHandler);
+			else if (instance == sendDelmsg) {
+				if (cookie_msgDel && cookie_msgDel.length > 0) { sendDelmsg.selected = true; }
+				sendDelmsg.addEventListener(Event.CHANGE, sendDelmsg_changeHandler);
+			}
+			else if (instance == sendDelList) {
+				if (cookie_listDel && cookie_listDel.length > 0) { instance.selected = true; }
+				sendDelList.addEventListener(Event.CHANGE, sendDelList_changeHandler);
+			}
+			
 			
 			
 			if (instance is LinkElement) {
@@ -398,6 +426,9 @@ package component
 				acMearge.removeAll();
 				acMearge = null;
 			}
+			else if (instance == sendSetting) sendSetting.removeEventListener(MouseEvent.CLICK, sendSetting_clickHandler);
+			else if (instance == sendDelmsg) {sendDelmsg.removeEventListener(Event.CHANGE, sendDelmsg_changeHandler);}
+			else if (instance == sendDelList) {sendDelList.removeEventListener(Event.CHANGE, sendDelList_changeHandler);}
 			
 			
 			if (instance is LinkElement) {
@@ -419,6 +450,9 @@ package component
 		
 		private function tracker(msg:String):void {
 			MunjaNote(parentApplication).googleTracker("Send/"+msg);
+		}
+		private function trackerEvent(category:String,action:String,label:String,value:Number):void {
+			MunjaNote(parentApplication).googleTrackerEvent(category,action,label,value);
 		}
 		
 		private var viewFunction:String = "";
@@ -914,8 +948,10 @@ package component
 			
 			var lvo:LogVO = event.result as LogVO;
 			if (lvo != null && lvo.idx != 0) {
+				sendClickAfter();
 				sending.sendingCompleted(lvo);
 				this.dispatchEvent(new Event(Send.SEND_COMPLET));
+				trackerEvent(lvo.line, lvo.mode, lvo.user_id, lvo.cnt);
 			} else {
 				removeSending();
 				if (lvo != null)
@@ -1063,6 +1099,7 @@ package component
 			event.preventDefault();
 			//Object(sendList.dataProvider).removeAll();
 			alPhone.removeAll();
+			setTotalCount();
 		}
 		
 		
@@ -1434,6 +1471,37 @@ package component
 			loading.visible = false;
 		}
 		
+		
+		/**
+		 * sendSetting
+		 * */
+		public function sendSetting_clickHandler(event:MouseEvent):void {
+			sendSetBox.visible = !sendSetBox.visible;
+		}
+		private function sendDelmsg_changeHandler(event:Event):void {
+			if (sendDelmsg.selected) {
+				CookieUtil.setCookie(SAVE_MSGDEL,"Y",365);
+			}else {
+				CookieUtil.deleteCookie(SAVE_MSGDEL);
+			}
+		}
+		private function sendDelList_changeHandler(event:Event):void {
+			if (sendDelList.selected) {
+				CookieUtil.setCookie(SAVE_LISTDEL,"Y",365);
+			}else {
+				CookieUtil.deleteCookie(SAVE_LISTDEL);
+			}
+		}
+		private function sendClickAfter():void {
+			if (sendDelmsg.selected) {
+				this.msg = "";
+				allDelImage();
+			}
+			if (sendDelList.selected) {
+				alPhone.removeAll();
+				setTotalCount();
+			}
+		}
 		
 		/**
 		 * destroy

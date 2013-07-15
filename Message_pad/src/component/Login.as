@@ -12,6 +12,7 @@ package component
 	import flashx.textLayout.elements.SpanElement;
 	import flashx.textLayout.events.FlowElementMouseEvent;
 	
+	import lib.CookieUtil;
 	import lib.CustomEvent;
 	import lib.Gv;
 	import lib.RemoteSingleManager;
@@ -22,6 +23,7 @@ package component
 	import mx.managers.PopUpManager;
 	
 	import spark.components.Button;
+	import spark.components.CheckBox;
 	import spark.components.DropDownList;
 	import spark.components.Label;
 	import spark.components.SkinnableContainer;
@@ -49,18 +51,20 @@ package component
 		[SkinPart(required="false")]public var user_pw:TextInput;
 		[SkinPart(required="false")]public var login:Button;
 		[SkinPart(required="false")]public var join:Button;
+		[SkinPart(required="false")]public var saveId:CheckBox;
 		[SkinPart(required="false")]public var login_id:SpanElement;
 		[SkinPart(required="false")]public var point:SpanElement;
 		[SkinPart(required="false")]public var logoutBtn:Button;
 		[SkinPart(required="false")]public var mType:DropDownList;
 		
-		
+		public static const  SAVE_ID:String = "MunjaNote_saveID";
 		
 		private var _cstat:String = "logout";
 		public function get cstat():String { return _cstat; }
 		public function set cstat(value:String):void { _cstat = value; }
 		
 		private var customToolTip:CustomToolTip;
+		private var cookie_id:String = "";
 		
 		public var bOnceAutoMoveSend:Boolean = false;
 		
@@ -70,15 +74,27 @@ package component
 			//TODO: implement function
 			super();
 			login_check();
+			this.addEventListener(FlexEvent.CREATION_COMPLETE, createcomplete_handler);
 		}
 		/**
 		 * login check
 		 * */
 		public function login_check():void {
+			// cookie get
+			cookie_id = CookieUtil.getCookie(SAVE_ID) as String;
 			
 			RemoteSingleManager.getInstance.addEventListener("getUserInformation", login_check_resultHandler, false, 0, true);
 			RemoteSingleManager.getInstance.callresponderToken 
 				= RemoteSingleManager.getInstance.service.getUserInformation();
+		}
+		
+		public function createcomplete_handler(event:FlexEvent):void {
+			if (cookie_id && cookie_id.length > 0) {
+				user_id.text = cookie_id;
+				saveId.selected = true;
+				user_pw.setFocus();
+			}
+				
 		}
 		
 		/* Implement the getCurrentSkinState() method to set the view state of the skin class. */
@@ -94,7 +110,6 @@ package component
 			super.partAdded(partName, instance);
 			if (instance == join) join.addEventListener(MouseEvent.CLICK, join_clickHandler);
 			else if (instance == login) login.addEventListener(MouseEvent.CLICK, login_clickHandler);
-			//else if (instance == user_id) user_id.addEventListener("tab", user_id_tabHandler);
 			else if (instance == login_id) {
 				
 				login_id.text = Gv.user_id;
@@ -103,7 +118,9 @@ package component
 				
 				setPoint();
 			}
-			else if (instance == user_pw) user_pw.addEventListener(FlexEvent.ENTER, login_clickHandler);
+			else if (instance == user_pw) {
+				user_pw.addEventListener(FlexEvent.ENTER, login_clickHandler);
+			}
 			else if (instance == logoutBtn) logoutBtn.addEventListener(MouseEvent.CLICK, logout_clickHandler);
 			else if (instance == mType) mType.addEventListener(IndexChangeEvent.CHANGE, mType_changeHandler);
 			
@@ -141,6 +158,11 @@ package component
 			if (user_id.text == "") SLibrary.alert("아이디를 입력 하세요");
 			else if (user_pw.text == "") SLibrary.alert("비밀번호를 입력 하세요");
 			else {
+				if (saveId.selected == true) {
+					CookieUtil.setCookie(SAVE_ID, user_id.text, 365); 
+				} else {
+					CookieUtil.deleteCookie(SAVE_ID); 
+				}
 				RemoteSingleManager.getInstance.addEventListener("login", login_resultHandler, false, 0, true);
 				RemoteSingleManager.getInstance.callresponderToken 
 					= RemoteSingleManager.getInstance.service.login(user_id.text, user_pw.text);

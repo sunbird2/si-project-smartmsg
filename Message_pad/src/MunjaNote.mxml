@@ -13,7 +13,6 @@
 	<fx:Style source="/skin/ics/ics.css"/>
 	<fx:Script>
 		<![CDATA[
-			import module.url.att.Image;
 			import component.Address;
 			import component.Bill;
 			import component.Join;
@@ -23,6 +22,8 @@
 			import lib.FileUploadByRemoteObjectEvent;
 			import lib.GC;
 			import lib.Gv;
+			
+			import module.url.att.Image;
 			
 			import mx.collections.ArrayCollection;
 			import mx.core.FlexGlobals;
@@ -213,6 +214,10 @@
 			
 			public function googleTracker(msg:String):void {
 				tracker.trackPageview( "/FLEX/"+msg );
+			}
+			
+			public function googleTrackerEvent(category:String,action:String,label:String,value:Number):void {
+				tracker.trackEvent(category,action,label,value);
 			}
 			
 			

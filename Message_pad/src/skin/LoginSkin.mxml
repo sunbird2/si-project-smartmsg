@@ -26,7 +26,7 @@
 			<s:TextInput id="user_id" styleName="textinput_dark" prompt="아이디" width="150" height="24" fontSize="12"/>
 			<s:TextInput id="user_pw" styleName="textinput_dark" prompt="비밀번호" width="150" height="24" displayAsPassword="true" fontSize="12" />
 			<s:HGroup>
-				<s:CheckBox label="아이디기억" styleName="checkbox_dark" fontSize="10" color="#D6D6D6" />
+				<s:CheckBox label="아이디기억" id="saveId" styleName="checkbox_dark" fontSize="10" color="#D6D6D6" />
 				<s:CheckBox label="보안접속" styleName="checkbox_dark" fontSize="10" color="#D6D6D6" selected="true" enabled="false" />
 			</s:HGroup>
 		</s:VGroup>

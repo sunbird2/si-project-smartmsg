@@ -33,7 +33,7 @@
 			<s:HGroup gap="0" verticalAlign="middle">
 				<s:Button id="login" label="로그인" styleName="button_label" height="40" color="#FFFFFF" />
 				<s:Button id="join" label="회원가입" styleName="button_label" height="40" color="#FFFFFF" />
-				<s:CheckBox label="아이디기억" styleName="checkbox_dark" fontSize="10" color="#FFFFFF" />
+				<s:CheckBox label="아이디기억" id="saveId" styleName="checkbox_dark" fontSize="10" color="#FFFFFF" />
 				<s:CheckBox label="보안접속" styleName="checkbox_dark" fontSize="10" color="#FFFFFF" selected="true" enabled="false" />
 			</s:HGroup>
 		</s:HGroup>
