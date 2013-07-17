@@ -193,6 +193,73 @@ public class SmartDS extends SessionManagement {
 		return bvo;
 	}
 	
+	public BooleanAndDescriptionVO sendCertReturn(String user_id, String hp, String user_ip) {
+		
+		VbyP.accessLog(user_id+" >> sendCert");
+		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		
+		StopWatch sw = new StopWatch();
+		sw.play();
+		
+		Connection conn = null;
+		ISend send = SendManager.getInstance();
+		UserInformationVO uvo = null;
+		LogVO lvo = null;
+		SendMessageVO smvo = null;
+		
+		ArrayList<PhoneVO> al = null;
+		String rnd = "";
+		try {
+			
+			// hp check
+			Join join = new Join();
+			if (join.hpDupleCheck(hp) == false) throw new Exception("가입된 휴대폰 번호가 있습니다.");
+			
+			conn = VbyP.getDB();
+			uvo = new UserInformationVO();
+			uvo.setUser_id(VbyP.getValue("cert_id"));
+			uvo.setLine(VbyP.getValue("cert_line"));
+			
+			
+			smvo = new SendMessageVO();
+			smvo.setReturnPhone(VbyP.getValue("cert_returnphone"));
+			smvo.setReqIP(user_ip);
+			
+			RandomString rndStr = new RandomString();
+			rnd = rndStr.getString(5,"1");
+			smvo.setMessage("[문자노트]\n" +rnd+ "\n인증번호를 입력해 주세요.");
+			
+			al = new ArrayList<PhoneVO>();
+			al.add(new PhoneVO(hp,""));
+			smvo.setAl(al);
+			
+			sendLogWrite(uvo.getUser_id(), smvo);
+			lvo = send.Adminsend(conn, uvo, smvo);
+			
+			Gv.removeStatus(uvo.getUser_id());
+			
+		}catch (Exception e) {
+			
+			if (lvo == null) lvo = new LogVO();
+			lvo.setIdx(0);
+			lvo.setMessage(e.getMessage());
+			VbyP.accessLog("sendCert Exception : "+e.getMessage());
+			System.out.println(e);
+		}
+		finally { close(conn); }
+		VbyP.accessLog("sendCert End : "+sw.getTime()+" sec, "+lvo.getUser_id()+", "+lvo.getMode()+", "+lvo.getCnt()+" count");
+		
+		if (lvo.getIdx() < 1) {
+			bvo.setbResult(false);
+			bvo.setstrDescription(lvo.getMessage());
+		}else {
+			VbyP.accessLog("cert : " + user_id+" -> " + rnd);
+			bvo.setbResult(true);
+			bvo.setstrDescription(rnd);
+		}
+		return bvo;
+	}
+	
 	public BooleanAndDescriptionVO getCert(String user_id, String certNumber) {
 		
 		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
