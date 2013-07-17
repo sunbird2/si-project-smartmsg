@@ -12,7 +12,7 @@ LogVO lvo = null;
 String errorMsg = "";
 
 try {
-	VbyP.accessLog("sent excel call : "+ request.getRemoteAddr());
+	
 	us = (UserSession)session.getAttribute("user_id");
 	
 	//test
@@ -20,7 +20,9 @@ try {
 //	us.setUser_id("superman");
 	
 	if (us == null) { throw new Exception("no login!"); }
-	
+
+	VbyP.accessLog(us.getUser_id()+" sent excel call : "+ request.getRemoteAddr());
+
 	idx = SLibrary.IfNull(request.getParameter("idx"));
 	mode = SLibrary.IfNull(request.getParameter("mode"));
 	line = SLibrary.IfNull(request.getParameter("line"));
