@@ -20,6 +20,7 @@
 	<script type="text/javascript" src="/html/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="/html/js/jquery-ui-1.9.2.custom.min.js"></script>
     <script type="text/javascript" src="/html/js/plugin/jQuery-slimScroll-1.1.0/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript" src="/html/js/plugin/jquery.selectbox-0.2/js/jquery.selectbox-0.2.min.js"></script>
 	<script type="text/javascript" src="/html/js/note.js"></script>
 	<script type="text/javascript">
 	    
@@ -34,6 +35,7 @@
 	 
 	<link rel="stylesheet" type="text/css" href="/html/css/base.css" />
 	<link rel="stylesheet" type="text/css" href="/html/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="/html/js/plugin/jquery.selectbox-0.2/css/jquery.selectbox_green.css" />
 </head>
 <body class="main">
   <div id="top_layer"></div>
@@ -42,13 +44,13 @@
 	<div id="header">
 		<div id="top_right">
 			<div id="loginBtn" onclick="loginTopView()">↓로그인</div>
-			<div id="joinBtn" onclick="return changeMenu('join')">회원가입</div>
+			<div id="joinBtn" onclick="joinTopView()">↓회원가입</div>
 			<div id="loginFunction">
-				<a href="#" id="mypage" title="마이페이지" onclick="changeMenu('mypage');return false;" onfocus="this.blur()"> 마이페이지 </a><span>&nbsp;|&nbsp;</span>
+				<span>&nbsp;|&nbsp;</span><a href="#" id="mypage" title="마이페이지" onclick="changeMenu('mypage');return false;" onfocus="this.blur()"> 마이페이지 </a><span>&nbsp;|&nbsp;</span>
 				<a href="javascript:" id="logout" title="로그아웃" onclick="return logout_flex();" onfocus="this.blur()">로그아웃</a><span id="topbar3" style="display:none">&nbsp;|&nbsp;</span>
 			</div>
 			<!-- <a href="javascript:" id="api"  onclick="return changeMenu('api');" title="메시지연동" onfocus="this.blur()">메시지연동</a>	<span>&nbsp;|&nbsp;</span> -->
-			<a href="javascript:"  onclick="_addFavorite('문자노트 -빠르고 안정적인 문자시스템','http://www.munjanote.com')" title="즐겨찾기" onfocus="this.blur()" style="font-size:12px;"><img src="/images/start.png" width="12" height="13"/> 즐겨찾기&nbsp;</a><span>&nbsp;|&nbsp;</span>
+			<a href="javascript:"  onclick="_addFavorite('문자노트 -빠르고 안정적인 문자시스템','http://www.munjanote.com')" title="즐겨찾기" onfocus="this.blur()" style="font-size:12px;"><img src="/images/start.png" width="12" height="13"/> 즐겨찾기&nbsp;</a>
 		</div><!-- top_right -->
 		<div id="logo"><a href="javascript:" onclick="window.location.href='/'" title="MunjaNote"><img src="/images/logo.png" alt="MunjaNote" /></a></div>
 		<div id="navi">
