@@ -302,7 +302,7 @@
 		mainMoviePlay();
     }
     function mainMoviePlay() {
-		setTimeout(function(){  mainMovieImg1(); }, 2000);
+		setTimeout(mainMovieImg1, 2000);
 	}
 	function mainMovieImg1() {
 		$('#main_movie1').fadeIn(1000);
@@ -1280,13 +1280,13 @@
     			  loading(false);
   		          var posts = $(data).filter('#customWrap');
   		          $('#mainContent').empty().append(posts.html());
-  		          custom_notic();
+  		          customInit();
   		          
   		      }
       	);
     }
 	function customInit() {
-		custom_notic();
+		custom_useage();
 	}
 	function customCategory(val) {
 		$("#customBox").find(".customCategory > li").removeClass("on");
@@ -1349,7 +1349,7 @@
 		obj.find("p").each(function(index){
 			var el = $(this);
 			if (el.css("left").replace("px","") * 1 < 0)
-				setTimeout(useagePlay, 2000*index, el);
+				setTimeout(function(){useagePlay(el); el = null} , 2000*index, el);
 		}); 
 	}
 	function useagePlay(obj) {
@@ -1401,7 +1401,6 @@
 	var EMT_CATE = "";
 	var EMT_PAGE = 0;
 	var EMT_SC_POSITION = 0;
-	var EMT_B_ING = false;
 	
 	function viewEmtLayer() {
 		loading(true);
@@ -1419,7 +1418,7 @@
 		url = decodeURIComponent(url.replace(/\+/g, ' '));
 		var q = get_param_value(url,"query");
 		
-		if (q == "부고문자" || q == "부음문자" || q == "문상문자"|| q == "문상 문자" || q == "조문감사문자" || q == "조문문자") EMT_CATE = "부고/조의";
+		if (q == "부고문자" || q == "부음문자" || q == "문상문자"|| q == "문상 문자" || q == "조문감사문자" || q == "조문문자" || q == "문상객 감사 문자"|| q == "상조 문자") EMT_CATE = "부고/조의";
 
 		if (EMT_CATE != "") return true;
 		else return false;
@@ -1430,11 +1429,20 @@
 		getEmtCate();
 		getEmt(false);
 		// list scorll
-		$('#emtList').slimscroll({ alwaysVisible:true,wheelStep:10,width:'598px',height:'355px' }).bind('slimscrolling', function(e, pos) {
+		/*
+		$('#emtList').slimscroll({ alwaysVisible:true,width:598,height:355 }).bind('slimscrolling', function(e, pos) {
 			
 			if (pos != 0) {
-				if (EMT_SC_POSITION == pos) { getEmt(true); }
+				if (EMT_SC_POSITION == pos) { delayKeyup(function(){getEmt(true); }, 500 ); }
 				EMT_SC_POSITION = pos;
+			}
+		  });
+		  */
+		$('#emtList').slimscroll({ alwaysVisible:true,width:598,height:355 }).bind('slimscroll', function(e, pos) {
+			
+			if (pos == "bottom") {
+				getEmt(true);
+				//delayKeyup(function(){getEmt(true); }, 500 );
 			}
 		  });
 	}
@@ -1443,8 +1451,7 @@
 		
 		if (bAppend == true) EMT_PAGE++;
 		
-		if (EMT_B_ING == false) {
-			getEmtLoding( true );
+			
 			$.getJSON(
 					"/custom/emoticon.jsp",
 					{mode: "emoti", gubun: "", cateGory: EMT_CATE, startIndex:EMT_PAGE, numItems:24},
@@ -1457,14 +1464,13 @@
 							EMT_PAGE = 1;
 							$('#emtList').html(html);
 						}
-						$('#emtList').slimscroll();
-						setInterval( function() { getEmtLoding( false ); }, 1000 );
+						if (html != "")
+							$('#emtList').slimscroll();
+	
 					}
 				);
-		}
 		
 	}
-	function getEmtLoding(b) { EMT_B_ING = b; }
 	function getEmtCate() {
 
 		$.getJSON("/custom/emoticon.jsp", {mode: "category", gubun: ""},
@@ -1490,6 +1496,250 @@
 			);
 	}
 	/* Emt Layer End*/
+	/* Join Start */
+	function joinTopView() {
+		
+		if ($("#joinBtn").text() == "↓회원가입") {
+			$.get( "/html/join.html",
+		  		      function( data ) {
+		  			      loading(false);	
+		  		          var posts = $(data).filter('#joinWrap');
+		  		          $('#top_layer').empty().append(posts.html());
+		  		          topLayerAnimate(430);
+		  		          initJoin();
+		  		      }
+		      	);
+			$("#joinBtn").text("↑회원가입");
+		} else {
+			$('#joinBox .joinContent').empty();
+			topLayerAnimate(0);
+			$("#joinBtn").text("↓회원가입");
+		}
+	}
+	
+	var delayKeyup = (function(){ var timer = 0;return function(callback, ms){clearTimeout (timer);timer = setTimeout(callback, ms);};})();
+	
+	function initJoin() {
+		$('#useagecheck').slimscroll({ alwaysVisible:true,wheelStep:10,width:'600px',height:'100px' });
+		$('#personalcheck').slimscroll({ alwaysVisible:true,wheelStep:10,width:'600px',height:'100px' });
+		$("#joinHP1").selectbox();
+		defaultValue("joinId");
+		defaultValue("joinPw",true);
+		defaultValue("joinPwRe",true);
+		defaultValue("joinCert");
+		
+		// id check
+		$("#joinId").keyup(function(){
+			var v = $(this).val();var strReg = /^[A-Za-z0-9]+$/;var bErr = "";
+			if (v != "") {
+				if ( !strReg.test(v) ) { bErr = "영문과 숫자만 입력가능합니다.";}
+				else if ( v.length < 4 ) { bErr = "4자리 이상 입력하세요."; } 
+				else if ( v.length > 20 ) { bErr = "20자리 이하로 입력하세요.";}
+				else if ( checkPhone(v) == true  ) { bErr = "휴대폰번호를 아이디로 사용할 수 없습니다.";} 
+				else { delayKeyup(function(){joinDupIdCheck(v); }, 500 ); }
+			}
+			joinErrShow("joinId_help", bErr);
+		});
+		
+		// pw check
+		$("#joinPw").keyup(function(){
+			var v = $(this).val();var strReg = /^[A-Za-z0-9]+$/;var bErr = "";
+			if (v != "") {
+				if ( !strReg.test(v) ) {bErr = "영문과 숫자만 입력가능합니다.";} 
+				else if ( v.length < 4 ) {bErr = "4자리 이상 입력하세요.";} 
+				else if ( v.length > 20 ) {bErr = "20자리 이하로 입력하세요.";}
+				else {joinSubmitCheck();}
+			}
+			joinErrShow("joinPw_help", bErr);
+		});
+		
+		// pwre check
+		$("#joinPwRe").keyup(function(){
+			var v = $(this).val();var strReg = /^[A-Za-z0-9]+$/;var bErr = "";
+			if (v != "") {
+				if ( !strReg.test(v) ) {bErr = "영문과 숫자만 입력가능합니다.";}
+				else if ( $("#joinPw").val() != v ) {bErr = "위 입력한 비밀번호와 다릅니다.";}
+				else {joinSubmitCheck();}
+			}
+			joinErrShow("joinPwRe_help", bErr);
+		});
+		
+		// joinHP2 check
+		$("#joinHP2").keyup(function(){
+			var v = $(this).val();var strReg = /^[0-9]+$/;var bErr = "";
+			if (v != "") {
+				if ( !strReg.test(v) ) {bErr = "숫자만 입력가능합니다.";}
+				else if ( v.length == 4 ) { $("#joinHP3").focus(); }
+				else {joinSubmitCheck();}
+			}
+			joinErrShow("joinHP_help", bErr);
+		});
+		
+		// joinHP3 check
+		$("#joinHP3").keyup(function(){
+			var v = $(this).val();var strReg = /^[0-9]+$/;var bErr = "";
+			if (v != "") {
+				if ( !strReg.test(v) ) {bErr = "숫자만 입력가능합니다.";}
+				else if ( v.length == 4 ) { 
+					var hp = $("#joinHP1").val()+$("#joinHP2").val()+v;
+					if ( checkPhone(hp) == false ) {bErr = hp+" 는 올바른 휴대폰 번호가 아닙니다.";}
+					else { joinHpCheck(hp); }
+				}
+			}
+			joinErrShow("joinHP_help", bErr);
+		});
+		
+		// joinCert check
+		$("#joinCert").keyup(function(){
+			var v = $(this).val();var strReg = /^[0-9]+$/;var bErr = "";
+			if (v != "") {
+				if ( !strReg.test(v) ) {bErr = "숫자만 입력가능합니다.";}
+				else if ( v.length == 5 ) { 
+					joinCertCheck();
+				}
+			}
+			joinErrShow("joinHP_help", bErr);
+		});
+	}
+	function joinDupIdCheck(val) {
+		
+		if (JOIN_OK == true) return false;
+		$.getJSON( "/member/join.jsp", {"mode":"dupCheck", "user_id":val}, function(data) {
+				if (data != null && data.code && data.code == "0000") { joinErrShow("joinId_help", "");joinSubmitCheck();trackPageview("/join/idcheck","회원가입"); }
+				else { joinErrShow("joinId_help", data.msg); }
+			}
+		);
+	}
+	
+	function joinHpCheck(val) {
+		
+		if (JOIN_OK == true) return false;
+		$.getJSON( "/member/join.jsp", {"mode":"hpCheck", "user_hp":val}, function(data) {
+				if (data != null && data.code && data.code == "0000") { joinErrShow("joinHP_help", "");joinCertSend();trackPageview("/join/hpcheck","회원가입"); }
+				else { joinErrShow("joinHP_help", data.msg); $("#joinHP2").val("");$("#joinHP3").val(""); }
+			}
+		);
+	}
+	function joinCertSend() {
+		
+		if (JOIN_OK == true) return false;
+		var hp = $("#joinHP1").val()+$("#joinHP2").val()+$("#joinHP3").val();
+		var hp_label = $("#joinHP1").val()+"-"+$("#joinHP2").val()+"-"+$("#joinHP3").val();
+		var user_id = $("#joinId").val();
+		
+		if (user_id == "") { alert("아이디가 없습니다.");$("#joinHP3").val(""); }
+		else {
+			$.getJSON( "/member/join.jsp", {"mode":"certSend", "user_id":user_id, "user_hp":hp}, function(data) {
+				if (data != null && data.code && data.code == "0000") { 
+					joinErrShow("joinHP_help", "");
+					
+					$("#joinHP1").attr("disabled",true);
+					$("#joinHP2").attr("disabled",true);
+					$("#joinHP3").attr("disabled",true);
+					
+					$("#joinCert").show();
+					alert("["+hp_label+"] 번호로 인증번호가 발송 되었습니다.");
+					$("#joinCert").focus();
+					trackPageview("/join/certsend","회원가입");
+					
+				}
+				else { joinErrShow("joinHP_help", data.msg); }
+				}
+			);	
+		}
+		
+	}
+	function joinCertCheck() {
+		
+		if (JOIN_OK == true) return false;
+		var user_id = $("#joinId").val();
+		var user_hp = $("#joinHP1").val()+$("#joinHP2").val()+$("#joinHP3").val();
+		var user_cert = $("#joinCert").val();
+		
+		$.getJSON( "/member/join.jsp", {"mode":"certCheck", "user_id":user_id, "user_hp":user_hp, "user_cert":user_cert}, function(data) {
+				if (data != null && data.code && data.code == "0000") { joinErrShow("joinCert_help", "");joinSubmit();trackPageview("/join/certcheck","회원가입"); }
+				else { joinErrShow("joinCert_help", data.msg); }
+			}
+		);
+	}
+	
+	function joinSubmit() {
+		
+		if (JOIN_OK == true) return false;
+		$("#joinTxt").focus();
+		
+		var user_id = $("#joinId").val();
+		var user_hp = $("#joinHP1").val()+$("#joinHP2").val()+$("#joinHP3").val();
+		var user_pw = $("#joinPw").val();
+		
+		var err = joinValid();
+		if (err == "") {
+			if (confirm("입력하신 정보로 가입 하시겠습니까?")) {
+				$.getJSON( "/member/join.jsp", {"mode":"join", "user_id":user_id, "user_pw":user_pw, "user_hp":user_hp}, function(data) {
+						if (data != null && data.code && data.code == "0000") { joinOk(); }
+						else { alert(data.msg); }
+					}
+				);	
+			}
+			
+		} else {
+			alert(err);
+		}
+		
+		return false;
+		
+	}
+	function joinValid() {
+		var err = $("#joinId_help").text()+$("#joinHP_help").text()+$("#joinCert_help").text()+$("#joinPw_help").text()+$("#joinPwRe_help").text();
+		var user_id = $("#joinId").val();
+		var user_hp = $("#joinHP1").val()+$("#joinHP2").val()+$("#joinHP3").val();
+		var user_pw = $("#joinPw").val();
+		var user_pwre = $("#joinPwRe").val();
+		
+		if (user_id == "") err+="아이디를 입력하세요.";
+		else if (user_hp == "" || user_hp.length < 10) err+="휴대폰번호를 입력하세요.";
+		else if (user_pw == "") err+="비밀번호를 입력하세요.";
+		else if (user_pwre == "") err+="비밀번호확인을 입력하세요.";
+		
+		return err;
+	}
+	function joinSubmitCheck() {
+		
+		if (joinValid() == "") { joinSubmit(); }
+	}
+	var JOIN_TIMER;
+	var JOIN_OK;
+	function joinOk() {
+		
+		topLayerAnimate(200);
+		$("#joinComplete").show();
+		$("#joinInputBox").hide();
+		$("#joinTxtBox").hide();
+		JOIN_OK = true;
+		JOIN_TIMER = setInterval(joinTimer,1000);
+		trackPageview("/FLEX/joinComplete","회원가입");
+	}
+	function joinTimer() {
+		var sec = $("#joinSec").text();
+		sec *= 1;
+		sec--;
+		if (sec <= 0) {
+			clearInterval(JOIN_TIMER);
+			//try {
+				login_view("true");
+				flexCheckLogin();
+				topLayerAnimate(0);
+			//}catch(e){alert(e);}
+			changeMenu('custom');
+		} else {$("#joinSec").text(sec);}
+		
+	}
+	
+	function joinErrShow(eleId, err) {
+		if (err != "") { $("#"+eleId).text("* "+err).show(); }
+		else {  $("#"+eleId).text("");$("#"+eleId).hide(); }
+	}
+	/* Join End */
 	
 	function get_param_value(url, name )
 	{

@@ -25,7 +25,7 @@
 #loginBox .login_title {font-size:18px;font-weight:bold}
 #loginBox .loginContent {margin:30px auto;width:1024px;overflow:hidden;}
 #loginBox .loginInputBox {float:right;overflow:hidden;width:230px;text-align:right;}
-#loginBox .inputtext {background: #5fc1f2;border: 1px solid #6dc6f2;font-size: 12px;-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;color: #fff;display: block;margin: 10px 0px;padding: 3px 20px;height: 30px;line-height: 30px;width: 100%;-webkit-transition: all 0.15s linear;-moz-transition: all 0.15s linear;-o-transition: all 0.15s linear;transition: all 0.15s linear;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+#loginBox .inputtext {background: #5fc1f2;border: 1px solid #6dc6f2;font-size: 12px;-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;color: #fff;display: block;margin: 10px 0px;padding: 0px 20px;height: 30px;line-height: 30px;width: 100%;-webkit-transition: all 0.15s linear;-moz-transition: all 0.15s linear;-o-transition: all 0.15s linear;transition: all 0.15s linear;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
 #loginBox .submit{background:url("/images/enter_char.png") 159px 4px no-repeat;padding-right:12px;color:#e6f7ff}
 #loginBox .loginTxtBox {float:left;overflow:hidden;text-align:left;background:url("/images/MN_36.png") 0px 7px no-repeat;}
 #loginBox h5 {color:#e6f7ff;font-weight:normal}
@@ -34,14 +34,25 @@
 
 #loginFunction {float:right;overflow:hidden;display:none;}
 
-#joinBtn {width:55px;padding-right:5px;height:20px;float:right;text-align:center;font-size:12px;cursor:pointer}
-/* #joinBtn {width:75px;padding-right:5px;height:20px;float:right;background-color:#9933cc;color:#FFF;text-align:center;font-size:11px;cursor:pointer} */
-#joinBox {width:100%;color:#FFF;background-color:#9933cc;overflow:hidden;}
+/*#joinBtn {width:55px;padding-right:5px;height:20px;float:right;text-align:center;font-size:12px;cursor:pointer}*/
+#joinBtn {width:75px;padding-right:5px;height:20px;float:right;background-color:#92c500;color:#FFF;text-align:center;font-size:11px;cursor:pointer}
+#joinBox {width:100%;color:#FFF;background-color:#92c500;overflow:hidden;}
+#joinBox .joinCheckPre {word-wrap:break-word;padding:0px 10px;font-size:11px;background-color:#99cc00;border: 1px solid #A8D324;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
 #joinBox .joinContent {margin:30px auto;width:1024px;overflow:hidden;}
-#joinBox .joinInputBox {float:right;overflow:hidden;width:230px;text-align:right;}
-#joinBox .join_title {font-size:18px;font-weight:bold}
-#joinBox .inputtext {background: #aa66cc;border: 1px solid #aa66cc;font-size: 12px;-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;color: #fff;display: block;margin: 10px 0px;padding: 3px 20px;height: 30px;line-height: 30px;width: 100%;-webkit-transition: all 0.15s linear;-moz-transition: all 0.15s linear;-o-transition: all 0.15s linear;transition: all 0.15s linear;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
-#joinBox .joinTxtBox {float:left;overflow:hidden;text-align:left;background:url("/images/MN_36.png") 0px 7px no-repeat;}
+#joinBox .joinInputBox {float:right;overflow:hidden;width:230px;min-height:370px; text-align:left;background:url("/skin/ics/assets/light/icon/12-hardware-keyboard.png") 0px 7px no-repeat;}
+#joinBox .joinTxtBox {float:left;overflow:hidden;width:600px;text-align:left;background:url("/images/MN_36.png") 0px 7px no-repeat;}
+#joinBox .join_title {margin:6px 40px;font-size:18px;font-weight:bold}
+#joinBox .join_title_sub {font-size:12px;font-weight:normal}
+#joinBox .joinValid {color:#cc0000;overflow:hidden;margin-top:-6px;display:none;}
+#joinBox .inputtext {background:#99cc00;border:1px solid #A8D324 ;font-size: 12px;-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;color: #FFF;display: block;margin: 10px 0px;padding: 0px 10px 0px 35px;height: 32px;line-height: 32px;width: 230px;-webkit-transition: all 0.15s linear;-moz-transition: all 0.15s linear;-o-transition: all 0.15s linear;transition: all 0.15s linear;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;overflow:visible}
+#joinBox .inputtextId {margin-top:0px;background:url("/skin/ics/assets/light/icon/10-device-access-new-account.png") no-repeat #99cc00;}
+#joinBox .inputtextPw {background:url("/skin/ics/assets/light/icon/10-device-access-not-secure.png") no-repeat #99cc00;}
+#joinBox .inputtextPwRe {background:url("/skin/ics/assets/light/icon/10-device-access-secure.png") no-repeat #99cc00;}
+#joinBox .inputtextHp {background:url("/skin/ics/assets/light/icon/6-social-chat.png") no-repeat #99cc00;}
+#joinBox .joinTxtBox {float:left;overflow:hidden;text-align:left;background:url("/skin/ics/assets/light/icon/1-navigation-accept.png") 0px 7px no-repeat;}
+#joinBox .joinCompleteTxtBox {display:none;margin:0 auto;width:580px;overflow:hidden;text-align:left;background:url("/images/MN_36.png") 0px 7px no-repeat;}
+#joinBox .joinhpBox {width:100%;overflow:visible;min-height:32px;}
+#joinBox .submit{width:100%;background:url("/images/enter_char.png") 215px 4px no-repeat;text-align:right;color:#fff;cursor:pointer}
 
 #install_wrap {position:absolute;left:105px;top:430px;width:172px;height:144px;}
 #bar {clear:both;width:1200px;height:15px; background-image:url("/images/top_shade.png")}
@@ -90,8 +101,8 @@
 #emtBox h1 {background:url("/images/logo.png") no-repeat;height:35px;padding-left:175px;padding-top:10px;}
 #emtBox h2 {margin-top:15px;padding-left:20px;background:url('/images/arrow.png') 0px 3px no-repeat;height:20px;}
 #emtList {height:400px;}
-#emtList li  {display:block;float:left;position: relative;margin:0px 3px 3px 0px;width: 142px;height: 113px; cursor:pointer;overflow:hidden;border:1px solid #EFEFEF;border-top:2px solid #33b5e5}
-#emtList li textarea {margin: 0;padding: 0 10px 0 0;border: none;position: absolute;top: 16px;left: 14px;overflow: hidden;width: 110px;height: 86px;background-color: transparent;line-height: 1.4em;cursor: pointer;}
+#emtList li  {display:block;float:left;margin:0px 3px 3px 0px;width: 142px;height: 113px; cursor:pointer;overflow:hidden;border:1px solid #EFEFEF;border-top:2px solid #33b5e5}
+#emtList li textarea {margin: 0;padding: 0 10px 0 0;border: none;margin-top: 16px;margin-left: 14px;overflow: hidden;width: 110px;height: 86px;background-color: transparent;line-height: 1.4em;cursor: pointer;}
 #emtCate {clear:both;width:598px;height:145px;overflow:hidden;}
 #emtCate li {display:block;float:left;margin:0px 3px 3px 0px; height:22px;line-height:22px;padding:0px 12px;color:#FFF;background-color:#333;font-size:11px;cursor:pointer;}
 #emtCate li.on {background-color:#33b5e5;color:#FFF;}
@@ -210,8 +221,8 @@
 #customBox .customContent {width:100%;overflow:hidden;}
 #customBox .customMenu {width:200px;float:left;}
 #customBox .customTitle {padding-left:45px;height:40px;background:url("/images/custom_title.png") no-repeat;overflow:hidden;border-bottom:1px solid #EFEFEF}
-#customBox .customTitle sub {padding-left:0px;font-size:10px;line-height:10px;}
-#customBox .customTitle h3 {font-size:22px;line-height:20px;font-weight:bold}
+#customBox .customTitle .customTitleSub {display:block;margin:0px;padding-left:0px;font-size:10px;line-height:10px;height:10px;overflow:hidden;}
+#customBox .customTitle .customTitleTxt {font-size:18px;font-weight:bold;}
 #customBox .customCategory {height:auto;overflow:hidden;}
 #customBox .customCategory li {height:40px;line-height:40px;border-bottom:1px solid #EFEFEF;cursor:pointer}
 #customBox .customCategory li.on {border-left:2px solid #0099cc;font-weight:bold;}
