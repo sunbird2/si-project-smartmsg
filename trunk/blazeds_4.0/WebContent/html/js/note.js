@@ -1520,6 +1520,7 @@
 	var delayKeyup = (function(){ var timer = 0;return function(callback, ms){clearTimeout (timer);timer = setTimeout(callback, ms);};})();
 	
 	function initJoin() {
+		trackPageview("/join/start","회원가입");
 		$('#useagecheck').slimscroll({ alwaysVisible:true,wheelStep:10,width:'600px',height:'100px' });
 		$('#personalcheck').slimscroll({ alwaysVisible:true,wheelStep:10,width:'600px',height:'100px' });
 		$("#joinHP1").selectbox();
@@ -1717,7 +1718,11 @@
 		$("#joinTxtBox").hide();
 		JOIN_OK = true;
 		JOIN_TIMER = setInterval(joinTimer,1000);
-		trackPageview("/FLEX/joinComplete","회원가입");
+		trackPageview("/FLEX/join/joinComplete","회원가입");
+
+		var user_id = $("#joinId").val();
+		var user_hp = $("#joinHP1").val()+$("#joinHP2").val()+$("#joinHP3").val();
+		$.post("/gLog.jsp", { ref: " join "+user_id+" "+user_hp } );
 	}
 	function joinTimer() {
 		var sec = $("#joinSec").text();
