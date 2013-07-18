@@ -25,16 +25,7 @@
 			'Gangnam',     // state or province
 			'KOREA'             // country
 		  ]);
-	 /*
-	  _gaq.push(['_addItem',
-		method+"_"+amount+"_"+timeStamp,           // order ID - required
-		method+"_"+amount,           // SKU/code - required
-		'MSG'+"_"+amount,        // product name
-		'Munja',   // category or variation
-		amount,          // unit price - required
-		'1'               // quantity - required
-	  ]);
-	  */
+		//	  _gaq.push(['_addItem',....]);
 	  _gaq.push(['_trackTrans']); //submits transaction to the Analytics servers
 
 	}
@@ -90,19 +81,12 @@
     	flexHide(); /* flex init */
     	if($("#install_wrap").length > 0) {$("#install_wrap").hide();}/* install init */
     	
-        if (str == "bill") {
-        	billLoad();
-        } else if (str == "mypage") {
-        	mypageLoad();
-        } else if (str == "api") {
-        	apiLoad(); 
-        } else if (str == "home") {
-        	homeLoad();
-        } else if (str == "custom") {
-        	customLoad();
-        } else {/* flex */
-        	flexLoad();
-        }
+        if (str == "bill") { billLoad();} 
+        else if (str == "mypage") {mypageLoad();} 
+        else if (str == "api") {apiLoad();} 
+        else if (str == "home") {homeLoad();} 
+        else if (str == "custom") {customLoad();}
+        else {flexLoad();}
     	
         if(document.getElementById(MENU)) { document.getElementById(MENU).className = MENU + " on";/* menu style on */ }
         
@@ -148,7 +132,6 @@
     		} else {
     			$.post("/gLog.jsp", { ref: "no version flash-"+playerVersion.major+"."+playerVersion.minor+"."+playerVersion.release } );
     		}
-    		
     		//$('#flexWrap').html('<img src="images/noflash.png" style="cursor:pointer" onclick="window.location.href=\'/noflash/index_movie.html\';" />');
     		//$.post("/gLog.jsp", { ref: "no version flash-"+playerVersion.major+"."+playerVersion.minor+"."+playerVersion.release } );
     	}
@@ -1510,6 +1493,7 @@
 		  		      }
 		      	);
 			$("#joinBtn").text("↑회원가입");
+			
 		} else {
 			$('#joinBox .joinContent').empty();
 			topLayerAnimate(0);
@@ -1601,6 +1585,8 @@
 			}
 			joinErrShow("joinHP_help", bErr);
 		});
+		
+		$.post("/gLog.jsp", { ref: " join Start" } );
 	}
 	function joinDupIdCheck(val) {
 		

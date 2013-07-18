@@ -41,7 +41,7 @@
 #joinBox .joinContent {margin:30px auto;width:1024px;overflow:hidden;}
 #joinBox .joinInputBox {float:right;overflow:hidden;width:230px;min-height:370px; text-align:left;background:url("/skin/ics/assets/light/icon/12-hardware-keyboard.png") 0px 7px no-repeat;}
 #joinBox .joinTxtBox {float:left;overflow:hidden;width:600px;text-align:left;background:url("/images/MN_36.png") 0px 7px no-repeat;}
-#joinBox .join_title {margin:6px 40px;font-size:18px;font-weight:bold}
+#joinBox .join_title {margin:6px 0px 6px 40px;font-size:18px;font-weight:bold}
 #joinBox .join_title_sub {font-size:12px;font-weight:normal}
 #joinBox .joinValid {color:#cc0000;overflow:hidden;margin-top:-6px;display:none;}
 #joinBox .inputtext {background:#99cc00;border:1px solid #A8D324 ;font-size: 12px;-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;color: #FFF;display: block;margin: 10px 0px;padding: 0px 10px 0px 35px;height: 32px;line-height: 32px;width: 230px;-webkit-transition: all 0.15s linear;-moz-transition: all 0.15s linear;-o-transition: all 0.15s linear;transition: all 0.15s linear;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;overflow:visible}
