@@ -394,5 +394,13 @@
 	</insert>
 	<!-- EMOTICON E -->
 	
+	<!-- QNA S -->
+	<insert id="insert_qna" parameterType="com.m.admin.vo.QnaVO">
+		INSERT INTO qna
+		(user_id, hp, content, timeWrite) 
+		VALUES (#{user_id}, #{hp}, #{content}, now());
+	</insert>
+	<!-- QNA E -->
+	
 
 </mapper>
