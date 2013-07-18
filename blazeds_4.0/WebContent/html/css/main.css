@@ -54,6 +54,18 @@
 #joinBox .joinhpBox {width:100%;overflow:visible;min-height:32px;}
 #joinBox .submit{width:100%;background:url("/images/enter_char.png") 215px 4px no-repeat;text-align:right;color:#fff;cursor:pointer}
 
+#qna {position: fixed;left:-300px;top:64px;z-index:9999;overflow:hidden;width:387px;height:auto;}
+#qnaBtn {cursor:pointer;}
+#qna .qnatitle {width:100%;overflow:hidden;}
+#qna .qnatitle span {display:block;float:left;width:280px;padding:0px 10px;line-height:39px;height:39px;color:#FFF;font-size:12px;background-color:#f46758;font-weight:bold;}
+#qnacontent {margin-top:-11px;width:280px;padding:10px 10px;overflow:hidden;background-color:#FBFBFB;border-radius: 0 0 4px 0;
+border-right: 1px solid #EFEFEF;
+border-bottom: 1px solid #EFEFEF;
+-webkit-box-shadow: 0px 0px 4px 0px rgba(51, 51, 51, 0.4);
+box-shadow: 0px 0px 4px 0px rgba(51, 51, 51, 0.4);}
+#qna .inputtext {background:#FFF;border:1px solid #EAEAEA ;font-size: 12px;-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;color: #5a5c5d;display: block;margin: 10px 0px;padding: 0px 10px;height: 32px;line-height: 32px;width: 280px;-webkit-transition: all 0.15s linear;-moz-transition: all 0.15s linear;-o-transition: all 0.15s linear;transition: all 0.15s linear;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;overflow:visible}
+#qnasend {display:block;float:right;}
+
 #install_wrap {position:absolute;left:105px;top:430px;width:172px;height:144px;}
 #bar {clear:both;width:1200px;height:15px; background-image:url("/images/top_shade.png")}
 
