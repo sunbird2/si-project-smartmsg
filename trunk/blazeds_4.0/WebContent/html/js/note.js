@@ -1731,6 +1731,55 @@
 		else {  $("#"+eleId).text("");$("#"+eleId).hide(); }
 	}
 	/* Join End */
+	/* QnA Start */
+	function qnaInit() {
+		
+		$("#qnaBtn").click(function(){
+			qnaBtnToggle();
+			return false;
+		});
+		
+		defaultValue("qnahp");
+		defaultValue("qnatext");
+		 
+	}
+	function qnaBtnToggle() {
+		
+		var toggleLeft = "";
+		if ($("#qna").css("left") == "-300px") {
+			toggleLeft = "0px";
+			$("#qnaq").show();
+			$("#qnaok").hide();
+		} else {
+			toggleLeft = "-300px";
+		}
+		
+	    $('#qna').animate({ left: toggleLeft });
+	}
+	function qnaSubmit() {
+		var hp = $("#qnahp").val().replace("-","");
+		var msg = $("#qnatext").val();
+		
+		if (hp == "") {alert("답변 받을 연락처를 입력하세요.");}
+		else if (msg == "") {alert("문의 내용을 입력하세요.");}
+		else if (checkPhone(hp) == false) {alert("올바른 휴대폰 번호가 아닙니다.(숫자만 입력가능)");}
+		else {
+			$.getJSON( "/custom/qna.jsp", {"hp":hp, "msg":msg}, function(data) {
+					if (data != null && data.code && data.code == "0000") { qnaOk(); }
+					else { alert(data.msg); }
+				}
+			);
+		}
+		return false;
+	}
+	function qnaOk() {
+		$("#qnaokHp").text($("#qnahp").val());
+		$("#qnaq").hide();
+		$("#qnaok").show();
+		
+		setTimeout(qnaBtnToggle, 4000);
+	}
+	/* QnA End */
 	
 	function get_param_value(url, name )
 	{
