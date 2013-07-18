@@ -30,6 +30,8 @@
 			$.post("/accLog.jsp", { ref: document.referrer } );
 			if (refererCheck() == true)
 				viewEmtLayer();
+			
+			qnaInit();
 		});
 	</script>
 	 
@@ -120,6 +122,22 @@
 </div>
 <div id="mask"></div>
 
+<div id="qna">
+	<div class="qnatitle"><span>불편하시거나 문의할 내용을 알려 주세요.</span><img src="/images/qnalabel.png" id="qnaBtn" /></div>
+	<div id="qnacontent">
+		<div id="qnaq">
+			<input type="text" name="qnahp" id="qnahp" maxlength="13" class="inputtext" title="답변 받을 연락처(휴대폰)" style="background:url('/skin/ics/assets/light/icon/5-content-email.png') no-repeat;padding-left:35px;width:190px;" />
+			<textarea name="qnatext" id="qnatext" class="inputtext" style="height: 132px;line-height: 14px;padding:5px 10px;overflow:auto;" title="이곳에 내용을 적어 주세요."></textarea>
+			<a href="#" name="qnasend" id="qnasend" onclick="return qnaSubmit()">＞ 문자노트에게 보내기</a>
+		</div>
+		<div id="qnaok" style="display:none;">
+			<p style="font-size:18px">문자노트에게 전달 되었습니다.</p>
+			<p style="margin:20px 0px 10px 0px">소중한 의견 진심으로 감사드립니다.</p>
+			<p><span>빠른 시일내에 </span><span id="qnaokHp" style="font-weight:bold;color:#0099cc"></span><span>로<br/>문자 답변 드리겠습니다.</span></p>
+		</div>
+	</div>
+	
+</div>
 <!-- 
 <div id="eventPop" style="position:absolute;top:70px;left:50%;margin-left:-510px;z-index:1000;background:url('images/HappyNewYearEventPopup.png') no-repeat;width:571px;height:611px">
 	<div style="position:relative;width:100%;height:100%">
