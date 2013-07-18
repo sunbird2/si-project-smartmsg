@@ -29,7 +29,7 @@
 		buf.append("{");
 		if (err.length() <= 0) {
 			buf.append("\"code\":\"0000\",\"msg\":\"ok\"");	
-			SendMail.send("[qna]"+user_id+"["+hp+"]" , msg );
+			SendMail.send("[qna] "+user_id+" -"+hp , msg );
 		} else {
 			buf.append("\"code\":\"0001\",\"msg\":\""+err.toString()+"\"");
 		}
