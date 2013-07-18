@@ -9,7 +9,10 @@
 </head>
 <body>
 <%
-out.println( request.getContextPath() );
+out.println( request.getContextPath()+"@@@" );
+ServletContext context = session.getServletContext();
+String realContextPath = context.getRealPath(request.getContextPath());
+out.println(realContextPath);
 /*
 	ReadPropertiesAble rp = ReadProperties.getInstance();
 	
