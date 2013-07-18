@@ -1,26 +1,19 @@
 package com.m;
 
-import java.io.File;
-import java.sql.Connection;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.tika.Tika;
 
 import com.common.VbyP;
 import com.common.db.SessionFactory;
 import com.common.db.SessionManager;
-import com.common.util.SLibrary;
-import com.common.util.Thumbnail;
 import com.m.admin.vo.BillingVO;
 import com.m.admin.vo.MemberVO;
 import com.m.admin.vo.PointLogVO;
+import com.m.admin.vo.QnaVO;
 import com.m.admin.vo.SentLogVO;
 import com.m.billing.BillingTaxVO;
-import com.m.common.BooleanAndDescriptionVO;
-import com.m.common.FileUtils;
 import com.m.emoticon.EmoticonVO;
-import com.m.member.UserInformationVO;
 
 public class MultiDao {
 	
@@ -196,7 +189,11 @@ public class MultiDao {
 		
 	}
 	
-	
+	public int insert(String sq, Object vo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (Integer)sm.insert(ns + sq, vo);
+	}
 	
 	
 	
