@@ -1616,6 +1616,7 @@
 		
 		if (user_id == "") { alert("아이디가 없습니다.");$("#joinHP3").val(""); }
 		else {
+
 			$.getJSON( "/member/join.jsp", {"mode":"certSend", "user_id":user_id, "user_hp":hp}, function(data) {
 				if (data != null && data.code && data.code == "0000") { 
 					joinErrShow("joinHP_help", "");
