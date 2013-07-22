@@ -1,3 +1,4 @@
+<%@page import="com.m.log.telecom.HANSent"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="com.m.member.SessionManagement"%>
 <%@page import="com.m.member.UserInformationVO"%>
@@ -63,6 +64,7 @@ try {
 				if (lvo.getLine().equals("lg")) sentData = LGSent.getInstance();
 				else if (lvo.getLine().equals("pp")) sentData = PPSent.getInstance();
 				else if (lvo.getLine().equals("kt")) sentData = KTSent.getInstance();
+				else if (lvo.getLine().equals("han")) sentData = HANSent.getInstance();
 				
 				cnt = sentData.failUpdate(conn, lvo);
 				
