@@ -55,28 +55,31 @@ try {
 		for (int i = 0; i < cntLines; i++) {
 			
 			lvo = lines.get(i);
-			
-			VbyP.accessLog("failAdd Start : user_id="+lvo.getUser_id()+" mode="+lvo.getMode());
-			
-			if (lvo.getLine().equals("lg")) sentData = LGSent.getInstance();
-			else if (lvo.getLine().equals("pp")) sentData = PPSent.getInstance();
-			else if (lvo.getLine().equals("kt")) sentData = KTSent.getInstance();
-			
-			cnt = sentData.failUpdate(conn, lvo);
-			
-			if (cnt > 0) {
-				if (lvo.getMode().equals("LMS")) { code = 47; point = cnt*SLibrary.intValue(VbyP.getValue("LMS_COUNT")); }
-				else if (lvo.getMode().equals("MMS")) { code = 27; point = cnt*SLibrary.intValue(VbyP.getValue("MMS_COUNT")); }
-				else { code = 17; point = cnt*SLibrary.intValue(VbyP.getValue("SMS_COUNT")); } 
+			if (!lvo.getUser_id().equals("admin")) {
 				
+			
+				VbyP.accessLog("failAdd Start : user_id="+lvo.getUser_id()+" mode="+lvo.getMode());
 				
-				uvo = smm.getInformation(conn, lvo.getUser_id());
-				if ( PointManager.getInstance().insertUserPoint(conn, uvo, code, point) <= 0 ) {
-					VbyP.accessLog("failAddError : user_id="+uvo.getUser_id()+" mode="+lvo.getMode()+" cnt="+cnt+" point="+point);
-				} else {
-					VbyP.accessLog("failAdd : user_id="+uvo.getUser_id()+" mode="+lvo.getMode()+" cnt="+cnt+" point="+point);
-				}
-			} // if
+				if (lvo.getLine().equals("lg")) sentData = LGSent.getInstance();
+				else if (lvo.getLine().equals("pp")) sentData = PPSent.getInstance();
+				else if (lvo.getLine().equals("kt")) sentData = KTSent.getInstance();
+				
+				cnt = sentData.failUpdate(conn, lvo);
+				
+				if (cnt > 0) {
+					if (lvo.getMode().equals("LMS")) { code = 47; point = cnt*SLibrary.intValue(VbyP.getValue("LMS_COUNT")); }
+					else if (lvo.getMode().equals("MMS")) { code = 27; point = cnt*SLibrary.intValue(VbyP.getValue("MMS_COUNT")); }
+					else { code = 17; point = cnt*SLibrary.intValue(VbyP.getValue("SMS_COUNT")); } 
+					
+					
+					uvo = smm.getInformation(conn, lvo.getUser_id());
+					if ( PointManager.getInstance().insertUserPoint(conn, uvo, code, point) <= 0 ) {
+						VbyP.accessLog("failAddError : user_id="+uvo.getUser_id()+" mode="+lvo.getMode()+" cnt="+cnt+" point="+point);
+					} else {
+						VbyP.accessLog("failAdd : user_id="+uvo.getUser_id()+" mode="+lvo.getMode()+" cnt="+cnt+" point="+point);
+					}
+				} // if
+			}
 
 		} // for
 	} // if
