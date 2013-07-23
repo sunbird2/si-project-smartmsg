@@ -20,7 +20,7 @@
 	
 	<s:Group includeIn="logout" left="8" right="8" top="0" bottom="8" minWidth="0" minHeight="0">
 		<s:Label text="Login" left="10" height="48" verticalAlign="middle" fontSize="16" color="#D6D6D6" />
-		<s:BitmapImage top="6" right="10" source="@Embed('skin/ics/assets/dark/icon/10-device-access-secure.png')" alpha="0.6" />
+		<s:BitmapImage top="6" right="10" source="skin/ics/assets/dark/icon/10-device-access-secure.png" alpha="0.6" />
 		
 		<s:VGroup top="50" horizontalCenter="0" gap="10">
 			<s:TextInput id="user_id" styleName="textinput_dark" prompt="아이디" width="150" height="24" fontSize="12"/>

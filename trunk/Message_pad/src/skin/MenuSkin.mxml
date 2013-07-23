@@ -20,13 +20,13 @@
 		<s:State name="join" stateGroups="small"/>
 	</s:states>
 	
-	<s:BitmapImage source="@Embed('/skin/ics/assets/dock.png')" includeIn="home"
+	<s:BitmapImage source="/skin/ics/assets/dock.png" includeIn="home"
 			 fillMode="scale" width="543" height="44" smooth="true"
 			 horizontalCenter="0" bottom="0" alpha="0.8" />
 	<s:HGroup horizontalCenter="-20" gap="5" gap.home="50" bottom.home="-20">
 		<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#FF0000"/></s:fill></s:Rect>
 		<s:Group id="labelSend" buttonMode="true" excludeFrom="send">
-			<ics:BitmapImageReflection source="@Embed('/skin/ics/assets/icon.png')" 
+			<ics:BitmapImageReflection source="/skin/ics/assets/icon.png" 
 									   imageWidth="48" imageHeight="48" imageWidth.small="32" imageHeight.small="32"  reflectionVisible.small="false"
 									   gap="-3"/>
 			<s:RichText text="메시지" includeIn="home" color="#DDDDDD" horizontalCenter="0" top="56" />
@@ -47,7 +47,7 @@
 		</s:Group>
 		
 		<s:Group id="labelLog" buttonMode="true" excludeFrom="log">
-			<ics:BitmapImageReflection source="@Embed('/skin/ics/assets/menu_calendar.png')" top="4"
+			<ics:BitmapImageReflection source="/skin/ics/assets/menu_calendar.png" top="4"
 									   imageWidth="48" imageHeight="48" imageWidth.small="32" imageHeight.small="32" reflectionVisible.small="false"
 									   gap="-7"/>
 			<s:RichText text="내역" includeIn="home" color="#DDDDDD" horizontalCenter="0" top="56" />

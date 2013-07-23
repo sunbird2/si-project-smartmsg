@@ -134,7 +134,7 @@
 		<s:Button id="updateBtn" visible="false" height="26" width="70" right="0" verticalCenter="0" label="저장" styleName="button_light" click="onChange(null)"/>
 	</s:Group>
 	
-	<s:BitmapImage id="sel" source="@Embed('/skin/ics/assets/list_select.png')" smooth="true" right="0" visible="false"/>	
+	<s:BitmapImage id="sel" source="/skin/ics/assets/list_select.png" smooth="true" right="0" visible="false"/>	
 	
 	<s:Rect width="100%" bottom="0" height="0.5">
 		<s:stroke>
