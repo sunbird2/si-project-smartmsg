@@ -318,14 +318,19 @@ package component.excel
 			else if (cols == "") SLibrary.alert("구분자를 선택 하세요.");
 			else {
 				
-				acExcel.removeAll();
+				
 				var arrRow:Array = str.split(rows);
 				var cnt:int = arrRow.length;
+				
+				var ac:ArrayCollection = new ArrayCollection();
 				for ( var i:int = 0; i < cnt; i++ ) {
-					acExcel.addItem( parseCol( String(arrRow[i]).split(cols), i+1 ));
+					ac.addItem( parseCol( String(arrRow[i]).split(cols), i+1 ));
 				}
-				if (acExcel.length > 0) {
-					
+				if (ac.length > 0) {
+					acExcel.removeAll();
+					excelView.dataProvider = null;
+					acExcel.addAll(ac);
+					excelView.dataProvider = acExcel;
 				}else SLibrary.alert("구분자를 올바르게 선택하세요.");
 			}
 		}

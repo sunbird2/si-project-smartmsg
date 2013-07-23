@@ -84,6 +84,8 @@ package component
 		[SkinPart(required="false")]public var groupAddBtn:Image;
 		[SkinPart(required="false")]public var groupModifyBtn:Image;
 		[SkinPart(required="false")]public var groupDelBtn:Image;
+		[SkinPart(required="false")]public var groupText:TextInput;
+		
 		
 		// name
 		[SkinPart(required="false")]public var nameList:ListCheckAble;
@@ -173,7 +175,7 @@ package component
 					for (var j:uint = 0; j < event.items.length; j++) { 
 						if (event.items[i] is AddressVO
 							&& AddressVO(event.items[i]) != null 
-							&& AddressVO(event.items[i]).idx != 0 && bGetGroup == false) {  
+							&& AddressVO(event.items[i]).grpName != "모두" && bGetGroup == false) {  
 							
 							activeAddress(12, AddressVO(event.items[i])); 
 						}
@@ -185,10 +187,8 @@ package component
 						if (event.items[i] is PropertyChangeEvent
 							&& PropertyChangeEvent(event.items[i]) != null
 							&& PropertyChangeEvent(event.items[i]).property == "grpName") { 
-							activeAddress(
-								(AddressVO(PropertyChangeEvent(event.items[i]).source).idx == 0)? 10 : 11,
-								AddressVO(PropertyChangeEvent(event.items[i]).source)
-							); 
+
+							activeAddress(11,AddressVO(PropertyChangeEvent(event.items[i]).source)); 
 						} 
 					} 
 					break; 
@@ -440,7 +440,7 @@ package component
 				Gv.addressGroupList.removeAll();
 				for (var i:Number = 0; i < acGroup.length; i++) {
 					avo = acGroup.getItemAt(i) as AddressVO;
-					if (avo.idx != 0) {
+					if (avo.grpName != "모두") {
 						Gv.addressGroupList.addItem(avo.grpName);
 					}
 						
@@ -465,7 +465,7 @@ package component
 			
 			var vo:AddressVO = acGroup.getItemAt(groupList.selectedIndex) as AddressVO;
 			if (vo != null) {
-				var gName:String = (vo.idx == 0)? "":vo.grpName;
+				var gName:String = (vo.grpName == "모두")? "":vo.grpName;
 				currentGroupName = gName;
 				getNameList();
 			}
@@ -660,10 +660,36 @@ package component
 			
 			event.stopImmediatePropagation();
 			event.preventDefault();
-			var avo:AddressVO = new AddressVO();
-			avo.grpName = "";
-			acGroup.addItem( avo );
-			tracker("groupAddBtn_clickHandler");// tracker
+			
+			var grp:String = groupText.text;
+			if (grp != null && grp != "") {
+				if (getGroupNameCount(grp) > 0) {
+					SLibrary.alert("등록된 그룹 입니다.");
+				} else if (grp != null && grp=="모두") {
+					SLibrary.alert("모두로 그룹등록 하실 수 없습니다.");
+				} else {
+					var avo:AddressVO = new AddressVO();
+					avo.idx = -1;
+					avo.grpName = grp;
+					acGroup.addItem( avo );
+					activeAddress( 10, AddressVO(avo));
+					
+					tracker("groupAddBtn_clickHandler");// tracker
+				}
+			}
+			
+		}
+		private function getGroupNameCount(grpName:String):int {
+			
+			var cnt:int = acGroup.length;
+			var avo:AddressVO = null;
+			
+			var rslt:int = 0;
+			for (var i:int = 0; i < cnt; i++) {
+				avo = acGroup[i];
+				if (grpName == avo.grpName) rslt++;
+			}
+			return rslt;
 		}
 		
 		/**
