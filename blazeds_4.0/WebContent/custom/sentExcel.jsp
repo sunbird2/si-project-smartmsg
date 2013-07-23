@@ -1,3 +1,4 @@
+<%@page import="com.m.log.telecom.HANSentDao"%>
 <%@page import="com.m.log.telecom.LGSentDao"%><%@page import="com.m.send.MessageVO"%><%@page import="java.util.List"%><%@page import="com.m.log.telecom.KTSentDao"%><%@page import="com.m.send.LogVO"%><%@page import="com.m.send.Sent"%><%@page import="com.m.member.UserSession"%><%@page import="com.common.util.SLibrary"%><%@page import="com.common.util.ExcelManagerByPOI36"%><%@page import="com.common.VbyP"%><%@page import="java.sql.Connection"%><%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %><%
 
 String[][] excelData = null;
@@ -39,6 +40,7 @@ try {
 	
 	if (line.equals("kt")) st = new KTSentDao();
 	else if (line.equals("lg")) st = new LGSentDao();
+	else if (line.equals("han")) st = new HANSentDao();
 	else throw new Exception("bad line!");
 	
 	al = st.getList(lvo);
