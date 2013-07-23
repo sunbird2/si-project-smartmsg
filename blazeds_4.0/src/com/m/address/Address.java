@@ -42,7 +42,7 @@ public class Address implements IAddress {
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
 		pq.setPrepared(conn, SQL);
 		pq.setString(1, user_id);
-		pq.setInt(2, Address.GROUP);
+		//pq.setInt(2, Address.GROUP);
 		al = pq.ExecuteQueryArrayList();
 		
 		return parseVO(al);
@@ -157,7 +157,7 @@ public class Address implements IAddress {
 		
 		pq.setString(1, vo.getGrpName());
 		pq.setString(2, vo.getUser_id());
-		pq.setString(3, vo.getGrpName());
+		pq.setString(3, vo.getEtcInfo());
 		
 		rsltCount = pq.executeUpdate();			
 		
