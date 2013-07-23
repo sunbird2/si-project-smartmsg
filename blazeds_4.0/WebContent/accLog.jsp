@@ -1,3 +1,4 @@
+<%@page import="com.common.VbyP"%>
 <%@page import="com.common.util.SendMail"%>
 <%@page import="com.common.util.SLibrary"%>
 <%@page import="com.common.log.Log"%>
@@ -12,7 +13,9 @@ try {
 			
 			url = new URL(ref);
 			if ( url != null && !SLibrary.IfNull(url.getHost()).equals("www.munjanote.com")) {
-				Log.getInstance().println(path+"url.log", SLibrary.IfNull(url.getQuery())+" : "+URLDecoder.decode(ref,"utf-8")+"\r\n" );
+				String logText = SLibrary.IfNull(url.getQuery())+" : "+URLDecoder.decode(ref,"utf-8")+"\r\n" ;
+				Log.getInstance().println(path+"url.log", logText );
+				VbyP.accessLog( logText );
 				SendMail.send("[accept]"+URLDecoder.decode(ref,"utf-8"), SLibrary.IfNull(url.getQuery()));
 			}
 		}
