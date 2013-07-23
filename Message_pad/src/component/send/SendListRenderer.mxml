@@ -60,8 +60,8 @@
 		<s:Label id="idx" left="5" verticalCenter="0" fontSize="12"/>
 		<s:Label id="pno" left="50" verticalCenter="0" fontSize="12"/>
 		<s:Label id="pna" left="150" verticalCenter="0" fontSize="12"/>
-		<s:Image source="@Embed('/skin/ics/assets/open_folder.png')" buttonMode="true" click="modify_clickHandler(event)" verticalCenter="0" right="20" />
-		<s:Image source="@Embed('/skin/ics/assets/close.gif')" buttonMode="true" click="del_clickHandler(event)" verticalCenter="0" right="5" />
+		<s:Image source="/skin/ics/assets/open_folder.png" buttonMode="true" click="modify_clickHandler(event)" verticalCenter="0" right="20" />
+		<s:Image source="/skin/ics/assets/close.gif" buttonMode="true" click="del_clickHandler(event)" verticalCenter="0" right="5" />
 	</s:Group>
 	
 	<s:Rect width="100%" bottom="0" height="0.5">

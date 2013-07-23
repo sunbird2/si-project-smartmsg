@@ -57,7 +57,7 @@ package component.excel
 	public class Excel extends SkinnableComponent
 	{
 		[SkinPart(required="false")]public var helpText:RichText;
-		[SkinPart(required="false")]public var openBtn:Button;
+		[SkinPart(required="false")]public var openBtn:ButtonSpinner;
 		[SkinPart(required="false")]public var phoneCombo:ComboBox;
 		[SkinPart(required="false")]public var nameCombo:ComboBox;
 		[SkinPart(required="false")]public var memoCombo:ComboBox;
@@ -337,6 +337,7 @@ package component.excel
 		private function excelInput_keyboardUpHandler(event:KeyboardEvent):void {
 			
 			if (excelInput) {
+				
 				if (excelInput.text && excelInput.text.length > 0) {
 					viewPasteComponent(true);
 					if (pasteCombo) {
@@ -345,7 +346,8 @@ package component.excel
 					}
 				} else {
 					viewPasteComponent(false);
-				}
+				}	
+							
 			}
 		}
 		
@@ -521,6 +523,7 @@ package component.excel
 		 * */
 		private function onFileComplete(event:Event):void {
 			
+			openBtn.bLoading = true;
 			for ( var i:int = 0 ; i <  uploadFiles.length ; i++ ) { 
 				if( uploadFiles[i].name == refUploadFile ) { 
 					uploadFiles[i].status = "upload";  
@@ -536,6 +539,7 @@ package component.excel
 			if ( Number(uploadFiles[0].realsize) > Number(1024*1024*10) ) {
 				uploadFiles.pop();
 				SLibrary.alert("10MB 이상의 파일은 사용 하실 수 없습니다.");
+				openBtn.bLoading = false;
 			}else {
 				RemoteSingleManager.getInstance.addEventListener("getExcelLoaderData", excelUpload_RESULTHandler, false, 0, true);
 				RemoteSingleManager.getInstance.callresponderToken 
@@ -574,6 +578,7 @@ package component.excel
 			}else {
 				SLibrary.alert(data.strDescription);
 			}
+			openBtn.bLoading = false;
 		}
 		
 		

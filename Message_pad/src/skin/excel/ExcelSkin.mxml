@@ -32,7 +32,7 @@
 		
 		
 		<s:HGroup verticalAlign="middle">
-			<s:Button id="openBtn" includeIn="normal" label="엑셀열기" styleName="button_light" width="100" height="26" />
+			<util:ButtonSpinner id="openBtn" includeIn="normal" label="엑셀열기" styleName="button_light" width="100" height="26" />	
 			<s:Label id="pasteLabel" includeIn="normal" text="구분자 : " visible="false"/>
 			<s:DropDownList id="pasteCombo" includeIn="normal" width="80" styleName="dropDownList_light" color="#FF8800" visible="false"/>
 			<s:Button id="pasteOk" includeIn="normal" label="붙여넣기 완료" styleName="button_light" width="100" height="26" visible="false" />
@@ -48,10 +48,10 @@
 			<util:ButtonSpinner id="addressBtn" includeIn="actionAddress" width="100" height="26" label="그룹에 저장" styleName="button_light" />	
 			
 		</s:HGroup>
-		<s:Group>
-			<s:TextArea id="excelInput" width="524" height="550" includeIn="normal" prompt="엑셀열기가 않되신다면&#xd;&#xd;엑셀의 내용을 복사(Ctrl+c)하여&#xd;&#xd;이곳에 붙여넣으세요.(Ctrl+v)&#xd;&#xd;tip) 워드나 한글문서 등에서도 복사하여 붙여 넣은 후 발송 하실 수 있습니다."
+		<s:Group width="524" height="550">
+			<s:TextArea id="excelInput" left="0" right="0" top="0" bottom="0" includeIn="normal" prompt="엑셀열기가 않되신다면&#xd;&#xd;엑셀의 내용을 복사(Ctrl+c)하여&#xd;&#xd;이곳에 붙여넣으세요.(Ctrl+v)&#xd;&#xd;tip) 워드나 한글문서 등에서도 복사하여 붙여 넣은 후 발송 하실 수 있습니다."
 						borderColor="#EFEFEF"></s:TextArea>
-			<s:DataGrid id="excelView" width="524" height="550" visible="false">
+			<s:DataGrid id="excelView" left="0" right="0" top="0" bottom="0" visible="false">
 			</s:DataGrid>
 			<!--<s:List id="resultList"
 			borderVisible="true"

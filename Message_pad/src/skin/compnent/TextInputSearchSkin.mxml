@@ -258,6 +258,6 @@
 	
 	<!-- magnifying glass -->
 	<s:Image id="search" buttonMode="true" mouseChildren="false" right="0" top="0" bottom="0"
-			 source="@Embed('/skin/ics/assets/light/icon/2-action-search.png')"/>
+			 source="/skin/ics/assets/light/icon/2-action-search.png"/>
 
 </s:SparkSkin>

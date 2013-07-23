@@ -30,7 +30,7 @@
 			<s:layout>
 				<s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" />
 			</s:layout>
-			<s:BitmapImage id="icon" source="@Embed('/skin/ics/assets/icon.png')" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:BitmapImage id="icon" source="/skin/ics/assets/icon.png" fillMode="scale" width="36" height="36" smooth="true" />
 			<s:VGroup gap="4">
 				<s:RichText id="title_text" color="#FFFFFF" fontSize="14"/>
 				<s:RichText id="titleSub_text" color="#DFDFDF" fontSize="12"/>
@@ -93,7 +93,7 @@
 						
 						<s:HGroup gap="0" verticalCenter="0" right="5">
 							<s:Image id="sendListInputBtn"
-									 source="@Embed('/skin/ics/assets/light/icon/9-av-download.png')" buttonMode="true"
+									 source="/skin/ics/assets/light/icon/9-av-download.png" buttonMode="true"
 									 toolTip=" " 
 									 toolTipCreate="SLibrary.iosTip('전화번호 추가','입력된 전화번호를 아래로 추가 합니다.\n또한 키보드의 Enter 를 눌러도 추가 가능합니다. ', event)"  width="30" height="30"
 									 />
@@ -133,7 +133,7 @@
 								<s:content><s:p><s:span id="countPhone" fontSize="16">0</s:span><s:span kerning="auto"> </s:span><s:span kerning="auto">명 </s:span></s:p></s:content>
 							</s:RichText>
 							<s:Image id="dupleDelete"
-									 source="@Embed('/skin/ics/assets/light/icon/10-device-access-storage.png')" buttonMode="true"
+									 source="/skin/ics/assets/light/icon/10-device-access-storage.png" buttonMode="true"
 									 toolTip=" " 
 									 toolTipCreate="SLibrary.iosTip('중복번호 삭제','추가된 전화번호중 중복된 전화번호를 삭제 합니다.', event)"  width="30" height="30"
 									 />
@@ -170,7 +170,7 @@
 									
 									/>
 						<s:Image id="callbackSave"
-								 source="@Embed('/skin/ics/assets/light/icon/5-content-new-event.png')" buttonMode="true"								 
+								 source="/skin/ics/assets/light/icon/5-content-new-event.png" buttonMode="true"								 
 								  fillMode="scale" toolTip=" " 
 								  toolTipCreate="SLibrary.iosTip('회신번호 저장','왼쪽 입력된 회신번호를 저장 합니다.', event)"  />
 					</s:HGroup>

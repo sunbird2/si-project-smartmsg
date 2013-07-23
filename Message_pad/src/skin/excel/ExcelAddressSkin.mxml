@@ -37,7 +37,7 @@
 		
 		
 		<s:HGroup verticalAlign="middle">
-			<s:Button id="openBtn" includeIn="normal" label="엑셀열기" styleName="button_light" width="100" height="26" />
+			<util:ButtonSpinner id="openBtn" includeIn="normal" label="엑셀열기" styleName="button_light" width="100" height="26" />	
 			<s:Label id="pasteLabel" includeIn="normal" text="구분자 : " visible="false"/>
 			<s:DropDownList id="pasteCombo" includeIn="normal" width="80" styleName="dropDownList_light" color="#FF8800" visible="false"/>
 			<s:Button id="pasteOk" includeIn="normal" label="붙여넣기 완료" styleName="button_light" width="100" height="26" visible="false" />

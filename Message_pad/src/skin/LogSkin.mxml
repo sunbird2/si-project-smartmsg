@@ -23,7 +23,7 @@
 			<s:layout>
 				<s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" />
 			</s:layout>
-			<s:BitmapImage id="icon" source="@Embed('/skin/ics/assets/menu_calendar.png')" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:BitmapImage id="icon" source="/skin/ics/assets/menu_calendar.png" fillMode="scale" width="36" height="36" smooth="true" />
 			<s:VGroup gap="4">
 				<s:RichText id="title_text" color="#FFFFFF" text="내역" fontSize="14"/>
 				<s:RichText id="titleSub_text" color="#EFEFEF" text="해당 월의 리스트를 클릭 하시면 상세내역을 확인 하실 수 있습니다." fontSize="12"/>

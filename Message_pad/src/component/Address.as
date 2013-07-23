@@ -507,7 +507,10 @@ package component
 		
 		private function activeCommit():void {
 			
-			if (groupName.selectedIndex < 0) { // group insert and cart insert
+			if (groupName.selectedIndex == 0) {
+				SLibrary.alert("모두 그룹에 저장 할 수 없습니다. 다른 그룹을 선택 하세요.");
+			}
+			else if (groupName.selectedIndex < 0) { // group insert and cart insert
 				activeAddress(23, activeAddressVO);
 			}
 			else if (activeAddressVO.idx == 0) {// insert
