@@ -342,6 +342,46 @@
 		where ID=#{user_id} and ETC1=#{idx,jdbcType=VARCHAR}
 	</select>
 	<!-- LG E -->
+	<!-- HAN S -->
+	<select id="select_hansms_list" parameterType="com.m.send.LogVO" resultType="com.m.send.MessageVO">
+		select 
+		 TR_NUM as idx,
+		 TR_SENDDATE as sendDate,
+		 TR_ID as user_id,
+		 TR_SENDSTAT as stat,
+		 TR_RSLTSTAT as rslt,
+		 TR_PHONE as phone,
+		 TR_ETC2 as name,
+		 TR_CALLBACK as callback,
+		 TR_MSG as msg,
+		 TR_ETC1 as groupKey,
+		 '' as imagePath,
+		 TR_RSLTDATE as rsltDate,
+		 TR_ETC4 as failAddDate
+		from 
+		 HAN_LOG 
+		where TR_ID=#{user_id} and TR_ETC1=#{idx,jdbcType=VARCHAR}
+	</select>
+	<select id="select_hanmms_list" parameterType="com.m.send.LogVO" resultType="com.m.send.MessageVO">
+		select 
+		 MSGKEY as idx,
+		 REQDATE as sendDate,
+		 ID as user_id,
+		 '2' as stat,
+		 RSLT as rslt,
+		 PHONE as phone,
+		 ETC2 as name,
+		 CALLBACK as callback,
+		 MSG as msg,
+		 ETC1 as groupKey,
+		 FILE_PATH1 as imagePath,
+		 RSLTDATE as rsltDate,
+		 ETC4 as failAddDate
+		from 
+		 MMSHAN_LOG
+		where ID=#{user_id} and ETC1=#{idx,jdbcType=VARCHAR}
+	</select>
+	<!-- HAN E -->
 	
 	<!-- API S -->
 	<select id="select_api_member" parameterType="com.m.api.MemberAPIVO" resultType="com.m.api.MemberAPIVO">
