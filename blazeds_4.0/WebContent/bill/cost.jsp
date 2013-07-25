@@ -44,19 +44,19 @@ SendMail.send("[bill] 단가 페이지 요청", "ref:"+ip);
 							<td><label for="a30000">30,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b30000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">16 <span>원</span></i> <b><%=Math.floor( 30000/SLibrary.intValue(VbyP.getValue("b30000")) )  %></b> <span>원</span></td>
 						</tr>
 						<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-							<td><label for="a50000">50,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b50000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">15 <span>원</span></i> <b><%=Math.floor( 50000/SLibrary.intValue(VbyP.getValue("b50000")) )  %></b> <span>원</span> <img src="/images/icon_text_event.gif"/></td>
+							<td><label for="a50000">50,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b50000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">15 <span>원</span></i> <b><%=Math.floor( 50000/SLibrary.intValue(VbyP.getValue("b50000")) )  %></b> <span>원</span> <!--<img src="/images/icon_text_event.gif"/>--></td>
 						</tr>
 						<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-							<td><label for="a100000">100,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b100000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">14 <span>원</span></i> <b><%=Math.floor( 100000/SLibrary.intValue(VbyP.getValue("b100000")) )   %></b> <span>원</span> <img src="/images/icon_text_event.gif"/></td>
+							<td><label for="a100000">100,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b100000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">14 <span>원</span></i> <b><%=Math.floor( 100000/SLibrary.intValue(VbyP.getValue("b100000")) )   %></b> <span>원</span> <!--<img src="/images/icon_text_event.gif"/>--></td>
 						</tr>
 						<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-							<td><label for="a300000">300,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b300000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">13 <span>원</span></i> <b><%=Math.floor( 300000/SLibrary.intValue(VbyP.getValue("b300000")) )   %></b> <span>원</span> <img src="/images/icon_text_event.gif"/></td>
+							<td><label for="a300000">300,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b300000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">13 <span>원</span></i> <b><%=Math.floor( 300000/SLibrary.intValue(VbyP.getValue("b300000")) )   %></b> <span>원</span> <!--<img src="/images/icon_text_event.gif"/>--></td>
 						</tr>
 						<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-							 <td><label for="a500000">500,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b500000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">13 <span>원</span></i> <b><%=Math.floor( 500000/SLibrary.intValue(VbyP.getValue("b500000")) )   %></b> <span>원</span> <img src="/images/icon_text_event.gif"/></td>
+							 <td><label for="a500000">500,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b500000")) %> <span>건</span></td><td><i  style="text-decoration:line-through">13 <span>원</span></i> <b><%=Math.floor( 500000/SLibrary.intValue(VbyP.getValue("b500000")) )   %></b> <span>원</span> <!--<img src="/images/icon_text_event.gif"/>--></td>
 						</tr>
 						<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-							<td><label for="a1000000">1,000,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b1000000")) %> <span>건</span></td><td><b><%=Math.floor( 1000000/SLibrary.intValue(VbyP.getValue("b1000000")) )   %></b> <span>원</span> <img src="/images/icon_text_event.gif"/></td>
+							<td><label for="a1000000">1,000,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b1000000")) %> <span>건</span></td><td><b><%=Math.floor( 1000000/SLibrary.intValue(VbyP.getValue("b1000000")) )   %></b> <span>원</span> <!--<img src="/images/icon_text_event.gif"/>--></td>
 						</tr>
 						<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#FFFFFF';">
 							<td><label for="a1000000">2,000,000 <span>원</span></label></td><td><%=SLibrary.addComma(VbyP.getValue("b2000000")) %> <span>건</span></td><td><b><%=Math.floor( 2000000/SLibrary.intValue(VbyP.getValue("b2000000")) )   %></b> <span>원</span></td>
