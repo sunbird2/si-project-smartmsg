@@ -376,7 +376,7 @@ public class SendManager implements ISend {
 		if( uvo.getLevaeYN().equals("Y") ){ throw new Exception("잘못된 접근입니다."); 	}
 		
 		if( Integer.parseInt(uvo.getPoint()) < sendCount*typePoint )
-			throw new Exception("잔여건수가 부족합니다. \\r\\n\\r\\n + 현재건 : "+ uvo.getPoint()+" \\r\\n + 차감건 : "+ Integer.toString(sendCount*typePoint)+" ( "+Integer.toString(sendCount)+"*"+Integer.toString(typePoint)+" )"+"\\r\\n ※ 전화번호당 LMS는 3건 MMS는 15건 차감됩니다.");
+			throw new Exception("잔여건수가 부족합니다.\\r\\n충전 후 이용하세요. \\r\\n\\r\\n + 남은건 : "+ uvo.getPoint()+" \\r\\n + 발송건 : "+ Integer.toString(sendCount*typePoint)+" ( "+Integer.toString(sendCount)+"*"+Integer.toString(typePoint)+" )"+"\\r\\n ※ 전화번호당 LMS는 3건 MMS는 15건 차감됩니다.");
 		
 		//message 필터링
 		if ( Integer.parseInt(VbyP.getValue("filterMinCount")) <= sendCount  ) {
