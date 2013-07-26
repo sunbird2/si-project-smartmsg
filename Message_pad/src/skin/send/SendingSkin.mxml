@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
-		xmlns:mx="library://ns.adobe.com/flex/mx">
+		xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:lib="lib.*" xmlns:util="component.util.*">
 	<!-- host component -->
 	<fx:Metadata>
 		[HostComponent("component.send.Sending")]
@@ -29,10 +29,11 @@
 	</s:states>
 	<s:BitmapImage width="300" height.result_list="300" height="200"
 				   source="@Embed('/skin/ics/assets/widget_dark.png', scaleGridTop='10', scaleGridBottom='320', scaleGridLeft='10', scaleGridRight='314')"
-				   fillMode="scale" alpha="0.9"/>
+				   fillMode="scale" alpha="1"/>
 	<s:Rect includeIn="rslt, sending" width="100%" top="40" left="8" right="8"><s:stroke><s:SolidColorStroke color="#33B5E5" weight="2" /></s:stroke></s:Rect>
 	<s:VGroup horizontalCenter="0" horizontalAlign="center">
 		<s:Group width="300" height="40">
+			<!--<util:Spinner id="sp" right="80" top="17" startImmediately="true" includeIn="rslt" />-->
 			<s:Label id="title" left="20" verticalCenter="5" fontSize="16" color="#D6D6D6" />
 			<s:Image id="close" right="15" verticalCenter="2" source="/skin/ics/assets/dark/icon/1-navigation-cancel.png" buttonMode="true" />
 		</s:Group>
