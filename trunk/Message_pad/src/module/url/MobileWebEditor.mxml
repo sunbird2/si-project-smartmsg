@@ -1,36 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="700" height="500" creationComplete="module1_creationCompleteHandler(event)">
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+
 			[Bindable]
-			private var ac:ArrayCollection = new ArrayCollection([[{type:"d",value:""},{type:"d",value:""}],[{type:"d",value:""},{type:"d",value:""}]]);
+			private var ac:ArrayCollection = null;
+			
+			/* arrayCollection to json
+			first decode  the loaded json string: 
+			var data:*  =JSON.decode(myJSON); 
+			var myArrayCollection:ArrayCollection = new ArrayCollection 
+				(data.stuffs);
+			
+			import com.adobe.serializers.json.JSONDecoder;
+			var j:JSONDecoder= new JSONDecoder();   
+			var obj:Object= j.decode(json string);
+			myarray= obj as ArrayCollection;
+			*/
+			
+			protected function module1_creationCompleteHandler(event:FlexEvent):void
+			{
+				ac = new ArrayCollection([[{type:1,value:{url:"/images/01_sub.jpg"}}]]);
+			}
 			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:VGroup width="100%">
-		<s:Group width="100%">
-			<s:Label text="모바일웹에디터" left="5" />
-			<s:Button label="닫기" right="5" />	
-		</s:Group>
-		<s:Group width="100%">
-			<s:Button label="새페이지추가" left="5" />
-			<s:Button label="완료" right="5" />	
-		</s:Group>
-		<s:List id="mobileWebPages" dataProvider="{ac}" itemRenderer="module.url.MobileWebPagesRenderer">
-			<s:layout><s:HorizontalLayout /></s:layout>
-		</s:List>
-	</s:VGroup>
-	
-	<s:VGroup top="50" left="5">
-		<s:Label text="홍보형" />
-		<s:Label text="쇼핑몰형" />
-		<s:Label text="설문조사형" />
-	</s:VGroup>
-	
+	<s:Group width="100%">
+		<s:Label text="모바일웹에디터" left="5" />
+		<s:Button label="닫기" right="5" />
+	</s:Group>
+	<s:HGroup top="30" width="100%" height="100%">
+		<s:VGroup width="30%" height="100%">
+			<s:Label text="홍보형" />
+			<s:Label text="쇼핑몰형" />
+			<s:Label text="설문조사형" />
+		</s:VGroup>
+		<s:VGroup width="70%" height="100%" horizontalAlign="center" >
+			
+			<s:Group width="100%">
+				<s:Button label="새페이지추가" left="5" />
+				<s:Button label="완료" right="5" />	
+			</s:Group>
+			<s:List id="mobileWebPages" height="430" dataProvider="{ac}" itemRenderer="module.url.MobileWebPagesRenderer">
+				<s:layout><s:HorizontalLayout /></s:layout>
+			</s:List>
+		</s:VGroup>
+	</s:HGroup>
 </s:Module>
