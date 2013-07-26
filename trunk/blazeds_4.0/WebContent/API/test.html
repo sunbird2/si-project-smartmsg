@@ -10,41 +10,65 @@
 <body>
 	<script>
 
-var _mnq = _mnq || [];
-_mnq.push(['_setDebug', true]);
-_mnq.push(['_setUid', 'UA-41118010-1']);
+	var _mnq = _mnq || [];
+	_mnq.push(['_setDebug', true]);
+	_mnq.push(['_setUid', 'MN-1370228486-4908']);
 
 
 
-(function(s,o,m,a,g) {
-	a=s.createElement(o),g=s.getElementsByTagName(o)[0];
-	a.async = 1;a.src = 'http://'+m+'/API/mn.js';
-	g.parentNode.insertBefore(a, g);
-})(document,'script','192.168.11.10:8080');
+	(function(s,o,m,a,g) {
+		a=s.createElement(o),g=s.getElementsByTagName(o)[0];
+		a.async = 1;a.src = 'http://'+m+'/API/mn.js';
+		g.parentNode.insertBefore(a, g);
+	})(document,'script','www.munjanote.com');
 
-function call() {
-	_mnq.push(['_send', {
-		msg:"test 메시지",
-		phone:$("#msg").val(),
-		callback:"1111111",
-		reservation:"",
-		image:""
-	}]);
-}
-
-function MUNJANOTE_CallBack(obj) {
-	
-	if (obj.rslt=="true") {
-		alert("Success");
-	} else {
-		var failMsg = (obj.msg)?obj.msg:"";
-		alert("fail : "+failMsg);
+	function call() {
+		_mnq.push(['_send', {
+			msg:"test 메시지",
+			phone:$("#msg").val(),
+			callback:"1111111",
+			reservation:"",
+			image:""
+		}]);
 	}
-}
+
+	function sendCert(hp) {
+		_mnq.push(['_send', {
+			msg:"{NUM} 인증번호를 입력해 주세요.",
+			phone:hp,
+			callback:"1111111"
+		}]);
+	}
+
+	function certChk() {
+		_mnq.push(['_sendCertChk', $("#certNum").val()]);
+	}
+
+	function MUNJANOTE_CallBack(obj) {
+		
+		if (obj.rslt=="true") {
+			if (obj.msg == "cert")	{
+				alert("인증성공");
+			} else {
+				alert("인증번호 발송 성공");
+			}
+			
+		} else {
+			var failMsg = (obj.msg)?obj.msg:"";
+			if (obj.msg == "cert") {
+				alert("잘못된 인증 번호 입니다.");
+			} else {
+				alert("fail : "+failMsg);
+			}
+			
+		}
+	}
 
 </script>
 <textarea id="msg" cols="50" rows="20"></textarea>
-<button onclick="call()">call</button>
+<button onclick="sendCert('01194457837')">call</button>
+<input type="text" name="certNum" id="certNum" />
+<button onclick="certChk()">callCert</button>
 </body>
 </html>
 

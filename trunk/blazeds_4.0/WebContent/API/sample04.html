@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>인증번호발송</title>
+	<link rel="stylesheet" type="text/css" href="http://www.munjanote.com/API/default_skin.css" />
+	<script>
+
+	var _mnq = _mnq || [];
+	_mnq.push(['_setUid', '발급 받은 코드']);//※ 수정필요
+	(function(s,o,m,a,g) {a=s.createElement(o),g=s.getElementsByTagName(o)[0];a.async = 1;a.src = 'http://'+m+'/API/mn.js';g.parentNode.insertBefore(a, g);})
+	(document,'script','www.munjanote.com');
+	
+	// 인증번호 발송 함수
+	function certSend() {
+		_mnq.push(['_send', {
+			msg:"{NUM} 인증번호를 입력해 주세요.",// {NUM} 부분이 인증번호로 변경되어 발송 됩니다.(내용 수정 가능)
+			phone:document.form.phone.value, // ex)01011112222 ※ 수정필요
+			callback:"보내는사람 번호", // ex)021112222 ※ 수정필요
+		}]);
+	}
+	
+	// 발송된 인증번호를 확인 합니다.
+	function certChk() {
+		_mnq.push(['_sendCertChk', document.form.cert.value]); // ex)12345  ※ 수정필요
+	}
+	// 인증번호 발송(certSend()) & 인증번호 확인(certChk()) 시 자동 호출 됩니다.
+	// 필요에 따라 수정하세요
+	function MUNJANOTE_CallBack(obj) {
+		if (obj.rslt=="true") {
+			if (obj.msg == "cert")	{ alert("인증성공"); } // certChk() 함수 호출 이후 발생됨.
+			else { alert("인증번호 발송 성공"); }
+		} else {
+			var failMsg = (obj.msg)?obj.msg:"";
+			if (obj.msg == "cert") { alert("잘못된 인증 번호 입니다."); } 
+			else { alert("fail : "+failMsg); }
+		}
+	}
+
+</script>
+</head>
+<body>
+<h1>이곳은 나의 홈페이지 입니다.</h1>
+<form name="form">
+	<input type="text" name="phone" value="휴대폰 번호" />
+	<button onclick="certSend()">인증번호 발송</button>
+	<input type="text" name="cert" value="인증번호 입력" />
+	<button onclick="certChk()">인증번호 확인</button>
+</form>
+<h2>마우스 오른쪽을 눌러 소스보기 하실 수 있습니다.</h2>
+</body>
+</html>
+
+

@@ -33,11 +33,7 @@
 <pre class="code">&lt;script&gt;
 	var _mnq = _mnq || [];
 	_mnq.push(['_setUid', '발급 받은 코드']);
-	(function(s,o,m,a,g) {
-		a=s.createElement(o),g=s.getElementsByTagName(o)[0];
-		a.async = 1;a.src = 'http://'+m+'/API/mn.js';
-		g.parentNode.insertBefore(a, g);
-	})(document,'script','www.munjanote.com');
+	(function(s,o,m,a,g) {a=s.createElement(o),g=s.getElementsByTagName(o)[0];a.async = 1;a.src = 'http://'+m+'/API/mn.js';g.parentNode.insertBefore(a, g);})(document,'script','www.munjanote.com');
 	
 	// 메시지 발송 부분.. (함수로 구현하여 클릭 시 발송 되도록 할 수도 있습니다. 재사용가능.)
 	_mnq.push(['_send', {
