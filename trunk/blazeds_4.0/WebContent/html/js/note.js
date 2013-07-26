@@ -1406,6 +1406,16 @@
 		if (EMT_CATE != "") return true;
 		else return false;
 	}
+	function initMenu() {
+		var url =document.referrer;
+		url = decodeURIComponent(url.replace(/\+/g, ' '));
+		var q = get_param_value(url,"query");
+		
+		var menu = "home";
+		if (q == "휴대전화인증" || q == "가입인증" || q == "문자본인인증"|| q == "휴대폰본인확인" || q == "홈페이지문자" || q == "홈페이지문자서비스" || q == "SMSAPI"|| q == "SMS모듈"|| q == "SMS인증서비스"|| q == "문자인증"|| q == "문자서버"|| q == "쇼핑몰문자서비스"|| q == "홈페이지문자"|| q == "홈페이지문자서비스") menu = "api";
+		
+		return menu;
+	}
 	
 	function initEmt() {
 		
