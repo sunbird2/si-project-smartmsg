@@ -1,3 +1,4 @@
+<%@page import="com.m.log.telecom.LGSpamSent"%>
 <%@page import="com.m.log.telecom.HANSent"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="com.m.member.SessionManagement"%>
@@ -65,6 +66,7 @@ try {
 				else if (lvo.getLine().equals("pp")) sentData = PPSent.getInstance();
 				else if (lvo.getLine().equals("kt")) sentData = KTSent.getInstance();
 				else if (lvo.getLine().equals("han")) sentData = HANSent.getInstance();
+				else if (lvo.getLine().equals("lgspam")) sentData = LGSpamSent.getInstance();
 				
 				cnt = sentData.failUpdate(conn, lvo);
 				
