@@ -3,6 +3,8 @@ package component.send
 	/* For guidance on writing an ActionScript Skinnable Component please refer to the Flex documentation: 
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	
+	import component.util.Spinner;
+	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.utils.clearInterval;
@@ -58,6 +60,7 @@ package component.send
 		[SkinPart(required="true")]public var resultViewBtn:Image;
 		[SkinPart(required="true")]public var resultList:List;
 		[SkinPart(required="true")]public var close:Image;
+		//[SkinPart(required="true")]public var sp:Spinner;
 		
 		
 		[SkinPart(required="false")]public var testBtn:Button;
@@ -198,7 +201,7 @@ package component.send
 			
 			if (rsm == null) rsm = new RemoteSingleManager();
 			
-			title.text = "메시지 현재 위치별 건수";
+			title.text = "실시간 메시지 위치별 건수";
 			bResult = true;
 			rsm.addEventListener("getSentResultStatus", resultCnt_resultHandler, false, 0, true);
 			
@@ -259,6 +262,7 @@ package component.send
 			rsm.removeEventListener("getSentResultStatus", sendingCnt_resultHandler);
 			
 			title.text = "전송완료!";
+			//sp.visible = false;
 			//resultRun();
 		}
 		
