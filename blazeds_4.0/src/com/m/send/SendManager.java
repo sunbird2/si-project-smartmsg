@@ -15,6 +15,7 @@ import com.m.member.UserInformationVO;
 import com.m.send.telecom.HAN;
 import com.m.send.telecom.KT;
 import com.m.send.telecom.LG;
+import com.m.send.telecom.LGSpam;
 import com.m.send.telecom.PP;
 
 
@@ -24,6 +25,8 @@ public class SendManager implements ISend {
 	public static final int SMS_CODE = 11;
 	public static final int LMS_CODE = 41;
 	public static final int MMS_CODE = 21;
+	
+	public static final String MEARGE_NAME = "{이름}";
 	
 	static ISend send = new SendManager();
 	public static ISend getInstance() {
@@ -234,6 +237,7 @@ public class SendManager implements ISend {
 		else if (line.equals("pp")) ls = PP.getInstance();
 		else if (line.equals("kt")) ls = KT.getInstance();
 		else if (line.equals("han")) ls = HAN.getInstance();
+		else if (line.equals("lgspam")) ls = LGSpam.getInstance();
 		else throw new Exception("no line class!!");
 		
 		return ls;
@@ -342,7 +346,7 @@ public class SendManager implements ISend {
 		
 		String rslt = msg;
 		
-		rslt = SLibrary.replaceAll(rslt, "{이름}", dt[0] );
+		rslt = SLibrary.replaceAll(rslt, MEARGE_NAME, dt[0] );
 		rslt = SLibrary.replaceAll(rslt, "{합성1}", dt[1] );
 		rslt = SLibrary.replaceAll(rslt, "{합성2}", dt[2] );
 		rslt = SLibrary.replaceAll(rslt, "{합성3}", dt[3] );
