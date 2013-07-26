@@ -111,22 +111,22 @@
 					<p class="category_sub">1. 메시지를 발송할 페이지에 아래 스크립트를 복사하여 페이지에 넣어 주세요.</p>
 <pre class="code">&lt;script&gt;
 	var _mnq = _mnq || [];
-	_mnq.push(['_setUid', '발급 받은 코드']);//※ 수정필요
+	_mnq.push(['_setUid', '발급 받은 코드']);//※ 수정
 	(function(s,o,m,a,g) {a=s.createElement(o),g=s.getElementsByTagName(o)[0];a.async = 1;a.src = 'http://'+m+'/API/mn.js';g.parentNode.insertBefore(a, g);})
 	(document,'script','www.munjanote.com');
 	
 	// 메시지 발송 부분.. (함수로 구현하여 클릭 시 발송 되도록 할 수도 있습니다. 재사용가능.)
 	_mnq.push(['_send', {
-		msg:"test 메시지", // ex)메시지 ※ 수정필요
-		phone:"전화번호", // ex)01011112222 ※ 수정필요 (여러건 발송시 : 0100000000\r\n0110002222\r\n010...)
-		callback:"보내는사람 번호", // ex)021112222 ※ 수정필요
+		msg:"test 메시지", // ex)메시지 ※ 수정
+		phone:"전화번호", // ex)01011112222 ※ 수정 (여러건 발송시 : 0100000000\r\n0110002222\r\n010...)
+		callback:"보내는사람 번호", // ex)021112222 ※ 수정
 		reservation:"", // 예약시간 (2013-05-05 13:03), 없으면 즉시발송
 		image:"" // 미사용..
 	}]);
 &lt;/script&gt;</pre>
 				</li>
 				<li>
-					<p class="category_sub">2. 위 내용중 ※ 수정필요 부분을 수정 하세요.(끝!)</p>
+					<p class="category_sub">2. 위 내용중 ※ 수정 부분을 수정 하세요.(끝!)</p>
 				</li>
 			</ol>
 			<p>※ 참고</p>
@@ -147,7 +147,7 @@
 					<p class="category_sub">1. 인증번호를 발송할 페이지에 아래 스크립트를 복사하여 페이지에 넣어 주세요.</p>
 <pre class="code">&lt;script&gt;
 	var _mnq = _mnq || [];
-	_mnq.push(['_setUid', '발급 받은 코드']);//※ 수정필요
+	_mnq.push(['_setUid', '발급 받은 코드']);//※ 수정
 	(function(s,o,m,a,g) {a=s.createElement(o),g=s.getElementsByTagName(o)[0];a.async = 1;a.src = 'http://'+m+'/API/mn.js';g.parentNode.insertBefore(a, g);})
 	(document,'script','www.munjanote.com');
 	
@@ -155,14 +155,14 @@
 	function certSend() {
 		_mnq.push(['_send', {
 			msg:"{NUM} 인증번호를 입력해 주세요.",// {NUM} 부분이 인증번호로 변경되어 발송 됩니다.(내용 수정 가능)
-			phone:"전화번호", // ex)01011112222 ※ 수정필요
-			callback:"보내는사람 번호", // ex)021112222 ※ 수정필요
+			phone:"전화번호", // ex)01011112222 ※ 수정
+			callback:"보내는사람 번호", // ex)021112222 ※ 수정
 		}]);
 	}
 	
 	// 발송된 인증번호를 확인 합니다.
 	function certChk() {
-		_mnq.push(['_sendCertChk', "발송 후 사용자가 입력한 인증번호"]); // ex)12345  ※ 수정필요
+		_mnq.push(['_sendCertChk', "발송 후 사용자가 입력한 인증번호"]); // ex)12345  ※ 수정
 	}
 	// 인증번호 발송(certSend()) & 인증번호 확인(certChk()) 시 자동 호출 됩니다.
 	// 필요에 따라 수정하세요
@@ -179,7 +179,7 @@
 &lt;/script&gt;</pre>
 				</li>
 				<li>
-					<p class="category_sub">2. 위 내용중 ※ 수정필요 부분을 수정 하세요.(끝!)</p>
+					<p class="category_sub">2. 위 내용중 ※ 수정 부분을 수정 하세요.(끝!)</p>
 				</li>
 			</ol>
 		</li>
@@ -193,15 +193,15 @@
 <pre class="code">&lt;link rel="stylesheet" type="text/css" href="http://www.munjanote.com/API/default_skin.css" /&gt;
 &lt;script&gt;
 	var _mnq = _mnq || [];
-	_mnq.push(['_setUid', '발급 받은 코드']);//※ 수정필요
+	_mnq.push(['_setUid', '발급 받은 코드']);//※ 수정
 	//_mnq.push(['_setMode', 'SMS']); /* 단문만 보내게 하려면 주석 해제 */
 	(function(s,o,m,a,g) {a=s.createElement(o),g=s.getElementsByTagName(o)[0];a.async = 1;a.src = 'http://'+m+'/API/mn.js';g.parentNode.insertBefore(a, g);})
 	(document,'script','www.munjanote.com');			
-	_mnq.push(['_addUI', '핸드폰이 보여질 태그 아이디(myID)']);//※ 수정필요
+	_mnq.push(['_addUI', '핸드폰이 보여질 태그 아이디(myID)']);//※ 수정
 &lt;/script&gt;</pre>
 				</li>
 				<li>
-					<p class="category_sub">2. 위 내용중 ※ 수정필요 부분을 수정 하세요.(끝!)</p>
+					<p class="category_sub">2. 위 내용중 ※ 수정 부분을 수정 하세요.(끝!)</p>
 					<p class="category_sub">3. '핸드폰이 보여질 태그 아이디'는 핸드폰이 보여질 태그로써 해당 태그내에 핸드폰이 보여집니다.(예. &lt;div id="myID"&gt;&lt;div&gt;)</p>
 				</li>
 			</ol>
