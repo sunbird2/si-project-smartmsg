@@ -1,68 +1,62 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="Content-Script-Type" content="text/javascript" />
-	<meta http-equiv="Content-Style-Type" content="text/css" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>인증번호 테스트</title>
 </head>
 <body>
 	<script>
 
-	var _mnq = _mnq || [];
-	_mnq.push(['_setDebug', true]);
-	_mnq.push(['_setUid', 'MN-1370228486-4908']);
+var _mnq = _mnq || [];
+_mnq.push(['_setDebug', true]);
+_mnq.push(['_setUid', 'MN-1370228486-4908']);
 
 
 
-	(function(s,o,m,a,g) {
-		a=s.createElement(o),g=s.getElementsByTagName(o)[0];
-		a.async = 1;a.src = 'http://'+m+'/API/mn.js';
-		g.parentNode.insertBefore(a, g);
-	})(document,'script','www.munjanote.com');
+(function(s,o,m,a,g) {a=s.createElement(o),g=s.getElementsByTagName(o)[0];a.async = 1;a.src = 'http://'+m+'/API/mn.js';g.parentNode.insertBefore(a, g);})
+(document,'script','www.munjanote.com');
+function call() {
+	_mnq.push(['_send', {
+		msg:"test 메시지",
+		phone:$("#msg").val(),
+		callback:"1111111",
+		reservation:"",
+		image:""
+	}]);
+}
 
-	function call() {
-		_mnq.push(['_send', {
-			msg:"test 메시지",
-			phone:$("#msg").val(),
-			callback:"1111111",
-			reservation:"",
-			image:""
-		}]);
-	}
+function sendCert(hp) {
+	_mnq.push(['_send', {
+		msg:"{NUM} 인증번호를 입력해 주세요.",
+		phone:hp,
+		callback:"1111111"
+	}]);
+}
 
-	function sendCert(hp) {
-		_mnq.push(['_send', {
-			msg:"{NUM} 인증번호를 입력해 주세요.",
-			phone:hp,
-			callback:"1111111"
-		}]);
-	}
+function certChk() {
+	alert($("#certNum").val());
+	_mnq.push(['_sendCertChk', $("#certNum").val()]);
+}
 
-	function certChk() {
-		_mnq.push(['_sendCertChk', $("#certNum").val()]);
-	}
-
-	function MUNJANOTE_CallBack(obj) {
-		
-		if (obj.rslt=="true") {
-			if (obj.msg == "cert")	{
-				alert("인증성공");
-			} else {
-				alert("인증번호 발송 성공");
-			}
-			
+function MUNJANOTE_CallBack(obj) {
+	
+	if (obj.rslt=="true") {
+		if (obj.msg == "cert")	{
+			alert("인증성공");
 		} else {
-			var failMsg = (obj.msg)?obj.msg:"";
-			if (obj.msg == "cert") {
-				alert("잘못된 인증 번호 입니다.");
-			} else {
-				alert("fail : "+failMsg);
-			}
-			
+			alert("인증번호 발송 성공");
 		}
+		
+	} else {
+		var failMsg = (obj.msg)?obj.msg:"";
+		if (obj.msg == "cert") {
+			alert("잘못된 인증 번호 입니다.");
+		} else {
+			alert("fail : "+failMsg);
+		}
+		
 	}
+}
 
 </script>
 <textarea id="msg" cols="50" rows="20"></textarea>
