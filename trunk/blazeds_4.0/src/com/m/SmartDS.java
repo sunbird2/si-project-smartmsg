@@ -34,6 +34,7 @@ import com.m.log.SentStatusVO;
 import com.m.log.telecom.HANSent;
 import com.m.log.telecom.KTSent;
 import com.m.log.telecom.LGSent;
+import com.m.log.telecom.LGSpamSent;
 import com.m.log.telecom.PPSent;
 import com.m.member.Join;
 import com.m.member.JoinVO;
@@ -1311,6 +1312,7 @@ public class SmartDS extends SessionManagement {
 		else if (line.equals("pp")) return PPSent.getInstance();
 		else if (line.equals("kt")) return KTSent.getInstance();
 		else if (line.equals("han")) return HANSent.getInstance();
+		else if (line.equals("lgspam")) return LGSpamSent.getInstance();
 		else return null;
 	}
 	
