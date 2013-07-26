@@ -3,6 +3,8 @@ package module.url.att
 	
 	import flash.events.MouseEvent;
 	
+	import module.url.att.skin.ImageSkin;
+	
 	import spark.components.Group;
 	import spark.components.supportClasses.SkinnableComponent;
 	
@@ -14,31 +16,34 @@ package module.url.att
 		[SkinPart(required="true")]public var attribute:Group;
 		[SkinPart(required="true")]public var img:spark.components.Image;
 		
+		private var _att:Object;
+		public function set att(val:Object):void { _att = val; }
+		public function get att():Object { return _att; }
 		
-		public function Image(){ 
+		private var _stat:String = "normal";
+		public function get state():String { return _stat; }
+		public function set state(value:String):void {
+			_stat = value;
+			invalidateSkinState();
+		}
+		override protected function getCurrentSkinState():String { return this._stat; } 
+		
+		public function Image(val:Object){ 
 			super(); 
-			//setStyle("skinClass", ExcelAddressSkin);
+			att = val;
+			setStyle("skinClass", ImageSkin);
 		}
 		
-		public function getJson():String
-		{
-			return null;
-		}
 		
-		public function setJson(json:String):void
-		{
-		}
 		
-		override protected function getCurrentSkinState():String
-		{
-			return super.getCurrentSkinState();
-		} 
 		
 		override protected function partAdded(partName:String, instance:Object) : void {
 			
 			super.partAdded(partName, instance);
 			
-			if (instance == img) img.addEventListener(MouseEvent.CLICK, img_clickHandler );
+			if (instance == img) {
+				img.source = att.url;
+			}
 		}
 		
 		override protected function partRemoved(partName:String, instance:Object) : void

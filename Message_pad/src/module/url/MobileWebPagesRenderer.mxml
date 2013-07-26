@@ -2,30 +2,45 @@
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				xmlns:s="library://ns.adobe.com/flex/spark" 
 				xmlns:mx="library://ns.adobe.com/flex/mx" 
-				autoDrawBackground="true" creationComplete="creationCompleteHandler(event)">
+				autoDrawBackground="true" creationComplete="creationCompleteHandler(event)" width="300" >
 	<fx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
-			private var arr:Array = null;
+			[Bindable]
+			private var ac:ArrayCollection = null;
 			private var em:ElementManager = new ElementManager();
 			
 			override public function set data(value:Object):void
 			{
 				super.data = value;
-				arr = super.data as Array;
+				ac = new ArrayCollection( super.data as Array );
 			}
 			
 			protected function creationCompleteHandler(event:FlexEvent):void
 			{
+				
 			}
 			
 		]]>
 	</fx:Script>
 	<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#FFFFFF" /></s:fill></s:Rect>
 	
-	<s:VGroup id="page">
-		
+	<s:VGroup gap="0">
+		<s:Group id="title" width="100%">
+			<s:Button label="속성추가" left="0" />
+			<s:Button label="삭제" right="0" />
+		</s:Group>
+		<s:List id="page" width="300" height="400" borderVisible="false" dataProvider="{ac}" itemRenderer="module.url.MobileWebPagesRendererPage" useVirtualLayout="true">
+		</s:List>
+	</s:VGroup>
+	
+	<s:VGroup id="attList" visible="false">
+		<s:Button label="텍스트" />
+		<s:Button label="이미지" />
+		<s:Button label="입력" />
+		<s:Button label="버튼" />
 	</s:VGroup>
 	
 </s:ItemRenderer>

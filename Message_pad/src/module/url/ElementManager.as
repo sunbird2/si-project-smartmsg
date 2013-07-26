@@ -1,22 +1,25 @@
 package module.url
 {
 	
+	import module.url.att.Image;
+	
 	import mx.collections.ArrayCollection;
-	import mx.core.IVisualElement;
+	
+	import spark.components.supportClasses.SkinnableComponent;
 
 	public class ElementManager
 	{ 
-		public static const IMG:int = 0;
-		public static const TXT:int = 1;
+		public static const TXT:int = 0;
+		public static const IMG:int = 1;
 		public static const INPUT:int = 2;
 		public static const BTN:int = 3;
 		public static const SHOPLIST:int = 4;
 		public static const ASKLIST:int = 5;
 		
 		public function ElementManager() {}
-		public function getObject(type:int, value:String):IVisualElement {
+		public function getObject(type:int, value:Object):SkinnableComponent {
 			
-			var ive:IVisualElement = null;
+			var ive:SkinnableComponent = null;
 			switch(type)
 			{
 				case IMG: { ive = getIMG(value); break; }
@@ -33,27 +36,27 @@ package module.url
 			return ive;
 		}
 		
-		private function getIMG(value:String):IVisualElement {
+		private function getIMG(value:Object):SkinnableComponent {
+			
+			return new Image(value);
+		}
+		private function getTXT(value:Object):SkinnableComponent {
 			
 			return null;
 		}
-		private function getTXT(value:String):IVisualElement {
+		private function getINPUT(value:Object):SkinnableComponent {
 			
 			return null;
 		}
-		private function getINPUT(value:String):IVisualElement {
+		private function getBTN(value:Object):SkinnableComponent {
 			
 			return null;
 		}
-		private function getBTN(value:String):IVisualElement {
+		private function getSHOPLIST(value:Object):SkinnableComponent {
 			
 			return null;
 		}
-		private function getSHOPLIST(value:String):IVisualElement {
-			
-			return null;
-		}
-		private function getASKLIST(value:String):IVisualElement {
+		private function getASKLIST(value:Object):SkinnableComponent {
 			
 			return null;
 		}

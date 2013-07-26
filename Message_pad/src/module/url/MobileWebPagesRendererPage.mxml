@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true" creationComplete="creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import module.url.att.IAtt;
+			import module.url.att.Image;
+			
+			import mx.events.FlexEvent;
+			
+			import spark.components.supportClasses.SkinnableComponent;
+			
+			private var em:ElementManager = new ElementManager();
+			private var att:IAtt = null;
+			private var ele:SkinnableComponent = null;
+			
+			override public function set data(value:Object):void
+			{
+				super.data = value;
+			}
+			
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				ele = em.getObject(data.type, data.value) as Image;
+				att = ele as IAtt;
+				attBox.addElement( ele );
+			}
+			
+			override public function set selected(value:Boolean):void
+			{
+				super.selected = value;
+				if (ele != null) {
+					if (super.selected == true) att.state = "active";
+					else att.state = "normal";	
+				}
+				
+			}	
+			
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="hovered"/>
+		<s:State name="selected"/>
+	</s:states>
+	<s:Group id="attBox" left="0" right="0" top="0" bottom="0">
+		
+	</s:Group>
+	
+</s:ItemRenderer>
