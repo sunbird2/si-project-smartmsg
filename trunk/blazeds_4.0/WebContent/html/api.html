@@ -9,8 +9,8 @@
 	<title>SMS, LMS, MMS</title>
 
      <script type="text/javascript" src="/html/js/jquery-1.8.1.min.js"></script>
-     <script type="text/javascript" src="/html/js/plugin/animate/jquery.easing.min.js"></script>
-	<script type="text/javascript" src="/html/js/plugin/animate/jquery.easing.compatibility.js"></script>
+     <script type="text/javascript" src="/js/plugin/animate/jquery.easing.min.js"></script>
+	<script type="text/javascript" src="/js/plugin/animate/jquery.easing.compatibility.js"></script>
      <link rel="stylesheet" type="text/css" href="/html/css/base.css" />
      <link rel="stylesheet" type="text/css" href="/html/css/main.css" />
      <script>
@@ -26,19 +26,23 @@
 			  $('#javascript').animate({width: '-=350'}, {duration:2000, easing:"easeInOutBack"});
 			  $('#module').animate({width: '-=400'}, {duration:2000, easing:"easeInOutBack"});
 			  
-			  setInterval(function(){
-				  $('#msg1').css("left","440px");
-				  $('#msg1').css("top","60px");
-				  
-				  $('#msg1').show().animate({left: '+=400',top: '+=30',width: 'toggle'}, {duration:2000, easing:"easeInOutBack"});}, 3000);
+			  setInterval(apiMsg1Movie , 10000);
 			  
-			  setInterval(function(){
-				  $('#msg2').css("left","440px");
-				  $('#msg2').css("top","160px");
-				  
-			  	  $('#msg2').show().animate({left: '+=400',top: '+=30',width: 'toggle'}, {duration:2000, easing:"easeInOutBack"});}, 4000);
+			  setInterval(apiMsg2Movie , 10000);
 			  //$('#act5').animate({left: '+=690'}, {duration:2000, easing:"easeInOutBack"});
 			  //$('#act6').animate({left: '+=640'}, {duration:2000, easing:"easeInOutBack"});
+		  }
+		  function apiMsg1Movie() {
+		     $('#msg1').css("left","440px");
+			 $('#msg1').css("top","60px");
+				  
+			 $('#msg1').show().animate({left: '+=400',top: '+=30',width: 'toggle'}, {duration:1000, easing:"easeInOutBack"});
+		  }
+		  function apiMsg2Movie() {
+		     $('#msg2').css("left","440px");
+			 $('#msg2').css("top","160px");
+				  
+			 $('#msg2').show().animate({left: '+=400',top: '+=30',width: 'toggle'}, {duration:1000, easing:"easeInOutBack"});
 		  }
 		  
 		  
@@ -107,25 +111,22 @@
 					<p class="category_sub">1. 메시지를 발송할 페이지에 아래 스크립트를 복사하여 페이지에 넣어 주세요.</p>
 <pre class="code">&lt;script&gt;
 	var _mnq = _mnq || [];
-	_mnq.push(['_setUid', '발급 받은 코드']);
-	(function(s,o,m,a,g) {
-		a=s.createElement(o),g=s.getElementsByTagName(o)[0];
-		a.async = 1;a.src = 'http://'+m+'/API/mn.js';
-		g.parentNode.insertBefore(a, g);
-	})(document,'script','www.munjanote.com');
+	_mnq.push(['_setUid', '발급 받은 코드']);//※ 수정필요
+	(function(s,o,m,a,g) {a=s.createElement(o),g=s.getElementsByTagName(o)[0];a.async = 1;a.src = 'http://'+m+'/API/mn.js';g.parentNode.insertBefore(a, g);})
+	(document,'script','www.munjanote.com');
 	
 	// 메시지 발송 부분.. (함수로 구현하여 클릭 시 발송 되도록 할 수도 있습니다. 재사용가능.)
 	_mnq.push(['_send', {
-		msg:"test 메시지", // 메시지
-		phone:"01000000000", // 전화번호(여러건 발송시 : 0100000000\r\n0110002222\r\n010...)
-		callback:"022345678", // 보내는사람 번호
+		msg:"test 메시지", // ex)메시지 ※ 수정필요
+		phone:"전화번호", // ex)01011112222 ※ 수정필요 (여러건 발송시 : 0100000000\r\n0110002222\r\n010...)
+		callback:"보내는사람 번호", // ex)021112222 ※ 수정필요
 		reservation:"", // 예약시간 (2013-05-05 13:03), 없으면 즉시발송
 		image:"" // 미사용..
 	}]);
 &lt;/script&gt;</pre>
 				</li>
 				<li>
-					<p class="category_sub">2. 위 내용중 '발급받은 코드', '메시지', '전화번호', '보내는사람 번호'를 입력 하세요.(끝!)</p>
+					<p class="category_sub">2. 위 내용중 ※ 수정필요 부분을 수정 하세요.(끝!)</p>
 				</li>
 			</ol>
 			<p>※ 참고</p>
@@ -139,6 +140,50 @@
 				<li>해당 페이지가 접속 될때마다 발송 됩니다.</li>
 			</ul>
 		</li>
+		<li class="category"><b>인증번호</b>를 발송 하고 싶습니다. <a href="/API/sample04.html" target="_blank">(예제)</a> </li>
+		<li class="category_wrap">
+			<ol>
+				<li>
+					<p class="category_sub">1. 인증번호를 발송할 페이지에 아래 스크립트를 복사하여 페이지에 넣어 주세요.</p>
+<pre class="code">&lt;script&gt;
+	var _mnq = _mnq || [];
+	_mnq.push(['_setUid', '발급 받은 코드']);//※ 수정필요
+	(function(s,o,m,a,g) {a=s.createElement(o),g=s.getElementsByTagName(o)[0];a.async = 1;a.src = 'http://'+m+'/API/mn.js';g.parentNode.insertBefore(a, g);})
+	(document,'script','www.munjanote.com');
+	
+	// 인증번호 발송 함수
+	function certSend() {
+		_mnq.push(['_send', {
+			msg:"{NUM} 인증번호를 입력해 주세요.",// {NUM} 부분이 인증번호로 변경되어 발송 됩니다.(내용 수정 가능)
+			phone:"전화번호", // ex)01011112222 ※ 수정필요
+			callback:"보내는사람 번호", // ex)021112222 ※ 수정필요
+		}]);
+	}
+	
+	// 발송된 인증번호를 확인 합니다.
+	function certChk() {
+		_mnq.push(['_sendCertChk', "발송 후 사용자가 입력한 인증번호"]); // ex)12345  ※ 수정필요
+	}
+	// 인증번호 발송(certSend()) & 인증번호 확인(certChk()) 시 자동 호출 됩니다.
+	// 필요에 따라 수정하세요
+	function MUNJANOTE_CallBack(obj) {
+		if (obj.rslt=="true") {
+			if (obj.msg == "cert")	{ alert("인증성공"); } // certChk() 함수 호출 이후 발생됨.
+			else { alert("인증번호 발송 성공"); }
+		} else {
+			var failMsg = (obj.msg)?obj.msg:"";
+			if (obj.msg == "cert") { alert("잘못된 인증 번호 입니다."); } 
+			else { alert("fail : "+failMsg); }
+		}
+	}
+&lt;/script&gt;</pre>
+				</li>
+				<li>
+					<p class="category_sub">2. 위 내용중 ※ 수정필요 부분을 수정 하세요.(끝!)</p>
+				</li>
+			</ol>
+		</li>
+		
 		
 		<li class="category">내 홈페이지나 쇼핑몰에서 메시지를 <b>직접 입력하여 발송</b>하고 싶습니다. <a href="/API/sample03.html" target="_blank">(예제)</a></li>
 		<li class="category_wrap">
@@ -148,18 +193,15 @@
 <pre class="code">&lt;link rel="stylesheet" type="text/css" href="http://www.munjanote.com/API/default_skin.css" /&gt;
 &lt;script&gt;
 	var _mnq = _mnq || [];
-	_mnq.push(['_setUid', '발급 받은 코드']);
+	_mnq.push(['_setUid', '발급 받은 코드']);//※ 수정필요
 	//_mnq.push(['_setMode', 'SMS']); /* 단문만 보내게 하려면 주석 해제 */
-	(function(s,o,m,a,g) {
-		a=s.createElement(o),g=s.getElementsByTagName(o)[0];
-		a.async = 1;a.src = 'http://'+m+'/API/mn.js';
-		g.parentNode.insertBefore(a, g);
-	})(document,'script','www.munjanote.com');						
-	_mnq.push(['_addUI', '핸드폰이 보여질 태그 아이디(myID)']);
+	(function(s,o,m,a,g) {a=s.createElement(o),g=s.getElementsByTagName(o)[0];a.async = 1;a.src = 'http://'+m+'/API/mn.js';g.parentNode.insertBefore(a, g);})
+	(document,'script','www.munjanote.com');			
+	_mnq.push(['_addUI', '핸드폰이 보여질 태그 아이디(myID)']);//※ 수정필요
 &lt;/script&gt;</pre>
 				</li>
 				<li>
-					<p class="category_sub">2. 위 내용중'발급받은 코드', '핸드폰이 보여질 태그 아이디'를 입력 하세요.(끝!)</p>
+					<p class="category_sub">2. 위 내용중 ※ 수정필요 부분을 수정 하세요.(끝!)</p>
 					<p class="category_sub">3. '핸드폰이 보여질 태그 아이디'는 핸드폰이 보여질 태그로써 해당 태그내에 핸드폰이 보여집니다.(예. &lt;div id="myID"&gt;&lt;div&gt;)</p>
 				</li>
 			</ol>

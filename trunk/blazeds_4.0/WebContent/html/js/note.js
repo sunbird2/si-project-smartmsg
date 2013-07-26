@@ -115,7 +115,7 @@
 	    attributes.align = "middle";
 	    
 	    swfobject.embedSWF(
-	        "/html/flex/MunjaNote.swf", "flashContent", 
+	        "/html/flex/MunjaNote.swf?v=2013072240121", "flashContent", 
 	        "1024", "740",
 	        swfVersionStr, xiSwfUrlStr, 
 	        flashvars, params, attributes, flexEmbedCallback);
@@ -885,16 +885,16 @@
 		} else {
 			var amount = $(":input:radio[name=LGD_AMOUNT]:checked").val();
 			
-			//if (m == "SC0060") {
-			//	alert("최근 스미싱을 통한 휴대폰 불법 결제로 인한 피해를 최소화 하고자 휴대폰 결제 서비스 중지 하였습니다.\r\n\r\n 다른 결제 방식을 선택하여 진행 하시기 바랍니다.");
-			//} else {
+			if (m == "SC0060") {
+				alert("최근 스미싱을 통한 휴대폰 불법 결제로 인한 피해를 최소화 하고자 휴대폰 결제 서비스 중지 하였습니다.\r\n\r\n 다른 결제 방식을 선택하여 진행 하시기 바랍니다.");
+			} else {
 				if (m == "SC0060" && amount > 33000) {
 					alert("휴대폰 결제는 3만원 이상 결제 하실 수 없습니다.");
 				} else {
 					f.action = "/bill/payreq.jsp";
 					f.submit();
 				}
-			//}
+			}
 			
 			
 		}
@@ -1616,7 +1616,6 @@
 		
 		if (user_id == "") { alert("아이디가 없습니다.");$("#joinHP3").val(""); }
 		else {
-
 			$.getJSON( "/member/join.jsp", {"mode":"certSend", "user_id":user_id, "user_hp":hp}, function(data) {
 				if (data != null && data.code && data.code == "0000") { 
 					joinErrShow("joinHP_help", "");
