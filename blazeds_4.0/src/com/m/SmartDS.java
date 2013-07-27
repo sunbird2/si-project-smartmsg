@@ -677,6 +677,7 @@ public class SmartDS extends SessionManagement {
 		ISend send = SendManager.getInstance();
 		UserInformationVO uvo = null;
 		LogVO lvo = null;
+		String user_id="";
 		try {
 			if (!bSession()) throw new Exception("no login");
 			
@@ -684,6 +685,8 @@ public class SmartDS extends SessionManagement {
 			
 			conn = VbyP.getDB();
 			uvo = getInformation(conn, getSession());
+			
+			user_id = uvo.getUser_id();
 			
 			VbyP.accessLog(" - "+uvo.getUser_id());
 			
@@ -715,11 +718,13 @@ public class SmartDS extends SessionManagement {
 			lvo.setIdx(0);
 			lvo.setMessage(e.getMessage());
 			VbyP.accessLog("send Exception : "+e.getMessage());
-			if (!smvo.getReqIP().equals("127.0.0.1"))
-				SendMail.send("[send Exception] "+uvo.getUser_id(), lvo.getMessage());
+			if (!FlexContext.getHttpRequest().getRemoteAddr().equals("127.0.0.1"))
+				SendMail.send("[send Exception] "+user_id, lvo.getMessage());
 			System.out.println(e.toString());
 		}
-		finally { close(conn); }
+		finally { 
+			close(conn);
+		}
 		VbyP.accessLog("send End : "+sw.getTime()+" sec, "+lvo.getUser_id()+", "+lvo.getMode()+", "+lvo.getCnt()+" count");
 		return lvo;
 	}
@@ -1323,8 +1328,9 @@ public class SmartDS extends SessionManagement {
 			if ( conn != null ) {
 				//System.out.println(conn.getAutoCommit()+"######################");
 				conn.close();
+				conn = null;
 			}
-			conn = null;
+			
 		}
 		catch(SQLException e) { VbyP.errorLog("conn.close() Exception!"); }
 		
