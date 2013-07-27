@@ -81,7 +81,7 @@ package component.send
 			event.stopImmediatePropagation();
 			event.preventDefault();
 			if (Gv.bLogin) {
-				if (callback.selectedItem && callback.selectedItem as String != "") {
+				if (callback.selectedItem && callback.selectedItem as String != "" && callback.selectedItem as String != " ") {
 					RemoteSingleManager.getInstance.addEventListener("setReturnPhone", callbackSave_resultHandler, false, 0, true);
 					RemoteSingleManager.getInstance.callresponderToken 
 						= RemoteSingleManager.getInstance.service.setReturnPhone(callback.selectedItem as String);	

@@ -14,6 +14,7 @@ package component
 	import component.util.CustomToolTip;
 	
 	import flash.events.Event;
+	import flash.events.FocusEvent;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.utils.ByteArray;
@@ -327,7 +328,10 @@ package component
 				functionList.addEventListener(IndexChangeEvent.CHANGE, functionList_changeHandler );
 			}
 			else if (instance == message) message.addEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
-			else if (instance == sendListInput)	sendListInput.addEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
+			else if (instance == sendListInput) {
+				sendListInput.addEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
+				sendListInput.addEventListener(FocusEvent.FOCUS_OUT, sendListInput_focusOutHandler);
+			}
 			else if (instance == sendListInputBtn) sendListInputBtn.addEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
 			else if (instance == dupleDelete) dupleDelete.addEventListener(MouseEvent.CLICK, dupleDelete_clickHandler);
 			else if (instance == sendList) sendList.dataProvider = alPhone;
@@ -400,7 +404,10 @@ package component
 				acFunction = null;
 			}
 			else if (instance == message) message.removeEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
-			else if (instance == sendListInput)	sendListInput.removeEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
+			else if (instance == sendListInput) {
+				sendListInput.removeEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
+				sendListInput.removeEventListener(FocusEvent.FOCUS_OUT, sendListInput_focusOutHandler);
+			}
 			else if (instance == sendListInputBtn) sendListInputBtn.removeEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
 			else if (instance == dupleDelete) dupleDelete.removeEventListener(MouseEvent.CLICK, dupleDelete_clickHandler);
 			else if (instance == callback) {
@@ -584,7 +591,6 @@ package component
 		}
 		protected function sendListInput_enterHandler(event:Event):void {
 			
-			tracker("sendListInput/enter");// tracker
 			if ( alPhone ) {
 				
 				if (sendListInput.text != "") {
@@ -597,6 +603,21 @@ package component
 				}
 				else
 					SLibrary.alert("전화번호를 입력하세요.");
+			}
+			
+		}
+		protected function sendListInput_focusOutHandler(event:Event):void {
+			
+			if ( alPhone ) {
+				
+				if (sendListInput.text != "") {
+					if (SLibrary.bKoreaPhoneCheck( sendListInput.text )) {
+						addPhone(sendListInput.text, "");
+						sendListInput.text = "";
+						if (eLayer.visible) eLayer.visible = false;
+					}
+					else SLibrary.alert("잘못된 전화번호 입니다.");
+				}
 			}
 			
 		}
@@ -718,7 +739,7 @@ package component
 				addressGroupList.removeAll();
 				for (var i:Number = 0; i < acGroup.length; i++) {
 					avo = acGroup.getItemAt(i) as AddressVO;
-					if (avo.idx != 0) {
+					if (avo.grpName != "모두") {
 						addressGroupList.addItem(avo.grpName);
 					}
 					
@@ -946,6 +967,8 @@ package component
 		}
 		private function sendBtn_resultHandler(event:CustomEvent):void {
 			
+			RemoteSingleManager.getInstance.removeEventListener("sendSMSconf", sendBtn_resultHandler);
+			
 			var lvo:LogVO = event.result as LogVO;
 			if (lvo != null && lvo.idx != 0) {
 				sendClickAfter();
@@ -954,8 +977,13 @@ package component
 				trackerEvent(lvo.line, lvo.mode, lvo.user_id, lvo.cnt);
 			} else {
 				removeSending();
-				if (lvo != null)
-					SLibrary.alert(lvo.message);
+				if (lvo != null) {
+					if (lvo.message == "no login") { 
+						MunjaNote(parentApplication).loginCheck();
+					}
+					else 
+						SLibrary.alert(lvo.message);
+				}
 				else
 					SLibrary.alert("발송 실패");
 			}
