@@ -96,25 +96,25 @@ try {
 	<div id="createServer_box" style="display:none;">
 		<h1 class="title">서버 접속 설정</h1>
 		<ul class="api_ul">
-			<li>
+			<li style="margin:10px 0px;">
 				<p class="type_txt">접속 아이디</p>
 				<div class="action" style="background-position:0px 5px;">
 					<p class="type_txt" style="float:left;line-height:26px;margin-right:10px;"><%=us.getUser_id() %></p>
 				</div>
 			</li>
-			<li>
+			<li style="margin:10px 0px;">
 				<p class="type_txt">접속 비밀번호</p>
 				<div class="action">
 					<input type="text" id="serverPw" name="code" class="apiCode" value="<%=SLibrary.IfNull(msvo.getCLI_PASSWD()) %>"/>
 				</div>
 			</li>
-			<li>
+			<li style="margin:10px 0px;">
 				<p class="type_txt">서버 아이피</p>
 				<div class="action">
 					<input type="text" id="serverIp" name="code" class="apiCode" value="<%=SLibrary.IfNull(msvo.getCLI_SOURCE_IP1()) %>" />
 				</div>
 			</li>
-			<li>
+			<li style="margin:10px 0px;">
 				<p class="type_txt">현재 서버 발송 가능 건수</p>
 				<div class="action" style="background-position:0px 5px;">
 					<p class="type_txt" style="float:left;line-height:26px;margin-right:10px;"><%=msvo.getCLI_STDCNT() - msvo.getCLI_SENTCNT() %> 건</p>
@@ -124,7 +124,7 @@ try {
 				</div>
 			</li>
 			
-			<li>
+			<li style="margin:10px 0px;">
 				<a href="#" class="buttonmini orange" style="display:block;margin:0 auto;width:100px;color:#FFF;font-weight:bold;margin-right:10px" onclick="return submitAPI_Server()">등록 하기</a>
 				<a href="/mypage/download.jsp" class="buttonmini blue" style="display:block;margin:0 auto;width:170px;color:#FFF;font-weight:bold;" onclick="">모듈 다운로드</a>
 			</li>
