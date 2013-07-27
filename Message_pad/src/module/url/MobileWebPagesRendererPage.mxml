@@ -32,8 +32,8 @@
 			{
 				super.selected = value;
 				if (ele != null) {
-					if (super.selected == true) att.state = "active";
-					else att.state = "normal";	
+					if (super.selected == true) att.state = "actEmpty";
+					else att.state = "default";
 				}
 				
 			}	

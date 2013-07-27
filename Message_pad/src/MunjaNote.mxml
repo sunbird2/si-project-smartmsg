@@ -8,6 +8,7 @@
 			   frameRate="45"
 			   initialize="app_initializeHandler(event)"
 			   creationComplete="app_creationCompleteHandler(event)"
+			   updateComplete="app_updateCompleteHandler(event)"
 			   focusIn="app_focusInHandler(event)"
 			   stateChangeComplete="app_stateChangeCompleteHandler(event)" xmlns:component="component.*" xmlns:components="com.google.analytics.components.*">
 	<fx:Style source="/skin/ics/ics.css"/>
@@ -22,6 +23,7 @@
 			import lib.FileUploadByRemoteObjectEvent;
 			import lib.GC;
 			import lib.Gv;
+			import lib.SWFWheel;
 			
 			import module.url.att.Image;
 			
@@ -43,6 +45,12 @@
 				
 				ExternalInterface.addCallback("flexFunction",flexFunction_callback);
 				ExternalInterface.call("flexCreateComplete");
+				
+			}
+			protected function app_updateCompleteHandler(event:FlexEvent):void
+			{
+				SWFWheel.initialize(stage);
+				SWFWheel.browserScroll = false;
 			}
 			protected function app_focusInHandler(event:FocusEvent):void { if(Capabilities.hasIME && !IME.enabled) IME.enabled = true; }
 			
@@ -270,6 +278,8 @@
 			maxl.text = max.toString();
 			meml.text = mem.toString();
 			} */
+			
+			
 			
 		]]>
 	</fx:Script>

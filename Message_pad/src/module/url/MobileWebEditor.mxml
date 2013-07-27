@@ -24,7 +24,10 @@
 			
 			protected function module1_creationCompleteHandler(event:FlexEvent):void
 			{
-				ac = new ArrayCollection([[{type:1,value:{url:"/images/01_sub.jpg"}}]]);
+				ac = new ArrayCollection([
+											[{type:1,value:{layout:"horizontal", imgs:[{url:"/images/01_sub.jpg",link:""},{url:"/images/01_sub.jpg",link:""}]}}],
+											[{type:1,value:{layout:"horizontal", imgs:[{url:"/images/01_sub.jpg",link:""}]}}]
+										 ]);
 			}
 			
 		]]>
