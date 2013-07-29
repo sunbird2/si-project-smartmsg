@@ -700,6 +700,7 @@ public class SmartDS extends SessionManagement {
 				uvo.setLine(VbyP.getValue("useOnlyMMSLine"));
 				VbyP.accessLog(" - change line : "+VbyP.getValue("useOnlyMMSLine"));
 			} else {
+				if ( !getMode(smvo).equals("SMS") && uvo.getLine().equals("han") ) uvo.setLine("kt");
 				VbyP.accessLog(" - line : "+ uvo.getLine());
 			}
 			
