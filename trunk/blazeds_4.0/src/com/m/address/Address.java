@@ -284,7 +284,7 @@ public class Address implements IAddress {
 				pq.setString(1, user_id);
 				pq.setInt(2, Address.NAME);
 				pq.setString(3, vo.getGrpName());
-				pq.setString(4, vo.getName());
+				pq.setString(4, SLibrary.cutBytes(vo.getName(), 16, true, ".."));
 				pq.setString(5, vo.getPhone());
 				pq.setString(6, vo.getMemo());
 				pq.setString(7, SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss"));

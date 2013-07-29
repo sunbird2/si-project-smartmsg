@@ -29,7 +29,7 @@ public class LGSpamSent implements ISentData {
 		String where = "";
 		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) {
 			if ( !SLibrary.isNull( slvo.getSearch() )) where = whereMMS(slvo.getSearch());
-			SQL = VbyP.getSQL( "sent_lg_select_mms_search" ).replaceAll("MMS_", "MMSPAM_");
+			SQL = VbyP.getSQL( "sent_lg_select_mms_search" ).replaceAll("MMS_", "MMSSPAM_");
 		}
 		else {
 			if ( !SLibrary.isNull( slvo.getSearch() )) where = whereSMS(slvo.getSearch());
@@ -61,7 +61,7 @@ public class LGSpamSent implements ISentData {
 			if ( !SLibrary.isNull( slvo.getSearch() )) {
 				where = whereMMS(slvo.getSearch());
 			}
-			SQL = SLibrary.messageFormat( VbyP.getSQL( "sent_lg_select_mms_paged" ).replaceAll("MMS_", "MMSPAM_") , new Object[]{where} );
+			SQL = SLibrary.messageFormat( VbyP.getSQL( "sent_lg_select_mms_paged" ).replaceAll("MMS_", "MMSSPAM_") , new Object[]{where} );
 		}
 		else {
 			if ( !SLibrary.isNull( slvo.getSearch() )) {
@@ -98,7 +98,7 @@ public class LGSpamSent implements ISentData {
 			if ( !SLibrary.isNull( slvo.getSearch() )) {
 				where = whereMMS(slvo.getSearch());
 			}
-			SQL = SLibrary.messageFormat( VbyP.getSQL( "sent_lg_select_mms_paged_count" ).replaceAll("MMS_", "MMSPAM_") , new Object[]{where} );
+			SQL = SLibrary.messageFormat( VbyP.getSQL( "sent_lg_select_mms_paged_count" ).replaceAll("MMS_", "MMSSPAM_") , new Object[]{where} );
 		}
 		else {
 			if ( !SLibrary.isNull( slvo.getSearch() )) {
@@ -126,7 +126,7 @@ public class LGSpamSent implements ISentData {
 		HashMap<String, String> hm = null;
 		
 		String SQL = "";
-		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_select_mms_status" ).replaceAll("MMS_", "MMSPAM_");
+		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_select_mms_status" ).replaceAll("MMS_", "MMSSPAM_");
 		else SQL = VbyP.getSQL( "sent_lg_select_status" ).replaceAll("SC_", "SCSPAM_");
 		
 		
@@ -145,7 +145,7 @@ public class LGSpamSent implements ISentData {
 	public int getCancelAbleCount(Connection conn, LogVO slvo) {
 		
 		String SQL = "";
-		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_cancel_count_mms" ).replaceAll("MMS_", "MMSPAM_");
+		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_cancel_count_mms" ).replaceAll("MMS_", "MMSSPAM_");
 		else SQL = VbyP.getSQL( "sent_lg_cancel_count" ).replaceAll("SC_", "SCSPAM_");
 		
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
@@ -160,7 +160,7 @@ public class LGSpamSent implements ISentData {
 	public int getCount(Connection conn, LogVO slvo) {
 		
 		String SQL = "";
-		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_count_mms" ).replaceAll("MMS_", "MMSPAM_");
+		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_count_mms" ).replaceAll("MMS_", "MMSSPAM_");
 		else SQL = VbyP.getSQL( "sent_lg_count" ).replaceAll("SC_", "SCSPAM_");
 		
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
@@ -177,7 +177,7 @@ public class LGSpamSent implements ISentData {
 	public int cancel(Connection conn, LogVO slvo) {
 		
 		String SQL = "";
-		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_cancel_mms" ).replaceAll("MMS_", "MMSPAM_");
+		if (slvo.getMode().equals("LMS") || slvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_cancel_mms" ).replaceAll("MMS_", "MMSSPAM_");
 		else SQL = VbyP.getSQL( "sent_lg_cancel" ).replaceAll("SC_", "SCSPAM_");
 		
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
@@ -191,7 +191,7 @@ public class LGSpamSent implements ISentData {
 	public int failUpdate(Connection conn, LogVO lvo) {
 		
 		String SQL = "";
-		if (lvo.getMode().equals("LMS") || lvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_fail_update_mms" ).replaceAll("MMS_", "MMSPAM_");
+		if (lvo.getMode().equals("LMS") || lvo.getMode().equals("MMS")) SQL = VbyP.getSQL( "sent_lg_fail_update_mms" ).replaceAll("MMS_", "MMSSPAM_");
 		else SQL = VbyP.getSQL( "sent_lg_fail_update" ).replaceAll("SC_", "SCSPAM_");
 		
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
