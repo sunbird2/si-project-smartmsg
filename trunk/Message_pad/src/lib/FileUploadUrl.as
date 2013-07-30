@@ -8,12 +8,30 @@ package lib
 	import flash.net.FileFilter;
 	import flash.net.FileReference;
 	import flash.net.FileReferenceList;
+	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
 	
+	import mx.controls.ProgressBar;
 	import mx.core.UIComponent;
-
-	public class FileUpload extends UIComponent
+	
+	public class FileUploadUrl extends UIComponent
 	{
+		// Hard-code the URL of the remote upload script.
+		private var _url:String = null;
+		public function set url(str:String):void { this._url = str; }
+		public function get url():String { return this._url; }
+		private var _pb:ProgressBar = null;
+		public function set pb(str:ProgressBar):void { this._pb = str; }
+		
+		private var _byteTotal:Number = 0;
+		public function set byteTotal(str:Number):void { this._byteTotal = str; }
+		public function get byteTotal():Number { return this._byteTotal; }
+		
+		public var arrRs:Array = new Array();
+		
+		private var _uploadByte:Number = 0;
+		
+		
 		private var _bMulti:Boolean = false;
 		private var _fileList:FileReferenceList;    
 		private var _file:FileReference;
@@ -21,7 +39,7 @@ package lib
 		private var _fileFilter:FileFilter = new FileFilter("All Files (*)","*.*");
 		private var _uploadFiles:Array = new Array();
 		
-		public function FileUpload(bMulti:Boolean=false) {
+		public function FileUploadUrl(bMulti:Boolean=false) {
 			_bMulti = bMulti;
 			if (_bMulti == true) _fileList = new FileReferenceList();
 			else _file = new FileReference();
@@ -34,8 +52,16 @@ package lib
 		
 		public function browse():void {
 			
+			byteTotal = 0;
+			
 			if (_bMulti == true) fileListBrowse();
 			else fileBrowse();
+		}
+		
+		public function init():void {
+			byteTotal = 0;
+			_uploadFiles = new Array();
+			arrRs = new Array();
 		}
 		
 		private function fileListBrowse():void {
@@ -79,6 +105,7 @@ package lib
 					realsize:String(fr.size),
 					file:fr
 				});
+				byteTotal += fr.size;
 				return true;
 			}
 			
@@ -88,31 +115,44 @@ package lib
 			
 			if(_uploadFiles.length > 0) {
 				_file = _uploadFiles[0].file;
-				_file.addEventListener(Event.COMPLETE, completeHandler);
+				_file.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, completeHandler);
 				_file.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
 				_file.addEventListener(ProgressEvent.PROGRESS, progressHandler);
 				_file.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
 				
-				_file.load();
+				var request:URLRequest = new URLRequest();
+				request.url = url;
+				_file.upload(request);
+
 			} else {
 				// upload 완료
 				this.dispatchEvent(new Event("done"));
 			}
 		}
 		
-		private function completeHandler(event:Event):void {
+		private function completeHandler(event:DataEvent):void {
+			
+			if (event.data != null) {
+				var data:*  =JSON.parse(event.data);
+				arrRs.push(data);
+			}
+			if (_pb != null)
+				_uploadByte = _pb.value;
 			
 			_uploadFiles.shift();
-			
-			var fure:FileUploadByRemoteObjectEvent = new FileUploadByRemoteObjectEvent(FileUploadByRemoteObjectEvent.COMPLETE, event);
-			fure.isEnabled = true;
-			this.dispatchEvent(fure);
+			upload();
 		}
 		private function ioErrorHandler(event:IOErrorEvent):void {
 			
 		}
 		private function progressHandler(event:ProgressEvent):void {
-			this.dispatchEvent(event);
+			
+			if (_pb != null) {
+				_pb.label = "UPLOADING %3%%";
+				_pb.setProgress(event.bytesLoaded+_uploadByte, byteTotal);
+			}
+			
+			//this.dispatchEvent(event);
 		}
 		private function securityErrorHandler(event:SecurityErrorEvent):void {
 			

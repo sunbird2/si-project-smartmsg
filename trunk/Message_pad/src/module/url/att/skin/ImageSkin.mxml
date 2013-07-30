@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
-		xmlns:mx="library://ns.adobe.com/flex/mx" width="300" minHeight="20">
+		xmlns:mx="library://ns.adobe.com/flex/mx" width="300">
 	<!-- host component -->
 	<fx:Metadata>
 		[HostComponent("module.url.att.Image")]
@@ -15,16 +15,27 @@
 		<s:State name="actContent" />
 	</s:states>
 	
-	<s:VGroup width="100%">
-		<s:Group id="ele" width="100%" height="100%">
-			<s:List id="imgList" width="100%" height="100%" itemRenderer="module.url.att.skin.ImageSkinImgList"></s:List>
+	<s:VGroup>
+		<s:Group id="ele" width="100%">
+			<s:List id="imgList" width="300" borderVisible="false" itemRenderer="module.url.att.skin.ImageSkinImgList" useVirtualLayout="false"></s:List>
 			<s:Group id="addImage" left="0" right="0" height="80" includeIn="default, actEmpty">
 				<s:Rect left="0" right="0" top="0" bottom="0"><s:fill><s:SolidColor color="#000000" alpha="0.1" /></s:fill></s:Rect>
-				<s:Label text=" + 클릭하여 이미지를 추가 하세요." verticalCenter="0" horizontalCenter="0" />
+				<s:Label text=" + 아래 버튼을 클릭하여 이미지를 추가 하세요." verticalCenter="0" horizontalCenter="0" />
+				<s:HGroup horizontalAlign="center" bottom="5">
+					<s:Button id="uploadBtn" label="업로드" />
+					<s:Button id="imgToolBtn" label="이미지편집기" />
+				</s:HGroup>
 			</s:Group>
 		</s:Group>
-		<s:Group id="attribute" includeIn="actContent">
-			<s:Button label="link" />
-		</s:Group>
+		<s:VGroup id="attribute" width="100%" includeIn="actContent" >
+			<s:ButtonBar id="imgLayout" selectedIndex="0">
+				<mx:ArrayCollection>
+					<fx:String>가로</fx:String>
+					<fx:String>세로</fx:String> 
+					<fx:String>바둑판</fx:String> 
+				</mx:ArrayCollection>
+			</s:ButtonBar>
+		</s:VGroup>
 	</s:VGroup>
+	<mx:ProgressBar id="progressBar" visible="false" mode="manual" verticalCenter="0" horizontalCenter="0"/>
 </s:Skin>

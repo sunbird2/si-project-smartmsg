@@ -20,6 +20,6 @@
     <!---  A horizontal scrollbar that lets you control the portion of data that is displayed 
             when there is too much data to fit horizontally in a display area.
             The Scroller determines whether the horizontal ScrollBar is visible. -->
-    <s:HScrollBar id="horizontalScrollBar" visible="false" />
+    <scroller:HScrollBar id="horizontalScrollBar" visible="false" skinClass="skin.scroller.ThinHScrollBar" />
 
 </s:SparkSkin>

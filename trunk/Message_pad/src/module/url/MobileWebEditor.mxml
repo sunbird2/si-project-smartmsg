@@ -2,6 +2,29 @@
 <s:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
 		  xmlns:mx="library://ns.adobe.com/flex/mx" width="700" height="500" creationComplete="module1_creationCompleteHandler(event)">
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		global
+		{
+			/*	chromeColor: #474747;
+			color: #D6D6D6;
+			contentBackgroundColor: #000000;
+			symbolColor: #000000;*/
+			rollOverColor: #FFFFFF;
+			selectionColor: #FFFFFF;
+			focusColor: #037EA7;
+			accentColor: #037EA7;
+			
+			/*fontFamily : "Droid";*/
+			fontFamily : "Malgun Gothic","Dotum","Gulim",AppleGothic,sans-serif;
+			fontSize : 12px;
+		}
+		
+		s|Scroller {
+			skinClass : ClassReference("skin.scroller.ThinScrooller");
+		}
+	</fx:Style>
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
@@ -25,8 +48,8 @@
 			protected function module1_creationCompleteHandler(event:FlexEvent):void
 			{
 				ac = new ArrayCollection([
-											[{type:1,value:{layout:"horizontal", imgs:[{url:"/images/01_sub.jpg",link:""},{url:"/images/01_sub.jpg",link:""}]}}],
-											[{type:1,value:{layout:"horizontal", imgs:[{url:"/images/01_sub.jpg",link:""}]}}]
+											[{type:1,value:{layout:"horizontal", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}}],
+											[{type:1,value:{layout:"tile", imgs:[{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""}]}}]
 										 ]);
 			}
 			
@@ -51,7 +74,7 @@
 				<s:Button label="새페이지추가" left="5" />
 				<s:Button label="완료" right="5" />	
 			</s:Group>
-			<s:List id="mobileWebPages" height="430" dataProvider="{ac}" itemRenderer="module.url.MobileWebPagesRenderer">
+			<s:List id="mobileWebPages" height="500" dataProvider="{ac}" itemRenderer="module.url.MobileWebPagesRenderer">
 				<s:layout><s:HorizontalLayout /></s:layout>
 			</s:List>
 		</s:VGroup>
