@@ -5,7 +5,7 @@ package lib
 	
 	import spark.components.supportClasses.Range;
 	
-	public class ProgressBar extends Range
+	public class ProgressBarCustom extends Range
 	{
 		private var _txt:String = "";
 		
@@ -14,7 +14,7 @@ package lib
 		public function set txt(str:String):void { _txt = str; }
 		
 		
-		public function ProgressBar()
+		public function ProgressBarCustom()
 		{
 			super();
 			snapInterval = 0;

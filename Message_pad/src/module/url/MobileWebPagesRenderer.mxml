@@ -2,7 +2,7 @@
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				xmlns:s="library://ns.adobe.com/flex/spark" 
 				xmlns:mx="library://ns.adobe.com/flex/mx" 
-				autoDrawBackground="true" creationComplete="creationCompleteHandler(event)" width="300" >
+				autoDrawBackground="true" creationComplete="creationCompleteHandler(event)" width="320" >
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ArrayCollection;
@@ -23,24 +23,41 @@
 				
 			}
 			
+			protected function attAdd_clickHandler(event:MouseEvent):void { attList.visible = !attList.visible; }
+			
+			protected function att_clickHandler(num:int):void
+			{
+				var obj:Object = null;
+				switch(num)
+				{
+					case ElementManager.TXT:{obj = {type:ElementManager.TXT,value:null};break;}
+					case ElementManager.IMG:{obj = {type:ElementManager.IMG,value:null};break;}
+					case ElementManager.INPUT:{obj = {type:ElementManager.INPUT,value:null};break;}
+					case ElementManager.BTN:{obj = {type:ElementManager.BTN,value:null};break;}
+					default:{break;}
+				}
+				ac.addItem(obj);
+				attAdd_clickHandler(null);
+			}
+			
 		]]>
 	</fx:Script>
 	<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#FFFFFF" /></s:fill></s:Rect>
 	
 	<s:VGroup gap="0">
 		<s:Group id="title" width="100%">
-			<s:Button label="속성추가" left="0" />
+			<s:Button label="내용추가" left="0" click="attAdd_clickHandler(event)" />
 			<s:Button label="삭제" right="0" />
 		</s:Group>
-		<s:List id="page" width="300" height="400" borderVisible="false" dataProvider="{ac}" itemRenderer="module.url.MobileWebPagesRendererPage" useVirtualLayout="true">
+		<s:List id="page" width="325" height="476" borderVisible="false" dataProvider="{ac}" itemRenderer="module.url.MobileWebPagesRendererPage" useVirtualLayout="false" verticalScrollPolicy="on">
 		</s:List>
 	</s:VGroup>
 	
-	<s:VGroup id="attList" visible="false">
-		<s:Button label="텍스트" />
-		<s:Button label="이미지" />
-		<s:Button label="입력" />
-		<s:Button label="버튼" />
+	<s:VGroup id="attList" visible="false" top="20">
+		<s:Button label="텍스트" click="att_clickHandler(ElementManager.TXT)" />
+		<s:Button label="이미지" click="att_clickHandler(ElementManager.IMG)" />
+		<s:Button label="입력" click="att_clickHandler(ElementManager.INPUT)" />
+		<s:Button label="버튼" click="att_clickHandler(ElementManager.BTN)" />
 	</s:VGroup>
 	
 </s:ItemRenderer>

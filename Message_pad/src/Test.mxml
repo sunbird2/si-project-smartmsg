@@ -99,5 +99,5 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:Button label="upload" click="button1_clickHandler(event)" />
-	<lib:ProgressBar id="progress" value="1" top="50" skinClass="lib.ProgressBarSkin" />
+	<lib:ProgressBarCustom id="progress" value="1" top="50" skinClass="lib.ProgressBarSkin" />
 </s:Application>
