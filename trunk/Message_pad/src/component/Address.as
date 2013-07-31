@@ -633,7 +633,9 @@ package component
 		}
 		private function deleteName_resultHandler(event:CustomEvent):void {
 			
+			RemoteSingleManager.getInstance.removeEventListener("modifyManyAddr", deleteName_resultHandler);
 			SLibrary.alert( String(event.result) +"건의 전화번호가 삭제 되었습니다." );
+			getGroup();
 			tracker("deleteName_resultHandler");// tracker
 		}
 		
@@ -702,8 +704,9 @@ package component
 			
 			if (avo.grpName == null || avo.grpName == "") {
 				SLibrary.alert("그룹이름이 없습니다.");
-			} 
-			else if (code >= 20 && (avo.phone == "" || avo.phone == null )){
+			} else if (avo.grpName == "모두" && (code == 10 || code == 21)) {
+				SLibrary.alert("그룹이름응 [모두]로 지정 할수 없습니다.");
+			} else if (code >= 20 && (avo.phone == "" || avo.phone == null )){
 				SLibrary.alert("전화번호를 입력 하세요.");
 			}else {
 				activeCode = code;
@@ -815,29 +818,38 @@ package component
 		 * */
 		private function groupList_dragDropHandler(event:DragEvent):void {
 			
-			event.preventDefault();
+			//event.preventDefault();
 
 			var cnt:int = List(event.dragInitiator).selectedIndices.length;
+
 			if (cnt > 0) {
 				var ac:ArrayCollection = new ArrayCollection();
 				for(var i:Number = 0; i < cnt; i++) {
 					ac.addItem( AddressVO( List(event.dragInitiator).selectedItems[i] ) );
 				}
-				if (event.action == "copy") {
-					moveGroup( ac, acGroup.getItemAt(findItemIndexForDragEvent(event)).grpName );	
-				}else {
-					copyGroup( ac, acGroup.getItemAt(findItemIndexForDragEvent(event)).grpName );	
+				var listIdx:Number = findItemIndexForDragEvent(event);
+				if (listIdx > acGroup.length-1) {
+					SLibrary.alert("다시 시도해 주세요.");
+				} else {
+					if (event.action == "copy") {
+						copyGroup( ac, acGroup.getItemAt(listIdx).grpName );	
+					}else {
+						moveGroup( ac, acGroup.getItemAt(listIdx).grpName );	
+					}	
 				}
+				
 			}
 		}
 		private function groupList_dragOverHandler(event:DragEvent):void {
-			event.preventDefault();
+			
+			//trace(findItemIndexForDragEvent(event));
+			//event.preventDefault();
 		}
 		private function findItemIndexForDragEvent(event:DragEvent):Number{
 			
 			var d:DropLocation = event.target.layout.calculateDropLocation(event);
 			var v:VerticalLayout = VerticalLayout(event.target.layout);
-			var itemIndex:Number = Math.floor( d.dropPoint.y/v.rowHeight );
+			var itemIndex:Number = Math.floor( d.dropPoint.y/50 );
 			
 			return itemIndex;
 		}
@@ -846,6 +858,8 @@ package component
 			
 			if (groupName == "") {
 				SLibrary.alert("이동할 그룹 이름이 없습니다.");
+			}else if (groupName == "모두") {
+				SLibrary.alert("모두로 이동 할 수 없습니다.");
 			}else {
 				
 				RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", moveGroup_resultHandler, false, 0, true);
@@ -857,6 +871,8 @@ package component
 			
 			if (groupName == "") {
 				SLibrary.alert("복사할 그룹 이름이 없습니다.");
+			}else if (groupName == "모두") {
+				SLibrary.alert("모두로 복사 할 수 없습니다.");
 			}else {
 				
 				RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", moveGroup_resultHandler, false, 0, true);
@@ -867,6 +883,7 @@ package component
 		private function moveGroup_resultHandler(event:CustomEvent):void {
 			
 			RemoteSingleManager.getInstance.removeEventListener("modifyManyAddr", moveGroup_resultHandler);
+			getGroup();
 		}
 		
 		private function addressFromExcel_clickHandler(event:MouseEvent):void {
