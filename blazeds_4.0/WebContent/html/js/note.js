@@ -114,6 +114,22 @@
 	    attributes.name = FLEX_ID;
 	    attributes.align = "middle";
 	    
+	    if(window.addEventListener) {
+            var eventType = (navigator.userAgent.indexOf('Firefox') !=-1) ? "DOMMouseScroll" : "mousewheel";            
+            window.addEventListener(eventType, handleWheel, false);
+        }
+
+        function handleWheel(event) {
+            var app = document.getElementById(FLEX_ID);
+            var edelta = (navigator.userAgent.indexOf('Firefox') !=-1) ? -event.detail : event.wheelDelta/40;                                   
+            var o = {x: event.screenX, y: event.screenY, 
+                delta: edelta,
+                ctrlKey: event.ctrlKey, altKey: event.altKey, 
+                shiftKey: event.shiftKey}
+
+            app.handleWheel(o);
+        }
+	    
 	    swfobject.embedSWF(
 	        "/html/flex/MunjaNote.swf?v=2013072240121", "flashContent", 
 	        "1024", "740",
