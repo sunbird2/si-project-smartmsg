@@ -12,10 +12,11 @@ package module.url.att
 	[SkinState("view")]
 	[SkinState("actEmpty")]
 	[SkinState("actContent")]
-	public class Default_temp extends SkinnableComponent implements IAtt
+	public class Text extends SkinnableComponent implements IAtt
 	{
 		[SkinPart(required="true")]public var ele:Group;
 		[SkinPart(required="true")]public var attribute:Group;
+		[SkinPart(required="true")]public var myRTE:RichTextEditor;
 		
 		private var _att:Object;
 		public function set att(val:Object):void { _att = val; }
@@ -28,7 +29,7 @@ package module.url.att
 			invalidateSkinState();
 		}
 		
-		public function Default_temp(val:Object){ 
+		public function Text(val:Object){ 
 			super(); 
 			setStyle("skinClass", TextSkin);
 		}

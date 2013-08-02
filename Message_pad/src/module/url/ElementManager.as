@@ -2,6 +2,7 @@ package module.url
 {
 	
 	import module.url.att.Image;
+	import module.url.att.Text;
 	
 	import mx.collections.ArrayCollection;
 	
@@ -41,8 +42,7 @@ package module.url
 			return new Image(value);
 		}
 		private function getTXT(value:Object):SkinnableComponent {
-			
-			return null;
+			return new Text(value);
 		}
 		private function getINPUT(value:Object):SkinnableComponent {
 			

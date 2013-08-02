@@ -27,9 +27,9 @@
             import mx.events.ColorPickerEvent;
             import mx.events.FlexEvent;
 
-            import net.asciiworks.tlf.supportClasses.ColorListSkin;
-            import net.asciiworks.tlf.supportClasses.ContentDropDownListEvent;
-            import net.asciiworks.tlf.supportClasses.Icons;
+            import module.ie.net.asciiworks.tlf.supportClasses.ColorListSkin;
+            import module.ie.net.asciiworks.tlf.supportClasses.ContentDropDownListEvent;
+            import module.ie.net.asciiworks.tlf.supportClasses.Icons;
 
             import spark.events.DropDownEvent;
             import spark.events.IndexChangeEvent;
