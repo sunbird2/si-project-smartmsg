@@ -403,11 +403,28 @@ package component
 			
 			RemoteSingleManager.getInstance.removeEventListener("getAddrList", getGroup_resultHandler);
 			var data:ArrayCollection = event.result as ArrayCollection;
+			var beforSelect:int = groupList.selectedIndex;
 			acGroup.removeAll();
 			// allGroup add
 			acGroup.addItem( allAddressGroupVO() );
 			acGroup.addAll(data);
 			bGetGroup = false;
+			
+			groupList.selectedIndex = beforSelect;
+			if (activeAddressVO != null && activeAddressVO.grpName)
+				groupName.selectedIndex = getGroupSelectedIndex(activeAddressVO.grpName);
+			
+			// 수정시 수정내용 반영
+			if (nameList.selectedIndex >= 0 && activeAddressVO != null && acGroup.getItemAt(beforSelect).grpName == activeAddressVO.grpName ) {
+				if (nameList.selectedIndex < 0) acName.addItem(activeAddressVO);
+				else acName.setItemAt(activeAddressVO, nameList.selectedIndex );
+			}
+			// 그룹 이동시
+			if (nameList.selectedIndex >= 0 && activeAddressVO != null && acGroup.getItemAt(beforSelect).grpName != activeAddressVO.grpName ) {
+				acName.removeItemAt(nameList.selectedIndex);
+				cardGroup.visible = false;
+			}
+			
 			setGvGroup();
 		}
 		private function groupList_keyUpHandler(event:KeyboardEvent):void {
@@ -510,6 +527,9 @@ package component
 			if (groupName.selectedIndex == 0) {
 				SLibrary.alert("모두 그룹에 저장 할 수 없습니다. 다른 그룹을 선택 하세요.");
 			}
+			else if (SLibrary.bKoreaPhoneCheck(activeAddressVO.phone) == false) {
+				SLibrary.alert("올바른 전화번호가 아닙니다.(숫자만 입력)");
+			}
 			else if (groupName.selectedIndex < 0) { // group insert and cart insert
 				activeAddress(23, activeAddressVO);
 			}
@@ -524,19 +544,14 @@ package component
 			
 			var idx:int = 0;
 			if (nameList.selectedIndex >= 0) {
-				
 				var avo:AddressVO = AddressVO( acName.getItemAt( nameList.selectedIndex ) );
 				idx = avo.idx;
-				/*avo.grp = 1;
-				avo.grpName = AddressVO(groupName.selectedItem).grpName;
-				avo.name = nameL.text;
-				avo.phone = phone.text;
-				avo.memo = memo.text;*/
 			}
 			
 			activeAddressVO = new AddressVO(); 
 			activeAddressVO.idx = idx;
 			activeAddressVO.grp = 1;
+			
 			if (groupName.selectedItem is AddressVO)
 				activeAddressVO.grpName = AddressVO(groupName.selectedItem).grpName;
 			else 
@@ -551,17 +566,16 @@ package component
 				if (nameList.selectedIndex >= 0) {
 					var avo:AddressVO = AddressVO( acName.getItemAt( nameList.selectedIndex ) );
 					
-					if (avo.grpName) groupName.selectedItem = avo;
+					if (avo.grpName) groupName.selectedItem = groupList.selectedItem;
 					nameL.text = avo.name;
 					phone.text = avo.phone;
 					memo.text = avo.memo;
 					
-					if (cardGroup)
-						cardGroup.visible = true;
+					cardGroup.visible = true;
+					commitBtn.label = "수정";
 				}
 				else {
-					if (cardGroup)
-						cardGroup.visible = false;
+					cardGroup.visible = false;
 				}
 			}
 			
@@ -580,6 +594,7 @@ package component
 			phone.text = "";
 			memo.text = "";
 			nameList.selectedIndex = -1;
+			commitBtn.label = "추가";
 		}
 		
 		private function nameList_changeHandler(event:IndexChangeEvent):void {
@@ -727,6 +742,7 @@ package component
 				SLibrary.alert("적용 되지 않았습니다.");
 				return;
 			}
+			/*
 			switch(activeCode) {
 				
 				case 10:
@@ -740,11 +756,14 @@ package component
 					break;
 				}
 				case 23: {
-					getGroup();
+					
+					break;
 				}
 				default: { break; }
 			}
+			*/
 			
+			getGroup();
 			setGvGroup();
 		}
 		

@@ -216,13 +216,23 @@
 				var bitmapData:BitmapData = new BitmapData(canvas.width, canvas.height);
 				bitmapData.draw(canvas);
 				var ba:ByteArray = jpg.encode(bitmapData);
-				// split off the original extension and replace with png
-				var ext:String = loadFileRef.name.split(".").pop();
+				
 				var obj:Object = new Object();
-				obj.fileName = loadFileRef.name.replace(ext,"jpg");
+				obj.fileName = getLoadFileName();
 				obj.data = ba;
-				parentApplication.gateWay("mms",obj);
+				
+				ImageEditorAble(parentDocument.hostComponent).upload(obj.data, obj.fileName);
 				//saveFileRef.save(ba,loadFileRef.name.replace(ext,"jpg"));
+			}
+			private function getLoadFileName():String {
+				
+				if (loadFileRef.data != null) {
+					var ext:String = loadFileRef.name.split(".").pop();
+					return loadFileRef.name.replace(ext,"jpg");	
+				} else {
+					return "empty.jpg";
+				}
+				
 			}
 			
 			// return true when image is available
@@ -278,6 +288,11 @@
 				if (activeAtt != null) activeAtt = null;
 			}
 			
+			protected function close_clickHandler(event:MouseEvent):void
+			{
+				ImageEditorAble(parentDocument.hostComponent).removeModuleIme();
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -299,7 +314,7 @@
 				<s:Image source="{iconAddImage}" click="browseAndUpload()" buttonMode="true" useHandCursor="true" />
 				<s:Image source="{iconAddText}" click="addText()" buttonMode="true" useHandCursor="true" />
 				<s:Image source="{iconSave}" click="captureJPG()" buttonMode="true" useHandCursor="true" />
-				<s:Image source="{iconClose}" click="parentApplication.gateWay('mmsClose',null)" buttonMode="true" useHandCursor="true" />
+				<s:Image source="{iconClose}"  click="close_clickHandler(event)" buttonMode="true" useHandCursor="true" />
 			</s:HGroup>
 		</s:Group>
 		
