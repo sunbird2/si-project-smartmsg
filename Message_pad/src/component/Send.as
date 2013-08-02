@@ -33,6 +33,8 @@ package component
 	import lib.RemoteSingleManager;
 	import lib.SLibrary;
 	
+	import module.ie.ImageEditorAble;
+	
 	import mx.collections.ArrayCollection;
 	import mx.events.FlexEvent;
 	import mx.events.ModuleEvent;
@@ -77,7 +79,7 @@ package component
 	[SkinState("LMS")]
 	[SkinState("MMS")]
 	
-	public class Send extends SkinnableComponent
+	public class Send extends SkinnableComponent implements ImageEditorAble
 	{
 		public static const SEND_COMPLET:String = "sendComplet";
 		public static const CHANGE_MODE:String = "changeMode";

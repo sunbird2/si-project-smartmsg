@@ -8,6 +8,8 @@ package lib
 	import flash.net.FileFilter;
 	import flash.net.FileReference;
 	import flash.net.FileReferenceList;
+	import flash.net.URLLoader;
+	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
 	
@@ -30,6 +32,7 @@ package lib
 		public var arrRs:Array = new Array();
 		
 		private var _uploadByte:Number = 0;
+		private var loader:URLLoader = new URLLoader();
 		
 		
 		private var _bMulti:Boolean = false;
@@ -76,6 +79,8 @@ package lib
 		
 		private function selectHandler(event:Event):void { 
 			
+			if (_pb != null) _pb.visible = true;
+			
 			_uploadFiles = [];
 			if (_bMulti == true) fileListSelect();
 			else fileSelect();
@@ -94,7 +99,7 @@ package lib
 			
 			if (pushUpload(_file) == true)	upload();
 		}
-		private function pushUpload(fr:FileReference):Boolean {
+		public function pushUpload(fr:FileReference):Boolean {
 			
 			if ( Number(fr.size) > Number(1024*1024*10) ) {
 				SLibrary.alert("10MB 이상의 파일은 사용 하실 수 없습니다.("+fr.name+")");
@@ -130,10 +135,49 @@ package lib
 			}
 		}
 		
+		public function uploadByteArray(ba:ByteArray, fileName:String):void {
+			
+			if( fileName == null ) //Make a name with correct file type
+			{                
+				var now:Date = new Date();
+				fileName = "IMG" + now.fullYear + now.month +now.day +
+					now.hours + now.minutes + now.seconds + ".jpg";
+			}
+			
+			
+			loader.dataFormat= URLLoaderDataFormat.BINARY;
+			
+			var params:Object = {};
+			//params.name = fileName;
+			//params.user_id = model.user.user_id;
+			
+			var wrapper:URLRequestWrapper = new URLRequestWrapper(ba, fileName, null, params);
+			wrapper.url = this.url;
+			
+			loader.addEventListener(Event.COMPLETE, completeLoaderHandler);
+			loader.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
+			loader.addEventListener(ProgressEvent.PROGRESS, progressHandler);
+			loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
+			
+			loader.load(wrapper.request);       
+		}
+		
 		private function completeHandler(event:DataEvent):void {
 			
 			if (event.data != null) {
 				var data:*  =JSON.parse(event.data);
+				arrRs.push(data);
+			}
+			if (_pb != null)
+				_uploadByte = _pb.value;
+			
+			_uploadFiles.shift();
+			upload();
+		}
+		private function completeLoaderHandler(event:Event):void {
+			
+			if (loader.data != null) {
+				var data:*  =JSON.parse(loader.data);
 				arrRs.push(data);
 			}
 			if (_pb != null)
