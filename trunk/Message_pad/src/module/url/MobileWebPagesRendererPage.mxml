@@ -54,7 +54,6 @@
 		<s:State name="hovered"/>
 		<s:State name="selected"/>
 	</s:states>
-	
 	<s:Group id="attBox" left="10" right="10" top="10" bottom="10">
 		
 	</s:Group>

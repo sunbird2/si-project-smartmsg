@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+
+			override public function set data(value:Object):void
+			{
+				super.data = value;
+				if (super.data != null) {
+					if (super.data.icon && super.data.icon != "")
+						img.source = super.data.icon;
+
+					text.text = super.data.label;
+				}
+			}
+			
+			
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="hovered"/>
+		<s:State name="selected"/>
+	</s:states>
+	<s:HGroup verticalAlign="middle" left="5" top="10" bottom="10">
+		<s:BitmapImage id="img" fillMode="scale" width="50" smooth="true"/>
+		<s:Label id="text" color="#000000" color.normal="#FFFFFF" />
+	</s:HGroup>
+	<s:Rect width="100%" bottom="0"><s:stroke><s:SolidColorStroke color="#aaaaaa" weight="1" /></s:stroke></s:Rect>
+	
+</s:ItemRenderer>

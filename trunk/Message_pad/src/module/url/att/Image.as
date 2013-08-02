@@ -99,7 +99,7 @@ package module.url.att
 		public function Image(val:Object){ 
 			super(); 
 			att = val;
-			if (att.layout == "horizontal") isViewNextPreIcon = true;
+			if (att != null && att.layout == "horizontal") isViewNextPreIcon = true;
 			
 			setStyle("skinClass", ImageSkin);
 		}
