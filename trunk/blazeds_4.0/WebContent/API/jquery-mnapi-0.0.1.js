@@ -18,7 +18,6 @@ var hexcase=0;var b64pad="";function hex_md5(s){return rstr2hex(rstr_md5(str2rst
 
 var TP='<div id="MunjaNoteAPISkin"><div class="msg_box"><p class="msg_title">Message</p><textarea id="MunjaNoteAPI_msg" class="msg" rows="10" cols="20"></textarea><p id="MunjaNoteAPI_byte" class="msg_byte">0 byte</p></div><div class="phone_box"><p class="phone_title">Phone Numbers</p><textarea id="MunjaNoteAPI_phone" class="phone" rows="5" cols="20"></textarea></div><div class="callback_box"><p class="callback_title">Return phone</p><input type="text" id="MunjaNoteAPI_callback"  class="callback"/></div><div class="reservation_box"><p class="reservation_title"><input type="checkbox" id="MunjaNoteAPI_reservationCheck" /> <label for="MunjaNoteAPI_reservationCheck">Reservation</label></p><input type="text" id="MunjaNoteAPI_reservation" class="reservation" disabled="disabled"/></div><a href="#" id="MunjaNoteAPI_send" class="send btn scolor">Send</a><a href="#" id="MunjaNoteAPI_cancel" class="cancel btn ccolor">Cancel</a></div>';
 
-
 (function($) {
 	
 	var bDebug = true;
@@ -46,7 +45,7 @@ var TP='<div id="MunjaNoteAPISkin"><div class="msg_box"><p class="msg_title">Mes
 		
 		_sendCertChk:function(v){ if ( hex_md5(this.UID+"!@#$"+v) == this.CERTSTR ) {callback(getRsltJson("true","cert"));} else{CERTCHKCNT++;if(CERTCHKCNT > 5) {this.CERTSTR="";CERTCHKCNT=0;}callback(getRsltJson("false","cert"));}},
 		
-		_setCert:function(v){this.CERTSTR=v; },
+		_setCert:function(v){this.CERTSTR=v; }
 	};
 	var _fn = { 
 		checkAuth:function() {
