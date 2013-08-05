@@ -1,12 +1,34 @@
-<%@page import="com.common.util.SendMail"%>
-<%@page import="com.common.VbyP"%>
-<%@page import="com.common.util.SLibrary"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
+<%@page import="com.m.admin.vo.MemberVO"%><%@page import="com.m.MultiDao"%><%@page import="com.m.member.UserSession"%><%@page import="com.common.util.SendMail"%><%@page import="com.common.VbyP"%><%@page import="com.common.util.SLibrary"%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><%
 String ip = SLibrary.IfNull(request.getRemoteAddr());
 
 if (!ip.equals("112.216.246.130")) {
 	SendMail.send("[bill] 결제 페이지 요청", "ref:"+ip);
 }
+UserSession us = null;
+MultiDao mdao = null;
+
+String block = "none";
+String cost = "18";
+
+try {
+	
+	us = (UserSession)session.getAttribute("user_id");
+	
+	if (us == null) { throw new Exception("no login"); }
+	
+	mdao = MultiDao.getInstance();
+	MemberVO mvo = new MemberVO();
+	mvo.setUser_id(us.getUser_id());
+	MemberVO rsMvo = mdao.getMember(mvo);
+	
+	if (rsMvo != null && !rsMvo.getUnit_cost().equals("18")) {
+		cost = rsMvo.getUnit_cost();
+		block = "block";
+	}
+	
+	
+}catch (Exception e) {}
+finally {}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -156,6 +178,7 @@ if (!ip.equals("112.216.246.130")) {
                                 <td><b id="tcnt" style="font-weight:bold;font-size:16px;color:#FF8800;"><%=SLibrary.addComma(VbyP.getValue("b30000")) %></b> <span>건</span></td>
                             </tr>
                         </table><br/>
+                        <p style="display:<%=block%>;">고객님은 고정단가 적용 중이며, 위 내용과 상관 없이 건당 <%=cost%>원에 결제 됩니다.</p>
                         <a href="#" class="button blue" style="width:110px;color:#FFF;font-weight:bold" onclick="billSubmit(document.billForm);return false;">결제하기</a>
                     </div>
 
