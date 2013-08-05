@@ -155,28 +155,35 @@
 	function certSend() {
 		_mnq.push(['_send', {
 			msg:"{NUM} 인증번호를 입력해 주세요.",// {NUM} 부분이 인증번호로 변경되어 발송 됩니다.(내용 수정 가능)
-			phone:"전화번호", // ex)01011112222 ※ 수정
-			callback:"보내는사람 번호", // ex)021112222 ※ 수정
+			phone:document.form.phone.value, // ex)휴대폰번호값 ※ 수정
+			callback:"보내는사람 번호" // ex)021112222 ※ 수정
 		}]);
 	}
 	
 	// 발송된 인증번호를 확인 합니다.
 	function certChk() {
-		_mnq.push(['_sendCertChk', "발송 후 사용자가 입력한 인증번호"]); // ex)12345  ※ 수정
+		_mnq.push(['_sendCertChk', document.form.cert.value]); // ex)인증번호입력값  ※ 수정
 	}
 	// 인증번호 발송(certSend()) & 인증번호 확인(certChk()) 시 자동 호출 됩니다.
 	// 필요에 따라 수정하세요
 	function MUNJANOTE_CallBack(obj) {
 		if (obj.rslt=="true") {
 			if (obj.msg == "cert")	{ alert("인증성공"); } // certChk() 함수 호출 이후 발생됨.
-			else { alert("인증번호 발송 성공"); }
+			else { alert("인증번호가 발송 되었습니다."); }
 		} else {
 			var failMsg = (obj.msg)?obj.msg:"";
-			if (obj.msg == "cert") { alert("잘못된 인증 번호 입니다."); } 
+			if (obj.msg == "cert") { alert("잘못된 인증번호 입니다."); } 
 			else { alert("fail : "+failMsg); }
 		}
 	}
-&lt;/script&gt;</pre>
+&lt;/script&gt;
+&lt;form name="form"&gt;
+&lt;input type="text" name="phone" value="01000000000" /&gt
+&lt;input type="button" name="send" value="발송" onclick="certSend()" /&gt
+&lt;input type="text" name="cert" value="12345" /&gt
+&lt;input type="button" name="certCheck" value="인증번호 확인" onclick="certChk()" /&gt
+&lt;/form&gt;
+</pre>
 				</li>
 				<li>
 					<p class="category_sub">2. 위 내용중 ※ 수정 부분을 수정 하세요.(끝!)</p>
