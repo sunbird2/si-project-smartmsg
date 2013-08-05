@@ -229,15 +229,15 @@ public class Billing {
 		
 		double rslt = 18;
 		
-		if (amount <= 11000 ) rslt = 10000/SLibrary.intValue( VbyP.getValue("b10000") );
-		else if (amount <= 33000 ) rslt = 30000/SLibrary.intValue( VbyP.getValue("b30000") );
-		else if (amount <= 55000 ) rslt = 50000/SLibrary.intValue( VbyP.getValue("b50000") );
-		else if (amount <= 110000 ) rslt = 100000/SLibrary.intValue( VbyP.getValue("b100000") );
-		else if (amount <= 330000 ) rslt = 300000/SLibrary.intValue( VbyP.getValue("b300000") );
-		else if (amount <= 550000 ) rslt = 500000/SLibrary.intValue( VbyP.getValue("b500000") );
-		else if (amount <= 1100000 ) rslt = 1000000/SLibrary.intValue( VbyP.getValue("b1000000") );
-		else if (amount <= 2200000 ) rslt = 2000000/SLibrary.intValue( VbyP.getValue("b2000000") );
-		else rslt = 2000000/SLibrary.intValue( VbyP.getValue("b2000000") );
+		if (amount <= 11000 ) rslt = 10000/Double.parseDouble( VbyP.getValue("b10000") );
+		else if (amount <= 33000 ) rslt = 30000/Double.parseDouble( VbyP.getValue("b30000") );
+		else if (amount <= 55000 ) rslt = 50000/Double.parseDouble( VbyP.getValue("b50000") );
+		else if (amount <= 110000 ) rslt = 100000/Double.parseDouble( VbyP.getValue("b100000") );
+		else if (amount <= 330000 ) rslt = 300000/Double.parseDouble( VbyP.getValue("b300000") );
+		else if (amount <= 550000 ) rslt = 500000/Double.parseDouble( VbyP.getValue("b500000") );
+		else if (amount <= 1100000 ) rslt = 1000000/Double.parseDouble( VbyP.getValue("b1000000") );
+		else if (amount <= 2200000 ) rslt = 2000000/Double.parseDouble( VbyP.getValue("b2000000") );
+		else rslt = 2000000/Double.parseDouble( VbyP.getValue("b2000000") );
 		
 		//rslt = rslt+(rslt*0.1))));
 		
