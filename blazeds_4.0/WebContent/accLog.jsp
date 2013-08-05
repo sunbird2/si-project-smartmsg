@@ -16,7 +16,7 @@ try {
 				String logText = SLibrary.IfNull(url.getQuery())+" : "+URLDecoder.decode(ref,"utf-8")+"\r\n" ;
 				Log.getInstance().println(path+"url.log", logText );
 				VbyP.accessLog( logText+request.getRemoteAddr() );
-				SendMail.send("[accept]"+URLDecoder.decode(ref,"utf-8"), SLibrary.IfNull(url.getQuery()));
+				//SendMail.send("[accept]"+URLDecoder.decode(ref,"utf-8"), SLibrary.IfNull(url.getQuery()));
 			}
 		}
 		
