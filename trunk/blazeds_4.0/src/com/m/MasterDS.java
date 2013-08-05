@@ -114,7 +114,7 @@ public class MasterDS {
 		bvo.setOrder_no("");
 		bvo.setRemain_point( mvo.getPoint() + point );
 		bvo.setTimeWrite(SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss"));
-		bvo.setUnit_cost(Integer.toString(billing.getCost(amount)));
+		bvo.setUnit_cost(SLibrary.fmtBy1.format(billing.getCost(amount)));
 		
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
 		int insertCnt = sm.insert(ns +"insert_billing", bvo);
@@ -145,17 +145,22 @@ public class MasterDS {
 		
 		int point = billing.getPoint(amount);
 		
+		double ucost = Double.parseDouble( mvo.getUnit_cost() );
+		if ( ucost < 18) {
+			point = SLibrary.intValue( SLibrary.fmtBy.format( Math.ceil(amount/(ucost+(ucost*0.1))) ) );
+		}
+		
 		BillingVO bvo = new BillingVO();
 		bvo.setUser_id(user_id);
 		bvo.setAdmin_id("SI");
 		bvo.setAmount( amount );
 		bvo.setMemo("");
-		bvo.setMethod("Admin");
+		bvo.setMethod("무통장");
 		bvo.setOrder_no("");
 		bvo.setPoint(point);
 		bvo.setRemain_point( mvo.getPoint() + point );
 		bvo.setTimeWrite(SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss"));
-		bvo.setUnit_cost(Integer.toString(billing.getCost(amount)));
+		bvo.setUnit_cost(SLibrary.fmtBy1.format(billing.getCost(amount)));
 		
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
 		int insertCnt = sm.insert(ns +"insert_billing", bvo);
