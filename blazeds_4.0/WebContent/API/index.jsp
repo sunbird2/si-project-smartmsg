@@ -180,5 +180,7 @@ finally {
 	
 	out.println(buf.toString());
 	System.out.println(buf.toString());
+	VbyP.accessLog("API callback : uid="+uid+" rslt="+buf.toString());
+	
 }
 %>
