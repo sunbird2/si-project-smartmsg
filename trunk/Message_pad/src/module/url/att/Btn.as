@@ -1,7 +1,6 @@
 package module.url.att
 {
-	
-	import module.url.att.skin.TextSkin;
+	import module.url.att.skin.BtnSkin;
 	
 	import mx.controls.RichTextEditor;
 	
@@ -12,7 +11,7 @@ package module.url.att
 	[SkinState("view")]
 	[SkinState("actEmpty")]
 	[SkinState("actContent")]
-	public class Default_temp extends SkinnableComponent implements IAtt
+	public class Btn extends SkinnableComponent implements IAtt
 	{
 		[SkinPart(required="true")]public var ele:Group;
 		[SkinPart(required="true")]public var attribute:Group;
@@ -28,10 +27,9 @@ package module.url.att
 			invalidateSkinState();
 		}
 		
-		public function Default_temp(val:Object){ 
-			super();
-			att = val;
-			setStyle("skinClass", TextSkin);
+		public function Btn(val:Object){ 
+			super(); 
+			setStyle("skinClass", BtnSkin);
 		}
 		
 		public function getJson():String
@@ -49,8 +47,6 @@ package module.url.att
 			else if (att != null && _stat == "default") {
 				_stat = "view";
 			}
-			
-			//trace(_stat);
 			return this._stat;
 		} 
 		

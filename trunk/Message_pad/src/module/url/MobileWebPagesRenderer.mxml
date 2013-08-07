@@ -47,7 +47,7 @@
 				{
 					case ElementManager.TXT:{obj = {type:ElementManager.TXT,value:null};break;}
 					case ElementManager.IMG:{obj = {type:ElementManager.IMG,value:null};break;}
-					case ElementManager.INPUT:{obj = {type:ElementManager.INPUT,value:null};break;}
+					case ElementManager.INPUT:{obj = {type:ElementManager.INPUT,value:{layout:"one",next:0,btnText:"확인",commitMsg:"감사합니다."}};break;}
 					case ElementManager.BTN:{obj = {type:ElementManager.BTN,value:null};break;}
 					default:{break;}
 				}
@@ -69,11 +69,21 @@
 		<s:State name="selected"/>
 	</s:states>
 	<s:VGroup gap="0" top="1" left="1" right="1" bottom="1">
-		<flexpad:BarBlack width="100%" height="45">
-			<s:Button label="+내용추가" left="5" click="attAdd_clickHandler(event)" verticalCenter="0" skinClass="com.flexpad.skin.BackButtonBlackSkin" color="#FFFFFF" />
-			<flexpad:BarBlackLabel id="pageIndex" text="0" horizontalCenter="0" verticalCenter="0" color="#FFFFFF" />
-			<s:Button label="삭제" click="del_clickHandler(event)" right="5" verticalCenter="0" skinClass="com.flexpad.skin.ButtonRedSkin" color="#FFFFFF" excludeFrom="normal"  />
-		</flexpad:BarBlack>
+		<s:Group width="100%" height="45">
+			<s:Rect left="0" right="0" top="0" bottom="0">
+				<s:fill>
+					<s:LinearGradient rotation="-90">
+						<s:GradientEntry color="#000000" alpha="1.0" ratio="0"/>
+						<s:GradientEntry color="#333333" alpha="1.0" ratio="1"/>
+					</s:LinearGradient>
+				</s:fill>
+			</s:Rect>
+			<s:Line width="100%" bottom="0"><s:stroke><s:SolidColorStroke color="0xFFFFFF" weight="1" alpha="0.11"/></s:stroke></s:Line>
+			
+			<s:Button label="+내용추가" left="5" click="attAdd_clickHandler(event)" verticalCenter="0" skinClass="module.url.component.skin.ButtonBlack" excludeFrom="normal" />
+			<s:Label id="pageIndex" text="0" horizontalCenter="0" verticalCenter="0" color="#FFFFFF" />
+			<s:Button label="삭제" click="del_clickHandler(event)" right="5" verticalCenter="0" skinClass="module.url.component.skin.ButtonRed" color="#FFFFFF" excludeFrom="normal" />
+		</s:Group>
 		<s:List id="page" width="327" height="476" dataProvider="{ac}" 
 				borderVisible="true" itemRenderer="module.url.MobileWebPagesRendererPage" contentBackgroundColor="#FFFFFF" contentBackgroundAlpha="1" useVirtualLayout="false" verticalScrollPolicy="on">
 		</s:List>

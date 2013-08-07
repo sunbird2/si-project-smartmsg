@@ -54,8 +54,9 @@
 			
 			protected function module1_creationCompleteHandler(event:FlexEvent):void
 			{
+				// default {type:0, value:{}}
 				ac = new ArrayCollection([
-											[{type:1,value:{layout:"tile", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}},{type:0,value:{text:"<p style=\"text-align:left\">안녕하세요!!!</p><p style=\"text-align:left\"><b>박사준</b>입니다.</p>"}}],
+											[{type:2, value:{layout:"one",next:0,btnText:"확인",commitMsg:"감사용"}},{type:1,value:{layout:"tile", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}},{type:0,value:{text:"<p style=\"text-align:left\">안녕하세요!!!</p><p style=\"text-align:left\"><b>박사준</b>입니다.</p>"}}],
 											[{type:1,value:{layout:"tile", imgs:[{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""}]}}],
 											[{type:1,value:{layout:"tile", imgs:[{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""}]}}]
 										 ]);
@@ -129,8 +130,8 @@
 	</s:VGroup>
 	
 	<s:HGroup left="525" bottom="20">
-		<s:Button label="미리 보기" right="5" skinClass="com.flexpad.skin.ButtonGreySkin" color="#FFFFFF" />
-		<s:Button label="제작 완료" right="5" skinClass="com.flexpad.skin.ButtonBlueSkin" color="#FFFFFF"/>
+		<s:Button label="미리 보기" right="5" skinClass="module.url.component.skin.ButtonGray" color="#FFFFFF" />
+		<s:Button label="제작 완료" right="5" skinClass="module.url.component.skin.ButtonBlue" color="#FFFFFF"/>
 	</s:HGroup>
 	
 </s:Module>
