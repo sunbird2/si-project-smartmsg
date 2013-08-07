@@ -9,8 +9,6 @@
 			
 			import spark.components.List;
 			
-			import module.url.att.Image;
-			
 			import mx.events.FlexEvent;
 			
 			import spark.components.supportClasses.SkinnableComponent;
@@ -26,9 +24,13 @@
 			
 			protected function creationCompleteHandler(event:FlexEvent):void
 			{
-				ele = em.getObject(data.type, data.value) as Image;
-				att = ele as IAtt;
-				attBox.addElement( ele );
+				
+				ele = em.getObject(data.type, data.value) as SkinnableComponent;
+				if (ele != null) {
+					att = ele as IAtt;
+					attBox.addElement( ele );
+				}
+				
 			}
 			
 			override public function set selected(value:Boolean):void

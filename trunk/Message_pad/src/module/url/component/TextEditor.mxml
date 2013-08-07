@@ -1,0 +1,863 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="300" height="300" gap="0">
+	<fx:Metadata>
+		[Event(name="change", type="flash.events.Event")]
+		
+		[DefaultTriggerEvent("change")]
+		
+		[Style(name="textAreaStyleName", type="String", inherit="no")]
+		
+		[Exclude(name="alignButtons", kind="property")]
+		[Exclude(name="boldButton", kind="property")]
+		[Exclude(name="bulletButton", kind="property")]
+		[Exclude(name="colorPicker", kind="property")]
+		[Exclude(name="defaultButton", kind="property")]
+		[Exclude(name="fontFamilyArray", kind="property")]
+		[Exclude(name="fontFamilyCombo", kind="property")]
+		[Exclude(name="fontSizeArray", kind="property")]
+		[Exclude(name="fontSizeCombo", kind="property")]
+		[Exclude(name="icon", kind="property")]
+		[Exclude(name="italicButton", kind="property")]
+		[Exclude(name="label", kind="property")]
+		[Exclude(name="layout", kind="property")]
+		[Exclude(name="linkTextInput", kind="property")]
+		[Exclude(name="toolBar", kind="property")]
+		[Exclude(name="toolBar2", kind="property")]
+		[Exclude(name="underlineButton", kind="property")]
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.ComboBox;
+			import mx.controls.textClasses.TextRange;
+			import mx.core.IUITextField;
+			import mx.core.UITextFormat;
+			import mx.core.mx_internal;
+			
+			import spark.events.IndexChangeEvent;
+			
+			use namespace mx_internal;
+			
+			public var fontFamilyToolTip:String = "Font Family";
+			public var fontSizeToolTip:String = "Font Size";
+			public var boldToolTip:String = "Bold";
+			public var italicToolTip:String = "Italic";
+			public var underlineToolTip:String = "Underline";
+			public var colorPickerToolTip:String = "Color";
+			public var alignToolTip:String = "Align";
+			public var bulletToolTip:String = "Bullet";
+			public var linkToolTip:String = "Link";
+			
+			private var linkTextCommitted:Boolean = false;
+			private var showControlBarChanged:Boolean = false;
+			private var showToolTipsChanged:Boolean = false;
+			private var textChanged:Boolean = false;
+			private var htmlTextChanged:Boolean = false;
+			private var previousTextFormat:TextFormat = null;
+			private var textFormatChanged:Boolean = false;
+			// -1 is used to force updation of the ToolBar styles
+			private var lastCaretIndex:int = -1;
+			private var invalidateToolBarFlag:Boolean = false;
+			private var firstTime:Boolean = true;
+			
+			[Bindable]
+			private var acMearg:ArrayCollection = new ArrayCollection(["{이름}","{합성1}","{합성2}","{합성3}"]);
+			
+			private function init():void
+			{
+				update();
+				this.addEventListener(Event.CHANGE, this.onChange);
+			}
+			private function onChange(event:Event):void {
+				update();
+			}
+			
+			private function update():void {
+				xhtmlText = richTextEditorToHtml( this.htmlText );
+			}
+			
+			//--------------------------------------------------------------------------
+			//
+			//  Properties
+			//
+			//--------------------------------------------------------------------------
+			
+			//----------------------------------
+			//  defaultLinkProtocol
+			//----------------------------------
+			
+			private var _defaultLinkProtocol:String = "http://";
+			
+			[Inspectable(defaultValue="http://")]
+			
+			public function get defaultLinkProtocol():String
+			{
+				return _defaultLinkProtocol;
+			}
+			
+			public function set defaultLinkProtocol(value:String):void
+			{
+				_defaultLinkProtocol = value;
+				
+				if (linkTextInput)
+					linkTextInput.text = _defaultLinkProtocol;
+			}
+			
+			//----------------------------------
+			//  showControlBar
+			//----------------------------------
+			
+			private var _showControlBar:Boolean = true;
+			
+			[Inspectable(category="General", defaultValue="true")]
+			
+			public function get showControlBar():Boolean
+			{
+				return _showControlBar;
+			}
+			
+			public function set showControlBar(value:Boolean):void
+			{
+				_showControlBar = value;
+				textArea.setStyle('borderVisible', _showControlBar);
+				showControlBarChanged = true;
+				invalidateProperties();
+			}
+			
+			//----------------------------------
+			//  showToolTips
+			//----------------------------------
+			
+			private var _showToolTips:Boolean = false;
+			
+			[Inspectable(defaultValue="false")]
+			
+			public function get showToolTips():Boolean
+			{
+				return _showToolTips;
+			}
+			
+			public function set showToolTips(value:Boolean):void
+			{
+				_showToolTips = value;
+				showToolTipsChanged = true;
+				invalidateProperties();
+			}
+			
+			//----------------------------------
+			//  selection
+			//----------------------------------
+			
+			/**
+			 *  The selected text.
+			 */
+			public function get selection():TextRange
+			{
+				return new TextRange(this, true);
+			}
+			
+			//----------------------------------
+			//  text
+			//----------------------------------
+			
+			private var _text:String = "";
+			
+			[Bindable("valueCommit")]
+			[CollapseWhiteSpace]
+			[NonCommittingChangeEvent("change")]
+			[Inspectable(category="General")]
+			
+			public function get text():String
+			{
+				return textArea ? textArea.text : _text;
+			}
+			
+			public function set text(value:String):void
+			{
+				_text = value;
+				textChanged = true;
+				invalidateProperties();
+			}
+			
+			//----------------------------------
+			//  htmlText
+			//----------------------------------
+			
+			private var _htmlText:String = "";
+			
+			[Bindable("valueCommit")]
+			[CollapseWhiteSpace]
+			[NonCommittingChangeEvent("change")]
+			[Inspectable(category="General")]
+			
+			public function get htmlText():String
+			{
+				return textArea ? textArea.htmlText : _htmlText;
+			}
+			
+			public function set htmlText(value:String):void
+			{
+				_htmlText = value;
+				htmlTextChanged = true;
+				invalidateProperties();
+			}
+			
+			/**
+			 * xhtmlText is done whenever a change happens to the editor
+			 * this is setup the init() function that is called by creationComplete
+			 **/
+			private var _xhtmlText:String;
+			
+			[Bindable]
+			public function get xhtmlText():String
+			{
+				return _xhtmlText;
+			}
+			
+			public function set xhtmlText(value:String):void
+			{
+				_xhtmlText = value;
+			}
+			
+			
+			
+			//--------------------------------------------------------------------------
+			//
+			//  Overridden methods
+			//
+			//--------------------------------------------------------------------------
+			
+			override protected function commitProperties():void
+			{
+				super.commitProperties();
+				
+				if (firstTime)
+				{
+					firstTime = false;
+					var textAreaStyleName:String = getStyle(
+						"textAreaStyleName");
+					if (textAreaStyleName)
+						textArea.styleName = textAreaStyleName;
+					textArea.getTextField().alwaysShowSelection = true;
+				}
+				
+				if (showControlBarChanged)
+				{
+					if (_showControlBar)
+					{
+						controlBar.height = NaN;
+						controlBar.visible = true;
+					}
+					else
+					{
+						controlBar.height = 0;
+						controlBar.visible = false;
+					}
+					showControlBarChanged = false;
+				}
+				
+				if (showToolTipsChanged)
+				{
+					if (_showToolTips)
+					{
+						fontFamilyCombo.toolTip = fontFamilyToolTip;
+						fontSizeCombo.toolTip = fontSizeToolTip;
+						boldButton.toolTip = boldToolTip;
+						italicButton.toolTip = italicToolTip;
+						underlineButton.toolTip = underlineToolTip;
+						colorPicker.toolTip = colorPickerToolTip;
+						alignButtons.toolTip = alignToolTip;
+						bulletButton.toolTip = bulletToolTip;
+						linkTextInput.toolTip = linkToolTip;
+					}
+					else
+					{
+						fontFamilyCombo.toolTip = "";
+						fontSizeCombo.toolTip = "";
+						boldButton.toolTip = "";
+						italicButton.toolTip = "";
+						underlineButton.toolTip = "";
+						colorPicker.toolTip = "";
+						alignButtons.toolTip = "";
+						bulletButton.toolTip = "";
+						linkTextInput.toolTip = "";
+					}	
+					showToolTipsChanged = false;
+				}
+				
+				if (textChanged || htmlTextChanged)
+				{
+					// Revert previously set TextFormat.
+					var tf:UITextFormat = IUITextField(textArea.getTextField()).getUITextFormat();
+					// bullet style is not exposed in flex
+					// hence has to be explicitly defaulted.
+					tf.bullet = false;
+					textArea.getTextField().defaultTextFormat = tf;
+					if (textChanged)
+					{
+						if (_text !== null)
+							textArea.text = _text;
+						textChanged = false;
+					}
+					else
+					{
+						if (_htmlText !== null)
+							textArea.htmlText = _htmlText;
+						htmlTextChanged = false;
+					}
+				}
+			}
+			
+			override protected function measure():void
+			{
+				// Called only when explicitWidth and
+				// explicitHeight are set to NaN, since
+				// we have set width and height explicitly
+				// for RTE's panel.
+				super.measure();
+				measuredMinWidth = 220;
+				measuredWidth = 320;
+				measuredMinHeight = 200;
+				measuredHeight = 300;
+			}
+			
+			/**
+			 *  @private
+			 */
+			override public function styleChanged(styleProp:String):void
+			{
+				super.styleChanged(styleProp);
+				
+				if (styleProp == null || styleProp == "textAreaStyleName")
+				{
+					if (textArea)
+					{
+						var textAreaStyleName:String = getStyle("textAreaStyleName");
+						textArea.styleName = textAreaStyleName;
+					}
+				}
+				
+				if (!invalidateToolBarFlag)
+				{
+					invalidateToolBarFlag = true;
+					callLater(getTextStyles);
+				}
+			}
+			
+			//--------------------------------------------------------------------------
+			//
+			//  Methods
+			//
+			//--------------------------------------------------------------------------
+			protected function cleanATag(str:String):String
+			{
+				var pattern:RegExp;
+				var str:String;
+				
+				pattern = /<A HREF/gi;
+				str = str.replace(pattern, "<a href");
+				pattern = /<\/A>/gi;
+				str = str.replace(pattern, "<\/a>");
+				pattern= /TARGET="_blank"/gi;
+				str = str.replace(pattern, "rel=\"external\" ");   
+				
+				return str;
+			}
+			public function cleanHTML(str:String):String
+			{
+				var pattern:RegExp;
+				var str:String;
+				
+				pattern = /COLOR=\"(.*?)\"/gi;
+				str = str.replace(pattern, "color:$1;");
+				pattern = /SIZE=\"(.*?)\"/gi;
+				str = str.replace(pattern, "font-size:$1px;");
+				pattern = /FACE=\"(.*?)\"/gi;
+				str = str.replace(pattern, "font-family:$1;");
+				pattern = /ALIGN=\"(.*?)\"/gi;
+				str = str.replace(pattern, "text-align:$1;");
+				
+				//format <font> tag
+				pattern = /<FONT STYLE/gi;
+				str = str.replace(pattern, "<font style");
+				pattern = /<\/FONT.*?>/gi;
+				str = str.replace(pattern, "<\/font>");
+				
+				//format <p> tag
+				pattern = /<P STYLE/gi;
+				str = str.replace(pattern, "<p style");
+				pattern = /<\/P>/gi;
+				str = str.replace(pattern, "<\/p>");
+				
+				//format <li> tag
+				pattern= /<LI>/gi;
+				str = str.replace(pattern, "<li>");
+				pattern= /<\/LI>/gi;
+				str = str.replace(pattern, "</li>");
+				
+				//format <ul> tag
+				pattern= /<UL>/gi;
+				str = str.replace(pattern, "<ul>");
+				pattern= /<\/UL>/gi;
+				str = str.replace(pattern, "</ul>");
+				
+				
+				
+				
+				//format alignment in styles tag
+				pattern = /text-align: RIGHT/gi;
+				str = str.replace(pattern, "text-align:right");
+				pattern = /text-align: LEFT/gi;
+				str = str.replace(pattern, "text-align:left");
+				pattern = /text-align: CENTER/gi;
+				str = str.replace(pattern, "text-align:center");
+				pattern = /text-align: JUSTIFY/gi;
+				str = str.replace(pattern, "text-align:justify");
+				
+				//format <a> tag
+				
+				//created a seperate function that way i can override it, and
+				//put in my own stuff in the class that is extending it.
+				//i could do this with all of the tags, but for now all i need is the 
+				//a href tag.
+				str = cleanATag(str);
+				
+				pattern = /<I>/gi;
+				str = str.replace(pattern, "<em>");
+				pattern = /<\/I>/gi;
+				str = str.replace(pattern, "</em>");
+				pattern = /<B>/gi;
+				str = str.replace(pattern, "<strong>");
+				pattern = /<\/B>/gi;
+				str = str.replace(pattern, "</strong>");
+				pattern = /<U>/gi;
+				str = str.replace(pattern, "<u>");
+				pattern = /<\/U>/gi;
+				str = str.replace(pattern, "</u>");
+				
+				//this is to fix a bug
+				//for some reason there is a u tag showing up? wtf
+				pattern = /<U\/>/gi;
+				str = str.replace(pattern, "");
+				
+				return str;
+			}
+			
+			public function richTextEditorToHtml(str:String):String 
+			{
+				// Create XML document
+				var xml:XML = XML("<BODY>"+str+"</BODY>");
+				
+				// temporary
+				var t1:XML;
+				var t2:XML;
+				
+				// Remove all TEXTFORMAT
+				for( t1 = xml..TEXTFORMAT[0]; t1 != null; t1 = xml..TEXTFORMAT[0] ) {
+					t1.parent().replace( t1.childIndex(), t1.children() );
+				}
+				
+				// Find all ALIGN
+				for each ( t1 in xml..@ALIGN ) {
+					t2 = t1.parent();
+					t2.@STYLE = "text-align: " + t1 + "; " + t2.@STYLE;
+					delete t2.@ALIGN;
+				}
+				
+				// Find all FACE
+				for each ( t1 in xml..@FACE ) {
+					t2 = t1.parent();
+					t2.@STYLE = "font-family: " + t1 + "; " + t2.@STYLE;
+					delete t2.@FACE;
+				}
+				
+				// Find all SIZE 
+				for each ( t1 in xml..@SIZE ) {
+					t2 = t1.parent();
+					t2.@STYLE = "font-size: " + t1 + "px; " + t2.@STYLE;
+					delete t2.@SIZE;
+				}
+				
+				// Find all COLOR 
+				for each ( t1 in xml..@COLOR ) {
+					t2 = t1.parent();
+					t2.@STYLE = "color: " + t1 + "; " + t2.@STYLE;
+					delete t2.@COLOR;
+				}
+				
+				// Find all LETTERSPACING 
+				for each ( t1 in xml..@LETTERSPACING ) {
+					t2 = t1.parent();
+					t2.@STYLE = "letter-spacing: " + t1 + "px; " + t2.@STYLE;
+					delete t2.@LETTERSPACING;
+				}
+				
+				// Find all KERNING
+				for each ( t1 in xml..@KERNING ) {
+					t2 = t1.parent();
+					// ? css 
+					delete t2.@KERNING;
+				}
+				
+				
+				return cleanHTML(xml.children().toXMLString());
+			}    
+			
+			
+			
+			
+			public function setTextStyles(type:String, value:Object = null, tf:TextFormat = null):void
+			{
+				if(tf == null)
+					var tf:TextFormat;
+				
+				var beginIndex:int = textArea.getTextField().selectionBeginIndex;
+				var endIndex:int = textArea.getTextField().selectionEndIndex;
+				
+				if (beginIndex == endIndex) {
+					tf = previousTextFormat;
+				}
+				else {
+					if(tf == null){tf = new TextFormat();}
+				}	
+				
+				if (type == "bold" || type == "italic" || type == "underline") {
+					tf[type] = value;
+				}
+				else if (type == "align" || type == "bullet") {
+					if (beginIndex == endIndex) { tf = new TextFormat(); }
+					
+					// Apply the paragraph styles to the whole paragraph instead of just 
+					// the selected text
+					beginIndex = textArea.getTextField().getFirstCharInParagraph(beginIndex) - 1;
+					beginIndex = Math.max(0, beginIndex);
+					endIndex = textArea.getTextField().getFirstCharInParagraph(endIndex) +
+						textArea.getTextField().getParagraphLength(endIndex) - 1;
+					tf[type] = value;
+					previousTextFormat[type] = value;
+					if (!endIndex)
+						textArea.getTextField().defaultTextFormat = tf;
+				}
+				else if (type == "font")
+				{
+					tf[type] = fontFamilyCombo.text;
+				}
+				else if (type == "size")
+				{
+					var fontSize:uint = uint(fontSizeCombo.text);
+					if (fontSize > 0)
+						tf[type] = fontSize;
+				}
+				else if (type == "color")
+				{
+					tf[type] = uint(colorPicker.selectedColor);
+				}
+				else if (type == "url")
+				{
+					if (value != defaultLinkProtocol && value != "") {
+						tf[type] = value;
+						tf["target"] = "_blank";
+					}
+					else if (tf[type] != "") {
+						tf[type] = ""; 
+						tf["target"] = ""; 
+					}
+				}
+				
+				textFormatChanged = true;
+				
+				if (beginIndex == endIndex) {
+					previousTextFormat = tf;
+				}
+				else {
+					textArea.getTextField().setTextFormat(tf,beginIndex,endIndex);
+				}
+				dispatchEvent(new Event("change"));
+				
+				var caretIndex:int = textArea.getTextField().caretIndex;
+				var lineIndex:int =	textArea.getTextField().getLineIndexOfChar(caretIndex);
+				
+				textArea.invalidateDisplayList();
+				textArea.validateDisplayList();
+				
+				// Scroll to make the line containing the caret under viewable area
+				while (lineIndex >= textArea.getTextField().bottomScrollV)
+				{
+					textArea.verticalScrollPosition++;
+				}
+				
+				callLater(textArea.setFocus);
+			}
+			
+			protected function getTextStyles():void
+			{
+				if (!textArea)
+					return;
+				
+				var tf:TextFormat;
+				
+				var beginIndex:int = textArea.getTextField().selectionBeginIndex;
+				var endIndex:int = textArea.getTextField().selectionEndIndex;
+				
+				if (beginIndex == endIndex)
+					linkTextInput.enabled = false;
+				else
+					linkTextInput.enabled = true;	
+				
+				if (textFormatChanged)
+					previousTextFormat = null;
+				
+				if (beginIndex == endIndex)
+				{
+					tf = textArea.getTextField().defaultTextFormat;
+					if (tf.url != "")
+					{
+						var carIndex:int = textArea.getTextField().caretIndex;
+						if (carIndex < textArea.getTextField().length)
+						{
+							var tfNext:TextFormat=textArea.getTextField().getTextFormat(carIndex, carIndex + 1);
+							if (!tfNext.url || tfNext.url == "")
+								tf.url = tf.target = "";
+						}
+						else
+							tf.url = tf.target = ""; 
+					}
+				}
+				else
+					tf = textArea.getTextField().getTextFormat(beginIndex,endIndex);
+				
+				if (!previousTextFormat || previousTextFormat.font != tf.font)
+					setComboSelection(fontFamilyCombo, tf.font ? tf.font : "");
+				if (!previousTextFormat || previousTextFormat.size != tf.size)
+					setComboSelection(fontSizeCombo, tf.size ? String(tf.size) : "");
+				if (!previousTextFormat || previousTextFormat.color != tf.color)
+					colorPicker.selectedColor = Number(tf.color);
+				
+				if (!previousTextFormat || previousTextFormat.bold != tf.bold)
+					boldButton.selected = tf.bold;
+				if (!previousTextFormat || previousTextFormat.italic != tf.italic)
+					italicButton.selected = tf.italic;
+				if (!previousTextFormat || previousTextFormat.underline != tf.underline)
+					underlineButton.selected = tf.underline;
+				
+				if (!previousTextFormat || previousTextFormat.align != tf.align)
+				{
+					if (tf.align == "left")
+						alignButtons.selectedIndex = 0;
+					else if (tf.align == "center")
+						alignButtons.selectedIndex = 1;
+					else if (tf.align == "right")
+						alignButtons.selectedIndex = 2;
+					else if (tf.align == "justify")
+						alignButtons.selectedIndex = 3;
+				}
+				if (!previousTextFormat || previousTextFormat.bullet != tf.bullet)
+					bulletButton.selected = tf.bullet;
+				if (!previousTextFormat || previousTextFormat.url != tf.url)
+					linkTextInput.text = (tf.url == "" || tf.url == null) ? defaultLinkProtocol : tf.url;
+				
+				if (textArea.getTextField().defaultTextFormat != tf)
+					textArea.getTextField().defaultTextFormat = tf;
+				previousTextFormat = tf;
+				textFormatChanged = false;
+				
+				lastCaretIndex = textArea.getTextField().caretIndex;
+				invalidateToolBarFlag = false;
+			}
+			
+			private function setComboSelection(combo:ComboBox,val:String):void
+			{
+				var length:uint = combo.dataProvider.length;
+				
+				for (var i:uint = 0; i < length; i++)
+				{
+					if (combo.dataProvider.getItemAt(i).toLowerCase() == val.toLowerCase())
+					{
+						combo.selectedIndex = i;
+						return;
+					}
+				}
+				combo.selectedIndex = -1;
+				combo.validateNow();
+				combo.text = val;
+			}
+			
+			/**
+			 *  @private
+			 *  This method is called when the user clicks on the textArea, drags
+			 *  out of it and releases the mouse button outside the TextArea.
+			 */
+			private function systemManager_mouseUpHandler(event:MouseEvent):void
+			{
+				if (lastCaretIndex != textArea.getTextField().caretIndex)
+					getTextStyles();
+				else
+				{
+					if (textArea.getTextField().selectionBeginIndex == textArea.getTextField().selectionEndIndex)
+						linkTextInput.enabled = false;
+					else
+						linkTextInput.enabled = true;	
+				}
+				systemManager.removeEventListener(
+					MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);		
+			}
+			
+			protected function meargeBtn_changeHandler(event:IndexChangeEvent):void
+			{
+				if (event.newIndex < 0) return;
+				
+				var sel:TextRange =  new TextRange(textArea, true);
+				var tr1:TextRange = new TextRange(
+					textArea, false, sel.beginIndex, sel.endIndex
+				);
+				tr1.htmlText= acMearg.getItemAt(event.newIndex) as String;
+				
+				
+				// scroll
+				var caretIndex:int = textArea.getTextField().caretIndex;
+				var lineIndex:int =	textArea.getTextField().getLineIndexOfChar(caretIndex);
+				
+				textArea.invalidateDisplayList();
+				textArea.validateDisplayList();
+				
+				// Scroll to make the line containing the caret under viewable area
+				while (lineIndex >= textArea.getTextField().bottomScrollV) {
+					textArea.verticalScrollPosition++;
+				}
+				
+				callLater(meargeBtnInit);
+			}
+			private function meargeBtnInit():void {
+				meargeBtn.selectedIndex = -1;
+				textArea.setFocus();
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<fx:Array id="fontSizeArray">
+			<fx:String>8</fx:String>
+			<fx:String>8</fx:String>
+			<fx:String>9</fx:String>
+			<fx:String>10</fx:String>
+			<fx:String>11</fx:String>
+			<fx:String>12</fx:String>
+			<fx:String>14</fx:String>
+			<fx:String>16</fx:String>
+			<fx:String>18</fx:String>
+			<fx:String>20</fx:String>
+			<fx:String>22</fx:String>
+			<fx:String>24</fx:String>
+			<fx:String>26</fx:String>
+			<fx:String>28</fx:String>
+			<fx:String>36</fx:String>
+			<fx:String>48</fx:String>
+			<fx:String>72</fx:String>
+		</fx:Array>
+		<fx:Array id="fontFamilyArray"> 
+			<fx:String>_sans</fx:String>
+			<fx:String>_serif</fx:String>
+			<fx:String>_typewriter</fx:String>
+			<fx:String>Arial</fx:String>
+			<fx:String>Courier</fx:String>
+			<fx:String>Courier New</fx:String>
+			<fx:String>Geneva</fx:String>
+			<fx:String>Georgia</fx:String>
+			<fx:String>Helvetica</fx:String>
+			<fx:String>Times New Roman</fx:String>
+			<fx:String>Times</fx:String>
+			<fx:String>Verdana</fx:String>
+		</fx:Array>
+	</fx:Declarations>
+	<mx:TextArea id="textArea" height="100%" width="100%" minHeight="0" minWidth="0"
+				 borderColor="#EFEFEF"
+				 change="dispatchEvent(event);"
+				 valueCommit="dispatchEvent(event);"
+				 keyUp="getTextStyles()"
+				 keyDown="if (textFormatChanged) 
+				 {
+				 textArea.getTextField().defaultTextFormat=previousTextFormat;
+				 textFormatChanged = false;
+				 }"
+				 mouseDown="systemManager.addEventListener(
+				 MouseEvent.MOUSE_UP, systemManager_mouseUpHandler, true);"
+				 focusAlpha="0"
+				 />
+	
+	<s:Group id="controlBar" width="100%"> 
+		<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#EFEFEF" /></s:fill></s:Rect>
+		
+		<s:VGroup id="toolbar" width="100%" paddingLeft="5" paddingRight="5" paddingTop="10" paddingBottom="10" gap="4">
+			
+			<s:HGroup width="100%">
+				<mx:ComboBox id="fontSizeCombo" editable="true"
+							 height="22"
+							 paddingLeft="2" paddingRight="2"
+							 dataProvider = "{fontSizeArray}"
+							 close="setTextStyles('size');"
+							 enter="setTextStyles('size');"/>
+				
+				<s:HGroup id="toolBar2" gap="0">
+					
+					<mx:Button id="boldButton" width="21" height="22" toggle="true"
+							   icon="@Embed('module/url/component/assets/font_bold.gif')"
+							   click="setTextStyles('bold', event.currentTarget.selected);" /> 
+					<mx:Button id="italicButton" width="21" height="22" toggle="true"
+							   icon="@Embed('module/url/component/assets/font_itelic.gif')"
+							   click="setTextStyles('italic', event.currentTarget.selected);" /> 
+					<mx:Button id="underlineButton" width="21" height="22" toggle="true"
+							   icon="@Embed('module/url/component/assets/font_under.gif')"
+							   click="setTextStyles('underline', event.currentTarget.selected);" /> 
+					
+				</s:HGroup>
+				
+				<mx:ColorPicker id="colorPicker" width="22" height="22"
+								close="setTextStyles('color');"/>
+				
+				
+				
+				<mx:ToggleButtonBar 
+					id="alignButtons" buttonWidth="25"
+					itemClick="setTextStyles('align', ToggleButtonBar(event.currentTarget).dataProvider.getItemAt(ToggleButtonBar(event.currentTarget).selectedIndex).action); " >
+					<mx:dataProvider>
+						<fx:Array> 
+							<fx:Object icon="@Embed('module/url/component/assets/align_left.gif')" action="left"/>
+							<fx:Object icon="@Embed('module/url/component/assets/align_center.gif')" action="center"/>
+							<fx:Object icon="@Embed('module/url/component/assets/align_right.gif')" action="right"/>
+							<fx:Object icon="@Embed('module/url/component/assets/align_ju.gif')" action="justify"/>
+						</fx:Array>
+					</mx:dataProvider>
+				</mx:ToggleButtonBar>
+				
+				<mx:Button id="bulletButton" width="25" toggle="true"
+						   icon="@Embed('module/url/component/assets/list.gif')"
+						   click="setTextStyles('bullet', event.currentTarget.selected);" /> 
+			</s:HGroup>
+			<s:Group width="100%" height="22">
+				<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#767676" /></s:fill></s:Rect>
+				<s:Label text="링크 - 선택된 영역에 링크 설정" left="5" verticalCenter="0" color="#FFFFFF" />
+			</s:Group>
+			<mx:TextInput id="linkTextInput" width="100%"
+						  focusOut="if (linkTextCommitted) 
+						  { trace('already committed'); linkTextCommitted = false; } 
+						  else 
+						  { trace('not committed'); setTextStyles('url', linkTextInput.text); linkTextInput.text=defaultLinkProtocol;}"
+						  enter="setTextStyles('url', linkTextInput.text); linkTextInput.text = defaultLinkProtocol; linkTextCommitted = true;"/>
+			
+			<s:Group width="100%" height="22">
+				<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#767676" /></s:fill></s:Rect>
+				<s:Label text="합성 - 개별 발송데이터 내용을 추가" left="5" verticalCenter="0" color="#FFFFFF" />
+			</s:Group>
+			<s:ButtonBar id="meargeBtn" width="100%" dataProvider="{acMearg}" change="meargeBtn_changeHandler(event)"></s:ButtonBar>
+			
+			
+		</s:VGroup>
+		<mx:ComboBox id="fontFamilyCombo" editable="true" visible="false"
+					 creationComplete="getTextStyles();lastCaretIndex = -1;"
+					 dataProvider = "{fontFamilyArray}"
+					 close="setTextStyles('font');"
+					 enter="setTextStyles('font');"/>
+	</s:Group> 
+</s:VGroup>
