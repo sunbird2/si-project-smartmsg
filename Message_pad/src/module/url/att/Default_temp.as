@@ -44,7 +44,13 @@ package module.url.att
 		
 		override protected function getCurrentSkinState():String
 		{
-			return super.getCurrentSkinState();
+			if (att != null && _stat == "actEmpty") _stat = "actContent";
+			else if (att != null && _stat == "default") {
+				_stat = "view";
+			}
+			
+			//trace(_stat);
+			return this._stat;
 		} 
 		
 		override protected function partAdded(partName:String, instance:Object) : void
