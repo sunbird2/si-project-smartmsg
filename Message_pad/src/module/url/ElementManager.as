@@ -2,6 +2,7 @@ package module.url
 {
 	
 	import module.url.att.Image;
+	import module.url.att.Input;
 	import module.url.att.Text;
 	
 	import mx.collections.ArrayCollection;
@@ -46,7 +47,7 @@ package module.url
 		}
 		private function getINPUT(value:Object):SkinnableComponent {
 			
-			return null;
+			return new Input(value);
 		}
 		private function getBTN(value:Object):SkinnableComponent {
 			
