@@ -31,6 +31,12 @@
 				if (pageIndex != null) pageIndex.text = String(itemIndex+1)+" 페이지";
 			}
 			
+			override public function set selected(value:Boolean):void
+			{
+				super.selected = value;
+				if (super.selected == false) page.selectedIndex = -1;
+			}
+			
 			
 			protected function attAdd_clickHandler(event:MouseEvent):void { attList.visible = !attList.visible; }
 			

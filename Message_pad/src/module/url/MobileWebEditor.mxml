@@ -55,7 +55,7 @@
 			protected function module1_creationCompleteHandler(event:FlexEvent):void
 			{
 				ac = new ArrayCollection([
-											[{type:1,value:{layout:"horizontal", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}}],
+											[{type:1,value:{layout:"tile", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}},{type:0,value:{text:"<p style=\"text-align:left\">안녕하세요!!!</p><p style=\"text-align:left\"><b>박사준</b>입니다.</p>"}}],
 											[{type:1,value:{layout:"tile", imgs:[{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""}]}}],
 											[{type:1,value:{layout:"tile", imgs:[{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""}]}}]
 										 ]);
