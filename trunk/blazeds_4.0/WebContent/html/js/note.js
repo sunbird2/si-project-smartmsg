@@ -1646,9 +1646,9 @@
 				if (data != null && data.code && data.code == "0000") { 
 					joinErrShow("joinHP_help", "");
 					
-					$("#joinHP1").attr("disabled",true);
-					$("#joinHP2").attr("disabled",true);
-					$("#joinHP3").attr("disabled",true);
+					//$("#joinHP1").attr("disabled",true);
+					//$("#joinHP2").attr("disabled",true);
+					//$("#joinHP3").attr("disabled",true);
 					
 					$("#joinCert").show();
 					alert("["+hp_label+"] 번호로 인증번호가 발송 되었습니다.");
