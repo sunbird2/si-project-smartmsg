@@ -51,12 +51,21 @@
 			var obj:Object= j.decode(json string);
 			myarray= obj as ArrayCollection;
 			*/
+			/**
+			 * text : {type:0,value:{text:"<p style=\"text-align:left\">안녕하세요!!!</p><p style=\"text-align:left\"><b>박사준</b>입니다.</p>"}}
+			 * image : {type:1,value:{layout:"tile", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}}
+			 * input : {type:2, value:{layout:"one",next:0,btnText:"확인",commitMsg:"감사용"}}
+			 * button : {type:3, value:{next:{type:0,value:""},btnText:"확인"}}
+			 * mileage : {type:4, value:{cnt:10,passwd:"1234x"}}
+			 * research : {type:5, value:{q:"질문입니다.",a:{type:0,value:["정답1입니다.","정답2입니다."]}}}
+			 * coupon : {type:6, value:""}
+			 * */
 			
 			protected function module1_creationCompleteHandler(event:FlexEvent):void
 			{
 				// default {type:0, value:{}}
 				ac = new ArrayCollection([
-											[{type:3, value:{next:{type:0,value:""},btnText:"확인"}},{type:2, value:{layout:"one",next:0,btnText:"확인",commitMsg:"감사용"}},{type:1,value:{layout:"tile", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}},{type:0,value:{text:"<p style=\"text-align:left\">안녕하세요!!!</p><p style=\"text-align:left\"><b>박사준</b>입니다.</p>"}}],
+											[{type:6, value:""},{type:5, value:{q:"질문입니다.",a:{type:0,value:["정답1입니다.","정답2입니다."]}}},{type:4, value:{cnt:10,passwd:"1234x"}},{type:3, value:{next:{type:0,value:""},btnText:"확인"}},{type:2, value:{layout:"one",next:0,btnText:"확인",commitMsg:"감사용"}},{type:1,value:{layout:"tile", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}},{type:0,value:{text:"<p style=\"text-align:left\">안녕하세요!!!</p><p style=\"text-align:left\"><b>박사준</b>입니다.</p>"}}],
 											[{type:1,value:{layout:"tile", imgs:[{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""}]}}],
 											[{type:1,value:{layout:"tile", imgs:[{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""}]}}]
 										 ]);
@@ -64,9 +73,9 @@
 				acTemplet = new ArrayCollection([
 					{icon:"/images/ic_launcher_smsmms.png", label:"[빈페이지]\n내용 없는 빈페이지"},
 					{icon:"/images/ic_launcher_smsmms.png", label:"[홍보]\n이미지와 텍스트"},
-					{icon:"/images/ic_launcher_smsmms.png", label:"[이벤트&쿠폰]\n이벤트 응모 및\n바코드 쿠폰"},
+					{icon:"/images/ic_launcher_smsmms.png", label:"[이벤트&쿠폰]\n이벤트 및\n바코드 쿠폰"},
 					{icon:"/images/ic_launcher_smsmms.png", label:"[마일리지]\n마일리지 적립\n및 사용"},
-					{icon:"/images/ic_launcher_smsmms.png", label:"[상품홍보]\n여러 상품 이미지\n및 설명"}
+					{icon:"/images/ic_launcher_smsmms.png", label:"[설문조사]\n질문\n및 접속자 답"}
 				]);
 			}
 			
@@ -81,9 +90,11 @@
 				var rslt:Array = null;
 				switch(idx)
 				{
-					case 0:{rslt = [{type:1,value:{layout:"tile", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}}];break;}
-					case 1:{rslt = [{type:0,value:{text:"dddd" }}];break;}
-					case 2:{rslt = [{type:0,value:{text:"dddd" }}];break;}
+					case 0:{rslt = [];break;}
+					case 1:{rslt = [{type:1,value:{layout:"horizontal", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}}, {type:0,value:{text:"<p style=\"text-align:left\">안녕하세요!!!</p><p style=\"text-align:left\"><b>박사준</b>입니다.</p>"}}];break;}
+					case 2:{rslt = [{type:1,value:{layout:"vertical", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""}]}},{type:6, value:""}];break;}
+					case 3:{rslt = [{type:1,value:{layout:"vertical", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""}]}},{type:4, value:{cnt:10,passwd:"1234x"}}];break;}
+					case 4:{rslt = [{type:1,value:{layout:"vertical", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""}]}},{type:5, value:{q:"질문입니다.",a:{type:0,value:["정답1입니다.","정답2입니다."]}}}];break;}
 					default:
 					{
 						rslt = [{type:1,value:{layout:"tile", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}}];
