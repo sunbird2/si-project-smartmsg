@@ -56,7 +56,7 @@
 			{
 				// default {type:0, value:{}}
 				ac = new ArrayCollection([
-											[{type:2, value:{layout:"one",next:0,btnText:"확인",commitMsg:"감사용"}},{type:1,value:{layout:"tile", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}},{type:0,value:{text:"<p style=\"text-align:left\">안녕하세요!!!</p><p style=\"text-align:left\"><b>박사준</b>입니다.</p>"}}],
+											[{type:3, value:{next:{type:0,value:""},btnText:"확인"}},{type:2, value:{layout:"one",next:0,btnText:"확인",commitMsg:"감사용"}},{type:1,value:{layout:"tile", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}},{type:0,value:{text:"<p style=\"text-align:left\">안녕하세요!!!</p><p style=\"text-align:left\"><b>박사준</b>입니다.</p>"}}],
 											[{type:1,value:{layout:"tile", imgs:[{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""}]}}],
 											[{type:1,value:{layout:"tile", imgs:[{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""}]}}]
 										 ]);
@@ -83,6 +83,7 @@
 				{
 					case 0:{rslt = [{type:1,value:{layout:"tile", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}}];break;}
 					case 1:{rslt = [{type:0,value:{text:"dddd" }}];break;}
+					case 2:{rslt = [{type:0,value:{text:"dddd" }}];break;}
 					default:
 					{
 						rslt = [{type:1,value:{layout:"tile", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}}];
