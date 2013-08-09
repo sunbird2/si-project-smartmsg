@@ -114,24 +114,8 @@
 	    attributes.name = FLEX_ID;
 	    attributes.align = "middle";
 	    
-	    if(window.addEventListener) {
-            var eventType = (navigator.userAgent.indexOf('Firefox') !=-1) ? "DOMMouseScroll" : "mousewheel";            
-            window.addEventListener(eventType, handleWheel, false);
-        }
-
-        function handleWheel(event) {
-            var app = document.getElementById(FLEX_ID);
-            var edelta = (navigator.userAgent.indexOf('Firefox') !=-1) ? -event.detail : event.wheelDelta/40;                                   
-            var o = {x: event.screenX, y: event.screenY, 
-                delta: edelta,
-                ctrlKey: event.ctrlKey, altKey: event.altKey, 
-                shiftKey: event.shiftKey}
-
-            app.handleWheel(o);
-        }
-	    
 	    swfobject.embedSWF(
-	        "/html/flex/MunjaNote.swf?v=2013072240121", "flashContent", 
+	        "/html/flex/MunjaNote.swf?v=2013074012ta", "flashContent", 
 	        "1024", "740",
 	        swfVersionStr, xiSwfUrlStr, 
 	        flashvars, params, attributes, flexEmbedCallback);
@@ -146,7 +130,7 @@
     		if ( $("#mainContent").css("display") == "none" ) {
     			window.location.href="/noflash/index_movie.html";
     		} else {
-    			$.post("/gLog.jsp", { ref: "no version flash-"+playerVersion.major+"."+playerVersion.minor+"."+playerVersion.release } );
+    			//$.post("/gLog.jsp", { ref: "no version flash-"+playerVersion.major+"."+playerVersion.minor+"."+playerVersion.release } );
     		}
     		//$('#flexWrap').html('<img src="images/noflash.png" style="cursor:pointer" onclick="window.location.href=\'/noflash/index_movie.html\';" />');
     		//$.post("/gLog.jsp", { ref: "no version flash-"+playerVersion.major+"."+playerVersion.minor+"."+playerVersion.release } );
@@ -1646,9 +1630,9 @@
 				if (data != null && data.code && data.code == "0000") { 
 					joinErrShow("joinHP_help", "");
 					
-					//$("#joinHP1").attr("disabled",true);
-					//$("#joinHP2").attr("disabled",true);
-					//$("#joinHP3").attr("disabled",true);
+					$("#joinHP1").attr("disabled",true);
+					$("#joinHP2").attr("disabled",true);
+					$("#joinHP3").attr("disabled",true);
 					
 					$("#joinCert").show();
 					alert("["+hp_label+"] 번호로 인증번호가 발송 되었습니다.");
