@@ -1776,7 +1776,12 @@
 		else {
 			$.getJSON( "/custom/qna.jsp", {"hp":hp, "msg":msg}, function(data) {
 					if (data != null && data.code && data.code == "0000") { qnaOk(); }
-					else { alert(data.msg); }
+					else { 
+						if (data.msg == "01") alert("답변 받을 휴대폰 번호를 입력 하세요.");
+						else if (data.msg == "02") alert("내용을 입력하세요.");
+						else if (data.msg == "03") alert("로그인 후 문의 가능 합니다.");
+						else alert("실패 하였습니다.");
+					}
 				}
 			);
 		}
