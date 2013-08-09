@@ -11,9 +11,9 @@
 	
 	QnaVO qvo = new QnaVO();
 	try {
-		if (SLibrary.isNull(hp)) throw new Exception("답변 받을 휴대폰 번호를 입력 하세요.");
-		if (SLibrary.isNull(msg)) throw new Exception("내용을 입력하세요.");
-		if (us == null) throw new Exception("로그인 후 문의 가능 합니다.");
+		if (SLibrary.isNull(hp)) throw new Exception("01");
+		if (SLibrary.isNull(msg)) throw new Exception("02");
+		if (us == null) throw new Exception("03");
 		
 		user_id = us.getUser_id();
 		
