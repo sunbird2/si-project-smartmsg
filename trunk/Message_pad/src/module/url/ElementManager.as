@@ -1,6 +1,7 @@
 package module.url
 {
 	
+	import module.url.att.Btn;
 	import module.url.att.Image;
 	import module.url.att.Input;
 	import module.url.att.Text;
@@ -51,7 +52,7 @@ package module.url
 		}
 		private function getBTN(value:Object):SkinnableComponent {
 			
-			return null;
+			return new Btn(value);
 		}
 		private function getSHOPLIST(value:Object):SkinnableComponent {
 			

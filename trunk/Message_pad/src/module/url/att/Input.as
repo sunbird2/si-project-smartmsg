@@ -67,7 +67,6 @@ package module.url.att
 		}
 		private function init():void {
 			if (att != null) {
-				buttonLabel = att.label;
 				layoutIndex = att.layout == "one"? 0 : 1;
 				buttonLabel = att.btnText;
 				commitMsg = att.commitMsg;

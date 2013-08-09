@@ -48,7 +48,7 @@
 					case ElementManager.TXT:{obj = {type:ElementManager.TXT,value:{text:"<p style=\"text-align:left\">텍스트를 입력하세요..</p>"}};break;}
 					case ElementManager.IMG:{obj = {type:ElementManager.IMG,value:null};break;}
 					case ElementManager.INPUT:{obj = {type:ElementManager.INPUT,value:{layout:"one",next:0,btnText:"확인",commitMsg:"감사합니다."}};break;}
-					case ElementManager.BTN:{obj = {type:ElementManager.BTN,value:null};break;}
+					case ElementManager.BTN:{obj = {type:ElementManager.BTN,value:{next:{type:0,value:""},btnText:"확인"}};break;}
 					default:{break;}
 				}
 				ac.addItem(obj);
