@@ -55,6 +55,7 @@ package component
 	import spark.components.VGroup;
 	import spark.components.supportClasses.Skin;
 	import spark.components.supportClasses.SkinnableComponent;
+	import spark.core.NavigationUnit;
 	import spark.events.IndexChangeEvent;
 	import spark.layouts.VerticalLayout;
 	import spark.layouts.supportClasses.DropLocation;
@@ -94,6 +95,7 @@ package component
 		[SkinPart(required="false")]public var nameDelBtn:Image;
 		[SkinPart(required="false")]public var nameCount:SpanElement;
 		[SkinPart(required="false")]public var selectSend:Image;
+		[SkinPart(required="false")]public var searchIndex:List;
 		
 		
 		
@@ -130,6 +132,10 @@ package component
 		private var _activeAddressVO:AddressVO;
 		
 		private var bMini:Boolean = false;
+		
+		// index search
+		private var c_top:Array = new Array('ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ');
+		
 		
 		public function Address(parbMine:Boolean=false) {
 			super();
@@ -252,6 +258,10 @@ package component
 			else if (instance == cardGroup) cardGroup.visible = false;
 			else if (instance == commitBtn) commitBtn.addEventListener(MouseEvent.CLICK, commitBtn_clickHandler);
 			else if (instance == selectSend) selectSend.addEventListener(MouseEvent.CLICK, selectSend_clickHandler);
+			else if (instance == searchIndex) {
+				searchIndex.dataProvider = new ArrayCollection(c_top);
+				searchIndex.addEventListener(IndexChangeEvent.CHANGE, searchIndex_changeHandler);
+			}
 			
 			
 			if (instance is LinkElement) {
@@ -959,6 +969,42 @@ package component
 			
 			PopUpManager.removePopUp(customToolTip);
 			customToolTip = null;
+		}
+		
+		private function searchIndex_changeHandler(event:IndexChangeEvent):void {
+			//nameList.ensureIndexIsVisible( );
+			var i:int = searchIndexScrollPosition(event.newIndex);
+			var pt:Point = nameList.layout.getScrollPositionDeltaToElement( i );
+			while (pt) {
+				nameList.validateNow();
+				if (pt.y > 0) {
+					var delta:int = nameList.layout.getVerticalScrollPositionDelta(NavigationUnit.DOWN);
+				} else {
+					delta = nameList.layout.getVerticalScrollPositionDelta(NavigationUnit.UP);
+				}
+				nameList.layout.verticalScrollPosition += delta;
+				pt = nameList.layout.getScrollPositionDeltaToElement(i);
+			}
+		}
+		private function searchIndexScrollPosition(idx:int):int {
+			
+			var i:int = 0;
+			var cnt:int = 0;
+			if (acName != null && acName.length > 0) {
+				cnt = acName.length;
+				
+				for (i = 0; i < cnt; i++) {
+					var str:String = (acName.getItemAt(i) as AddressVO).name;
+					var tmp:int = str.charCodeAt(0) - 44032;
+					tmp = Math.floor(tmp/28);
+					tmp = Math.floor(tmp/21);
+					if (idx == tmp) break;
+					
+				}
+			}
+			//if ( (i+17) < cnt) i += 17; 
+			//trace(i);
+			return i;
 		}
 		
 		
