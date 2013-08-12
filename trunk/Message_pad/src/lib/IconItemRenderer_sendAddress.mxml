@@ -34,8 +34,8 @@
 					
 					if (_icon) {
 						icon_image.source = _icon;
-						title.left = icon_image.width + hgap;
-						sub.left = icon_image.width + hgap;
+						title.left = icon_image.width+ 25 + hgap;
+						sub.left = icon_image.width+ 25 + hgap;
 					}
 					if (_labelSub) {
 						sub.text = data[_labelSub];
@@ -60,7 +60,7 @@
 			
 		]]>
 	</fx:Script>
-	<s:Image id="icon_image" width="32" height="32" fillMode="scale"  />
+	<s:Image id="icon_image" left="25" width="32" height="32" fillMode="scale"  />
 	<s:Label id="title" fontSize="14" color="#222222" />
 	<s:Label id="sub" fontSize="12" color="#999999"/>
 	<s:Image right="5" verticalCenter="0" buttonMode="true" source="assets/post_btn_send.gif"  click="send_clickHandler(event)"/>
