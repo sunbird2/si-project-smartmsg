@@ -47,6 +47,8 @@ import com.m.send.MessageVO;
 import com.m.send.PhoneVO;
 import com.m.send.SendManager;
 import com.m.send.SendMessageVO;
+import com.m.url.UrlDao;
+import com.m.url.UrlDataVO;
 
 import flex.messaging.FlexContext;
 import flex.messaging.FlexSession;
@@ -1244,6 +1246,74 @@ public class SmartDS extends SessionManagement {
 	}
 	
 	/* ############## URL ############### */
+	public BooleanAndDescriptionVO setUrlData(int mode, UrlDataVO udvo) {
+		
+		
+		VbyP.accessLog("setUrlData : mode="+mode+" user_id="+getSession() );
+		
+		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		rvo.setbResult(true);
+		UrlDao udao = UrlDao.getInstance();
+		
+		try {
+			if (!bSession()) throw new Exception("no login");
+			if (SLibrary.isNull(udvo.getDt()))  throw new Exception("no data");
+			
+			udvo.setUser_id(getSession());
+			
+			int rslt = 0;
+			switch (mode) {
+			case 0:// insert
+				udvo.setTimeWrite(SLibrary.getDateTimeString());
+				udvo.setTimeModify(SLibrary.getDateTimeString());
+				rslt = udao.insertUrlData(udvo);
+				break;
+			case 1:// update
+				udvo.setTimeModify(SLibrary.getDateTimeString());
+				rslt = udao.updateUrlData(udvo);
+				break;
+			case 2:// delete
+				udvo.setTimeModify(SLibrary.getDateTimeString());
+				udvo.setStopYN("Y");
+				rslt = udao.updateUrlData(udvo);
+				break;
+			default:
+				break;
+			}
+			
+			if (rslt <= 0)   throw new Exception("no db process");
+			
+			rvo.setstrDescription(Integer.toString(rslt));
+			
+		}catch(Exception e) {
+			rvo.setbResult(false);
+			rvo.setstrDescription("저장 실패."+e.getMessage());
+			VbyP.errorLog(e.toString());
+		}
+		
+		return rvo;
+	}
+	
+	public UrlDataVO getUrlData(UrlDataVO udvo) {
+		
+		VbyP.accessLog("setUrlData : user_id="+getSession() );
+		
+		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		rvo.setbResult(true);
+		UrlDao udao = UrlDao.getInstance();
+		UrlDataVO resultvo = null;
+		try {
+			if (!bSession()) throw new Exception("no login");
+			udvo.setUser_id(getSession());
+			resultvo = udao.selectUrlData(udvo);
+			if (resultvo == null)   throw new Exception("no db process");
+			
+		}catch(Exception e) {
+			VbyP.errorLog(e.toString());
+		}
+		return resultvo;
+	}
+	
 	public BooleanAndDescriptionVO imageUpload(byte[] bytes, String fileName){
 		
 		VbyP.accessLog("image 업로드 요청 ");
@@ -1310,6 +1380,9 @@ public class SmartDS extends SessionManagement {
 		if (f.length() > maxSize) b = false;
 		return b;
 	}
+	
+	
+	/* ############## URL ############### */
 	
 	
 	private ISentData getSentInstance(String line) {

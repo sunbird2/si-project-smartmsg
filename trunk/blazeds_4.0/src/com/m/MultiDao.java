@@ -10,7 +10,6 @@ import com.common.db.SessionManager;
 import com.m.admin.vo.BillingVO;
 import com.m.admin.vo.MemberVO;
 import com.m.admin.vo.PointLogVO;
-import com.m.admin.vo.QnaVO;
 import com.m.admin.vo.SentLogVO;
 import com.m.billing.BillingTaxVO;
 import com.m.emoticon.EmoticonVO;
