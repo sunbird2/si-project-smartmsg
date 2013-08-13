@@ -34,6 +34,7 @@ package component
 	import lib.SLibrary;
 	
 	import module.ie.ImageEditorAble;
+	import module.url.MobileWebEditorAble;
 	
 	import mx.collections.ArrayCollection;
 	import mx.events.FlexEvent;
@@ -79,7 +80,7 @@ package component
 	[SkinState("LMS")]
 	[SkinState("MMS")]
 	
-	public class Send extends SkinnableComponent implements ImageEditorAble
+	public class Send extends SkinnableComponent implements ImageEditorAble, MobileWebEditorAble
 	{
 		public static const SEND_COMPLET:String = "sendComplet";
 		public static const CHANGE_MODE:String = "changeMode";
@@ -100,6 +101,7 @@ package component
 		[SkinPart(required="false")]public var byte:SpanElement;
 		[SkinPart(required="false")]public var sMode:SpanElement;
 		
+		[SkinPart(required="false")]public var addUrl:Image;
 		[SkinPart(required="false")]public var addImage:Image;
 		[SkinPart(required="false")]public var addTxt:Image;
 		[SkinPart(required="false")]public var addTxtLayer:List;
@@ -111,6 +113,8 @@ package component
 		[SkinPart(required="false")]public var mBox:VGroup;
 		// ImageEditor Module
 		[SkinPart(required="false")]public var moduleLoaderIme:ModuleLoader;
+		// MobileWebEditor Module
+		[SkinPart(required="false")]public var moduleLoaderUrl:ModuleLoader;
 		
 		
 		
@@ -253,6 +257,11 @@ package component
 		public function get mmsImage():String { return (arrImage)?arrImage.join(";"):""; }
 		
 		
+		private var _urlKey:int = 0;
+		public function get urlKey():int {	return _urlKey; }
+		public function set urlKey(value:int):void	{ _urlKey = value; }
+		
+		
 		/**
 		 * phones properties
 		 * */
@@ -355,6 +364,7 @@ package component
 				
 			else if (instance == sendReservation) sendReservation.addEventListener(Event.CHANGE, sendReservation_changeHandler);
 			else if (instance == sendInterval) sendInterval.addEventListener(Event.CHANGE, sendInterval_changeHandler);
+			else if (instance == addUrl) addUrl.addEventListener(MouseEvent.CLICK, addUrl_clickHandler);
 			else if (instance == addImage) addImage.addEventListener(MouseEvent.CLICK, addImage_clickHandler);
 			else if (instance == addTxt) addTxt.addEventListener(MouseEvent.CLICK, addTxt_clickHandler);
 			else if (instance == addTxtLayer) {
@@ -1445,16 +1455,7 @@ package component
 			
 			if (item != null) {
 				var lable:String = item.data;
-				var pos:int = message.selectionActivePosition;
-				
-				if (pos != -1)
-				{
-					message.text = message.text.substr(0, pos) + lable + message.text.substr(pos, message.text.length - pos);
-				} else {
-					message.text += lable;
-				}
-				message.selectRange(pos + lable.length, pos + lable.length);
-				
+				addMsgCusor(lable);
 				addTxtLayer.selectedIndex = -1;
 				addTxtLayer.visible = false;
 				
@@ -1463,9 +1464,50 @@ package component
 				SLibrary.alert("SMS로 합성 할 경우 90byte 이상 문자는 잘릴 수 있습니다.");
 			}
 			tracker("addTxtLayer_changeHandler");// tracker
+		}
+		private function addMsgCusor(msg:String):void {
 			
+			var pos:int = message.selectionActivePosition;
+			
+			if (pos != -1) {
+				message.text = message.text.substr(0, pos) + msg + message.text.substr(pos, message.text.length - pos);
+			} else {
+				message.text += msg;
+			}
+			message.selectRange(pos + msg.length, pos + msg.length);
 		}
 		
+		/**
+		 * webEditor Moduel
+		 * */
+		private function addUrl_clickHandler(event:MouseEvent):void {
+			createModuleUrl("module/url/MobileWebEditor.swf");
+		}
+		public function createModuleUrl(s:String):void {
+			
+			if (moduleLoaderUrl == null) { moduleLoaderUrl = new ModuleLoader(); }
+			loading.visible = true;
+			moduleLoaderUrl.addEventListener(ModuleEvent.READY, url_moduleReadyHandler);
+			if (!moduleLoaderUrl.url) { moduleLoaderUrl.url = s; }
+			moduleLoaderUrl.loadModule();
+		}
+		private function url_moduleReadyHandler(event:ModuleEvent):void {
+			loading.visible = false;
+		}
+		public function setUrl(key:int):void {
+			trace("key is "+key);
+			urlKey = key;
+			addMsgCusor("{http://mjnote.com/0000}");
+		}
+		
+		public function removeModuleUrl():void {
+			
+			if (moduleLoaderUrl != null) {
+				moduleLoaderUrl.removeEventListener(ModuleEvent.READY, url_moduleReadyHandler);
+				moduleLoaderUrl.unloadModule();
+			}
+			loading.visible = false;
+		}
 		/**
 		 * ImageEditor Moduel
 		 * */
