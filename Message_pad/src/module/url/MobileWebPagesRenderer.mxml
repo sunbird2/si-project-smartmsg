@@ -58,7 +58,7 @@
 			protected function del_clickHandler(event:MouseEvent):void
 			{
 				var parentList:List = owner as List;
-				parentList.dataProvider.removeItemAt(parentList.dataProvider.getItemIndex(data))
+				parentList.dataProvider.removeItemAt(parentList.dataProvider.getItemIndex(data));
 			}
 			
 		]]>
