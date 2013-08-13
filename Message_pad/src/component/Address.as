@@ -309,6 +309,9 @@ package component
 			else if (instance == addressFromExcel) addressFromExcel.removeEventListener(MouseEvent.CLICK, addressFromExcel_clickHandler);
 			else if (instance == search) search.removeEventListener("search" , search_clickHandler);
 			else if (instance == commitBtn) commitBtn.removeEventListener(MouseEvent.CLICK, commitBtn_clickHandler); 
+			else if (instance == searchIndex) {
+				searchIndex.removeEventListener(IndexChangeEvent.CHANGE, searchIndex_changeHandler);
+			}
 			
 			if (instance is LinkElement) {
 				instance.removeEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
