@@ -482,5 +482,35 @@
 	</insert>
 	<!-- QNA E -->
 	
+	<!-- URL S -->
+	<insert id="insert_url" parameterType="com.m.url.UrlDataVO">
+		INSERT INTO URL_DATA
+		(user_id, dt, stopYN, timeWrite, timeModify) 
+		VALUES (#{user_id}, #{dt}, #{stopYN}, #{timeWrite}, #{timeModify})
+		<selectKey keyProperty="idx" resultType="int">
+    		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<update id="update_url" parameterType="com.m.url.UrlDataVO">
+		UPDATE URL_DATA 
+		SET  dt = #{dt}, stopYN = #{stopYN}, timeModify = #{timeModify} 
+		WHERE 
+		idx = #{idx} and
+		user_id = #{user_id}
+	</update>
+	<delete id="delete_url" parameterType="com.m.url.UrlDataVO">
+		delete from URL_DATA 
+		WHERE 
+		idx = #{idx} and
+		user_id = #{user_id}
+	</delete>
+	<select id="select_url" parameterType="com.m.url.UrlDataVO" resultType="com.m.url.UrlDataVO">
+		SELECT idx, user_id, dt, stopYN, timeWrite, timeModify 
+		FROM URL_DATA
+		WHERE 
+		idx = #{idx} and user_id = #{user_id}
+	</select>
+	<!-- URL E -->
+	
 
 </mapper>
