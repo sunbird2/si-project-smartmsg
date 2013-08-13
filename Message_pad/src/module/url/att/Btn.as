@@ -12,6 +12,7 @@ package module.url.att
 	import spark.components.Group;
 	import spark.components.TextInput;
 	import spark.components.supportClasses.SkinnableComponent;
+	import spark.events.IndexChangeEvent;
 	
 	[SkinState("default")]
 	[SkinState("view")]
@@ -26,7 +27,9 @@ package module.url.att
 		[SkinPart(required="true")]public var nextPage:DropDownList;
 		[SkinPart(required="true")]public var nextInput:TextInput;
 		
+		[Bindable]
 		private var _att:Object;
+		
 		public function set att(val:Object):void { _att = val; }
 		public function get att():Object { return _att; }
 		
@@ -88,11 +91,13 @@ package module.url.att
 			}
 			else if (instance == nextPage) {
 				nextPage.dataProvider = acNext;
+				nextPage.addEventListener(IndexChangeEvent.CHANGE, nextPage_changeHandler);
 				callLater(initNextPage);
 				
 			}
 			else if (instance == nextInput) {
 				nextInput.text = nextValue;
+				nextInput.addEventListener(KeyboardEvent.KEY_UP, nextInput_keyupHandler);
 			}
 			
 		}
@@ -105,13 +110,23 @@ package module.url.att
 		
 		private function buttonInput_keyupHandler(event:KeyboardEvent):void {
 			buttonLabel = buttonInput.text;
+			att.btnText = buttonLabel;
 		}
+		private function nextInput_keyupHandler(event:KeyboardEvent):void {
+			
+			att.next.value = nextInput.text;
+		}
+		
 		private function initNextPage():void {
 			
 			if ( att.next != null ) {
 				//0:page, 1:link, 2:phone, 3:sms
 				nextPage.selectedIndex = att.next.type as int;
 			}
+		}
+		
+		private function nextPage_changeHandler(event:IndexChangeEvent):void {
+			att.next.type = event.newIndex;
 		}
 		
 	}

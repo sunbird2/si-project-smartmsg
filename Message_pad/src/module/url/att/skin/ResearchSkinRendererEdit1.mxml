@@ -2,7 +2,7 @@
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				xmlns:s="library://ns.adobe.com/flex/spark" 
 				xmlns:mx="library://ns.adobe.com/flex/mx" 
-				autoDrawBackground="true">
+				autoDrawBackground="true" width="100%">
 	<fx:Script>
 		<![CDATA[
 			import mx.collections.ListCollectionView;
@@ -10,9 +10,8 @@
 			import spark.components.List;
 			import spark.events.TextOperationEvent;
 			
-			protected function textinput1_changeHandler(event:TextOperationEvent):void
+			protected function tx_focusOutHandler(event:FocusEvent):void
 			{
-				super.data = tx.text;
 				var parentList:List = owner as List;
 				parentList.dataProvider.setItemAt(tx.text , this.itemIndex );
 			}
@@ -21,6 +20,6 @@
 	</fx:Script>
 	<s:HGroup width="100%" verticalAlign="middle">
 		<s:RadioButton enabled="false" />
-		<s:TextInput id="tx" text="{data}" width="100%" skinClass="module.url.component.skin.TextInputSkin" change="textinput1_changeHandler(event)"/>
+		<s:TextInput id="tx" text="{data}" width="100%" skinClass="module.url.component.skin.TextInputSkin" focusOut="tx_focusOutHandler(event)"/>
 	</s:HGroup>
 </s:ItemRenderer>

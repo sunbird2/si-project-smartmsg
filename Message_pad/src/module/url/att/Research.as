@@ -41,7 +41,7 @@ package module.url.att
 		[SkinPart(required="true")]public var aType:ButtonBar;
 		[SkinPart(required="true")]public var answerAdd:Button;
 		
-		
+		[Bindable]
 		private var _att:Object;
 		public function set att(val:Object):void { _att = val; }
 		public function get att():Object { return _att; }
@@ -60,9 +60,8 @@ package module.url.att
 		public var answerType:int = 0;
 		
 		[Bindable]
-		private var acAnswer:ArrayCollection = new ArrayCollection(["",""]);
+		private var acAnswer:ArrayCollection = new ArrayCollection([""]);
 		
-		private var acAnswerOne:ArrayCollection = new ArrayCollection([""]);
 		
 		private var acAnswerType:ArrayCollection = new ArrayCollection(["하나선택","여러개 선택","입력"]);
 		
@@ -98,7 +97,7 @@ package module.url.att
 			super.partAdded(partName, instance);
 			if (instance == question) question.text = questionLabel;
 			else if (instance == answer) {
-				answer.dataProvider = answerType == 2? acAnswerOne:acAnswer;
+				answer.dataProvider = acAnswer;
 				answer.itemRenderer = getViewRenderer();
 			}
 			else if (instance == qInput) {
@@ -157,11 +156,18 @@ package module.url.att
 			answerType = event.newIndex;
 			answerDataProviderChange();
 			autoListRenderer();
+			att.a.type = answerType;
 		}
 		private function answerDataProviderChange():void {
 			
-			var ac:ArrayCollection = answerType == 2? acAnswerOne:acAnswer;
-			answer.dataProvider = ac;
+			if (answerType == 2) {
+				acAnswer.removeAll();
+				acAnswer.addItem("선택하세요.");
+				answerAdd.visible = false;
+			} else {
+				answerAdd.visible = true;
+			}
+			//answer.dataProvider = ac;
 		}
 		
 		private function answerAdd_clickHandler(event:MouseEvent):void {
@@ -170,6 +176,7 @@ package module.url.att
 		
 		private function qInput_keyupHandler(event:KeyboardEvent):void {
 			questionLabel = qInput.text;
+			att.q = questionLabel;
 		}
 		
 	}

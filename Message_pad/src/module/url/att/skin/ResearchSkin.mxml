@@ -23,7 +23,7 @@
 			<s:List id="answer" width="100%" borderVisible="false" useVirtualLayout="false" horizontalScrollPolicy="off" >
 				<s:layout><s:VerticalLayout variableRowHeight="false"/></s:layout>
 			</s:List>
-			<s:Button id="answerAdd" width="100%" label="+항목 추가" skinClass="module.url.component.skin.ButtonOrange" includeIn="actContent"/>
+			<s:Button id="answerAdd" width="100%" label="+답변 항목 추가" skinClass="module.url.component.skin.ButtonWhite" includeIn="actContent"/>
 		</s:VGroup>
 		<s:Group id="attribute" width="100%" includeIn="actContent" >
 			<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#EFEFEF" /></s:fill></s:Rect>

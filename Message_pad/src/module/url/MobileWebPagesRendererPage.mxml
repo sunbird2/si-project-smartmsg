@@ -7,25 +7,28 @@
 		<![CDATA[
 			import module.url.att.IAtt;
 			
-			import spark.components.List;
-			
 			import mx.events.FlexEvent;
 			
+			import spark.components.List;
 			import spark.components.supportClasses.SkinnableComponent;
 			
 			private var em:ElementManager = new ElementManager();
 			private var att:IAtt = null;
 			private var ele:SkinnableComponent = null;
 			
+			[Bindable]
+			private var val:Object = null;
+			
 			override public function set data(value:Object):void
 			{
 				super.data = value;
+				val = super.data;
 			}
 			
 			protected function creationCompleteHandler(event:FlexEvent):void
 			{
 				
-				ele = em.getObject(data.type, data.value) as SkinnableComponent;
+				ele = em.getObject(val.type, val.value) as SkinnableComponent;
 				if (ele != null) {
 					att = ele as IAtt;
 					attBox.addElement( ele );
@@ -46,7 +49,7 @@
 			protected function del_clickHandler(event:MouseEvent):void
 			{
 				var parentList:List = owner as List;
-				parentList.dataProvider.removeItemAt(parentList.dataProvider.getItemIndex(data))
+				parentList.dataProvider.removeItemAt(parentList.dataProvider.getItemIndex(val))
 			}
 			
 		]]>

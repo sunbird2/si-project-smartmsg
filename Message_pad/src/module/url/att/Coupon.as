@@ -23,6 +23,7 @@ package module.url.att
 		[SkinPart(required="true")]public var ele:Group;
 		[SkinPart(required="true")]public var attribute:Group;
 		
+		[Bindable]
 		private var _att:Object;
 		public function set att(val:Object):void { _att = val; }
 		public function get att():Object { return _att; }
