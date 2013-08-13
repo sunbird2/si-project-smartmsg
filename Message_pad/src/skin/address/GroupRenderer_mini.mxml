@@ -42,7 +42,7 @@
 				if (labelDisplay && this.owner&& data) {
 					var oldValue:String = labelDisplay.text;
 					var list:ListBase = this.owner as ListBase;
-					if (data.idx == 0 && data.grpName != "모두") {
+					if (data.idx == 0 && data.grpName != "전체") {
 						list.dataProvider.removeItemAt( this.itemIndex );
 						return;
 					}

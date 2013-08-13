@@ -32,7 +32,7 @@
 				
 				if (data && data.grpName) {
 					labelDisplay.text = data.grpName;
-					if (data.grpName != "모두") {
+					if (data.grpName != "전체") {
 						var cnt:Number = Number(data.phone);
 						if (cnt < 1) cnt = 1;
 						labelCnt.text = "("+String(cnt -1)+")";
@@ -49,7 +49,7 @@
 				if (labelDisplay && this.owner && data) {
 					var oldValue:String = labelDisplay.text;
 					var list:ListBase = this.owner as ListBase;
-					if (data.idx == 0 && data.grpName != "모두" && inputTxt.text == "") {
+					if (data.idx == 0 && data.grpName != "전체" && inputTxt.text == "") {
 						list.dataProvider.removeItemAt( this.itemIndex );
 						return;
 					}
@@ -86,7 +86,7 @@
 			
 			public function onEdit(event:Event):void 
 			{
-				if (data.grpName != "모두") {
+				if (data.grpName != "전체") {
 					inputTxt.text = data.grpName;
 					isEdit(true);
 					//set cursor postion to end
