@@ -741,7 +741,7 @@ package component
 				addressGroupList.removeAll();
 				for (var i:Number = 0; i < acGroup.length; i++) {
 					avo = acGroup.getItemAt(i) as AddressVO;
-					if (avo.grpName != "모두") {
+					if (avo.grpName != "전체") {
 						addressGroupList.addItem(avo.grpName);
 					}
 					
@@ -757,8 +757,8 @@ package component
 				var grp:String = addressCombo.selectedItem as String;
 				if (grp == null || grp == "") {
 					SLibrary.alert("주소록 그룹을 선택하거나 입력하세요.");
-				}else if (grp == "모두") {
-					SLibrary.alert("모두 그룹으로 저장 할 수 없습니다.");
+				}else if (grp == "전체") {
+					SLibrary.alert("전체 그룹으로 저장 할 수 없습니다.");
 				} else {
 					addressSave.bLoading = true;
 					addressBoxClose.enabled = false;

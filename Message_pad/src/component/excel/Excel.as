@@ -638,8 +638,8 @@ package component.excel
 			var grp:String = addressCombo.selectedItem as String;
 			if (grp == null || grp == "") {
 				SLibrary.alert("주소록 그룹을 선택하거나 입력하세요.");
-			}else if (grp == "모두") {
-				SLibrary.alert("모두 그룹으로 저장 할 수 없습니다.");
+			}else if (grp == "전체") {
+				SLibrary.alert("전체 그룹으로 저장 할 수 없습니다.");
 			} else {
 				addressBtn.bLoading = true;
 				RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", addressBtn_resultHandler, false, 0, true);
