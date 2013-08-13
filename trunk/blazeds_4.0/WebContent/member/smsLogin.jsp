@@ -46,12 +46,13 @@ try {
 		else if (!sls.getTmp_pw().equals(user_pw)) rvo.setstrDescription("로그인에 실패 하였습니다.");
 		else if (SLibrary.isNull(sls.getUser_id())) rvo.setstrDescription("로그인 아이디가 없습니다.");
 		else {
-			sls = null;
-			rvo.setbResult(true);
 			VbyP.accessLog("smsLoginAjax user_id="+sls.getUser_id());
+			rvo.setbResult(true);
+			
 			us = new UserSession();
 			us.setUser_id(sls.getUser_id());
 			session.setAttribute(SessionManagement.SESSION, us);
+			sls = null;
 		}
 		
 	
