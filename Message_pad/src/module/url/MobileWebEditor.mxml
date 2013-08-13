@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/mx" width="1000" creationComplete="module1_creationCompleteHandler(event)">
+<s:Module xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  xmlns:services="services.*"
+		  width="1000" creationComplete="module1_creationCompleteHandler(event)">
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
 		@namespace mx "library://ns.adobe.com/flex/mx";
@@ -31,10 +33,19 @@
 		<![CDATA[
 			import com.adobe.serialization.json.JSON;
 			
+			import lib.RemoteSingleManager;
+			import lib.SLibrary;
+			
 			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.CollectionEvent;
 			import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
 			
 			import spark.events.IndexChangeEvent;
+			
+			import valueObjects.BooleanAndDescriptionVO;
+			import valueObjects.UrlDataVO;
 
 			[Bindable]
 			private var ac:ArrayCollection = null;
@@ -69,13 +80,19 @@
 			protected function module1_creationCompleteHandler(event:FlexEvent):void
 			{
 				// default {type:0, value:{}}
-				ac = new ArrayCollection([
+				/* ac = new ArrayCollection([
 											[{type:6, value:""},{type:5, value:{q:"질문입니다.",a:{type:0,value:["정답1입니다.","정답2입니다."]}}},{type:4, value:{cnt:10,passwd:"1234x"}},{type:3, value:{next:{type:0,value:""},btnText:"확인"}},{type:2, value:{layout:"one",next:0,btnText:"확인",commitMsg:"감사용"}},{type:1,value:{layout:"tile", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}},{type:0,value:{text:"<p style=\"text-align:left\">안녕하세요!!!</p><p style=\"text-align:left\"><b>박사준</b>입니다.</p>"}}],
 											[{type:1,value:{layout:"tile", imgs:[{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""}]}}],
 											[{type:1,value:{layout:"tile", imgs:[{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""},{url:"/images/icon_text_event.gif",link:""}]}}]
-										 ]);
+										 ]); */
 				
 				//ac = new ArrayCollection(com.adobe.serialization.json.JSON.decode( jstr ) as Array);
+				
+				if (ac == null) {
+					ac = new ArrayCollection();
+					ac.addEventListener(CollectionEvent.COLLECTION_CHANGE, ac_changeHandler);
+				}
+				
 				
 				acTemplet = new ArrayCollection([
 					{icon:"/images/ic_launcher_smsmms.png", label:"[빈페이지]\n내용 없는 빈페이지"},
@@ -84,6 +101,10 @@
 					{icon:"/images/ic_launcher_smsmms.png", label:"[마일리지]\n마일리지 적립\n및 사용"},
 					{icon:"/images/ic_launcher_smsmms.png", label:"[설문조사]\n질문\n및 접속자 답"}
 				]);
+			}
+			
+			private function ac_changeHandler(event:CollectionEvent):void {
+				noPage.visible = ac.length > 0 ? false:true;
 			}
 			
 			protected function templets_changeHandler(event:IndexChangeEvent):void
@@ -118,17 +139,44 @@
 			protected function complete_clickHandler(event:MouseEvent):void
 			{
 				var at:ArrayCollection = (mobileWebPages.dataProvider as ArrayCollection);
+				var json:String = com.adobe.serialization.json.JSON.encode( at as Object );
+				var urlvo:UrlDataVO = new UrlDataVO();
+				urlvo.dt = json;
+				urlvo.stopYN = "N";
 				
+				setUrlData(0, urlvo );
 				
-				mobileWebPages.dataProvider = new ArrayCollection( (com.adobe.serialization.json.JSON.decode( com.adobe.serialization.json.JSON.encode(at as Object)) as Object).source as Array );
-				
-				trace(com.adobe.serialization.json.JSON.encode(at as Object));
+				//mobileWebPages.dataProvider = new ArrayCollection( (com.adobe.serialization.json.JSON.decode( com.adobe.serialization.json.JSON.encode(at as Object)) as Object).source as Array );
+				//trace(com.adobe.serialization.json.JSON.encode(at as Object));
 			}
+			
+			protected function setUrlDataResult_resultHandler(event:ResultEvent):void
+			{
+				var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+				if (bvo != null) {
+					if (bvo.bResult == true) {
+						SLibrary.alert("적용 되었습니다.");
+						MobileWebEditorAble(parentDocument.hostComponent).setUrl(int(bvo.strDescription));
+						close_clickHandler(null);
+					}
+					else SLibrary.alert("실패 하였습니다."+bvo.strDescription);
+				}
+				
+			} 
+			
+			// 0: insert , 1: update, 2: delete
+			protected function setUrlData(arg0:int, arg1:UrlDataVO):void { setUrlDataResult.token = smt.setUrlData(arg0, arg1); }
+			
+			protected function close_clickHandler(event:MouseEvent):void { MobileWebEditorAble(parentDocument.hostComponent).removeModuleUrl(); }
 			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:CallResponder id="setUrlDataResult" result="setUrlDataResult_resultHandler(event)"/>
+		<services:Smt id="smt"
+					  fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)"
+					  showBusyCursor="true"/>
+		
 	</fx:Declarations>
 	
 	<s:BitmapImage left="0" right="0" top="0" bottom="0"
@@ -138,7 +186,7 @@
 	<s:VGroup left="7.2" right="7.2" top="10" bottom="8.08" horizontalAlign="center" gap="0">
 		<s:Group width="100%">
 			<s:Label text="모바일웹에디터" left="15" verticalCenter="-2" fontSize="16" fontWeight="bold" color="#FFFFFF" />
-			<s:Image id="close" right="10" verticalCenter="-2" source="/skin/ics/assets/dark/icon/1-navigation-cancel.png" buttonMode="true" />	
+			<s:Image id="close" right="10" verticalCenter="-2" source="/skin/ics/assets/dark/icon/1-navigation-cancel.png" buttonMode="true" click="close_clickHandler(event)" />	
 		</s:Group>
 		<s:Rect width="100%" top="10" left="8" right="8"><s:stroke><s:SolidColorStroke color="#33B5E5" weight="2" /></s:stroke></s:Rect>
 		<s:HGroup width="100%" height="610" gap="0">
@@ -157,6 +205,10 @@
 			</s:List>
 		</s:HGroup>
 	</s:VGroup>
+	<s:HGroup id="noPage" verticalCenter="0" verticalAlign="middle" left="400">
+		<s:Image source="/images/ic_launcher_smsmms.png" />
+		<s:Label text="왼쪽 리스트에서 페이지를 추가 하세요." fontSize="20" fontWeight="bold" color="#FFFFFF" />
+	</s:HGroup>
 	
 	<s:HGroup left="525" bottom="20">
 		<s:Button id="preview" label="미리 보기" right="5" skinClass="module.url.component.skin.ButtonGray" color="#FFFFFF" />
