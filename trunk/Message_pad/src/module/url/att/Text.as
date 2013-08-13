@@ -1,6 +1,8 @@
 package module.url.att
 {
 	
+	import flash.events.Event;
+	
 	import lib.SLibrary;
 	
 	import module.url.att.skin.TextSkin;
@@ -28,7 +30,7 @@ package module.url.att
 		[SkinPart(required="true")]public var attribute:Group;
 		[SkinPart(required="true")]public var myRTE:TextEditor;
 		
-		
+		[Bindable]
 		private var _att:Object;
 		public function set att(val:Object):void { _att = val; }
 		public function get att():Object { return _att; }
@@ -70,6 +72,7 @@ package module.url.att
 			super.partAdded(partName, instance);
 			if (instance == myRTE) {
 				if (att != null && att.text) { myRTE.htmlText = att.text; }
+				myRTE.addEventListener("change", myRTE_changeHandler);
 			}
 			
 		}
@@ -101,6 +104,12 @@ package module.url.att
 				+ myRTE.textArea.text.substr(caretEnd);
 			
 			(event.currentTarget as ButtonBar).selectedIndex = -1;
+		}
+		
+		private function myRTE_changeHandler(event:Event):void {
+			
+			if (att != null)
+				att.text = myRTE.htmlText;
 		}
 		
 	}

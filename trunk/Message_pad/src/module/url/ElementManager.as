@@ -24,22 +24,24 @@ package module.url
 		public static const COUPON:int = 6;
 		public static const SHOPLIST:int = 7;
 		
-		
+		[Bindable]
+		private var val:Object = null;
 		
 		public function ElementManager() {}
 		public function getObject(type:int, value:Object):SkinnableComponent {
 			
+			val = value;
 			var ive:SkinnableComponent = null;
 			switch(type)
 			{
-				case IMG: { ive = getIMG(value); break; }
-				case TXT: { ive = getTXT(value); break; }
-				case INPUT: { ive = getINPUT(value); break; }
-				case BTN: { ive = getBTN(value); break; }
-				case MILEAGE: { ive = getMILEAGE(value); break; }
-				case ASKLIST: {	ive = getASKLIST(value); break; }
-				case COUPON: {	ive = getCOUPON(value); break; }
-				case SHOPLIST: { ive = getSHOPLIST(value); break; }
+				case IMG: { ive = getIMG(val); break; }
+				case TXT: { ive = getTXT(val); break; }
+				case INPUT: { ive = getINPUT(val); break; }
+				case BTN: { ive = getBTN(val); break; }
+				case MILEAGE: { ive = getMILEAGE(val); break; }
+				case ASKLIST: {	ive = getASKLIST(val); break; }
+				case COUPON: {	ive = getCOUPON(val); break; }
+				case SHOPLIST: { ive = getSHOPLIST(val); break; }
 				
 				default:
 				{
@@ -51,30 +53,30 @@ package module.url
 		
 		private function getIMG(value:Object):SkinnableComponent {
 			
-			return new Image(value);
+			return new Image(val);
 		}
 		private function getTXT(value:Object):SkinnableComponent {
-			return new Text(value);
+			return new Text(val);
 		}
 		private function getINPUT(value:Object):SkinnableComponent {
 			
-			return new Input(value);
+			return new Input(val);
 		}
 		private function getBTN(value:Object):SkinnableComponent {
 			
-			return new Btn(value);
+			return new Btn(val);
 		}
 		private function getMILEAGE(value:Object):SkinnableComponent {
 			
-			return new Mileage(value);
+			return new Mileage(val);
 		}
 		private function getASKLIST(value:Object):SkinnableComponent {
 			
-			return new Research(value);
+			return new Research(val);
 		}
 		private function getCOUPON(value:Object):SkinnableComponent {
 			
-			return new Coupon(value);
+			return new Coupon(val);
 		}
 		
 		private function getSHOPLIST(value:Object):SkinnableComponent {
@@ -82,8 +84,7 @@ package module.url
 			return null;
 		}
 		
-		
-		private function jsonParse(json:String):ArrayCollection {
+		public function jsonParse(json:String):ArrayCollection {
 			var data:*  =JSON.parse(json);
 			var ac:ArrayCollection = new ArrayCollection(data);
 			return ac;

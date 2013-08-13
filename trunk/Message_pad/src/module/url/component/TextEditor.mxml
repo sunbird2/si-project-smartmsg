@@ -448,6 +448,9 @@
 				pattern = /<U\/>/gi;
 				str = str.replace(pattern, "");
 				
+				pattern = /\"/gi;
+				str = str.replace(pattern, "'");
+				
 				return str;
 			}
 			
@@ -739,6 +742,8 @@
 				meargeBtn.selectedIndex = -1;
 				textArea.setFocus();
 			}
+			
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>

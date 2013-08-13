@@ -2,9 +2,9 @@
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
 				xmlns:s="library://ns.adobe.com/flex/spark" 
 				xmlns:mx="library://ns.adobe.com/flex/mx" 
-				autoDrawBackground="true">
+				autoDrawBackground="true" width="100%">
 	<s:HGroup width="100%" verticalAlign="middle">
-		<s:TextInput width="200" prompt="입력.." editable="false" skinClass="module.url.component.skin.TextInputSkin" />
+		<s:TextInput width="220" prompt="입력.." editable="false" skinClass="module.url.component.skin.TextInputSkin" />
 		<s:Button id="btni" width="73" label="완료" skinClass="module.url.component.skin.ButtonOrange" />
 	</s:HGroup>
 </s:ItemRenderer>

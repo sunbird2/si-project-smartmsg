@@ -38,8 +38,9 @@ package module.url.att
 		[SkinPart(required="true")]public var nextPage:DropDownList;
 		
 		
-		
+		[Bindable]
 		private var _att:Object;
+		
 		public function set att(val:Object):void { _att = val; }
 		public function get att():Object { return _att; }
 		
@@ -105,9 +106,13 @@ package module.url.att
 				buttonInput.text = buttonLabel;
 				buttonInput.addEventListener(KeyboardEvent.KEY_UP, buttonInput_keyupHandler);
 			}
-			else if (instance == commitInput) commitInput.text = commitMsg;
+			else if (instance == commitInput) {
+				commitInput.text = commitMsg;
+				commitInput.addEventListener(KeyboardEvent.KEY_UP, commitInput_keyupHandler);
+			}
 			else if (instance == nextPage) {
 				nextPage.dataProvider = acNext;
+				nextPage.addEventListener(IndexChangeEvent.CHANGE, nextPage_changeHandler);
 				callLater(initNextPage);
 				
 			}
@@ -120,17 +125,26 @@ package module.url.att
 		
 		private function inputLayout_changeHandler(event:IndexChangeEvent):void {
 			layoutIndex = event.newIndex;
+			att.layout = layoutIndex;
 		}
 		
 		private function buttonInput_keyupHandler(event:KeyboardEvent):void {
 			buttonLabel = buttonInput.text;
+			att.btnText  = buttonLabel;
 		}
+		private function commitInput_keyupHandler(event:KeyboardEvent):void {
+			att.commitMsg  = commitInput.text;
+		}
+		
 		
 		private function initNextPage():void {
 
 			if ( att.next != null ) {
 				nextPage.selectedIndex = att.next as int;
 			}
+		}
+		private function nextPage_changeHandler(event:IndexChangeEvent):void {
+			att.next = nextPage.selectedIndex;
 		}
 		
 	}

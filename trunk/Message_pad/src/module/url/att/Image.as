@@ -72,8 +72,9 @@ package module.url.att
 		
 		private var isViewNextPreIcon:Boolean = false;
 		
-		
+		[Bindable]
 		private var _att:Object;
+		
 		public function set att(val:Object):void { _att = val; }
 		public function get att():Object { return _att; }
 		
@@ -86,8 +87,8 @@ package module.url.att
 		
 		
 		override protected function getCurrentSkinState():String {
-			if (att != null && _stat == "actEmpty") _stat = "actContent";
-			else if (att != null && _stat == "default") {
+			if (att != null && _stat == "actEmpty" && att.imgs.length > 0) _stat = "actContent";
+			else if (att != null && _stat == "default" && att.imgs.length > 0) {
 				_stat = "view";
 				if (imgList != null && imgList.selectedIndex >= 0) imgList.selectedIndex = -1;
 			}

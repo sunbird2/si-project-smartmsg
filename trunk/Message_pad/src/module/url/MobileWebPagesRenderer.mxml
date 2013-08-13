@@ -10,6 +10,7 @@
 			
 			[Bindable]
 			private var ac:ArrayCollection = null;
+			
 			private var em:ElementManager = new ElementManager();
 			
 			override public function set data(value:Object):void
@@ -46,9 +47,13 @@
 				switch(num)
 				{
 					case ElementManager.TXT:{obj = {type:ElementManager.TXT,value:{text:"<p style=\"text-align:left\">텍스트를 입력하세요..</p>"}};break;}
-					case ElementManager.IMG:{obj = {type:ElementManager.IMG,value:null};break;}
+					case ElementManager.IMG:{obj = {type:ElementManager.IMG,value:{layout:"vertical", imgs:[]}};break;}
 					case ElementManager.INPUT:{obj = {type:ElementManager.INPUT,value:{layout:"one",next:0,btnText:"확인",commitMsg:"감사합니다."}};break;}
 					case ElementManager.BTN:{obj = {type:ElementManager.BTN,value:{next:{type:0,value:""},btnText:"확인"}};break;}
+					case ElementManager.MILEAGE:{obj = {type:ElementManager.MILEAGE,value:{cnt:10,passwd:"1234x"}};break;}
+					case ElementManager.ASKLIST:{obj = {type:ElementManager.ASKLIST,value:{q:"질문입니다.",a:{type:0,value:["정답1입니다.","정답2입니다."]}}};break;}
+					case ElementManager.COUPON:{obj = {type:ElementManager.COUPON,value:""};break;}
+					case ElementManager.SHOPLIST:{obj = {type:ElementManager.SHOPLIST,value:{next:{type:0,value:""},btnText:"확인"}};break;}
 					default:{break;}
 				}
 				ac.addItem(obj);
@@ -94,6 +99,9 @@
 		<s:Button label="이미지" click="att_clickHandler(ElementManager.IMG)" />
 		<s:Button label="입력" click="att_clickHandler(ElementManager.INPUT)" />
 		<s:Button label="버튼" click="att_clickHandler(ElementManager.BTN)" />
+		<s:Button label="마일리지" click="att_clickHandler(ElementManager.MILEAGE)" />
+		<s:Button label="설문조사" click="att_clickHandler(ElementManager.ASKLIST)" />
+		<s:Button label="쿠폰" click="att_clickHandler(ElementManager.COUPON)" />
 	</s:VGroup>
 	
 	

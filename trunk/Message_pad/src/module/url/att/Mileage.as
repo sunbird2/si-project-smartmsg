@@ -31,8 +31,9 @@ package module.url.att
 		
 		[SkinPart(required="true")]public var passwordInput:TextInput;
 		
-		
+		[Bindable]
 		private var _att:Object;
+		
 		public function set att(val:Object):void { _att = val; }
 		public function get att():Object { return _att; }
 		
@@ -99,6 +100,8 @@ package module.url.att
 			else if (instance == passwordInput) {
 				if (att != null && att.passwd)
 					passwordInput.text = att.passwd;
+				
+				passwordInput.addEventListener(KeyboardEvent.KEY_UP, passwordInput_keyupHandler);
 			}
 			else if (instance == mileageCnt) {
 					mileageCnt.value = mcount;
@@ -143,6 +146,11 @@ package module.url.att
 					acMileage.removeItemAt(0);
 				}
 			}
+			att.cnt = mcount;
+		}
+		
+		private function passwordInput_keyupHandler(event:KeyboardEvent):void {
+			att.passwd = passwordInput.text;
 		}
 		
 	}
