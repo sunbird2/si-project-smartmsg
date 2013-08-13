@@ -182,7 +182,7 @@ package component.address
 				
 				
 			}else if (type == "all" && searchTextInput.text == "") {
-				confirmAlert = new AlertManager(element.@group+"모두를 전송에 추가 하시겠습니까?","전송추가", 1|8, Sprite(parentApplication), ac);
+				confirmAlert = new AlertManager(element.@group+"전체를 전송에 추가 하시겠습니까?","전송추가", 1|8, Sprite(parentApplication), ac);
 				confirmAlert.addEventListener("yes",addressTree_sendGroupConfirmHandler, false, 0, true);
 			}
 			else {

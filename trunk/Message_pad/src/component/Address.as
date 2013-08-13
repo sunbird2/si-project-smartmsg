@@ -181,7 +181,7 @@ package component
 					for (var j:uint = 0; j < event.items.length; j++) { 
 						if (event.items[i] is AddressVO
 							&& AddressVO(event.items[i]) != null 
-							&& AddressVO(event.items[i]).grpName != "모두" && bGetGroup == false) {  
+							&& AddressVO(event.items[i]).grpName != "전체" && bGetGroup == false) {  
 							
 							activeAddress(12, AddressVO(event.items[i])); 
 						}
@@ -443,20 +443,20 @@ package component
 		private function groupList_keyUpHandler(event:KeyboardEvent):void {
 			
 			if (event.keyCode == 46
-				&& AddressVO(groupList.selectedItem).grpName != "모두") {
+				&& AddressVO(groupList.selectedItem).grpName != "전체") {
 				delGroup();
 				
 			}
 				
 		}
 		private function delGroup():void {
-			confirmAlert = new AlertManager("["+AddressVO(groupList.selectedItem).grpName+"] 그룹의 전화번호도 모두 삭제 됩니다.\n 삭제 하시겠습니까?","그룹삭제", 1|8, Sprite(parentApplication), groupList.selectedIndex);
+			confirmAlert = new AlertManager("["+AddressVO(groupList.selectedItem).grpName+"] 그룹의 전화번호도 전체 삭제 됩니다.\n 삭제 하시겠습니까?","그룹삭제", 1|8, Sprite(parentApplication), groupList.selectedIndex);
 			confirmAlert.addEventListener("yes",deleteGroup_confirmHandler, false, 0, true);
 		}
 		private function allAddressGroupVO():AddressVO {
 			
 			var avo:AddressVO = new AddressVO();
-			avo.grpName = "모두";
+			avo.grpName = "전체";
 			avo.idx = 0;
 			
 			return avo;
@@ -470,7 +470,7 @@ package component
 				Gv.addressGroupList.removeAll();
 				for (var i:Number = 0; i < acGroup.length; i++) {
 					avo = acGroup.getItemAt(i) as AddressVO;
-					if (avo.grpName != "모두") {
+					if (avo.grpName != "전체") {
 						Gv.addressGroupList.addItem(avo.grpName);
 					}
 						
@@ -495,7 +495,7 @@ package component
 			
 			var vo:AddressVO = acGroup.getItemAt(groupList.selectedIndex) as AddressVO;
 			if (vo != null) {
-				var gName:String = (vo.grpName == "모두")? "":vo.grpName;
+				var gName:String = (vo.grpName == "전체")? "":vo.grpName;
 				currentGroupName = gName;
 				getNameList();
 			}
@@ -538,7 +538,7 @@ package component
 		private function activeCommit():void {
 			
 			if (groupName.selectedIndex == 0) {
-				SLibrary.alert("모두 그룹에 저장 할 수 없습니다. 다른 그룹을 선택 하세요.");
+				SLibrary.alert("전체 그룹에 저장 할 수 없습니다. 다른 그룹을 선택 하세요.");
 			}
 			else if (SLibrary.bKoreaPhoneCheck(activeAddressVO.phone) == false) {
 				SLibrary.alert("올바른 전화번호가 아닙니다.(숫자만 입력)");
@@ -698,8 +698,8 @@ package component
 			if (grp != null && grp != "") {
 				if (getGroupNameCount(grp) > 0) {
 					SLibrary.alert("등록된 그룹 입니다.");
-				} else if (grp != null && grp=="모두") {
-					SLibrary.alert("모두로 그룹등록 하실 수 없습니다.");
+				} else if (grp != null && grp=="전체") {
+					SLibrary.alert("전체로 그룹등록 하실 수 없습니다.");
 				} else {
 					var avo:AddressVO = new AddressVO();
 					avo.idx = -1;
@@ -732,8 +732,8 @@ package component
 			
 			if (avo.grpName == null || avo.grpName == "") {
 				SLibrary.alert("그룹이름이 없습니다.");
-			} else if (avo.grpName == "모두" && (code == 10 || code == 21)) {
-				SLibrary.alert("그룹이름응 [모두]로 지정 할수 없습니다.");
+			} else if (avo.grpName == "전체" && (code == 10 || code == 21)) {
+				SLibrary.alert("그룹이름응 [전체]로 지정 할수 없습니다.");
 			} else if (code >= 20 && (avo.phone == "" || avo.phone == null )){
 				SLibrary.alert("전화번호를 입력 하세요.");
 			}else {
@@ -794,7 +794,7 @@ package component
 			
 			var idx:int = groupList.selectedIndex;
 			if (idx < 0 ) SLibrary.alert("그룹을 선택 하세요.");
-			else if (idx == 0) SLibrary.alert("모두는 수정 할 수 없습니다.");
+			else if (idx == 0) SLibrary.alert("전체는 수정 할 수 없습니다.");
 			else {
 				var obj:GroupRenderer = groupList.dataGroup.getElementAt(idx) as GroupRenderer;
 				obj.onEdit(null); 
@@ -890,8 +890,8 @@ package component
 			
 			if (groupName == "") {
 				SLibrary.alert("이동할 그룹 이름이 없습니다.");
-			}else if (groupName == "모두") {
-				SLibrary.alert("모두로 이동 할 수 없습니다.");
+			}else if (groupName == "전체") {
+				SLibrary.alert("전체로 이동 할 수 없습니다.");
 			}else {
 				
 				RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", moveGroup_resultHandler, false, 0, true);
@@ -903,8 +903,8 @@ package component
 			
 			if (groupName == "") {
 				SLibrary.alert("복사할 그룹 이름이 없습니다.");
-			}else if (groupName == "모두") {
-				SLibrary.alert("모두로 복사 할 수 없습니다.");
+			}else if (groupName == "전체") {
+				SLibrary.alert("전체로 복사 할 수 없습니다.");
 			}else {
 				
 				RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", moveGroup_resultHandler, false, 0, true);
