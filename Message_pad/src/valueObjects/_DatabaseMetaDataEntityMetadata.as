@@ -22,14 +22,14 @@ internal class _DatabaseMetaDataEntityMetadata extends com.adobe.fiber.valueobje
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("databaseProductName", "defaultTransactionIsolation", "maxCursorNameLength", "SQLStateType", "typeInfo", "maxStatements", "userName", "driverName", "maxCatalogNameLength", "databaseProductVersion", "catalogAtStart", "catalogSeparator", "driverMajorVersion", "connection", "SQLKeywords", "timeDateFunctions", "maxBinaryLiteralLength", "extraNameCharacters", "maxColumnsInIndex", "databaseMajorVersion", "maxColumnNameLength", "procedureTerm", "catalogTerm", "JDBCMinorVersion", "searchStringEscape", "JDBCMajorVersion", "databaseMinorVersion", "maxProcedureNameLength", "maxTablesInSelect", "maxTableNameLength", "driverMinorVersion", "maxCharLiteralLength", "maxIndexLength", "stringFunctions", "maxColumnsInOrderBy", "maxRowSize", "URL", "clientInfoProperties", "maxStatementLength", "schemas", "maxConnections", "maxUserNameLength", "rowIdLifetime", "resultSetHoldability", "schemaTerm", "driverVersion", "maxSchemaNameLength", "identifierQuoteString", "maxColumnsInSelect", "systemFunctions", "maxColumnsInGroupBy", "readOnly", "tableTypes", "numericFunctions", "catalogs", "maxColumnsInTable");
+    model_internal static var allProperties:Array = new Array("databaseProductName", "defaultTransactionIsolation", "maxCursorNameLength", "SQLStateType", "typeInfo", "maxStatements", "userName", "driverName", "maxCatalogNameLength", "databaseProductVersion", "catalogSeparator", "catalogAtStart", "driverMajorVersion", "connection", "SQLKeywords", "timeDateFunctions", "maxBinaryLiteralLength", "extraNameCharacters", "maxColumnsInIndex", "databaseMajorVersion", "maxColumnNameLength", "procedureTerm", "catalogTerm", "JDBCMinorVersion", "searchStringEscape", "JDBCMajorVersion", "databaseMinorVersion", "maxProcedureNameLength", "maxTableNameLength", "maxTablesInSelect", "driverMinorVersion", "maxCharLiteralLength", "maxIndexLength", "stringFunctions", "maxColumnsInOrderBy", "maxRowSize", "URL", "clientInfoProperties", "maxStatementLength", "schemas", "maxConnections", "maxUserNameLength", "rowIdLifetime", "resultSetHoldability", "schemaTerm", "driverVersion", "maxSchemaNameLength", "identifierQuoteString", "maxColumnsInSelect", "systemFunctions", "maxColumnsInGroupBy", "readOnly", "tableTypes", "numericFunctions", "catalogs", "maxColumnsInTable");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("databaseProductName", "defaultTransactionIsolation", "maxCursorNameLength", "SQLStateType", "typeInfo", "maxStatements", "userName", "driverName", "maxCatalogNameLength", "databaseProductVersion", "catalogAtStart", "catalogSeparator", "driverMajorVersion", "connection", "SQLKeywords", "timeDateFunctions", "maxBinaryLiteralLength", "extraNameCharacters", "maxColumnsInIndex", "databaseMajorVersion", "maxColumnNameLength", "procedureTerm", "catalogTerm", "JDBCMinorVersion", "searchStringEscape", "JDBCMajorVersion", "databaseMinorVersion", "maxProcedureNameLength", "maxTablesInSelect", "maxTableNameLength", "driverMinorVersion", "maxCharLiteralLength", "maxIndexLength", "stringFunctions", "maxColumnsInOrderBy", "maxRowSize", "URL", "clientInfoProperties", "maxStatementLength", "schemas", "maxConnections", "maxUserNameLength", "rowIdLifetime", "resultSetHoldability", "schemaTerm", "driverVersion", "maxSchemaNameLength", "identifierQuoteString", "maxColumnsInSelect", "systemFunctions", "maxColumnsInGroupBy", "readOnly", "tableTypes", "numericFunctions", "catalogs", "maxColumnsInTable");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("databaseProductName", "defaultTransactionIsolation", "maxCursorNameLength", "SQLStateType", "typeInfo", "maxStatements", "userName", "driverName", "maxCatalogNameLength", "databaseProductVersion", "catalogSeparator", "catalogAtStart", "driverMajorVersion", "connection", "SQLKeywords", "timeDateFunctions", "maxBinaryLiteralLength", "extraNameCharacters", "maxColumnsInIndex", "databaseMajorVersion", "maxColumnNameLength", "procedureTerm", "catalogTerm", "JDBCMinorVersion", "searchStringEscape", "JDBCMajorVersion", "databaseMinorVersion", "maxProcedureNameLength", "maxTableNameLength", "maxTablesInSelect", "driverMinorVersion", "maxCharLiteralLength", "maxIndexLength", "stringFunctions", "maxColumnsInOrderBy", "maxRowSize", "URL", "clientInfoProperties", "maxStatementLength", "schemas", "maxConnections", "maxUserNameLength", "rowIdLifetime", "resultSetHoldability", "schemaTerm", "driverVersion", "maxSchemaNameLength", "identifierQuoteString", "maxColumnsInSelect", "systemFunctions", "maxColumnsInGroupBy", "readOnly", "tableTypes", "numericFunctions", "catalogs", "maxColumnsInTable");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("databaseProductName", "defaultTransactionIsolation", "maxCursorNameLength", "SQLStateType", "typeInfo", "maxStatements", "userName", "driverName", "maxCatalogNameLength", "databaseProductVersion", "catalogAtStart", "catalogSeparator", "driverMajorVersion", "connection", "SQLKeywords", "timeDateFunctions", "maxBinaryLiteralLength", "extraNameCharacters", "maxColumnsInIndex", "databaseMajorVersion", "maxColumnNameLength", "procedureTerm", "catalogTerm", "JDBCMinorVersion", "searchStringEscape", "JDBCMajorVersion", "databaseMinorVersion", "maxProcedureNameLength", "maxTablesInSelect", "maxTableNameLength", "driverMinorVersion", "maxCharLiteralLength", "maxIndexLength", "stringFunctions", "maxColumnsInOrderBy", "maxRowSize", "URL", "clientInfoProperties", "maxStatementLength", "schemas", "maxConnections", "maxUserNameLength", "rowIdLifetime", "resultSetHoldability", "schemaTerm", "driverVersion", "maxSchemaNameLength", "identifierQuoteString", "maxColumnsInSelect", "systemFunctions", "maxColumnsInGroupBy", "readOnly", "tableTypes", "numericFunctions", "catalogs", "maxColumnsInTable");
+    model_internal static var dataProperties:Array = new Array("databaseProductName", "defaultTransactionIsolation", "maxCursorNameLength", "SQLStateType", "typeInfo", "maxStatements", "userName", "driverName", "maxCatalogNameLength", "databaseProductVersion", "catalogSeparator", "catalogAtStart", "driverMajorVersion", "connection", "SQLKeywords", "timeDateFunctions", "maxBinaryLiteralLength", "extraNameCharacters", "maxColumnsInIndex", "databaseMajorVersion", "maxColumnNameLength", "procedureTerm", "catalogTerm", "JDBCMinorVersion", "searchStringEscape", "JDBCMajorVersion", "databaseMinorVersion", "maxProcedureNameLength", "maxTableNameLength", "maxTablesInSelect", "driverMinorVersion", "maxCharLiteralLength", "maxIndexLength", "stringFunctions", "maxColumnsInOrderBy", "maxRowSize", "URL", "clientInfoProperties", "maxStatementLength", "schemas", "maxConnections", "maxUserNameLength", "rowIdLifetime", "resultSetHoldability", "schemaTerm", "driverVersion", "maxSchemaNameLength", "identifierQuoteString", "maxColumnsInSelect", "systemFunctions", "maxColumnsInGroupBy", "readOnly", "tableTypes", "numericFunctions", "catalogs", "maxColumnsInTable");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("databaseProductName", "defaultTransactionIsolation", "maxCursorNameLength", "SQLStateType", "typeInfo", "maxStatements", "userName", "driverName", "maxCatalogNameLength", "databaseProductVersion", "catalogAtStart", "catalogSeparator", "driverMajorVersion", "connection", "SQLKeywords", "timeDateFunctions", "maxBinaryLiteralLength", "extraNameCharacters", "maxColumnsInIndex", "databaseMajorVersion", "maxColumnNameLength", "procedureTerm", "catalogTerm", "JDBCMinorVersion", "searchStringEscape", "JDBCMajorVersion", "databaseMinorVersion", "maxProcedureNameLength", "maxTablesInSelect", "maxTableNameLength", "driverMinorVersion", "maxCharLiteralLength", "maxIndexLength", "stringFunctions", "maxColumnsInOrderBy", "maxRowSize", "URL", "clientInfoProperties", "maxStatementLength", "schemas", "maxConnections", "maxUserNameLength", "rowIdLifetime", "resultSetHoldability", "schemaTerm", "driverVersion", "maxSchemaNameLength", "identifierQuoteString", "maxColumnsInSelect", "systemFunctions", "maxColumnsInGroupBy", "readOnly", "tableTypes", "numericFunctions", "catalogs", "maxColumnsInTable");
+    model_internal static var nonDerivedProperties:Array = new Array("databaseProductName", "defaultTransactionIsolation", "maxCursorNameLength", "SQLStateType", "typeInfo", "maxStatements", "userName", "driverName", "maxCatalogNameLength", "databaseProductVersion", "catalogSeparator", "catalogAtStart", "driverMajorVersion", "connection", "SQLKeywords", "timeDateFunctions", "maxBinaryLiteralLength", "extraNameCharacters", "maxColumnsInIndex", "databaseMajorVersion", "maxColumnNameLength", "procedureTerm", "catalogTerm", "JDBCMinorVersion", "searchStringEscape", "JDBCMajorVersion", "databaseMinorVersion", "maxProcedureNameLength", "maxTableNameLength", "maxTablesInSelect", "driverMinorVersion", "maxCharLiteralLength", "maxIndexLength", "stringFunctions", "maxColumnsInOrderBy", "maxRowSize", "URL", "clientInfoProperties", "maxStatementLength", "schemas", "maxConnections", "maxUserNameLength", "rowIdLifetime", "resultSetHoldability", "schemaTerm", "driverVersion", "maxSchemaNameLength", "identifierQuoteString", "maxColumnsInSelect", "systemFunctions", "maxColumnsInGroupBy", "readOnly", "tableTypes", "numericFunctions", "catalogs", "maxColumnsInTable");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -59,8 +59,8 @@ internal class _DatabaseMetaDataEntityMetadata extends com.adobe.fiber.valueobje
             model_internal::dependentsOnMap["driverName"] = new Array();
             model_internal::dependentsOnMap["maxCatalogNameLength"] = new Array();
             model_internal::dependentsOnMap["databaseProductVersion"] = new Array();
-            model_internal::dependentsOnMap["catalogAtStart"] = new Array();
             model_internal::dependentsOnMap["catalogSeparator"] = new Array();
+            model_internal::dependentsOnMap["catalogAtStart"] = new Array();
             model_internal::dependentsOnMap["driverMajorVersion"] = new Array();
             model_internal::dependentsOnMap["connection"] = new Array();
             model_internal::dependentsOnMap["SQLKeywords"] = new Array();
@@ -77,8 +77,8 @@ internal class _DatabaseMetaDataEntityMetadata extends com.adobe.fiber.valueobje
             model_internal::dependentsOnMap["JDBCMajorVersion"] = new Array();
             model_internal::dependentsOnMap["databaseMinorVersion"] = new Array();
             model_internal::dependentsOnMap["maxProcedureNameLength"] = new Array();
-            model_internal::dependentsOnMap["maxTablesInSelect"] = new Array();
             model_internal::dependentsOnMap["maxTableNameLength"] = new Array();
+            model_internal::dependentsOnMap["maxTablesInSelect"] = new Array();
             model_internal::dependentsOnMap["driverMinorVersion"] = new Array();
             model_internal::dependentsOnMap["maxCharLiteralLength"] = new Array();
             model_internal::dependentsOnMap["maxIndexLength"] = new Array();
@@ -122,8 +122,8 @@ internal class _DatabaseMetaDataEntityMetadata extends com.adobe.fiber.valueobje
         model_internal::propertyTypeMap["driverName"] = "String";
         model_internal::propertyTypeMap["maxCatalogNameLength"] = "int";
         model_internal::propertyTypeMap["databaseProductVersion"] = "String";
-        model_internal::propertyTypeMap["catalogAtStart"] = "Boolean";
         model_internal::propertyTypeMap["catalogSeparator"] = "String";
+        model_internal::propertyTypeMap["catalogAtStart"] = "Boolean";
         model_internal::propertyTypeMap["driverMajorVersion"] = "int";
         model_internal::propertyTypeMap["connection"] = "valueObjects.Connection";
         model_internal::propertyTypeMap["SQLKeywords"] = "String";
@@ -140,8 +140,8 @@ internal class _DatabaseMetaDataEntityMetadata extends com.adobe.fiber.valueobje
         model_internal::propertyTypeMap["JDBCMajorVersion"] = "int";
         model_internal::propertyTypeMap["databaseMinorVersion"] = "int";
         model_internal::propertyTypeMap["maxProcedureNameLength"] = "int";
-        model_internal::propertyTypeMap["maxTablesInSelect"] = "int";
         model_internal::propertyTypeMap["maxTableNameLength"] = "int";
+        model_internal::propertyTypeMap["maxTablesInSelect"] = "int";
         model_internal::propertyTypeMap["driverMinorVersion"] = "int";
         model_internal::propertyTypeMap["maxCharLiteralLength"] = "int";
         model_internal::propertyTypeMap["maxIndexLength"] = "int";
@@ -457,13 +457,13 @@ internal class _DatabaseMetaDataEntityMetadata extends com.adobe.fiber.valueobje
     }
 
     [Bindable(event="propertyChange")]
-    public function get isCatalogAtStartAvailable():Boolean
+    public function get isCatalogSeparatorAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isCatalogSeparatorAvailable():Boolean
+    public function get isCatalogAtStartAvailable():Boolean
     {
         return true;
     }
@@ -565,13 +565,13 @@ internal class _DatabaseMetaDataEntityMetadata extends com.adobe.fiber.valueobje
     }
 
     [Bindable(event="propertyChange")]
-    public function get isMaxTablesInSelectAvailable():Boolean
+    public function get isMaxTableNameLengthAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isMaxTableNameLengthAvailable():Boolean
+    public function get isMaxTablesInSelectAvailable():Boolean
     {
         return true;
     }
@@ -803,13 +803,13 @@ internal class _DatabaseMetaDataEntityMetadata extends com.adobe.fiber.valueobje
     }
 
     [Bindable(event="propertyChange")]   
-    public function get catalogAtStartStyle():com.adobe.fiber.styles.Style
+    public function get catalogSeparatorStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get catalogSeparatorStyle():com.adobe.fiber.styles.Style
+    public function get catalogAtStartStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
@@ -911,13 +911,13 @@ internal class _DatabaseMetaDataEntityMetadata extends com.adobe.fiber.valueobje
     }
 
     [Bindable(event="propertyChange")]   
-    public function get maxTablesInSelectStyle():com.adobe.fiber.styles.Style
+    public function get maxTableNameLengthStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get maxTableNameLengthStyle():com.adobe.fiber.styles.Style
+    public function get maxTablesInSelectStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

@@ -31,6 +31,7 @@ import valueObjects.LogVO;
 import valueObjects.MessageVO;
 import valueObjects.SendMessageVO;
 import valueObjects.SentStatusVO;
+import valueObjects.UrlDataVO;
 import valueObjects.UserInformationVO;
 
 import mx.collections.ItemResponder;
@@ -304,6 +305,15 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         operation = new mx.rpc.remoting.Operation(null, "imageUpload");
          operation.resultType = valueObjects.BooleanAndDescriptionVO;
         operations["imageUpload"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "sendCertReturn");
+         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+        operations["sendCertReturn"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "setUrlData");
+         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+        operations["setUrlData"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "getUrlData");
+         operation.resultType = valueObjects.UrlDataVO;
+        operations["getUrlData"] = operation;
 
         _serviceControl.operations = operations;
         _serviceControl.convertResultHandler = com.adobe.serializers.utility.TypeUtility.convertResultHandler;
@@ -347,7 +357,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         _emoticonPagedObjectRPCDataManager.addManagedOperation(dmQuery);
 
         dmQuery = new mx.data.ManagedQuery("getSentListDetail_pagedFiltered");
-        dmQuery.propertySpecifier = "sendMode,rsltDate,phone,idx,imagePath,rslt,failAddDate,msg,stat,sendDate,groupKey,name,callback,user_id";
+        dmQuery.propertySpecifier = "sendMode,phone,rsltDate,idx,imagePath,rslt,msg,failAddDate,stat,sendDate,groupKey,name,callback,user_id";
 		dmQuery.countOperation = "getSentListDetail_countFiltered";
         dmQuery.pagingEnabled = true;
         dmQuery.positionalPagingParameters = true;
@@ -1248,6 +1258,60 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("imageUpload");
 		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1) ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'sendCertReturn' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function sendCertReturn(arg0:String, arg1:String, arg2:String) : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("sendCertReturn");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1,arg2) ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'setUrlData' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function setUrlData(arg0:int, arg1:valueObjects.UrlDataVO) : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("setUrlData");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1) ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'getUrlData' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function getUrlData(arg0:valueObjects.UrlDataVO) : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getUrlData");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
         return _internal_token;
     }
      
