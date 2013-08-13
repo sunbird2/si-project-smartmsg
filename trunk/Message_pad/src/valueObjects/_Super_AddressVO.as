@@ -60,8 +60,8 @@ public class _Super_AddressVO extends flash.events.EventDispatcher implements co
      */
     private var _internal_writedate : String;
     private var _internal_grpName : String;
-    private var _internal_grp : int;
     private var _internal_phone : String;
+    private var _internal_grp : int;
     private var _internal_idx : int;
     private var _internal_memo : String;
     private var _internal_name : String;
@@ -103,15 +103,15 @@ public class _Super_AddressVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get grp() : int
-    {
-        return _internal_grp;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get phone() : String
     {
         return _internal_phone;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get grp() : int
+    {
+        return _internal_grp;
     }
 
     [Bindable(event="propertyChange")]
@@ -172,16 +172,6 @@ public class _Super_AddressVO extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set grp(value:int) : void
-    {
-        var oldValue:int = _internal_grp;
-        if (oldValue !== value)
-        {
-            _internal_grp = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "grp", oldValue, _internal_grp));
-        }
-    }
-
     public function set phone(value:String) : void
     {
         var oldValue:String = _internal_phone;
@@ -189,6 +179,16 @@ public class _Super_AddressVO extends flash.events.EventDispatcher implements co
         {
             _internal_phone = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "phone", oldValue, _internal_phone));
+        }
+    }
+
+    public function set grp(value:int) : void
+    {
+        var oldValue:int = _internal_grp;
+        if (oldValue !== value)
+        {
+            _internal_grp = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "grp", oldValue, _internal_grp));
         }
     }
 

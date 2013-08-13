@@ -65,8 +65,8 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
     model_internal var _internal_al_leaf:valueObjects.PhoneVO;
     private var _internal_itMinute : int;
     private var _internal_bMerge : Boolean;
-    private var _internal_itCount : int;
     private var _internal_imagePath : String;
+    private var _internal_itCount : int;
     private var _internal_bReservation : Boolean;
     private var _internal_returnPhone : String;
     private var _internal_bInterval : Boolean;
@@ -120,15 +120,15 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
     }
 
     [Bindable(event="propertyChange")]
-    public function get itCount() : int
-    {
-        return _internal_itCount;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get imagePath() : String
     {
         return _internal_imagePath;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get itCount() : int
+    {
+        return _internal_itCount;
     }
 
     [Bindable(event="propertyChange")]
@@ -224,16 +224,6 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
         }
     }
 
-    public function set itCount(value:int) : void
-    {
-        var oldValue:int = _internal_itCount;
-        if (oldValue !== value)
-        {
-            _internal_itCount = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "itCount", oldValue, _internal_itCount));
-        }
-    }
-
     public function set imagePath(value:String) : void
     {
         var oldValue:String = _internal_imagePath;
@@ -241,6 +231,16 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
         {
             _internal_imagePath = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "imagePath", oldValue, _internal_imagePath));
+        }
+    }
+
+    public function set itCount(value:int) : void
+    {
+        var oldValue:int = _internal_itCount;
+        if (oldValue !== value)
+        {
+            _internal_itCount = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "itCount", oldValue, _internal_itCount));
         }
     }
 
