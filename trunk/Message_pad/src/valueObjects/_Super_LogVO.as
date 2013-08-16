@@ -66,8 +66,8 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     private var _internal_mode : String;
     private var _internal_user_ip : String;
     private var _internal_message : String;
-    private var _internal_search : String;
     private var _internal_timeWrite : String;
+    private var _internal_search : String;
     private var _internal_method : String;
     private var _internal_user_id : String;
     private var _internal_timeDel : String;
@@ -144,15 +144,15 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
     }
 
     [Bindable(event="propertyChange")]
-    public function get search() : String
-    {
-        return _internal_search;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get timeWrite() : String
     {
         return _internal_timeWrite;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get search() : String
+    {
+        return _internal_search;
     }
 
     [Bindable(event="propertyChange")]
@@ -267,16 +267,6 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         }
     }
 
-    public function set search(value:String) : void
-    {
-        var oldValue:String = _internal_search;
-        if (oldValue !== value)
-        {
-            _internal_search = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "search", oldValue, _internal_search));
-        }
-    }
-
     public function set timeWrite(value:String) : void
     {
         var oldValue:String = _internal_timeWrite;
@@ -284,6 +274,16 @@ public class _Super_LogVO extends flash.events.EventDispatcher implements com.ad
         {
             _internal_timeWrite = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timeWrite", oldValue, _internal_timeWrite));
+        }
+    }
+
+    public function set search(value:String) : void
+    {
+        var oldValue:String = _internal_search;
+        if (oldValue !== value)
+        {
+            _internal_search = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "search", oldValue, _internal_search));
         }
     }
 

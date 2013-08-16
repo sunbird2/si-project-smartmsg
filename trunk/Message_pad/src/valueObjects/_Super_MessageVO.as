@@ -60,14 +60,15 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
      * properties
      */
     private var _internal_sendMode : String;
-    private var _internal_phone : String;
     private var _internal_rsltDate : String;
+    private var _internal_phone : String;
     private var _internal_idx : int;
     private var _internal_imagePath : String;
     private var _internal_rslt : String;
     private var _internal_msg : String;
     private var _internal_failAddDate : String;
     private var _internal_stat : String;
+    private var _internal_urlIdx : String;
     private var _internal_sendDate : String;
     private var _internal_groupKey : int;
     private var _internal_name : String;
@@ -103,15 +104,15 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get phone() : String
-    {
-        return _internal_phone;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get rsltDate() : String
     {
         return _internal_rsltDate;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get phone() : String
+    {
+        return _internal_phone;
     }
 
     [Bindable(event="propertyChange")]
@@ -148,6 +149,12 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
     public function get stat() : String
     {
         return _internal_stat;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get urlIdx() : String
+    {
+        return _internal_urlIdx;
     }
 
     [Bindable(event="propertyChange")]
@@ -197,21 +204,21 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set phone(value:String) : void
-    {
-        var oldValue:String = _internal_phone;
-        if (oldValue !== value)
-        {
-            _internal_phone = value;
-        }
-    }
-
     public function set rsltDate(value:String) : void
     {
         var oldValue:String = _internal_rsltDate;
         if (oldValue !== value)
         {
             _internal_rsltDate = value;
+        }
+    }
+
+    public function set phone(value:String) : void
+    {
+        var oldValue:String = _internal_phone;
+        if (oldValue !== value)
+        {
+            _internal_phone = value;
         }
     }
 
@@ -266,6 +273,15 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
         if (oldValue !== value)
         {
             _internal_stat = value;
+        }
+    }
+
+    public function set urlIdx(value:String) : void
+    {
+        var oldValue:String = _internal_urlIdx;
+        if (oldValue !== value)
+        {
+            _internal_urlIdx = value;
         }
     }
 
