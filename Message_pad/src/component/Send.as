@@ -966,6 +966,8 @@ package component
 				smvo.itMinute = int(arr[1]);
 			}else smvo.bInterval = false;
 			
+			smvo.bUrl = urlKey >= 0?true:false;
+			
 			smvo.imagePath = this.mmsImage; 
 			smvo.message = msg;
 			smvo.returnPhone = rt.returnPhone;
@@ -1497,7 +1499,7 @@ package component
 		public function setUrl(key:int):void {
 			trace("key is "+key);
 			urlKey = key;
-			addMsgCusor("{http://mjnote.com/0000}");
+			addMsgCusor("{http://mjnote.co.kr/xxxx}");
 		}
 		
 		public function removeModuleUrl():void {
