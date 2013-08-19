@@ -25,14 +25,14 @@ internal class _SQLWarningEntityMetadata extends com.adobe.fiber.valueobjects.Ab
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("message", "SQLState", "nextWarning", "localizedMessage", "cause", "errorCode", "nextException", "stackTrace");
+    model_internal static var allProperties:Array = new Array("SQLState", "message", "nextWarning", "localizedMessage", "cause", "errorCode", "nextException", "stackTrace");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("message", "SQLState", "nextWarning", "localizedMessage", "cause", "errorCode", "nextException", "stackTrace");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("SQLState", "message", "nextWarning", "localizedMessage", "cause", "errorCode", "nextException", "stackTrace");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("message", "SQLState", "nextWarning", "localizedMessage", "cause", "errorCode", "nextException", "stackTrace");
+    model_internal static var dataProperties:Array = new Array("SQLState", "message", "nextWarning", "localizedMessage", "cause", "errorCode", "nextException", "stackTrace");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("message", "SQLState", "nextWarning", "localizedMessage", "cause", "errorCode", "nextException", "stackTrace");
+    model_internal static var nonDerivedProperties:Array = new Array("SQLState", "message", "nextWarning", "localizedMessage", "cause", "errorCode", "nextException", "stackTrace");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array("stackTrace");
     model_internal static var collectionBaseMap:Object;
@@ -52,8 +52,8 @@ internal class _SQLWarningEntityMetadata extends com.adobe.fiber.valueobjects.Ab
         {
             // dependents map
             model_internal::dependentsOnMap = new Object();
-            model_internal::dependentsOnMap["message"] = new Array();
             model_internal::dependentsOnMap["SQLState"] = new Array();
+            model_internal::dependentsOnMap["message"] = new Array();
             model_internal::dependentsOnMap["nextWarning"] = new Array();
             model_internal::dependentsOnMap["localizedMessage"] = new Array();
             model_internal::dependentsOnMap["cause"] = new Array();
@@ -68,8 +68,8 @@ internal class _SQLWarningEntityMetadata extends com.adobe.fiber.valueobjects.Ab
 
         // Property type Map
         model_internal::propertyTypeMap = new Object();
-        model_internal::propertyTypeMap["message"] = "String";
         model_internal::propertyTypeMap["SQLState"] = "String";
+        model_internal::propertyTypeMap["message"] = "String";
         model_internal::propertyTypeMap["nextWarning"] = "valueObjects.SQLWarning";
         model_internal::propertyTypeMap["localizedMessage"] = "String";
         model_internal::propertyTypeMap["cause"] = "valueObjects.Throwable";
@@ -305,13 +305,13 @@ internal class _SQLWarningEntityMetadata extends com.adobe.fiber.valueobjects.Ab
     }
 
     [Bindable(event="propertyChange")]
-    public function get isMessageAvailable():Boolean
+    public function get isSQLStateAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isSQLStateAvailable():Boolean
+    public function get isMessageAvailable():Boolean
     {
         return true;
     }
@@ -363,13 +363,13 @@ internal class _SQLWarningEntityMetadata extends com.adobe.fiber.valueobjects.Ab
     }
 
     [Bindable(event="propertyChange")]   
-    public function get messageStyle():com.adobe.fiber.styles.Style
+    public function get SQLStateStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get SQLStateStyle():com.adobe.fiber.styles.Style
+    public function get messageStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
