@@ -31,7 +31,7 @@ import valueObjects.LogVO;
 import valueObjects.MessageVO;
 import valueObjects.SendMessageVO;
 import valueObjects.SentStatusVO;
-import valueObjects.UrlDataVO;
+import valueObjects.UrlHtmlVO;
 import valueObjects.UserInformationVO;
 
 import mx.collections.ItemResponder;
@@ -312,7 +312,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
          operation.resultType = valueObjects.BooleanAndDescriptionVO;
         operations["setUrlData"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "getUrlData");
-         operation.resultType = valueObjects.UrlDataVO;
+         operation.resultType = valueObjects.UrlHtmlVO;
         operations["getUrlData"] = operation;
 
         _serviceControl.operations = operations;
@@ -1290,7 +1290,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
       *
       * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
       */
-    public function setUrlData(arg0:int, arg1:valueObjects.UrlDataVO) : mx.rpc.AsyncToken
+    public function setUrlData(arg0:int, arg1:valueObjects.UrlHtmlVO) : mx.rpc.AsyncToken
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("setUrlData");
 		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0,arg1) ;
@@ -1308,7 +1308,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
       *
       * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
       */
-    public function getUrlData(arg0:valueObjects.UrlDataVO) : mx.rpc.AsyncToken
+    public function getUrlData(arg0:valueObjects.UrlHtmlVO) : mx.rpc.AsyncToken
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("getUrlData");
 		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;

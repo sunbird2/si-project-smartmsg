@@ -71,8 +71,8 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     private var _internal_userName : String;
     private var _internal_driverName : String;
     private var _internal_maxCatalogNameLength : int;
-    private var _internal_catalogSeparator : String;
     private var _internal_catalogAtStart : Boolean;
+    private var _internal_catalogSeparator : String;
     private var _internal_databaseProductVersion : String;
     private var _internal_driverMajorVersion : int;
     private var _internal_connection : valueObjects.Connection;
@@ -86,17 +86,17 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     private var _internal_procedureTerm : String;
     private var _internal_catalogTerm : String;
     private var _internal_JDBCMinorVersion : int;
-    private var _internal_JDBCMajorVersion : int;
     private var _internal_searchStringEscape : String;
+    private var _internal_JDBCMajorVersion : int;
     private var _internal_databaseMinorVersion : int;
     private var _internal_maxProcedureNameLength : int;
-    private var _internal_maxTablesInSelect : int;
     private var _internal_maxTableNameLength : int;
+    private var _internal_maxTablesInSelect : int;
     private var _internal_driverMinorVersion : int;
     private var _internal_maxCharLiteralLength : int;
     private var _internal_maxIndexLength : int;
-    private var _internal_stringFunctions : String;
     private var _internal_maxColumnsInOrderBy : int;
+    private var _internal_stringFunctions : String;
     private var _internal_maxRowSize : int;
     private var _internal_URL : String;
     private var _internal_clientInfoProperties : valueObjects.ResultSet;
@@ -111,8 +111,8 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     private var _internal_maxSchemaNameLength : int;
     private var _internal_identifierQuoteString : String;
     private var _internal_maxColumnsInSelect : int;
-    private var _internal_systemFunctions : String;
     private var _internal_maxColumnsInGroupBy : int;
+    private var _internal_systemFunctions : String;
     private var _internal_readOnly : Boolean;
     private var _internal_tableTypes : valueObjects.ResultSet;
     private var _internal_numericFunctions : String;
@@ -196,15 +196,15 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     }
 
     [Bindable(event="propertyChange")]
-    public function get catalogSeparator() : String
-    {
-        return _internal_catalogSeparator;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get catalogAtStart() : Boolean
     {
         return _internal_catalogAtStart;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get catalogSeparator() : String
+    {
+        return _internal_catalogSeparator;
     }
 
     [Bindable(event="propertyChange")]
@@ -286,15 +286,15 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     }
 
     [Bindable(event="propertyChange")]
-    public function get JDBCMajorVersion() : int
-    {
-        return _internal_JDBCMajorVersion;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get searchStringEscape() : String
     {
         return _internal_searchStringEscape;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get JDBCMajorVersion() : int
+    {
+        return _internal_JDBCMajorVersion;
     }
 
     [Bindable(event="propertyChange")]
@@ -310,15 +310,15 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     }
 
     [Bindable(event="propertyChange")]
-    public function get maxTablesInSelect() : int
-    {
-        return _internal_maxTablesInSelect;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get maxTableNameLength() : int
     {
         return _internal_maxTableNameLength;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get maxTablesInSelect() : int
+    {
+        return _internal_maxTablesInSelect;
     }
 
     [Bindable(event="propertyChange")]
@@ -340,15 +340,15 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     }
 
     [Bindable(event="propertyChange")]
-    public function get stringFunctions() : String
-    {
-        return _internal_stringFunctions;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get maxColumnsInOrderBy() : int
     {
         return _internal_maxColumnsInOrderBy;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get stringFunctions() : String
+    {
+        return _internal_stringFunctions;
     }
 
     [Bindable(event="propertyChange")]
@@ -436,15 +436,15 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
     }
 
     [Bindable(event="propertyChange")]
-    public function get systemFunctions() : String
-    {
-        return _internal_systemFunctions;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get maxColumnsInGroupBy() : int
     {
         return _internal_maxColumnsInGroupBy;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get systemFunctions() : String
+    {
+        return _internal_systemFunctions;
     }
 
     [Bindable(event="propertyChange")]
@@ -575,16 +575,6 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         }
     }
 
-    public function set catalogSeparator(value:String) : void
-    {
-        var oldValue:String = _internal_catalogSeparator;
-        if (oldValue !== value)
-        {
-            _internal_catalogSeparator = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "catalogSeparator", oldValue, _internal_catalogSeparator));
-        }
-    }
-
     public function set catalogAtStart(value:Boolean) : void
     {
         var oldValue:Boolean = _internal_catalogAtStart;
@@ -592,6 +582,16 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         {
             _internal_catalogAtStart = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "catalogAtStart", oldValue, _internal_catalogAtStart));
+        }
+    }
+
+    public function set catalogSeparator(value:String) : void
+    {
+        var oldValue:String = _internal_catalogSeparator;
+        if (oldValue !== value)
+        {
+            _internal_catalogSeparator = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "catalogSeparator", oldValue, _internal_catalogSeparator));
         }
     }
 
@@ -725,16 +725,6 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         }
     }
 
-    public function set JDBCMajorVersion(value:int) : void
-    {
-        var oldValue:int = _internal_JDBCMajorVersion;
-        if (oldValue !== value)
-        {
-            _internal_JDBCMajorVersion = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "JDBCMajorVersion", oldValue, _internal_JDBCMajorVersion));
-        }
-    }
-
     public function set searchStringEscape(value:String) : void
     {
         var oldValue:String = _internal_searchStringEscape;
@@ -742,6 +732,16 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         {
             _internal_searchStringEscape = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "searchStringEscape", oldValue, _internal_searchStringEscape));
+        }
+    }
+
+    public function set JDBCMajorVersion(value:int) : void
+    {
+        var oldValue:int = _internal_JDBCMajorVersion;
+        if (oldValue !== value)
+        {
+            _internal_JDBCMajorVersion = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "JDBCMajorVersion", oldValue, _internal_JDBCMajorVersion));
         }
     }
 
@@ -765,16 +765,6 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         }
     }
 
-    public function set maxTablesInSelect(value:int) : void
-    {
-        var oldValue:int = _internal_maxTablesInSelect;
-        if (oldValue !== value)
-        {
-            _internal_maxTablesInSelect = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "maxTablesInSelect", oldValue, _internal_maxTablesInSelect));
-        }
-    }
-
     public function set maxTableNameLength(value:int) : void
     {
         var oldValue:int = _internal_maxTableNameLength;
@@ -782,6 +772,16 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         {
             _internal_maxTableNameLength = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "maxTableNameLength", oldValue, _internal_maxTableNameLength));
+        }
+    }
+
+    public function set maxTablesInSelect(value:int) : void
+    {
+        var oldValue:int = _internal_maxTablesInSelect;
+        if (oldValue !== value)
+        {
+            _internal_maxTablesInSelect = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "maxTablesInSelect", oldValue, _internal_maxTablesInSelect));
         }
     }
 
@@ -815,16 +815,6 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         }
     }
 
-    public function set stringFunctions(value:String) : void
-    {
-        var oldValue:String = _internal_stringFunctions;
-        if (oldValue !== value)
-        {
-            _internal_stringFunctions = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "stringFunctions", oldValue, _internal_stringFunctions));
-        }
-    }
-
     public function set maxColumnsInOrderBy(value:int) : void
     {
         var oldValue:int = _internal_maxColumnsInOrderBy;
@@ -832,6 +822,16 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         {
             _internal_maxColumnsInOrderBy = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "maxColumnsInOrderBy", oldValue, _internal_maxColumnsInOrderBy));
+        }
+    }
+
+    public function set stringFunctions(value:String) : void
+    {
+        var oldValue:String = _internal_stringFunctions;
+        if (oldValue !== value)
+        {
+            _internal_stringFunctions = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "stringFunctions", oldValue, _internal_stringFunctions));
         }
     }
 
@@ -975,16 +975,6 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         }
     }
 
-    public function set systemFunctions(value:String) : void
-    {
-        var oldValue:String = _internal_systemFunctions;
-        if (oldValue !== value)
-        {
-            _internal_systemFunctions = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "systemFunctions", oldValue, _internal_systemFunctions));
-        }
-    }
-
     public function set maxColumnsInGroupBy(value:int) : void
     {
         var oldValue:int = _internal_maxColumnsInGroupBy;
@@ -992,6 +982,16 @@ public class _Super_DatabaseMetaData extends flash.events.EventDispatcher implem
         {
             _internal_maxColumnsInGroupBy = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "maxColumnsInGroupBy", oldValue, _internal_maxColumnsInGroupBy));
+        }
+    }
+
+    public function set systemFunctions(value:String) : void
+    {
+        var oldValue:String = _internal_systemFunctions;
+        if (oldValue !== value)
+        {
+            _internal_systemFunctions = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "systemFunctions", oldValue, _internal_systemFunctions));
         }
     }
 
