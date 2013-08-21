@@ -1,5 +1,7 @@
 package com.m.url;
 
+import java.util.List;
+
 import com.common.db.SessionManager;
 import com.m.MybatisAble;
 
@@ -14,7 +16,7 @@ public class UrlDao implements MybatisAble {
 		return md;
 	}
 	
-	public int insertUrlData(UrlDataVO udvo) {
+	public int insertUrlData(UrlHtmlVO udvo) {
 		
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
 		int rslt = (int)sm.insert(ns + "insert_url", udvo);
@@ -23,21 +25,39 @@ public class UrlDao implements MybatisAble {
 		return rslt;
 	}
 	
-	public int updateUrlData(UrlDataVO udvo) {
+	public int updateUrlData(UrlHtmlVO udvo) {
 		
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
 		return (int)sm.update(ns + "update_url", udvo);
 	}
 	
-	public int deleteUrlData(UrlDataVO udvo) {
+	public int deleteUrlData(UrlHtmlVO udvo) {
 		
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
 		return (int)sm.delete(ns + "delete_url", udvo);
 	}
 	
-	public UrlDataVO selectUrlData(UrlDataVO udvo) {
+	public UrlHtmlVO selectUrlData(UrlHtmlVO udvo) {
 		
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
-		return (UrlDataVO)sm.selectOne(ns + "select_url", udvo);
+		return (UrlHtmlVO)sm.selectOne(ns + "select_url", udvo);
+	}
+	
+	public List<UrlHtmlVO> selectUrlHtmlList(UrlHtmlVO udvo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (List)sm.selectList(ns + "select_url_html_list", udvo);
+	}
+	
+	public UrlDataHtmlVO selectUrlDataHtml(UrlDataHtmlVO udvo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (UrlDataHtmlVO)sm.selectOne(ns + "select_url_data", udvo);
+	}
+	
+	public int updateUrlSendData(UrlDataVO udvo) {
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (int)sm.update(ns + "update_url_data", udvo);
+		
 	}
 }

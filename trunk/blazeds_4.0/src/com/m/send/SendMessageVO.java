@@ -18,6 +18,7 @@ public class SendMessageVO implements Serializable {
 	private int itCount;
 	private int itMinute;
 	private boolean bMerge;
+	private int htmlKey;
 	private String imagePath;
 	private String reqIP;
 	
@@ -88,6 +89,14 @@ public class SendMessageVO implements Serializable {
 	public void setReqIP(String reqIP) {
 		this.reqIP = reqIP;
 	}
+	public int getUrlKey() {
+		return htmlKey;
+	}
+	public void setUrlKey(int urlKey) {
+		this.htmlKey = urlKey;
+	}
+	
+	
 
 	
 }
