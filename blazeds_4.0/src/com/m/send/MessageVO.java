@@ -20,6 +20,7 @@ public class MessageVO implements Serializable {
 	String imagePath = "";
 	String rsltDate;
 	String failAddDate;
+	String urlIdx;
 	
 	
 	public int getIdx() {
@@ -109,6 +110,12 @@ public class MessageVO implements Serializable {
 		this.failAddDate = dtCut(failAddDate);
 	}
 	
+	public String getUrlIdx() {
+		return urlIdx;
+	}
+	public void setUrlIdx(String urlIdx) {
+		this.urlIdx = urlIdx;
+	}
 	private String dtCut(String d) {
 		
 		if (d != null && d.length() > 19)

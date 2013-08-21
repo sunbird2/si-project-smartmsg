@@ -2,12 +2,11 @@ package com.m.url;
 
 import java.io.Serializable;
 
-public class UrlDataVO implements Serializable {
+public class UrlDataHtmlVO implements Serializable {
 
-	private static final long serialVersionUID = -6427198762962309867L;
+	private static final long serialVersionUID = -6205826555820718933L;
 	
 	int idx = 0;
-	String user_id = "";
 	int sent_idx = 0;
 	int html_idx = 0;
 	String mearge = "";
@@ -15,6 +14,10 @@ public class UrlDataVO implements Serializable {
 	String mileage = "";
 	String input = "";
 	String dt_conn = "";
+	
+	String user_id = "";
+	String dt = "";
+	String stopYN = "";
 	String timeWrite = "";
 	String timeModify = "";
 	
@@ -23,12 +26,6 @@ public class UrlDataVO implements Serializable {
 	}
 	public void setIdx(int idx) {
 		this.idx = idx;
-	}
-	public String getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
 	}
 	public int getSent_idx() {
 		return sent_idx;
@@ -71,6 +68,24 @@ public class UrlDataVO implements Serializable {
 	}
 	public void setDt_conn(String dt_conn) {
 		this.dt_conn = dt_conn;
+	}
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	public String getDt() {
+		return dt;
+	}
+	public void setDt(String dt) {
+		this.dt = dt;
+	}
+	public String getStopYN() {
+		return stopYN;
+	}
+	public void setStopYN(String stopYN) {
+		this.stopYN = stopYN;
 	}
 	public String getTimeWrite() {
 		return timeWrite;

@@ -47,8 +47,9 @@ import com.m.send.MessageVO;
 import com.m.send.PhoneVO;
 import com.m.send.SendManager;
 import com.m.send.SendMessageVO;
+import com.m.send.SendUrlManager;
 import com.m.url.UrlDao;
-import com.m.url.UrlDataVO;
+import com.m.url.UrlHtmlVO;
 
 import flex.messaging.FlexContext;
 import flex.messaging.FlexSession;
@@ -168,7 +169,7 @@ public class SmartDS extends SessionManagement {
 			
 			smvo.setReqIP(FlexContext.getHttpRequest().getRemoteAddr());
 			
-			sendLogWrite(uvo.getUser_id(), smvo);
+			sendLogWrite(uvo.getUser_id(), smvo, uvo.getLine());
 			lvo = send.Adminsend(conn, uvo, smvo);
 			
 			Gv.removeStatus(uvo.getUser_id());
@@ -237,7 +238,7 @@ public class SmartDS extends SessionManagement {
 			al.add(new PhoneVO(hp,""));
 			smvo.setAl(al);
 			
-			sendLogWrite(uvo.getUser_id(), smvo);
+			sendLogWrite(uvo.getUser_id(), smvo, uvo.getLine());
 			lvo = send.Adminsend(conn, uvo, smvo);
 			
 			Gv.removeStatus(uvo.getUser_id());
@@ -676,7 +677,7 @@ public class SmartDS extends SessionManagement {
 		sw.play();
 		
 		Connection conn = null;
-		ISend send = SendManager.getInstance();
+		ISend send = null;
 		UserInformationVO uvo = null;
 		LogVO lvo = null;
 		String user_id="";
@@ -709,8 +710,12 @@ public class SmartDS extends SessionManagement {
 			smvo.setReqIP(FlexContext.getHttpRequest().getRemoteAddr());
 			
 			// system log write
-			sendLogWrite(uvo.getUser_id(), smvo);
+			sendLogWrite(uvo.getUser_id(), smvo, uvo.getLine());
 			
+			// url send!
+			if (smvo.getUrlKey() > 0) send = SendUrlManager.getInstance();
+			else send = SendManager.getInstance();
+				
 			lvo = send.send(conn, uvo, smvo);
 			
 			Gv.removeStatus(uvo.getUser_id());
@@ -742,10 +747,11 @@ public class SmartDS extends SessionManagement {
 		return mode;
 	}
 	
-	private void sendLogWrite(String user_id, SendMessageVO smvo) {
+	private void sendLogWrite(String user_id, SendMessageVO smvo, String line) {
 	
 		StringBuffer buf = new StringBuffer();
 		
+		buf.append(" - line:"+line+"\n");
 		buf.append(" - message:"+smvo.getMessage()+"\n");
 		buf.append(" - phoneCount:"+smvo.getAl().size()+"\n");
 		buf.append(" - returnPhone:"+smvo.getReturnPhone()+"\n");
@@ -760,7 +766,7 @@ public class SmartDS extends SessionManagement {
 		
 		VbyP.accessLog(buf.toString());
 		if (!smvo.getReqIP().equals("127.0.0.1") && smvo.getAl().size() > SLibrary.intValue( VbyP.getValue("moniterSendCount") ) )
-			SendMail.send("[send] "+user_id+" "+getMode(smvo)+" "+ Integer.toString(smvo.getAl().size())+" 건", buf.toString());
+			SendMail.send("[send] "+user_id+" "+line+" "+getMode(smvo)+" "+ Integer.toString(smvo.getAl().size())+" 건", buf.toString());
 	}
 	
 	/*###############################
@@ -1246,7 +1252,7 @@ public class SmartDS extends SessionManagement {
 	}
 	
 	/* ############## URL ############### */
-	public BooleanAndDescriptionVO setUrlData(int mode, UrlDataVO udvo) {
+	public BooleanAndDescriptionVO setUrlData(int mode, UrlHtmlVO udvo) {
 		
 		
 		VbyP.accessLog("setUrlData : mode="+mode+" user_id="+getSession() );
@@ -1275,7 +1281,8 @@ public class SmartDS extends SessionManagement {
 			case 2:// delete
 				udvo.setTimeModify(SLibrary.getDateTimeString());
 				udvo.setStopYN("Y");
-				rslt = udao.updateUrlData(udvo);
+				rslt = udao.deleteUrlData(udvo);
+				udvo.setIdx(0);
 				break;
 			default:
 				break;
@@ -1283,7 +1290,9 @@ public class SmartDS extends SessionManagement {
 			
 			if (rslt <= 0)   throw new Exception("no db process");
 			
-			rvo.setstrDescription(Integer.toString(rslt));
+			rvo.setstrDescription(Integer.toString(udvo.getIdx()));
+			
+			//rvo.setstrDescription(Integer.toString(rslt));
 			
 		}catch(Exception e) {
 			rvo.setbResult(false);
@@ -1294,14 +1303,37 @@ public class SmartDS extends SessionManagement {
 		return rvo;
 	}
 	
-	public UrlDataVO getUrlData(UrlDataVO udvo) {
+	public List<UrlHtmlVO> getUrlHtmlList() {
+		
+		VbyP.accessLog("getUrlHtmlList : user_id="+getSession() );
+		
+		List<UrlHtmlVO> rslt = null;
+		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		rvo.setbResult(true);
+		UrlDao udao = UrlDao.getInstance();
+		try {
+			
+			if (!bSession()) throw new Exception("no login");
+			
+			UrlHtmlVO udvo = new UrlHtmlVO();
+			udvo.setUser_id(getSession());
+			rslt = udao.selectUrlHtmlList(udvo);
+			if (rslt == null)   throw new Exception("no db process");
+			
+		}catch(Exception e) {
+			VbyP.errorLog(e.toString());
+		}
+		return rslt;
+	}
+	
+	public UrlHtmlVO getUrlData(UrlHtmlVO udvo) {
 		
 		VbyP.accessLog("setUrlData : user_id="+getSession() );
 		
 		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
 		rvo.setbResult(true);
 		UrlDao udao = UrlDao.getInstance();
-		UrlDataVO resultvo = null;
+		UrlHtmlVO resultvo = null;
 		try {
 			if (!bSession()) throw new Exception("no login");
 			udvo.setUser_id(getSession());
