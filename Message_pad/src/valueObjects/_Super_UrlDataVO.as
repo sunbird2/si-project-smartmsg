@@ -59,11 +59,18 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
      * properties
      */
     private var _internal_dt : String;
-    private var _internal_timeModify : String;
-    private var _internal_idx : int;
-    private var _internal_timeWrite : String;
-    private var _internal_user_id : String;
     private var _internal_stopYN : String;
+    private var _internal_dt_conn : String;
+    private var _internal_timeModify : String;
+    private var _internal_input : String;
+    private var _internal_html_idx : int;
+    private var _internal_sent_idx : int;
+    private var _internal_idx : int;
+    private var _internal_mileage : String;
+    private var _internal_timeWrite : String;
+    private var _internal_mearge : String;
+    private var _internal_user_id : String;
+    private var _internal_coupon : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -94,9 +101,39 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
+    public function get stopYN() : String
+    {
+        return _internal_stopYN;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get dt_conn() : String
+    {
+        return _internal_dt_conn;
+    }
+
+    [Bindable(event="propertyChange")]
     public function get timeModify() : String
     {
         return _internal_timeModify;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get input() : String
+    {
+        return _internal_input;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get html_idx() : int
+    {
+        return _internal_html_idx;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get sent_idx() : int
+    {
+        return _internal_sent_idx;
     }
 
     [Bindable(event="propertyChange")]
@@ -106,9 +143,21 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
+    public function get mileage() : String
+    {
+        return _internal_mileage;
+    }
+
+    [Bindable(event="propertyChange")]
     public function get timeWrite() : String
     {
         return _internal_timeWrite;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get mearge() : String
+    {
+        return _internal_mearge;
     }
 
     [Bindable(event="propertyChange")]
@@ -118,9 +167,9 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get stopYN() : String
+    public function get coupon() : String
     {
-        return _internal_stopYN;
+        return _internal_coupon;
     }
 
     public function clearAssociations() : void
@@ -141,6 +190,26 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
         }
     }
 
+    public function set stopYN(value:String) : void
+    {
+        var oldValue:String = _internal_stopYN;
+        if (oldValue !== value)
+        {
+            _internal_stopYN = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "stopYN", oldValue, _internal_stopYN));
+        }
+    }
+
+    public function set dt_conn(value:String) : void
+    {
+        var oldValue:String = _internal_dt_conn;
+        if (oldValue !== value)
+        {
+            _internal_dt_conn = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "dt_conn", oldValue, _internal_dt_conn));
+        }
+    }
+
     public function set timeModify(value:String) : void
     {
         var oldValue:String = _internal_timeModify;
@@ -148,6 +217,36 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
         {
             _internal_timeModify = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timeModify", oldValue, _internal_timeModify));
+        }
+    }
+
+    public function set input(value:String) : void
+    {
+        var oldValue:String = _internal_input;
+        if (oldValue !== value)
+        {
+            _internal_input = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "input", oldValue, _internal_input));
+        }
+    }
+
+    public function set html_idx(value:int) : void
+    {
+        var oldValue:int = _internal_html_idx;
+        if (oldValue !== value)
+        {
+            _internal_html_idx = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "html_idx", oldValue, _internal_html_idx));
+        }
+    }
+
+    public function set sent_idx(value:int) : void
+    {
+        var oldValue:int = _internal_sent_idx;
+        if (oldValue !== value)
+        {
+            _internal_sent_idx = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "sent_idx", oldValue, _internal_sent_idx));
         }
     }
 
@@ -161,6 +260,16 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
         }
     }
 
+    public function set mileage(value:String) : void
+    {
+        var oldValue:String = _internal_mileage;
+        if (oldValue !== value)
+        {
+            _internal_mileage = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "mileage", oldValue, _internal_mileage));
+        }
+    }
+
     public function set timeWrite(value:String) : void
     {
         var oldValue:String = _internal_timeWrite;
@@ -168,6 +277,16 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
         {
             _internal_timeWrite = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timeWrite", oldValue, _internal_timeWrite));
+        }
+    }
+
+    public function set mearge(value:String) : void
+    {
+        var oldValue:String = _internal_mearge;
+        if (oldValue !== value)
+        {
+            _internal_mearge = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "mearge", oldValue, _internal_mearge));
         }
     }
 
@@ -181,13 +300,13 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set stopYN(value:String) : void
+    public function set coupon(value:String) : void
     {
-        var oldValue:String = _internal_stopYN;
+        var oldValue:String = _internal_coupon;
         if (oldValue !== value)
         {
-            _internal_stopYN = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "stopYN", oldValue, _internal_stopYN));
+            _internal_coupon = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "coupon", oldValue, _internal_coupon));
         }
     }
 

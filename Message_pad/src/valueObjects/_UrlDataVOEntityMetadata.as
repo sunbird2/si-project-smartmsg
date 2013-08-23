@@ -20,14 +20,14 @@ internal class _UrlDataVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("dt", "timeModify", "idx", "timeWrite", "user_id", "stopYN");
+    model_internal static var allProperties:Array = new Array("dt", "stopYN", "dt_conn", "timeModify", "input", "html_idx", "sent_idx", "idx", "mileage", "timeWrite", "mearge", "user_id", "coupon");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("dt", "timeModify", "idx", "timeWrite", "user_id", "stopYN");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("dt", "stopYN", "dt_conn", "timeModify", "input", "html_idx", "sent_idx", "idx", "mileage", "timeWrite", "mearge", "user_id", "coupon");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("dt", "timeModify", "idx", "timeWrite", "user_id", "stopYN");
+    model_internal static var dataProperties:Array = new Array("dt", "stopYN", "dt_conn", "timeModify", "input", "html_idx", "sent_idx", "idx", "mileage", "timeWrite", "mearge", "user_id", "coupon");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("dt", "timeModify", "idx", "timeWrite", "user_id", "stopYN");
+    model_internal static var nonDerivedProperties:Array = new Array("dt", "stopYN", "dt_conn", "timeModify", "input", "html_idx", "sent_idx", "idx", "mileage", "timeWrite", "mearge", "user_id", "coupon");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -48,11 +48,18 @@ internal class _UrlDataVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
             // dependents map
             model_internal::dependentsOnMap = new Object();
             model_internal::dependentsOnMap["dt"] = new Array();
-            model_internal::dependentsOnMap["timeModify"] = new Array();
-            model_internal::dependentsOnMap["idx"] = new Array();
-            model_internal::dependentsOnMap["timeWrite"] = new Array();
-            model_internal::dependentsOnMap["user_id"] = new Array();
             model_internal::dependentsOnMap["stopYN"] = new Array();
+            model_internal::dependentsOnMap["dt_conn"] = new Array();
+            model_internal::dependentsOnMap["timeModify"] = new Array();
+            model_internal::dependentsOnMap["input"] = new Array();
+            model_internal::dependentsOnMap["html_idx"] = new Array();
+            model_internal::dependentsOnMap["sent_idx"] = new Array();
+            model_internal::dependentsOnMap["idx"] = new Array();
+            model_internal::dependentsOnMap["mileage"] = new Array();
+            model_internal::dependentsOnMap["timeWrite"] = new Array();
+            model_internal::dependentsOnMap["mearge"] = new Array();
+            model_internal::dependentsOnMap["user_id"] = new Array();
+            model_internal::dependentsOnMap["coupon"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
@@ -61,11 +68,18 @@ internal class _UrlDataVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
         // Property type Map
         model_internal::propertyTypeMap = new Object();
         model_internal::propertyTypeMap["dt"] = "String";
-        model_internal::propertyTypeMap["timeModify"] = "String";
-        model_internal::propertyTypeMap["idx"] = "int";
-        model_internal::propertyTypeMap["timeWrite"] = "String";
-        model_internal::propertyTypeMap["user_id"] = "String";
         model_internal::propertyTypeMap["stopYN"] = "String";
+        model_internal::propertyTypeMap["dt_conn"] = "String";
+        model_internal::propertyTypeMap["timeModify"] = "String";
+        model_internal::propertyTypeMap["input"] = "String";
+        model_internal::propertyTypeMap["html_idx"] = "int";
+        model_internal::propertyTypeMap["sent_idx"] = "int";
+        model_internal::propertyTypeMap["idx"] = "int";
+        model_internal::propertyTypeMap["mileage"] = "String";
+        model_internal::propertyTypeMap["timeWrite"] = "String";
+        model_internal::propertyTypeMap["mearge"] = "String";
+        model_internal::propertyTypeMap["user_id"] = "String";
+        model_internal::propertyTypeMap["coupon"] = "String";
 
         model_internal::_instance = value;
     }
@@ -301,7 +315,37 @@ internal class _UrlDataVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]
+    public function get isStopYNAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isDt_connAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
     public function get isTimeModifyAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isInputAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isHtml_idxAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isSent_idxAvailable():Boolean
     {
         return true;
     }
@@ -313,7 +357,19 @@ internal class _UrlDataVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]
+    public function get isMileageAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
     public function get isTimeWriteAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get isMeargeAvailable():Boolean
     {
         return true;
     }
@@ -325,7 +381,7 @@ internal class _UrlDataVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]
-    public function get isStopYNAvailable():Boolean
+    public function get isCouponAvailable():Boolean
     {
         return true;
     }
@@ -347,7 +403,37 @@ internal class _UrlDataVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]   
+    public function get stopYNStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get dt_connStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
     public function get timeModifyStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get inputStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get html_idxStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get sent_idxStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
@@ -359,7 +445,19 @@ internal class _UrlDataVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]   
+    public function get mileageStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
     public function get timeWriteStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get meargeStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
@@ -371,7 +469,7 @@ internal class _UrlDataVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]   
-    public function get stopYNStyle():com.adobe.fiber.styles.Style
+    public function get couponStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
