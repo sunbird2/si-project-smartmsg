@@ -23,14 +23,14 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("fetchSize", "holdability", "last", "beforeFirst", "type", "cursorName", "row", "statement", "fetchDirection", "afterLast", "concurrency", "closed", "first", "warnings", "metaData");
+    model_internal static var allProperties:Array = new Array("fetchSize", "holdability", "last", "beforeFirst", "cursorName", "type", "row", "statement", "fetchDirection", "afterLast", "concurrency", "closed", "warnings", "first", "metaData");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("fetchSize", "holdability", "last", "beforeFirst", "type", "cursorName", "row", "statement", "fetchDirection", "afterLast", "concurrency", "closed", "first", "warnings", "metaData");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("fetchSize", "holdability", "last", "beforeFirst", "cursorName", "type", "row", "statement", "fetchDirection", "afterLast", "concurrency", "closed", "warnings", "first", "metaData");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("fetchSize", "holdability", "last", "beforeFirst", "type", "cursorName", "row", "statement", "fetchDirection", "afterLast", "concurrency", "closed", "first", "warnings", "metaData");
+    model_internal static var dataProperties:Array = new Array("fetchSize", "holdability", "last", "beforeFirst", "cursorName", "type", "row", "statement", "fetchDirection", "afterLast", "concurrency", "closed", "warnings", "first", "metaData");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("fetchSize", "holdability", "last", "beforeFirst", "type", "cursorName", "row", "statement", "fetchDirection", "afterLast", "concurrency", "closed", "first", "warnings", "metaData");
+    model_internal static var nonDerivedProperties:Array = new Array("fetchSize", "holdability", "last", "beforeFirst", "cursorName", "type", "row", "statement", "fetchDirection", "afterLast", "concurrency", "closed", "warnings", "first", "metaData");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -54,16 +54,16 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
             model_internal::dependentsOnMap["holdability"] = new Array();
             model_internal::dependentsOnMap["last"] = new Array();
             model_internal::dependentsOnMap["beforeFirst"] = new Array();
-            model_internal::dependentsOnMap["type"] = new Array();
             model_internal::dependentsOnMap["cursorName"] = new Array();
+            model_internal::dependentsOnMap["type"] = new Array();
             model_internal::dependentsOnMap["row"] = new Array();
             model_internal::dependentsOnMap["statement"] = new Array();
             model_internal::dependentsOnMap["fetchDirection"] = new Array();
             model_internal::dependentsOnMap["afterLast"] = new Array();
             model_internal::dependentsOnMap["concurrency"] = new Array();
             model_internal::dependentsOnMap["closed"] = new Array();
-            model_internal::dependentsOnMap["first"] = new Array();
             model_internal::dependentsOnMap["warnings"] = new Array();
+            model_internal::dependentsOnMap["first"] = new Array();
             model_internal::dependentsOnMap["metaData"] = new Array();
 
             // collection base map
@@ -76,16 +76,16 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
         model_internal::propertyTypeMap["holdability"] = "int";
         model_internal::propertyTypeMap["last"] = "Boolean";
         model_internal::propertyTypeMap["beforeFirst"] = "Boolean";
-        model_internal::propertyTypeMap["type"] = "int";
         model_internal::propertyTypeMap["cursorName"] = "String";
+        model_internal::propertyTypeMap["type"] = "int";
         model_internal::propertyTypeMap["row"] = "int";
         model_internal::propertyTypeMap["statement"] = "valueObjects.Statement";
         model_internal::propertyTypeMap["fetchDirection"] = "int";
         model_internal::propertyTypeMap["afterLast"] = "Boolean";
         model_internal::propertyTypeMap["concurrency"] = "int";
         model_internal::propertyTypeMap["closed"] = "Boolean";
-        model_internal::propertyTypeMap["first"] = "Boolean";
         model_internal::propertyTypeMap["warnings"] = "valueObjects.SQLWarning";
+        model_internal::propertyTypeMap["first"] = "Boolean";
         model_internal::propertyTypeMap["metaData"] = "valueObjects.ResultSetMetaData";
 
         model_internal::_instance = value;
@@ -340,13 +340,13 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]
-    public function get isTypeAvailable():Boolean
+    public function get isCursorNameAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isCursorNameAvailable():Boolean
+    public function get isTypeAvailable():Boolean
     {
         return true;
     }
@@ -388,13 +388,13 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]
-    public function get isFirstAvailable():Boolean
+    public function get isWarningsAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isWarningsAvailable():Boolean
+    public function get isFirstAvailable():Boolean
     {
         return true;
     }
@@ -440,13 +440,13 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]   
-    public function get typeStyle():com.adobe.fiber.styles.Style
+    public function get cursorNameStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get cursorNameStyle():com.adobe.fiber.styles.Style
+    public function get typeStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
@@ -488,13 +488,13 @@ internal class _ResultSetEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]   
-    public function get firstStyle():com.adobe.fiber.styles.Style
+    public function get warningsStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get warningsStyle():com.adobe.fiber.styles.Style
+    public function get firstStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
