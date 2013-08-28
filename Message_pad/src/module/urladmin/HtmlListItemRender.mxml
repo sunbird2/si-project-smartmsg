@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			import spark.components.List;
+			
+			import valueObjects.UrlHtmlVO;
+			
+			[Bindable]
+			private var bSelected:Boolean = false;
+			
+			[Bindable]
+			private var bLast:Boolean = false;
+			
+			override public function set data(value:Object):void
+			{
+				super.data = value;
+				bSelected = selected;
+				var h:UrlHtmlVO = data as UrlHtmlVO;
+				if (h.timeWrite) txt.text = h.timeWrite;
+				if (h.stopYN) txt_sub.text = h.stopYN;
+				
+			}
+			
+			override public function set selected(value:Boolean):void {
+				super.selected = value;
+				sel.visible = value;
+			}
+			
+			
+		]]>
+	</fx:Script>
+	<s:HGroup verticalCenter="0" verticalAlign="middle" paddingLeft="4" paddingTop="7" paddingBottom="5">
+		<s:VGroup>
+			<s:Label id="txt" color="#222222" fontSize="12"/>
+			<s:Label id="txt_sub" color="#777777" fontSize="10"/>
+		</s:VGroup>
+	</s:HGroup>
+	
+	<s:BitmapImage id="sel" source="/skin/ics/assets/list_select.png" right="0.5" visible="false"/>	
+	<s:Rect width="100%" bottom="0" height="0.5"><s:stroke><s:SolidColorStroke color="#D9D9D9" /></s:stroke></s:Rect>
+
+</s:ItemRenderer>

@@ -49,7 +49,7 @@
 				</s:SkinnableContainer>
 				
 				<s:List id="groupList"
-						styleName="list_parent"
+						skinClass="skin.ics.ListParentOverScrollSkin"
 						width="100%"
 						height="100%"
 						itemRenderer="skin.address.GroupRenderer">

@@ -52,7 +52,7 @@
 					case ElementManager.BTN:{obj = {type:ElementManager.BTN,value:{next:{type:0,value:""},btnText:"확인"}};break;}
 					case ElementManager.MILEAGE:{obj = {type:ElementManager.MILEAGE,value:{cnt:10,passwd:"1234x"}};break;}
 					case ElementManager.ASKLIST:{obj = {type:ElementManager.ASKLIST,value:{q:"질문입니다.",a:{type:0,value:["정답1입니다.","정답2입니다."]}}};break;}
-					case ElementManager.COUPON:{obj = {type:ElementManager.COUPON,value:""};break;}
+					case ElementManager.COUPON:{obj = {type:ElementManager.COUPON,value:{passwd:"1111"}};break;}
 					case ElementManager.SHOPLIST:{obj = {type:ElementManager.SHOPLIST,value:{next:{type:0,value:""},btnText:"확인"}};break;}
 					default:{break;}
 				}

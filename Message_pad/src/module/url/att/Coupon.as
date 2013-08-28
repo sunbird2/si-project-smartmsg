@@ -1,5 +1,7 @@
 package module.url.att
 {
+	import com.adobe.crypto.MD5;
+	
 	import flash.events.KeyboardEvent;
 	
 	import module.url.att.skin.BtnSkin;
@@ -22,6 +24,7 @@ package module.url.att
 	{
 		[SkinPart(required="true")]public var ele:Group;
 		[SkinPart(required="true")]public var attribute:Group;
+		[SkinPart(required="true")]public var passwordInput:TextInput;
 		
 		[Bindable]
 		private var _att:Object;
@@ -37,6 +40,7 @@ package module.url.att
 		
 		public function Coupon(val:Object){ 
 			super(); 
+			att = val;
 			init();
 			setStyle("skinClass", CouponSkin);
 		}
@@ -67,12 +71,19 @@ package module.url.att
 		override protected function partAdded(partName:String, instance:Object) : void
 		{
 			super.partAdded(partName, instance);
+			if (instance == passwordInput) {
+				passwordInput.addEventListener(KeyboardEvent.KEY_UP, passwordInput_keyupHandler);
+			}
 			
 		}
 		
 		override protected function partRemoved(partName:String, instance:Object) : void
 		{
 			super.partRemoved(partName, instance);
+		}
+		
+		private function passwordInput_keyupHandler(event:KeyboardEvent):void {
+			att.passwd = MD5.hash("mjnote"+ passwordInput.text +"!@#$");
 		}
 		
 	}

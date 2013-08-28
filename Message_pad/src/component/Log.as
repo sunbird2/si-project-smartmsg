@@ -28,6 +28,7 @@ package component
 	import mx.controls.dataGridClasses.DataGridColumn;
 	import mx.core.mx_internal;
 	import mx.events.FlexEvent;
+	import mx.events.ModuleEvent;
 	import mx.formatters.DateFormatter;
 	import mx.graphics.SolidColor;
 	import mx.graphics.SolidColorStroke;
@@ -52,6 +53,7 @@ package component
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
 	import spark.filters.DropShadowFilter;
+	import spark.modules.ModuleLoader;
 	
 	import valueObjects.BooleanAndDescriptionVO;
 	import valueObjects.LogVO;
@@ -70,6 +72,11 @@ package component
 		public static const FAIL_ADD:String = "failAdd";
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
 		[SkinPart(required="true")] */
+		
+		
+		[SkinPart(required="false")]public var mobileWebBtn:Button;
+		// MobileWebEditor Module
+		[SkinPart(required="false")]public var moduleLoaderUrl:ModuleLoader;
 		
 		[SkinPart(required="false")]public var preMonth:Label;
 		[SkinPart(required="false")]public var month:Label;
@@ -161,6 +168,7 @@ package component
 			//trace("partAdded " + partName);
 			
 			if (instance == preMonth) preMonth.addEventListener(MouseEvent.CLICK, preMonth_clickHandler);
+			else if (instance == mobileWebBtn) mobileWebBtn.addEventListener(MouseEvent.CLICK, mobileWebBtn_clickHandler);
 			else if (instance == month) yyyymm = yyyymm;
 			else if (instance == nextMonth) nextMonth.addEventListener(MouseEvent.CLICK, nextMonth_clickHandler);
 			else if (instance == monthSlider) {
@@ -632,6 +640,31 @@ package component
 				}
 				
 			}*/
+		}
+		
+		/**
+		 * webAdmin Moduel
+		 * */
+		private function mobileWebBtn_clickHandler(event:MouseEvent):void {
+			createModuleUrl("module/urladmin/MobileWebAdmin.swf");
+		}
+		public function createModuleUrl(s:String):void {
+			
+			if (moduleLoaderUrl == null) { moduleLoaderUrl = new ModuleLoader(); }
+			moduleLoaderUrl.addEventListener(ModuleEvent.READY, url_moduleReadyHandler);
+			if (!moduleLoaderUrl.url) { moduleLoaderUrl.url = s; }
+			moduleLoaderUrl.loadModule();
+		}
+		private function url_moduleReadyHandler(event:ModuleEvent):void {
+			
+		}
+		
+		public function removeModuleUrl():void {
+			
+			if (moduleLoaderUrl != null) {
+				moduleLoaderUrl.removeEventListener(ModuleEvent.READY, url_moduleReadyHandler);
+				moduleLoaderUrl.unloadModule();
+			}
 		}
 
 		

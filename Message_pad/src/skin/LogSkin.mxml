@@ -30,6 +30,7 @@
 			</s:VGroup>
 			
 		</s:SkinnableContainer>
+		<s:Button id="mobileWebBtn" label="모바일웹 관리자" right="7" top="7" skinClass="module.url.component.skin.ButtonBlack" depth="5"/>
 		
 		<s:HGroup width="100%" top="48" depth="0" gap="0" height="100%">
 			<s:VGroup width="300" height="100%" gap="0">
@@ -61,11 +62,11 @@
 					
 					
 				</s:Group>
-				<!-- list -->
+				<!-- list styleName="list_parent" -->
 				<util:ListCheckAble id="groupList"
 						width="300"
 						height="100%"
-						styleName="list_parent"
+						skinClass="skin.ics.ListParentOverScrollSkin"
 						itemRenderer="skin.log.GroupListRenderer" />
 			</s:VGroup>
 			
@@ -111,10 +112,9 @@
 				</s:Group> 
 				
 			</s:VGroup>
-			
-			
-			
 		</s:HGroup>
+		
+		<s:ModuleLoader id="moduleLoaderUrl" horizontalCenter="0" top="48" depth="15"/>
 	</s:Group>
 	
 </s:Skin>
