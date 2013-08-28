@@ -65,16 +65,16 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
     private var _internal_cnt : int;
     private var _internal_line : String;
     private var _internal_timeSend : String;
-    private var _internal_user_ip : String;
     private var _internal_mode : String;
+    private var _internal_user_ip : String;
     private var _internal_message : String;
     private var _internal_rownum : int;
     private var _internal_timeWrite : String;
     private var _internal_start : int;
     private var _internal_user_id : String;
     private var _internal_method : String;
-    private var _internal_end : int;
     private var _internal_timeDel : String;
+    private var _internal_end : int;
     private var _internal_delType : String;
 
     private static var emptyArray:Array = new Array();
@@ -136,15 +136,15 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get user_ip() : String
-    {
-        return _internal_user_ip;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get mode() : String
     {
         return _internal_mode;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get user_ip() : String
+    {
+        return _internal_user_ip;
     }
 
     [Bindable(event="propertyChange")]
@@ -184,15 +184,15 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get end() : int
-    {
-        return _internal_end;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get timeDel() : String
     {
         return _internal_timeDel;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get end() : int
+    {
+        return _internal_end;
     }
 
     [Bindable(event="propertyChange")]
@@ -263,21 +263,21 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set user_ip(value:String) : void
-    {
-        var oldValue:String = _internal_user_ip;
-        if (oldValue !== value)
-        {
-            _internal_user_ip = value;
-        }
-    }
-
     public function set mode(value:String) : void
     {
         var oldValue:String = _internal_mode;
         if (oldValue !== value)
         {
             _internal_mode = value;
+        }
+    }
+
+    public function set user_ip(value:String) : void
+    {
+        var oldValue:String = _internal_user_ip;
+        if (oldValue !== value)
+        {
+            _internal_user_ip = value;
         }
     }
 
@@ -335,21 +335,21 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set end(value:int) : void
-    {
-        var oldValue:int = _internal_end;
-        if (oldValue !== value)
-        {
-            _internal_end = value;
-        }
-    }
-
     public function set timeDel(value:String) : void
     {
         var oldValue:String = _internal_timeDel;
         if (oldValue !== value)
         {
             _internal_timeDel = value;
+        }
+    }
+
+    public function set end(value:int) : void
+    {
+        var oldValue:int = _internal_end;
+        if (oldValue !== value)
+        {
+            _internal_end = value;
         }
     }
 

@@ -91,9 +91,9 @@
 				var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
 				
 				if (bvo.bResult == true) {
-					SLibrary.alert("update Success.");
+					SLibrary.alert("update Success."+bvo.strDescription);
 				} else {
-					SLibrary.alert("update Fail.");
+					SLibrary.alert("update Fail."+bvo.strDescription);
 				}
 				
 				/*
@@ -111,6 +111,15 @@
 			{
 				//SLibrary.alert("update Success.");
 				navigator.pushView(ChargeView, memberVO);
+			}
+			
+			protected function stop_clickHandler(event:MouseEvent):void
+			{
+				setMemberResult.token = mst.setMemberStop(memberVO);
+			}
+			
+			protected function allstop_clickHandler(event:MouseEvent):void {
+				setMemberResult.token = mst.setStopSend();
 			}
 			
 		]]>
@@ -170,6 +179,12 @@
 				</s:HGroup>
 			</s:FormItem>
 			
+			<s:FormItem label="SendStop" width="100%">
+				<s:HGroup>
+					<s:Button height="64" label="STOP" click="stop_clickHandler(event)" />
+				</s:HGroup>
+			</s:FormItem>
+			
 			<!--
 			<s:FormItem label="Passwd" visible="false">
 				<s:TextInput id="passwdTextInput" text="{memberVO.passwd}" editable="false"/>
@@ -188,7 +203,7 @@
 			</s:FormItem>
 			-->
 		</s:Form>
-		
+		<s:Button label="All stop" click="allstop_clickHandler(event)"/>
 		</s:VGroup>
 	</s:Scroller>
 </s:View>

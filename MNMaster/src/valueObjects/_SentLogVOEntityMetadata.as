@@ -20,14 +20,14 @@ internal class _SentLogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("total", "ynDel", "idx", "cnt", "line", "timeSend", "user_ip", "mode", "message", "rownum", "timeWrite", "start", "user_id", "method", "end", "timeDel", "delType");
+    model_internal static var allProperties:Array = new Array("total", "ynDel", "idx", "cnt", "line", "timeSend", "mode", "user_ip", "message", "rownum", "timeWrite", "start", "user_id", "method", "timeDel", "end", "delType");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array("rownum");
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("total", "ynDel", "idx", "cnt", "line", "timeSend", "user_ip", "mode", "message", "rownum", "timeWrite", "start", "user_id", "method", "end", "timeDel", "delType");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("total", "ynDel", "idx", "cnt", "line", "timeSend", "mode", "user_ip", "message", "rownum", "timeWrite", "start", "user_id", "method", "timeDel", "end", "delType");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("total", "ynDel", "idx", "cnt", "line", "timeSend", "user_ip", "mode", "message", "rownum", "timeWrite", "start", "user_id", "method", "end", "timeDel", "delType");
+    model_internal static var dataProperties:Array = new Array("total", "ynDel", "idx", "cnt", "line", "timeSend", "mode", "user_ip", "message", "rownum", "timeWrite", "start", "user_id", "method", "timeDel", "end", "delType");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("total", "ynDel", "idx", "cnt", "line", "timeSend", "user_ip", "mode", "message", "rownum", "timeWrite", "start", "user_id", "method", "end", "timeDel", "delType");
+    model_internal static var nonDerivedProperties:Array = new Array("total", "ynDel", "idx", "cnt", "line", "timeSend", "mode", "user_ip", "message", "rownum", "timeWrite", "start", "user_id", "method", "timeDel", "end", "delType");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -53,16 +53,16 @@ internal class _SentLogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
             model_internal::dependentsOnMap["cnt"] = new Array();
             model_internal::dependentsOnMap["line"] = new Array();
             model_internal::dependentsOnMap["timeSend"] = new Array();
-            model_internal::dependentsOnMap["user_ip"] = new Array();
             model_internal::dependentsOnMap["mode"] = new Array();
+            model_internal::dependentsOnMap["user_ip"] = new Array();
             model_internal::dependentsOnMap["message"] = new Array();
             model_internal::dependentsOnMap["rownum"] = new Array();
             model_internal::dependentsOnMap["timeWrite"] = new Array();
             model_internal::dependentsOnMap["start"] = new Array();
             model_internal::dependentsOnMap["user_id"] = new Array();
             model_internal::dependentsOnMap["method"] = new Array();
-            model_internal::dependentsOnMap["end"] = new Array();
             model_internal::dependentsOnMap["timeDel"] = new Array();
+            model_internal::dependentsOnMap["end"] = new Array();
             model_internal::dependentsOnMap["delType"] = new Array();
 
             // collection base map
@@ -77,16 +77,16 @@ internal class _SentLogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
         model_internal::propertyTypeMap["cnt"] = "int";
         model_internal::propertyTypeMap["line"] = "String";
         model_internal::propertyTypeMap["timeSend"] = "String";
-        model_internal::propertyTypeMap["user_ip"] = "String";
         model_internal::propertyTypeMap["mode"] = "String";
+        model_internal::propertyTypeMap["user_ip"] = "String";
         model_internal::propertyTypeMap["message"] = "String";
         model_internal::propertyTypeMap["rownum"] = "int";
         model_internal::propertyTypeMap["timeWrite"] = "String";
         model_internal::propertyTypeMap["start"] = "int";
         model_internal::propertyTypeMap["user_id"] = "String";
         model_internal::propertyTypeMap["method"] = "String";
-        model_internal::propertyTypeMap["end"] = "int";
         model_internal::propertyTypeMap["timeDel"] = "String";
+        model_internal::propertyTypeMap["end"] = "int";
         model_internal::propertyTypeMap["delType"] = "String";
 
         model_internal::_instance = value;
@@ -354,13 +354,13 @@ internal class _SentLogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]
-    public function get isUser_ipAvailable():Boolean
+    public function get isModeAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isModeAvailable():Boolean
+    public function get isUser_ipAvailable():Boolean
     {
         return true;
     }
@@ -402,13 +402,13 @@ internal class _SentLogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]
-    public function get isEndAvailable():Boolean
+    public function get isTimeDelAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isTimeDelAvailable():Boolean
+    public function get isEndAvailable():Boolean
     {
         return true;
     }
@@ -466,13 +466,13 @@ internal class _SentLogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]   
-    public function get user_ipStyle():com.adobe.fiber.styles.Style
+    public function get modeStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get modeStyle():com.adobe.fiber.styles.Style
+    public function get user_ipStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
@@ -514,13 +514,13 @@ internal class _SentLogVOEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]   
-    public function get endStyle():com.adobe.fiber.styles.Style
+    public function get timeDelStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get timeDelStyle():com.adobe.fiber.styles.Style
+    public function get endStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

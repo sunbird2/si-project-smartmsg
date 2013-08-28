@@ -180,6 +180,12 @@ internal class _Super_Mst extends com.adobe.fiber.services.wrapper.RemoteObjectS
         operation = new mx.rpc.remoting.Operation(null, "setMember");
          operation.resultType = valueObjects.BooleanAndDescriptionVO;
         operations["setMember"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "setMemberStop");
+         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+        operations["setMemberStop"] = operation;
+        operation = new mx.rpc.remoting.Operation(null, "setStopSend");
+         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+        operations["setStopSend"] = operation;
 
         _serviceControl.operations = operations;
         _serviceControl.convertResultHandler = com.adobe.serializers.utility.TypeUtility.convertResultHandler;
@@ -224,6 +230,7 @@ internal class _Super_Mst extends com.adobe.fiber.services.wrapper.RemoteObjectS
         _memberVORPCDataManager.addManagedOperation(dmQuery);
 
         dmQuery = new mx.data.ManagedQuery("getSentlog_pagedFiltered");
+        dmQuery.propertySpecifier = "total,ynDel,idx,cnt,line,timeSend,mode,user_ip,message,rownum,timeWrite,start,user_id,method,timeDel,end,delType";
         dmQuery.countOperation = "getSentlog_countFiltered";
         dmQuery.pagingEnabled = true;
         dmQuery.positionalPagingParameters = true;
@@ -422,6 +429,42 @@ internal class _Super_Mst extends com.adobe.fiber.services.wrapper.RemoteObjectS
     {
         var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("setMember");
 		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'setMemberStop' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function setMemberStop(arg0:valueObjects.MemberVO) : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("setMemberStop");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send(arg0) ;
+        return _internal_token;
+    }
+     
+    /**
+      * This method is a generated wrapper used to call the 'setStopSend' operation. It returns an mx.rpc.AsyncToken whose 
+      * result property will be populated with the result of the operation when the server response is received. 
+      * To use this result from MXML code, define a CallResponder component and assign its token property to this method's return value. 
+      * You can then bind to CallResponder.lastResult or listen for the CallResponder.result or fault events.
+      *
+      * @see mx.rpc.AsyncToken
+      * @see mx.rpc.CallResponder 
+      *
+      * @return an mx.rpc.AsyncToken whose result property will be populated with the result of the operation when the server response is received.
+      */
+    public function setStopSend() : mx.rpc.AsyncToken
+    {
+        var _internal_operation:mx.rpc.AbstractOperation = _serviceControl.getOperation("setStopSend");
+		var _internal_token:mx.rpc.AsyncToken = _internal_operation.send() ;
         return _internal_token;
     }
      
