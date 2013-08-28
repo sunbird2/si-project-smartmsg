@@ -3,6 +3,7 @@
 		  xmlns:s="library://ns.adobe.com/flex/spark"
 		  xmlns:mx="library://ns.adobe.com/flex/mx"
 		  xmlns:services="services.*"
+		  implements="module.url.IMobileWebEditor"
 		  width="1000" creationComplete="module1_creationCompleteHandler(event)">
 	<fx:Style>
 		@namespace s "library://ns.adobe.com/flex/spark";
@@ -45,13 +46,41 @@
 			import spark.events.IndexChangeEvent;
 			
 			import valueObjects.BooleanAndDescriptionVO;
-			import valueObjects.UrlDataVO;
+			import valueObjects.UrlHtmlVO;
+			
+			private var key:int = 0;
+			public function setKey(key:int):void {
+				this.key = key;
+			}
+			public function getKey():int { return key; }
+			public function keySelect():void {
+				if (this.key != 0) {
+					var idx:int = 0;
+					for (var i:int = 0; i < acTemplet.length; i++) {
+						if ( acTemplet[i].key == this.key ) {
+							idx = i;
+							break;
+						}
+					}
+					templets.selectedIndex = idx;
+					templetsSelected(idx);
+				}
+					
+			}
 
 			[Bindable]
 			private var ac:ArrayCollection = null;
 			
 			[Bindable]
-			private var acTemplet:ArrayCollection = null;
+			private var acTemplet:ArrayCollection = new ArrayCollection();
+			
+			private var acT:ArrayCollection = new ArrayCollection([
+				{key:0, icon:"/images/mweb_blank.png", label:"[빈페이지]\n내용 없는 빈페이지", data:[[]]},
+				{key:0, icon:"/images/mweb_1.png", label:"[홍보]\n이미지와 텍스트", data:[[{type:1,value:{layout:"horizontal", imgs:[{url:"/images/mweb_21.png",link:""}]}}, {type:0,value:{text:"<TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\">차별화된 문자메시지 서비스를 만나보세요!</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\">■ 차별화된 기능</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\">1. 홈페이지 연동 API</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"> - 내홈페이지에서 인증번호 또는 문자 발송</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\">2. 전송 통계 그래프</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"> - 성공/실패/없는번호 통계 그래프</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\">3. 실패보상 즉시 받기</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"> - 실패된 내역 클릭 한번으로 바로 보상</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\">네이버나 다음에서 &apos;<A HREF=\"http://www.munjanote.com\" TARGET=\"_blank\">문자노트</A>&apos;를 검색해 보세요.</FONT></P></TEXTFORMAT>"}}]]},
+				{key:0, icon:"/images/mweb_2.png", label:"[이벤트&쿠폰]\n이벤트 및\n바코드 쿠폰", data:[[{type:1,value:{layout:"vertical", imgs:[{url:"/images/mweb_21.png",link:""}]}},{type:0,value:{text:"<TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\">이벤트에 참여 하시고 무료 건수 받아가세요!</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\">■ 참여방법</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"> - 문자노트를 입력 후 이벤트 참여 버튼을 눌러 주세요.</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\">■ 이벤트 기간</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"> - 2013.08.20 ~ 2013.09.30</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\">■ 이벤트 내용</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"1\"> - 참여시 무료건수 쿠폰이 제공 됩니다.</FONT></P></TEXTFORMAT>"}},{type:6, value:{passwd:"1111"}}]]},
+				{key:0, icon:"/images/mweb_3.png", label:"[마일리지]\n마일리지 적립\n및 사용", data:[[{type:1,value:{layout:"vertical", imgs:[{url:"/images/mweb_31.png",link:""}]}},{type:4, value:{cnt:10,passwd:"1234x"}},{type:0,value:{text:"<TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\">마일리지를 적립하여 무료 충전 받아가세요.</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"></FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\">■ 적립방법</FONT></P></TEXTFORMAT><TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Malgun Gothic,Dotum,Gulim,AppleGothic,sans-serif\" SIZE=\"12\" COLOR=\"#000000\" LETTERSPACING=\"0\" KERNING=\"0\"> - 매장에서 구매시 이 페이지를 직원에게 보여 주세요.</FONT></P></TEXTFORMAT>"}}]]},
+				{key:0, icon:"/images/mweb_4.png", label:"[설문조사]\n질문\n및 답변쓰기", data:[[{type:1,value:{layout:"vertical", imgs:[{url:"/images/mweb_41.png",link:""}]}},{"type":5,"value":{"a":{"type":0,"value":["매우 좋은 서비스 입니다.","그냥 일반적이네요.","불편한데요. 노력 하셔야 겠네요."]},"q":"1. 문자노트 서비스를 어떻게 생각하시나요?"}},{"type":5,"value":{"a":{"type":1,"value":["실시간 발송 상황","발송통계 및 그래프","편리한 주소록","대량 발송"]},"q":"2. 사용중 좋았던 점을 선택해 주세요."}},{"type":5,"value":{"a":{"type":2,"value":["선택하세요."]},"q":"3. 개선 사항이나 문의 내용을 입력해 주세요."}}]]}
+			]);
 			
 			
 			private var jstr:String = "[[{\"type\":6,\"value\":\"\"},{\"type\":5,\"value\":{\"a\":{\"type\":0,\"value\":[\"정답1입니다.\",\"정답2입니다.\"]},\"q\":\"질문입니다.\"}},{\"type\":4,\"value\":{\"cnt\":10,\"passwd\":\"1234x\"}},{\"type\":3,\"value\":{\"next\":{\"type\":0,\"value\":\"\"},\"btnText\":\"확인\"}},{\"type\":2,\"value\":{\"commitMsg\":\"감사용\",\"btnText\":\"확인\",\"next\":0,\"layout\":\"one\"}},{\"type\":1,\"value\":{\"imgs\":[{\"link\":\"\",\"url\":\"/images/ic_launcher_smsmms.png\"},{\"link\":\"\",\"url\":\"/images/ic_launcher_smsmms.png\"}],\"layout\":\"tile\"}},{\"type\":0,\"value\":{\"text\":\"<p style='text-align:left'>안녕하세요!!!</p><p style='text-align:left'><b>박사준</b>입니다.</p>\"}}],[{\"type\":1,\"value\":{\"imgs\":[{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"}],\"layout\":\"tile\"}}],[{\"type\":1,\"value\":{\"imgs\":[{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"}],\"layout\":\"tile\"}}]],\"sort\":null,\"list\":{\"length\":3,\"source\":[[{\"type\":6,\"value\":\"\"},{\"type\":5,\"value\":{\"a\":{\"type\":0,\"value\":[\"정답1입니다.\",\"정답2입니다.\"]},\"q\":\"질문입니다.\"}},{\"type\":4,\"value\":{\"cnt\":10,\"passwd\":\"1234x\"}},{\"type\":3,\"value\":{\"next\":{\"type\":0,\"value\":\"\"},\"btnText\":\"확인\"}},{\"type\":2,\"value\":{\"commitMsg\":\"감사용\",\"btnText\":\"확인\",\"next\":0,\"layout\":\"one\"}},{\"type\":1,\"value\":{\"imgs\":[{\"link\":\"\",\"url\":\"/images/ic_launcher_smsmms.png\"},{\"link\":\"\",\"url\":\"/images/ic_launcher_smsmms.png\"}],\"layout\":\"tile\"}},{\"type\":0,\"value\":{\"text\":\"<p style='text-align:left'>안녕하세요!!!</p><p style='text-align:left'><b>박사준</b>입니다.</p>\"}}],[{\"type\":1,\"value\":{\"imgs\":[{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"}],\"layout\":\"tile\"}}],[{\"type\":1,\"value\":{\"imgs\":[{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"},{\"link\":\"\",\"url\":\"/images/icon_text_event.gif\"}],\"layout\":\"tile\"}}]]";
@@ -74,7 +103,7 @@
 			 * button : {type:3, value:{next:{type:0,value:""},btnText:"확인"}}
 			 * mileage : {type:4, value:{cnt:10,passwd:"1234x"}}
 			 * asklist : {type:5, value:{q:"질문입니다.",a:{type:0,value:["정답1입니다.","정답2입니다."]}}}
-			 * coupon : {type:6, value:""}
+			 * coupon : {type:6, value:{passwd:"1111"}}
 			 * */
 			
 			protected function module1_creationCompleteHandler(event:FlexEvent):void
@@ -94,44 +123,42 @@
 				}
 				
 				
-				acTemplet = new ArrayCollection([
-					{icon:"/images/ic_launcher_smsmms.png", label:"[빈페이지]\n내용 없는 빈페이지"},
-					{icon:"/images/ic_launcher_smsmms.png", label:"[홍보]\n이미지와 텍스트"},
-					{icon:"/images/ic_launcher_smsmms.png", label:"[이벤트&쿠폰]\n이벤트 및\n바코드 쿠폰"},
-					{icon:"/images/ic_launcher_smsmms.png", label:"[마일리지]\n마일리지 적립\n및 사용"},
-					{icon:"/images/ic_launcher_smsmms.png", label:"[설문조사]\n질문\n및 접속자 답"}
-				]);
+				getUrlHtmlList();
+			}
+			protected function getUrlHtmlListResult_resultHandler(event:ResultEvent):void
+			{
+				var rsac:ArrayCollection = event.result as ArrayCollection;
+				if (rsac != null) {
+					var cnt:int = rsac.length;
+					var vo:UrlHtmlVO = null;
+					var obj:Object = null;
+					for (var i:int = 0; i < cnt; i++) {
+						vo = rsac.getItemAt(i) as UrlHtmlVO;
+						obj = new Object();
+						obj.key = vo.idx;
+						obj.icon = "/images/ic_launcher_smsmms.png";
+						obj.label = "[사용자제작]\n"+vo.timeWrite.substring(0,vo.timeWrite.length-2);
+						obj.data = com.adobe.serialization.json.JSON.decode(vo.dt) as Array;
+						acTemplet.addItem(obj);
+					}
+					acTemplet.addAll(acT);
+				}
+				
+				callLater(keySelect);
+				
 			}
 			
 			private function ac_changeHandler(event:CollectionEvent):void {
 				noPage.visible = ac.length > 0 ? false:true;
 			}
 			
-			protected function templets_changeHandler(event:IndexChangeEvent):void
-			{
-				var idx:int = event.newIndex;
-				ac.addItem( getPageData(idx) );
+			protected function templets_changeHandler(event:IndexChangeEvent):void { templetsSelected(event.newIndex); }
+			private function templetsSelected(idx:int):void {
+				callLater(deSelectTemplete);
+				var acTemp:Object = acTemplet.getItemAt(idx).data ;
+				ac.addAll( new ArrayCollection( acTemp as Array ));
 			}
 			
-			private function getPageData(idx:int):Array {
-				
-				var rslt:Array = null;
-				switch(idx)
-				{
-					case 0:{rslt = [];break;}
-					case 1:{rslt = [{type:1,value:{layout:"horizontal", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}}, {type:0,value:{text:"<p style=\"text-align:left\">안녕하세요!!!</p><p style=\"text-align:left\"><b>박사준</b>입니다.</p>"}}];break;}
-					case 2:{rslt = [{type:1,value:{layout:"vertical", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""}]}},{type:6, value:""}];break;}
-					case 3:{rslt = [{type:1,value:{layout:"vertical", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""}]}},{type:4, value:{cnt:10,passwd:"1234x"}}];break;}
-					case 4:{rslt = [{type:1,value:{layout:"vertical", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""}]}},{type:5, value:{q:"질문입니다.",a:{type:0,value:["정답1입니다.","정답2입니다."]}}}];break;}
-					default:
-					{
-						rslt = [{type:1,value:{layout:"tile", imgs:[{url:"/images/ic_launcher_smsmms.png",link:""},{url:"/images/ic_launcher_smsmms.png",link:""}]}}];
-						break;
-					}
-				}
-				callLater(deSelectTemplete);
-				return rslt;
-			}
 			private function deSelectTemplete():void {
 				templets.selectedIndex = -1;
 			}
@@ -139,15 +166,24 @@
 			protected function complete_clickHandler(event:MouseEvent):void
 			{
 				var at:ArrayCollection = (mobileWebPages.dataProvider as ArrayCollection);
-				var json:String = com.adobe.serialization.json.JSON.encode( at as Object );
-				var urlvo:UrlDataVO = new UrlDataVO();
+				var json:String = com.adobe.serialization.json.JSON.encode( at.source as Object );
+				var urlvo:UrlHtmlVO = new UrlHtmlVO();
+				urlvo.idx = key;
 				urlvo.dt = json;
 				urlvo.stopYN = "N";
 				
-				setUrlData(0, urlvo );
+				if (key == 0) setUrlData(0, urlvo );
+				else setUrlData(1, urlvo );
 				
 				//mobileWebPages.dataProvider = new ArrayCollection( (com.adobe.serialization.json.JSON.decode( com.adobe.serialization.json.JSON.encode(at as Object)) as Object).source as Array );
 				//trace(com.adobe.serialization.json.JSON.encode(at as Object));
+			}
+			
+			public function deleteKey(idx:int):void {
+				var urlvo:UrlHtmlVO = new UrlHtmlVO();
+				urlvo.idx = idx;
+				urlvo.dt = "delete";
+				setUrlData(2, urlvo );
 			}
 			
 			protected function setUrlDataResult_resultHandler(event:ResultEvent):void
@@ -165,9 +201,13 @@
 			} 
 			
 			// 0: insert , 1: update, 2: delete
-			protected function setUrlData(arg0:int, arg1:UrlDataVO):void { setUrlDataResult.token = smt.setUrlData(arg0, arg1); }
+			protected function setUrlData(arg0:int, arg1:UrlHtmlVO):void { setUrlDataResult.token = smt.setUrlData(arg0, arg1); }
 			
 			protected function close_clickHandler(event:MouseEvent):void { MobileWebEditorAble(parentDocument.hostComponent).removeModuleUrl(); }
+			
+			
+			protected function getUrlHtmlList():void {// getUrlHtmlListResult.token = smt.getUrlHtmlList();
+			}
 			
 		]]>
 	</fx:Script>
@@ -176,6 +216,7 @@
 		<services:Smt id="smt"
 					  fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)"
 					  showBusyCursor="true"/>
+		<s:CallResponder id="getUrlHtmlListResult" result="getUrlHtmlListResult_resultHandler(event)"/>
 		
 	</fx:Declarations>
 	
@@ -196,7 +237,9 @@
 					<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#333333" /></s:fill></s:Rect>
 					<s:Label text="페이지 추가" left="15" verticalCenter="0" color="#FFFFFF" />
 				</s:Group>
-				<s:List id="templets" width="100%" top="35" dataProvider="{acTemplet}" borderVisible="false" contentBackgroundAlpha="0" itemRenderer="module.url.TempletsRenderer"
+				<s:List id="templets" width="100%" top="35" height="575" dataProvider="{acTemplet}" borderVisible="false" contentBackgroundAlpha="0"
+						verticalScrollPolicy="on"
+						itemRenderer="module.url.TempletsRenderer"
 						change="templets_changeHandler(event)">
 				</s:List>
 			</s:Group>

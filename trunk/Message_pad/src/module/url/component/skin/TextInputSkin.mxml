@@ -42,6 +42,42 @@
          *  @private
          */
         override public function get focusSkinExclusions():Array { return focusExclusions;};
+			
+			/**
+			 *  @private
+			 */
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				if (getStyle("borderVisible") == true)
+				{
+					border.visible = true;
+					shadow.visible = true;
+					background.left = background.top = background.right = background.bottom = 1;
+					//textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 1;
+					if (promptDisplay)
+					{
+						promptDisplay.setLayoutBoundsSize(unscaledWidth - 2, unscaledHeight - 2);
+						promptDisplay.setLayoutBoundsPosition(1, 1);
+					}
+				}
+				else
+				{
+					border.visible = false;
+					shadow.visible = false;
+					background.left = background.top = background.right = background.bottom = 0;
+					textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 0;
+					if (promptDisplay)
+					{
+						promptDisplay.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
+						promptDisplay.setLayoutBoundsPosition(0, 0);
+					}
+				}
+				
+				//borderStroke.color = getStyle("borderColor");
+				borderStroke.alpha = getStyle("borderAlpha");
+				
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+			}
         ]]>
     </fx:Script>
     

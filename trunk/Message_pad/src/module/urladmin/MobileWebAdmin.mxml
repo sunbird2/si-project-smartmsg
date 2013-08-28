@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Module xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  xmlns:services="services.*" preinitialize="preinitializeHandler(event)"
+		  width="1000">
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace flexpad "com.flexpad.*";
+		global
+		{
+			rollOverColor: #85D3EF;
+			selectionColor: #5CC4EA;
+			focusColor: #037EA7;
+			accentColor: #037EA7;
+			
+			/*fontFamily : "Droid";*/
+			fontFamily : "Malgun Gothic","Dotum","Gulim",AppleGothic,sans-serif;
+			fontSize : 12px;
+		}
+	</fx:Style>
+	<fx:Script>
+		<![CDATA[
+			import mx.charts.series.PieSeries;
+			import mx.controls.Alert;
+			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			import valueObjects.UrlDataVO;
+			import valueObjects.UrlHtmlVO;
+			
+			protected function preinitializeHandler(event:FlexEvent):void
+			{
+				/* var styleObjects:Array = FlexGlobals.topLevelApplication.styleManager.selectors;
+				for each(var styleObj:String in styleObjects)  {
+					var style:CSSStyleDeclaration = FlexGlobals.topLevelApplication.styleManager.getStyleDeclaration(styleObj);
+					styleManager.setStyleDeclaration(styleObj, style, true);
+				} */
+			}
+			
+			protected function htmlList_creationCompleteHandler(event:FlexEvent):void {
+				getUrlHtmlList();
+			}
+			
+			protected function getUrlHtmlList():void { getUrlHtmlListResult.token = smt.getUrlHtmlList(); }
+			
+			
+			
+			private function getPieSeriess():PieSeries {
+				
+				var seri:PieSeries = new PieSeries();
+				seri.field = "cnt";
+				seri.nameField = "label";
+				seri.setStyle("labelPosition","callout");
+				seri.setStyle("stroke", new SolidColorStroke(0x000000, 1, .5) );
+				seri.setStyle("radialStroke", new SolidColorStroke(0xFFFFCC, 1, .3) );
+				//seri.labelFunction = charLabelFunction;
+				
+				return seri;
+			}
+			
+			protected function htmlList_changeHandler(event:IndexChangeEvent):void {
+				
+				var vo:UrlHtmlVO = null;
+				vo = (htmlList.dataProvider as ArrayCollection).getItemAt( event.newIndex ) as UrlHtmlVO;
+				var argVo:UrlDataVO = new UrlDataVO();
+				argVo.html_idx = vo.idx;
+				getUrlFromHtml(argVo);
+			}
+			protected function getUrlFromHtml(vo:UrlDataVO):void { getUrlFromHtmlResult.token = smt.getUrlFromHtml(vo); }
+			
+			protected function getUrlFromHtmlResult_resultHandler(event:ResultEvent):void
+			{
+				var ac:ArrayCollection = event.result as ArrayCollection;
+				
+				var acConn:ArrayCollection = new ArrayCollection([
+						{label:"접속", cnt:0},
+						{label:"미접속", cnt:0}
+					]);
+				var acCoupon:ArrayCollection = new ArrayCollection([
+					{label:"쿠폰사용", cnt:0},
+					{label:"쿠폰미사용", cnt:0}
+				]);
+				var acMileage:ArrayCollection = new ArrayCollection([
+					{label:"마일리지 적립", cnt:0},
+					{label:"마일리지 미적립", cnt:0}
+				]);
+				var acInput:ArrayCollection = new ArrayCollection([
+					{label:"입력", cnt:0},
+					{label:"미입력", cnt:0}
+				]);
+				
+				var cnt:int = ac.length;
+				var obj:UrlDataVO = null;
+				
+				for (var i:int = 0; i < cnt; i++) {
+					obj = ac.getItemAt(i) as UrlDataVO;
+					
+					if (obj.dt_conn && obj.dt_conn.length > 10) acConn[0].cnt += 1;
+					else acConn[1].cnt += 1;
+					
+					if (obj.coupon && obj.coupon != "") acCoupon[0].cnt += 1;
+					else acCoupon[1].cnt += 1;
+					
+					if (obj.mileage && obj.mileage != "") acMileage[0].cnt += 1;
+					else acMileage[0].cnt += 1;
+					
+					if (obj.input && obj.input != "") acInput[0].cnt += 1;
+					else acInput[0].cnt += 1;
+					
+					
+				}
+				
+				
+				chart1.series = [getPieSeriess()];
+				chart2.series = [getPieSeriess()];
+				chart3.series = [getPieSeriess()];
+				chart4.series = [getPieSeriess()];
+				
+				chart1.showDataTips = true;
+				chart2.showDataTips = true;
+				chart3.showDataTips = true;
+				chart4.showDataTips = true;
+				 
+				chart1.dataProvider = acConn;
+				chart2.dataProvider = acCoupon;
+				chart3.dataProvider = acMileage;
+				chart4.dataProvider = acInput;
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<s:CallResponder id="getUrlHtmlListResult"/>
+		<services:Smt id="smt"
+					  fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)"
+					  showBusyCursor="true"/>
+		<s:CallResponder id="getUrlFromHtmlResult" result="getUrlFromHtmlResult_resultHandler(event)"/>
+	</fx:Declarations>
+	<s:BitmapImage left="0" right="0" top="0" bottom="0"
+				   source="@Embed('/skin/ics/assets/widget_dark.png', scaleGridTop='10', scaleGridBottom='320', scaleGridLeft='10', scaleGridRight='314')"
+				   fillMode="scale" alpha="1"/>
+	
+	<s:VGroup left="7.2" right="7.2" top="10" bottom="8.08" horizontalAlign="center" gap="0">
+		<s:Group width="100%">
+			<s:Label text="모바일웹 관리자" left="15" verticalCenter="-2" fontSize="16" fontWeight="bold" color="#FFFFFF" />
+			<s:Image id="close" right="10" verticalCenter="-2" source="/skin/ics/assets/dark/icon/1-navigation-cancel.png" buttonMode="true"/>	
+		</s:Group>
+		<s:Rect width="100%" top="10" left="8" right="8"><s:stroke><s:SolidColorStroke color="#33B5E5" weight="2" /></s:stroke></s:Rect>
+		
+		<s:Group width="100%" top="48" height="100%">
+		<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#FFFFFF" /></s:fill></s:Rect>
+		<s:HGroup width="100%" height="100%" depth="0" gap="0" >
+			<s:List id="htmlList" width="200" height="100%" skinClass="skin.ics.ListParentOverScrollSkin" focusEnabled="false" itemRenderer="module.urladmin.HtmlListItemRender"
+					creationComplete="htmlList_creationCompleteHandler(event)"
+					dataProvider="{getUrlHtmlListResult.lastResult}"
+					change="htmlList_changeHandler(event)"></s:List>
+			<s:VGroup width="100%" paddingTop="5" paddingBottom="5" paddingLeft="10" paddingRight="10" gap="0">
+				<s:HGroup width="100%" height="150" horizontalAlign="center" gap="10">
+					<mx:PieChart id="chart1" width="150" height="150"></mx:PieChart>
+					<mx:PieChart id="chart2" width="150" height="150"></mx:PieChart>
+					<mx:PieChart id="chart3" width="150" height="150"></mx:PieChart>
+					<mx:PieChart id="chart4" width="150" height="150"></mx:PieChart>
+				</s:HGroup>
+				
+				<s:Group width="100%">
+					<s:Rect left="0" top="24" bottom="0"><s:stroke><s:SolidColorStroke color="#999999" weight="1" /></s:stroke></s:Rect>
+					<s:Rect right="0" top="24" bottom="0"><s:stroke><s:SolidColorStroke color="#999999" weight="1" /></s:stroke></s:Rect>
+					<s:Rect left="0" right="0" top="23"><s:stroke><s:SolidColorStroke color="#999999" weight="1" /></s:stroke></s:Rect>
+					<s:TabBar id="functions">  
+						<mx:ArrayCollection>
+							<fx:String>검색</fx:String>
+							<fx:String>그룹화</fx:String> 
+							<fx:String>엑셀 다운로드</fx:String> 
+						</mx:ArrayCollection>
+					</s:TabBar>
+					<s:Group id="functionDetail" top="30" width="100%" height="35">
+						
+						<s:HGroup id="searchGroup" width="100%" gap="5" paddingLeft="3">
+							<s:TextInput width="16%" skinClass="module.url.component.skin.TextInputSkin" prompt="전화번호 검색.." />
+							<s:TextInput width="16%" skinClass="module.url.component.skin.TextInputSkin" prompt="데이터 검색.." />
+							<s:TextInput width="16%" skinClass="module.url.component.skin.TextInputSkin" prompt="접속시간 검색.." />
+							<s:TextInput width="16%" skinClass="module.url.component.skin.TextInputSkin" prompt="쿠폰 검색.." />
+							<s:TextInput width="16%" skinClass="module.url.component.skin.TextInputSkin" prompt="마일리지 검색.." />
+							<s:TextInput width="16%" skinClass="module.url.component.skin.TextInputSkin" prompt="입력 검색.." />
+						</s:HGroup>
+						<s:HGroup id="groupGroup" width="100%" gap="5" paddingLeft="3">
+							<s:Button width="16%" skinClass="module.url.component.skin.ButtonGray" label="전화번호" />
+							<s:Button width="16%" skinClass="module.url.component.skin.ButtonGray" label="데이터" />
+							<s:Button width="16%" skinClass="module.url.component.skin.ButtonGray" label="접속시간" />
+							<s:Button width="16%" skinClass="module.url.component.skin.ButtonGray" label="쿠폰" />
+							<s:Button width="16%" skinClass="module.url.component.skin.ButtonGray" label="마일리지" />
+							<s:Button width="16%" skinClass="module.url.component.skin.ButtonGray" label="입력" />
+						</s:HGroup>
+					</s:Group>
+					
+				</s:Group>
+				
+				<!--headerStyleName="myHeaderStyles" sortExpertMode="true" designViewDataType="tree" selectable="false"
+				creationComplete="dataGrid_creationCompleteHandler(event)"
+				dataProvider="{getReservationResult.lastResult}"-->
+				<mx:AdvancedDataGrid id="dataGrid" width="100%" height="360" headerHeight="30" rowHeight="25"
+									 verticalGridLines="false" variableRowHeight="true"
+									 chromeColor="0xEFEFEF" headerColors="[0xDDDDDD,0xDDDDDD]"  alternatingItemColors="[0xFFFFFF,0xEFEFEF]"
+									 dataProvider="{getUrlFromHtmlResult.lastResult}"
+									 >
+					<mx:columns>
+						<mx:AdvancedDataGridColumn dataField="phone" headerText="전화번호"></mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn dataField="mearge" headerText="데이터"></mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn dataField="dt_conn" headerText="접속시간"></mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn dataField="coupon" headerText="쿠폰"></mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn dataField="mileage" headerText="마일리지"></mx:AdvancedDataGridColumn>
+						<mx:AdvancedDataGridColumn dataField="input" headerText="입력"></mx:AdvancedDataGridColumn>
+						<!--<mx:AdvancedDataGridColumn dataField="idx" headerText="취소" >
+						<mx:itemRenderer>
+						<fx:Component>
+						<s:MXAdvancedDataGridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						xmlns:s="library://ns.adobe.com/flex/spark" 
+						xmlns:mx="library://ns.adobe.com/flex/mx" 
+						focusEnabled="true">
+						<fx:Script>
+						<![CDATA[
+						
+						private var idx:String = "";
+						private var sent_type:String = "";
+						
+						override public function set data(value:Object):void
+						{
+						idx = new String(value["idx"]);
+						sent_type = new String(value["sent_type"]);
+						}
+						
+						protected function cancel_clickHandler(event:MouseEvent):void
+						{
+						outerDocument.cancelReservation( idx, sent_type );
+						//parentApplication.cancelReservation( new String(data[column.dataField]), new String(data["sent_type"]) );
+						}
+						]]>
+						</fx:Script>
+						<s:Button id="lblData" label="취소" click="cancel_clickHandler(event)" />
+						</s:MXAdvancedDataGridItemRenderer>
+						
+						</fx:Component>
+						</mx:itemRenderer>
+						</mx:AdvancedDataGridColumn>-->
+					</mx:columns>
+				</mx:AdvancedDataGrid>
+			</s:VGroup>
+		</s:HGroup>	
+		</s:Group>
+	</s:VGroup>
+	
+	
+</s:Module>

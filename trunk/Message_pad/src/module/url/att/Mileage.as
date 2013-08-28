@@ -1,5 +1,7 @@
 package module.url.att
 {
+	import com.adobe.crypto.MD5;
+	
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	
@@ -98,8 +100,8 @@ package module.url.att
 				mileageList.layout = getImgListLayout("tile");
 			}
 			else if (instance == passwordInput) {
-				if (att != null && att.passwd)
-					passwordInput.text = att.passwd;
+				//if (att != null && att.passwd)
+				//	passwordInput.text = att.passwd;
 				
 				passwordInput.addEventListener(KeyboardEvent.KEY_UP, passwordInput_keyupHandler);
 			}
@@ -150,7 +152,7 @@ package module.url.att
 		}
 		
 		private function passwordInput_keyupHandler(event:KeyboardEvent):void {
-			att.passwd = passwordInput.text;
+			att.passwd = MD5.hash("mjnote"+ passwordInput.text +"!@#$");
 		}
 		
 	}

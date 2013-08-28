@@ -19,9 +19,16 @@
 		<s:Group id="ele" width="100%">
 			<s:Image source="@Embed('module/url/component/assets/barcode.gif')" horizontalCenter="0" verticalCenter="0" />
 		</s:Group>
-		<s:Group id="attribute" width="100%" includeIn="actContent" height="0" >
+		<s:Group id="attribute" width="100%" includeIn="actContent" >
 			<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#EFEFEF" /></s:fill></s:Rect>
 			<s:Rect width="100%" height="100%"><s:stroke><s:SolidColorStroke  color="#EFEFEF" /></s:stroke></s:Rect>
+			<s:VGroup width="100%" paddingLeft="5" paddingRight="5" paddingTop="10" paddingBottom="10">
+				<s:Group width="100%" height="22">
+					<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#767676" /></s:fill></s:Rect>
+					<s:Label text="쿠폰 사용 패스워드" color="#FFFFFF" left="5" verticalCenter="0" />
+				</s:Group>
+				<s:TextInput id="passwordInput" width="100%" skinClass="module.url.component.skin.TextInputSkin" />
+			</s:VGroup>
 		</s:Group>
 	</s:VGroup>
 </s:Skin>

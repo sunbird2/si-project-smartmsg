@@ -12,6 +12,7 @@
 				super.data = value;
 				if (data != null && data.url) {
 					img.source = data.url;
+					trace(data.url);
 					img.percentWidth = 100;
 				}
 			}
@@ -29,7 +30,7 @@
 		<s:State name="hovered"/>
 		<s:State name="selected"/>
 	</s:states>
-	<s:BitmapImage id="img" source="/images/ic_launcher_smsmms.png" fillMode="scale" scaleMode="letterbox" smooth="true"/>
+	<s:BitmapImage id="img" fillMode="scale" scaleMode="letterbox" smooth="true"/>
 	
 	<s:Rect includeIn="hovered, selected" left="0" right="0" top="0" bottom="0"><s:stroke><s:SolidColorStroke color.hovered="#33B5E5" color.selected="#0099CC" weight="2" /></s:stroke></s:Rect>
 	<!-- Gripper -->

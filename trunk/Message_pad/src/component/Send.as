@@ -34,6 +34,7 @@ package component
 	import lib.SLibrary;
 	
 	import module.ie.ImageEditorAble;
+	import module.url.IMobileWebEditor;
 	import module.url.MobileWebEditorAble;
 	
 	import mx.collections.ArrayCollection;
@@ -966,7 +967,7 @@ package component
 				smvo.itMinute = int(arr[1]);
 			}else smvo.bInterval = false;
 			
-			smvo.bUrl = urlKey >= 0?true:false;
+			smvo.urlKey = urlKey;
 			
 			smvo.imagePath = this.mmsImage; 
 			smvo.message = msg;
@@ -1494,6 +1495,8 @@ package component
 			moduleLoaderUrl.loadModule();
 		}
 		private function url_moduleReadyHandler(event:ModuleEvent):void {
+			var ichild:IMobileWebEditor = moduleLoaderUrl.child as IMobileWebEditor;
+			if (moduleLoaderUrl.child != null) { ichild.setKey(urlKey);} 
 			loading.visible = false;
 		}
 		public function setUrl(key:int):void {
