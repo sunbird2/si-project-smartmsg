@@ -454,7 +454,7 @@
 	<insert id="insert_server_member" parameterType="com.m.api.MemberServerVO">
 		INSERT INTO smrelay.SM_CLIENT
 		(CLI_ID, CLI_PASSWD, CLI_NAME, CLI_ISVALID, CLI_REPORT, CLI_DUPCHECK, CLI_SESCHECK, CLI_IDLECHECK, CLI_IDLECHECKTIME, CLI_IDLECNT, CLI_CNTCHECK, CLI_CURMONTH, CLI_STDCNT, CLI_SENTCNT, CLI_CBURL, CLI_CNTRESET, CLI_PERMITCNT, CLI_SMSTYPE, CLI_QUEUENAME, CLI_SPAMLEVEL, CLI_ALARMLEVEL, CLI_ALARMTIME, CLI_SESALARMTIME, CLI_PHONE1, CLI_PHONE2, CLI_PHONE3, CLI_PHONE4, CLI_PHONE5, CLI_IPCHECK, CLI_SOURCE_IP1, CLI_SOURCE_IP2, CLI_SOURCE_IP3, CLI_MMS_USE) 
-		VALUES (#{CLI_ID}, #{CLI_PASSWD}, #{CLI_ID}, 'Y', 'Y', 'Y', 'N', 'N', 1, 0, 'Y', '201307', 0, 0, 'N', 'N', 0, 'N', '', '0', '0', '00:00,24:00', '00:00,24:00', '', '', '', '', '', 'Y', #{CLI_SOURCE_IP1}, '', '', 'Y');
+		VALUES (#{CLI_ID}, #{CLI_PASSWD}, #{CLI_ID}, 'Y', 'Y', 'Y', 'N', 'N', 1, 0, 'Y', '201307', 0, 0, 'N', 'N', 0, 'N', '', '0', '0', '00:00,24:00', '00:00,24:00', '', '', '', '', '', 'Y', #{CLI_SOURCE_IP1}, '', '', 'Y')
 	</insert>
 	<update id="update_server_member" parameterType="com.m.api.MemberServerVO">
 		update smrelay.SM_CLIENT
@@ -470,7 +470,7 @@
 	<insert id="insert_emoticon" parameterType="com.m.emoticon.EmoticonVO">
 		INSERT INTO munjanote.emoticon
 		(gubun, category, level, msg) 
-		VALUES (#{gubun}, #{category}, #{level}, #{msg});
+		VALUES (#{gubun}, #{category}, #{level}, #{msg})
 	</insert>
 	<!-- EMOTICON E -->
 	
@@ -478,12 +478,12 @@
 	<insert id="insert_qna" parameterType="com.m.admin.vo.QnaVO">
 		INSERT INTO qna
 		(user_id, hp, content, timeWrite) 
-		VALUES (#{user_id}, #{hp}, #{content}, now());
+		VALUES (#{user_id}, #{hp}, #{content}, now())
 	</insert>
 	<!-- QNA E -->
 	
 	<!-- URL S -->
-	<insert id="insert_url" parameterType="com.m.url.UrlDataVO">
+	<insert id="insert_url" parameterType="com.m.url.UrlHtmlVO">
 		INSERT INTO URL_HTML
 		(user_id, dt, stopYN, timeWrite, timeModify) 
 		VALUES (#{user_id}, #{dt}, #{stopYN}, #{timeWrite}, #{timeModify})
@@ -491,25 +491,113 @@
     		SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
-	<update id="update_url" parameterType="com.m.url.UrlDataVO">
+	<update id="update_url" parameterType="com.m.url.UrlHtmlVO">
 		UPDATE URL_HTML 
 		SET  dt = #{dt}, stopYN = #{stopYN}, timeModify = #{timeModify} 
 		WHERE 
 		idx = #{idx} and
 		user_id = #{user_id}
 	</update>
-	<delete id="delete_url" parameterType="com.m.url.UrlDataVO">
+	<delete id="delete_url" parameterType="com.m.url.UrlHtmlVO">
 		delete from URL_HTML 
 		WHERE 
 		idx = #{idx} and
 		user_id = #{user_id}
 	</delete>
-	<select id="select_url" parameterType="com.m.url.UrlDataVO" resultType="com.m.url.UrlDataVO">
+	<select id="select_url" parameterType="com.m.url.UrlHtmlVO" resultType="com.m.url.UrlHtmlVO">
 		SELECT idx, user_id, dt, stopYN, timeWrite, timeModify 
 		FROM URL_HTML
 		WHERE 
 		idx = #{idx} and user_id = #{user_id}
 	</select>
+	<select id="select_url_html_list" parameterType="com.m.url.UrlHtmlVO" resultType="com.m.url.UrlHtmlVO">
+		SELECT idx, user_id, dt, stopYN, timeWrite, timeModify 
+		FROM URL_HTML
+		WHERE user_id = #{user_id} order by timeWrite desc
+	</select>
+	
+	<insert id="insert_url_data" parameterType="com.m.send.MessageVO">
+		INSERT INTO URL_DATA
+		(user_id, sent_idx, html_idx, mearge, coupon, mileage, input, dt_conn, timeWrite, timeModify) 
+		VALUES (#{user_id}, #{groupKey}, #{idx}, #{name}, '', '', '', null, now(), null)
+		
+		<selectKey keyProperty="idx" resultType="int">
+    		SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<insert id="insert_url_send_kt_SMS" parameterType="com.m.send.MessageVO">
+		INSERT INTO SDK_SMS_SEND ( 
+		SEND_DATE, USER_ID,DEST_INFO, CALLBACK,  SMS_MSG, RESERVED1,RESERVED2, SUBJECT, CALLBACK_URL, NOW_DATE, SEND_STATUS, SEND_RESULT, SCHEDULE_TYPE, DEST_COUNT, RESERVED5) 
+		VALUES (#{sendDate}, #{user_id}, concat('^',#{phone}) , #{callback} , #{msg}, #{groupKey, jdbcType=VARCHAR}, '', '','', DATE_FORMAT(NOW(),'%Y%m%d%H%i%S'), 0, 0, 1, 1,#{idx, jdbcType=VARCHAR})
+	</insert>
+	<insert id="insert_url_send_kt_LMS" parameterType="com.m.send.MessageVO">
+		INSERT INTO SDK_MMS_SEND (
+		SEND_DATE, USER_ID,DEST_INFO, CALLBACK,  MMS_MSG, RESERVED1,RESERVED2, SUBJECT,  NOW_DATE,SEND_STATUS, SEND_RESULT, MSG_TYPE, CONTENT_COUNT, CONTENT_DATA, SCHEDULE_TYPE, DEST_COUNT, RESERVED5) 
+		values (#{sendDate}, #{user_id}, concat('^',#{phone}), #{callback} , #{msg}, #{groupKey, jdbcType=VARCHAR}, '', left(#{msg} ,20), DATE_FORMAT(NOW(),'%Y%m%d%H%i%S'), 0, 0, 0, 0, '', 1, 1,#{idx, jdbcType=VARCHAR})
+	</insert>
+	<insert id="insert_url_send_kt_MMS" parameterType="com.m.send.MessageVO">
+		INSERT INTO SDK_MMS_SEND (
+		SEND_DATE, USER_ID,DEST_INFO, CALLBACK,  MMS_MSG, RESERVED1,RESERVED2, SUBJECT,  NOW_DATE,SEND_STATUS, SEND_RESULT, MSG_TYPE, CONTENT_COUNT, CONTENT_DATA, SCHEDULE_TYPE, DEST_COUNT, RESERVED5) 
+		values (#{sendDate}, #{user_id}, concat('^',#{phone}), #{callback} , #{msg}, #{groupKey, jdbcType=VARCHAR}, '', left(#{msg} ,20), DATE_FORMAT(NOW(),'%Y%m%d%H%i%S'), 0, 0, 0, 0, #{imagePath}, 1, 1,#{idx, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insert_url_send_lg_SMS" parameterType="com.m.send.MessageVO">
+		insert into SC_TRAN( TR_SENDDATE, TR_ID, TR_PHONE, TR_CALLBACK, TR_MSG, TR_ETC1, TR_ETC2, TR_ETC3,  TR_SENDSTAT, TR_RSLTSTAT, TR_ETC5) 
+		values (#{sendDate}, #{user_id}, #{phone}, #{callback} , #{msg}, #{groupKey, jdbcType=VARCHAR}, '',#{sendMode},'0','0',#{idx, jdbcType=VARCHAR})
+	</insert>
+	<insert id="insert_url_send_lg_LMS" parameterType="com.m.send.MessageVO">
+		insert into MMS_MSG( REQDATE, ID, PHONE, CALLBACK, MSG, ETC1, ETC2, ETC3, STATUS, RSLT, FILE_CNT, FILE_CNT_REAL, FILE_PATH1, SUBJECT, ETC4 ) 
+		values (#{sendDate},#{user_id}, #{phone}, #{callback},#{msg},#{groupKey, jdbcType=VARCHAR},'',#{sendMode},'0','0',0,0,'',left(#{msg} ,20),#{idx, jdbcType=VARCHAR})
+	</insert>
+	<insert id="insert_url_send_lg_MMS" parameterType="com.m.send.MessageVO">
+		insert into MMS_MSG( REQDATE, ID, PHONE, CALLBACK, MSG, ETC1, ETC2, ETC3, STATUS, RSLT, FILE_CNT, FILE_CNT_REAL, FILE_PATH1, SUBJECT, ETC4 ) 
+		values (#{sendDate},#{user_id}, #{phone}, #{callback},#{msg},#{groupKey, jdbcType=VARCHAR},'',#{sendMode},'0','0',0,0,#{imagePath},left(#{msg} ,20),#{idx, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insert_url_send_han_SMS" parameterType="com.m.send.MessageVO">
+		insert into HAN_TRAN( TR_SENDDATE, TR_ID, TR_PHONE, TR_CALLBACK, TR_MSG, TR_ETC1, TR_ETC2, TR_ETC3,  TR_SENDSTAT, TR_RSLTSTAT, TR_ETC5) 
+		values (#{sendDate}, #{user_id}, #{phone}, #{callback} , #{msg}, #{groupKey, jdbcType=VARCHAR}, '',#{sendMode},'0','0',#{idx, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insert_url_send_lgspam_SMS" parameterType="com.m.send.MessageVO">
+		insert into SCSPAM_TRAN( TR_SENDDATE, TR_ID, TR_PHONE, TR_CALLBACK, TR_MSG, TR_ETC1, TR_ETC2, TR_ETC3,  TR_SENDSTAT, TR_RSLTSTAT, TR_ETC5) 
+		values (#{sendDate}, #{user_id}, #{phone}, #{callback} , #{msg}, #{groupKey, jdbcType=VARCHAR}, '',#{sendMode},'0','0',#{idx, jdbcType=VARCHAR})
+	</insert>
+	<insert id="insert_url_send_lgspam_LMS" parameterType="com.m.send.MessageVO">
+		insert into MMSSPAM_MSG( REQDATE, ID, PHONE, CALLBACK, MSG, ETC1, ETC2, ETC3, STATUS, RSLT, FILE_CNT, FILE_CNT_REAL, FILE_PATH1, SUBJECT, ETC4 ) 
+		values (#{sendDate},#{user_id}, #{phone}, #{callback},#{msg},#{groupKey, jdbcType=VARCHAR},'',#{sendMode},'0','0',0,0,'',left(#{msg} ,20),#{idx, jdbcType=VARCHAR})
+	</insert>
+	<insert id="insert_url_send_lgspam_MMS" parameterType="com.m.send.MessageVO">
+		insert into MMSSPAM_MSG( REQDATE, ID, PHONE, CALLBACK, MSG, ETC1, ETC2, ETC3, STATUS, RSLT, FILE_CNT, FILE_CNT_REAL, FILE_PATH1, SUBJECT, ETC4 ) 
+		values (#{sendDate},#{user_id}, #{phone}, #{callback},#{msg},#{groupKey, jdbcType=VARCHAR},'',#{sendMode},'0','0',0,0,#{imagePath},left(#{msg} ,20),#{idx, jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="select_url_data" parameterType="com.m.url.UrlDataHtmlVO" resultType="com.m.url.UrlDataHtmlVO">
+		SELECT d.idx, d.user_id, d.mearge, d.coupon, d.mileage, d.input, d.dt_conn, h.idx as html_idx, h.dt, h.stopYN, h.timeWrite, h.timeModify 
+		FROM URL_DATA d inner join URL_HTML h on(d.html_idx = h.idx)
+		WHERE 
+		d.idx = #{idx}
+	</select>
+	
+	<select id="select_url_data_list" parameterType="com.m.url.UrlDataVO" resultType="com.m.url.UrlDataVO">
+		SELECT idx, user_id, sent_idx, html_idx, phone, mearge, coupon, mileage, input, dt_conn, timeWrite, timeModify
+		FROM URL_DATA
+		WHERE 
+		user_id = #{user_id} and html_idx = #{html_idx}
+	</select>
+	
+	<update id="update_url_data" parameterType="com.m.url.UrlDataVO">
+		update URL_DATA
+		<set>
+			<if test="coupon != ''">coupon = #{coupon} , </if>
+			<if test="mileage != ''">mileage = #{mileage}, </if>
+			<if test="input != ''">input = #{input}, </if>
+			<if test="dt_conn != ''">dt_conn = #{dt_conn} ,</if>
+			<if test="timeModify != ''">timeModify = #{timeModify} </if>
+		</set>
+		WHERE idx = #{idx}
+	</update>
 	<!-- URL E -->
 	
 
