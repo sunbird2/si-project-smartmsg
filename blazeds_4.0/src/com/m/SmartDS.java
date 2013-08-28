@@ -49,6 +49,7 @@ import com.m.send.SendManager;
 import com.m.send.SendMessageVO;
 import com.m.send.SendUrlManager;
 import com.m.url.UrlDao;
+import com.m.url.UrlDataVO;
 import com.m.url.UrlHtmlVO;
 
 import flex.messaging.FlexContext;
@@ -1344,6 +1345,27 @@ public class SmartDS extends SessionManagement {
 			VbyP.errorLog(e.toString());
 		}
 		return resultvo;
+	}
+	
+	public List<UrlDataVO> getUrlFromHtml(UrlDataVO udvo) {
+		
+		VbyP.accessLog("getUrlDataFromHtml : user_id="+getSession() );
+		
+		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		rvo.setbResult(true);
+		UrlDao udao = UrlDao.getInstance();
+		List<UrlDataVO> results = null;
+		try {
+			if (!bSession()) throw new Exception("no login");
+			if (udvo == null) throw new Exception("no UrlDataVO");
+			udvo.setUser_id(getSession());
+			results = udao.selectUrlDataList(udvo);
+			if (results == null)   throw new Exception("no db process");
+			
+		}catch(Exception e) {
+			VbyP.errorLog(e.toString());
+		}
+		return results;
 	}
 	
 	public BooleanAndDescriptionVO imageUpload(byte[] bytes, String fileName){

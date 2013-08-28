@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class UrlDataVO implements Serializable {
 
-	private static final long serialVersionUID = -6427198762962309867L;
+	private static final long serialVersionUID = -6427198762962309017L;
 	
 	int idx = 0;
 	String user_id = "";

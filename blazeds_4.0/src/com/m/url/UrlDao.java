@@ -49,6 +49,14 @@ public class UrlDao implements MybatisAble {
 		return (List)sm.selectList(ns + "select_url_html_list", udvo);
 	}
 	
+	public List<UrlDataVO> selectUrlDataList(UrlDataVO udvo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (List)sm.selectList(ns + "select_url_data_list", udvo);
+	}
+	
+	
+	
 	public UrlDataHtmlVO selectUrlDataHtml(UrlDataHtmlVO udvo) {
 		
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));

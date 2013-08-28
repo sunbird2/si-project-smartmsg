@@ -3,7 +3,9 @@
 <configuration>
 	
 	<settings>
-		<setting name="localCacheScope" value="STATEMENT"/>	
+		<setting name="localCacheScope" value="STATEMENT"/>
+<!-- 		<setting name="defaultExecutorType" value="BATCH" /> -->
+<!--         <setting name="defaultStatementTimeout" value="25000" /> -->
 	</settings>
 	<typeAliases>
 		<typeAlias alias="MemberVO"  type="com.m.admin.vo.MemberVO" />
