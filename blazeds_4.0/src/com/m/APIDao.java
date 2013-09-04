@@ -123,8 +123,8 @@ public class APIDao implements MybatisAble {
 		buf.append(" - reqIP:"+smvo.getReqIP());
 		
 		VbyP.accessLog(buf.toString());
-		if (!smvo.getReqIP().equals("127.0.0.1"))
-			SendMail.send("[send] "+user_id+" "+getMode(smvo)+" "+ Integer.toString(smvo.getAl().size())+" 건", buf.toString());
+//		if (!smvo.getReqIP().equals("127.0.0.1"))
+//			SendMail.send("[send] "+user_id+" "+getMode(smvo)+" "+ Integer.toString(smvo.getAl().size())+" 건", buf.toString());
 	}
 	
 	private void close(Connection conn) {
