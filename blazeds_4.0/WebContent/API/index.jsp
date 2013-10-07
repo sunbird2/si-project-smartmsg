@@ -36,8 +36,7 @@ private SendMessageVO getSmVO(HashMap<String, String> hm) {
 private ArrayList<PhoneVO> getPhoneVO(String phones, boolean bCert ) {
 	
 	ArrayList<PhoneVO> al = new ArrayList<PhoneVO>();
-	
-	String[] arr = SLibrary.replaceAll(phones, "\\r", "").split("\\n");
+	String[] arr = SLibrary.replaceAll(phones, "\\r", "").split("\\\\n");
 	int cnt = arr.length;
 	PhoneVO pvo = null;
 	RandomString rndStr = new RandomString();
@@ -121,7 +120,7 @@ String certStr = "";
 try {
 	VbyP.accessLog("API call : uid="+uid+" dt="+ dt+" callback="+callback);
 	System.out.println("API call : "+ dt);
-	SendMail.send("[API] "+uid, "");
+	//SendMail.send("[API] "+uid, "");
 	
 	if (SLibrary.isNull(uid)) throw new Exception("uid is null");
 	if (SLibrary.isNull(dt)) throw new Exception("value is null");
