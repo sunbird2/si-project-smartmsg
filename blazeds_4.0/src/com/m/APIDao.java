@@ -54,7 +54,7 @@ public class APIDao implements MybatisAble {
 			
 			//smvo.setReqIP(FlexContext.getHttpRequest().getRemoteAddr());
 			
-			sendLogWrite(uvo.getUser_id(), smvo);
+			sendLogWrite(uvo.getUser_id(), smvo, uvo.getLine());
 			lvo = send.send(conn, uvo, smvo);
 			
 			Gv.removeStatus(uvo.getUser_id());
@@ -106,10 +106,11 @@ public class APIDao implements MybatisAble {
 		return mode;
 	}
 	
-	private void sendLogWrite(String user_id, SendMessageVO smvo) {
+	private void sendLogWrite(String user_id, SendMessageVO smvo, String line) {
 		
 		StringBuffer buf = new StringBuffer();
 		
+		buf.append(" - line:"+line+"\n");
 		buf.append(" - message:"+smvo.getMessage()+"\n");
 		buf.append(" - phoneCount:"+smvo.getAl().size()+"\n");
 		buf.append(" - returnPhone:"+smvo.getReturnPhone()+"\n");
@@ -123,8 +124,8 @@ public class APIDao implements MybatisAble {
 		buf.append(" - reqIP:"+smvo.getReqIP());
 		
 		VbyP.accessLog(buf.toString());
-//		if (!smvo.getReqIP().equals("127.0.0.1"))
-//			SendMail.send("[send] "+user_id+" "+getMode(smvo)+" "+ Integer.toString(smvo.getAl().size())+" 건", buf.toString());
+		if (!smvo.getReqIP().equals("127.0.0.1") && smvo.getAl().size() > SLibrary.intValue( VbyP.getValue("moniterSendCount") ) )
+			SendMail.send("[sendAPI] "+user_id+" "+line+" "+getMode(smvo)+" "+ Integer.toString(smvo.getAl().size())+" 건", buf.toString());
 	}
 	
 	private void close(Connection conn) {
