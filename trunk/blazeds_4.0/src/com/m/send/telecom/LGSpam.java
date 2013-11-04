@@ -20,8 +20,8 @@ public class LGSpam implements ILineSet {
 		
 		String query = "";
 		if (mode.equals("SMS")) query = VbyP.getSQL("insertLGClient").replaceAll("SC_", "SCSPAM_");
-		else if (mode.equals("LMS")) query = VbyP.getSQL("insertLGLMSClient").replaceAll("MMS_", "MMSSCSPAM_");
-		else if (mode.equals("MMS")) query = VbyP.getSQL("insertLGMMSClient").replaceAll("MMS_", "MMSSCSPAM_");
+		else if (mode.equals("LMS")) query = VbyP.getSQL("insertLGLMSClient").replaceAll("MMS_", "MMSSPAM_");
+		else if (mode.equals("MMS")) query = VbyP.getSQL("insertLGMMSClient").replaceAll("MMS_", "MMSSPAM_");
 		return query; 
 	}
 	//insertLGClient=insert into SC_TRAN( TR_SENDDATE, TR_ID, TR_PHONE, TR_CALLBACK, TR_MSG, TR_ETC1, TR_ETC2, TR_ETC3,  TR_SENDSTAT, TR_RSLTSTAT) values (?,?,?,?,?,?,?,?,?,?)
