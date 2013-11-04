@@ -128,7 +128,7 @@ public class HAN implements ILineSet {
 	}
 	
 	private String getSubject(String msg) {
-		return SLibrary.cutBytes(msg, 40, false, "");
+		return SLibrary.cutBytes(msg.replaceAll("<","〈").replaceAll(">","〉"), 40, false, "");
 	}
 	@Override
 	public String parseMMSPath(String imgPath) {
