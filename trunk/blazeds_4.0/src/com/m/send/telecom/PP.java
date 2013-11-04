@@ -122,7 +122,6 @@ public class PP implements ILineSet {
 		pq.setString(10, "9");
 		pq.setString(11, vo.getImagePath());
 		pq.setString(12, getSubject(vo.getMsg()));
-		
 	}
 	
 	private String getSubject(String msg) {
