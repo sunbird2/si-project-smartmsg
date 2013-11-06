@@ -206,7 +206,8 @@
 			protected function close_clickHandler(event:MouseEvent):void { MobileWebEditorAble(parentDocument.hostComponent).removeModuleUrl(); }
 			
 			
-			protected function getUrlHtmlList():void {// getUrlHtmlListResult.token = smt.getUrlHtmlList();
+			protected function getUrlHtmlList():void {
+				getUrlHtmlListResult.token = smt.getUrlHtmlList();
 			}
 			
 		]]>
