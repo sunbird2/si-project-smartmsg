@@ -30,7 +30,7 @@
 			</s:VGroup>
 			
 		</s:SkinnableContainer>
-		<s:Button id="mobileWebBtn" label="모바일웹 관리자" right="7" top="7" skinClass="module.url.component.skin.ButtonBlack" depth="5"/>
+		<s:Button id="mobileWebBtn" label="모바일웹 관리자" right="7" top="7" skinClass="module.url.component.skin.ButtonBlack" depth="5" visible="false"/>
 		
 		<s:HGroup width="100%" top="48" depth="0" gap="0" height="100%">
 			<s:VGroup width="300" height="100%" gap="0">
