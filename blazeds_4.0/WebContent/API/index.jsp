@@ -37,6 +37,9 @@ private ArrayList<PhoneVO> getPhoneVO(String phones, boolean bCert ) {
 	
 	ArrayList<PhoneVO> al = new ArrayList<PhoneVO>();
 	String[] arr = SLibrary.replaceAll(phones, "\\r", "").split("\\\\n");
+	String[] arr2 = SLibrary.replaceAll(phones, "\\r", "").split("\\n");
+	if (arr2 != null && arr2.length > arr.length) arr = arr2;
+
 	int cnt = arr.length;
 	PhoneVO pvo = null;
 	RandomString rndStr = new RandomString();
