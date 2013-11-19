@@ -69,7 +69,7 @@ public class AddressVO implements Serializable {
 		this.name = name;
 	}
 	public String getPhone() {
-		return SLibrary.IfNull(phone);
+		return SLibrary.getNumber(phone);
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
@@ -93,6 +93,15 @@ public class AddressVO implements Serializable {
 		this.etcInfo = etcInfo;
 	}
 	
-	
+	public boolean is() {
+		
+		if (getPhone().length() > 13
+				|| getName().length() > 50
+				|| getMemo().length() > 255
+				|| getGrpName().length() > 50) {
+			return false;
+		}
+		else return true;
+	}
 
 }

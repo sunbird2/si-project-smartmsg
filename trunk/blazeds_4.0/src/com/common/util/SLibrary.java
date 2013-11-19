@@ -2017,5 +2017,19 @@ public class SLibrary {
 	  
 	  return dirFileList;
 	 }
+	 
+	 public static String getNumber(String str) {
+			if (str == null)
+				return "";
+
+			StringBuffer sb = new StringBuffer();
+			int length = str.length();
+			for (int i = 0; i < length; i++) {
+				char curChar = str.charAt(i);
+				if (Character.isDigit(curChar))
+					sb.append(curChar);
+			}
+			return sb.toString();
+		}
 
 }
