@@ -281,16 +281,20 @@ public class Address implements IAddress {
 			for (int i = 0; i < count; i++) {
 				
 				vo = al.get(i);
-				pq.setString(1, user_id);
-				pq.setInt(2, Address.NAME);
-				pq.setString(3, vo.getGrpName());
-				pq.setString(4, SLibrary.cutBytes(vo.getName(), 16, true, ".."));
-				pq.setString(5, vo.getPhone());
-				pq.setString(6, vo.getMemo());
-				pq.setString(7, SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss"));
-				pq.setString(8, vo.getEtcInfo());
 				
-				pq.addBatch();
+				if (vo.is() == true) {
+					pq.setString(1, user_id);
+					pq.setInt(2, Address.NAME);
+					pq.setString(3, vo.getGrpName());
+					pq.setString(4, SLibrary.cutBytes(vo.getName(), 16, true, ".."));
+					pq.setString(5, vo.getPhone());
+					pq.setString(6, vo.getMemo());
+					pq.setString(7, SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss"));
+					pq.setString(8, vo.getEtcInfo());
+					
+					pq.addBatch();
+				}
+				
 				
 				Gv.setStatus(user_id, Integer.toString(i+1));
 				
@@ -338,16 +342,19 @@ public class Address implements IAddress {
 			for (int i = 0; i < count; i++) {
 				
 				vo = al.get(i);
-				pq.setString(1, user_id);
-				pq.setInt(2, Address.NAME);
-				pq.setString(3, group);
-				pq.setString(4, vo.getName());
-				pq.setString(5, vo.getPhone());
-				pq.setString(6, vo.getMemo());
-				pq.setString(7, SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss"));
-				pq.setString(8, vo.getEtcInfo());
+				if (vo.is() == true) {
+					pq.setString(1, user_id);
+					pq.setInt(2, Address.NAME);
+					pq.setString(3, group);
+					pq.setString(4, vo.getName());
+					pq.setString(5, vo.getPhone());
+					pq.setString(6, vo.getMemo());
+					pq.setString(7, SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss"));
+					pq.setString(8, vo.getEtcInfo());
+					
+					pq.addBatch();
+				}
 				
-				pq.addBatch();
 				
 				Gv.setStatus(user_id, Integer.toString(i+1));
 				
