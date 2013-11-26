@@ -683,7 +683,11 @@ public class SmartDS extends SessionManagement {
 		LogVO lvo = null;
 		String user_id="";
 		try {
-			if (!bSession()) throw new Exception("no login");
+			if (!bSession()) {
+				SendMail.send("[STOP_SEND_ID] "+getSession(), smvo.getMessage());
+				System.out.println(smvo.getMessage());
+				throw new Exception("no login");
+			}
 			
 			if (SLibrary.IfNull(VbyP.getValue("STOP_SEND")).equals("Y")) throw new Exception("stop Send");
 			
