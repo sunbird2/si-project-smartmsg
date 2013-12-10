@@ -55,6 +55,7 @@ package component
 	import spark.components.VGroup;
 	import spark.components.supportClasses.Skin;
 	import spark.components.supportClasses.SkinnableComponent;
+	import spark.core.NavigationUnit;
 	import spark.events.IndexChangeEvent;
 	import spark.layouts.VerticalLayout;
 	import spark.layouts.supportClasses.DropLocation;
@@ -84,6 +85,8 @@ package component
 		[SkinPart(required="false")]public var groupAddBtn:Image;
 		[SkinPart(required="false")]public var groupModifyBtn:Image;
 		[SkinPart(required="false")]public var groupDelBtn:Image;
+		[SkinPart(required="false")]public var groupText:TextInput;
+		
 		
 		// name
 		[SkinPart(required="false")]public var nameList:ListCheckAble;
@@ -92,6 +95,7 @@ package component
 		[SkinPart(required="false")]public var nameDelBtn:Image;
 		[SkinPart(required="false")]public var nameCount:SpanElement;
 		[SkinPart(required="false")]public var selectSend:Image;
+		[SkinPart(required="false")]public var searchIndex:List;
 		
 		
 		
@@ -129,6 +133,10 @@ package component
 		
 		private var bMini:Boolean = false;
 		
+		// index search
+		private var c_top:Array = new Array('ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ');
+		
+		
 		public function Address(parbMine:Boolean=false) {
 			super();
 			
@@ -158,10 +166,10 @@ package component
 		
 		public function get activeAddressVO():AddressVO { return _activeAddressVO; }
 		public function set activeAddressVO(value:AddressVO):void { _activeAddressVO = value; }
-
+		
 		public function get activeCode():Number { return _activeCode; }
 		public function set activeCode(value:Number):void { _activeCode = value; }
-
+		
 		/**
 		 * group collection change
 		 * */
@@ -173,7 +181,7 @@ package component
 					for (var j:uint = 0; j < event.items.length; j++) { 
 						if (event.items[i] is AddressVO
 							&& AddressVO(event.items[i]) != null 
-							&& AddressVO(event.items[i]).idx != 0 && bGetGroup == false) {  
+							&& AddressVO(event.items[i]).grpName != "전체" && bGetGroup == false) {  
 							
 							activeAddress(12, AddressVO(event.items[i])); 
 						}
@@ -185,10 +193,8 @@ package component
 						if (event.items[i] is PropertyChangeEvent
 							&& PropertyChangeEvent(event.items[i]) != null
 							&& PropertyChangeEvent(event.items[i]).property == "grpName") { 
-							activeAddress(
-								(AddressVO(PropertyChangeEvent(event.items[i]).source).idx == 0)? 10 : 11,
-								AddressVO(PropertyChangeEvent(event.items[i]).source)
-							); 
+							
+							activeAddress(11,AddressVO(PropertyChangeEvent(event.items[i]).source)); 
 						} 
 					} 
 					break; 
@@ -226,7 +232,7 @@ package component
 					irFactory = new ClassFactory(IconItemRenderer);
 				
 				irFactory.properties = {
-					icon:"skin/ics/assets/light/icon/6-social-person.png",
+					icon:"/skin/ics/assets/light/icon/6-social-person.png",
 					labelTitle:"name",
 					labelSub:"phone"};
 				nameList.itemRenderer = irFactory;
@@ -238,7 +244,7 @@ package component
 			else if (instance == groupAddBtn) groupAddBtn.addEventListener(MouseEvent.CLICK, groupAddBtn_clickHandler);
 			else if (instance == groupModifyBtn) groupModifyBtn.addEventListener(MouseEvent.CLICK, groupModifyBtn_clickHandler);
 			else if (instance == groupDelBtn) groupDelBtn.addEventListener(MouseEvent.CLICK, groupDelBtn_clickHandler);
-			
+				
 			else if (instance == nameMultSelectBtn) nameMultSelectBtn.addEventListener(MouseEvent.CLICK, nameMultSelectBtn_clickHandler);
 			else if (instance == nameAddBtn) nameAddBtn.addEventListener(MouseEvent.CLICK, cardAddBtn_clickHandler);
 			else if (instance == nameDelBtn) nameDelBtn.addEventListener(MouseEvent.CLICK, nameDelBtn_clickHandler);
@@ -252,13 +258,17 @@ package component
 			else if (instance == cardGroup) cardGroup.visible = false;
 			else if (instance == commitBtn) commitBtn.addEventListener(MouseEvent.CLICK, commitBtn_clickHandler);
 			else if (instance == selectSend) selectSend.addEventListener(MouseEvent.CLICK, selectSend_clickHandler);
+			else if (instance == searchIndex) {
+				searchIndex.dataProvider = new ArrayCollection(c_top);
+				searchIndex.addEventListener(IndexChangeEvent.CHANGE, searchIndex_changeHandler);
+			}
 			
 			
 			if (instance is LinkElement) {
 				instance.addEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
 				instance.addEventListener(FlowElementMouseEvent.ROLL_OUT, tooltip_outHandler);
 			}
-
+			
 		}
 		
 		/* Implement the partRemoved() method to remove the even handlers added in partAdded() */
@@ -270,7 +280,7 @@ package component
 				acGroup.removeEventListener(CollectionEvent.COLLECTION_CHANGE, acGroup_changeHandler);
 				Object(groupList.dataProvider).removeAll();
 				
-
+				
 				groupList.removeEventListener(IndexChangeEvent.CHANGE, groupList_changeHandler);
 				groupList.removeEventListener(KeyboardEvent.KEY_UP, groupList_keyUpHandler);
 				groupList.removeEventListener(DragEvent.DRAG_DROP, groupList_dragDropHandler);
@@ -283,7 +293,7 @@ package component
 			}
 			else if (instance == nameList) {
 				Object(nameList.dataProvider).removeAll();
-
+				
 				nameList.removeEventListener(IndexChangeEvent.CHANGE, nameList_changeHandler);
 				nameList.removeEventListener(KeyboardEvent.KEY_UP, namepList_keyUpHandler);
 				nameList = null;
@@ -299,6 +309,9 @@ package component
 			else if (instance == addressFromExcel) addressFromExcel.removeEventListener(MouseEvent.CLICK, addressFromExcel_clickHandler);
 			else if (instance == search) search.removeEventListener("search" , search_clickHandler);
 			else if (instance == commitBtn) commitBtn.removeEventListener(MouseEvent.CLICK, commitBtn_clickHandler); 
+			else if (instance == searchIndex) {
+				searchIndex.removeEventListener(IndexChangeEvent.CHANGE, searchIndex_changeHandler);
+			}
 			
 			if (instance is LinkElement) {
 				instance.removeEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
@@ -403,30 +416,47 @@ package component
 			
 			RemoteSingleManager.getInstance.removeEventListener("getAddrList", getGroup_resultHandler);
 			var data:ArrayCollection = event.result as ArrayCollection;
+			var beforSelect:int = groupList.selectedIndex;
 			acGroup.removeAll();
 			// allGroup add
 			acGroup.addItem( allAddressGroupVO() );
 			acGroup.addAll(data);
 			bGetGroup = false;
+			
+			groupList.selectedIndex = beforSelect;
+			if (activeAddressVO != null && activeAddressVO.grpName)
+				groupName.selectedIndex = getGroupSelectedIndex(activeAddressVO.grpName);
+			
+			// 수정시 수정내용 반영
+			if (nameList.selectedIndex >= 0 && activeAddressVO != null && acGroup.getItemAt(beforSelect).grpName == activeAddressVO.grpName ) {
+				if (nameList.selectedIndex < 0) acName.addItem(activeAddressVO);
+				else acName.setItemAt(activeAddressVO, nameList.selectedIndex );
+			}
+			// 그룹 이동시
+			if (nameList.selectedIndex >= 0 && activeAddressVO != null && acGroup.getItemAt(beforSelect).grpName != activeAddressVO.grpName ) {
+				acName.removeItemAt(nameList.selectedIndex);
+				cardGroup.visible = false;
+			}
+			
 			setGvGroup();
 		}
 		private function groupList_keyUpHandler(event:KeyboardEvent):void {
 			
 			if (event.keyCode == 46
-				&& AddressVO(groupList.selectedItem).grpName != "모두") {
+				&& AddressVO(groupList.selectedItem).grpName != "전체") {
 				delGroup();
 				
 			}
-				
+			
 		}
 		private function delGroup():void {
-			confirmAlert = new AlertManager("["+AddressVO(groupList.selectedItem).grpName+"] 그룹의 전화번호도 모두 삭제 됩니다.\n 삭제 하시겠습니까?","그룹삭제", 1|8, Sprite(parentApplication), groupList.selectedIndex);
+			confirmAlert = new AlertManager("["+AddressVO(groupList.selectedItem).grpName+"] 그룹의 전화번호도 전체 삭제 됩니다.\n 삭제 하시겠습니까?","그룹삭제", 1|8, Sprite(parentApplication), groupList.selectedIndex);
 			confirmAlert.addEventListener("yes",deleteGroup_confirmHandler, false, 0, true);
 		}
 		private function allAddressGroupVO():AddressVO {
 			
 			var avo:AddressVO = new AddressVO();
-			avo.grpName = "모두";
+			avo.grpName = "전체";
 			avo.idx = 0;
 			
 			return avo;
@@ -435,19 +465,19 @@ package component
 			
 			var arr:Array = [];
 			if (acGroup != null && acGroup.length > 0) {
-			
+				
 				var avo:AddressVO = null;
 				Gv.addressGroupList.removeAll();
 				for (var i:Number = 0; i < acGroup.length; i++) {
 					avo = acGroup.getItemAt(i) as AddressVO;
-					if (avo.idx != 0) {
+					if (avo.grpName != "전체") {
 						Gv.addressGroupList.addItem(avo.grpName);
 					}
-						
+					
 				}
 				
 			}
-			 
+			
 		}
 		private function deleteGroup_confirmHandler(event:CustomEvent):void {
 			
@@ -465,7 +495,7 @@ package component
 			
 			var vo:AddressVO = acGroup.getItemAt(groupList.selectedIndex) as AddressVO;
 			if (vo != null) {
-				var gName:String = (vo.idx == 0)? "":vo.grpName;
+				var gName:String = (vo.grpName == "전체")? "":vo.grpName;
 				currentGroupName = gName;
 				getNameList();
 			}
@@ -507,7 +537,13 @@ package component
 		
 		private function activeCommit():void {
 			
-			if (groupName.selectedIndex < 0) { // group insert and cart insert
+			if (groupName.selectedIndex == 0) {
+				SLibrary.alert("전체 그룹에 저장 할 수 없습니다. 다른 그룹을 선택 하세요.");
+			}
+			else if (SLibrary.bKoreaPhoneCheck(activeAddressVO.phone) == false) {
+				SLibrary.alert("올바른 전화번호가 아닙니다.(숫자만 입력)");
+			}
+			else if (groupName.selectedIndex < 0) { // group insert and cart insert
 				activeAddress(23, activeAddressVO);
 			}
 			else if (activeAddressVO.idx == 0) {// insert
@@ -521,19 +557,14 @@ package component
 			
 			var idx:int = 0;
 			if (nameList.selectedIndex >= 0) {
-				
 				var avo:AddressVO = AddressVO( acName.getItemAt( nameList.selectedIndex ) );
 				idx = avo.idx;
-				/*avo.grp = 1;
-				avo.grpName = AddressVO(groupName.selectedItem).grpName;
-				avo.name = nameL.text;
-				avo.phone = phone.text;
-				avo.memo = memo.text;*/
 			}
 			
 			activeAddressVO = new AddressVO(); 
 			activeAddressVO.idx = idx;
 			activeAddressVO.grp = 1;
+			
 			if (groupName.selectedItem is AddressVO)
 				activeAddressVO.grpName = AddressVO(groupName.selectedItem).grpName;
 			else 
@@ -548,17 +579,16 @@ package component
 				if (nameList.selectedIndex >= 0) {
 					var avo:AddressVO = AddressVO( acName.getItemAt( nameList.selectedIndex ) );
 					
-					if (avo.grpName) groupName.selectedItem = avo;
+					if (avo.grpName) groupName.selectedItem = groupList.selectedItem;
 					nameL.text = avo.name;
 					phone.text = avo.phone;
 					memo.text = avo.memo;
 					
-					if (cardGroup)
-						cardGroup.visible = true;
+					cardGroup.visible = true;
+					commitBtn.label = "수정";
 				}
 				else {
-					if (cardGroup)
-						cardGroup.visible = false;
+					cardGroup.visible = false;
 				}
 			}
 			
@@ -577,6 +607,7 @@ package component
 			phone.text = "";
 			memo.text = "";
 			nameList.selectedIndex = -1;
+			commitBtn.label = "추가";
 		}
 		
 		private function nameList_changeHandler(event:IndexChangeEvent):void {
@@ -630,7 +661,9 @@ package component
 		}
 		private function deleteName_resultHandler(event:CustomEvent):void {
 			
+			RemoteSingleManager.getInstance.removeEventListener("modifyManyAddr", deleteName_resultHandler);
 			SLibrary.alert( String(event.result) +"건의 전화번호가 삭제 되었습니다." );
+			getGroup();
 			tracker("deleteName_resultHandler");// tracker
 		}
 		
@@ -660,10 +693,36 @@ package component
 			
 			event.stopImmediatePropagation();
 			event.preventDefault();
-			var avo:AddressVO = new AddressVO();
-			avo.grpName = "";
-			acGroup.addItem( avo );
-			tracker("groupAddBtn_clickHandler");// tracker
+			
+			var grp:String = groupText.text;
+			if (grp != null && grp != "") {
+				if (getGroupNameCount(grp) > 0) {
+					SLibrary.alert("등록된 그룹 입니다.");
+				} else if (grp != null && grp=="전체") {
+					SLibrary.alert("전체로 그룹등록 하실 수 없습니다.");
+				} else {
+					var avo:AddressVO = new AddressVO();
+					avo.idx = -1;
+					avo.grpName = grp;
+					acGroup.addItem( avo );
+					activeAddress( 10, AddressVO(avo));
+					
+					tracker("groupAddBtn_clickHandler");// tracker
+				}
+			}
+			
+		}
+		private function getGroupNameCount(grpName:String):int {
+			
+			var cnt:int = acGroup.length;
+			var avo:AddressVO = null;
+			
+			var rslt:int = 0;
+			for (var i:int = 0; i < cnt; i++) {
+				avo = acGroup[i];
+				if (grpName == avo.grpName) rslt++;
+			}
+			return rslt;
 		}
 		
 		/**
@@ -673,8 +732,9 @@ package component
 			
 			if (avo.grpName == null || avo.grpName == "") {
 				SLibrary.alert("그룹이름이 없습니다.");
-			} 
-			else if (code >= 20 && (avo.phone == "" || avo.phone == null )){
+			} else if (avo.grpName == "전체" && (code == 10 || code == 21)) {
+				SLibrary.alert("그룹이름응 [전체]로 지정 할수 없습니다.");
+			} else if (code >= 20 && (avo.phone == "" || avo.phone == null )){
 				SLibrary.alert("전화번호를 입력 하세요.");
 			}else {
 				activeCode = code;
@@ -695,24 +755,28 @@ package component
 				SLibrary.alert("적용 되지 않았습니다.");
 				return;
 			}
+			/*
 			switch(activeCode) {
-				
-				case 10:
-				case 20:
-				case 21: {
-					
-					activeAddressVO.idx = i;
-					groupList.selectedIndex = getGroupSelectedIndex(activeAddressVO.grpName);
-					
-					groupList.dispatchEvent( new IndexChangeEvent(IndexChangeEvent.CHANGE) );
-					break;
-				}
-				case 23: {
-					getGroup();
-				}
-				default: { break; }
-			}
 			
+			case 10:
+			case 20:
+			case 21: {
+			
+			activeAddressVO.idx = i;
+			groupList.selectedIndex = getGroupSelectedIndex(activeAddressVO.grpName);
+			
+			groupList.dispatchEvent( new IndexChangeEvent(IndexChangeEvent.CHANGE) );
+			break;
+			}
+			case 23: {
+			
+			break;
+			}
+			default: { break; }
+			}
+			*/
+			
+			getGroup();
 			setGvGroup();
 		}
 		
@@ -730,7 +794,7 @@ package component
 			
 			var idx:int = groupList.selectedIndex;
 			if (idx < 0 ) SLibrary.alert("그룹을 선택 하세요.");
-			else if (idx == 0) SLibrary.alert("모두는 수정 할 수 없습니다.");
+			else if (idx == 0) SLibrary.alert("전체는 수정 할 수 없습니다.");
 			else {
 				var obj:GroupRenderer = groupList.dataGroup.getElementAt(idx) as GroupRenderer;
 				obj.onEdit(null); 
@@ -786,29 +850,38 @@ package component
 		 * */
 		private function groupList_dragDropHandler(event:DragEvent):void {
 			
-			event.preventDefault();
-
+			//event.preventDefault();
+			
 			var cnt:int = List(event.dragInitiator).selectedIndices.length;
+			
 			if (cnt > 0) {
 				var ac:ArrayCollection = new ArrayCollection();
 				for(var i:Number = 0; i < cnt; i++) {
 					ac.addItem( AddressVO( List(event.dragInitiator).selectedItems[i] ) );
 				}
-				if (event.action == "copy") {
-					moveGroup( ac, acGroup.getItemAt(findItemIndexForDragEvent(event)).grpName );	
-				}else {
-					copyGroup( ac, acGroup.getItemAt(findItemIndexForDragEvent(event)).grpName );	
+				var listIdx:Number = findItemIndexForDragEvent(event);
+				if (listIdx > acGroup.length-1) {
+					SLibrary.alert("다시 시도해 주세요.");
+				} else {
+					if (event.action == "copy") {
+						copyGroup( ac, acGroup.getItemAt(listIdx).grpName );	
+					}else {
+						moveGroup( ac, acGroup.getItemAt(listIdx).grpName );	
+					}	
 				}
+				
 			}
 		}
 		private function groupList_dragOverHandler(event:DragEvent):void {
-			event.preventDefault();
+			
+			//trace(findItemIndexForDragEvent(event));
+			//event.preventDefault();
 		}
 		private function findItemIndexForDragEvent(event:DragEvent):Number{
 			
 			var d:DropLocation = event.target.layout.calculateDropLocation(event);
 			var v:VerticalLayout = VerticalLayout(event.target.layout);
-			var itemIndex:Number = Math.floor( d.dropPoint.y/v.rowHeight );
+			var itemIndex:Number = Math.floor( d.dropPoint.y/50 );
 			
 			return itemIndex;
 		}
@@ -817,6 +890,8 @@ package component
 			
 			if (groupName == "") {
 				SLibrary.alert("이동할 그룹 이름이 없습니다.");
+			}else if (groupName == "전체") {
+				SLibrary.alert("전체로 이동 할 수 없습니다.");
 			}else {
 				
 				RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", moveGroup_resultHandler, false, 0, true);
@@ -828,6 +903,8 @@ package component
 			
 			if (groupName == "") {
 				SLibrary.alert("복사할 그룹 이름이 없습니다.");
+			}else if (groupName == "전체") {
+				SLibrary.alert("전체로 복사 할 수 없습니다.");
 			}else {
 				
 				RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", moveGroup_resultHandler, false, 0, true);
@@ -838,6 +915,7 @@ package component
 		private function moveGroup_resultHandler(event:CustomEvent):void {
 			
 			RemoteSingleManager.getInstance.removeEventListener("modifyManyAddr", moveGroup_resultHandler);
+			getGroup();
 		}
 		
 		private function addressFromExcel_clickHandler(event:MouseEvent):void {
@@ -851,7 +929,7 @@ package component
 			else removeExcel();
 		}
 		private function createExcel():void {
-			excel = new Excel();
+			excel = new Excel(true);
 			excel.horizontalCenter = 0;
 			excel.top = 48;
 			excel.bFromAddress = true;
@@ -894,6 +972,42 @@ package component
 			
 			PopUpManager.removePopUp(customToolTip);
 			customToolTip = null;
+		}
+		
+		private function searchIndex_changeHandler(event:IndexChangeEvent):void {
+			//nameList.ensureIndexIsVisible( );
+			var i:int = searchIndexScrollPosition(event.newIndex);
+			var pt:Point = nameList.layout.getScrollPositionDeltaToElement( i );
+			while (pt) {
+				nameList.validateNow();
+				if (pt.y > 0) {
+					var delta:int = nameList.layout.getVerticalScrollPositionDelta(NavigationUnit.DOWN);
+				} else {
+					delta = nameList.layout.getVerticalScrollPositionDelta(NavigationUnit.UP);
+				}
+				nameList.layout.verticalScrollPosition += delta;
+				pt = nameList.layout.getScrollPositionDeltaToElement(i);
+			}
+		}
+		private function searchIndexScrollPosition(idx:int):int {
+			
+			var i:int = 0;
+			var cnt:int = 0;
+			if (acName != null && acName.length > 0) {
+				cnt = acName.length;
+				
+				for (i = 0; i < cnt; i++) {
+					var str:String = (acName.getItemAt(i) as AddressVO).name;
+					var tmp:int = str.charCodeAt(0) - 44032;
+					tmp = Math.floor(tmp/28);
+					tmp = Math.floor(tmp/21);
+					if (idx == tmp) break;
+					
+				}
+			}
+			//if ( (i+17) < cnt) i += 17; 
+			//trace(i);
+			return i;
 		}
 		
 		
@@ -941,14 +1055,14 @@ package component
 				acName.removeAll();
 				acName = null;
 			}
-
+			
 			
 			currentGroupName = null
 			
 			
 			confirmAlert = null;
 			customToolTip = null;
-
+			
 			_activeAddressVO = null;
 		}
 		

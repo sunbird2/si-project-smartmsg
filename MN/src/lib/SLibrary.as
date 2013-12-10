@@ -3,7 +3,6 @@ package lib
 	import component.util.ToolTipPanel;
 	
 	import flash.events.TimerEvent;
-	//import flash.external.ExternalInterface;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
 	import flash.utils.Timer;
@@ -168,6 +167,7 @@ package lib
 		
 		public static function alert(msg:String):void {
 			
+			Alert.show(msg, "MN");
 			//ExternalInterface.call("alert", msg);
 		}
 		
