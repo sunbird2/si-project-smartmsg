@@ -87,6 +87,8 @@ package component
 		public static const CHANGE_MODE:String = "changeMode";
 		
 		public static const PHONE_DIV:String = "|";
+		
+		public static const MWEB_URL:String = "{http://mjnote.co.kr/m/?k=xxxxxx}";
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
 		[SkinPart(required="true")] */
 		
@@ -243,11 +245,16 @@ package component
 			
 			if (_sendMode != value) {
 				_sendMode = value;
-				confirm_mode.text = sendMode;
 				sMode.text = sendMode;
 				this.dispatchEvent( new Event(Send.CHANGE_MODE));
 			}
+			confirm_mode.text = isUrlMode() == true ? sendMode+"(URL)": sendMode;
+		}
+		public function isUrlMode():Boolean {
+			var chkMearg:RegExp = /\{http:\/\/mjnote\.co\.kr\/m\/\?k=xxxxxx\}/g;
 			
+			if (chkMearg.test(msg)) return true;
+			else return false;
 		}
 		
 		public function get currentByte():int {	return _currentByte; }
@@ -1502,7 +1509,8 @@ package component
 		public function setUrl(key:int):void {
 			trace("key is "+key);
 			urlKey = key;
-			addMsgCusor("{http://mjnote.co.kr/xxxx}");
+			addMsgCusor(Send.MWEB_URL);
+			SLibrary.alert(Send.MWEB_URL+" 를 지우면 URL 발송이 되지 않습니다.");
 		}
 		
 		public function removeModuleUrl():void {
