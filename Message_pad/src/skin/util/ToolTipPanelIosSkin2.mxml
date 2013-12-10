@@ -161,7 +161,10 @@ in accordance with the terms of the license agreement accompanying it.
 											  textAlign="center"
 											  verticalAlign="middle"
 											  minHeight="30"
-											  maxDisplayedLines="1">
+											  maxDisplayedLines="1"
+											  fontSize="14"
+											  fontWeight="bold"
+											  color="#FFFFFF">
 				</flexpad:AlertPanelTitleLabel>
 			</s:Group>
 			
