@@ -37,13 +37,14 @@
 						<s:RichText width="100%" height="40" textAlign="right" fontSize="18" verticalAlign="middle" whiteSpaceCollapse="preserve" color="#515151" kerning="off">
 							<s:content><s:p><s:span id="nameCount">0</s:span><s:span kerning="auto"> </s:span><s:span fontSize="12" lineHeight="166.65%" kerning="auto">명</s:span></s:p></s:content>
 						</s:RichText>
-						<s:Image id="nameMultSelectBtn" source="skin/ics/assets/light/icon/1-navigation-accept.png" alpha="0.4" buttonMode="true" toolTip="여러개 선택하기" />
+						<s:Image id="nameMultSelectBtn" source="/skin/ics/assets/light/icon/1-navigation-accept.png" alpha="0.4" buttonMode="true" toolTip="여러개 선택하기" />
 						<s:Image id="selectSend" buttonMode="true" source="assets/post_btn_send.gif" toolTip="선택 전화번호 전송"/>
 					</s:HGroup>
 				</s:SkinnableContainer>
-				
-				<util:ListCheckAble id="nameList" width="100%" height="100%" borderVisible="false" />
-				
+				<s:Group width="100%" height="100%">
+					<util:ListCheckAble id="nameList" width="100%" height="100%" borderVisible="false" />
+					<s:List id="searchIndex" left="-1" top="10" width="20" borderColor="#dddddd" color="#dddddd"></s:List>
+				</s:Group>
 			</s:VGroup>
 
 		</s:HGroup>

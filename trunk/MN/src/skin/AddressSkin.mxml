@@ -25,8 +25,8 @@
 			</s:VGroup>
 			
 		</s:SkinnableContainer>
-		<s:Image id="addressFromExcel"  depth="5" right="5" top="5" source="skin/ics/assets/light/icon/5-content-import-export.png" buttonMode="true" toolTip=" " 
-				 toolTipCreate="SLibrary.iosTip('엑셀업로드','엑셀을 업로드 하여 주소록에 저장합니다.\n xls,xlsx 를 지원 합니다.', event)" />
+		<s:Image id="addressFromExcel"  depth="5" right="5" top="5" source="/skin/ics/assets/light/icon/5-content-import-export.png" buttonMode="true" toolTip=" " 
+				 toolTipCreate="SLibrary.iosTip('대량입력','엑셀을 업로드 하여 주소록에 저장합니다.\n 또는 다른 문서에서 복사하여 붙여넣은 후 주소록에 저장 합니다.', event)" />
 		<util:TextInputSearch id="search" right="40" top="5" prompt="이름 or 전화번호" depth="5"
 							  focusSkin="skin.ics.TextInputFocus" color="#FFFFFF" fontSize="12" toolTip=" " 
 							  toolTipCreate="SLibrary.iosTip('주소록검색','검색할 이름 또는 전화번호를 입력 하여 검색 할 수 있습니다.', event)" />
@@ -36,19 +36,19 @@
 			<!-- group -->
 			<s:VGroup gap="0" width="200" height="100%">
 				<s:SkinnableContainer styleName="actionBar_contextuar_light" width="100%" height="40" depth="4">
-					<s:Label text="그룹" color="#222222" verticalCenter="0" left="5" />
+					<!--<s:Label text="그룹" color="#222222" verticalCenter="0" left="5" />-->
+					<s:TextInput id="groupText" prompt="그룹입력.." styleName="textinput_light" maxChars="15" left="4" top="5" width="90" />
 					<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="0">
-						<s:Image id="groupAddBtn" source="skin/ics/assets/light/icon/6-social-add-group.png" buttonMode="true"  toolTip=" " 
-								 toolTipCreate="SLibrary.iosTip('그룹추가','전송할 엑셀 파일을 선택하세요.\n xls,xlsx 를 지원 합니다.', event)"/>
-						<s:Image id="groupModifyBtn" source="skin/ics/assets/light/icon/5-content-edit.png" buttonMode="true" toolTip=" " 
+						<s:Image id="groupAddBtn" source="/skin/ics/assets/light/icon/6-social-add-group.png" buttonMode="true"  toolTip=" " 
+								 toolTipCreate="SLibrary.iosTip('그룹추가','왼쪽 입력된 그룹을 추가 합니다.', event)"/>
+						<s:Image id="groupModifyBtn" source="/skin/ics/assets/light/icon/5-content-edit.png" buttonMode="true" toolTip=" " 
 								 toolTipCreate="SLibrary.iosTip('선택그룹수정','클릭시 아래 선택한 그룹이 수정 할 수 있도록 변경 됩니다.\n수정 후 키보드의 Enter 또는 다른곳을 클릭하면 자동 저장 됩니다.\n\n 그룹이릅을 더블 클릭 하여도 수정 가능 합니다.', event)" />
-						<s:Image id="groupDelBtn" source="skin/ics/assets/light/icon/5-content-discard.png" buttonMode="true" toolTip=" " 
+						<s:Image id="groupDelBtn" source="/skin/ics/assets/light/icon/5-content-discard.png" buttonMode="true" toolTip=" " 
 								 toolTipCreate="SLibrary.iosTip('선택그룹삭제','클릭시 아래 선택한 그룹이 삭제 됩니다.', event)"/>
 					</s:HGroup>
 				</s:SkinnableContainer>
 				
 				<s:List id="groupList"
-						styleName="list_parent"
 						width="100%"
 						height="100%"
 						itemRenderer="skin.address.GroupRenderer">
@@ -58,18 +58,22 @@
 			<!-- name -->
 			<s:VGroup gap="0" width="300" height="100%">
 				<s:SkinnableContainer styleName="actionBar_contextuar_light" width="100%" height="40" depth="4">
-					<s:Label text="전화번호" color="#222222" verticalCenter="0" left="5" />
+					<s:Label text="전화번호 목록" color="#222222" verticalCenter="0" left="5" fontWeight="bold" />
 					<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="0">
-						<s:Image id="nameMultSelectBtn" source="skin/ics/assets/light/icon/1-navigation-accept.png" alpha="0.4" buttonMode="true" toolTip=" " 
+						<s:Image id="nameMultSelectBtn" source="/skin/ics/assets/light/icon/1-navigation-accept.png" alpha="0.4" buttonMode="true" toolTip=" " 
 								 toolTipCreate="SLibrary.iosTip('다중선택','클릭시 아래 전화번호를 여러개 동시 선택 할 수 있습니다.\n 한번 더 클릭 하면 다중선택이 해제 됩니다.', event)"/>
-						<s:Image id="nameAddBtn" source="skin/ics/assets/light/icon/6-social-add-person.png" buttonMode="true" toolTip=" " 
+						<s:Image id="nameAddBtn" source="/skin/ics/assets/light/icon/6-social-add-person.png" buttonMode="true" toolTip=" " 
 								 toolTipCreate="SLibrary.iosTip('전화번호 추가','클릭시 오른쪽에 추가 화면이 나타 납니다.\n입력 후 저장 클릭시 저장됩니다.', event)" />
-						<s:Image id="nameDelBtn" source="skin/ics/assets/light/icon/5-content-discard.png" buttonMode="true" toolTip=" " 
+						<s:Image id="nameDelBtn" source="/skin/ics/assets/light/icon/5-content-discard.png" buttonMode="true" toolTip=" " 
 								 toolTipCreate="SLibrary.iosTip('선택전화번호삭제','클릭시 아래 선택한 전화번호가 삭제 됩니다.', event)"/>
 					</s:HGroup>
 				</s:SkinnableContainer>
+				<s:Group width="100%" height="100%">
+					
+					<util:ListCheckAble id="nameList" width="100%" height="100%" borderVisible="false" />
+					<s:List id="searchIndex" left="-2" top="10" width="20" borderColor="#dddddd" color="#dddddd"></s:List>
+				</s:Group>
 				
-				<util:ListCheckAble id="nameList" width="100%" height="100%" borderVisible="false" />
 				
 				<s:RichText width="100%" height="40" textAlign="right" fontSize="24" verticalAlign="middle" whiteSpaceCollapse="preserve" color="#515151" kerning="off">
 					<s:content><s:p><s:span id="nameCount">0</s:span><s:span kerning="auto"> </s:span><s:span fontSize="12" lineHeight="166.65%" kerning="auto">명</s:span></s:p></s:content>
@@ -83,41 +87,47 @@
 				<s:VGroup gap="0" width="524" height="100%">
 					
 					<s:SkinnableContainer styleName="actionBar_contextuar_light" width="100%" height="40" depth="4">
-						<s:Label text="상세" color="#222222" verticalCenter="0" left="5" />
+						<s:Label text="상세내용"  color="#222222" verticalCenter="0" left="5" fontWeight="bold" />
 						<s:HGroup verticalCenter="0" verticalAlign="middle" right="5" gap="15">
-							<!--<s:Image id="cardBtn" visible="false" source="skin/ics/assets/light/icon/5-content-edit.png" source.nameEdit="skin/ics/assets/light/icon/9-av-upload.png" buttonMode="true" toolTip="수정 or 저장" />-->
-							<s:Image id="cardAddBtn" source="skin/ics/assets/light/icon/6-social-add-person.png" buttonMode="true"  toolTip=" " 
+							<!--<s:Image id="cardBtn" visible="false" source="/skin/ics/assets/light/icon/5-content-edit.png" source.nameEdit="skin/ics/assets/light/icon/9-av-upload.png" buttonMode="true" toolTip="수정 or 저장" />-->
+							<s:Image id="cardAddBtn" source="/skin/ics/assets/light/icon/6-social-add-person.png" buttonMode="true"  toolTip=" " 
 									 toolTipCreate="SLibrary.iosTip('전화번호 추가','클릭시 아래쪽에 추가 화면이 나타 납니다.\n입력 후 저장 클릭시 저장됩니다.', event)"/>
 						</s:HGroup>
 					</s:SkinnableContainer>
 					
-					<s:VGroup id="cardGroup" width="100%"  paddingLeft="20" paddingRight="20" paddingTop="20" paddingBottom="20" gap="20">
-						<s:Image source="skin/ics/assets/light/icon/6-social-person.png" fillMode="scale" width="100" height="100" smooth="true"/>
+					<s:VGroup id="cardGroup" width="100%"  paddingLeft="20" paddingRight="20" paddingTop="20" paddingBottom="20" gap="10">
+						<s:Image source="/skin/ics/assets/ic_launcher_contacts.png" />
+						<s:Group width="100%" height="26">
+							<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#767676" /></s:fill></s:Rect>
+							<s:Label text="그룹" color="#FFFFFF" left="5" verticalCenter="0" />
+						</s:Group>
 						
-						<s:Label text="그룹" color="#222222" />
 						<s:ComboBox id="groupName" styleName="comboBox_light" prompt="그룹선택 or 입력" />
 						
-						<s:Label text="이름" color="#222222" />
-						<s:TextInput id="nameL" prompt="이름"
-									 styleName="textinput_light"
-									/>
+						<s:Group width="100%" height="26">
+							<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#767676" /></s:fill></s:Rect>
+							<s:Label text="이름" color="#FFFFFF" left="5" verticalCenter="0" />
+						</s:Group>
+						<s:TextInput id="nameL" prompt="이름" styleName="textinput_light"/>
 						
-						<s:Label text="전화번호" color="#222222" />
-						<s:TextInput id="phone" prompt="전화번호" 
-									 styleName="textinput_light"
-									 />
+						<s:Group width="100%" height="26">
+							<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#767676" /></s:fill></s:Rect>
+							<s:Label text="전화번호" color="#FFFFFF" left="5" verticalCenter="0" />
+						</s:Group>
+						<s:TextInput id="phone" prompt="전화번호" styleName="textinput_light" />
 						
-						<s:Label text="메모" color="#222222" />
-						<s:TextArea id="memo" prompt="메모" 
-									styleName="textarea_light"
-									width="100%" height="120"
-									/>
+						<s:Group width="100%" height="26">
+							<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#767676" /></s:fill></s:Rect>
+							<s:Label text="메모" color="#FFFFFF" left="5" verticalCenter="0" />
+						</s:Group>
+						<s:TextArea id="memo" prompt="메모" styleName="textarea_light" width="100%" height="140" />
+						
 						<s:Button id="commitBtn" label="저장" styleName="button_light"/>
 					</s:VGroup>
 				</s:VGroup>
 				
 			</s:Group><!-- detail -->
-
+			
 		</s:HGroup>
 	</s:Group><!--contentGroup-->
 	
