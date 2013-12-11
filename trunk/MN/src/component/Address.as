@@ -166,10 +166,10 @@ package component
 		
 		public function get activeAddressVO():AddressVO { return _activeAddressVO; }
 		public function set activeAddressVO(value:AddressVO):void { _activeAddressVO = value; }
-		
+
 		public function get activeCode():Number { return _activeCode; }
 		public function set activeCode(value:Number):void { _activeCode = value; }
-		
+
 		/**
 		 * group collection change
 		 * */
@@ -193,7 +193,7 @@ package component
 						if (event.items[i] is PropertyChangeEvent
 							&& PropertyChangeEvent(event.items[i]) != null
 							&& PropertyChangeEvent(event.items[i]).property == "grpName") { 
-							
+
 							activeAddress(11,AddressVO(PropertyChangeEvent(event.items[i]).source)); 
 						} 
 					} 
@@ -232,7 +232,7 @@ package component
 					irFactory = new ClassFactory(IconItemRenderer);
 				
 				irFactory.properties = {
-					icon:"/skin/ics/assets/light/icon/6-social-person.png",
+					icon:"skin/ics/assets/light/icon/6-social-person.png",
 					labelTitle:"name",
 					labelSub:"phone"};
 				nameList.itemRenderer = irFactory;
@@ -244,7 +244,7 @@ package component
 			else if (instance == groupAddBtn) groupAddBtn.addEventListener(MouseEvent.CLICK, groupAddBtn_clickHandler);
 			else if (instance == groupModifyBtn) groupModifyBtn.addEventListener(MouseEvent.CLICK, groupModifyBtn_clickHandler);
 			else if (instance == groupDelBtn) groupDelBtn.addEventListener(MouseEvent.CLICK, groupDelBtn_clickHandler);
-				
+			
 			else if (instance == nameMultSelectBtn) nameMultSelectBtn.addEventListener(MouseEvent.CLICK, nameMultSelectBtn_clickHandler);
 			else if (instance == nameAddBtn) nameAddBtn.addEventListener(MouseEvent.CLICK, cardAddBtn_clickHandler);
 			else if (instance == nameDelBtn) nameDelBtn.addEventListener(MouseEvent.CLICK, nameDelBtn_clickHandler);
@@ -268,7 +268,7 @@ package component
 				instance.addEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
 				instance.addEventListener(FlowElementMouseEvent.ROLL_OUT, tooltip_outHandler);
 			}
-			
+
 		}
 		
 		/* Implement the partRemoved() method to remove the even handlers added in partAdded() */
@@ -280,7 +280,7 @@ package component
 				acGroup.removeEventListener(CollectionEvent.COLLECTION_CHANGE, acGroup_changeHandler);
 				Object(groupList.dataProvider).removeAll();
 				
-				
+
 				groupList.removeEventListener(IndexChangeEvent.CHANGE, groupList_changeHandler);
 				groupList.removeEventListener(KeyboardEvent.KEY_UP, groupList_keyUpHandler);
 				groupList.removeEventListener(DragEvent.DRAG_DROP, groupList_dragDropHandler);
@@ -293,7 +293,7 @@ package component
 			}
 			else if (instance == nameList) {
 				Object(nameList.dataProvider).removeAll();
-				
+
 				nameList.removeEventListener(IndexChangeEvent.CHANGE, nameList_changeHandler);
 				nameList.removeEventListener(KeyboardEvent.KEY_UP, namepList_keyUpHandler);
 				nameList = null;
@@ -447,7 +447,7 @@ package component
 				delGroup();
 				
 			}
-			
+				
 		}
 		private function delGroup():void {
 			confirmAlert = new AlertManager("["+AddressVO(groupList.selectedItem).grpName+"] 그룹의 전화번호도 전체 삭제 됩니다.\n 삭제 하시겠습니까?","그룹삭제", 1|8, Sprite(parentApplication), groupList.selectedIndex);
@@ -465,7 +465,7 @@ package component
 			
 			var arr:Array = [];
 			if (acGroup != null && acGroup.length > 0) {
-				
+			
 				var avo:AddressVO = null;
 				Gv.addressGroupList.removeAll();
 				for (var i:Number = 0; i < acGroup.length; i++) {
@@ -473,11 +473,11 @@ package component
 					if (avo.grpName != "전체") {
 						Gv.addressGroupList.addItem(avo.grpName);
 					}
-					
+						
 				}
 				
 			}
-			
+			 
 		}
 		private function deleteGroup_confirmHandler(event:CustomEvent):void {
 			
@@ -757,22 +757,22 @@ package component
 			}
 			/*
 			switch(activeCode) {
-			
-			case 10:
-			case 20:
-			case 21: {
-			
-			activeAddressVO.idx = i;
-			groupList.selectedIndex = getGroupSelectedIndex(activeAddressVO.grpName);
-			
-			groupList.dispatchEvent( new IndexChangeEvent(IndexChangeEvent.CHANGE) );
-			break;
-			}
-			case 23: {
-			
-			break;
-			}
-			default: { break; }
+				
+				case 10:
+				case 20:
+				case 21: {
+					
+					activeAddressVO.idx = i;
+					groupList.selectedIndex = getGroupSelectedIndex(activeAddressVO.grpName);
+					
+					groupList.dispatchEvent( new IndexChangeEvent(IndexChangeEvent.CHANGE) );
+					break;
+				}
+				case 23: {
+					
+					break;
+				}
+				default: { break; }
 			}
 			*/
 			
@@ -851,9 +851,9 @@ package component
 		private function groupList_dragDropHandler(event:DragEvent):void {
 			
 			//event.preventDefault();
-			
+
 			var cnt:int = List(event.dragInitiator).selectedIndices.length;
-			
+
 			if (cnt > 0) {
 				var ac:ArrayCollection = new ArrayCollection();
 				for(var i:Number = 0; i < cnt; i++) {
@@ -1055,14 +1055,14 @@ package component
 				acName.removeAll();
 				acName = null;
 			}
-			
+
 			
 			currentGroupName = null
 			
 			
 			confirmAlert = null;
 			customToolTip = null;
-			
+
 			_activeAddressVO = null;
 		}
 		

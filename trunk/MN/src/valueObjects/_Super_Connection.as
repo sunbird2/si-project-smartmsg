@@ -68,13 +68,13 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
      * properties
      */
     private var _internal_autoCommit : Boolean;
-    private var _internal_readOnly : Boolean;
     private var _internal_holdability : int;
+    private var _internal_readOnly : Boolean;
     private var _internal_typeMap : Object;
     private var _internal_catalog : String;
     private var _internal_closed : Boolean;
-    private var _internal_clientInfo : Object;
     private var _internal_transactionIsolation : int;
+    private var _internal_clientInfo : Object;
     private var _internal_warnings : valueObjects.SQLWarning;
     private var _internal_metaData : valueObjects.DatabaseMetaData;
 
@@ -107,15 +107,15 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
     }
 
     [Bindable(event="propertyChange")]
-    public function get readOnly() : Boolean
-    {
-        return _internal_readOnly;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get holdability() : int
     {
         return _internal_holdability;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get readOnly() : Boolean
+    {
+        return _internal_readOnly;
     }
 
     [Bindable(event="propertyChange")]
@@ -137,15 +137,15 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
     }
 
     [Bindable(event="propertyChange")]
-    public function get clientInfo() : Object
-    {
-        return _internal_clientInfo;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get transactionIsolation() : int
     {
         return _internal_transactionIsolation;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get clientInfo() : Object
+    {
+        return _internal_clientInfo;
     }
 
     [Bindable(event="propertyChange")]
@@ -178,16 +178,6 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
         }
     }
 
-    public function set readOnly(value:Boolean) : void
-    {
-        var oldValue:Boolean = _internal_readOnly;
-        if (oldValue !== value)
-        {
-            _internal_readOnly = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "readOnly", oldValue, _internal_readOnly));
-        }
-    }
-
     public function set holdability(value:int) : void
     {
         var oldValue:int = _internal_holdability;
@@ -195,6 +185,16 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
         {
             _internal_holdability = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "holdability", oldValue, _internal_holdability));
+        }
+    }
+
+    public function set readOnly(value:Boolean) : void
+    {
+        var oldValue:Boolean = _internal_readOnly;
+        if (oldValue !== value)
+        {
+            _internal_readOnly = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "readOnly", oldValue, _internal_readOnly));
         }
     }
 
@@ -228,16 +228,6 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
         }
     }
 
-    public function set clientInfo(value:Object) : void
-    {
-        var oldValue:Object = _internal_clientInfo;
-        if (oldValue !== value)
-        {
-            _internal_clientInfo = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "clientInfo", oldValue, _internal_clientInfo));
-        }
-    }
-
     public function set transactionIsolation(value:int) : void
     {
         var oldValue:int = _internal_transactionIsolation;
@@ -245,6 +235,16 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
         {
             _internal_transactionIsolation = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "transactionIsolation", oldValue, _internal_transactionIsolation));
+        }
+    }
+
+    public function set clientInfo(value:Object) : void
+    {
+        var oldValue:Object = _internal_clientInfo;
+        if (oldValue !== value)
+        {
+            _internal_clientInfo = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "clientInfo", oldValue, _internal_clientInfo));
         }
     }
 

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" width="300" xmlns:lib="lib.*">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("module.url.att.Image")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="default" />
+		<s:State name="view" />
+		<s:State name="actEmpty" />
+		<s:State name="actContent" />
+	</s:states>
+	
+	<s:VGroup gap="0">
+		<s:Group id="ele" width="100%">
+			<s:List id="imgList" width="300" borderVisible="false" itemRenderer="module.url.att.skin.ImageSkinImgList" useVirtualLayout="false" horizontalScrollPolicy="off"
+					dragEnabled="true" dropEnabled="true" dragMoveEnabled="true"></s:List>
+			<s:Group id="addImage" left="0" right="0" height="80" includeIn="default, actEmpty">
+				<s:Rect left="0" right="0" top="0" bottom="0"><s:fill><s:SolidColor color="#000000" alpha="0.1" /></s:fill></s:Rect>
+				<s:Label text=" + 아래 버튼을 클릭하여 이미지를 추가 하세요." verticalCenter="0" horizontalCenter="0" />
+				<s:HGroup horizontalCenter="0" bottom="5">
+					<s:Button id="uploadBtn" label="업로드" />
+					<s:Button id="imgToolBtn" label="편집기" />
+				</s:HGroup>
+			</s:Group>
+			<s:Image id="nextIcon" source="skin/ics/assets/light/icon/1-navigation-next-item.png" visible="false" right="0" verticalCenter="0" buttonMode="true" useHandCursor="true" />
+			<s:Image id="preIcon" source="skin/ics/assets/light/icon/1-navigation-previous-item.png" visible="false" left="0" verticalCenter="0" buttonMode="true" useHandCursor="true" />
+		</s:Group>
+		<s:Group id="attribute" width="100%" includeIn="actContent" >
+			<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#EFEFEF" /></s:fill></s:Rect>
+			<s:VGroup width="100%" paddingLeft="5" paddingRight="5" paddingTop="10" paddingBottom="10">
+				<s:Group width="100%" height="26">
+					<s:Button id="imgDelBtn" left="0" label="전체 삭제" />
+					<s:Button id="uploadAddBtn" right="70" label="업로드" />
+					<s:Button id="imgToolAddBtn" right="0" label="편집기" />
+				</s:Group>
+				<s:Group width="100%" height="22">
+					<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#767676" /></s:fill></s:Rect>
+					<s:Label text="이미지표시 형식" color="#FFFFFF" left="5" verticalCenter="0" />
+				</s:Group>
+				<s:ButtonBar id="imgLayout" selectedIndex="0">
+					<mx:ArrayCollection>
+						<fx:String>가로</fx:String>
+						<fx:String>세로</fx:String> 
+						<fx:String>바둑판</fx:String> 
+					</mx:ArrayCollection>
+				</s:ButtonBar>
+			</s:VGroup>
+		</s:Group>
+	</s:VGroup>
+	<s:ModuleLoader id="moduleLoaderIme" horizontalCenter="0" top="8"/>
+	<s:Group id="loading" width="60" height="60" horizontalCenter="0" verticalCenter="0" visible="false">
+		<s:Rect left="1" right="1" top="1" bottom="1" radiusX="2">
+			<s:fill>
+				<s:LinearGradient rotation="90">
+					<s:GradientEntry color="0x000000"/>
+					<s:GradientEntry color="0x101010"/>
+				</s:LinearGradient>
+			</s:fill>
+		</s:Rect>
+		<s:Rect left="0" right="0" top="0" bottom="0" radiusX="2">
+			<s:stroke>
+				<s:LinearGradientStroke rotation="90" weight="1">
+					<s:GradientEntry color="0x000000" alpha="0.1625"/>
+					<s:GradientEntry color="0x000000" alpha="0.35"/>
+				</s:LinearGradientStroke>
+			</s:stroke>
+		</s:Rect>
+		<lib:AnimatedGIFImage source="assets/ajax-loader.gif" horizontalCenter="0" verticalCenter="0" width="49" height="48" />
+	</s:Group>
+	<mx:ProgressBar id="progressBar" visible="false" mode="manual" verticalCenter="0" horizontalCenter="0"/>
+</s:Skin>

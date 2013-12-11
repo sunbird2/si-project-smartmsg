@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true" creationComplete="creationCompleteHandler(event)" width="100%" minHeight="20">
+	<fx:Script>
+		<![CDATA[
+			import module.url.att.IAtt;
+			
+			import mx.events.FlexEvent;
+			
+			import spark.components.List;
+			import spark.components.supportClasses.SkinnableComponent;
+			
+			private var em:ElementManager = new ElementManager();
+			private var att:IAtt = null;
+			private var ele:SkinnableComponent = null;
+			
+			[Bindable]
+			private var val:Object = null;
+			
+			override public function set data(value:Object):void
+			{
+				super.data = value;
+				val = super.data;
+			}
+			
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				
+				ele = em.getObject(val.type, val.value) as SkinnableComponent;
+				if (ele != null) {
+					att = ele as IAtt;
+					attBox.addElement( ele );
+				}
+				
+			}
+			
+			override public function set selected(value:Boolean):void
+			{
+				super.selected = value;
+				if (ele != null) {
+					if (super.selected == true) att.state = "actEmpty";
+					else att.state = "default";
+				}
+				
+			}	
+			
+			protected function del_clickHandler(event:MouseEvent):void
+			{
+				var parentList:List = owner as List;
+				parentList.dataProvider.removeItemAt(parentList.dataProvider.getItemIndex(val))
+			}
+			
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="hovered"/>
+		<s:State name="selected"/>
+	</s:states>
+	<s:Group id="attBox" left="10" right="10" top="10" bottom="10">
+		
+	</s:Group>
+	
+	<s:Rect includeIn="hovered, selected" left="0" right="0" top="0" bottom="0"><s:stroke><s:SolidColorStroke color.hovered="#EFEFEF" color.selected="#EFEFEF" weight="2" /></s:stroke></s:Rect>
+	<!-- Gripper -->
+	<s:Group id="del" click="del_clickHandler(event)" includeIn="hovered, selected" right="2" width="10" height="10" buttonMode="true" useHandCursor="true">
+		<s:Rect left="0" right="0" top="0" bottom="0"><s:fill><s:SolidColor color.hovered="#EFEFEF" color.selected="#EFEFEF" /></s:fill></s:Rect>
+		<s:Line yFrom="1" yTo="9" xFrom="1" xTo="9"><s:stroke><s:SolidColorStroke color="#333333" pixelHinting="true" /></s:stroke></s:Line>
+		<s:Line yFrom="1" yTo="9" xFrom="9" xTo="1"><s:stroke><s:SolidColorStroke color="#333333" pixelHinting="true" /></s:stroke></s:Line>
+	</s:Group>
+	
+</s:ItemRenderer>

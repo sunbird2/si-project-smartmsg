@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" width="300" xmlns:lib="lib.*" xmlns:component="module.url.component.*">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("module.url.att.Text")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="default" />
+		<s:State name="view" />
+		<s:State name="actEmpty" />
+		<s:State name="actContent" />
+	</s:states>
+	
+	<s:VGroup gap="0">
+		<!--<mx:Text id="viewText" includeIn="view" />-->
+		<s:Group id="ele" width="100%">
+			<component:TextEditor id="myRTE" width="300" showControlBar="true" showControlBar.view="false" />
+
+			<s:Group id="addImage" left="0" right="0" height="80" includeIn="default">
+				<s:Rect left="0" right="0" top="0" bottom="0"><s:fill><s:SolidColor color="#000000" alpha="0.1" /></s:fill></s:Rect>
+				<s:Label text=" + 이곳을 클릭하여 텍스트를 입력하세요." verticalCenter="0" horizontalCenter="0" />
+			</s:Group>
+		</s:Group>
+		<s:Group id="attribute" width="100%" includeIn="actContent" >
+			<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#EFEFEF" /></s:fill></s:Rect>
+			<s:Rect width="100%" height="100%"><s:stroke><s:SolidColorStroke  color="#EFEFEF" /></s:stroke></s:Rect>
+		</s:Group>
+	</s:VGroup>
+</s:Skin>

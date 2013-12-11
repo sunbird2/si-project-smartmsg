@@ -42,10 +42,10 @@
 				<s:content><s:p><s:span>약관에 </s:span><s:span color="#8d8d8d"> 동의해 주세요.</s:span></s:p></s:content>
 			</s:RichText>
 			<s:Group>
-				<s:BitmapImage source="@Embed('/assets/Base_s Outer Glow.png')"/>
-				<s:BitmapImage source="@Embed('/assets/Base.png')" x="4" y="4"/>
+				<s:BitmapImage source="/assets/Base_s Outer Glow.png"/>
+				<s:BitmapImage source="/assets/Base.png" x="4" y="4"/>
 				<s:BitmapImage x="12" y="37" width="662" height="2" smooth="true"
-							   source="@Embed('/assets/Divider.png')"/>
+							   source="/assets/Divider.png"/>
 				<s:Label x="16" y="19" text="이용약관"/>
 				
 				<s:Scroller x="12" top="47" width="662" height="174">
@@ -378,10 +378,10 @@
 			</s:Group>
 			
 			<s:Group>
-				<s:BitmapImage source="@Embed('/assets/Base_s Outer Glow.png')"/>
-				<s:BitmapImage source="@Embed('/assets/Base.png')" x="4" y="4"/>
+				<s:BitmapImage source="/assets/Base_s Outer Glow.png"/>
+				<s:BitmapImage source="/assets/Base.png" x="4" y="4"/>
 				<s:BitmapImage x="12" y="37" width="662" height="2" smooth="true"
-							   source="@Embed('/assets/Divider.png')"/>
+							   source="/assets/Divider.png"/>
 				<s:Label x="16" y="19" text="개인정보보호약관"/>
 				<s:Scroller x="12" top="47" width="662" height="174">
 					<s:Group width="662">
@@ -648,7 +648,7 @@
 		
 		<!--step2-->
 		<s:VGroup id="step2" includeIn="step2" left="0" right="0" top="60" height="500" horizontalAlign="center" gap="20">
-			<s:Image source="/assets/bill_title.png"/>
+			<s:Image source="assets/bill_title.png"/>
 			<s:RichText horizontalCenter="0" whiteSpaceCollapse="preserve" color="#454545" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
 				<s:content><s:p><s:span>사용자 정보를</s:span><s:span color="#8d8d8d"> 입력해주세요.</s:span></s:p></s:content>
 			</s:RichText>
@@ -724,7 +724,7 @@
 		
 		<!--step3-->
 		<s:VGroup id="step3" includeIn="step3" left="0" right="0" top="60" height="500" horizontalAlign="center" gap="20">
-			<s:Image source="/assets/bill_title.png"/>
+			<s:Image source="assets/bill_title.png"/>
 			<s:RichText horizontalCenter="0" whiteSpaceCollapse="preserve" fontSize="24" lineHeight="83.35%" trackingRight="-3.5%" typographicCase="uppercase">
 				<s:content><s:p><s:span>문자노트 회원가입을</s:span><s:span color="#8d8d8d"> 환영합니다.</s:span></s:p></s:content>
 			</s:RichText>
@@ -735,7 +735,7 @@
 				<s:Label id="sec" text="5" fontWeight="bold" fontSize="16" color="#CC0000"/>
 				<s:Label text="초 후 서비스로 자동 입장 합니다." fontSize="12" />
 			</s:HGroup>
-			<s:Image x="282" width="460" height="312" source="/assets/m1.png" smooth="true"/>
+			<s:Image x="282" width="460" height="312" source="assets/m1.png" smooth="true"/>
 		</s:VGroup>
 	</s:Group>
 	

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" width="300" xmlns:lib="lib.*" xmlns:component="module.url.component.*">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("module.url.att.Btn")]
+	</fx:Metadata>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="default" />
+		<s:State name="view" />
+		<s:State name="actEmpty" />
+		<s:State name="actContent" />
+	</s:states>
+	
+	<s:VGroup width="100%" gap="0">
+		<s:Group id="ele" width="100%">
+			<s:Button id="btn" width="100%" label="{hostComponent.buttonLabel}" skinClass="module.url.component.skin.ButtonOrange" />
+		</s:Group>
+		<s:Group id="attribute" width="100%" includeIn="actContent" >
+			<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#EFEFEF" /></s:fill></s:Rect>
+			<s:Rect width="100%" height="100%"><s:stroke><s:SolidColorStroke  color="#EFEFEF" /></s:stroke></s:Rect>
+			<s:VGroup width="100%" paddingLeft="5" paddingRight="5" paddingTop="10" paddingBottom="10">
+				<s:Group width="100%" height="22">
+					<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#767676" /></s:fill></s:Rect>
+					<s:Label text="버튼 내용" color="#FFFFFF" left="5" verticalCenter="0" />
+				</s:Group>
+				<s:TextInput id="buttonInput" width="100%" text="{hostComponent.buttonLabel}" skinClass="module.url.component.skin.TextInputSkin" />
+				
+				<s:Group width="100%" height="22">
+					<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#767676" /></s:fill></s:Rect>
+					<s:Label text="버튼 클릭 시 처리" color="#FFFFFF" left="5" verticalCenter="0" />
+				</s:Group>
+				<s:HGroup width="100%" verticalAlign="middle">
+					<s:DropDownList id="nextPage" width="35%" height="22"></s:DropDownList>
+					<s:TextInput id="nextInput" width="65%" text="{hostComponent.nextValue}" skinClass="module.url.component.skin.TextInputSkin" />
+				</s:HGroup>
+				
+			</s:VGroup>
+		</s:Group>
+	</s:VGroup>
+</s:Skin>

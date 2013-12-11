@@ -10,16 +10,20 @@ package component
 	import component.send.ReservationCalendar;
 	import component.send.ReturnPhone;
 	import component.send.Sending;
+	import component.util.ButtonSpinner;
 	import component.util.CustomToolTip;
 	
 	import flash.events.Event;
+	import flash.events.FocusEvent;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.utils.ByteArray;
 	
 	import flashx.textLayout.elements.LinkElement;
 	import flashx.textLayout.elements.SpanElement;
 	import flashx.textLayout.events.FlowElementMouseEvent;
 	
+	//import lib.CookieUtil;
 	import lib.CustomEvent;
 	import lib.FileUploadByRemoteObject;
 	import lib.FileUploadByRemoteObjectEvent;
@@ -29,8 +33,13 @@ package component
 	import lib.RemoteSingleManager;
 	import lib.SLibrary;
 	
+	import module.ie.ImageEditorAble;
+	import module.url.IMobileWebEditor;
+	import module.url.MobileWebEditorAble;
+	
 	import mx.collections.ArrayCollection;
 	import mx.events.FlexEvent;
+	import mx.events.ModuleEvent;
 	import mx.managers.PopUpManager;
 	
 	import skin.SendSkin;
@@ -39,6 +48,7 @@ package component
 	import spark.components.CheckBox;
 	import spark.components.ComboBox;
 	import spark.components.Group;
+	import spark.components.HGroup;
 	import spark.components.Image;
 	import spark.components.Label;
 	import spark.components.List;
@@ -50,8 +60,10 @@ package component
 	import spark.components.VGroup;
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
+	import spark.modules.ModuleLoader;
 	import spark.primitives.BitmapImage;
 	
+	import valueObjects.AddressVO;
 	import valueObjects.BooleanAndDescriptionVO;
 	import valueObjects.LogVO;
 	import valueObjects.PhoneVO;
@@ -69,12 +81,14 @@ package component
 	[SkinState("LMS")]
 	[SkinState("MMS")]
 	
-	public class Send extends SkinnableComponent
+	public class Send extends SkinnableComponent implements ImageEditorAble, MobileWebEditorAble
 	{
 		public static const SEND_COMPLET:String = "sendComplet";
 		public static const CHANGE_MODE:String = "changeMode";
 		
 		public static const PHONE_DIV:String = "|";
+		
+		public static const MWEB_URL:String = "{http://mjnote.co.kr/m/?k=xxxxxx}";
 		/* To declare a skin part on a component, you use the [SkinPart] metadata. 
 		[SkinPart(required="true")] */
 		
@@ -90,13 +104,20 @@ package component
 		[SkinPart(required="false")]public var byte:SpanElement;
 		[SkinPart(required="false")]public var sMode:SpanElement;
 		
+		[SkinPart(required="false")]public var addUrl:Image;
 		[SkinPart(required="false")]public var addImage:Image;
 		[SkinPart(required="false")]public var addTxt:Image;
 		[SkinPart(required="false")]public var addTxtLayer:List;
+		[SkinPart(required="false")]public var addMMSLayer:List;
+		
 		
 		[SkinPart(required="false")]public var messageSaveBtn:Image;
 		[SkinPart(required="false")]public var removeMsg:Image;
 		[SkinPart(required="false")]public var mBox:VGroup;
+		// ImageEditor Module
+		[SkinPart(required="false")]public var moduleLoaderIme:ModuleLoader;
+		// MobileWebEditor Module
+		[SkinPart(required="false")]public var moduleLoaderUrl:ModuleLoader;
 		
 		
 		
@@ -108,6 +129,13 @@ package component
 		[SkinPart(required="false")]public var countPhone:SpanElement;
 		[SkinPart(required="false")]public var dupleDelete:Image;
 		[SkinPart(required="false")]public var phoneRemoveAll:Image;
+		[SkinPart(required="false")]public var addressView:Image;
+		[SkinPart(required="false")]public var sendBox:HGroup;
+		[SkinPart(required="false")]public var addressBox:HGroup;
+		[SkinPart(required="false")]public var addressSave:ButtonSpinner;
+		[SkinPart(required="false")]public var addressCombo:ComboBox;
+		[SkinPart(required="false")]public var addressBoxClose:Button;
+		
 		
 		[SkinPart(required="false")]public var ePhone:TextInput;
 		[SkinPart(required="false")]public var eName:TextInput;
@@ -133,15 +161,21 @@ package component
 		[SkinPart(required="false")]public var sendInterval:CheckBox;
 		[SkinPart(required="false")]public var sendBtn:Button;
 		[SkinPart(required="false")]public var resetBtn:Button;
+		[SkinPart(required="false")]public var sendSetting:Image;
+		[SkinPart(required="false")]public var sendSetBox:Group;
+		[SkinPart(required="false")]public var sendDelmsg:CheckBox;
+		[SkinPart(required="false")]public var sendDelList:CheckBox;
 		[SkinPart(required="false")]public var confirm_mode:SpanElement;
 		[SkinPart(required="false")]public var confirm_count:SpanElement;
 		[SkinPart(required="false")]public var confirm_reservation:SpanElement;
 		[SkinPart(required="false")]public var confirm_delay:SpanElement;
 		[SkinPart(required="false")]public var confirm_mearge:SpanElement;
 		
+		
 		[SkinPart(required="false")]public var confirm_text:RichText;
 		
-		
+		// loading
+		[SkinPart(reqired='false')]public var loading:Group;
 		
 		[SkinPart(required="false")]public var title_text:RichText;
 		[SkinPart(required="false")]public var titleSub_text:RichText;
@@ -151,15 +185,15 @@ package component
 		public function set cstat(value:String):void { _cstat = value; invalidateSkinState(); }
 		
 		private var acFunction:ArrayCollection =  new ArrayCollection([
-			{icon:"/skin/ics/assets/light/icon/3-rating-important.png", label:"내메시지", label_sub:"저장된 메시지 발송", name:"myMessage"},
-			{icon:"/skin/ics/assets/light/icon/5-content-email.png", label:"최근발송메시지", label_sub:"죄근발송한 메시지 발송", name:"sentMessage"},
-			{icon:"/skin/ics/assets/light/icon/4-collections-view-as-grid.png", label:"이모티콘", label_sub:"다양한 무료 이모티콘 발송", name:"emoticon"},
-			{icon:"/skin/ics/assets/light/icon/12-hardware-keyboard.png", label:"특수문자", label_sub:"특수문자 입력", name:"specialChar"},
+			{icon:"skin/ics/assets/light/icon/3-rating-important.png", label:"내메시지", label_sub:"저장된 메시지 발송", name:"myMessage"},
+			{icon:"skin/ics/assets/light/icon/5-content-email.png", label:"최근발송메시지", label_sub:"죄근발송한 메시지 발송", name:"sentMessage"},
+			{icon:"skin/ics/assets/light/icon/4-collections-view-as-grid.png", label:"이모티콘", label_sub:"다양한 무료 이모티콘 발송", name:"emoticon"},
+			{icon:"skin/ics/assets/light/icon/12-hardware-keyboard.png", label:"특수문자", label_sub:"특수문자 입력", name:"specialChar"},
 			
-			{icon:"/skin/ics/assets/light/icon/5-content-cut.png", label:"복사붙여넣거,대량입력", label_sub:"복사한 전화번호 발송 및 입력", name:"sendListFromCopy"},
-			{icon:"/skin/ics/assets/light/icon/6-social-group.png", label:"주소록 발송", label_sub:"주소록 선택 발송", name:"sendListFromAddress"},
-			{icon:"/skin/ics/assets/light/icon/5-content-import-export.png", label:"엑셀을 업로드 발송", label_sub:"엑셀을 업로드 발송", name:"sendListFromExcel"},
-			{icon:"/skin/ics/assets/light/icon/9-av-repeat.png", label:"최근발송 목록 재발송", label_sub:"최근발송 전화번호 발송", name:"sendListFromSent"}
+			{icon:"skin/ics/assets/light/icon/5-content-cut.png", label:"복사붙여넣기,대량입력", label_sub:"복사한 전화번호 발송 및 입력", name:"sendListFromCopy"},
+			{icon:"skin/ics/assets/light/icon/6-social-group.png", label:"주소록 발송", label_sub:"주소록 선택 발송", name:"sendListFromAddress"},
+			{icon:"skin/ics/assets/light/icon/5-content-import-export.png", label:"엑셀을 업로드 발송", label_sub:"엑셀을 업로드 발송", name:"sendListFromExcel"},
+			{icon:"skin/ics/assets/light/icon/9-av-repeat.png", label:"최근발송 목록 재발송", label_sub:"최근발송 전화번호 발송", name:"sendListFromSent"}
 		]);
 		
 		private var acMearge:ArrayCollection =  new ArrayCollection([
@@ -169,8 +203,14 @@ package component
 			{label:"합성3", data:"{합성3}"}
 		]);
 		
+		private var acMMS:ArrayCollection =  new ArrayCollection([
+			{label:"직접업로드", data:"upload"},
+			{label:"편집툴", data:"ime"}
+		]);
+		
 		public var reservation:ReservationCalendar;
 		public var interval:Interval;
+		
 		
 		private var customToolTip:CustomToolTip;
 		
@@ -205,11 +245,16 @@ package component
 			
 			if (_sendMode != value) {
 				_sendMode = value;
-				confirm_mode.text = sendMode;
 				sMode.text = sendMode;
 				this.dispatchEvent( new Event(Send.CHANGE_MODE));
 			}
+			confirm_mode.text = isUrlMode() == true ? sendMode+"(URL)": sendMode;
+		}
+		public function isUrlMode():Boolean {
+			var chkMearg:RegExp = /\{http:\/\/mjnote\.co\.kr\/m\/\?k=xxxxxx\}/g;
 			
+			if (chkMearg.test(msg)) return true;
+			else return false;
 		}
 		
 		public function get currentByte():int {	return _currentByte; }
@@ -220,10 +265,16 @@ package component
 		public function get mmsImage():String { return (arrImage)?arrImage.join(";"):""; }
 		
 		
+		private var _urlKey:int = 0;
+		public function get urlKey():int {	return _urlKey; }
+		public function set urlKey(value:int):void	{ _urlKey = value; }
+		
+		
 		/**
 		 * phones properties
 		 * */
 		public var alPhone:ArrayCollection = new ArrayCollection();
+		public var addressGroupList:ArrayCollection = new ArrayCollection();
 		private var Kpf:KoreaPhoneNumberFormatter;
 		private var excel:Excel;
 		private var sma:SendModeAddress;
@@ -231,6 +282,11 @@ package component
 		private var sml:SendModeLog;
 		private var paste:Paste;
 		private var sending:Sending;
+		
+		public static const  SAVE_MSGDEL:String = "MunjaNote_save_msgdel";
+		public static const  SAVE_LISTDEL:String = "MunjaNote_save_listdel";
+		private var cookie_msgDel:String = "";
+		private var cookie_listDel:String = "";
 		
 		
 		/**
@@ -249,15 +305,22 @@ package component
 			setStyle("skinClass", SendSkin);
 			addEventListener(Event.ADDED_TO_STAGE, addedtostage_handler, false, 0, true);
 			addEventListener(Event.REMOVED_FROM_STAGE, removedfromstage_handler, false, 0, true);
+			
+			// cookie get
+			//cookie_msgDel = CookieUtil.getCookie(SAVE_MSGDEL) as String;
+			//cookie_listDel = CookieUtil.getCookie(SAVE_LISTDEL) as String;
+			
 		}
 		
 		public function addedtostage_handler(event:Event):void {
 			
 			Kpf = new KoreaPhoneNumberFormatter();
+			
 		}
 		
 		public function removedfromstage_handler(event:Event):void {
 			
+			removeEventListener(Event.ADDED_TO_STAGE, addedtostage_handler);
 			alPhone.removeAll();
 			removeReaervation();
 			removeInterval();
@@ -284,7 +347,10 @@ package component
 				functionList.addEventListener(IndexChangeEvent.CHANGE, functionList_changeHandler );
 			}
 			else if (instance == message) message.addEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
-			else if (instance == sendListInput)	sendListInput.addEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
+			else if (instance == sendListInput) {
+				sendListInput.addEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
+				sendListInput.addEventListener(FocusEvent.FOCUS_OUT, sendListInput_focusOutHandler);
+			}
 			else if (instance == sendListInputBtn) sendListInputBtn.addEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
 			else if (instance == dupleDelete) dupleDelete.addEventListener(MouseEvent.CLICK, dupleDelete_clickHandler);
 			else if (instance == sendList) sendList.dataProvider = alPhone;
@@ -306,12 +372,18 @@ package component
 				
 			else if (instance == sendReservation) sendReservation.addEventListener(Event.CHANGE, sendReservation_changeHandler);
 			else if (instance == sendInterval) sendInterval.addEventListener(Event.CHANGE, sendInterval_changeHandler);
+			else if (instance == addUrl) addUrl.addEventListener(MouseEvent.CLICK, addUrl_clickHandler);
 			else if (instance == addImage) addImage.addEventListener(MouseEvent.CLICK, addImage_clickHandler);
 			else if (instance == addTxt) addTxt.addEventListener(MouseEvent.CLICK, addTxt_clickHandler);
 			else if (instance == addTxtLayer) {
 				addTxtLayer.dataProvider = acMearge;
 				addTxtLayer.labelField = "label";
 				addTxtLayer.addEventListener(IndexChangeEvent.CHANGE, addTxtLayer_changeHandler);
+			}
+			else if (instance == addMMSLayer) {
+				addMMSLayer.dataProvider = acMMS;
+				addMMSLayer.labelField = "label";
+				addMMSLayer.addEventListener(IndexChangeEvent.CHANGE, addMMSLayer_changeHandler);
 			}
 				
 			else if (instance == removeMsg) removeMsg.addEventListener(MouseEvent.CLICK, removeMsg_clickHandler);
@@ -320,6 +392,21 @@ package component
 			else if (instance == eUpdate) eUpdate.addEventListener(MouseEvent.CLICK, eUpdate_clickHandler);
 			else if (instance == eCancel) eCancel.addEventListener(MouseEvent.CLICK, eCancel_clickHandler);
 			else if (instance == eNext) eNext.addEventListener(MouseEvent.CLICK, eNext_clickHandler);
+			else if (instance == addressView) addressView.addEventListener(MouseEvent.CLICK, addressView_clickHandler);
+			else if (instance == addressCombo)	addressCombo.dataProvider = addressGroupList;
+			else if (instance == addressSave) addressSave.addEventListener(MouseEvent.CLICK, addressSave_clickHandler);
+			else if (instance == addressBoxClose) addressBoxClose.addEventListener(MouseEvent.CLICK, addressView_clickHandler);
+			else if (instance == sendSetting) sendSetting.addEventListener(MouseEvent.CLICK, sendSetting_clickHandler);
+			else if (instance == sendDelmsg) {
+				//if (cookie_msgDel && cookie_msgDel.length > 0) { sendDelmsg.selected = true; }
+				sendDelmsg.addEventListener(Event.CHANGE, sendDelmsg_changeHandler);
+			}
+			else if (instance == sendDelList) {
+				//if (cookie_listDel && cookie_listDel.length > 0) { instance.selected = true; }
+				sendDelList.addEventListener(Event.CHANGE, sendDelList_changeHandler);
+			}
+			
+			
 			
 			if (instance is LinkElement) {
 				instance.addEventListener(FlowElementMouseEvent.ROLL_OVER, tooltip_overHandler);
@@ -337,7 +424,10 @@ package component
 				acFunction = null;
 			}
 			else if (instance == message) message.removeEventListener(KeyboardEvent.KEY_UP, message_keyUpHandlerAutoMode);
-			else if (instance == sendListInput)	sendListInput.removeEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
+			else if (instance == sendListInput) {
+				sendListInput.removeEventListener(FlexEvent.ENTER, sendListInput_enterHandler);
+				sendListInput.removeEventListener(FocusEvent.FOCUS_OUT, sendListInput_focusOutHandler);
+			}
 			else if (instance == sendListInputBtn) sendListInputBtn.removeEventListener(MouseEvent.CLICK, sendListInput_enterHandler);
 			else if (instance == dupleDelete) dupleDelete.removeEventListener(MouseEvent.CLICK, dupleDelete_clickHandler);
 			else if (instance == callback) {
@@ -363,6 +453,9 @@ package component
 				acMearge.removeAll();
 				acMearge = null;
 			}
+			else if (instance == sendSetting) sendSetting.removeEventListener(MouseEvent.CLICK, sendSetting_clickHandler);
+			else if (instance == sendDelmsg) {sendDelmsg.removeEventListener(Event.CHANGE, sendDelmsg_changeHandler);}
+			else if (instance == sendDelList) {sendDelList.removeEventListener(Event.CHANGE, sendDelList_changeHandler);}
 			
 			
 			if (instance is LinkElement) {
@@ -384,6 +477,9 @@ package component
 		
 		private function tracker(msg:String):void {
 			MunjaNote(parentApplication).googleTracker("Send/"+msg);
+		}
+		private function trackerEvent(category:String,action:String,label:String,value:Number):void {
+			//MunjaNote(parentApplication).googleTrackerEvent(category,action,label,value);
 		}
 		
 		private var viewFunction:String = "";
@@ -515,7 +611,6 @@ package component
 		}
 		protected function sendListInput_enterHandler(event:Event):void {
 			
-			tracker("sendListInput/enter");// tracker
 			if ( alPhone ) {
 				
 				if (sendListInput.text != "") {
@@ -528,6 +623,21 @@ package component
 				}
 				else
 					SLibrary.alert("전화번호를 입력하세요.");
+			}
+			
+		}
+		protected function sendListInput_focusOutHandler(event:Event):void {
+			
+			if ( alPhone ) {
+				
+				if (sendListInput.text != "") {
+					if (SLibrary.bKoreaPhoneCheck( sendListInput.text )) {
+						addPhone(sendListInput.text, "");
+						sendListInput.text = "";
+						if (eLayer.visible) eLayer.visible = false;
+					}
+					else SLibrary.alert("잘못된 전화번호 입니다.");
+				}
 			}
 			
 		}
@@ -617,6 +727,126 @@ package component
 			ePre.enabled = (this.editePhoneIndex > 0);
 			eNext.enabled = (this.editePhoneIndex < (this.alPhone.length-1));
 		}
+		
+		//-----------------------------------
+		// Save Address methods Start
+		//-----------------------------------
+		private function addressView_clickHandler(event:MouseEvent):void {
+			var bBox:Boolean = addressBox.visible;
+			addressBox.visible = !bBox;
+			sendBox.visible = bBox;
+			if (bBox == false) {
+				getGroup();
+			}
+		}
+		private function getGroup():void {
+			
+			if (Gv.bLogin) {
+				RemoteSingleManager.getInstance.addEventListener("getAddrList", getGroup_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.getAddrList(0, "");
+			}
+		}
+		private function getGroup_resultHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("getAddrList", getGroup_resultHandler);
+			var acGroup:ArrayCollection = event.result as ArrayCollection;
+			addressGroupList.removeAll();
+			var arr:Array = [];
+			if (acGroup != null && acGroup.length > 0) {
+				
+				var avo:AddressVO = null;
+				addressGroupList.removeAll();
+				for (var i:Number = 0; i < acGroup.length; i++) {
+					avo = acGroup.getItemAt(i) as AddressVO;
+					if (avo.grpName != "전체") {
+						addressGroupList.addItem(avo.grpName);
+					}
+					
+				}
+				
+			}
+		}
+		private function addressSave_clickHandler(event:MouseEvent):void {
+			
+			if (alPhone == null || alPhone.length <= 0) {
+				SLibrary.alert("전화번호를 추가 후 저장 하세요.");
+			} else {
+				var grp:String = addressCombo.selectedItem as String;
+				if (grp == null || grp == "") {
+					SLibrary.alert("주소록 그룹을 선택하거나 입력하세요.");
+				}else if (grp == "전체") {
+					SLibrary.alert("전체 그룹으로 저장 할 수 없습니다.");
+				} else {
+					addressSave.bLoading = true;
+					addressBoxClose.enabled = false;
+					var acRslt:ArrayCollection = parseAddress(alPhone);
+					RemoteSingleManager.getInstance.addEventListener("modifyManyAddr", addressSave_resultHandler, false, 0, true);
+					RemoteSingleManager.getInstance.callresponderToken 
+						= RemoteSingleManager.getInstance.service.modifyManyAddr(31, acRslt, grp);
+				}
+				
+			}
+		}
+		private function addressSave_resultHandler(event:CustomEvent):void {
+			
+			RemoteSingleManager.getInstance.removeEventListener("modifyManyAddr", addressSave_resultHandler);
+			var i:int = event.result as int;
+			if (i > 0) {
+				SLibrary.alert(String(addressCombo.selectedItem)+" 그룹에 저장 되었습니다.");
+				addressView_clickHandler(null);
+				//this.dispatchEvent( new CustomEvent("saveAddress", String(addressCombo.selectedItem) ));
+			}
+			else SLibrary.alert("저장 되지 않았습니다.");
+			
+			addressSave.bLoading = false;
+			addressBoxClose.enabled = true;
+		}
+		private function parseAddress(al:ArrayCollection):ArrayCollection {
+			
+			var rslt:ArrayCollection = new ArrayCollection();
+			if (al != null && al.length > 0) {
+				var cnt:int = al.length;
+				var avo:AddressVO = new AddressVO();
+				var pvo:PhoneVO = new PhoneVO();
+				for (var i:int = 0; i < cnt; i++) {
+					pvo = al.getItemAt(i) as PhoneVO;
+					avo = getAddressVO(pvo);
+					rslt.addItem(avo);
+				}
+			}
+			return rslt;
+		}
+		private function getAddressVO(pvo:PhoneVO):AddressVO {
+			var avo:AddressVO = null;
+			if (pvo != null) {
+				avo = new AddressVO();
+				avo.phone = pvo.pNo;
+				var arr:Array = getNameMemo(pvo.pName);
+				avo.name = arr[0];
+				avo.memo = arr[1];	
+			}
+			
+			return avo;
+		}
+		private function getNameMemo(str:String):Array {
+			var arr:Array = new Array(2);
+			if (str != null) {
+				var val:Array = str.split(Send.PHONE_DIV);
+				if (val != null) {
+					for (var i:int = 0; i < val.length; i++) {
+						if (i == 0) arr[0] = val[0];
+						else {
+							arr[1]+=val[i]+"\n";
+						}
+					}
+				}
+			}
+			return arr;
+		}
+		//-----------------------------------
+		// Save Address methods End
+		//-----------------------------------
 		
 		
 		public function removePhone(pvo:PhoneVO):void {	this.alPhone.removeItemAt( this.alPhone.getItemIndex(pvo) );setTotalCount(); }
@@ -744,6 +974,8 @@ package component
 				smvo.itMinute = int(arr[1]);
 			}else smvo.bInterval = false;
 			
+			smvo.urlKey = urlKey;
+			
 			smvo.imagePath = this.mmsImage; 
 			smvo.message = msg;
 			smvo.returnPhone = rt.returnPhone;
@@ -759,13 +991,25 @@ package component
 		}
 		private function sendBtn_resultHandler(event:CustomEvent):void {
 			
+			RemoteSingleManager.getInstance.removeEventListener("sendSMSconf", sendBtn_resultHandler);
+			
 			var lvo:LogVO = event.result as LogVO;
-			if (lvo.idx != 0) {
+			if (lvo != null && lvo.idx != 0) {
+				sendClickAfter();
 				sending.sendingCompleted(lvo);
 				this.dispatchEvent(new Event(Send.SEND_COMPLET));
+				trackerEvent(lvo.line, lvo.mode, lvo.user_id, lvo.cnt);
 			} else {
 				removeSending();
-				SLibrary.alert(lvo.message);
+				if (lvo != null) {
+					if (lvo.message == "no login") { 
+						MunjaNote(parentApplication).loginCheck();
+					}
+					else 
+						SLibrary.alert(lvo.message);
+				}
+				else
+					SLibrary.alert("발송 실패");
 			}
 			isValid();
 		}
@@ -907,6 +1151,7 @@ package component
 			event.preventDefault();
 			//Object(sendList.dataProvider).removeAll();
 			alPhone.removeAll();
+			setTotalCount();
 		}
 		
 		
@@ -1150,14 +1395,19 @@ package component
 		/**
 		 * upload
 		 * */
-		private function addImage_clickHandler(event:MouseEvent):void {
-			
+		public function uploadInit():void {
 			// 업로드 초기화
 			this.fur = new FileUploadByRemoteObject("smt");
 			this.fur.addEventListener(FileUploadByRemoteObjectEvent.COMPLETE, FileUploadByRemoteObjectCOMPLETEHandler);
 			this.fur.addEventListener(FileUploadByRemoteObjectEvent.RESULT, FileUploadByRemoteObjectRESULTHandler);
 			this.fur.addEventListener(FileUploadByRemoteObjectEvent.FAULT, FileUploadByRemoteObjectFAULTHandler);
+		}
+		private function addImage_clickHandler(event:MouseEvent):void {
 			
+			addMMSLayer.visible = !addMMSLayer.visible;
+		}
+		private function uploadImage():void {
+			uploadInit();
 			this.fur.addFiles();
 		}
 		
@@ -1168,8 +1418,12 @@ package component
 				destoryUpload();
 				SLibrary.alert("1MB 이상의 파일은 사용 하실 수 없습니다.");
 			}else {
-				this.fur.remoteObject.setMMSUpload( e.data, e.fileName );
+				upload( e.data, e.fileName );
 			}
+		}
+		public function upload(data:ByteArray, fName:String):void {
+			uploadInit();
+			this.fur.remoteObject.setMMSUpload( data, fName );
 		}
 		private function FileUploadByRemoteObjectRESULTHandler(e:FileUploadByRemoteObjectEvent):void {
 			
@@ -1192,6 +1446,8 @@ package component
 				this.fur.destroy();
 				this.fur = null;
 			}
+			if (moduleLoaderIme != null)
+				moduleLoaderIme.unloadModule();
 		}
 		
 		
@@ -1209,16 +1465,7 @@ package component
 			
 			if (item != null) {
 				var lable:String = item.data;
-				var pos:int = message.selectionActivePosition;
-				
-				if (pos != -1)
-				{
-					message.text = message.text.substr(0, pos) + lable + message.text.substr(pos, message.text.length - pos);
-				} else {
-					message.text += lable;
-				}
-				message.selectRange(pos + lable.length, pos + lable.length);
-				
+				addMsgCusor(lable);
 				addTxtLayer.selectedIndex = -1;
 				addTxtLayer.visible = false;
 				
@@ -1227,11 +1474,121 @@ package component
 				SLibrary.alert("SMS로 합성 할 경우 90byte 이상 문자는 잘릴 수 있습니다.");
 			}
 			tracker("addTxtLayer_changeHandler");// tracker
+		}
+		private function addMsgCusor(msg:String):void {
 			
+			var pos:int = message.selectionActivePosition;
+			
+			if (pos != -1) {
+				message.text = message.text.substr(0, pos) + msg + message.text.substr(pos, message.text.length - pos);
+			} else {
+				message.text += msg;
+			}
+			message.selectRange(pos + msg.length, pos + msg.length);
+		}
+		
+		/**
+		 * webEditor Moduel
+		 * */
+		private function addUrl_clickHandler(event:MouseEvent):void {
+			createModuleUrl("module/url/MobileWebEditor.swf");
+		}
+		public function createModuleUrl(s:String):void {
+			
+			if (moduleLoaderUrl == null) { moduleLoaderUrl = new ModuleLoader(); }
+			loading.visible = true;
+			moduleLoaderUrl.addEventListener(ModuleEvent.READY, url_moduleReadyHandler);
+			if (!moduleLoaderUrl.url) { moduleLoaderUrl.url = s; }
+			moduleLoaderUrl.loadModule();
+		}
+		private function url_moduleReadyHandler(event:ModuleEvent):void {
+			var ichild:IMobileWebEditor = moduleLoaderUrl.child as IMobileWebEditor;
+			if (moduleLoaderUrl.child != null) { ichild.setKey(urlKey);} 
+			loading.visible = false;
+		}
+		public function setUrl(key:int):void {
+			trace("key is "+key);
+			urlKey = key;
+			addMsgCusor(Send.MWEB_URL);
+			SLibrary.alert(Send.MWEB_URL+" 를 지우면 URL 발송이 되지 않습니다.");
+		}
+		
+		public function removeModuleUrl():void {
+			
+			if (moduleLoaderUrl != null) {
+				moduleLoaderUrl.removeEventListener(ModuleEvent.READY, url_moduleReadyHandler);
+				moduleLoaderUrl.unloadModule();
+			}
+			loading.visible = false;
+		}
+		/**
+		 * ImageEditor Moduel
+		 * */
+		private function addMMSLayer_changeHandler(event:IndexChangeEvent):void {
+			
+			var item:Object = addMMSLayer.selectedItem;
+			
+			if (item != null) {
+				var data:String = item.data;
+				addMMSLayer.selectedIndex = -1;
+				addMMSLayer.visible = false;
+				if (data == "upload") uploadImage();
+				else createModuleIme("/module/ie/ImageEditor.swf");
+			}
+			
+		}
+		public function createModuleIme(s:String):void {
+			
+			if (moduleLoaderIme == null) { moduleLoaderIme = new ModuleLoader(); }
+			loading.visible = true;
+			moduleLoaderIme.addEventListener(ModuleEvent.READY, ime_moduleReadyHandler);
+			if (!moduleLoaderIme.url) { moduleLoaderIme.url = s; }
+			moduleLoaderIme.loadModule();
+		}
+		private function ime_moduleReadyHandler(event:ModuleEvent):void {
+			loading.visible = false;
+		}
+		
+		public function removeModuleIme():void {
+			
+			if (moduleLoaderIme != null) {
+				moduleLoaderIme.removeEventListener(ModuleEvent.READY, ime_moduleReadyHandler);
+				moduleLoaderIme.unloadModule();
+			}
+			loading.visible = false;
 		}
 		
 		
-		
+		/**
+		 * sendSetting
+		 * */
+		public function sendSetting_clickHandler(event:MouseEvent):void {
+			sendSetBox.visible = !sendSetBox.visible;
+		}
+		private function sendDelmsg_changeHandler(event:Event):void {
+			if (sendDelmsg.selected) {
+				//CookieUtil.setCookie(SAVE_MSGDEL,"Y",365);
+			}else {
+				//CookieUtil.deleteCookie(SAVE_MSGDEL);
+			}
+		}
+		private function sendDelList_changeHandler(event:Event):void {
+			if (sendDelList.selected) {
+				//CookieUtil.setCookie(SAVE_LISTDEL,"Y",365);
+			}else {
+				//CookieUtil.deleteCookie(SAVE_LISTDEL);
+			}
+		}
+		private function sendClickAfter():void {
+			if (sendDelmsg.selected) {
+				this.msg = "";
+				allDelImage();
+			}
+			if (sendDelList.selected) {
+				alPhone.removeAll();
+				setTotalCount();
+			}
+		}
 		
 		/**
 		 * destroy

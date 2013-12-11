@@ -1,0 +1,12 @@
+src : 복사 붙여 넣기
+Menus.as revert
+MenuSkin.mxml revert
+Login.as revert
+BitmapImageReflection.mxml revert
+ics.css revert
+
+"/skin -> "skin replace
+"/images -> "assets replace
+SLibrary.as alert 함수 Alert.show(msg);
+CookieUtil.as 함수 내용지우기
+

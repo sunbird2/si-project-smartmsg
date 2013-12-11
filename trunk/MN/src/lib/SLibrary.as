@@ -3,6 +3,7 @@ package lib
 	import component.util.ToolTipPanel;
 	
 	import flash.events.TimerEvent;
+	import flash.external.ExternalInterface;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL;
 	import flash.utils.Timer;
@@ -51,7 +52,8 @@ package lib
 			var chkInvaildChar:RegExp = /[^0-9\-]/g;			
 			if (chkInvaildChar.test(s))	return false;			
 			
-			var chkPhoneNum:RegExp = /^0[17][016789]-?\d{3,4}-?\d{4}$/;
+			//var chkPhoneNum:RegExp = /^0[17][016789]-?\d{3,4}-?\d{4}$/;
+			var chkPhoneNum:RegExp = /^0\d{2,3}-?\d{3,4}-?\d{4}$/;
 			if (!chkPhoneNum.test(s)) return false;
 			
 			return true;
@@ -167,8 +169,8 @@ package lib
 		
 		public static function alert(msg:String):void {
 			
-			Alert.show(msg, "MN");
 			//ExternalInterface.call("alert", msg);
+			Alert.show(msg, "MN");
 		}
 		
 		public static function javascript(msg:String):void {

@@ -9,12 +9,16 @@
 			
 			import skin.AddressSkin_mini;
 			
+			import spark.components.List;
+			
 			import valueObjects.AddressVO;
 			private var hgap:Number = 10;
 			
 			private var _icon:String;
 			private var _labelTitle:String;
 			private var _labelSub:String;
+			// index search
+			private var c_top:Array = new Array('ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ');
 			
 			public function set icon(value:String):void {
 				_icon = value;
@@ -34,8 +38,8 @@
 					
 					if (_icon) {
 						icon_image.source = _icon;
-						title.left = icon_image.width + hgap;
-						sub.left = icon_image.width + hgap;
+						title.left = icon_image.width+ 25 + hgap;
+						sub.left = icon_image.width+ 25 + hgap;
 					}
 					if (_labelSub) {
 						sub.text = data[_labelSub];
@@ -46,10 +50,54 @@
 					}
 					
 					if (_labelTitle) title.text = data[_labelTitle];
+					
+					
+					var parentList:List = owner as List;
+					var preVO:AddressVO = itemIndex < 1? null : parentList.dataProvider.getItemAt(itemIndex-1) as AddressVO;
+					var thisChar:int = getFristChar(data[_labelTitle]);
+					var preChar:int = preVO == null?-1:getFristChar(preVO.name);
+					
+					//trace(data[_labelTitle]+"="+thisChar+"/"+preChar);
+					
+					if (thisChar >= 0 && thisChar < c_top.length) {
+						if (preVO == null || thisChar != preChar) {
+							viewIndex( c_top[thisChar] );
+						} else {
+							hideIndex();
+						}
+					} else {
+						hideIndex();
+					}
 				}
 				
 				
 			}
+			
+			private function getFristChar(str:String):int {
+				
+				
+				var tmp:int = -1
+				if (str != null && str != "") {
+					tmp = str.charCodeAt(0) - 44032;
+					tmp = Math.floor(tmp/28);
+					tmp = Math.floor(tmp/21);
+					
+					//trace(str+"="+tmp);
+				}
+				return tmp;
+			}
+			
+			private function viewIndex(label:String):void {
+				//trace("view");
+				indexBox.visible = true;
+				indexBox.height = 20;
+				indexLabel.text = label;
+			}
+			private function hideIndex():void {
+				indexBox.visible = false;
+				indexBox.height = 0;
+			}
+			
 			
 			protected function send_clickHandler(event:MouseEvent):void {
 
@@ -60,14 +108,20 @@
 			
 		]]>
 	</fx:Script>
-	<s:Image id="icon_image" width="32" height="32" fillMode="scale"  />
-	<s:Label id="title" fontSize="14" color="#222222" />
-	<s:Label id="sub" fontSize="12" color="#999999"/>
-	<s:Image right="5" verticalCenter="0" buttonMode="true" source="assets/post_btn_send.gif"  click="send_clickHandler(event)"/>
-	<s:Rect width="100%" bottom="0" height="0.5">
-		<s:stroke>
-			<s:SolidColorStroke color="#D9D9D9" />
-		</s:stroke>
-	</s:Rect>
+	<s:VGroup width="100%" height="100%">
+		<s:Group id="indexBox" width="100%" height="0" visible="false" clipAndEnableScrolling="true">
+			<s:Rect width="100%" height="100%"><s:fill><s:SolidColor color="#D9D9D9" /></s:fill></s:Rect>
+			<s:Label id="indexLabel" text="ㄱ" left="35" verticalCenter="0" color="#FFFFFF" fontWeight="bold" />
+		</s:Group>
+		<s:Group width="100%" height="100%">
+			<s:Image id="icon_image" left="25" width="32" height="32" fillMode="scale"  />
+			<s:Label id="title" fontSize="14" color="#222222" />
+			<s:Label id="sub" fontSize="12" color="#999999"/>
+			<s:Image id="sendBtn" right="5" verticalCenter="0" buttonMode="true" source="assets/post_btn_send.gif"  click="send_clickHandler(event)"/>	
+		</s:Group>
+	</s:VGroup>
+	
+	
+	<s:Rect width="100%" bottom="0" height="0.5"><s:stroke><s:SolidColorStroke color="#D9D9D9" /></s:stroke></s:Rect>
 	
 </s:ItemRenderer>

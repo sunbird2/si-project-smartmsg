@@ -82,7 +82,7 @@ in accordance with the terms of the license agreement accompanying it.
 	</s:Group>
 
 	
-	<s:BitmapImage id="up" source="@Embed('/skin/ics/assets/actionbar_up.png', scaleGridTop='1', scaleGridBottom='54', scaleGridLeft='2', scaleGridRight='4')" smooth="true"
+	<s:BitmapImage id="up" source="@Embed('skin/ics/assets/actionbar_up.png', scaleGridTop='1', scaleGridBottom='54', scaleGridLeft='2', scaleGridRight='4')" smooth="true"
 				   bottom="-10"  left="0" right="0" top="0"/>
 	
 	<s:Rect left="0" right="0" bottom="0" height="3">

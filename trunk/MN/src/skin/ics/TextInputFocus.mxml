@@ -40,7 +40,7 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:BitmapImage id="focusGroup" source="@Embed('/skin/ics/assets/dark/textinput_active.png', scaleGridTop='1', scaleGridBottom='2', scaleGridLeft='5', scaleGridRight='35')"
+	<s:BitmapImage id="focusGroup" source="@Embed('skin/ics/assets/dark/textinput_active.png', scaleGridTop='1', scaleGridBottom='2', scaleGridLeft='5', scaleGridRight='35')"
 				   left="0" right="0"
 				   bottom="0" height="5" smooth="true"
 				   />
