@@ -48,7 +48,7 @@
 	</s:HGroup>
 	
 	
-	<s:BitmapImage id="sel" source="@Embed('/skin/ics/assets/list_select.png')" smooth="true" right="0" visible="false"/>	
+	<s:BitmapImage id="sel" source="skin/ics/assets/list_select.png" smooth="true" right="0" visible="false"/>	
 
 	<s:Rect width="100%" bottom="0" height="0.5">
 		<s:stroke>

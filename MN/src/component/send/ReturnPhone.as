@@ -81,10 +81,19 @@ package component.send
 			event.stopImmediatePropagation();
 			event.preventDefault();
 			if (Gv.bLogin) {
-				if (callback.selectedItem && callback.selectedItem as String != "") {
-					RemoteSingleManager.getInstance.addEventListener("setReturnPhone", callbackSave_resultHandler, false, 0, true);
-					RemoteSingleManager.getInstance.callresponderToken 
-						= RemoteSingleManager.getInstance.service.setReturnPhone(callback.selectedItem as String);	
+
+				if (callback.selectedItem && callback.selectedItem as String != null && callback.selectedItem as String != "") {
+					
+					var s:String = callback.selectedItem as String;
+					var chkInvaildChar:RegExp = /[^0-9\-]/g;			
+					if (chkInvaildChar.test(s))	SLibrary.alert("숫자만 입력 가능 합니다.");
+					else {
+						RemoteSingleManager.getInstance.addEventListener("setReturnPhone", callbackSave_resultHandler, false, 0, true);
+						RemoteSingleManager.getInstance.callresponderToken 
+							= RemoteSingleManager.getInstance.service.setReturnPhone(s);	
+					}
+					
+						
 				}else {
 					SLibrary.alert("번호를 입력 후 저장하세요.");
 				}

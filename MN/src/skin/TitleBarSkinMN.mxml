@@ -74,7 +74,7 @@
         
         <!-- title -->
         <!--- @copy spark.components.windowClasses.TitleBar#titleText -->
-        <s:Label id="titleText" minWidth="0" fontSize="9" fontFamily="Droid" color="0xFFFFFF" maxDisplayedLines="1" width="100%" />
+        <s:Label id="titleText" minWidth="0" fontSize="10" fontFamily="Dotum" fontWeight="bold" color="0xFFFFFF" maxDisplayedLines="1" width="100%" />
 		
 		<!-- maximize button -->
 		<!--- 

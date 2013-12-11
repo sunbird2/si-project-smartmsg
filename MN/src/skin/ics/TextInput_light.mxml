@@ -242,12 +242,12 @@ in accordance with the terms of the license agreement accompanying it.
 	
 	
 	
-	<s:BitmapImage includeIn="disabledStates" source="@Embed('/skin/ics/assets/light/textinput_disabled.png', scaleGridTop='1', scaleGridBottom='2', scaleGridLeft='5', scaleGridRight='35')"
+	<s:BitmapImage includeIn="disabledStates" source="@Embed('skin/ics/assets/light/textinput_disabled.png', scaleGridTop='1', scaleGridBottom='2', scaleGridLeft='5', scaleGridRight='35')"
 				   left="0" right="0"
 				   bottom="0" height="5" smooth="true"
 				   />
 	
-	<s:BitmapImage includeIn="normal, normalWithPrompt" source="@Embed('/skin/ics/assets/light/textinput_normal.png', scaleGridTop='1', scaleGridBottom='2', scaleGridLeft='5', scaleGridRight='35')"
+	<s:BitmapImage includeIn="normal, normalWithPrompt" source="@Embed('skin/ics/assets/light/textinput_normal.png', scaleGridTop='1', scaleGridBottom='2', scaleGridLeft='5', scaleGridRight='35')"
 				   left="0" right="0"
 				   bottom="0" height="4" smooth="true"
 				   />

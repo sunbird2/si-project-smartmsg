@@ -65,9 +65,10 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
     private var _internal_idx : int;
     private var _internal_imagePath : String;
     private var _internal_rslt : String;
-    private var _internal_msg : String;
     private var _internal_failAddDate : String;
+    private var _internal_msg : String;
     private var _internal_stat : String;
+    private var _internal_urlIdx : String;
     private var _internal_sendDate : String;
     private var _internal_groupKey : int;
     private var _internal_name : String;
@@ -133,21 +134,27 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get msg() : String
-    {
-        return _internal_msg;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get failAddDate() : String
     {
         return _internal_failAddDate;
     }
 
     [Bindable(event="propertyChange")]
+    public function get msg() : String
+    {
+        return _internal_msg;
+    }
+
+    [Bindable(event="propertyChange")]
     public function get stat() : String
     {
         return _internal_stat;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get urlIdx() : String
+    {
+        return _internal_urlIdx;
     }
 
     [Bindable(event="propertyChange")]
@@ -242,15 +249,6 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set msg(value:String) : void
-    {
-        var oldValue:String = _internal_msg;
-        if (oldValue !== value)
-        {
-            _internal_msg = value;
-        }
-    }
-
     public function set failAddDate(value:String) : void
     {
         var oldValue:String = _internal_failAddDate;
@@ -260,12 +258,30 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
         }
     }
 
+    public function set msg(value:String) : void
+    {
+        var oldValue:String = _internal_msg;
+        if (oldValue !== value)
+        {
+            _internal_msg = value;
+        }
+    }
+
     public function set stat(value:String) : void
     {
         var oldValue:String = _internal_stat;
         if (oldValue !== value)
         {
             _internal_stat = value;
+        }
+    }
+
+    public function set urlIdx(value:String) : void
+    {
+        var oldValue:String = _internal_urlIdx;
+        if (oldValue !== value)
+        {
+            _internal_urlIdx = value;
         }
     }
 

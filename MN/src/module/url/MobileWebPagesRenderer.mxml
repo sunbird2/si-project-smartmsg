@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true" creationComplete="creationCompleteHandler(event)" xmlns:flexpad="com.flexpad.*" >
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			[Bindable]
+			private var ac:ArrayCollection = null;
+			
+			private var em:ElementManager = new ElementManager();
+			
+			override public function set data(value:Object):void
+			{
+				super.data = value;
+				ac = new ArrayCollection( super.data as Array );
+				
+			}
+			
+			protected function creationCompleteHandler(event:FlexEvent):void
+			{
+				pageIndex.text = String(itemIndex+1)+" 페이지";
+			}
+			
+			override public function set itemIndex(value:int):void
+			{
+				// TODO Auto Generated method stub
+				super.itemIndex = value;
+				if (pageIndex != null) pageIndex.text = String(itemIndex+1)+" 페이지";
+			}
+			
+			override public function set selected(value:Boolean):void
+			{
+				super.selected = value;
+				if (super.selected == false) page.selectedIndex = -1;
+			}
+			
+			
+			protected function attAdd_clickHandler(event:MouseEvent):void { attList.visible = !attList.visible; }
+			
+			protected function att_clickHandler(num:int):void
+			{
+				var obj:Object = null;
+				switch(num)
+				{
+					case ElementManager.TXT:{obj = {type:ElementManager.TXT,value:{text:"<p style=\"text-align:left\">텍스트를 입력하세요..</p>"}};break;}
+					case ElementManager.IMG:{obj = {type:ElementManager.IMG,value:{layout:"vertical", imgs:[]}};break;}
+					case ElementManager.INPUT:{obj = {type:ElementManager.INPUT,value:{layout:"one",next:0,btnText:"확인",commitMsg:"감사합니다."}};break;}
+					case ElementManager.BTN:{obj = {type:ElementManager.BTN,value:{next:{type:0,value:""},btnText:"확인"}};break;}
+					case ElementManager.MILEAGE:{obj = {type:ElementManager.MILEAGE,value:{cnt:10,passwd:"1234x"}};break;}
+					case ElementManager.ASKLIST:{obj = {type:ElementManager.ASKLIST,value:{q:"질문입니다.",a:{type:0,value:["정답1입니다.","정답2입니다."]}}};break;}
+					case ElementManager.COUPON:{obj = {type:ElementManager.COUPON,value:{passwd:"1111"}};break;}
+					case ElementManager.SHOPLIST:{obj = {type:ElementManager.SHOPLIST,value:{next:{type:0,value:""},btnText:"확인"}};break;}
+					default:{break;}
+				}
+				ac.addItem(obj);
+				attAdd_clickHandler(null);
+			}
+			
+			protected function del_clickHandler(event:MouseEvent):void
+			{
+				var parentList:List = owner as List;
+				parentList.dataProvider.removeItemAt(parentList.dataProvider.getItemIndex(data));
+			}
+			
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="hovered"/>
+		<s:State name="selected"/>
+	</s:states>
+	<s:VGroup gap="0" top="1" left="1" right="1" bottom="1">
+		<s:Group width="100%" height="45">
+			<s:Rect left="0" right="0" top="0" bottom="0">
+				<s:fill>
+					<s:LinearGradient rotation="-90">
+						<s:GradientEntry color="#000000" alpha="1.0" ratio="0"/>
+						<s:GradientEntry color="#333333" alpha="1.0" ratio="1"/>
+					</s:LinearGradient>
+				</s:fill>
+			</s:Rect>
+			<s:Line width="100%" bottom="0"><s:stroke><s:SolidColorStroke color="0xFFFFFF" weight="1" alpha="0.11"/></s:stroke></s:Line>
+			
+			<s:Button label="+내용추가" left="5" click="attAdd_clickHandler(event)" verticalCenter="0" skinClass="module.url.component.skin.ButtonBlack" excludeFrom="normal" />
+			<s:Label id="pageIndex" text="0" horizontalCenter="0" verticalCenter="0" color="#FFFFFF" />
+			<s:Button label="삭제" click="del_clickHandler(event)" right="5" verticalCenter="0" skinClass="module.url.component.skin.ButtonRed" color="#FFFFFF" excludeFrom="normal" />
+		</s:Group>
+		<s:List id="page" width="327" height="476" dataProvider="{ac}" 
+				borderVisible="true" itemRenderer="module.url.MobileWebPagesRendererPage" contentBackgroundColor="#FFFFFF" contentBackgroundAlpha="1" useVirtualLayout="false" verticalScrollPolicy="on">
+		</s:List>
+	</s:VGroup>
+	
+	<s:VGroup id="attList" visible="false" top="20">
+		<s:Button label="텍스트" click="att_clickHandler(ElementManager.TXT)" />
+		<s:Button label="이미지" click="att_clickHandler(ElementManager.IMG)" />
+		<s:Button label="입력" click="att_clickHandler(ElementManager.INPUT)" />
+		<s:Button label="버튼" click="att_clickHandler(ElementManager.BTN)" />
+		<s:Button label="마일리지" click="att_clickHandler(ElementManager.MILEAGE)" />
+		<s:Button label="설문조사" click="att_clickHandler(ElementManager.ASKLIST)" />
+		<s:Button label="쿠폰" click="att_clickHandler(ElementManager.COUPON)" />
+	</s:VGroup>
+	
+	
+</s:ItemRenderer>

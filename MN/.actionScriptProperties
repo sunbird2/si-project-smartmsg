@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <actionScriptProperties analytics="false" mainApplicationPath="MunjaNote.mxml" projectUUID="d1dd7dcd-1b99-49c5-87f6-588f113f9959" version="10">
-  <compiler additionalCompilerArguments="-services &quot;D:\Workspace\MunjaNote\blazeds_4.0\WebContent\WEB-INF\flex\services-config_master.xml&quot; -locale en_US" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderLocation="D:/Workspace/MunjaNote/blazeds_4.0/WebContent" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+  <compiler additionalCompilerArguments="-services &quot;D:\Workspace\munjanote\blazeds_4.0\WebContent\WEB-INF\flex\services-config_master.xml&quot; -locale en_US" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" removeUnusedRSL="true" rootURL="" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="0">
       <libraryPathEntry kind="4" path="">
@@ -23,7 +23,11 @@
       <airExcludes/>
     </application>
   </applications>
-  <modules/>
+  <modules>
+    <module application="src/MunjaNote.mxml" destPath="module/ie/ImageEditor.swf" optimize="true" sourcePath="src/module/ie/ImageEditor.mxml"/>
+    <module application="src/MunjaNote.mxml" destPath="module/url/MobileWebEditor.swf" optimize="true" sourcePath="src/module/url/MobileWebEditor.mxml"/>
+    <module application="src/MunjaNote.mxml" destPath="module/urladmin/MobileWebAdmin.swf" optimize="true" sourcePath="src/module/urladmin/MobileWebAdmin.mxml"/>
+  </modules>
   <buildCSSFiles/>
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
   <buildTargets>

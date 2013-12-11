@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true" width="100%">
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ListCollectionView;
+			
+			import spark.components.List;
+			import spark.events.TextOperationEvent;
+			
+			protected function tx_focusOutHandler(event:FocusEvent):void
+			{
+				var parentList:List = owner as List;
+				parentList.dataProvider.setItemAt(tx.text , this.itemIndex );
+			}
+			
+		]]>
+	</fx:Script>
+	<s:HGroup width="100%" verticalAlign="middle">
+		<s:CheckBox enabled="false" />
+		<s:TextInput id="tx" text="{data}" width="100%" skinClass="module.url.component.skin.TextInputSkin" focusOut="tx_focusOutHandler(event)"/>	
+	</s:HGroup>
+</s:ItemRenderer>

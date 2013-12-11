@@ -3,7 +3,7 @@
 					   xmlns:s="library://ns.adobe.com/flex/spark" 
 					   xmlns:mx="library://ns.adobe.com/flex/mx"
 					   xmlns:ics="component.ics.*"
-					   title="MunjaNote 10.1"
+					   title="MN 10.1"
 					   showStatusBar="false"
 					   skinClass="skin.SparkChromeWindowedApplicationSkinMN"
 					   width="1024" height="764"
@@ -16,7 +16,7 @@
 	<fx:Style>
 		
 	</fx:Style>
-	<fx:Style source="/skin/ics/ics.css"/>
+	<fx:Style source="skin/ics/ics.css"/>
 	<fx:Script>
 		<![CDATA[
 			import air.update.ApplicationUpdaterUI;
@@ -105,11 +105,11 @@
 					
 					if(NativeApplication.supportsSystemTrayIcon){
 						NativeApplication.nativeApplication.autoExit = false;
-						//iconLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,iconLoadComp);
+						iconLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,iconLoadComp);
 						iconLoader.load(new URLRequest("assets/MN_16.png"));
 						var sysTray:SystemTrayIcon = NativeApplication.nativeApplication.icon as SystemTrayIcon;
 						sysTray.addEventListener(ScreenMouseEvent.CLICK,clickHandler);
-						sysTray.tooltip = "ezmo!!";
+						sysTray.tooltip = "munjanote 10.1";
 						sysTray.menu= iconMenu;
 					}
 					

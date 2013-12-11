@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" implements="module.url.att.IAtt">
+	<fx:Script>
+		<![CDATA[
+			
+			public function getJson():String {
+				
+			}
+			public function setJson(json:String):String {
+				
+			}
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="active"/>
+	</s:states>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:VGroup>
+		<s:Group id="ele">
+			
+		</s:Group>
+		<s:Group id="attribute" includeIn="active">
+			
+		</s:Group>
+	</s:VGroup>
+</s:Group>

@@ -21,11 +21,4 @@
 		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
 		<nature>com.adobe.flexbuilder.project.flexnature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>bin-debug</name>
-			<type>2</type>
-			<location>D:/Workspace/MunjaNote/blazeds_4.0/WebContent</location>
-		</link>
-	</linkedResources>
 </projectDescription>

@@ -3,9 +3,12 @@ package component.util
 	/* For guidance on writing an ActionScript Skinnable Component please refer to the Flex documentation: 
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
 	import lib.CustomEvent;
+	
+	import mx.events.FlexEvent;
 	
 	import skin.compnent.TextInputSearchSkin;
 	
@@ -29,6 +32,7 @@ package component.util
 		{
 			//TODO: implement function
 			super();
+			this.addEventListener(FlexEvent.ENTER, dispatchSearchEvent);
 		}
 		
 		/* Implement the getCurrentSkinState() method to set the view state of the skin class. */
@@ -57,10 +61,11 @@ package component.util
 			setStyle("skinClass", TextInputSearchSkin);
 		}
 		
-		private function dispatchSearchEvent(event:MouseEvent):void
-		{
+		private function dispatchSearchEvent(event:Event):void {
+			this.selectAll();
 			this.dispatchEvent(new CustomEvent("search", this.text));
 		}
+		
 		
 	}
 }

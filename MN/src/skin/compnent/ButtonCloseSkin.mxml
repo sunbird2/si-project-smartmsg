@@ -80,8 +80,8 @@
         <s:State name="disabled" />
     </s:states>
     
-    <s:BitmapImage source.up="@Embed('/assets/close.png')"
-				   source.over="@Embed('/assets/close1.png')"
-				   source.down="@Embed('/assets/close2.png')"/>
+    <s:BitmapImage source.up="/assets/close.png"
+				   source.over="/assets/close1.png"
+				   source.down="/assets/close2.png"/>
     
 </s:SparkButtonSkin>

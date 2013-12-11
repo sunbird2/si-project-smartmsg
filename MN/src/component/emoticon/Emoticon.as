@@ -60,7 +60,7 @@ package component.emoticon
 		[SkinPart(required="true")] public var msgBox:List;
 		//[SkinPart(required="true")] public var paging:Paging;
 		[SkinPart(required="true")] public var specialCharGroup:List;
-		
+
 		
 		private var _state:String;
 		private var acGubun:ArrayCollection = new ArrayCollection(["테마문자","업종별문자"]);
@@ -107,7 +107,7 @@ package component.emoticon
 		
 		
 		
-		
+
 		public function get state():String { return _state;	}
 		public function set state(value:String):void {
 			
@@ -140,7 +140,7 @@ package component.emoticon
 		}
 		
 		
-		
+
 		/* Implement the getCurrentSkinState() method to set the view state of the skin class. */
 		override protected function getCurrentSkinState():String
 		{
@@ -166,11 +166,11 @@ package component.emoticon
 				msgBox.addEventListener(IndexChangeEvent.CHANGE, msgBox_changeHandler);
 				msgBox.addEventListener(KeyboardEvent.KEY_UP, msgBox_keyboardUpHandler);
 			}
-				/*else if (instance == paging) {
+			/*else if (instance == paging) {
 				paging.viewDataCount = viewDataCount;
 				pagingInit();
 				paging.addEventListener("clickPage", paging_clickPageHandler);
-				}*/
+			}*/
 			else if (instance == specialCharGroup) {
 				specialCharGroup.dataProvider = spcChar;
 				specialCharGroup.addEventListener(IndexChangeEvent.CHANGE, specialCharGroup_changeHandler);
@@ -178,7 +178,7 @@ package component.emoticon
 			else if (instance == icon)	icon.source = getTitleIcon();
 			else if (instance == title_text)	title_text.text = getTitle();
 			else if (instance == titleSub_text)	titleSub_text.text = "메시지를 클릭하시면 적용됩니다.";
-			
+
 			
 			
 		}
@@ -197,7 +197,7 @@ package component.emoticon
 				msgBox.removeEventListener(IndexChangeEvent.CHANGE, msgBox_changeHandler);
 				smt.removeEventListener("fault", smt_fault);
 			}
-				//else if (instance == paging) paging.removeEventListener("clickPage", paging_clickPageHandler);
+			//else if (instance == paging) paging.removeEventListener("clickPage", paging_clickPageHandler);
 			else if (instance == specialCharGroup) {
 				specialCharGroup.removeEventListener(IndexChangeEvent.CHANGE, specialCharGroup_changeHandler);
 				removeSpecialChar();
@@ -205,7 +205,7 @@ package component.emoticon
 				spcChar = null;
 				
 			}
-			
+
 		}
 		
 		private function PagedFilterSmtInit():void {
@@ -225,7 +225,7 @@ package component.emoticon
 			else if (state == "emoticon") return "skin/ics/assets/light/icon/4-collections-view-as-grid.png";
 			else if (state == "specialChar") return "skin/ics/assets/light/icon/12-hardware-keyboard.png";
 			else return "skin/ics/assets/light/icon/5-content-email.png";
-			
+
 		}
 		private function getTitle():String {
 			
@@ -237,20 +237,20 @@ package component.emoticon
 		}
 		
 		/*public function pagingInit():void {
-		
-		if (acEmt != null && acEmt.length > 0 && paging) {
-		
-		if (paging.totalDataCount != Object(acEmt.getItemAt(0)).cnt) {
-		paging.totalDataCount = Object(acEmt.getItemAt(0)).cnt;
-		
-		}else {
-		paging.init();
-		}
-		}
+			
+			if (acEmt != null && acEmt.length > 0 && paging) {
+				
+				if (paging.totalDataCount != Object(acEmt.getItemAt(0)).cnt) {
+					paging.totalDataCount = Object(acEmt.getItemAt(0)).cnt;
+					
+				}else {
+					paging.init();
+				}
+			}
 		}*/
 		
 		private function gubunBar_changeHandler(event:IndexChangeEvent):void {
-			
+
 			state = "emoticon";
 		}
 		
@@ -272,16 +272,16 @@ package component.emoticon
 			getEmotiList();
 		}
 		/*private function getSentMessage():void {
-		
-		if (Gv.bLogin) {
-		RemoteSingleManager.getInstance.addEventListener("getSentListPage", sent_resultHandler, false, 0, true);
-		RemoteSingleManager.getInstance.callresponderToken 
-		= RemoteSingleManager.getInstance.service.getSentListPage(0, viewDataCount);
-		
-		}else {
-		SLibrary.alert("로그인 후 이용가능 합니다.");
-		}
-		
+			
+			if (Gv.bLogin) {
+				RemoteSingleManager.getInstance.addEventListener("getSentListPage", sent_resultHandler, false, 0, true);
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.getSentListPage(0, viewDataCount);
+				
+			}else {
+				SLibrary.alert("로그인 후 이용가능 합니다.");
+			}
+			
 		}*/
 		
 		private function getEmotiList():void {
@@ -290,7 +290,7 @@ package component.emoticon
 			callResponder.token = smt.getEmotiList_pagedFiltered(gubun, cate);
 			/*RemoteSingleManager.getInstance.addEventListener("getEmotiListPage", emoticon_resultHandler, false, 0, true);
 			RemoteSingleManager.getInstance.callresponderToken 
-			= RemoteSingleManager.getInstance.service.getEmotiListPage(gubun, cate, 0, viewDataCount);*/
+				= RemoteSingleManager.getInstance.service.getEmotiListPage(gubun, cate, 0, viewDataCount);*/
 		}
 		private function callResponder_resultHandler(event:ResultEvent):void {
 			
@@ -332,19 +332,19 @@ package component.emoticon
 		}
 		
 		/*private function createSpecialChar():void {
-		
-		var cnt:uint = Gv.spcData.length;
-		var char:RichText = null;
-		
-		for ( var i:int = 0; i < cnt; i++) {
-		char = new RichText();
-		char.text = Gv.spcData[i];
-		char.setStyle("fontSize",20);
-		
-		specialCharGroup.addElement(char);
-		char.addEventListener(MouseEvent.CLICK, charClickHandler);
-		}
-		
+			
+			var cnt:uint = Gv.spcData.length;
+			var char:RichText = null;
+			
+			for ( var i:int = 0; i < cnt; i++) {
+				char = new RichText();
+				char.text = Gv.spcData[i];
+				char.setStyle("fontSize",20);
+				
+				specialCharGroup.addElement(char);
+				char.addEventListener(MouseEvent.CLICK, charClickHandler);
+			}
+			
 		}*/
 		private function removeSpecialChar():void {
 			
@@ -379,6 +379,7 @@ package component.emoticon
 			
 			if (event.keyCode == 46
 				&& state == "myMessage"
+				&& msgBox.selectedItem
 				&& Object(msgBox.selectedItem).idx != null) {
 				
 				delMymessage( int(msgBox.selectedItem.idx) );

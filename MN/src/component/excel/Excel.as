@@ -86,7 +86,7 @@ package component.excel
 		private const SELPHONE:int = 2;
 		
 		private var _currStat:String = "normal";
-		
+
 		private var acRslt:ArrayCollection = new ArrayCollection();
 		private var acExcel:ArrayCollection = new ArrayCollection();
 		
@@ -119,15 +119,15 @@ package component.excel
 		
 		public function get bFromAddress():Boolean { return _bFromAddress; }
 		public function set bFromAddress(value:Boolean):void { _bFromAddress = value; }
-		
+
 		public function get currStat():String { return _currStat; }
 		public function set currStat(value:String):void { 
 			_currStat = value;
 			invalidateSkinState();
 		}
-		
+
 		override protected function getCurrentSkinState():String {
-			
+				
 			return currStat;
 		} 
 		
@@ -161,10 +161,10 @@ package component.excel
 				meargCombo3.addEventListener(IndexChangeEvent.CHANGE, meargCombo_changeHandler);
 			}
 			else if (instance == sendBtn) sendBtn.addEventListener(MouseEvent.CLICK, sendBtn_clickHandler);
-				/*else if (instance == resultList) {
+			/*else if (instance == resultList) {
 				resultList.dataProvider = acRslt;
 				resultList.labelFunction = resultListLabelFunc;
-				}*/
+			}*/
 			else if (instance == excelView) excelView.dataProvider = acExcel;
 			else if (instance == addressCombo){
 				addressCombo.dataProvider = Gv.addressGroupList;
@@ -233,12 +233,12 @@ package component.excel
 		
 		
 		private function resultListLabelFunc(item:Object):String {
-			
+
 			if (bFromAddress)
 				return item.phone + " " + item.name+ " " + item.memo;
 			else
 				return item.pNo + " " + item.pName;	
-			
+			 
 		}
 		
 		private function sendBtn_clickHandler(event:MouseEvent):void {
@@ -256,7 +256,7 @@ package component.excel
 			if ( event.newIndex > 0 ) {
 				
 				GridColumn( excelView.columns.getItemAt(event.newIndex) ).itemRenderer = new ClassFactory(ExcelPhone_GridItemRenderer);	
-				
+		
 				convertPhoneAcFromExcel();
 				setStep(SELPHONE);
 				
@@ -347,7 +347,7 @@ package component.excel
 				} else {
 					viewPasteComponent(false);
 				}	
-				
+							
 			}
 		}
 		
@@ -628,7 +628,7 @@ package component.excel
 						currStat = "actionSend";
 					}
 					//resultList.visible = true;
-					
+						
 					break;
 			}
 		}
@@ -691,12 +691,12 @@ package component.excel
 				if (excelView.dataProvider) Object(excelView.dataProvider).removeAll();
 				excelView = null;
 			}
-			
+				
 			/*if (resultList != null) {
-			resultList.labelFunction = null;
-			resultList.itemRenderer = null;
-			if (resultList.dataProvider) Object(resultList.dataProvider).removeAll();
-			resultList = null;
+				resultList.labelFunction = null;
+				resultList.itemRenderer = null;
+				if (resultList.dataProvider) Object(resultList.dataProvider).removeAll();
+				resultList = null;
 			}*/
 			
 			if (acExcel != null) {
@@ -726,7 +726,7 @@ package component.excel
 			refUploadFile.removeEventListener(Event.SELECT,onFileSelect); 
 			refUploadFile.removeEventListener(Event.COMPLETE,onFileComplete);
 			refUploadFile = null;
-			
+
 			RemoteSingleManager.getInstance.removeEventListener("getExcelLoaderData", excelUpload_RESULTHandler);
 			removeEventListener(Event.REMOVED_FROM_STAGE, destroy, false);
 			
