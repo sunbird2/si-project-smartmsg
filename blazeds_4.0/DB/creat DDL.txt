@@ -789,7 +789,7 @@ CREATE TABLE `member` (
   `passwd` varchar(100) NOT NULL DEFAULT '',
   `hp` varchar(20) DEFAULT NULL,
   `unit_cost` varchar(5) DEFAULT '18',
-  `line` varchar(10) DEFAULT 'lgspam',
+  `line` varchar(10) DEFAULT 'kt',
   `memo` varchar(3000) DEFAULT NULL,
   `timeLogin` datetime DEFAULT NULL,
   `timeJoin` datetime DEFAULT NULL,
