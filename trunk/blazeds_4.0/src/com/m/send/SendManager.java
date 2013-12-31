@@ -452,6 +452,7 @@ public class SendManager implements ISend {
 			buf.append("ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣ");
 			buf.append("ァィゥェォアイウエオカキクケコガギグゲゴサシスセソザジズゼゾタチッツテトダヂヅデドナニヌネノハヒフヘホバビブベボパピプペポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ");
 			buf.append("ぁぃぅぇぉあいうえおかきくけこがぎぐげごさしすせそざじずぜぞたちっつてとだぢづでどなにぬねのはひふへほばびぶべぼぱぴぷぺぽまみむめもゃやゅゆょよらりるれろゎわゐゑをん");
+			buf.append(VbyP.getValue("isMessage"));
 			String str = buf.toString();
 			int count = message.length();
 			char chr;
