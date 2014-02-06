@@ -208,6 +208,7 @@ package component.send
 			
 			if (lvo.idx != 0) {
 				getResult();
+				durationRslt = 2000;
 				interval = setInterval(getResult, durationRslt);
 			}
 				
@@ -231,8 +232,8 @@ package component.send
 				} else if (ssvo.local == 0 && ssvo.telecom > 0) {
 					if (interval) clearInterval(interval);
 					durationRslt += 1000;
-					interval = setTimeout(getResult, durationRslt); 
-					setInterval(getResult, durationRslt);
+					setTimeout(getResult, durationRslt); 
+					//setInterval(getResult, durationRslt);
 					
 				}
 				
