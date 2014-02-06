@@ -9,6 +9,7 @@ package component.send
 	import flash.events.MouseEvent;
 	import flash.utils.clearInterval;
 	import flash.utils.setInterval;
+	import flash.utils.setTimeout;
 	
 	import flashx.textLayout.elements.SpanElement;
 	
@@ -227,6 +228,12 @@ package component.send
 				
 				if (ssvo.local == 0 && ssvo.telecom == 0) {
 					resultCompleted();
+				} else if (ssvo.local == 0 && ssvo.telecom > 0) {
+					if (interval) clearInterval(interval);
+					durationRslt += 1000;
+					interval = setTimeout(getResult, durationRslt); 
+					setInterval(getResult, durationRslt);
+					
 				}
 				
 			}
