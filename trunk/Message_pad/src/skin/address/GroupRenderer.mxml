@@ -128,7 +128,7 @@
 				 maxDisplayedLines="1"
 				 showTruncationTip="true"
 				 doubleClick="onEdit(event)"
-				 top="7" bottom="5" left="5"/>
+				 top="7" bottom="5" left="5" width="130"/>
 		<s:Label id="labelCnt" right="0" top="7" bottom="5"/>
 		<s:TextInput id="inputTxt" 
 					 visible="false"

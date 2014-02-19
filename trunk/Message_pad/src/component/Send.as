@@ -18,6 +18,7 @@ package component
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.utils.ByteArray;
+	import flash.utils.setTimeout;
 	
 	import flashx.textLayout.elements.LinkElement;
 	import flashx.textLayout.elements.SpanElement;
@@ -287,6 +288,9 @@ package component
 		public static const  SAVE_LISTDEL:String = "MunjaNote_save_listdel";
 		private var cookie_msgDel:String = "";
 		private var cookie_listDel:String = "";
+		
+		
+		private var isSending:Boolean = false;
 		
 		
 		/**
@@ -955,41 +959,51 @@ package component
 		 * */
 		private function sendBtn_clickHandler(event:MouseEvent):void {
 			
-			removeSending();
+			if (isSending == true) {
+				SLibrary.alert("발송 처리중인 데이터가 있습니다. 발송내역을 확인해 보세요.");
+			} else {
+				sendBtn.enabled = false;
+				
+				removeSending();
+				
+				var smvo:SendMessageVO = new SendMessageVO();
+				
+				smvo.bInterval = false;
+				smvo.bMerge = isMearge();
+				
+				if (sendReservation.selected) {
+					smvo.bReservation = true;
+					smvo.reservationDate = sendReservation.label + ":00";
+				}else smvo.bReservation = false;
+				
+				if (sendInterval.selected) {
+					smvo.bInterval = true;
+					var arr:Array = sendInterval.label.split("/");
+					smvo.itCount = int(arr[0]);
+					smvo.itMinute = int(arr[1]);
+				}else smvo.bInterval = false;
+				
+				smvo.urlKey = urlKey;
+				
+				smvo.imagePath = this.mmsImage; 
+				smvo.message = msg;
+				smvo.returnPhone = rt.returnPhone;
+				smvo.al = alPhone;
+				
+				isSending = true;
+				RemoteSingleManager.getInstance.addEventListener("sendSMSconf", sendBtn_resultHandler, false, 0, true);
+				
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.sendSMSconf(smvo);
+				
+				createSending();
+				tracker("sendBtn_clickHandler");// tracker
+			}
 			
-			var smvo:SendMessageVO = new SendMessageVO();
-			
-			smvo.bInterval = false;
-			smvo.bMerge = isMearge();
-			
-			if (sendReservation.selected) {
-				smvo.bReservation = true;
-				smvo.reservationDate = sendReservation.label + ":00";
-			}else smvo.bReservation = false;
-			
-			if (sendInterval.selected) {
-				smvo.bInterval = true;
-				var arr:Array = sendInterval.label.split("/");
-				smvo.itCount = int(arr[0]);
-				smvo.itMinute = int(arr[1]);
-			}else smvo.bInterval = false;
-			
-			smvo.urlKey = urlKey;
-			
-			smvo.imagePath = this.mmsImage; 
-			smvo.message = msg;
-			smvo.returnPhone = rt.returnPhone;
-			smvo.al = alPhone;
-			
-			
-			RemoteSingleManager.getInstance.addEventListener("sendSMSconf", sendBtn_resultHandler, false, 0, true);
-			RemoteSingleManager.getInstance.callresponderToken 
-				= RemoteSingleManager.getInstance.service.sendSMSconf(smvo);
-			
-			createSending();
-			tracker("sendBtn_clickHandler");// tracker
 		}
 		private function sendBtn_resultHandler(event:CustomEvent):void {
+			
+			setTimeout(isSendingFasle,1000);
 			
 			RemoteSingleManager.getInstance.removeEventListener("sendSMSconf", sendBtn_resultHandler);
 			
@@ -1012,6 +1026,10 @@ package component
 					SLibrary.alert("발송 실패");
 			}
 			isValid();
+		}
+		
+		private function isSendingFasle():void {
+			isSending = false;
 		}
 		
 		/**
