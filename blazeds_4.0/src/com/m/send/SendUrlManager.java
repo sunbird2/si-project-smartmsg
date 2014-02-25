@@ -34,8 +34,8 @@ public class SendUrlManager implements ISend, MybatisAble {
 	public static final int URL_CODE = 80;
 	
 	public static final String MEARGE_NAME = "{이름}";
-	public static final String MEARGE_URL = "{http://mjnote.co.kr/xxxx}";
-	public static final String URL = "http://mjnote.co.kr/";
+	public static final String MEARGE_URL = "{http://mjnote.co.kr/m/?k=xxxxxx}";
+	public static final String URL = "http://mjnote.co.kr/m/?k=";
 	
 	static ISend send = new SendUrlManager();
 	public static ISend getInstance() {

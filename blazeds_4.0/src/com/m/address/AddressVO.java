@@ -29,12 +29,18 @@ public class AddressVO implements Serializable {
 			setIdx(SLibrary.intValue(SLibrary.IfNull(hm, "idx")));
 			setUser_id(SLibrary.IfNull(hm, "user_id"));
 			setGrp(SLibrary.intValue(SLibrary.IfNull(hm, "grp")));
-			setGrpName( SLibrary.cutBytes(SLibrary.IfNull(hm, "grpName"), 28, true, "..") );
-			setName(SLibrary.cutBytes(SLibrary.IfNull(hm, "name"), 18, true, "..") );
 			setPhone(SLibrary.IfNull(hm, "phone"));
-			setMemo(SLibrary.cutBytes(SLibrary.IfNull(hm, "memo"), 250, true, ".."));
 			setWritedate(SLibrary.IfNull(hm, "writedate"));
 			setEtcInfo(SLibrary.IfNull(hm, "writedate"));
+			
+			/*
+			setGrpName( SLibrary.cutBytes(SLibrary.IfNull(hm, "grpName"), 28, true, "..") );
+			setName(SLibrary.cutBytes(SLibrary.IfNull(hm, "name"), 18, true, "..") );
+			setMemo(SLibrary.cutBytes(SLibrary.IfNull(hm, "memo"), 250, true, ".."));
+			*/
+			setGrpName( SLibrary.IfNull(hm, "grpName") );
+			setName( SLibrary.IfNull(hm, "name") );
+			setMemo( SLibrary.IfNull(hm, "memo") );
 		}
 	}
 	

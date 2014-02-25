@@ -204,6 +204,27 @@ public class VbyP {
 		}catch(Exception e){}
 	}
 	
+	public static void accessMwLog( String log ) {				
+		
+		String [] arrEncode =  getValue("logDecode").split("\\>");
+		try {			
+			ReadPropertiesAble rp = ReadProperties.getInstance();
+			if (rp.getValue("accessMwLog").equals("Y")) {
+								
+				Calendar cal = Calendar.getInstance();
+				SimpleDateFormat sdf = new SimpleDateFormat();
+				sdf.applyPattern("yyyy-MM-dd");
+				String path = rp.getValue("accessMwLogPath");
+				if (path == null || path.equals(""))
+					path = rp.getPath();
+				log = (arrEncode.length == 2)?new String(log.getBytes(arrEncode[0]), arrEncode[1]):log;
+				//System.out.println(Log.getInstance().logDate()+" : "+log);
+				Log.getInstance().println(path+"access_mw_"+sdf.format(cal.getTime()).toString()+".log", log );
+			}
+
+		}catch(Exception e){}
+	}
+	
 	/**
 	 * ������ �α׸� ��� �Ѵ�.
 	 * @param log

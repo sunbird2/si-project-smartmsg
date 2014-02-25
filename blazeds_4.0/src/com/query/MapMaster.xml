@@ -508,7 +508,7 @@
 		SELECT idx, user_id, dt, stopYN, timeWrite, timeModify 
 		FROM URL_HTML
 		WHERE 
-		idx = #{idx} and user_id = #{user_id}
+		idx = #{idx}
 	</select>
 	<select id="select_url_html_list" parameterType="com.m.url.UrlHtmlVO" resultType="com.m.url.UrlHtmlVO">
 		SELECT idx, user_id, dt, stopYN, timeWrite, timeModify 
@@ -585,6 +585,13 @@
 		FROM URL_DATA
 		WHERE 
 		user_id = #{user_id} and html_idx = #{html_idx}
+	</select>
+	
+	<select id="select_url_accept_cnt" parameterType="com.m.url.UrlDataHtmlVO"  resultType="int">
+		SELECT count(*) 
+		FROM URL_LOG
+		WHERE 
+		data_idx = #{idx}
 	</select>
 	
 	<update id="update_url_data" parameterType="com.m.url.UrlDataVO">
