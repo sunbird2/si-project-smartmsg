@@ -3,6 +3,7 @@ package com.m.url;
 import java.util.List;
 
 import com.common.db.SessionManager;
+import com.common.util.SLibrary;
 import com.m.MybatisAble;
 
 public class UrlDao implements MybatisAble {
@@ -67,5 +68,11 @@ public class UrlDao implements MybatisAble {
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
 		return (int)sm.update(ns + "update_url_data", udvo);
 		
+	}
+	
+	public int viewCnt(UrlDataHtmlVO udvo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return SLibrary.intValue( sm.selectOne(ns + "select_url_accept_cnt", udvo).toString() );
 	}
 }
