@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<configuration xmlns="http://ns.adobe.com/air/framework/update/configuration/1.0"> 
+     <url>http://www.munjanote.com:7837/badge/updateDescriptor.xml</url> 
+    <delay>1</delay>
+    <defaultUI>
+       <dialog name="checkForUpdate" visible="false" />
+       <dialog name="downloadUpdate" visible="false" />
+       <dialog name="downloadProgress" visible="true" />
+       <dialog name="installUpdate" visible="false" />    
+       <dialog name="fileUpdate" visible="true" />
+	   <dialog name="unexpectedError" visible="true" />
+	 </defaultUI>
+</configuration>
