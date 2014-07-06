@@ -348,7 +348,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
 
         _emoticonPagedObjectRPCDataManager.destination = "emoticonPagedObjectRPCDataManager";
         _emoticonPagedObjectRPCDataManager.service = _serviceControl;        
-        _emoticonPagedObjectRPCDataManager.identities =  "index";      
+        _emoticonPagedObjectRPCDataManager.identities =  "idx";      
         _emoticonPagedObjectRPCDataManager.itemClass = valueObjects.EmoticonPagedObject; 
 
 
@@ -356,22 +356,23 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         var dmOperation : mx.data.ManagedOperation;
         var dmQuery : mx.data.ManagedQuery;
 
-		dmQuery = new mx.data.ManagedQuery("getEmotiList_pagedFiltered");
-		dmQuery.propertySpecifier = "message,index,idx";
-		dmQuery.countOperation = "getEmotiList_countFiltered";
-		dmQuery.pagingEnabled = true;
-		dmQuery.positionalPagingParameters = true;
-		dmQuery.pageSize = 18;
-		dmQuery.parameters = "arg0,arg1,arg2,arg3";
-		_emoticonPagedObjectRPCDataManager.addManagedOperation(dmQuery);
-		
-		dmQuery = new mx.data.ManagedQuery("getSentListDetail_pagedFiltered");
-		dmQuery.propertySpecifier = "sendMode,rsltDate,phone,idx,imagePath,rslt,msg,failAddDate,stat,urlIdx,sendDate,groupKey,name,callback,user_id";
-		dmQuery.pagingEnabled = true;
-		dmQuery.positionalPagingParameters = true;
-		dmQuery.pageSize = 30;
-		dmQuery.parameters = "arg0,arg1,arg2";
-		_messageVORPCDataManager.addManagedOperation(dmQuery);
+        dmQuery = new mx.data.ManagedQuery("getEmotiList_pagedFiltered");
+        dmQuery.propertySpecifier = "message,index,idx";
+        dmQuery.countOperation = "getEmotiList_countFiltered";
+        dmQuery.pagingEnabled = true;
+        dmQuery.positionalPagingParameters = true;
+        dmQuery.pageSize = 30;
+        dmQuery.parameters = "arg0,arg1,arg2,arg3";
+        _emoticonPagedObjectRPCDataManager.addManagedOperation(dmQuery);
+
+        dmQuery = new mx.data.ManagedQuery("getSentListDetail_pagedFiltered");
+        dmQuery.propertySpecifier = "sendMode,phone,rsltDate,idx,imagePath,rslt,msg,failAddDate,stat,urlIdx,sendDate,groupKey,name,callback,user_id";
+		dmQuery.countOperation = "getSentListDetail_countFiltered";
+        dmQuery.pagingEnabled = true;
+        dmQuery.positionalPagingParameters = true;
+        dmQuery.pageSize = 30;
+        dmQuery.parameters = "arg0,arg1,arg2";
+        _messageVORPCDataManager.addManagedOperation(dmQuery);
 
         _serviceControl.managers = managersArray;
 

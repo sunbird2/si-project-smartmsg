@@ -60,13 +60,13 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
      * properties
      */
     private var _internal_sendMode : String;
-    private var _internal_rsltDate : String;
     private var _internal_phone : String;
+    private var _internal_rsltDate : String;
     private var _internal_idx : int;
     private var _internal_imagePath : String;
     private var _internal_rslt : String;
-    private var _internal_failAddDate : String;
     private var _internal_msg : String;
+    private var _internal_failAddDate : String;
     private var _internal_stat : String;
     private var _internal_urlIdx : String;
     private var _internal_sendDate : String;
@@ -104,15 +104,15 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get rsltDate() : String
-    {
-        return _internal_rsltDate;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get phone() : String
     {
         return _internal_phone;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get rsltDate() : String
+    {
+        return _internal_rsltDate;
     }
 
     [Bindable(event="propertyChange")]
@@ -134,15 +134,15 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get failAddDate() : String
-    {
-        return _internal_failAddDate;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get msg() : String
     {
         return _internal_msg;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get failAddDate() : String
+    {
+        return _internal_failAddDate;
     }
 
     [Bindable(event="propertyChange")]
@@ -204,21 +204,21 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set rsltDate(value:String) : void
-    {
-        var oldValue:String = _internal_rsltDate;
-        if (oldValue !== value)
-        {
-            _internal_rsltDate = value;
-        }
-    }
-
     public function set phone(value:String) : void
     {
         var oldValue:String = _internal_phone;
         if (oldValue !== value)
         {
             _internal_phone = value;
+        }
+    }
+
+    public function set rsltDate(value:String) : void
+    {
+        var oldValue:String = _internal_rsltDate;
+        if (oldValue !== value)
+        {
+            _internal_rsltDate = value;
         }
     }
 
@@ -249,21 +249,21 @@ public class _Super_MessageVO extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set failAddDate(value:String) : void
-    {
-        var oldValue:String = _internal_failAddDate;
-        if (oldValue !== value)
-        {
-            _internal_failAddDate = value;
-        }
-    }
-
     public function set msg(value:String) : void
     {
         var oldValue:String = _internal_msg;
         if (oldValue !== value)
         {
             _internal_msg = value;
+        }
+    }
+
+    public function set failAddDate(value:String) : void
+    {
+        var oldValue:String = _internal_failAddDate;
+        if (oldValue !== value)
+        {
+            _internal_failAddDate = value;
         }
     }
 

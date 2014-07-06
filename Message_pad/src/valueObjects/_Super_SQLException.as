@@ -64,6 +64,8 @@ public class _Super_SQLException extends flash.events.EventDispatcher implements
     /**
      * properties
      */
+    private var _internal_suppressed : ArrayCollection;
+    model_internal var _internal_suppressed_leaf:valueObjects.Throwable;
     private var _internal_message : String;
     private var _internal_SQLState : String;
     private var _internal_localizedMessage : String;
@@ -94,6 +96,12 @@ public class _Super_SQLException extends flash.events.EventDispatcher implements
     /**
      * data/source property getters
      */
+
+    [Bindable(event="propertyChange")]
+    public function get suppressed() : ArrayCollection
+    {
+        return _internal_suppressed;
+    }
 
     [Bindable(event="propertyChange")]
     public function get message() : String
@@ -144,6 +152,31 @@ public class _Super_SQLException extends flash.events.EventDispatcher implements
     /**
      * data/source property setters
      */
+
+    public function set suppressed(value:*) : void
+    {
+        var oldValue:ArrayCollection = _internal_suppressed;
+        if (oldValue !== value)
+        {
+            if (value is ArrayCollection)
+            {
+                _internal_suppressed = value;
+            }
+            else if (value is Array)
+            {
+                _internal_suppressed = new ArrayCollection(value);
+            }
+            else if (value == null)
+            {
+                _internal_suppressed = null;
+            }
+            else
+            {
+                throw new Error("value of suppressed must be a collection");
+            }
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "suppressed", oldValue, _internal_suppressed));
+        }
+    }
 
     public function set message(value:String) : void
     {
