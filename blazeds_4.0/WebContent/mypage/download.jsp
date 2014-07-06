@@ -5,7 +5,7 @@
 <%
  try{
 
-  String path = "/home/web/webapps/ROOT/mypage/LG_Agent_2.1.1.zip";
+  String path = "/home/web/webapps/ROOT/mypage/";
 
   String fileName = "LG_Agent_2.1.1.zip";
   

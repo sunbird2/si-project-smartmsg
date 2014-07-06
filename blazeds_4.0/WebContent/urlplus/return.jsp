@@ -4,7 +4,6 @@ out.println("pageType : " +request.getParameter("pageType")+"<br/>");
 out.println("mergeText : " +request.getParameter("mergeText")+"<br/>");
 out.println("mergeImage : " +request.getParameter("mergeImage")+"<br/>");
 out.println("coupon : " +request.getParameter("coupon")+"<br/>");
-out.println("event : " +request.getParameter("event")+"<br/>");
 out.println("event1_start : " +request.getParameter("event1_start")+"<br/>");
 out.println("event2_start : " +request.getParameter("event2_start")+"<br/>");
 out.println("event3_start. : " +request.getParameter("event3_start")+"<br/>");

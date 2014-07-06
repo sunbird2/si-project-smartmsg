@@ -22,8 +22,8 @@ Connection conn = null;
 String [] categroys = null;
 List<EmoticonPagedObject> al = null;
 String mode = SLibrary.IfNull(request.getParameter("mode"));
-String gubun = SLibrary.IfNull(VbyP.getPOST(request.getParameter("gubun")));
-String cateGory = SLibrary.IfNull(VbyP.getPOST(request.getParameter("cateGory")));
+String gubun = SLibrary.IfNull(request.getParameter("gubun"));
+String cateGory = SLibrary.IfNull(request.getParameter("cateGory"));
 int startIndex = SLibrary.intValue( SLibrary.IfNull(request.getParameter("startIndex")) );
 int numItems = SLibrary.intValue( SLibrary.IfNull(request.getParameter("numItems")) );
 
@@ -40,7 +40,7 @@ try {
 	}else if (mode.equals("emoti")) {
 		al = emt.getEmotiCatePagedFiltered(conn, "", gubun, cateGory, startIndex, numItems);	
 	}
-	
+	System.out.println(""+","+gubun+","+cateGory+","+startIndex+","+numItems);
 }catch (Exception e) {}
 finally {
 	try {if ( conn != null ) conn.close(); }catch(SQLException e) {VbyP.errorLog("emoticon.jsp >> conn.close() Exception!");}

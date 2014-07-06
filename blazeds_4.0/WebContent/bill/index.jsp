@@ -178,7 +178,7 @@ finally {}
                                 <td><b id="tcnt" style="font-weight:bold;font-size:16px;color:#FF8800;"><%=SLibrary.addComma(VbyP.getValue("b30000")) %></b> <span>건</span></td>
                             </tr>
                         </table><br/>
-                        <p style="display:<%=block%>;">고객님은 고정단가 적용 중이며, 위 내용과 상관 없이 건당 <%=cost%>원에 결제 됩니다.</p>
+                        <p style="display:<%=block%>;width:100%;text-align:center;margin-bottom:10px;font-size:16px;">고객님은 고정단가 적용 중이며, 위 내용과 상관 없이 건당 <%=cost%>원에 결제 됩니다.</p>
                         <a href="#" class="button blue" style="width:110px;color:#FFF;font-weight:bold" onclick="billSubmit(document.billForm);return false;">결제하기</a>
                     </div>
 

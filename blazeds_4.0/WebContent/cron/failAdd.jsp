@@ -1,4 +1,3 @@
-<%@page import="com.m.log.telecom.LGSpamSent"%>
 <%@page import="com.m.log.telecom.HANSent"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="com.m.member.SessionManagement"%>
@@ -9,6 +8,7 @@
 <%@page import="com.m.log.telecom.KTSent"%>
 <%@page import="com.m.log.telecom.PPSent"%>
 <%@page import="com.m.log.telecom.LGSent"%>
+<%@page import="com.m.log.telecom.LGSpamSent"%>
 <%@page import="com.m.log.ISentData"%>
 <%@page import="com.m.log.ISent"%>
 <%@page import="com.m.log.SentManager"%>

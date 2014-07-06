@@ -132,9 +132,6 @@
 	<script type="text/javascript" src="js/jquery.uploadify-3.1.min.js"></script>
 
     <script type="text/javascript" src="js/galleria/galleria-1.2.8.js"></script>
-	<script type="text/javascript" src="js/swiper/idangerous.swiper-1.7.min.js"></script>
-	<script type="text/javascript" src="js/swiper/idangerous.swiper.scrollbar-1.0.js"></script>
-
 	<script type="text/javascript" src="js/masonry/jquery.masonry.min.js"></script>
 	
 	<script type="text/javascript" src="js/barcode/jquery-barcode-2.0.2.min.js"></script>
@@ -266,7 +263,7 @@
 		var type = $('input[name=makePageType]:checked').val();
 
 		if (type == "I") {
-			addAtt('imageSwiper');
+			addAtt('imgSlide');
 			addAtt('linkPage');
 			addAtt('text');
 			addAtt('linkPhone');
@@ -461,10 +458,6 @@
 				addBoxEle = $(box).appendTo(target).imageSlide({bEdit : true});
 			}
 		}
-		else if (type == "imageSwiper") {
-
-			addBoxEle = $(box).appendTo(target).imageSwiper({bEdit : true, readyEvent: scrollUpdateBottom});
-		}
 		else if (type == "text") { addBoxEle = $(box).appendTo(target).textEditor({domUrl : 'textEditor.jsp', readyEvent: scrollUpdateBottom}); }
 		else if (type == "textInput") { addBoxEle = $(box).appendTo(target).textInput({bEdit : true}); }
 		else if (type == "textTable") { addBoxEle = $(box).appendTo(target).textEditor({domUrl : 'textEditorTable.jsp', bTable : true, readyEvent: scrollUpdateBottom }); }
@@ -550,7 +543,6 @@
 			else if (type == "imgLayout") { $('#'+tid).imageLayout('destroy'); }
 			else if (type == "movieOne") { $('#'+tid).movieOne('destroy'); }
 			else if (type == "movieSlide") { $('#'+tid).movieSlide('destroy'); }
-			else if (type == "imageSwiper") { $('#'+tid).imageSwiper('destroy'); }
 			else if (type == "coupon" || type == "coupon" || type == "couponText") { $('.coupon_button_wrap').parent().remove(); } // coupon button remove;
 			
 			var dv;
@@ -627,7 +619,6 @@
 						f.mergeText.value = json.mergeText;
 						f.mergeImage.value = json.mergeImage;
 						f.coupon.value = json.coupon;
-						f.event.value = json.event;
 						
 						f.event1_start.value = json.dt_event1_start;
 						f.event2_start.value = json.dt_event2_start;
@@ -651,7 +642,7 @@
 						f.cert_type3.value = json.cert_type3;
 						f.cert_type4.value = json.cert_type4;
 						
-						
+						alert(json.cert_text1);
 						f.cert_text1.value = json.cert_text1;
 						f.cert_text2.value = json.cert_text2;
 						f.cert_text3.value = json.cert_text3;
@@ -701,14 +692,14 @@
 			<ul <%=( !pageAttMap.containsKey("0")&&!pageAttMap.containsKey("1")&&!pageAttMap.containsKey("2")&&!pageAttMap.containsKey("3") )? "style='display:none;'" : "" %>>
 				<li class="image_one"  <%=!pageAttMap.containsKey("0") ? "style='display:none;'" : "" %>><a href="#" onclick="addAtt('imageOne');return false;">이미지 1장</a></li>
 				<li class="image_thumb" <%=!pageAttMap.containsKey("1") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('imageThumb');return false;">썸네일 이미지</a></li>
-				<li class="image_slide" <%=!pageAttMap.containsKey("2") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('imageSwiper');return false;">슬라이드</a></li>
+				<li class="image_slide" <%=!pageAttMap.containsKey("2") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('imgSlide');return false;">슬라이드</a></li>
 				<li class="image_layout" <%=!pageAttMap.containsKey("3") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('imgLayout');return false;">분할이미지</a></li>
 			</ul>
 			
 			<h2  class="movie" <%=!pageAttMap.containsKey("4")&&!pageAttMap.containsKey("5") ? "style='display:none;'":"" %>>동영상</h2>
 			<ul <%=!pageAttMap.containsKey("4")&&!pageAttMap.containsKey("5") ? "style='display:none;'":"" %>>
 				<li class="movie_one" <%=!pageAttMap.containsKey("4") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('movieOne');return false;">동영상 1개</a></li>
-				<li class="movie_slide" <%=!pageAttMap.containsKey("5") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('imageSwiper');return false;">동영상 슬라이드</a></li>
+				<li class="movie_slide" <%=!pageAttMap.containsKey("5") ? "style='display:none;'":"" %>><a href="#" onclick="addAtt('movieSlide');return false;">동영상 슬라이드</a></li>
 			</ul>
 
 			<h2  class="text" <%=!pageAttMap.containsKey("6")&&!pageAttMap.containsKey("7")&&!pageAttMap.containsKey("8") ? "style='display:none;'":"" %>>텍스트</h2>
@@ -802,6 +793,7 @@
         	<button class="whiteBtn next">다음 &gt;</button>
         </p>
     </div><!--// previewLayer -->
+    
     <!-- preview from -->
     <form id="previewForm" name="previewForm" method="post" target="previewIframe" action="preview/">
    		<input type="hidden" name="htmlKey" value="" />
@@ -813,7 +805,6 @@
 		<input type="hidden" name="mergeText" />
 		<input type="hidden" name="mergeImage" />
 		<input type="hidden" name="coupon" />
-		<input type="hidden" name="event" />
 		<input type="hidden" name="event1_start" />
 		<input type="hidden" name="event2_start" />
 		<input type="hidden" name="event3_start" />

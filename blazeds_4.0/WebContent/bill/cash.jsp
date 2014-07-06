@@ -21,9 +21,9 @@ try {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>문자노트- SMS, LMS, MMS</title>
 
-    <script type="text/javascript" src="/html/js/jquery-1.8.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/html/css/base.css" />
-    <link rel="stylesheet" type="text/css" href="/html/css/main.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
     <script type="text/javascript">
 	    $(document).ready(function() { 
 	         if (parent.document) { parent.showCustom( $('#wrap').html() );}
@@ -33,27 +33,29 @@ try {
 <body class="main">
 <div id="wrap">
 	<div id="createAPI_box">
+    <form name="billingCashForm">
 		<input type="hidden" name="cashid" id="cashid" value="<%=us.getUser_id() %>" />
+        <input type="hidden" name="amt" id="amt" value="<%=amount %>" />
 		<h1 class="title">무통장 입금 예약 하기</h1>
 		<ul class="api_ul">
-			<li>
-				<p class="type_txt">입금은행</p>
-				<div class="action">
-					기업은행
-				</div>
-			</li>
-			<li>
-				<p class="type_txt">계좌번호</p>
-				<div class="action">
-					166-121-0901
-				</div>
-			</li>
-			<li>
-				<p class="type_txt">예금주</p>
-				<div class="action">
-					에이디소프트 ( 정회성 )
-				</div>
-			</li>
+            <li>
+                <p class="type_txt">입금은행</p>
+                <div class="action">
+                    기업은행
+                </div>
+            </li>
+            <li>
+                <p class="type_txt">계좌번호</p>
+                <div class="action">
+                    166-184-3800
+                </div>
+            </li>
+            <li>
+                <p class="type_txt">예금주</p>
+                <div class="action">
+                    문자노트 ( 조은영 )
+                </div>
+            </li>
 			<li>
 				<p class="type_txt">입금액</p>
 				<div class="action" id="cashAmount">
@@ -68,10 +70,10 @@ try {
 				</div>
 			</li>
 			<li>
-				<a href="#" class="buttonmini orange" style="display:block;margin:0 auto;width:580px;color:#FFF;font-weight:bold;" onclick="return cash_req()">예약하기</a>
+				<a href="#" class="buttonmini orange" style="display:block;margin:0 auto;width:580px;color:#FFF;font-weight:bold;" onclick="return cash_req(document.billingCashForm)">예약하기</a>
 			</li>
 		</ul>
-		
+	</form>
 	</div>
 </div>
 </body>

@@ -26,11 +26,9 @@
 		$('#barcode').barcode("1234567890128", "code128", barConf);
 		setTimeout(scrollTo, 0, 0, 1);
 	}, false);
-$(document).ready(function(){
-					
-}); // $(document).ready
 
-/*
+
+
 	(function() {
 			var $$ = function(selector) {
 				return Array.prototype.slice.call(document.querySelectorAll(selector));
@@ -42,7 +40,7 @@ $(document).ready(function(){
 						switchControl.lastElementChild.checked = true;
 					}
 
-					switchControl.addEventListener("click", function toggleSwitch(evt) {
+					switchControl.addEventListener("touchend", function toggleSwitch(evt) {
 						if (switchControl.className === "switch on") {
 							alert("사용된 쿠폰입니다.");
 							//switchControl.className = 'switch off';
@@ -75,9 +73,7 @@ $(document).ready(function(){
 				});
 			}, false);
 		})()
-*/	
-					
-
+	
 </script>
 </head>
 <body style="padding-bottom:0px;">
