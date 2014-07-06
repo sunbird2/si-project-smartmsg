@@ -20,14 +20,14 @@ internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobj
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("fileName", "lineNumber", "className", "methodName", "nativeMethod");
+    model_internal static var allProperties:Array = new Array("fileName", "lineNumber", "className", "nativeMethod", "methodName");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("fileName", "lineNumber", "className", "methodName", "nativeMethod");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("fileName", "lineNumber", "className", "nativeMethod", "methodName");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("fileName", "lineNumber", "className", "methodName", "nativeMethod");
+    model_internal static var dataProperties:Array = new Array("fileName", "lineNumber", "className", "nativeMethod", "methodName");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("fileName", "lineNumber", "className", "methodName", "nativeMethod");
+    model_internal static var nonDerivedProperties:Array = new Array("fileName", "lineNumber", "className", "nativeMethod", "methodName");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
@@ -50,8 +50,8 @@ internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobj
             model_internal::dependentsOnMap["fileName"] = new Array();
             model_internal::dependentsOnMap["lineNumber"] = new Array();
             model_internal::dependentsOnMap["className"] = new Array();
-            model_internal::dependentsOnMap["methodName"] = new Array();
             model_internal::dependentsOnMap["nativeMethod"] = new Array();
+            model_internal::dependentsOnMap["methodName"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
@@ -62,8 +62,8 @@ internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobj
         model_internal::propertyTypeMap["fileName"] = "String";
         model_internal::propertyTypeMap["lineNumber"] = "int";
         model_internal::propertyTypeMap["className"] = "String";
-        model_internal::propertyTypeMap["methodName"] = "String";
         model_internal::propertyTypeMap["nativeMethod"] = "Boolean";
+        model_internal::propertyTypeMap["methodName"] = "String";
 
         model_internal::_instance = value;
     }
@@ -311,13 +311,13 @@ internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobj
     }
 
     [Bindable(event="propertyChange")]
-    public function get isMethodNameAvailable():Boolean
+    public function get isNativeMethodAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
-    public function get isNativeMethodAvailable():Boolean
+    public function get isMethodNameAvailable():Boolean
     {
         return true;
     }
@@ -351,13 +351,13 @@ internal class _StackTraceElementEntityMetadata extends com.adobe.fiber.valueobj
     }
 
     [Bindable(event="propertyChange")]   
-    public function get methodNameStyle():com.adobe.fiber.styles.Style
+    public function get nativeMethodStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
-    public function get nativeMethodStyle():com.adobe.fiber.styles.Style
+    public function get methodNameStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

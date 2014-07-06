@@ -67,9 +67,11 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
     /**
      * properties
      */
+    private var _internal_schema : String;
+    private var _internal_networkTimeout : int;
     private var _internal_autoCommit : Boolean;
-    private var _internal_holdability : int;
     private var _internal_readOnly : Boolean;
+    private var _internal_holdability : int;
     private var _internal_typeMap : Object;
     private var _internal_catalog : String;
     private var _internal_closed : Boolean;
@@ -101,21 +103,33 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
      */
 
     [Bindable(event="propertyChange")]
+    public function get schema() : String
+    {
+        return _internal_schema;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get networkTimeout() : int
+    {
+        return _internal_networkTimeout;
+    }
+
+    [Bindable(event="propertyChange")]
     public function get autoCommit() : Boolean
     {
         return _internal_autoCommit;
     }
 
     [Bindable(event="propertyChange")]
-    public function get holdability() : int
-    {
-        return _internal_holdability;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get readOnly() : Boolean
     {
         return _internal_readOnly;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get holdability() : int
+    {
+        return _internal_holdability;
     }
 
     [Bindable(event="propertyChange")]
@@ -168,6 +182,26 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
      * data/source property setters
      */
 
+    public function set schema(value:String) : void
+    {
+        var oldValue:String = _internal_schema;
+        if (oldValue !== value)
+        {
+            _internal_schema = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "schema", oldValue, _internal_schema));
+        }
+    }
+
+    public function set networkTimeout(value:int) : void
+    {
+        var oldValue:int = _internal_networkTimeout;
+        if (oldValue !== value)
+        {
+            _internal_networkTimeout = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "networkTimeout", oldValue, _internal_networkTimeout));
+        }
+    }
+
     public function set autoCommit(value:Boolean) : void
     {
         var oldValue:Boolean = _internal_autoCommit;
@@ -178,16 +212,6 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
         }
     }
 
-    public function set holdability(value:int) : void
-    {
-        var oldValue:int = _internal_holdability;
-        if (oldValue !== value)
-        {
-            _internal_holdability = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "holdability", oldValue, _internal_holdability));
-        }
-    }
-
     public function set readOnly(value:Boolean) : void
     {
         var oldValue:Boolean = _internal_readOnly;
@@ -195,6 +219,16 @@ public class _Super_Connection extends flash.events.EventDispatcher implements c
         {
             _internal_readOnly = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "readOnly", oldValue, _internal_readOnly));
+        }
+    }
+
+    public function set holdability(value:int) : void
+    {
+        var oldValue:int = _internal_holdability;
+        if (oldValue !== value)
+        {
+            _internal_holdability = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "holdability", oldValue, _internal_holdability));
         }
     }
 

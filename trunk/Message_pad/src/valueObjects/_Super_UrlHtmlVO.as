@@ -62,8 +62,8 @@ public class _Super_UrlHtmlVO extends flash.events.EventDispatcher implements co
     private var _internal_timeModify : String;
     private var _internal_idx : int;
     private var _internal_timeWrite : String;
-    private var _internal_stopYN : String;
     private var _internal_user_id : String;
+    private var _internal_stopYN : String;
 
     private static var emptyArray:Array = new Array();
 
@@ -112,15 +112,15 @@ public class _Super_UrlHtmlVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get stopYN() : String
-    {
-        return _internal_stopYN;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get user_id() : String
     {
         return _internal_user_id;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get stopYN() : String
+    {
+        return _internal_stopYN;
     }
 
     public function clearAssociations() : void
@@ -171,16 +171,6 @@ public class _Super_UrlHtmlVO extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set stopYN(value:String) : void
-    {
-        var oldValue:String = _internal_stopYN;
-        if (oldValue !== value)
-        {
-            _internal_stopYN = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "stopYN", oldValue, _internal_stopYN));
-        }
-    }
-
     public function set user_id(value:String) : void
     {
         var oldValue:String = _internal_user_id;
@@ -188,6 +178,16 @@ public class _Super_UrlHtmlVO extends flash.events.EventDispatcher implements co
         {
             _internal_user_id = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_id", oldValue, _internal_user_id));
+        }
+    }
+
+    public function set stopYN(value:String) : void
+    {
+        var oldValue:String = _internal_stopYN;
+        if (oldValue !== value)
+        {
+            _internal_stopYN = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "stopYN", oldValue, _internal_stopYN));
         }
     }
 

@@ -68,6 +68,7 @@ public class _Super_Statement extends flash.events.EventDispatcher implements co
     /**
      * properties
      */
+    private var _internal_closeOnCompletion : Boolean;
     private var _internal_fetchSize : int;
     private var _internal_connection : valueObjects.Connection;
     private var _internal_resultSetHoldability : int;
@@ -105,6 +106,12 @@ public class _Super_Statement extends flash.events.EventDispatcher implements co
     /**
      * data/source property getters
      */
+
+    [Bindable(event="propertyChange")]
+    public function get closeOnCompletion() : Boolean
+    {
+        return _internal_closeOnCompletion;
+    }
 
     [Bindable(event="propertyChange")]
     public function get fetchSize() : int
@@ -203,6 +210,16 @@ public class _Super_Statement extends flash.events.EventDispatcher implements co
     /**
      * data/source property setters
      */
+
+    public function set closeOnCompletion(value:Boolean) : void
+    {
+        var oldValue:Boolean = _internal_closeOnCompletion;
+        if (oldValue !== value)
+        {
+            _internal_closeOnCompletion = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "closeOnCompletion", oldValue, _internal_closeOnCompletion));
+        }
+    }
 
     public function set fetchSize(value:int) : void
     {

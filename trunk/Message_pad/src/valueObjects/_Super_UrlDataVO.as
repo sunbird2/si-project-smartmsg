@@ -58,12 +58,10 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
     /**
      * properties
      */
-    private var _internal_dt : String;
-    private var _internal_stopYN : String;
     private var _internal_dt_conn : String;
-    private var _internal_timeModify : String;
     private var _internal_input : String;
     private var _internal_html_idx : int;
+    private var _internal_timeModify : String;
     private var _internal_sent_idx : int;
     private var _internal_idx : int;
     private var _internal_mileage : String;
@@ -95,27 +93,9 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
      */
 
     [Bindable(event="propertyChange")]
-    public function get dt() : String
-    {
-        return _internal_dt;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get stopYN() : String
-    {
-        return _internal_stopYN;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get dt_conn() : String
     {
         return _internal_dt_conn;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get timeModify() : String
-    {
-        return _internal_timeModify;
     }
 
     [Bindable(event="propertyChange")]
@@ -128,6 +108,12 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
     public function get html_idx() : int
     {
         return _internal_html_idx;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get timeModify() : String
+    {
+        return _internal_timeModify;
     }
 
     [Bindable(event="propertyChange")]
@@ -180,26 +166,6 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
      * data/source property setters
      */
 
-    public function set dt(value:String) : void
-    {
-        var oldValue:String = _internal_dt;
-        if (oldValue !== value)
-        {
-            _internal_dt = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "dt", oldValue, _internal_dt));
-        }
-    }
-
-    public function set stopYN(value:String) : void
-    {
-        var oldValue:String = _internal_stopYN;
-        if (oldValue !== value)
-        {
-            _internal_stopYN = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "stopYN", oldValue, _internal_stopYN));
-        }
-    }
-
     public function set dt_conn(value:String) : void
     {
         var oldValue:String = _internal_dt_conn;
@@ -207,16 +173,6 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
         {
             _internal_dt_conn = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "dt_conn", oldValue, _internal_dt_conn));
-        }
-    }
-
-    public function set timeModify(value:String) : void
-    {
-        var oldValue:String = _internal_timeModify;
-        if (oldValue !== value)
-        {
-            _internal_timeModify = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timeModify", oldValue, _internal_timeModify));
         }
     }
 
@@ -237,6 +193,16 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
         {
             _internal_html_idx = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "html_idx", oldValue, _internal_html_idx));
+        }
+    }
+
+    public function set timeModify(value:String) : void
+    {
+        var oldValue:String = _internal_timeModify;
+        if (oldValue !== value)
+        {
+            _internal_timeModify = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timeModify", oldValue, _internal_timeModify));
         }
     }
 

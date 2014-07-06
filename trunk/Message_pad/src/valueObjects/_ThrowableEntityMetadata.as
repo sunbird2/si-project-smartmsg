@@ -23,16 +23,16 @@ internal class _ThrowableEntityMetadata extends com.adobe.fiber.valueobjects.Abs
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("message", "localizedMessage", "cause", "stackTrace");
+    model_internal static var allProperties:Array = new Array("suppressed", "message", "localizedMessage", "cause", "stackTrace");
     model_internal static var allAssociationProperties:Array = new Array();
     model_internal static var allRequiredProperties:Array = new Array();
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("message", "localizedMessage", "cause", "stackTrace");
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("suppressed", "message", "localizedMessage", "cause", "stackTrace");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("message", "localizedMessage", "cause", "stackTrace");
+    model_internal static var dataProperties:Array = new Array("suppressed", "message", "localizedMessage", "cause", "stackTrace");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("message", "localizedMessage", "cause", "stackTrace");
+    model_internal static var nonDerivedProperties:Array = new Array("suppressed", "message", "localizedMessage", "cause", "stackTrace");
     model_internal static var derivedProperties:Array = new Array();
-    model_internal static var collectionProperties:Array = new Array("stackTrace");
+    model_internal static var collectionProperties:Array = new Array("suppressed", "stackTrace");
     model_internal static var collectionBaseMap:Object;
     model_internal static var entityName:String = "Throwable";
     model_internal static var dependentsOnMap:Object;
@@ -50,6 +50,7 @@ internal class _ThrowableEntityMetadata extends com.adobe.fiber.valueobjects.Abs
         {
             // dependents map
             model_internal::dependentsOnMap = new Object();
+            model_internal::dependentsOnMap["suppressed"] = new Array();
             model_internal::dependentsOnMap["message"] = new Array();
             model_internal::dependentsOnMap["localizedMessage"] = new Array();
             model_internal::dependentsOnMap["cause"] = new Array();
@@ -57,11 +58,13 @@ internal class _ThrowableEntityMetadata extends com.adobe.fiber.valueobjects.Abs
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
+            model_internal::collectionBaseMap["suppressed"] = "valueObjects.Throwable";
             model_internal::collectionBaseMap["stackTrace"] = "valueObjects.StackTraceElement";
         }
 
         // Property type Map
         model_internal::propertyTypeMap = new Object();
+        model_internal::propertyTypeMap["suppressed"] = "ArrayCollection";
         model_internal::propertyTypeMap["message"] = "String";
         model_internal::propertyTypeMap["localizedMessage"] = "String";
         model_internal::propertyTypeMap["cause"] = "valueObjects.Throwable";
@@ -295,6 +298,12 @@ internal class _ThrowableEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     }
 
     [Bindable(event="propertyChange")]
+    public function get isSuppressedAvailable():Boolean
+    {
+        return true;
+    }
+
+    [Bindable(event="propertyChange")]
     public function get isMessageAvailable():Boolean
     {
         return true;
@@ -326,6 +335,12 @@ internal class _ThrowableEntityMetadata extends com.adobe.fiber.valueobjects.Abs
     model_internal function fireChangeEvent(propertyName:String, oldValue:Object, newValue:Object):void
     {
         this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, propertyName, oldValue, newValue));
+    }
+
+    [Bindable(event="propertyChange")]   
+    public function get suppressedStyle():com.adobe.fiber.styles.Style
+    {
+        return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   

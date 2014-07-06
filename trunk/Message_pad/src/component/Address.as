@@ -234,7 +234,8 @@ package component
 				irFactory.properties = {
 					icon:"/skin/ics/assets/light/icon/6-social-person.png",
 					labelTitle:"name",
-					labelSub:"phone"};
+					labelSub:"phone",
+					labelGrp:"grpName"};
 				nameList.itemRenderer = irFactory;
 				
 				//nameList.labelFunction = nameLabelFunction;
@@ -579,7 +580,8 @@ package component
 				if (nameList.selectedIndex >= 0) {
 					var avo:AddressVO = AddressVO( acName.getItemAt( nameList.selectedIndex ) );
 					
-					if (avo.grpName) groupName.selectedItem = groupList.selectedItem;
+					if (avo.grpName) groupName.selectedItem = avo;
+					else groupName.selectedItem = groupList.selectedItem;
 					nameL.text = avo.name;
 					phone.text = avo.phone;
 					memo.text = avo.memo;
