@@ -16,8 +16,8 @@
 Connection conn = null;
 ArrayList<NoticVO> al = null;
 int cnt = SLibrary.intValue(SLibrary.IfNull(request.getParameter("count")));
-int startPage = 3;
-int endPage = cnt+2;
+int startPage = 4;
+int endPage = cnt+3;
 
 try {
 	VbyP.accessLog("notic list call : "+ request.getRemoteAddr());
@@ -56,7 +56,7 @@ finally {
 	buf.append("]");
 	buf.append("}");
 	out.println(buf.toString());
-	VbyP.accessLog("notic list call : ");
+	//VbyP.accessLog("notic list call : "+buf.toString());
 
 	//out.println("{\"one\": \"Singular sensation\"}");
 }

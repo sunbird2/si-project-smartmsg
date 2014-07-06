@@ -20,13 +20,12 @@ var TP='<div id="MunjaNoteAPISkin"><div class="msg_box"><p class="msg_title">Mes
 
 (function($) {
 	
-	var bDebug = false;
+	var bDebug = true;
 	var UID="";
 	var HOST="";
 	var MAXBYTE=2000;
 	var CERTSTR="";
 	var CERTCHKCNT=0;
-	var INGDATA="";
 	$.M_N = {
 		ready:function(){_fn["mnqInit"]();},
 		setHost:function(v){this.HOST=v;},
@@ -51,7 +50,7 @@ var TP='<div id="MunjaNoteAPISkin"><div class="msg_box"><p class="msg_title">Mes
 	var _fn = { 
 		checkAuth:function() {
 			var b = true;
-			if (!_mnq||!is_array(_mnq)||$.M_N._getUid() == ""){ b=false;}
+			if (!_mnq||!is_array(_mnq)||$.M_N._getUid() == "") b=false;
 			return b;
 		},
 		mnqInit:function() {
@@ -77,8 +76,8 @@ var TP='<div id="MunjaNoteAPISkin"><div class="msg_box"><p class="msg_title">Mes
 		},
 		mnqRun:function(arr) {
 			d("run : ["+arr+"]");
-			if (is_array(arr)&& arr.length > 0) {$.M_N[arr[0]](arr[1]);}
-			else {$.M_N[arr[0]];}
+			if (is_array(arr)&& arr.length > 0)	$.M_N[arr[0]](arr[1]);
+			else $.M_N[arr[0]];
 		}
 	};
 	var _sendClass = {
@@ -103,12 +102,12 @@ var TP='<div id="MunjaNoteAPISkin"><div class="msg_box"><p class="msg_title">Mes
 				var strJson = JSON.stringify({send:vo});
 				d("_sendClass call:"+JSON.stringify(vo));
 				
-				
-				if (INGDATA == strJson) {
-					d("_sendClass call: duplecate data skip");
+				if ($.M_N._getUid() == "발급 받은 코드") {
+					callback(getRsltJson("true","테스트"));
 				} else {
-					INGDATA = strJson;
-					$.ajaxPrefilter('json', function(options, orig, jqXHR) { return 'jsonp'; });
+					$.ajaxPrefilter('json', function(options, orig, jqXHR) {
+					        return 'jsonp';
+					});
 
 					$.ajax({
 						dataType : "jsonp",
@@ -120,21 +119,20 @@ var TP='<div id="MunjaNoteAPISkin"><div class="msg_box"><p class="msg_title">Mes
 					    dataType: "json",
 					    data: {uid: $.M_N._getUid(), dt: strJson},
 					    success: function(json) {
-					    	
 					    	var rs = json;
-					    	INGDATA = "";
+
 							if (rs && rs.rslt!="true") {d(rs.msg);}
 							callback(rs);
 					    },
 					    error: function (xhr, textStatus, errorThrown) {
 					    	
-					    	INGDATA = "";
 					    	callback(getRsltJson("false","server error!"));
 					        //alert("server error");
 					    }
 					});
 				}
-					
+				
+				
 			}else{
 				d(er);
 			}
@@ -214,8 +212,8 @@ var TP='<div id="MunjaNoteAPISkin"><div class="msg_box"><p class="msg_title">Mes
 	        var n, v, json = [], arr = (obj && obj.constructor == Array);
 	        for (n in obj) {
 	            v = obj[n]; t = typeof(v);
-	            if (t == "string") { v = '"'+v+'"'; }
-	            else if (t == "object" && v !== null) {v = JSON.stringify(v);}
+	            if (t == "string") v = '"'+v+'"';
+	            else if (t == "object" && v !== null) v = JSON.stringify(v);
 	            json.push((arr ? "" : '"' + n + '":') + String(v));
 	        }
 	        return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
@@ -258,7 +256,7 @@ var TP='<div id="MunjaNoteAPISkin"><div class="msg_box"><p class="msg_title">Mes
 	
 	function isVaildDate(strDt){
 		var df = /^(\d{4})-(\d{2})-(\d{2})\s(\d{2}):(\d{2})$/;
-		if (!strDt.match(df)) {return false;}
+		if (!strDt.match(df)) return false;
 		else {
 			var yy =Number(strDt.substring(0,4));
 			var mm =Number(strDt.substring(5,7));

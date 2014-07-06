@@ -1,4 +1,8 @@
-<%@page import="com.m.member.SessionManagement"%><%@page import="com.m.member.UserSession"%><%@page import="com.m.common.PointManager"%><%@page import="com.m.member.JoinVO"%><%@page import="com.m.member.Join"%><%@page import="com.m.common.BooleanAndDescriptionVO"%><%@page import="com.m.SmartDS"%><%@page import="com.m.admin.vo.MemberVO"%><%@page import="com.m.MultiDao"%><%@page import="com.common.util.SLibrary"%><%@page import="com.common.VbyP"%><%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %><%
+<%@page import="com.m.member.SessionManagement"%>
+<%@page import="com.m.member.UserSession"%>
+<%@page import="com.m.common.PointManager"%><%@page import="com.m.member.JoinVO"%><%@page import="com.m.member.Join"%><%@page import="com.m.common.BooleanAndDescriptionVO"%><%@page import="com.m.SmartDS"%><%@page import="com.m.admin.vo.MemberVO"%><%@page import="com.m.MultiDao"%><%@page import="com.common.util.SLibrary"%><%@page import="com.common.VbyP"%><%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %><%
+
+
 
 String mode = SLibrary.IfNull(request.getParameter("mode"));
 String user_id = SLibrary.IfNull(request.getParameter("user_id"));

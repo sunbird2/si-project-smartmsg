@@ -108,9 +108,7 @@
 		sbuf.append("{");
 		sbuf.append("\"b\" : \""+b+"\",");
 		sbuf.append("\"img\" : \""+um.getUploadedFileName()+"\",");
-		sbuf.append("\"err\" : \""+errorMsg+"\",");
-		sbuf.append("\"width\" : \""+img.getWidth()+"\",");
-		sbuf.append("\"height\" : \""+img.getHeight()+"\"");
+		sbuf.append("\"err\" : \""+errorMsg+"\"");
 		sbuf.append("}");
 		
 		out.println( sbuf.toString() );

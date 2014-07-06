@@ -63,7 +63,7 @@ border-right: 1px solid #EFEFEF;
 border-bottom: 1px solid #EFEFEF;
 -webkit-box-shadow: 0px 0px 4px 0px rgba(51, 51, 51, 0.4);
 box-shadow: 0px 0px 4px 0px rgba(51, 51, 51, 0.4);}
-#qna .inputtext {background:#FFF;border:1px solid #EAEAEA ;font-size: 12px;-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;color: #5a5c5d;display: block;margin: 10px 0px;padding: 0px 10px;height: 32px;line-height: 32px;width: 280px;-webkit-transition: all 0.15s linear;-moz-transition: all 0.15s linear;-o-transition: all 0.15s linear;transition: all 0.15s linear;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;overflow:visible}
+#qna .inputtext {background:#FFF;border:1px solid #EAEAEA ;font-size: 12px;-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;color: #5a5c5d;display: block;margin: 10px 0px;padding: 0px 10px;height: 32px;line-height: 32px;width: 260px;-webkit-transition: all 0.15s linear;-moz-transition: all 0.15s linear;-o-transition: all 0.15s linear;transition: all 0.15s linear;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;overflow:visible}
 #qnasend {display:block;float:right;}
 
 #install_wrap {position:absolute;left:105px;top:430px;width:172px;height:144px;}
@@ -121,9 +121,9 @@ box-shadow: 0px 0px 4px 0px rgba(51, 51, 51, 0.4);}
 #emtCate li.act {background-color:#0099cc;color:#FFF;}
 
 #etc {margin:0 auto; width:1024px;height:143px; margin-top:20px;margin-bottom:30px;}
-#etc #custom { float:left;margin-right:15px;width:203px;height:143px;background:url("/images/custom_center2.png")}
+#etc #custom { float:left;margin-right:15px;width:203px;height:143px;background:url("/images/custom-center1.png")}
 #etc #notic { float:left;margin-right:15px;width:300px;height:143px;}
-#etc #bank { float:left;margin-right:15px;width:248px;height:143px;background:url("/images/bank4.png") no-repeat}
+#etc #bank { float:left;margin-right:15px;width:248px;height:143px;background:url("/images/cost1.png") no-repeat}
 #etc #cost { float:left;width:210px;height:143px;background:url("/images/cost2.png");cursor:pointer}
 
 .notic_title {font-size:14px; font-weight:bold;line-height:28px;}
@@ -138,7 +138,7 @@ box-shadow: 0px 0px 4px 0px rgba(51, 51, 51, 0.4);}
 #info ul li a.i03 {width:48px;background:url("/images/bottom_use.png") 0 0 no-repeat;}
 #info ul li a.i04 {width:57px;background:url("/images/bottom__spam.png") 0 0 no-repeat;}
 #copy {float:right;height:81px;overflow:hidden;}
-#copy .address {float:left;margin-right:15px;width:406px; height:51px;background:url("/images/bottom_copyright.png") 0 0 no-repeat;overflow:hidden;}
+#copy .address {float:left;margin-right:15px;width:406px; height:51px;background:url("/images/bottom_copyright4.png") 0 0 no-repeat;overflow:hidden;}
 
 /*slider*/
 .clear {clear:both}
@@ -232,7 +232,7 @@ box-shadow: 0px 0px 4px 0px rgba(51, 51, 51, 0.4);}
 #customBox {display:block;clear:both;width:1024px;margin:0 auto;overflow:hidden;margin-top:20px}
 #customBox .customContent {width:100%;overflow:hidden;}
 #customBox .customMenu {width:200px;float:left;}
-#customBox .customTitle {padding-left:45px;height:40px;background:url("/images/custom_title.png") no-repeat;overflow:hidden;border-bottom:1px solid #EFEFEF}
+#customBox .customTitle {padding-left:45px;height:40px;background:url("/images/custom_title1.png") no-repeat;overflow:hidden;border-bottom:1px solid #EFEFEF}
 #customBox .customTitle .customTitleSub {display:block;margin:0px;padding-left:0px;font-size:10px;line-height:10px;height:10px;overflow:hidden;}
 #customBox .customTitle .customTitleTxt {font-size:18px;font-weight:bold;}
 #customBox .customCategory {height:auto;overflow:hidden;}

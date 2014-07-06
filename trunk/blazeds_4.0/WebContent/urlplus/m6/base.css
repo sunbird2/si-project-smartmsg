@@ -1,0 +1,129 @@
+@charset "utf-8";
+/* LGU+ URLPlus 120503 */
+
+/* Common */
+body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,input,textarea,button,select{margin:0;padding:0}
+body,input,textarea,select,button,table{font-size:20px;line-height:1.25em}
+.s3{font-size:15px}
+body.s,.s input,.s textarea,.s select,.s button,.s table{font-family:Helvetica}
+body{position:relative;background-color:#fbfbfb;color:#333}
+body.s{-webkit-text-size-adjust:none}
+img,fieldset{border:0}
+ul,ol{list-style:none}
+em,address{font-style:normal}
+a{color:inherit;text-decoration:none}
+/* visited color */
+.a a:visited,.a a:visited .tlst_d,.a a.slst_a:visited .slst_t,.a a:visited .rklst_h,.a a:visited .tlst3_h,.a a:visited .tlst_dw1,.a a:visited .slst_h,.a a:visited .slst_th_st,.a a:visited .sct_h,.a a:visited .tlst2_d,.a a:visited .tlst6_s,.a a:visited .slst3_t{color:#888}
+table{border-collapse:collapse}
+#ct{clear:both;width:100%}
+.ct{background-color:#fff}
+.id_svall .ct,.id_svset .ct{background-color:#fff}
+.en{letter-spacing:0}
+
+
+/*
+pixel-ratio : 1 && Portrait
+*/
+/* iPad 2 세로보기 */
+@media only screen and (min-width : 768px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 1){
+	body,input,textarea,select,button,table{font-size:20px;}
+}
+
+/*
+pixel-ratio : 1 && landscape
+*/
+/* iPad 2 가로보기 */
+@media only screen and (min-width : 1024px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 1){
+	body,input,textarea,select,button,table{font-size:20px;}
+}
+
+/*
+pixel-ratio : 1.5 && Portrait
+*/
+/* 갤럭시 S2 세로보기 - low-dpi */
+@media only screen and (min-width : 240px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 1.5){
+	body,input,textarea,select,button,table{font-size:14px;}
+}
+/* 갤럭시 S2 세로보기 - medium-dpi */
+@media only screen and (min-width : 320px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 1.5){
+body,input,textarea,select,button,table{font-size:14px;}
+}
+/* 갤럭시 S2 세로보기 - high-dpi */
+@media only screen and (min-width : 480px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 1.5){
+	body,input,textarea,select,button,table{font-size:14px;}
+}
+
+/*
+pixel-ratio : 1.5 && landscape
+*/
+/* 갤럭시 S2 가로보기 - low-dpi */
+@media only screen and (min-width : 400px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio: 1.5){
+	body,input,textarea,select,button,table{font-size:20px;}}
+/* 갤럭시 S2 가로보기 - medium-dpi */
+@media only screen and (min-width : 533px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio: 1.5){
+body,input,textarea,select,button,table{font-size:20px;}
+} 
+/* 갤럭시 S2 가로보기 - high-dpi */
+@media only screen and (min-width : 800px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio: 1.5){
+	body,input,textarea,select,button,table{font-size:20px;}
+} 
+
+/*
+pixel-ratio : 2 && Portrait
+*/
+/* 갤럭시 Nexus 세로보기 - low-dpi */
+@media only screen and (min-width : 270px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+	body,input,textarea,select,button,table{font-size:14px;}
+}
+/* Galaxy Note 세로보기 - low-dpi */
+@media only screen and (min-width : 300px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+	body,input,textarea,select,button,table{font-size:14px;}
+}
+/* iPhone 4 세로보기 */
+@media only screen and (min-width : 320px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+	body,input,textarea,select,button,table{font-size:14px;}
+}
+/* 갤럭시 Nexus 세로보기 - medium-dpi */
+@media only screen and (min-width : 360px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+	body,input,textarea,select,button,table{font-size:14px;}
+} 
+/* Galaxy Note 세로보기 - medium-dpi */
+@media only screen and (min-width : 400px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+	body,input,textarea,select,button,table{font-size:14px;}
+}
+/* 갤럭시 Nexus 세로보기 - high-dpi */
+@media only screen and (min-width : 540px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+	body,input,textarea,select,button,table{font-size:14px;}
+} 
+/* Galaxy Note 세로보기 - high-dpi */
+@media only screen and (min-width : 600px) and (orientation : portrait) and (-webkit-device-pixel-ratio: 2){
+	body,input,textarea,select,button,table{font-size:14px;}
+}
+
+/*
+pixel-ratio : 2 && Landscape
+*/
+/* 갤럭시 Nexus 가로보기 - low-dpi */
+@media only screen and (min-width : 448px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+	body,input,textarea,select,button,table{font-size:20px;}
+}
+/* iPhone 4 가로보기 && 갤럭시 NOTE 가로보기 - low-dpi */
+@media only screen and (min-width : 480px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+	body,input,textarea,select,button,table{font-size:20px;}
+}
+/* 갤럭시 Nexus 가로보기 - medium-dpi */
+@media only screen and (min-width : 598px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+	body,input,textarea,select,button,table{font-size:20px;}
+}
+/* Galaxy Note 가로보기 - medium-dpi */
+@media only screen and (min-width : 640px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+	body,input,textarea,select,button,table{font-size:20px;}
+}
+/* 갤럭시 Nexus 가로보기 - high-dpi */
+@media only screen and (min-width : 897px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+	body,input,textarea,select,button,table{font-size:20px;}
+}
+/* Galaxy Note 가로보기 - high-dpi */
+@media only screen and (min-width : 960px) and (orientation : landscape) and (-webkit-device-pixel-ratio: 2){
+	body,input,textarea,select,button,table{font-size:20px;}
+}

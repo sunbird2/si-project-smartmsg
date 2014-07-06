@@ -42,9 +42,9 @@ try {
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>문자노트- SMS, LMS, MMS</title>
 
-    <script type="text/javascript" src="/html/js/jquery-1.8.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/html/css/base.css" />
-    <link rel="stylesheet" type="text/css" href="/html/css/main.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
     <script type="text/javascript">
 	    $(document).ready(function() { 
 	         if (parent.document) { parent.showCustom( $('#wrap').html() );}

@@ -92,7 +92,6 @@ private MWInfoVO testData( String yyyymm, int seq) {
 		
 		// get MWInfoVO
 		mvo = testData(yyyymm, urlSeq);
-		mvo.setHTML_KEY(messageKey);
 		if (mvo != null) {
 			session.setAttribute("mw", mvo);
 		}
@@ -116,34 +115,21 @@ private MWInfoVO testData( String yyyymm, int seq) {
 		}
 		
 %>
-<!doctype html>
-<html lang="ko">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
 <title>LG U+</title>
-<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
-<!-- <html> -->
-<!-- <head> -->
-<!-- <title>LG U+</title> -->
 <link rel="stylesheet" type="text/css" href="base.css">
 <link rel="stylesheet" type="text/css" href="urlplus.css">
 <script src="../js/jquery-1.8.2.js"></script>
 <script type="text/javascript" src="../js/galleria/galleria-1.2.8.js"></script>
-<script type="text/javascript" src="../js/swiper/idangerous.swiper-1.7.min.js"></script>
-<script type="text/javascript" src="../js/swiper/idangerous.swiper.scrollbar-1.0.js"></script>
-<script type="text/javascript" src="../js/galleria/galleria.flickr.min.js"></script>
 <script type="text/javascript" src="../js/barcode/jquery-barcode-2.0.2.min.js"></script>
 <script type="text/javascript" src="../js/jquery-urlplus-mw-0.1.0.js"></script>
 <script type="text/javascript">
-// window.addEventListener('load', function(){
-// 	setTimeout(scrollTo, 0, 0, 1);
-// }, false);
 
 $(document).ready(function(){
 	var ele = $('#mw_wrap');
-	setTimeout(scrollTo, 0, 0, 1);
-		<%=buf.toString().replace( System.getProperty( "line.separator" ), "" )%>
+	<%=buf.toString()%>
 }) // $(document).ready
 </script>
 </head>

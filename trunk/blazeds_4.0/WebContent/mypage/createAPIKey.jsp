@@ -61,8 +61,8 @@ try {
 </head>
 <body class="main">
 <div id="wrap">
-	<div onclick="apiTabMyPage()" class="apiTab apiTabOn" id="apiTab1" style="background-color:#669900;">웹 연동 -javascript</div>
-	<div onclick="apiTabMyPage()" class="apiTab" id="apiTab2" style="width:180px;background-color:#CC0000;">서버 연동 - DB Agent</div>
+	<div onclick="apiTabMyPage()" class="apiTab apiTabOn" id="apiTab1" style="background-color:#669900;margin:0px">웹 연동 -javascript</div>
+	<div onclick="apiTabMyPage()" class="apiTab" id="apiTab2" style="width:180px;background-color:#CC0000;margin:0px">서버 연동 - DB Agent</div>
 	<div id="createAPI_box">
 		<h1 class="title">접속 코드 발급 받기</h1>
 		<ul class="api_ul">
