@@ -2,6 +2,7 @@ package com.m;
 
 import java.util.List;
 
+import com.m.billing.CashVO;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.common.VbyP;
@@ -193,8 +194,5 @@ public class MultiDao {
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
 		return (Integer)sm.insert(ns + sq, vo);
 	}
-	
-	
-	
 
 }

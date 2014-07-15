@@ -2,6 +2,8 @@ package com.m;
 
 import java.util.List;
 
+import com.m.billing.CashVO;
+import com.m.point.PointVO;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.common.VbyP;
@@ -53,10 +55,30 @@ public class MasterDS {
 		
 		return rvo;
 	}
+
+    public BooleanAndDescriptionVO isLogin() {
+        BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+        if (bSession()) { rvo.setbResult(true); }
+        else { rvo.setbResult(false); }
+        return rvo;
+    }
+
+    // member list
+    public List<MemberVO> getMemberList() {
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
+
+        MemberVO mvo = new MemberVO();
+        SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+        return (List)sm.selectList(ns + "select_member_list", mvo);
+
+    }
 	
 	// member list
 	public List<MemberVO> getMember_pagedFiltered(String user_id, String hp, int startIndex, int numItems) {
-		
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
+
 		MemberVO mvo = new MemberVO();
 		if (!SLibrary.isNull(user_id)) mvo.setUser_id("%"+user_id+"%");
 		if (!SLibrary.isNull(hp)) mvo.setHp("%"+hp+"%");
@@ -71,7 +93,8 @@ public class MasterDS {
 	
 	// member list count
 	public Integer getMember_countFiltered(String user_id, String hp) {
-		
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
 		MemberVO mvo = new MemberVO();
 		if (!SLibrary.isNull(user_id)) mvo.setUser_id("%"+user_id+"%");
 		if (!SLibrary.isNull(hp)) mvo.setHp("%"+hp+"%");
@@ -83,7 +106,9 @@ public class MasterDS {
 	
 	// member update
 	public BooleanAndDescriptionVO setMember(MemberVO mvo) {
-		
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
+
 		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
 		int rslt = sm.update(ns + "update_member", mvo);
@@ -94,12 +119,72 @@ public class MasterDS {
 		return bvo;
 
 	}
+
+    // member update
+    public int updateMemberPasswdInit(MemberVO mvo) {
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return 0; }
+
+        mvo.setPasswd(VbyP.getValue("initPassword"));
+
+        SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+        return sm.update(ns + "update_member_passwd", mvo);
+
+    }
+
+    // member delete
+    public int deleteMember(MemberVO mvo) {
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return 0; }
+
+        mvo.setPasswd(VbyP.getValue("initPassword"));
+
+        SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+        return sm.update(ns + "delete_member", mvo);
+
+    }
+
+
+    // cash List
+    public List<CashVO> getCashList() {
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
+
+        MemberVO mvo = new MemberVO();
+        SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+        return (List)sm.selectList(ns + "select_cash", mvo);
+
+    }
+
+    // billing List
+    public List<BillingVO> getBillingList() {
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
+
+        MemberVO mvo = new MemberVO();
+        SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+        return (List)sm.selectList(ns + "select_billing", mvo);
+    }
+
+
+    // point List
+    public List<PointVO> getPointList() {
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
+
+        MemberVO mvo = new MemberVO();
+        SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+        return (List)sm.selectList(ns + "select_point", mvo);
+    }
+
 	
 	// bill add
 	public BooleanAndDescriptionVO setCharge(String user_id, int amount, int point) {
 		
 		VbyP.accessLog("setCharge : user_id"+user_id+" amount="+amount+" point="+point);
-		
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
+
 		Billing billing = Billing.getInstance();
 		BooleanAndDescriptionVO bavo = new BooleanAndDescriptionVO();
 		
@@ -110,7 +195,7 @@ public class MasterDS {
 		bvo.setAdmin_id("SI");
 		bvo.setAmount( amount );
 		bvo.setMemo("");
-		bvo.setMethod("Admin");
+		bvo.setMethod("무통장");
 		bvo.setOrder_no("");
 		bvo.setRemain_point( mvo.getPoint() + point );
 		bvo.setTimeWrite(SLibrary.getDateTimeString("yyyy-MM-dd HH:mm:ss"));
@@ -137,7 +222,9 @@ public class MasterDS {
 	public BooleanAndDescriptionVO setChargeAuto(String user_id, int amount) {
 		
 		VbyP.accessLog("setCharge : user_id"+user_id+" amount="+amount);
-		
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
+
 		Billing billing = Billing.getInstance();
 		BooleanAndDescriptionVO bavo = new BooleanAndDescriptionVO();
 		
@@ -183,7 +270,9 @@ public class MasterDS {
 	
 	// sent log list
 	public List<SentLogVO> getSentlog_pagedFiltered(String user_id, int startIndex, int numItems) {
-		
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
+
 		SentLogVO svo = new SentLogVO();
 		
 		if (!SLibrary.isNull(user_id)) svo.setUser_id("%"+user_id+"%");
@@ -198,7 +287,8 @@ public class MasterDS {
 	
 	// sent log count
 	public Integer getSentlog_countFiltered(String user_id) {
-		
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
 		SentLogVO svo = new SentLogVO();
 		
 		if (!SLibrary.isNull(user_id)) svo.setUser_id("%"+user_id+"%");
@@ -208,7 +298,8 @@ public class MasterDS {
 	
 	// status month
 	public List<StatusVO> getStatus_month(String year) {
-		
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
 		if (SLibrary.isNull(year)) year = SLibrary.getDateTimeString("yyyy");
 		
 		StatusVO stvo = new StatusVO();
@@ -222,7 +313,8 @@ public class MasterDS {
 	
 	// status day
 	public List<StatusVO> getStatus_day(String yearMonth) {
-		
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
 		if (SLibrary.isNull(yearMonth)) yearMonth = SLibrary.getDateTimeString("yyyyMM");
 		
 		StatusVO stvo = new StatusVO();
@@ -236,7 +328,8 @@ public class MasterDS {
 	
 	// stop Member
 	public BooleanAndDescriptionVO setMemberStop(MemberVO mvo) {
-		
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
 		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
 		
 		String stopId = SLibrary.IfNull(VbyP.getValue("STOP_SEND_ID"));
@@ -252,7 +345,8 @@ public class MasterDS {
 	
 	// stop sent
 	public BooleanAndDescriptionVO setStopSend() {
-		
+
+        if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
 		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
 		
 		String stop = SLibrary.IfNull(VbyP.getValue("STOP_SEND"));
@@ -304,5 +398,11 @@ public class MasterDS {
 		param.setUser_id(user_id);
 		return (MemberVO)sm.selectOne(ns + "select_member", param);
 	}
+
+    boolean bSession() {
+            FlexSession session = FlexContext.getFlexSession();
+            if ( SLibrary.isNull( (String)session.getAttribute(SESSION_ADMIN) ) )return false;
+            else return true;
+    }
 
 }
