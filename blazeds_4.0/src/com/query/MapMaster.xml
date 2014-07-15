@@ -14,6 +14,15 @@
 		where
 		m.user_id = #{user_id}
 	</select>
+
+    <select id="select_member_list" parameterType="com.m.admin.vo.MemberVO" resultType="MemberVO" >
+        select
+        m.idx, m.user_id, m.passwd, m.hp, m.unit_cost, m.line, m.memo, m.timeLogin, m.timeJoin, m.leaveYN
+			, p.point
+        from member m left outer join point p
+        on (m.user_id = p.user_id)
+        order by m.timeJoin desc
+    </select>
 	
 	<select id="select_member_list_page" parameterType="MemberVO" resultType="MemberVO">
 		select
@@ -55,9 +64,9 @@
 		<set>
 			<if test="hp != null">hp = #{hp} , </if>
 			<if test="memo != null">memo = #{memo} , </if>
-			<if test="unit_cost != null">unit_cost = #{unit_cost} </if>
-			<if test="line != null">line = #{line} </if>
-			<if test="leaveYN != null">leaveYN = #{leaveYN} </if>
+			<if test="unit_cost != null">unit_cost = #{unit_cost}, </if>
+			<if test="line != null">line = #{line}, </if>
+			<if test="leaveYN != null">leaveYN = #{leaveYN}, </if>
 		</set>
 		where
 		user_id = #{user_id}
@@ -86,6 +95,12 @@
 		where
 		m.hp = #{hp}
 	</select>
+
+    <delete id="delete_member" parameterType="MemberVO">
+		delete from member
+		WHERE
+		user_id = #{user_id}
+	</delete>
 	<!-- member E -->
 	
 	<!-- billing S -->
@@ -154,7 +169,21 @@
 		user_id = #{user_id}
 		and billing_idx = #{billing_idx} 
 	</update>
-	
+
+    <select id="select_cash" parameterType="com.m.billing.CashVO" resultType="com.m.billing.CashVO">
+		select idx, user_id, account, amount, method, name, timeWrite from  cash_req
+		order by timeWrite desc
+	</select>
+
+    <select id="select_billing" parameterType="com.m.billing.BillingVO" resultType="com.m.billing.BillingVO">
+		SELECT idx, user_id, method, amount, order_no, unit_cost, point, remain_point, memo, admin_id, timeWrite, delYN, tid, timestamp FROM billing
+		order by timeWrite desc
+	</select>
+
+    <insert id="insert_cash" parameterType="com.m.billing.CashVO">
+		INSERT INTO cash_req(user_id, account, amount, method, name, timeWrite)
+		VALUES (#{user_id}, #{account}, #{amount}, #{method}, #{name}, #{timeWrite})
+	</insert>
 	<!-- billing E -->
 	
 	<!-- point S -->
@@ -167,7 +196,11 @@
 		update point set
 		point=point+#{point}, timeWrite=#{timeWrite} where user_id=#{user_id}
 	</update>
-	
+
+    <select id="select_point" parameterType="com.m.point.PointVO" resultType="com.m.point.PointVO">
+		SELECT idx, user_id, method, amount, order_no, unit_cost, point, remain_point, memo, admin_id, timeWrite, delYN, tid, timestamp FROM point
+	</select>
+
 	<select id="select_pointlog_list_page" parameterType="com.m.admin.vo.PointLogVO" resultType="com.m.admin.vo.PointLogVO">
 		select
 			idx, user_id, point, code, memo, timeWrite, old_point, now_point 
