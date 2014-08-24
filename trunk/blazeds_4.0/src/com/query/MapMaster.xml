@@ -640,5 +640,51 @@
 	</update>
 	<!-- URL E -->
 	
+	
+	<select id="select_smrelay_fail" parameterType="com.m.admin.vo.StatusVO"  resultType="com.m.admin.vo.StatusVO">
+		SELECT TR_ID as dt, count(*) as sms FROM smrelay.SM_LOG_${dt}
+		where 
+		TR_ID not in ('munjanote', 'munjanote_spam') 
+		and TR_SENDDATE between #{start} and #{end}
+		and TR_RSLTSTAT !='06' 
+		and TR_SUBID != '@' 
+		group by TR_ID
+	</select>
+	
+	<select id="select_smrelay_fail_lms" parameterType="com.m.admin.vo.StatusVO"  resultType="com.m.admin.vo.StatusVO">
+		SELECT MM_ID as dt, count(*) as sms FROM smrelay.SM_MMSLST_LOG_${dt}
+		where 
+		MM_ID not in ('munjanote', 'munjanote_spam') 
+		and MM_SENDDATE between #{start} and #{end}
+		and MM_RSLTSTAT !='1000' 
+		and MM_NET != '@' 
+		and MM_FILE_CNT = 0
+		group by MM_ID
+	</select>
+	
+	
+	<update id="update_smrelay_fail" parameterType="com.m.admin.vo.StatusVO" >
+		update smrelay.SM_CLIENT set CLI_SENTCNT= CLI_SENTCNT - #{sms} where CLI_ID=#{dt}
+	</update>
+	
+	<update id="update_smrelay_fail_data" parameterType="com.m.admin.vo.StatusVO" >
+		update smrelay.SM_LOG_${dt} set TR_SUBID='@'
+		where 
+		TR_ID not in ('munjanote', 'munjanote_spam') 
+		and TR_SENDDATE between #{start} and #{end}
+		and TR_RSLTSTAT !='06' 
+		and TR_SUBID != '@' 
+	</update>
+	
+	<update id="update_smrelay_fail_data_lms" parameterType="com.m.admin.vo.StatusVO" >
+		update smrelay.SM_MMSLST_LOG_${dt} set MM_NET='@'
+		where 
+		MM_ID not in ('munjanote', 'munjanote_spam') 
+		and MM_SENDDATE between #{start} and #{end}
+		and MM_RSLTSTAT !='1000' 
+		and MM_NET != '@' 
+		and MM_FILE_CNT = 0
+	</update>
+	
 
 </mapper>
