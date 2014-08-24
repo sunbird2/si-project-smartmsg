@@ -1,5 +1,6 @@
 package com.m;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.m.billing.CashVO;
@@ -12,6 +13,7 @@ import com.m.admin.vo.BillingVO;
 import com.m.admin.vo.MemberVO;
 import com.m.admin.vo.PointLogVO;
 import com.m.admin.vo.SentLogVO;
+import com.m.admin.vo.StatusVO;
 import com.m.billing.BillingTaxVO;
 import com.m.emoticon.EmoticonVO;
 
@@ -194,5 +196,33 @@ public class MultiDao {
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
 		return (Integer)sm.insert(ns + sq, vo);
 	}
-
+	
+	public ArrayList<StatusVO> selectSmrelaySMS(StatusVO svo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (ArrayList)sm.selectList(ns + "select_smrelay_fail", svo);
+	}
+	
+	public ArrayList<StatusVO> selectSmrelayLMS(StatusVO svo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return (ArrayList)sm.selectList(ns + "select_smrelay_fail_lms", svo);
+	}
+	
+	public int updateSmrelaySMS(StatusVO vo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return sm.update(ns + "update_smrelay_fail_data", vo);
+	}
+	public int updateSmrelayLMS(StatusVO vo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return sm.update(ns + "update_smrelay_fail_data_lms", vo);
+	}
+	
+	public int updateSmrelayClient(StatusVO vo) {
+		
+		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
+		return sm.update(ns + "update_smrelay_fail", vo);
+	}
 }

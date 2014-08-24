@@ -664,7 +664,7 @@
 	
 	
 	<update id="update_smrelay_fail" parameterType="com.m.admin.vo.StatusVO" >
-		update smrelay.SM_CLIENT set CLI_SENTCNT= CLI_SENTCNT - #{sms} where CLI_ID=#{dt}
+		update smrelay.SM_CLIENT set CLI_STDCNT= CLI_STDCNT + #{sms} where CLI_ID=#{dt}
 	</update>
 	
 	<update id="update_smrelay_fail_data" parameterType="com.m.admin.vo.StatusVO" >
