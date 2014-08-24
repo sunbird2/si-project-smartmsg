@@ -11,7 +11,7 @@
 		maxActive="100" 
 		minIdle="10" 
 		maxWait="10000"
-		username="munjanote"
+		username="************"
 		password="************"
 		testOnBorrow="true"
 		validationQuery="select 1 "
