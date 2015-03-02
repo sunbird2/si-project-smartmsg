@@ -10,13 +10,12 @@
 			
 			import mx.rpc.events.ResultEvent;
 			
-			import spark.components.SplitViewNavigator;
-			import spark.components.ViewNavigator;
 			
-			import valueObjects.BooleanAndDescriptionVO;
+			
+			import valueObjects.CommonVO;
 			import valueObjects.MemberVO;
 			
-			import views.left.MemberView;
+			
 			
 			[Bindable]
 			private var memberVO:MemberVO = null;
@@ -39,10 +38,10 @@
 			
 			protected function setMemberResult_resultHandler(event:ResultEvent):void
 			{
-				var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+				var bvo:CommonVO = event.result as CommonVO;
 				
 				var alert:Popup = new Popup();
-				if (bvo.bResult == true) {
+				if (bvo.rslt == true) {
 					alert.show("update Success.");
 				} else {
 					alert.show("update Fail.");
@@ -84,8 +83,8 @@
 			
 			protected function setCharge_resultHandler(event:ResultEvent):void
 			{
-				var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-				if (bvo.bResult == true) {
+				var bvo:CommonVO = event.result as CommonVO;
+				if (bvo.rslt == true) {
 					SLibrary.alert("update Success.");
 				} else {
 					SLibrary.alert("update Fail.");

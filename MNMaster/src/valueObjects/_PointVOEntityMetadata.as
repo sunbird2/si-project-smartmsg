@@ -16,52 +16,41 @@ import mx.events.PropertyChangeEvent;
 use namespace model_internal;
 
 [ExcludeClass]
-internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.AbstractEntityMetadata
+internal class _PointVOEntityMetadata extends com.adobe.fiber.valueobjects.AbstractEntityMetadata
 {
     private static var emptyArray:Array = new Array();
 
-    model_internal static var allProperties:Array = new Array("total", "passwd", "hp", "idx", "memo", "unit_cost", "timeJoin", "line", "leaveYN", "point", "rownum", "start", "user_id", "timeLogin", "end");
+    model_internal static var allProperties:Array = new Array("point", "idx", "timeWrite", "user_id");
     model_internal static var allAssociationProperties:Array = new Array();
-    model_internal static var allRequiredProperties:Array = new Array("rownum");
-    model_internal static var allAlwaysAvailableProperties:Array = new Array("total", "passwd", "hp", "idx", "memo", "unit_cost", "timeJoin", "line", "leaveYN", "point", "rownum", "start", "user_id", "timeLogin", "end");
+    model_internal static var allRequiredProperties:Array = new Array();
+    model_internal static var allAlwaysAvailableProperties:Array = new Array("point", "idx", "timeWrite", "user_id");
     model_internal static var guardedProperties:Array = new Array();
-    model_internal static var dataProperties:Array = new Array("total", "passwd", "hp", "idx", "memo", "unit_cost", "timeJoin", "line", "leaveYN", "point", "rownum", "start", "user_id", "timeLogin", "end");
+    model_internal static var dataProperties:Array = new Array("point", "idx", "timeWrite", "user_id");
     model_internal static var sourceProperties:Array = emptyArray
-    model_internal static var nonDerivedProperties:Array = new Array("total", "passwd", "hp", "idx", "memo", "unit_cost", "timeJoin", "line", "leaveYN", "point", "rownum", "start", "user_id", "timeLogin", "end");
+    model_internal static var nonDerivedProperties:Array = new Array("point", "idx", "timeWrite", "user_id");
     model_internal static var derivedProperties:Array = new Array();
     model_internal static var collectionProperties:Array = new Array();
     model_internal static var collectionBaseMap:Object;
-    model_internal static var entityName:String = "MemberVO";
+    model_internal static var entityName:String = "PointVO";
     model_internal static var dependentsOnMap:Object;
     model_internal static var dependedOnServices:Array = new Array();
     model_internal static var propertyTypeMap:Object;
 
 
-    model_internal var _instance:_Super_MemberVO;
+    model_internal var _instance:_Super_PointVO;
     model_internal static var _nullStyle:com.adobe.fiber.styles.Style = new com.adobe.fiber.styles.Style();
 
-    public function _MemberVOEntityMetadata(value : _Super_MemberVO)
+    public function _PointVOEntityMetadata(value : _Super_PointVO)
     {
         // initialize property maps
         if (model_internal::dependentsOnMap == null)
         {
             // dependents map
             model_internal::dependentsOnMap = new Object();
-            model_internal::dependentsOnMap["total"] = new Array();
-            model_internal::dependentsOnMap["passwd"] = new Array();
-            model_internal::dependentsOnMap["hp"] = new Array();
-            model_internal::dependentsOnMap["idx"] = new Array();
-            model_internal::dependentsOnMap["memo"] = new Array();
-            model_internal::dependentsOnMap["unit_cost"] = new Array();
-            model_internal::dependentsOnMap["timeJoin"] = new Array();
-            model_internal::dependentsOnMap["line"] = new Array();
-            model_internal::dependentsOnMap["leaveYN"] = new Array();
             model_internal::dependentsOnMap["point"] = new Array();
-            model_internal::dependentsOnMap["rownum"] = new Array();
-            model_internal::dependentsOnMap["start"] = new Array();
+            model_internal::dependentsOnMap["idx"] = new Array();
+            model_internal::dependentsOnMap["timeWrite"] = new Array();
             model_internal::dependentsOnMap["user_id"] = new Array();
-            model_internal::dependentsOnMap["timeLogin"] = new Array();
-            model_internal::dependentsOnMap["end"] = new Array();
 
             // collection base map
             model_internal::collectionBaseMap = new Object();
@@ -69,21 +58,10 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
 
         // Property type Map
         model_internal::propertyTypeMap = new Object();
-        model_internal::propertyTypeMap["total"] = "int";
-        model_internal::propertyTypeMap["passwd"] = "String";
-        model_internal::propertyTypeMap["hp"] = "String";
-        model_internal::propertyTypeMap["idx"] = "int";
-        model_internal::propertyTypeMap["memo"] = "String";
-        model_internal::propertyTypeMap["unit_cost"] = "String";
-        model_internal::propertyTypeMap["timeJoin"] = "String";
-        model_internal::propertyTypeMap["line"] = "String";
-        model_internal::propertyTypeMap["leaveYN"] = "String";
         model_internal::propertyTypeMap["point"] = "int";
-        model_internal::propertyTypeMap["rownum"] = "int";
-        model_internal::propertyTypeMap["start"] = "int";
+        model_internal::propertyTypeMap["idx"] = "int";
+        model_internal::propertyTypeMap["timeWrite"] = "String";
         model_internal::propertyTypeMap["user_id"] = "String";
-        model_internal::propertyTypeMap["timeLogin"] = "String";
-        model_internal::propertyTypeMap["end"] = "int";
 
         model_internal::_instance = value;
     }
@@ -136,7 +114,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     override public function getDependants(propertyName:String):Array
     {
        if (model_internal::nonDerivedProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a data property of entity MemberVO");
+            throw new Error(propertyName + " is not a data property of entity PointVO");
             
        return model_internal::dependentsOnMap[propertyName] as Array;  
     }
@@ -154,7 +132,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     override public function getCollectionBase(propertyName:String):String
     {
         if (model_internal::collectionProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a collection property of entity MemberVO");
+            throw new Error(propertyName + " is not a collection property of entity PointVO");
 
         return model_internal::collectionBaseMap[propertyName];
     }
@@ -162,7 +140,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     override public function getPropertyType(propertyName:String):String
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
-            throw new Error(propertyName + " is not a property of MemberVO");
+            throw new Error(propertyName + " is not a property of PointVO");
 
         return model_internal::propertyTypeMap[propertyName];
     }
@@ -176,7 +154,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " does not exist for entity MemberVO");
+            throw new Error(propertyName + " does not exist for entity PointVO");
         }
 
         return model_internal::_instance[propertyName];
@@ -186,7 +164,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     {
         if (model_internal::nonDerivedProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " is not a modifiable property of entity MemberVO");
+            throw new Error(propertyName + " is not a modifiable property of entity PointVO");
         }
 
         model_internal::_instance[propertyName] = value;
@@ -218,7 +196,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     {
         if (model_internal::allProperties.indexOf(propertyName) == -1)
         {
-            throw new Error(propertyName + " does not exist for entity MemberVO");
+            throw new Error(propertyName + " does not exist for entity PointVO");
         }
 
         if (model_internal::allAlwaysAvailableProperties.indexOf(propertyName) != -1)
@@ -238,7 +216,6 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     override public function getIdentityMap():Object
     {
         var returnMap:Object = new Object();
-        returnMap["rownum"] = model_internal::_instance.rownum;
 
         return returnMap;
     }
@@ -314,19 +291,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]
-    public function get isTotalAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isPasswdAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isHpAvailable():Boolean
+    public function get isPointAvailable():Boolean
     {
         return true;
     }
@@ -338,67 +303,13 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]
-    public function get isMemoAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isUnit_costAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isTimeJoinAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isLineAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isLeaveYNAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isPointAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isRownumAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isStartAvailable():Boolean
+    public function get isTimeWriteAvailable():Boolean
     {
         return true;
     }
 
     [Bindable(event="propertyChange")]
     public function get isUser_idAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isTimeLoginAvailable():Boolean
-    {
-        return true;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get isEndAvailable():Boolean
     {
         return true;
     }
@@ -414,19 +325,7 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]   
-    public function get totalStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get passwdStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get hpStyle():com.adobe.fiber.styles.Style
+    public function get pointStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
@@ -438,67 +337,13 @@ internal class _MemberVOEntityMetadata extends com.adobe.fiber.valueobjects.Abst
     }
 
     [Bindable(event="propertyChange")]   
-    public function get memoStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get unit_costStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get timeJoinStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get lineStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get leaveYNStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get pointStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get rownumStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get startStyle():com.adobe.fiber.styles.Style
+    public function get timeWriteStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }
 
     [Bindable(event="propertyChange")]   
     public function get user_idStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get timeLoginStyle():com.adobe.fiber.styles.Style
-    {
-        return model_internal::_nullStyle;
-    }
-
-    [Bindable(event="propertyChange")]   
-    public function get endStyle():com.adobe.fiber.styles.Style
     {
         return model_internal::_nullStyle;
     }

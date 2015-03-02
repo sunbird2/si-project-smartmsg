@@ -1,6 +1,6 @@
 /**
  * This is a generated class and is not intended for modification.  To customize behavior
- * of this value object you may modify the generated sub-class of this class - StatusVO.as.
+ * of this value object you may modify the generated sub-class of this class - CommonVO.as.
  */
 
 package valueObjects
@@ -20,20 +20,20 @@ import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 use namespace model_internal;
 
 [ExcludeClass]
-public class _Super_StatusVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
+public class _Super_CommonVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
 {
     model_internal static function initRemoteClassAliasSingle(cz:Class) : void
     {
         try
         {
-            if (flash.net.getClassByAlias("com.m.admin.vo.StatusVO") == null)
+            if (flash.net.getClassByAlias("com.m.common.CommonVO") == null)
             {
-                flash.net.registerClassAlias("com.m.admin.vo.StatusVO", cz);
+                flash.net.registerClassAlias("com.m.common.CommonVO", cz);
             }
         }
         catch (e:Error)
         {
-            flash.net.registerClassAlias("com.m.admin.vo.StatusVO", cz);
+            flash.net.registerClassAlias("com.m.common.CommonVO", cz);
         }
     }
 
@@ -41,7 +41,7 @@ public class _Super_StatusVO extends flash.events.EventDispatcher implements com
     {
     }
 
-    model_internal var _dminternal_model : _StatusVOEntityMetadata;
+    model_internal var _dminternal_model : _CommonVOEntityMetadata;
     model_internal var _changedObjects:mx.collections.ArrayCollection = new ArrayCollection();
 
     public function getChangedObjects() : Array
@@ -58,12 +58,11 @@ public class _Super_StatusVO extends flash.events.EventDispatcher implements com
     /**
      * properties
      */
-    private var _internal_dt : String;
-    private var _internal_start : String;
-    private var _internal_mms : int;
-    private var _internal_sms : int;
-    private var _internal_end : String;
-    private var _internal_lms : int;
+    private var _internal_text : String;
+    private var _internal_rslt : Boolean;
+    private var _internal_map : Object;
+    private var _internal_list : ArrayCollection;
+    private var _internal_code : int;
 
     private static var emptyArray:Array = new Array();
 
@@ -75,9 +74,9 @@ public class _Super_StatusVO extends flash.events.EventDispatcher implements com
 
     model_internal var _changeWatcherArray:Array = new Array();
 
-    public function _Super_StatusVO()
+    public function _Super_CommonVO()
     {
-        _model = new _StatusVOEntityMetadata(this);
+        _model = new _CommonVOEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
 
@@ -88,39 +87,33 @@ public class _Super_StatusVO extends flash.events.EventDispatcher implements com
      */
 
     [Bindable(event="propertyChange")]
-    public function get dt() : String
+    public function get text() : String
     {
-        return _internal_dt;
+        return _internal_text;
     }
 
     [Bindable(event="propertyChange")]
-    public function get start() : String
+    public function get rslt() : Boolean
     {
-        return _internal_start;
+        return _internal_rslt;
     }
 
     [Bindable(event="propertyChange")]
-    public function get mms() : int
+    public function get map() : Object
     {
-        return _internal_mms;
+        return _internal_map;
     }
 
     [Bindable(event="propertyChange")]
-    public function get sms() : int
+    public function get list() : ArrayCollection
     {
-        return _internal_sms;
+        return _internal_list;
     }
 
     [Bindable(event="propertyChange")]
-    public function get end() : String
+    public function get code() : int
     {
-        return _internal_end;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get lms() : int
-    {
-        return _internal_lms;
+        return _internal_code;
     }
 
     public function clearAssociations() : void
@@ -131,63 +124,68 @@ public class _Super_StatusVO extends flash.events.EventDispatcher implements com
      * data/source property setters
      */
 
-    public function set dt(value:String) : void
+    public function set text(value:String) : void
     {
-        var oldValue:String = _internal_dt;
+        var oldValue:String = _internal_text;
         if (oldValue !== value)
         {
-            _internal_dt = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "dt", oldValue, _internal_dt));
+            _internal_text = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "text", oldValue, _internal_text));
         }
     }
 
-    public function set start(value:String) : void
+    public function set rslt(value:Boolean) : void
     {
-        var oldValue:String = _internal_start;
+        var oldValue:Boolean = _internal_rslt;
         if (oldValue !== value)
         {
-            _internal_start = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "start", oldValue, _internal_start));
+            _internal_rslt = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "rslt", oldValue, _internal_rslt));
         }
     }
 
-    public function set mms(value:int) : void
+    public function set map(value:Object) : void
     {
-        var oldValue:int = _internal_mms;
+        var oldValue:Object = _internal_map;
         if (oldValue !== value)
         {
-            _internal_mms = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "mms", oldValue, _internal_mms));
+            _internal_map = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "map", oldValue, _internal_map));
         }
     }
 
-    public function set sms(value:int) : void
+    public function set list(value:*) : void
     {
-        var oldValue:int = _internal_sms;
+        var oldValue:ArrayCollection = _internal_list;
         if (oldValue !== value)
         {
-            _internal_sms = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "sms", oldValue, _internal_sms));
+            if (value is ArrayCollection)
+            {
+                _internal_list = value;
+            }
+            else if (value is Array)
+            {
+                _internal_list = new ArrayCollection(value);
+            }
+            else if (value == null)
+            {
+                _internal_list = null;
+            }
+            else
+            {
+                throw new Error("value of list must be a collection");
+            }
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "list", oldValue, _internal_list));
         }
     }
 
-    public function set end(value:String) : void
+    public function set code(value:int) : void
     {
-        var oldValue:String = _internal_end;
+        var oldValue:int = _internal_code;
         if (oldValue !== value)
         {
-            _internal_end = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "end", oldValue, _internal_end));
-        }
-    }
-
-    public function set lms(value:int) : void
-    {
-        var oldValue:int = _internal_lms;
-        if (oldValue !== value)
-        {
-            _internal_lms = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "lms", oldValue, _internal_lms));
+            _internal_code = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "code", oldValue, _internal_code));
         }
     }
 
@@ -251,14 +249,14 @@ public class _Super_StatusVO extends flash.events.EventDispatcher implements com
 
     [Transient]
     [Bindable(event="propertyChange")]
-    public function get _model() : _StatusVOEntityMetadata
+    public function get _model() : _CommonVOEntityMetadata
     {
         return model_internal::_dminternal_model;
     }
 
-    public function set _model(value : _StatusVOEntityMetadata) : void
+    public function set _model(value : _CommonVOEntityMetadata) : void
     {
-        var oldValue : _StatusVOEntityMetadata = model_internal::_dminternal_model;
+        var oldValue : _CommonVOEntityMetadata = model_internal::_dminternal_model;
         if (oldValue !== value)
         {
             model_internal::_dminternal_model = value;

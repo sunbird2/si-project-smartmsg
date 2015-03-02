@@ -14,7 +14,7 @@
 			import spark.components.SplitViewNavigator;
 			import spark.components.ViewNavigator;
 			
-			import valueObjects.BooleanAndDescriptionVO;
+			import valueObjects.CommonVO;
 			import valueObjects.MemberVO;
 			
 			import views.left.MemberView;
@@ -88,12 +88,12 @@
 			
 			protected function setMemberResult_resultHandler(event:ResultEvent):void
 			{
-				var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+				var bvo:CommonVO = event.result as CommonVO;
 				
-				if (bvo.bResult == true) {
-					SLibrary.alert("update Success."+bvo.strDescription);
+				if (bvo.rslt == true) {
+					SLibrary.alert("update Success."+bvo.text);
 				} else {
-					SLibrary.alert("update Fail."+bvo.strDescription);
+					SLibrary.alert("update Fail."+bvo.text);
 				}
 				
 				/*

@@ -20,6 +20,32 @@
     <annotation name="ServiceTypeGroup">
       <item name="ServiceBackendType">BlazeDS</item>
     </annotation>
+    <function name="deleteMember" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">MemberVO</item>
+        <item name="returnType">integer</item>
+      </annotation>
+      <parameter name="arg0" type="MemberVO"/>
+    </function>
+    <function name="getBillingList" return-type="BillingVO[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">BillingVO</item>
+      </annotation>
+    </function>
+    <function name="getCashList" return-type="CashVO[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">CashVO</item>
+      </annotation>
+    </function>
     <function name="getMember_countFiltered" return-type="integer">
       <annotation name="analyze group">
         <item name="analyzed">true</item>
@@ -39,52 +65,161 @@
         <item name="inputParams">string,string,integer,integer</item>
         <item name="returnType">MemberVO</item>
       </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">total,passwd,hp,idx,memo,unit_cost,timeJoin,line,leaveYN,point,rownum,start,user_id,timeLogin,end</item>
+      </annotation>
       <parameter name="arg0" type="string"/>
       <parameter name="arg1" type="string"/>
       <parameter name="arg2" type="integer"/>
       <parameter name="arg3" type="integer"/>
     </function>
-    <function name="login" return-type="BooleanAndDescriptionVO">
+    <function name="getMemberList" return-type="MemberVO[]">
       <annotation name="analyze group">
         <item name="analyzed">true</item>
       </annotation>
       <annotation name="original signature">
-        <item name="inputParams">string,string</item>
-        <item name="returnType">BooleanAndDescriptionVO</item>
+        <item name="returnType">MemberVO</item>
+      </annotation>
+    </function>
+    <function name="getPointList" return-type="PointVO[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">PointVO</item>
+      </annotation>
+    </function>
+    <function name="getSentlog_countFiltered" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">integer</item>
       </annotation>
       <parameter name="arg0" type="string"/>
-      <parameter name="arg1" type="string"/>
     </function>
-    <function name="setCharge" return-type="BooleanAndDescriptionVO">
+    <function name="getSentlog_pagedFiltered" return-type="SentLogVO[]">
       <annotation name="analyze group">
         <item name="analyzed">true</item>
       </annotation>
       <annotation name="original signature">
         <item name="inputParams">string,integer,integer</item>
-        <item name="returnType">BooleanAndDescriptionVO</item>
+        <item name="returnType">SentLogVO</item>
       </annotation>
       <parameter name="arg0" type="string"/>
       <parameter name="arg1" type="integer"/>
       <parameter name="arg2" type="integer"/>
     </function>
-    <function name="setChargeAuto" return-type="BooleanAndDescriptionVO">
+    <function name="getStatus_day" return-type="StatusVO[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">StatusVO</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+    </function>
+    <function name="getStatus_month" return-type="StatusVO[]">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string</item>
+        <item name="returnType">StatusVO</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+    </function>
+    <function name="isLogin" return-type="CommonVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">CommonVO</item>
+      </annotation>
+    </function>
+    <function name="login" return-type="CommonVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,string</item>
+        <item name="returnType">CommonVO</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">text,rslt,map,list,code</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+      <parameter name="arg1" type="string"/>
+    </function>
+    <function name="setCharge" return-type="CommonVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">string,integer,integer</item>
+        <item name="returnType">CommonVO</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">text,rslt,map,list,code</item>
+      </annotation>
+      <parameter name="arg0" type="string"/>
+      <parameter name="arg1" type="integer"/>
+      <parameter name="arg2" type="integer"/>
+    </function>
+    <function name="setChargeAuto" return-type="CommonVO">
       <annotation name="analyze group">
         <item name="analyzed">true</item>
       </annotation>
       <annotation name="original signature">
         <item name="inputParams">string,integer</item>
-        <item name="returnType">BooleanAndDescriptionVO</item>
+        <item name="returnType">CommonVO</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">text,rslt,map,list,code</item>
       </annotation>
       <parameter name="arg0" type="string"/>
       <parameter name="arg1" type="integer"/>
     </function>
-    <function name="setMember" return-type="BooleanAndDescriptionVO">
+    <function name="setMember" return-type="CommonVO">
       <annotation name="analyze group">
         <item name="analyzed">true</item>
       </annotation>
       <annotation name="original signature">
         <item name="inputParams">MemberVO</item>
-        <item name="returnType">BooleanAndDescriptionVO</item>
+        <item name="returnType">CommonVO</item>
+      </annotation>
+      <annotation name="ValidProperties">
+        <item name="propertySpecifier">text,rslt,map,list,code</item>
+      </annotation>
+      <parameter name="arg0" type="MemberVO"/>
+    </function>
+    <function name="setMemberStop" return-type="CommonVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">MemberVO</item>
+        <item name="returnType">CommonVO</item>
+      </annotation>
+      <parameter name="arg0" type="MemberVO"/>
+    </function>
+    <function name="setStopSend" return-type="CommonVO">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="returnType">CommonVO</item>
+      </annotation>
+    </function>
+    <function name="updateMemberPasswdInit" return-type="integer">
+      <annotation name="analyze group">
+        <item name="analyzed">true</item>
+      </annotation>
+      <annotation name="original signature">
+        <item name="inputParams">MemberVO</item>
+        <item name="returnType">integer</item>
       </annotation>
       <parameter name="arg0" type="MemberVO"/>
     </function>
@@ -98,7 +233,7 @@
       <item name="IncludeRemoteClass">nonempty</item>
     </annotation>
     <annotation name="service Group">
-      <item name="service">Mst</item>
+      <item name="service">Mst,Dummy</item>
     </annotation>
     <annotation name="ActionScriptGeneration">
       <item name="Package">valueObjects</item>
@@ -108,11 +243,13 @@
       <item name="positionalPagingParameters">true</item>
       <item name="pageSize">20</item>
       <item name="countOperation">getMember_countFiltered</item>
+      <item name="propertySpecifier">total,passwd,hp,idx,memo,unit_cost,timeJoin,line,leaveYN,point,rownum,start,user_id,timeLogin,end</item>
     </annotation>
     <annotation name="DataManagement">
       <item name="managingService">Mst</item>
       <item name="fillFunc">getMember_pagedFiltered</item>
     </annotation>
+    <property name="total" type="integer"/>
     <property name="passwd" type="string"/>
     <property name="hp" type="string"/>
     <property name="idx" type="integer"/>
@@ -121,12 +258,123 @@
     <property name="timeJoin" type="string"/>
     <property name="line" type="string"/>
     <property name="leaveYN" type="string"/>
-    <id name="rownum" type="integer"/>
     <property name="point" type="integer"/>
+    <id name="rownum" type="integer" generated="false"/>
     <property name="start" type="integer"/>
     <property name="user_id" type="string"/>
     <property name="timeLogin" type="string"/>
     <property name="end" type="integer"/>
+  </entity>
+  <entity name="PointVO">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">PointVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.point.PointVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Dummy,Mst</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="point" type="integer"/>
+    <property name="idx" type="integer"/>
+    <property name="timeWrite" type="string"/>
+    <property name="user_id" type="string"/>
+  </entity>
+  <entity name="CashVO">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">CashVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.billing.CashVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Dummy,Mst</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="amount" type="integer"/>
+    <property name="idx" type="integer"/>
+    <property name="timeWrite" type="string"/>
+    <property name="name" type="string"/>
+    <property name="account" type="string"/>
+    <property name="user_id" type="string"/>
+    <property name="method" type="string"/>
+  </entity>
+  <entity name="BillingVO">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">BillingVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.billing.BillingVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Dummy,Mst</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="idx" type="integer"/>
+    <property name="memo" type="string"/>
+    <property name="unit_cost" type="string"/>
+    <property name="order_no" type="string"/>
+    <property name="timestamp" type="string"/>
+    <property name="amount" type="integer"/>
+    <property name="point" type="integer"/>
+    <property name="timeWrite" type="string"/>
+    <property name="admin_id" type="string"/>
+    <property name="method" type="string"/>
+    <property name="user_id" type="string"/>
+    <property name="tid" type="string"/>
+    <property name="remain_point" type="integer"/>
+  </entity>
+  <entity name="SentLogVO" persistent="true">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">SentLogVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.admin.vo.SentLogVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Dummy,Mst</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <annotation name="getSentlog_pagedFiltered">
+      <item name="pagingEnabled">true</item>
+      <item name="positionalPagingParameters">true</item>
+      <item name="pageSize">30</item>
+      <item name="countOperation">getSentlog_countFiltered</item>
+    </annotation>
+    <annotation name="DataManagement">
+      <item name="managingService">Mst</item>
+      <item name="fillFunc">getSentlog_pagedFiltered</item>
+    </annotation>
+    <property name="total" type="integer"/>
+    <property name="ynDel" type="string"/>
+    <id name="idx" type="integer"/>
+    <property name="cnt" type="integer"/>
+    <property name="line" type="string"/>
+    <property name="timeSend" type="string"/>
+    <property name="user_ip" type="string"/>
+    <property name="mode" type="string"/>
+    <property name="message" type="string"/>
+    <property name="rownum" type="integer"/>
+    <property name="start" type="integer"/>
+    <property name="timeWrite" type="string"/>
+    <property name="method" type="string"/>
+    <property name="user_id" type="string"/>
+    <property name="timeDel" type="string"/>
+    <property name="end" type="integer"/>
+    <property name="delType" type="string"/>
   </entity>
   <entity name="BooleanAndDescriptionVO">
     <annotation name="EntityProperties">
@@ -144,5 +392,58 @@
     </annotation>
     <property name="bResult" type="boolean"/>
     <property name="strDescription" type="string"/>
+  </entity>
+  <entity name="StatusVO">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">StatusVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.admin.vo.StatusVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Dummy,Mst</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="dt" type="string"/>
+    <property name="start" type="string"/>
+    <property name="mms" type="integer"/>
+    <property name="sms" type="integer"/>
+    <property name="end" type="string"/>
+    <property name="lms" type="integer"/>
+  </entity>
+  <entity name="CommonVO">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">CommonVO</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.common.CommonVO</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Dummy,Mst</item>
+    </annotation>
+    <annotation name="login">
+      <item name="propertySpecifier">text,rslt,map,list,code</item>
+    </annotation>
+    <annotation name="setCharge">
+      <item name="propertySpecifier">text,rslt,map,list,code</item>
+    </annotation>
+    <annotation name="setChargeAuto">
+      <item name="propertySpecifier">text,rslt,map,list,code</item>
+    </annotation>
+    <annotation name="setMember">
+      <item name="propertySpecifier">text,rslt,map,list,code</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <property name="text" type="string"/>
+    <property name="rslt" type="boolean"/>
+    <property name="map" type="opaque"/>
+    <property name="list" type="opaque[]"/>
+    <property name="code" type="integer"/>
   </entity>
 </model>

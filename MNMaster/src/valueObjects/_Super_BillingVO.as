@@ -1,6 +1,6 @@
 /**
  * This is a generated class and is not intended for modification.  To customize behavior
- * of this value object you may modify the generated sub-class of this class - SentLogVO.as.
+ * of this value object you may modify the generated sub-class of this class - BillingVO.as.
  */
 
 package valueObjects
@@ -19,22 +19,21 @@ import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 
 use namespace model_internal;
 
-[Managed]
 [ExcludeClass]
-public class _Super_SentLogVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
+public class _Super_BillingVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
 {
     model_internal static function initRemoteClassAliasSingle(cz:Class) : void
     {
         try
         {
-            if (flash.net.getClassByAlias("com.m.admin.vo.SentLogVO") == null)
+            if (flash.net.getClassByAlias("com.m.billing.BillingVO") == null)
             {
-                flash.net.registerClassAlias("com.m.admin.vo.SentLogVO", cz);
+                flash.net.registerClassAlias("com.m.billing.BillingVO", cz);
             }
         }
         catch (e:Error)
         {
-            flash.net.registerClassAlias("com.m.admin.vo.SentLogVO", cz);
+            flash.net.registerClassAlias("com.m.billing.BillingVO", cz);
         }
     }
 
@@ -42,7 +41,7 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
     {
     }
 
-    model_internal var _dminternal_model : _SentLogVOEntityMetadata;
+    model_internal var _dminternal_model : _BillingVOEntityMetadata;
     model_internal var _changedObjects:mx.collections.ArrayCollection = new ArrayCollection();
 
     public function getChangedObjects() : Array
@@ -59,23 +58,19 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
     /**
      * properties
      */
-    private var _internal_total : int;
-    private var _internal_ynDel : String;
     private var _internal_idx : int;
-    private var _internal_cnt : int;
-    private var _internal_line : String;
-    private var _internal_timeSend : String;
-    private var _internal_user_ip : String;
-    private var _internal_mode : String;
-    private var _internal_message : String;
-    private var _internal_rownum : int;
-    private var _internal_start : int;
+    private var _internal_memo : String;
+    private var _internal_unit_cost : String;
+    private var _internal_order_no : String;
+    private var _internal_timestamp : String;
+    private var _internal_amount : int;
+    private var _internal_point : int;
     private var _internal_timeWrite : String;
+    private var _internal_admin_id : String;
     private var _internal_method : String;
     private var _internal_user_id : String;
-    private var _internal_timeDel : String;
-    private var _internal_end : int;
-    private var _internal_delType : String;
+    private var _internal_tid : String;
+    private var _internal_remain_point : int;
 
     private static var emptyArray:Array = new Array();
 
@@ -87,9 +82,9 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
 
     model_internal var _changeWatcherArray:Array = new Array();
 
-    public function _Super_SentLogVO()
+    public function _Super_BillingVO()
     {
-        _model = new _SentLogVOEntityMetadata(this);
+        _model = new _BillingVOEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
 
@@ -100,75 +95,57 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
      */
 
     [Bindable(event="propertyChange")]
-    public function get total() : int
-    {
-        return _internal_total;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get ynDel() : String
-    {
-        return _internal_ynDel;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get idx() : int
     {
         return _internal_idx;
     }
 
     [Bindable(event="propertyChange")]
-    public function get cnt() : int
+    public function get memo() : String
     {
-        return _internal_cnt;
+        return _internal_memo;
     }
 
     [Bindable(event="propertyChange")]
-    public function get line() : String
+    public function get unit_cost() : String
     {
-        return _internal_line;
+        return _internal_unit_cost;
     }
 
     [Bindable(event="propertyChange")]
-    public function get timeSend() : String
+    public function get order_no() : String
     {
-        return _internal_timeSend;
+        return _internal_order_no;
     }
 
     [Bindable(event="propertyChange")]
-    public function get user_ip() : String
+    public function get timestamp() : String
     {
-        return _internal_user_ip;
+        return _internal_timestamp;
     }
 
     [Bindable(event="propertyChange")]
-    public function get mode() : String
+    public function get amount() : int
     {
-        return _internal_mode;
+        return _internal_amount;
     }
 
     [Bindable(event="propertyChange")]
-    public function get message() : String
+    public function get point() : int
     {
-        return _internal_message;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get rownum() : int
-    {
-        return _internal_rownum;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get start() : int
-    {
-        return _internal_start;
+        return _internal_point;
     }
 
     [Bindable(event="propertyChange")]
     public function get timeWrite() : String
     {
         return _internal_timeWrite;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get admin_id() : String
+    {
+        return _internal_admin_id;
     }
 
     [Bindable(event="propertyChange")]
@@ -184,21 +161,15 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get timeDel() : String
+    public function get tid() : String
     {
-        return _internal_timeDel;
+        return _internal_tid;
     }
 
     [Bindable(event="propertyChange")]
-    public function get end() : int
+    public function get remain_point() : int
     {
-        return _internal_end;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get delType() : String
-    {
-        return _internal_delType;
+        return _internal_remain_point;
     }
 
     public function clearAssociations() : void
@@ -209,102 +180,73 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
      * data/source property setters
      */
 
-    public function set total(value:int) : void
-    {
-        var oldValue:int = _internal_total;
-        if (oldValue !== value)
-        {
-            _internal_total = value;
-        }
-    }
-
-    public function set ynDel(value:String) : void
-    {
-        var oldValue:String = _internal_ynDel;
-        if (oldValue !== value)
-        {
-            _internal_ynDel = value;
-        }
-    }
-
     public function set idx(value:int) : void
     {
         var oldValue:int = _internal_idx;
         if (oldValue !== value)
         {
             _internal_idx = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "idx", oldValue, _internal_idx));
         }
     }
 
-    public function set cnt(value:int) : void
+    public function set memo(value:String) : void
     {
-        var oldValue:int = _internal_cnt;
+        var oldValue:String = _internal_memo;
         if (oldValue !== value)
         {
-            _internal_cnt = value;
+            _internal_memo = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "memo", oldValue, _internal_memo));
         }
     }
 
-    public function set line(value:String) : void
+    public function set unit_cost(value:String) : void
     {
-        var oldValue:String = _internal_line;
+        var oldValue:String = _internal_unit_cost;
         if (oldValue !== value)
         {
-            _internal_line = value;
+            _internal_unit_cost = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "unit_cost", oldValue, _internal_unit_cost));
         }
     }
 
-    public function set timeSend(value:String) : void
+    public function set order_no(value:String) : void
     {
-        var oldValue:String = _internal_timeSend;
+        var oldValue:String = _internal_order_no;
         if (oldValue !== value)
         {
-            _internal_timeSend = value;
+            _internal_order_no = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "order_no", oldValue, _internal_order_no));
         }
     }
 
-    public function set user_ip(value:String) : void
+    public function set timestamp(value:String) : void
     {
-        var oldValue:String = _internal_user_ip;
+        var oldValue:String = _internal_timestamp;
         if (oldValue !== value)
         {
-            _internal_user_ip = value;
+            _internal_timestamp = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timestamp", oldValue, _internal_timestamp));
         }
     }
 
-    public function set mode(value:String) : void
+    public function set amount(value:int) : void
     {
-        var oldValue:String = _internal_mode;
+        var oldValue:int = _internal_amount;
         if (oldValue !== value)
         {
-            _internal_mode = value;
+            _internal_amount = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "amount", oldValue, _internal_amount));
         }
     }
 
-    public function set message(value:String) : void
+    public function set point(value:int) : void
     {
-        var oldValue:String = _internal_message;
+        var oldValue:int = _internal_point;
         if (oldValue !== value)
         {
-            _internal_message = value;
-        }
-    }
-
-    public function set rownum(value:int) : void
-    {
-        var oldValue:int = _internal_rownum;
-        if (oldValue !== value)
-        {
-            _internal_rownum = value;
-        }
-    }
-
-    public function set start(value:int) : void
-    {
-        var oldValue:int = _internal_start;
-        if (oldValue !== value)
-        {
-            _internal_start = value;
+            _internal_point = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "point", oldValue, _internal_point));
         }
     }
 
@@ -314,6 +256,17 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
         if (oldValue !== value)
         {
             _internal_timeWrite = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "timeWrite", oldValue, _internal_timeWrite));
+        }
+    }
+
+    public function set admin_id(value:String) : void
+    {
+        var oldValue:String = _internal_admin_id;
+        if (oldValue !== value)
+        {
+            _internal_admin_id = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "admin_id", oldValue, _internal_admin_id));
         }
     }
 
@@ -323,6 +276,7 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
         if (oldValue !== value)
         {
             _internal_method = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "method", oldValue, _internal_method));
         }
     }
 
@@ -332,33 +286,27 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
         if (oldValue !== value)
         {
             _internal_user_id = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_id", oldValue, _internal_user_id));
         }
     }
 
-    public function set timeDel(value:String) : void
+    public function set tid(value:String) : void
     {
-        var oldValue:String = _internal_timeDel;
+        var oldValue:String = _internal_tid;
         if (oldValue !== value)
         {
-            _internal_timeDel = value;
+            _internal_tid = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "tid", oldValue, _internal_tid));
         }
     }
 
-    public function set end(value:int) : void
+    public function set remain_point(value:int) : void
     {
-        var oldValue:int = _internal_end;
+        var oldValue:int = _internal_remain_point;
         if (oldValue !== value)
         {
-            _internal_end = value;
-        }
-    }
-
-    public function set delType(value:String) : void
-    {
-        var oldValue:String = _internal_delType;
-        if (oldValue !== value)
-        {
-            _internal_delType = value;
+            _internal_remain_point = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "remain_point", oldValue, _internal_remain_point));
         }
     }
 
@@ -422,14 +370,14 @@ public class _Super_SentLogVO extends flash.events.EventDispatcher implements co
 
     [Transient]
     [Bindable(event="propertyChange")]
-    public function get _model() : _SentLogVOEntityMetadata
+    public function get _model() : _BillingVOEntityMetadata
     {
         return model_internal::_dminternal_model;
     }
 
-    public function set _model(value : _SentLogVOEntityMetadata) : void
+    public function set _model(value : _BillingVOEntityMetadata) : void
     {
-        var oldValue : _SentLogVOEntityMetadata = model_internal::_dminternal_model;
+        var oldValue : _BillingVOEntityMetadata = model_internal::_dminternal_model;
         if (oldValue !== value)
         {
             model_internal::_dminternal_model = value;

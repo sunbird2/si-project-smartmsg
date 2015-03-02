@@ -15,7 +15,7 @@
 			import spark.components.SplitViewNavigator;
 			import spark.components.ViewNavigator;
 			
-			import valueObjects.BooleanAndDescriptionVO;
+			import valueObjects.CommonVO;
 			import valueObjects.SentLogVO;
 			
 			import views.left.MemberView;

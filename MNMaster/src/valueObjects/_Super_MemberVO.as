@@ -68,8 +68,8 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
     private var _internal_timeJoin : String;
     private var _internal_line : String;
     private var _internal_leaveYN : String;
-    private var _internal_rownum : int;
     private var _internal_point : int;
+    private var _internal_rownum : int;
     private var _internal_start : int;
     private var _internal_user_id : String;
     private var _internal_timeLogin : String;
@@ -152,15 +152,15 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
     }
 
     [Bindable(event="propertyChange")]
-    public function get rownum() : int
-    {
-        return _internal_rownum;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get point() : int
     {
         return _internal_point;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get rownum() : int
+    {
+        return _internal_rownum;
     }
 
     [Bindable(event="propertyChange")]
@@ -276,21 +276,21 @@ public class _Super_MemberVO extends flash.events.EventDispatcher implements com
         }
     }
 
-    public function set rownum(value:int) : void
-    {
-        var oldValue:int = _internal_rownum;
-        if (oldValue !== value)
-        {
-            _internal_rownum = value;
-        }
-    }
-
     public function set point(value:int) : void
     {
         var oldValue:int = _internal_point;
         if (oldValue !== value)
         {
             _internal_point = value;
+        }
+    }
+
+    public function set rownum(value:int) : void
+    {
+        var oldValue:int = _internal_rownum;
+        if (oldValue !== value)
+        {
+            _internal_rownum = value;
         }
     }
 

@@ -9,7 +9,7 @@
 			import mx.events.FlexEvent;
 			import mx.rpc.events.ResultEvent;
 			
-			import valueObjects.BooleanAndDescriptionVO;
+			import valueObjects.CommonVO;
 			protected function loginBtn_clickHandler(event:MouseEvent):void
 			{
 				loginResult.token = mst.login(masterID.text, masterPW.text);
@@ -17,8 +17,8 @@
 			
 			protected function loginResult_resultHandler(event:ResultEvent):void
 			{
-				var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-				if (bvo != null && bvo.bResult == true) navigator.pushView(MainView);
+				var bvo:CommonVO = event.result as CommonVO;
+				if (bvo != null && bvo.rslt == true) navigator.pushView(MainView);
 			}
 			
 			private function changeField(ti:TextInput):void {
