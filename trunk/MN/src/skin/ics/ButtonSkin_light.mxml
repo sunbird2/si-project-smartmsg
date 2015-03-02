@@ -43,13 +43,13 @@
         <s:State name="disabled" />
     </s:states>
 	
-	<s:BitmapImage includeIn="up, disabled" source="@Embed('skin/ics/assets/light/button_normal.png', scaleGridTop='10', scaleGridBottom='32', scaleGridLeft='10', scaleGridRight='176')" smooth="true"
+	<s:BitmapImage includeIn="up, disabled" source="@Embed('/skin/ics/assets/light/button_normal.png', scaleGridTop='10', scaleGridBottom='32', scaleGridLeft='10', scaleGridRight='176')" smooth="true"
 				   left="0" right="0" top="0" bottom="0"/>
 	
-	<s:BitmapImage includeIn="over" source="@Embed('skin/ics/assets/light/button_focus.png', scaleGridTop='10', scaleGridBottom='32', scaleGridLeft='10', scaleGridRight='176')" smooth="true"
+	<s:BitmapImage includeIn="over" source="@Embed('/skin/ics/assets/light/button_focus.png', scaleGridTop='10', scaleGridBottom='32', scaleGridLeft='10', scaleGridRight='176')" smooth="true"
 				   left="0" right="0" top="0" bottom="0"/>
 	
-	<s:BitmapImage includeIn="down" source="@Embed('skin/ics/assets/light/button_pressed.png', scaleGridTop='10', scaleGridBottom='32', scaleGridLeft='10', scaleGridRight='176')" smooth="true"
+	<s:BitmapImage includeIn="down" source="@Embed('/skin/ics/assets/light/button_pressed.png', scaleGridTop='10', scaleGridBottom='32', scaleGridLeft='10', scaleGridRight='176')" smooth="true"
 				   left="0" right="0" top="0" bottom="0"/>
     
     <!-- layer 8: text -->

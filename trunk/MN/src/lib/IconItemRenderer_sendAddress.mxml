@@ -17,6 +17,7 @@
 			private var _icon:String;
 			private var _labelTitle:String;
 			private var _labelSub:String;
+			private var _labelGrp:String;
 			// index search
 			private var c_top:Array = new Array('ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ');
 			
@@ -28,6 +29,9 @@
 			}
 			public function set labelSub(value:String):void {
 				_labelSub = value;
+			}
+			public function set labelGrp(value:String):void {
+				_labelGrp = value;
 			}
 			
 			override public function set data(value:Object):void
@@ -50,6 +54,11 @@
 					}
 					
 					if (_labelTitle) title.text = data[_labelTitle];
+					if (_labelGrp) {
+						grp.text = data[_labelGrp];
+						grp.bottom = 2;
+						grp.right = 62;
+					}
 					
 					
 					var parentList:List = owner as List;
@@ -117,6 +126,7 @@
 			<s:Image id="icon_image" left="25" width="32" height="32" fillMode="scale"  />
 			<s:Label id="title" fontSize="14" color="#222222" />
 			<s:Label id="sub" fontSize="12" color="#999999"/>
+			<s:Label id="grp" fontSize="12" color="#999999" maxDisplayedLines="1" width="70" textAlign="right"/>
 			<s:Image id="sendBtn" right="5" verticalCenter="0" buttonMode="true" source="assets/post_btn_send.gif"  click="send_clickHandler(event)"/>	
 		</s:Group>
 	</s:VGroup>

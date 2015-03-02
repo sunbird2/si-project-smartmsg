@@ -1,31 +1,15 @@
 package component.excel
 {
 	
-	import component.util.ButtonSpinner;
-	
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.net.FileReference;
 	import flash.utils.ByteArray;
 	
-	import lib.CustomEvent;
-	import lib.Gv;
-	import lib.RemoteSingleManager;
-	import lib.SLibrary;
-	
 	import mx.collections.ArrayCollection;
 	import mx.collections.ArrayList;
-	import mx.controls.dataGridClasses.DataGridColumn;
 	import mx.core.ClassFactory;
-	import mx.data.ItemReference;
-	import mx.rpc.events.ResultEvent;
-	
-	import skin.excel.ExcelAddressSkin;
-	import skin.excel.ExcelMearg_GridItemRenderer;
-	import skin.excel.ExcelName_GridItemRenderer;
-	import skin.excel.ExcelPhone_GridItemRenderer;
-	import skin.excel.ExcelSkin;
 	
 	import spark.components.Button;
 	import spark.components.ComboBox;
@@ -41,8 +25,21 @@ package component.excel
 	import spark.events.IndexChangeEvent;
 	import spark.skins.spark.DefaultGridItemRenderer;
 	
+	import component.util.ButtonSpinner;
+	
+	import lib.CustomEvent;
+	import lib.Gv;
+	import lib.RemoteSingleManager;
+	import lib.SLibrary;
+	
+	import skin.excel.ExcelAddressSkin;
+	import skin.excel.ExcelMearg_GridItemRenderer;
+	import skin.excel.ExcelName_GridItemRenderer;
+	import skin.excel.ExcelPhone_GridItemRenderer;
+	import skin.excel.ExcelSkin;
+	
 	import valueObjects.AddressVO;
-	import valueObjects.ExcelLoaderResultVO;
+	import valueObjects.CommonVO;
 	import valueObjects.PhoneVO;
 	
 	[SkinState("normal")]
@@ -568,15 +565,15 @@ package component.excel
 		private function excelUpload_RESULTHandler(e:CustomEvent):void {
 			
 			RemoteSingleManager.getInstance.removeEventListener("getExcelLoaderData", excelUpload_RESULTHandler);
-			var data:ExcelLoaderResultVO = e.result as ExcelLoaderResultVO;
+			var data:CommonVO = e.result as CommonVO;
 			
-			if (data.bResult) {
+			if (data.rslt) {
 				acExcel.removeAll();
 				acExcel.addAll(data.list);
 				callLater(setStep, [UPLOADED]);
 				
 			}else {
-				SLibrary.alert(data.strDescription);
+				SLibrary.alert(data.text);
 			}
 			openBtn.bLoading = false;
 		}

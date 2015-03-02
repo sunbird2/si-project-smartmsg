@@ -57,7 +57,7 @@
 		</s:fill>
 	</s:Rect>
 	
-	<s:BitmapImage id="noSel" source="@Embed('skin/ics/assets/list_normal.png', scaleGridTop='1', scaleGridBottom='37', scaleGridLeft='1', scaleGridRight='17')" smooth="true"
+	<s:BitmapImage id="noSel" source="@Embed('/skin/ics/assets/list_normal.png', scaleGridTop='1', scaleGridBottom='37', scaleGridLeft='1', scaleGridRight='17')" smooth="true"
 				   width="18" right="1" top="0" bottom="0" visible="true"/>
 
     <!--- The Scroller component to add scroll bars to the list. -->

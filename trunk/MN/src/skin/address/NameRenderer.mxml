@@ -40,6 +40,7 @@
 	</s:Rect>
 
 	<s:Label id="viewName"
-			 top="7" bottom="5" left="5" right="3"/>
+			 top="7" bottom="5" left="5" right="3" maxDisplayedLines="1"
+			 showTruncationTip="true"/>
 	
 </s:ItemRenderer>

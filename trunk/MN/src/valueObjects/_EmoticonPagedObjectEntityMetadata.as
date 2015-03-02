@@ -22,7 +22,7 @@ internal class _EmoticonPagedObjectEntityMetadata extends com.adobe.fiber.valueo
 
     model_internal static var allProperties:Array = new Array("message", "index", "idx");
     model_internal static var allAssociationProperties:Array = new Array();
-    model_internal static var allRequiredProperties:Array = new Array("index");
+    model_internal static var allRequiredProperties:Array = new Array("idx");
     model_internal static var allAlwaysAvailableProperties:Array = new Array("message", "index", "idx");
     model_internal static var guardedProperties:Array = new Array();
     model_internal static var dataProperties:Array = new Array("message", "index", "idx");
@@ -214,7 +214,7 @@ internal class _EmoticonPagedObjectEntityMetadata extends com.adobe.fiber.valueo
     override public function getIdentityMap():Object
     {
         var returnMap:Object = new Object();
-        returnMap["index"] = model_internal::_instance.index;
+        returnMap["idx"] = model_internal::_instance.idx;
 
         return returnMap;
     }

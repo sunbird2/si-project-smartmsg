@@ -68,6 +68,7 @@ public class _Super_Statement extends flash.events.EventDispatcher implements co
     /**
      * properties
      */
+    private var _internal_closeOnCompletion : Boolean;
     private var _internal_fetchSize : int;
     private var _internal_connection : valueObjects.Connection;
     private var _internal_resultSetHoldability : int;
@@ -78,8 +79,8 @@ public class _Super_Statement extends flash.events.EventDispatcher implements co
     private var _internal_maxFieldSize : int;
     private var _internal_poolable : Boolean;
     private var _internal_maxRows : int;
-    private var _internal_resultSet : valueObjects.ResultSet;
     private var _internal_closed : Boolean;
+    private var _internal_resultSet : valueObjects.ResultSet;
     private var _internal_updateCount : int;
     private var _internal_warnings : valueObjects.SQLWarning;
     private var _internal_generatedKeys : valueObjects.ResultSet;
@@ -105,6 +106,12 @@ public class _Super_Statement extends flash.events.EventDispatcher implements co
     /**
      * data/source property getters
      */
+
+    [Bindable(event="propertyChange")]
+    public function get closeOnCompletion() : Boolean
+    {
+        return _internal_closeOnCompletion;
+    }
 
     [Bindable(event="propertyChange")]
     public function get fetchSize() : int
@@ -167,15 +174,15 @@ public class _Super_Statement extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get resultSet() : valueObjects.ResultSet
-    {
-        return _internal_resultSet;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get closed() : Boolean
     {
         return _internal_closed;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get resultSet() : valueObjects.ResultSet
+    {
+        return _internal_resultSet;
     }
 
     [Bindable(event="propertyChange")]
@@ -203,6 +210,16 @@ public class _Super_Statement extends flash.events.EventDispatcher implements co
     /**
      * data/source property setters
      */
+
+    public function set closeOnCompletion(value:Boolean) : void
+    {
+        var oldValue:Boolean = _internal_closeOnCompletion;
+        if (oldValue !== value)
+        {
+            _internal_closeOnCompletion = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "closeOnCompletion", oldValue, _internal_closeOnCompletion));
+        }
+    }
 
     public function set fetchSize(value:int) : void
     {
@@ -304,16 +321,6 @@ public class _Super_Statement extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set resultSet(value:valueObjects.ResultSet) : void
-    {
-        var oldValue:valueObjects.ResultSet = _internal_resultSet;
-        if (oldValue !== value)
-        {
-            _internal_resultSet = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "resultSet", oldValue, _internal_resultSet));
-        }
-    }
-
     public function set closed(value:Boolean) : void
     {
         var oldValue:Boolean = _internal_closed;
@@ -321,6 +328,16 @@ public class _Super_Statement extends flash.events.EventDispatcher implements co
         {
             _internal_closed = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "closed", oldValue, _internal_closed));
+        }
+    }
+
+    public function set resultSet(value:valueObjects.ResultSet) : void
+    {
+        var oldValue:valueObjects.ResultSet = _internal_resultSet;
+        if (oldValue !== value)
+        {
+            _internal_resultSet = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "resultSet", oldValue, _internal_resultSet));
         }
     }
 

@@ -58,14 +58,16 @@ package lib
 		
 		private static function init():void{
 			
+			
 		}
 		
 		public static function setCookie(name:String, value:Object, days:int):void{
+		
 			
 		}
 		
 		public static function getCookie(name:String):Object{
-			return "";
+			return null;
 		}
 		
 		public static function deleteCookie(name:String):void{

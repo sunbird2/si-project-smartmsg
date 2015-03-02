@@ -34,7 +34,7 @@
 	</fx:Declarations>
 	<s:BitmapImage
 				   left="0" right="0" top="0" bottom="0"
-				   source="@Embed('skin/ics/assets/widget_lite.png', scaleGridTop='10', scaleGridBottom='320', scaleGridLeft='10', scaleGridRight='314')"
+				   source="@Embed('/skin/ics/assets/widget_lite.png', scaleGridTop='10', scaleGridBottom='320', scaleGridLeft='10', scaleGridRight='314')"
 				   fillMode="scale" alpha="0.9"/>
 	<s:Label top="15" left="15" text="간격설정" fontSize="16" />
 	<s:Rect width="100%" top="40" left="8" right="8"><s:stroke><s:SolidColorStroke color="#33B5E5" weight="2" /></s:stroke></s:Rect>

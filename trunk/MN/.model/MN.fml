@@ -8,14 +8,14 @@
       <item name="ServiceType">RemoteObject</item>
       <item name="Package">services</item>
       <item name="Destination">smt</item>
-      <item name="Endpoint">http://www.munjanote.com:7837//messagebroker/amf</item>
+      <item name="Endpoint"></item>
     </annotation>
     <annotation name="ServiceConfig">
       <item name="DEFAULT_ENTITY_PACKAGE">valueObjects</item>
       <item name="contextRoot">/</item>
       <item name="rootUrl">http://www.munjanote.com:7837</item>
       <item name="LINKED_FILE"></item>
-      <item name="ABSOLUTE_ENDPOINT">http://www.munjanote.com:7837//messagebroker/amf</item>
+      <item name="ABSOLUTE_ENDPOINT"></item>
     </annotation>
     <annotation name="ServiceTypeGroup">
       <item name="ServiceBackendType">BlazeDS</item>
@@ -819,37 +819,6 @@
     <property name="list" type="opaque[]"/>
     <property name="strDescription" type="string"/>
   </entity>
-  <entity name="EmoticonPagedObject" persistent="true">
-    <annotation name="EntityProperties">
-      <item name="EntityOriginalName">EmoticonPagedObject</item>
-    </annotation>
-    <annotation name="ServerProperties">
-      <item name="RemoteClass">com.m.emoticon.EmoticonPagedObject</item>
-      <item name="IncludeRemoteClass">nonempty</item>
-    </annotation>
-    <annotation name="service Group">
-      <item name="service">Smt,Dummy</item>
-    </annotation>
-    <annotation name="ActionScriptGeneration">
-      <item name="Package">valueObjects</item>
-    </annotation>
-    <annotation name="getEmotiList_pagedFiltered">
-      <item name="pagingEnabled">true</item>
-      <item name="positionalPagingParameters">true</item>
-      <item name="pageSize">18</item>
-      <item name="countOperation">getEmotiList_countFiltered</item>
-      <item name="propertySpecifier">message,index</item>
-    </annotation>
-    <annotation name="DataManagement">
-      <item name="managingService">Smt</item>
-      <item name="fillFunc">getEmotiList_pagedFiltered</item>
-    </annotation>
-    <annotation name="getEmotiList_paged">
-      <item name="propertySpecifier">message,index</item>
-    </annotation>
-    <property name="message" type="string"/>
-    <id name="index" type="integer" generated="false"/>
-  </entity>
   <entity name="DatabaseMetaData">
     <annotation name="EntityProperties">
       <item name="EntityOriginalName">DatabaseMetaData</item>
@@ -920,6 +889,37 @@
     <property name="numericFunctions" type="string"/>
     <property name="catalogs" type="ResultSet"/>
     <property name="maxColumnsInTable" type="integer"/>
+  </entity>
+  <entity name="EmoticonPagedObject" persistent="true">
+    <annotation name="EntityProperties">
+      <item name="EntityOriginalName">EmoticonPagedObject</item>
+    </annotation>
+    <annotation name="ServerProperties">
+      <item name="RemoteClass">com.m.emoticon.EmoticonPagedObject</item>
+      <item name="IncludeRemoteClass">nonempty</item>
+    </annotation>
+    <annotation name="service Group">
+      <item name="service">Smt,Dummy</item>
+    </annotation>
+    <annotation name="ActionScriptGeneration">
+      <item name="Package">valueObjects</item>
+    </annotation>
+    <annotation name="getEmotiList_pagedFiltered">
+      <item name="pagingEnabled">true</item>
+      <item name="positionalPagingParameters">true</item>
+      <item name="pageSize">18</item>
+      <item name="countOperation">getEmotiList_countFiltered</item>
+      <item name="propertySpecifier">message,index</item>
+    </annotation>
+    <annotation name="DataManagement">
+      <item name="managingService">Smt</item>
+      <item name="fillFunc">getEmotiList_pagedFiltered</item>
+    </annotation>
+    <annotation name="getEmotiList_paged">
+      <item name="propertySpecifier">message,index</item>
+    </annotation>
+    <property name="message" type="string"/>
+    <id name="index" type="integer" generated="false"/>
   </entity>
   <entity name="SQLException">
     <annotation name="EntityProperties">
