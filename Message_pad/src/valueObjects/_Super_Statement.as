@@ -79,8 +79,8 @@ public class _Super_Statement extends flash.events.EventDispatcher implements co
     private var _internal_maxFieldSize : int;
     private var _internal_poolable : Boolean;
     private var _internal_maxRows : int;
-    private var _internal_resultSet : valueObjects.ResultSet;
     private var _internal_closed : Boolean;
+    private var _internal_resultSet : valueObjects.ResultSet;
     private var _internal_updateCount : int;
     private var _internal_warnings : valueObjects.SQLWarning;
     private var _internal_generatedKeys : valueObjects.ResultSet;
@@ -174,15 +174,15 @@ public class _Super_Statement extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get resultSet() : valueObjects.ResultSet
-    {
-        return _internal_resultSet;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get closed() : Boolean
     {
         return _internal_closed;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get resultSet() : valueObjects.ResultSet
+    {
+        return _internal_resultSet;
     }
 
     [Bindable(event="propertyChange")]
@@ -321,16 +321,6 @@ public class _Super_Statement extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set resultSet(value:valueObjects.ResultSet) : void
-    {
-        var oldValue:valueObjects.ResultSet = _internal_resultSet;
-        if (oldValue !== value)
-        {
-            _internal_resultSet = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "resultSet", oldValue, _internal_resultSet));
-        }
-    }
-
     public function set closed(value:Boolean) : void
     {
         var oldValue:Boolean = _internal_closed;
@@ -338,6 +328,16 @@ public class _Super_Statement extends flash.events.EventDispatcher implements co
         {
             _internal_closed = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "closed", oldValue, _internal_closed));
+        }
+    }
+
+    public function set resultSet(value:valueObjects.ResultSet) : void
+    {
+        var oldValue:valueObjects.ResultSet = _internal_resultSet;
+        if (oldValue !== value)
+        {
+            _internal_resultSet = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "resultSet", oldValue, _internal_resultSet));
         }
     }
 

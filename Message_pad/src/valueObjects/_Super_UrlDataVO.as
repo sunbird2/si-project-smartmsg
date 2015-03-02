@@ -62,8 +62,8 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
     private var _internal_input : String;
     private var _internal_html_idx : int;
     private var _internal_timeModify : String;
-    private var _internal_sent_idx : int;
     private var _internal_idx : int;
+    private var _internal_sent_idx : int;
     private var _internal_mileage : String;
     private var _internal_timeWrite : String;
     private var _internal_mearge : String;
@@ -117,15 +117,15 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get sent_idx() : int
-    {
-        return _internal_sent_idx;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get idx() : int
     {
         return _internal_idx;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get sent_idx() : int
+    {
+        return _internal_sent_idx;
     }
 
     [Bindable(event="propertyChange")]
@@ -206,16 +206,6 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set sent_idx(value:int) : void
-    {
-        var oldValue:int = _internal_sent_idx;
-        if (oldValue !== value)
-        {
-            _internal_sent_idx = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "sent_idx", oldValue, _internal_sent_idx));
-        }
-    }
-
     public function set idx(value:int) : void
     {
         var oldValue:int = _internal_idx;
@@ -223,6 +213,16 @@ public class _Super_UrlDataVO extends flash.events.EventDispatcher implements co
         {
             _internal_idx = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "idx", oldValue, _internal_idx));
+        }
+    }
+
+    public function set sent_idx(value:int) : void
+    {
+        var oldValue:int = _internal_sent_idx;
+        if (oldValue !== value)
+        {
+            _internal_sent_idx = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "sent_idx", oldValue, _internal_sent_idx));
         }
     }
 

@@ -45,7 +45,7 @@
 			
 			import spark.events.IndexChangeEvent;
 			
-			import valueObjects.BooleanAndDescriptionVO;
+			import valueObjects.CommonVO;
 			import valueObjects.UrlHtmlVO;
 			
 			private var key:int = 0;
@@ -188,14 +188,14 @@
 			
 			protected function setUrlDataResult_resultHandler(event:ResultEvent):void
 			{
-				var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+				var bvo:CommonVO = event.result as CommonVO;
 				if (bvo != null) {
-					if (bvo.bResult == true) {
+					if (bvo.rslt == true) {
 						SLibrary.alert("적용 되었습니다.");
-						MobileWebEditorAble(parentDocument.hostComponent).setUrl(int(bvo.strDescription));
+						MobileWebEditorAble(parentDocument.hostComponent).setUrl(int(bvo.text));
 						close_clickHandler(null);
 					}
-					else SLibrary.alert("실패 하였습니다."+bvo.strDescription);
+					else SLibrary.alert("실패 하였습니다."+bvo.text);
 				}
 				
 			} 

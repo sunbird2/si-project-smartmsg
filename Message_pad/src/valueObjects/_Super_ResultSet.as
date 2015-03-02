@@ -74,8 +74,8 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
     private var _internal_holdability : int;
     private var _internal_last : Boolean;
     private var _internal_beforeFirst : Boolean;
-    private var _internal_type : int;
     private var _internal_cursorName : String;
+    private var _internal_type : int;
     private var _internal_row : int;
     private var _internal_statement : valueObjects.Statement;
     private var _internal_fetchDirection : int;
@@ -133,15 +133,15 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
     }
 
     [Bindable(event="propertyChange")]
-    public function get type() : int
-    {
-        return _internal_type;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get cursorName() : String
     {
         return _internal_cursorName;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get type() : int
+    {
+        return _internal_type;
     }
 
     [Bindable(event="propertyChange")]
@@ -246,16 +246,6 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
         }
     }
 
-    public function set type(value:int) : void
-    {
-        var oldValue:int = _internal_type;
-        if (oldValue !== value)
-        {
-            _internal_type = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "type", oldValue, _internal_type));
-        }
-    }
-
     public function set cursorName(value:String) : void
     {
         var oldValue:String = _internal_cursorName;
@@ -263,6 +253,16 @@ public class _Super_ResultSet extends flash.events.EventDispatcher implements co
         {
             _internal_cursorName = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "cursorName", oldValue, _internal_cursorName));
+        }
+    }
+
+    public function set type(value:int) : void
+    {
+        var oldValue:int = _internal_type;
+        if (oldValue !== value)
+        {
+            _internal_type = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "type", oldValue, _internal_type));
         }
     }
 

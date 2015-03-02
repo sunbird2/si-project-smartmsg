@@ -65,7 +65,7 @@ package component
 	import spark.primitives.BitmapImage;
 	
 	import valueObjects.AddressVO;
-	import valueObjects.BooleanAndDescriptionVO;
+	import valueObjects.CommonVO;
 	import valueObjects.LogVO;
 	import valueObjects.PhoneVO;
 	import valueObjects.SendMessageVO;
@@ -936,8 +936,8 @@ package component
 		}
 		private function messageSaveBtn_resultHandler(event:CustomEvent):void {
 			
-			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bvo.bResult) {
+			var bvo:CommonVO = event.result as CommonVO;
+			if (bvo.rslt) {
 				SLibrary.alert("저장되었습니다.");
 			}else {
 				SLibrary.alert("실패");
@@ -1445,10 +1445,10 @@ package component
 		}
 		private function FileUploadByRemoteObjectRESULTHandler(e:FileUploadByRemoteObjectEvent):void {
 			
-			var bvo:BooleanAndDescriptionVO = e.result as BooleanAndDescriptionVO;
+			var bvo:CommonVO = e.result as CommonVO;
 			
-			if (bvo.bResult) this.setPhoto(bvo.strDescription as String);
-			else SLibrary.alert(bvo.strDescription);
+			if (bvo.rslt) this.setPhoto(bvo.text as String);
+			else SLibrary.alert(bvo.text);
 			
 			destoryUpload();
 			
