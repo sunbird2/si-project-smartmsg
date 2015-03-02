@@ -30,7 +30,7 @@
 			<s:layout>
 				<s:HorizontalLayout gap="10" paddingLeft="5" verticalAlign="middle" />
 			</s:layout>
-			<s:Image id="icon" source="skin/ics/assets/icon.png" fillMode="scale" width="36" height="36" smooth="true" />
+			<s:BitmapImage id="icon" source="skin/ics/assets/icon.png" fillMode="scale" width="36" height="36" smooth="true" />
 			<s:VGroup gap="4">
 				<s:RichText id="title_text" color="#FFFFFF" fontSize="14"/>
 				<s:RichText id="titleSub_text" color="#DFDFDF" fontSize="12"/>
@@ -191,7 +191,7 @@
 					<s:Group width="265">
 						<s:Button id="sendBtn" left="0" width="230" height="32" label="전송 하기" enabled="false" fontSize="12"
 								  fontWeight="bold" styleName="button_light"/>
-						<s:Image id="sendSetting" right="0" source="skin/ics/assets/light/icon/2-action-settings.png" visible="false" buttonMode="true" toolTip=" " 
+						<s:Image id="sendSetting" right="0" source="skin/ics/assets/light/icon/2-action-settings.png" buttonMode="true" toolTip=" " 
 								 toolTipCreate="SLibrary.iosTip('전송 후 설정','전송하기 클릭 시 메시지 또는 수신전화번호를 삭제하도록 설정 할 수 있습니다.', event)"/>
 						
 						<s:Group id="sendSetBox" left="0" right="32" height="32" visible="false">
@@ -220,7 +220,7 @@
 					</s:HGroup>
 				</s:VGroup>
 				
-				<s:BitmapImage source="@Embed('skin/ics/assets/list_normal.png', scaleGridTop='1', scaleGridBottom='37', scaleGridLeft='1', scaleGridRight='17')" smooth="true"
+				<s:BitmapImage source="@Embed('/skin/ics/assets/list_normal.png', scaleGridTop='1', scaleGridBottom='37', scaleGridLeft='1', scaleGridRight='17')" smooth="true"
 							   width="18" right="1" top="0" bottom="0" visible="true"/>
 				
 				<s:Group id="loading" width="60" height="60" horizontalCenter="0" top="42" visible="false">

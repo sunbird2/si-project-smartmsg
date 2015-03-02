@@ -39,7 +39,7 @@
 			import mx.core.FlexGlobals;
 			import mx.events.FlexEvent;
 			
-			public static var HOST:String = "http://www.munjanote.com:7837";
+			public static var HOST:String = "http://www.munjanote.com";
 			
 			// update
 			private var appUpdater:ApplicationUpdaterUI = new ApplicationUpdaterUI(); 
@@ -66,7 +66,7 @@
 				
 				// update
 				appUpdater.configurationFile = new File("app:/updateConfig.xml"); 
-				//appUpdater.addEventListener(UpdateEvent.INITIALIZED, updateIni_Handle);
+				appUpdater.addEventListener(UpdateEvent.INITIALIZED, updateIni_Handle);
 				appUpdater.initialize();
 				
 				
@@ -83,8 +83,7 @@
 				trace("init ok");
 				//appUpdater.addEventListener(UpdateEvent.DOWNLOAD_COMPLETE, updateDownloadCompleteHandle);
 				//appUpdater.addEventListener(StatusUpdateEvent.UPDATE_STATUS, updateStatus_Handler);
-				//appUpdater.checkNow();
-				
+				appUpdater.checkNow();
 			}
 			
 			

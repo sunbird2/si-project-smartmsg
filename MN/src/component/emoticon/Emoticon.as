@@ -33,7 +33,7 @@ package component.emoticon
 	import spark.events.IndexChangeEvent;
 	import spark.primitives.BitmapImage;
 	
-	import valueObjects.BooleanAndDescriptionVO;
+	import valueObjects.CommonVO;
 	
 	[Event(name="message", type="lib.CustomEvent")]
 	[Event(name="specialChar", type="lib.CustomEvent")]
@@ -397,8 +397,8 @@ package component.emoticon
 		}
 		private function delMymessage_resultHandler(event:CustomEvent):void {
 			
-			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bvo.bResult) {
+			var bvo:CommonVO = event.result as CommonVO;
+			if (bvo.rslt) {
 				SLibrary.alert("삭제되었습니다.");
 				getEmotiList();
 			}else {

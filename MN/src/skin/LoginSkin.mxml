@@ -13,7 +13,7 @@
 	
 	<s:BitmapImage includeIn="logout"
 				   width="200" height="190"
-				   source="@Embed('skin/ics/assets/widget_dark.png', scaleGridTop='10', scaleGridBottom='320', scaleGridLeft='10', scaleGridRight='314')"
+				   source="@Embed('/skin/ics/assets/widget_dark.png', scaleGridTop='10', scaleGridBottom='320', scaleGridLeft='10', scaleGridRight='314')"
 				   fillMode="scale" alpha="0.9"/>
 	
 	<s:Rect includeIn="logout" width="100%" top="40" left="8" right="8"><s:stroke><s:SolidColorStroke color="#33B5E5" weight="2" /></s:stroke></s:Rect>

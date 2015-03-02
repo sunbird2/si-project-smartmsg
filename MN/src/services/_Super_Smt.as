@@ -23,10 +23,9 @@ import mx.rpc.AsyncToken;
 import mx.rpc.remoting.Operation;
 import mx.rpc.remoting.RemoteObject;
 import valueObjects.AddressVO;
-import valueObjects.BooleanAndDescriptionVO;
+import valueObjects.CommonVO;
 import valueObjects.Connection;
 import valueObjects.EmoticonPagedObject;
-import valueObjects.ExcelLoaderResultVO;
 import valueObjects.LogVO;
 import valueObjects.MessageVO;
 import valueObjects.SendMessageVO;
@@ -153,7 +152,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         _serviceControl = new mx.rpc.remoting.RemoteObject();
 
         // initialize RemoteClass alias for all entities returned by functions of this service
-        valueObjects.BooleanAndDescriptionVO._initRemoteClassAlias();
+        valueObjects.CommonVO._initRemoteClassAlias();
         valueObjects.AddressVO._initRemoteClassAlias();
         valueObjects.EmoticonPagedObject._initRemoteClassAlias();
         valueObjects.LogVO._initRemoteClassAlias();
@@ -171,7 +170,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
          operation.resultType = Boolean;
         operations["bSession"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "checkID");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["checkID"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "count");
          operation.resultType = int;
@@ -179,22 +178,22 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         operation = new mx.rpc.remoting.Operation(null, "createFlexSession");
         operations["createFlexSession"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "createSession");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["createSession"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "deleteManySent");
-         operation.resultElementType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultElementType = valueObjects.CommonVO;
         operations["deleteManySent"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "deleteReturnPhone");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["deleteReturnPhone"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "deleteSent");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["deleteSent"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "delMymsg");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["delMymsg"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "failAdd");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["failAdd"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "getAddrList");
          operation.resultElementType = valueObjects.AddressVO;
@@ -206,7 +205,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
          operation.resultType = String;
         operations["getAdminSession"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "getCert");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["getCert"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "getEmotiCateList");
          operation.resultElementType = String;
@@ -224,7 +223,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
          operation.resultElementType = Object;
         operations["getEmotiListPage"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "getExcelLoaderData");
-         operation.resultType = valueObjects.ExcelLoaderResultVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["getExcelLoaderData"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "getInformation");
          operation.resultType = valueObjects.UserInformationVO;
@@ -266,25 +265,25 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
          operation.resultType = valueObjects.UserInformationVO;
         operations["getUserInformation"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "imageUpload");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["imageUpload"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "join");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["join"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "login");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["login"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "loginAdmin");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["loginAdmin"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "loginSuper");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["loginSuper"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "logout_session");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["logout_session"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "modify");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["modify"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "modifyAddr");
          operation.resultType = int;
@@ -295,13 +294,13 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         operation = new mx.rpc.remoting.Operation(null, "run");
         operations["run"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "saveMymsg");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["saveMymsg"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "sendCert");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["sendCert"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "sendCertReturn");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["sendCertReturn"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "sendSMSconf");
          operation.resultType = valueObjects.LogVO;
@@ -309,16 +308,16 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         operation = new mx.rpc.remoting.Operation(null, "session_logout");
         operations["session_logout"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "setMMSUpload");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["setMMSUpload"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "setReturnPhone");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["setReturnPhone"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "setReturnPhoneTimeWrite");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["setReturnPhoneTimeWrite"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "setUrlData");
-         operation.resultType = valueObjects.BooleanAndDescriptionVO;
+         operation.resultType = valueObjects.CommonVO;
         operations["setUrlData"] = operation;
         operation = new mx.rpc.remoting.Operation(null, "test");
          operation.resultType = String;
@@ -348,7 +347,7 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
 
         _emoticonPagedObjectRPCDataManager.destination = "emoticonPagedObjectRPCDataManager";
         _emoticonPagedObjectRPCDataManager.service = _serviceControl;        
-        _emoticonPagedObjectRPCDataManager.identities =  "index";      
+        _emoticonPagedObjectRPCDataManager.identities =  "idx";      
         _emoticonPagedObjectRPCDataManager.itemClass = valueObjects.EmoticonPagedObject; 
 
 
@@ -356,22 +355,22 @@ internal class _Super_Smt extends com.adobe.fiber.services.wrapper.RemoteObjectS
         var dmOperation : mx.data.ManagedOperation;
         var dmQuery : mx.data.ManagedQuery;
 
-		dmQuery = new mx.data.ManagedQuery("getEmotiList_pagedFiltered");
-		dmQuery.propertySpecifier = "message,index,idx";
-		dmQuery.countOperation = "getEmotiList_countFiltered";
-		dmQuery.pagingEnabled = true;
-		dmQuery.positionalPagingParameters = true;
-		dmQuery.pageSize = 18;
-		dmQuery.parameters = "arg0,arg1,arg2,arg3";
-		_emoticonPagedObjectRPCDataManager.addManagedOperation(dmQuery);
-		
-		dmQuery = new mx.data.ManagedQuery("getSentListDetail_pagedFiltered");
-		dmQuery.propertySpecifier = "sendMode,rsltDate,phone,idx,imagePath,rslt,msg,failAddDate,stat,urlIdx,sendDate,groupKey,name,callback,user_id";
-		dmQuery.pagingEnabled = true;
-		dmQuery.positionalPagingParameters = true;
-		dmQuery.pageSize = 30;
-		dmQuery.parameters = "arg0,arg1,arg2";
-		_messageVORPCDataManager.addManagedOperation(dmQuery);
+        dmQuery = new mx.data.ManagedQuery("getEmotiList_pagedFiltered");
+        dmQuery.propertySpecifier = "message,index,idx";
+        dmQuery.countOperation = "getEmotiList_countFiltered";
+        dmQuery.pagingEnabled = true;
+        dmQuery.positionalPagingParameters = true;
+        dmQuery.pageSize = 30;
+        dmQuery.parameters = "arg0,arg1,arg2,arg3";
+        _emoticonPagedObjectRPCDataManager.addManagedOperation(dmQuery);
+
+        dmQuery = new mx.data.ManagedQuery("getSentListDetail_pagedFiltered");
+        dmQuery.propertySpecifier = "sendMode,rsltDate,phone,idx,imagePath,rslt,failAddDate,msg,stat,urlIdx,sendDate,groupKey,name,callback,user_id";
+        dmQuery.pagingEnabled = true;
+        dmQuery.positionalPagingParameters = true;
+        dmQuery.pageSize = 30;
+        dmQuery.parameters = "arg0,arg1,arg2";
+        _messageVORPCDataManager.addManagedOperation(dmQuery);
 
         _serviceControl.managers = managersArray;
 

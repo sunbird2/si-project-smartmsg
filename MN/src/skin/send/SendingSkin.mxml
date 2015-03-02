@@ -28,7 +28,7 @@
 		<s:State name="result_mini" />
 	</s:states>
 	<s:BitmapImage width="300" height.result_list="300" height="200"
-				   source="@Embed('skin/ics/assets/widget_dark.png', scaleGridTop='10', scaleGridBottom='320', scaleGridLeft='10', scaleGridRight='314')"
+				   source="@Embed('/skin/ics/assets/widget_dark.png', scaleGridTop='10', scaleGridBottom='320', scaleGridLeft='10', scaleGridRight='314')"
 				   fillMode="scale" alpha="1"/>
 	<s:Rect includeIn="rslt, sending" width="100%" top="40" left="8" right="8"><s:stroke><s:SolidColorStroke color="#33B5E5" weight="2" /></s:stroke></s:Rect>
 	<s:VGroup horizontalCenter="0" horizontalAlign="center">

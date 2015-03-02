@@ -31,7 +31,7 @@ package component
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
 	
-	import valueObjects.BooleanAndDescriptionVO;
+	import valueObjects.CommonVO;
 	import valueObjects.UserInformationVO;
 	
 	[Event(name="login", type="flash.events.Event")]
@@ -173,8 +173,8 @@ package component
 		 * */
 		private function login_resultHandler(event:CustomEvent):void {
 			
-			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bVO.bResult) {
+			var bVO:CommonVO = event.result as CommonVO;
+			if (bVO.rslt) {
 				user_pw.text = "";
 				login_check();
 				
@@ -198,8 +198,8 @@ package component
 		 * */
 		private function logout_resultHandler(event:CustomEvent):void {
 			
-			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bVO.bResult) {
+			var bVO:CommonVO = event.result as CommonVO;
+			if (bVO.rslt) {
 				Gv.bLogin = false;
 				cstat = "logout";
 				invalidateSkinState();

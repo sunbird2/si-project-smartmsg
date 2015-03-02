@@ -71,7 +71,8 @@
 	
 	<s:Group left="0" right="0" height="35">
 		<s:Label id="labelDisplay" 
-				 left="5" verticalCenter="0"/>
+				 left="5" verticalCenter="0" maxDisplayedLines="1"
+				 showTruncationTip="true"/>
 		<s:Image right="5" verticalCenter="0" buttonMode="true" source="assets/post_btn_send.gif"  click="send_clickHandler(event)"/>
 	</s:Group>
 	

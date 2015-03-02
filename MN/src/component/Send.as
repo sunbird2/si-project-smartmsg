@@ -18,12 +18,13 @@ package component
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.utils.ByteArray;
+	import flash.utils.setTimeout;
 	
 	import flashx.textLayout.elements.LinkElement;
 	import flashx.textLayout.elements.SpanElement;
 	import flashx.textLayout.events.FlowElementMouseEvent;
 	
-	//import lib.CookieUtil;
+	import lib.CookieUtil;
 	import lib.CustomEvent;
 	import lib.FileUploadByRemoteObject;
 	import lib.FileUploadByRemoteObjectEvent;
@@ -64,7 +65,7 @@ package component
 	import spark.primitives.BitmapImage;
 	
 	import valueObjects.AddressVO;
-	import valueObjects.BooleanAndDescriptionVO;
+	import valueObjects.CommonVO;
 	import valueObjects.LogVO;
 	import valueObjects.PhoneVO;
 	import valueObjects.SendMessageVO;
@@ -289,6 +290,9 @@ package component
 		private var cookie_listDel:String = "";
 		
 		
+		private var isSending:Boolean = false;
+		
+		
 		/**
 		 * emoticon properties
 		 * */
@@ -307,8 +311,8 @@ package component
 			addEventListener(Event.REMOVED_FROM_STAGE, removedfromstage_handler, false, 0, true);
 			
 			// cookie get
-			//cookie_msgDel = CookieUtil.getCookie(SAVE_MSGDEL) as String;
-			//cookie_listDel = CookieUtil.getCookie(SAVE_LISTDEL) as String;
+			cookie_msgDel = CookieUtil.getCookie(SAVE_MSGDEL) as String;
+			cookie_listDel = CookieUtil.getCookie(SAVE_LISTDEL) as String;
 			
 		}
 		
@@ -398,11 +402,11 @@ package component
 			else if (instance == addressBoxClose) addressBoxClose.addEventListener(MouseEvent.CLICK, addressView_clickHandler);
 			else if (instance == sendSetting) sendSetting.addEventListener(MouseEvent.CLICK, sendSetting_clickHandler);
 			else if (instance == sendDelmsg) {
-				//if (cookie_msgDel && cookie_msgDel.length > 0) { sendDelmsg.selected = true; }
+				if (cookie_msgDel && cookie_msgDel.length > 0) { sendDelmsg.selected = true; }
 				sendDelmsg.addEventListener(Event.CHANGE, sendDelmsg_changeHandler);
 			}
 			else if (instance == sendDelList) {
-				//if (cookie_listDel && cookie_listDel.length > 0) { instance.selected = true; }
+				if (cookie_listDel && cookie_listDel.length > 0) { instance.selected = true; }
 				sendDelList.addEventListener(Event.CHANGE, sendDelList_changeHandler);
 			}
 			
@@ -932,8 +936,8 @@ package component
 		}
 		private function messageSaveBtn_resultHandler(event:CustomEvent):void {
 			
-			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bvo.bResult) {
+			var bvo:CommonVO = event.result as CommonVO;
+			if (bvo.rslt) {
 				SLibrary.alert("저장되었습니다.");
 			}else {
 				SLibrary.alert("실패");
@@ -955,41 +959,51 @@ package component
 		 * */
 		private function sendBtn_clickHandler(event:MouseEvent):void {
 			
-			removeSending();
+			if (isSending == true) {
+				SLibrary.alert("발송 처리중인 데이터가 있습니다. 발송내역을 확인해 보세요.");
+			} else {
+				sendBtn.enabled = false;
+				
+				removeSending();
+				
+				var smvo:SendMessageVO = new SendMessageVO();
+				
+				smvo.bInterval = false;
+				smvo.bMerge = isMearge();
+				
+				if (sendReservation.selected) {
+					smvo.bReservation = true;
+					smvo.reservationDate = sendReservation.label + ":00";
+				}else smvo.bReservation = false;
+				
+				if (sendInterval.selected) {
+					smvo.bInterval = true;
+					var arr:Array = sendInterval.label.split("/");
+					smvo.itCount = int(arr[0]);
+					smvo.itMinute = int(arr[1]);
+				}else smvo.bInterval = false;
+				
+				smvo.urlKey = urlKey;
+				
+				smvo.imagePath = this.mmsImage; 
+				smvo.message = msg;
+				smvo.returnPhone = rt.returnPhone;
+				smvo.al = alPhone;
+				
+				isSending = true;
+				RemoteSingleManager.getInstance.addEventListener("sendSMSconf", sendBtn_resultHandler, false, 0, true);
+				
+				RemoteSingleManager.getInstance.callresponderToken 
+					= RemoteSingleManager.getInstance.service.sendSMSconf(smvo);
+				
+				createSending();
+				tracker("sendBtn_clickHandler");// tracker
+			}
 			
-			var smvo:SendMessageVO = new SendMessageVO();
-			
-			smvo.bInterval = false;
-			smvo.bMerge = isMearge();
-			
-			if (sendReservation.selected) {
-				smvo.bReservation = true;
-				smvo.reservationDate = sendReservation.label + ":00";
-			}else smvo.bReservation = false;
-			
-			if (sendInterval.selected) {
-				smvo.bInterval = true;
-				var arr:Array = sendInterval.label.split("/");
-				smvo.itCount = int(arr[0]);
-				smvo.itMinute = int(arr[1]);
-			}else smvo.bInterval = false;
-			
-			smvo.urlKey = urlKey;
-			
-			smvo.imagePath = this.mmsImage; 
-			smvo.message = msg;
-			smvo.returnPhone = rt.returnPhone;
-			smvo.al = alPhone;
-			
-			
-			RemoteSingleManager.getInstance.addEventListener("sendSMSconf", sendBtn_resultHandler, false, 0, true);
-			RemoteSingleManager.getInstance.callresponderToken 
-				= RemoteSingleManager.getInstance.service.sendSMSconf(smvo);
-			
-			createSending();
-			tracker("sendBtn_clickHandler");// tracker
 		}
 		private function sendBtn_resultHandler(event:CustomEvent):void {
+			
+			setTimeout(isSendingFasle,1000);
 			
 			RemoteSingleManager.getInstance.removeEventListener("sendSMSconf", sendBtn_resultHandler);
 			
@@ -1012,6 +1026,10 @@ package component
 					SLibrary.alert("발송 실패");
 			}
 			isValid();
+		}
+		
+		private function isSendingFasle():void {
+			isSending = false;
 		}
 		
 		/**
@@ -1427,10 +1445,10 @@ package component
 		}
 		private function FileUploadByRemoteObjectRESULTHandler(e:FileUploadByRemoteObjectEvent):void {
 			
-			var bvo:BooleanAndDescriptionVO = e.result as BooleanAndDescriptionVO;
+			var bvo:CommonVO = e.result as CommonVO;
 			
-			if (bvo.bResult) this.setPhoto(bvo.strDescription as String);
-			else SLibrary.alert(bvo.strDescription);
+			if (bvo.rslt) this.setPhoto(bvo.text as String);
+			else SLibrary.alert(bvo.text);
 			
 			destoryUpload();
 			
@@ -1567,16 +1585,16 @@ package component
 		}
 		private function sendDelmsg_changeHandler(event:Event):void {
 			if (sendDelmsg.selected) {
-				//CookieUtil.setCookie(SAVE_MSGDEL,"Y",365);
+				CookieUtil.setCookie(SAVE_MSGDEL,"Y",365);
 			}else {
-				//CookieUtil.deleteCookie(SAVE_MSGDEL);
+				CookieUtil.deleteCookie(SAVE_MSGDEL);
 			}
 		}
 		private function sendDelList_changeHandler(event:Event):void {
 			if (sendDelList.selected) {
-				//CookieUtil.setCookie(SAVE_LISTDEL,"Y",365);
+				CookieUtil.setCookie(SAVE_LISTDEL,"Y",365);
 			}else {
-				//CookieUtil.deleteCookie(SAVE_LISTDEL);
+				CookieUtil.deleteCookie(SAVE_LISTDEL);
 			}
 		}
 		private function sendClickAfter():void {

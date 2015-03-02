@@ -48,7 +48,7 @@
 				<s:Group width="100%">
 					<s:Rect left="0" right="0" top="0" bottom="0"  ><s:fill><s:SolidColor color="0xEEEEEE" /></s:fill></s:Rect>
 					<s:Rect right="0" top="0" bottom="0" width="1"  ><s:fill><s:SolidColor color="0xFFFFFF" /></s:fill></s:Rect>
-					<s:BitmapImage id="noSel" source="@Embed('skin/ics/assets/list_normal.png', scaleGridTop='1', scaleGridBottom='37', scaleGridLeft='1', scaleGridRight='17')" smooth="true"
+					<s:BitmapImage id="noSel" source="@Embed('/skin/ics/assets/list_normal.png', scaleGridTop='1', scaleGridBottom='37', scaleGridLeft='1', scaleGridRight='17')" smooth="true"
 								   width="18" right="1" top="0" bottom="0" visible="true"/>
 					
 					<s:VGroup width="100%" horizontalAlign="center" paddingBottom="10" paddingTop="10" paddingLeft="10" paddingRight="10">

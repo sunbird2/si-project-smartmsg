@@ -169,8 +169,7 @@ package lib
 		
 		public static function alert(msg:String):void {
 			
-			//ExternalInterface.call("alert", msg);
-			Alert.show(msg, "MN");
+			Alert.show(msg);
 		}
 		
 		public static function javascript(msg:String):void {
