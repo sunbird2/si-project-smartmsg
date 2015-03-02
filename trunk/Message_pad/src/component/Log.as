@@ -19,13 +19,9 @@ package component
 	import lib.SLibrary;
 	
 	import mx.charts.PieChart;
-	import mx.charts.chartClasses.Series;
 	import mx.charts.series.PieSeries;
 	import mx.collections.ArrayCollection;
-	import mx.collections.ArrayList;
 	import mx.collections.AsyncListView;
-	import mx.controls.DateField;
-	import mx.controls.dataGridClasses.DataGridColumn;
 	import mx.core.mx_internal;
 	import mx.events.FlexEvent;
 	import mx.events.ModuleEvent;
@@ -41,21 +37,17 @@ package component
 	import skin.LogSkin;
 	
 	import spark.components.Button;
-	import spark.components.DataGrid;
 	import spark.components.DropDownList;
 	import spark.components.HSlider;
 	import spark.components.Image;
 	import spark.components.Label;
 	import spark.components.List;
-	import spark.components.RichText;
 	import spark.components.TextArea;
-	import spark.components.gridClasses.GridColumn;
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
-	import spark.filters.DropShadowFilter;
 	import spark.modules.ModuleLoader;
 	
-	import valueObjects.BooleanAndDescriptionVO;
+	import valueObjects.CommonVO;
 	import valueObjects.LogVO;
 	import valueObjects.MessageVO;
 	import valueObjects.SentStatusVO;
@@ -285,9 +277,9 @@ package component
 		private function failAdd_resultHandler(event:CustomEvent):void {
 			
 			RemoteSingleManager.getInstance.removeEventListener("failAdd", getSentList_resultHandler);
-			var rslt:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
+			var rslt:CommonVO = event.result as CommonVO;
 			this.dispatchEvent(new Event(Log.FAIL_ADD));
-			SLibrary.alert(rslt.strDescription);
+			SLibrary.alert(rslt.text);
 			getDetailList();
 			
 		}
@@ -542,16 +534,16 @@ package component
 			if (data && data.length > 0) {
 				var suc:String = "";
 				var fail:String = "";
-				var bvo:BooleanAndDescriptionVO = null;
+				var bvo:CommonVO = null;
 				var cnt:int = data.length;
 				var line:String = "\\r\\n";;
 				for (var i:int = 0; i < cnt; i++) {
 					
-					bvo = data.getItemAt(i) as BooleanAndDescriptionVO;
-					if (bvo.bResult == true) {
-						suc +=bvo.strDescription+line;
+					bvo = data.getItemAt(i) as CommonVO;
+					if (bvo.rslt == true) {
+						suc +=bvo.text+line;
 					}else {
-						fail +=bvo.strDescription+line;
+						fail +=bvo.text+line;
 					}
 					
 				}
@@ -571,11 +563,11 @@ package component
 		private function deleteSent_resultHandler(event:CustomEvent):void {
 			
 			RemoteSingleManager.getInstance.removeEventListener("deleteSent", deleteSent_resultHandler);
-			var bvo:BooleanAndDescriptionVO = BooleanAndDescriptionVO(event.result);
-			if (bvo.bResult == true)
+			var bvo:CommonVO = CommonVO(event.result);
+			if (bvo.rslt == true)
 				acGroup.removeItemAt(groupList.selectedIndex);
 			
-			SLibrary.alert( BooleanAndDescriptionVO(event.result).strDescription );
+			SLibrary.alert( CommonVO(event.result).text );
 			
 			cstat = "normal";
 			acChart.removeAll();

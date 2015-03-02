@@ -61,8 +61,8 @@ public class _Super_StackTraceElement extends flash.events.EventDispatcher imple
     private var _internal_fileName : String;
     private var _internal_lineNumber : int;
     private var _internal_className : String;
-    private var _internal_nativeMethod : Boolean;
     private var _internal_methodName : String;
+    private var _internal_nativeMethod : Boolean;
 
     private static var emptyArray:Array = new Array();
 
@@ -105,15 +105,15 @@ public class _Super_StackTraceElement extends flash.events.EventDispatcher imple
     }
 
     [Bindable(event="propertyChange")]
-    public function get nativeMethod() : Boolean
-    {
-        return _internal_nativeMethod;
-    }
-
-    [Bindable(event="propertyChange")]
     public function get methodName() : String
     {
         return _internal_methodName;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get nativeMethod() : Boolean
+    {
+        return _internal_nativeMethod;
     }
 
     public function clearAssociations() : void
@@ -154,16 +154,6 @@ public class _Super_StackTraceElement extends flash.events.EventDispatcher imple
         }
     }
 
-    public function set nativeMethod(value:Boolean) : void
-    {
-        var oldValue:Boolean = _internal_nativeMethod;
-        if (oldValue !== value)
-        {
-            _internal_nativeMethod = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "nativeMethod", oldValue, _internal_nativeMethod));
-        }
-    }
-
     public function set methodName(value:String) : void
     {
         var oldValue:String = _internal_methodName;
@@ -171,6 +161,16 @@ public class _Super_StackTraceElement extends flash.events.EventDispatcher imple
         {
             _internal_methodName = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "methodName", oldValue, _internal_methodName));
+        }
+    }
+
+    public function set nativeMethod(value:Boolean) : void
+    {
+        var oldValue:Boolean = _internal_nativeMethod;
+        if (oldValue !== value)
+        {
+            _internal_nativeMethod = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "nativeMethod", oldValue, _internal_nativeMethod));
         }
     }
 

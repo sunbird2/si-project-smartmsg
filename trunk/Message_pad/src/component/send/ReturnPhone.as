@@ -20,7 +20,7 @@ package component.send
 	import spark.components.List;
 	import spark.events.IndexChangeEvent;
 	
-	import valueObjects.BooleanAndDescriptionVO;
+	import valueObjects.CommonVO;
 
 	public class ReturnPhone
 	{
@@ -106,8 +106,8 @@ package component.send
 			
 			RemoteSingleManager.getInstance.removeEventListener("setReturnPhone", callbackSave_resultHandler);
 			
-			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bvo.bResult) {
+			var bvo:CommonVO = event.result as CommonVO;
+			if (bvo.rslt) {
 				SLibrary.alert("저장되었습니다.");
 				getReturnPhone();
 			}else {
@@ -126,8 +126,8 @@ package component.send
 		public function callbackUp_resultHandler(event:CustomEvent):void {
 			
 			RemoteSingleManager.getInstance.removeEventListener("setReturnPhoneTimeWrite", callbackUp_resultHandler);
-			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bvo.bResult) {
+			var bvo:CommonVO = event.result as CommonVO;
+			if (bvo.rslt) {
 				SLibrary.alert("설정되었습니다.");
 				getReturnPhone();
 			}else {
@@ -146,8 +146,8 @@ package component.send
 		public function callbackDelete_resultHandler(event:CustomEvent):void {
 			
 			RemoteSingleManager.getInstance.removeEventListener("deleteReturnPhone", callbackDelete_resultHandler);
-			var bvo:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bvo.bResult) {
+			var bvo:CommonVO = event.result as CommonVO;
+			if (bvo.rslt) {
 				SLibrary.alert("삭제되었습니다.");
 				getReturnPhone();
 			}else {

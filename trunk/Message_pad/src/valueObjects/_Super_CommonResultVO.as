@@ -1,6 +1,6 @@
 /**
  * This is a generated class and is not intended for modification.  To customize behavior
- * of this value object you may modify the generated sub-class of this class - AddressVO.as.
+ * of this value object you may modify the generated sub-class of this class - CommonResultVO.as.
  */
 
 package valueObjects
@@ -20,20 +20,20 @@ import com.adobe.fiber.valueobjects.AvailablePropertyIterator;
 use namespace model_internal;
 
 [ExcludeClass]
-public class _Super_AddressVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
+public class _Super_CommonResultVO extends flash.events.EventDispatcher implements com.adobe.fiber.valueobjects.IValueObject
 {
     model_internal static function initRemoteClassAliasSingle(cz:Class) : void
     {
         try
         {
-            if (flash.net.getClassByAlias("com.m.address.AddressVO") == null)
+            if (flash.net.getClassByAlias("com.m.common.CommonResultVO") == null)
             {
-                flash.net.registerClassAlias("com.m.address.AddressVO", cz);
+                flash.net.registerClassAlias("com.m.common.CommonResultVO", cz);
             }
         }
         catch (e:Error)
         {
-            flash.net.registerClassAlias("com.m.address.AddressVO", cz);
+            flash.net.registerClassAlias("com.m.common.CommonResultVO", cz);
         }
     }
 
@@ -41,7 +41,7 @@ public class _Super_AddressVO extends flash.events.EventDispatcher implements co
     {
     }
 
-    model_internal var _dminternal_model : _AddressVOEntityMetadata;
+    model_internal var _dminternal_model : _CommonResultVOEntityMetadata;
     model_internal var _changedObjects:mx.collections.ArrayCollection = new ArrayCollection();
 
     public function getChangedObjects() : Array
@@ -58,15 +58,11 @@ public class _Super_AddressVO extends flash.events.EventDispatcher implements co
     /**
      * properties
      */
-    private var _internal_grpName : String;
-    private var _internal_writedate : String;
-    private var _internal_phone : String;
-    private var _internal_grp : int;
-    private var _internal_idx : int;
-    private var _internal_memo : String;
-    private var _internal_name : String;
-    private var _internal_user_id : String;
-    private var _internal_etcInfo : String;
+    private var _internal_text : String;
+    private var _internal_rslt : Boolean;
+    private var _internal_map : Object;
+    private var _internal_list : ArrayCollection;
+    private var _internal_code : int;
 
     private static var emptyArray:Array = new Array();
 
@@ -78,9 +74,9 @@ public class _Super_AddressVO extends flash.events.EventDispatcher implements co
 
     model_internal var _changeWatcherArray:Array = new Array();
 
-    public function _Super_AddressVO()
+    public function _Super_CommonResultVO()
     {
-        _model = new _AddressVOEntityMetadata(this);
+        _model = new _CommonResultVOEntityMetadata(this);
 
         // Bind to own data or source properties for cache invalidation triggering
 
@@ -91,57 +87,33 @@ public class _Super_AddressVO extends flash.events.EventDispatcher implements co
      */
 
     [Bindable(event="propertyChange")]
-    public function get grpName() : String
+    public function get text() : String
     {
-        return _internal_grpName;
+        return _internal_text;
     }
 
     [Bindable(event="propertyChange")]
-    public function get writedate() : String
+    public function get rslt() : Boolean
     {
-        return _internal_writedate;
+        return _internal_rslt;
     }
 
     [Bindable(event="propertyChange")]
-    public function get phone() : String
+    public function get map() : Object
     {
-        return _internal_phone;
+        return _internal_map;
     }
 
     [Bindable(event="propertyChange")]
-    public function get grp() : int
+    public function get list() : ArrayCollection
     {
-        return _internal_grp;
+        return _internal_list;
     }
 
     [Bindable(event="propertyChange")]
-    public function get idx() : int
+    public function get code() : int
     {
-        return _internal_idx;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get memo() : String
-    {
-        return _internal_memo;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get name() : String
-    {
-        return _internal_name;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get user_id() : String
-    {
-        return _internal_user_id;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get etcInfo() : String
-    {
-        return _internal_etcInfo;
+        return _internal_code;
     }
 
     public function clearAssociations() : void
@@ -152,93 +124,68 @@ public class _Super_AddressVO extends flash.events.EventDispatcher implements co
      * data/source property setters
      */
 
-    public function set grpName(value:String) : void
+    public function set text(value:String) : void
     {
-        var oldValue:String = _internal_grpName;
+        var oldValue:String = _internal_text;
         if (oldValue !== value)
         {
-            _internal_grpName = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "grpName", oldValue, _internal_grpName));
+            _internal_text = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "text", oldValue, _internal_text));
         }
     }
 
-    public function set writedate(value:String) : void
+    public function set rslt(value:Boolean) : void
     {
-        var oldValue:String = _internal_writedate;
+        var oldValue:Boolean = _internal_rslt;
         if (oldValue !== value)
         {
-            _internal_writedate = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "writedate", oldValue, _internal_writedate));
+            _internal_rslt = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "rslt", oldValue, _internal_rslt));
         }
     }
 
-    public function set phone(value:String) : void
+    public function set map(value:Object) : void
     {
-        var oldValue:String = _internal_phone;
+        var oldValue:Object = _internal_map;
         if (oldValue !== value)
         {
-            _internal_phone = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "phone", oldValue, _internal_phone));
+            _internal_map = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "map", oldValue, _internal_map));
         }
     }
 
-    public function set grp(value:int) : void
+    public function set list(value:*) : void
     {
-        var oldValue:int = _internal_grp;
+        var oldValue:ArrayCollection = _internal_list;
         if (oldValue !== value)
         {
-            _internal_grp = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "grp", oldValue, _internal_grp));
+            if (value is ArrayCollection)
+            {
+                _internal_list = value;
+            }
+            else if (value is Array)
+            {
+                _internal_list = new ArrayCollection(value);
+            }
+            else if (value == null)
+            {
+                _internal_list = null;
+            }
+            else
+            {
+                throw new Error("value of list must be a collection");
+            }
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "list", oldValue, _internal_list));
         }
     }
 
-    public function set idx(value:int) : void
+    public function set code(value:int) : void
     {
-        var oldValue:int = _internal_idx;
+        var oldValue:int = _internal_code;
         if (oldValue !== value)
         {
-            _internal_idx = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "idx", oldValue, _internal_idx));
-        }
-    }
-
-    public function set memo(value:String) : void
-    {
-        var oldValue:String = _internal_memo;
-        if (oldValue !== value)
-        {
-            _internal_memo = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "memo", oldValue, _internal_memo));
-        }
-    }
-
-    public function set name(value:String) : void
-    {
-        var oldValue:String = _internal_name;
-        if (oldValue !== value)
-        {
-            _internal_name = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "name", oldValue, _internal_name));
-        }
-    }
-
-    public function set user_id(value:String) : void
-    {
-        var oldValue:String = _internal_user_id;
-        if (oldValue !== value)
-        {
-            _internal_user_id = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "user_id", oldValue, _internal_user_id));
-        }
-    }
-
-    public function set etcInfo(value:String) : void
-    {
-        var oldValue:String = _internal_etcInfo;
-        if (oldValue !== value)
-        {
-            _internal_etcInfo = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "etcInfo", oldValue, _internal_etcInfo));
+            _internal_code = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "code", oldValue, _internal_code));
         }
     }
 
@@ -302,14 +249,14 @@ public class _Super_AddressVO extends flash.events.EventDispatcher implements co
 
     [Transient]
     [Bindable(event="propertyChange")]
-    public function get _model() : _AddressVOEntityMetadata
+    public function get _model() : _CommonResultVOEntityMetadata
     {
         return model_internal::_dminternal_model;
     }
 
-    public function set _model(value : _AddressVOEntityMetadata) : void
+    public function set _model(value : _CommonResultVOEntityMetadata) : void
     {
-        var oldValue : _AddressVOEntityMetadata = model_internal::_dminternal_model;
+        var oldValue : _CommonResultVOEntityMetadata = model_internal::_dminternal_model;
         if (oldValue !== value)
         {
             model_internal::_dminternal_model = value;

@@ -64,13 +64,13 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
     private var _internal_al : ArrayCollection;
     model_internal var _internal_al_leaf:valueObjects.PhoneVO;
     private var _internal_itMinute : int;
-    private var _internal_imagePath : String;
-    private var _internal_itCount : int;
     private var _internal_bMerge : Boolean;
-    private var _internal_bReservation : Boolean;
+    private var _internal_itCount : int;
+    private var _internal_imagePath : String;
     private var _internal_returnPhone : String;
-    private var _internal_reservationDate : String;
+    private var _internal_bReservation : Boolean;
     private var _internal_bInterval : Boolean;
+    private var _internal_reservationDate : String;
     private var _internal_urlKey : int;
     private var _internal_reqIP : String;
 
@@ -115,9 +115,9 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
     }
 
     [Bindable(event="propertyChange")]
-    public function get imagePath() : String
+    public function get bMerge() : Boolean
     {
-        return _internal_imagePath;
+        return _internal_bMerge;
     }
 
     [Bindable(event="propertyChange")]
@@ -127,15 +127,9 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
     }
 
     [Bindable(event="propertyChange")]
-    public function get bMerge() : Boolean
+    public function get imagePath() : String
     {
-        return _internal_bMerge;
-    }
-
-    [Bindable(event="propertyChange")]
-    public function get bReservation() : Boolean
-    {
-        return _internal_bReservation;
+        return _internal_imagePath;
     }
 
     [Bindable(event="propertyChange")]
@@ -145,15 +139,21 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
     }
 
     [Bindable(event="propertyChange")]
-    public function get reservationDate() : String
+    public function get bReservation() : Boolean
     {
-        return _internal_reservationDate;
+        return _internal_bReservation;
     }
 
     [Bindable(event="propertyChange")]
     public function get bInterval() : Boolean
     {
         return _internal_bInterval;
+    }
+
+    [Bindable(event="propertyChange")]
+    public function get reservationDate() : String
+    {
+        return _internal_reservationDate;
     }
 
     [Bindable(event="propertyChange")]
@@ -221,13 +221,13 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
         }
     }
 
-    public function set imagePath(value:String) : void
+    public function set bMerge(value:Boolean) : void
     {
-        var oldValue:String = _internal_imagePath;
+        var oldValue:Boolean = _internal_bMerge;
         if (oldValue !== value)
         {
-            _internal_imagePath = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "imagePath", oldValue, _internal_imagePath));
+            _internal_bMerge = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "bMerge", oldValue, _internal_bMerge));
         }
     }
 
@@ -241,23 +241,13 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
         }
     }
 
-    public function set bMerge(value:Boolean) : void
+    public function set imagePath(value:String) : void
     {
-        var oldValue:Boolean = _internal_bMerge;
+        var oldValue:String = _internal_imagePath;
         if (oldValue !== value)
         {
-            _internal_bMerge = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "bMerge", oldValue, _internal_bMerge));
-        }
-    }
-
-    public function set bReservation(value:Boolean) : void
-    {
-        var oldValue:Boolean = _internal_bReservation;
-        if (oldValue !== value)
-        {
-            _internal_bReservation = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "bReservation", oldValue, _internal_bReservation));
+            _internal_imagePath = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "imagePath", oldValue, _internal_imagePath));
         }
     }
 
@@ -271,13 +261,13 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
         }
     }
 
-    public function set reservationDate(value:String) : void
+    public function set bReservation(value:Boolean) : void
     {
-        var oldValue:String = _internal_reservationDate;
+        var oldValue:Boolean = _internal_bReservation;
         if (oldValue !== value)
         {
-            _internal_reservationDate = value;
-            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "reservationDate", oldValue, _internal_reservationDate));
+            _internal_bReservation = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "bReservation", oldValue, _internal_bReservation));
         }
     }
 
@@ -288,6 +278,16 @@ public class _Super_SendMessageVO extends flash.events.EventDispatcher implement
         {
             _internal_bInterval = value;
             this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "bInterval", oldValue, _internal_bInterval));
+        }
+    }
+
+    public function set reservationDate(value:String) : void
+    {
+        var oldValue:String = _internal_reservationDate;
+        if (oldValue !== value)
+        {
+            _internal_reservationDate = value;
+            this.dispatchEvent(mx.events.PropertyChangeEvent.createUpdateEvent(this, "reservationDate", oldValue, _internal_reservationDate));
         }
     }
 

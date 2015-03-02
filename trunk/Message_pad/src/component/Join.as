@@ -27,7 +27,7 @@ package component
 	import spark.components.TextInput;
 	import spark.components.supportClasses.SkinnableComponent;
 	
-	import valueObjects.BooleanAndDescriptionVO;
+	import valueObjects.CommonVO;
 	
 	
 	[Event(name="complete", type="flash.events.Event")]
@@ -238,8 +238,8 @@ package component
 		private function idCheck_CustomEventHandler(event:CustomEvent):void {
 			
 			RemoteSingleManager.getInstance.removeEventListener("checkID", idCheck_CustomEventHandler);
-			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bVO.bResult) {
+			var bVO:CommonVO = event.result as CommonVO;
+			if (bVO.rslt) {
 				useridh.setStyle("color",VALID_COLOR);
 				useridh.text = "확인";
 			} else {
@@ -356,8 +356,8 @@ package component
 		private function certBtn_CustomEventHandler(event:CustomEvent):void {
 			
 			RemoteSingleManager.getInstance.removeEventListener("sendCert", idCheck_CustomEventHandler);
-			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bVO.bResult) {
+			var bVO:CommonVO = event.result as CommonVO;
+			if (bVO.rslt) {
 				tracker("joinCertSend");
 				certh.setStyle("color",INVALID_COLOR);
 				certh.text = "인증번호를 입력해 주세요.";
@@ -367,7 +367,7 @@ package component
 				
 			} else {
 				certh.setStyle("color",INVALID_COLOR);
-				certh.text = bVO.strDescription;
+				certh.text = bVO.text;
 			}
 		}
 		
@@ -412,8 +412,8 @@ package component
 		private function certCheck_CustomEventHandler(event:CustomEvent):void {
 			
 			RemoteSingleManager.getInstance.removeEventListener("getCert", certCheck_CustomEventHandler);
-			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bVO.bResult) {
+			var bVO:CommonVO = event.result as CommonVO;
+			if (bVO.rslt) {
 				tracker("joinCertOk");
 				certh.setStyle("color",VALID_COLOR);
 				certh.text = "확인";
@@ -455,8 +455,8 @@ package component
 		private function next2_resultHandler(event:CustomEvent):void {
 			
 			RemoteSingleManager.getInstance.removeEventListener("join", next2_resultHandler);
-			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bVO.bResult) {
+			var bVO:CommonVO = event.result as CommonVO;
+			if (bVO.rslt) {
 				tracker("joinComplete");
 				step = 2;
 				invalidateSkinState();

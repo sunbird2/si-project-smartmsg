@@ -3,20 +3,8 @@ package component
 	/* For guidance on writing an ActionScript Skinnable Component please refer to the Flex documentation: 
 	www.adobe.com/go/actionscriptskinnablecomponents */
 	
-	import component.util.CustomToolTip;
-	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	
-	import flashx.textLayout.elements.LinkElement;
-	import flashx.textLayout.elements.SpanElement;
-	import flashx.textLayout.events.FlowElementMouseEvent;
-	
-	import lib.CookieUtil;
-	import lib.CustomEvent;
-	import lib.Gv;
-	import lib.RemoteSingleManager;
-	import lib.SLibrary;
 	
 	import mx.events.FlexEvent;
 	import mx.events.IndexChangedEvent;
@@ -31,7 +19,20 @@ package component
 	import spark.components.supportClasses.SkinnableComponent;
 	import spark.events.IndexChangeEvent;
 	
-	import valueObjects.BooleanAndDescriptionVO;
+	import component.util.CustomToolTip;
+	
+	import flashx.textLayout.elements.LinkElement;
+	import flashx.textLayout.elements.SpanElement;
+	import flashx.textLayout.events.FlowElementMouseEvent;
+	
+	import lib.CookieUtil;
+	import lib.CustomEvent;
+	import lib.Gv;
+	import lib.RemoteSingleManager;
+	import lib.SLibrary;
+	
+	import valueObjects.CommonVO;
+	import valueObjects.CommonVO;
 	import valueObjects.UserInformationVO;
 	
 	[Event(name="login", type="flash.events.Event")]
@@ -173,8 +174,8 @@ package component
 		 * */
 		private function login_resultHandler(event:CustomEvent):void {
 			
-			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bVO.bResult) {
+			var bVO:CommonVO = event.result as CommonVO;
+			if (bVO.rslt) {
 				user_pw.text = "";
 				login_check();
 				
@@ -198,8 +199,8 @@ package component
 		 * */
 		private function logout_resultHandler(event:CustomEvent):void {
 			
-			var bVO:BooleanAndDescriptionVO = event.result as BooleanAndDescriptionVO;
-			if (bVO.bResult) {
+			var bVO:CommonVO = event.result as CommonVO;
+			if (bVO.rslt) {
 				Gv.bLogin = false;
 				cstat = "logout";
 				invalidateSkinState();
