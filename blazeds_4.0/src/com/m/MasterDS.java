@@ -15,7 +15,7 @@ import com.m.admin.vo.SentLogVO;
 import com.m.admin.vo.StatusVO;
 import com.m.billing.Billing;
 import com.m.billing.BillingVO;
-import com.m.common.BooleanAndDescriptionVO;
+import com.m.common.CommonVO;
 import com.m.common.PointManager;
 import com.m.point.Point;
 import com.m.point.PointDAO;
@@ -31,23 +31,23 @@ public class MasterDS {
 	
 	
 	// login
-	public BooleanAndDescriptionVO login(String user_id, String password) {
+	public CommonVO login(String user_id, String password) {
 
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		CommonVO rvo = new CommonVO();
 
 		try {
-			rvo.setbResult(false);
-			if ( SLibrary.isNull(user_id) )	rvo.setstrDescription("아이디를 입력하세요.");
-			else if ( SLibrary.isNull(password) ) rvo.setstrDescription("비밀번호를 입력하세요.");
+			rvo.setRslt(false);
+			if ( SLibrary.isNull(user_id) )	rvo.setText("아이디를 입력하세요.");
+			else if ( SLibrary.isNull(password) ) rvo.setText("비밀번호를 입력하세요.");
 			else {
 				
 				if (VbyP.getValue("admin.id").equals(user_id) && VbyP.getValue("admin.pw").equals(password)) {
 					FlexSession session =  FlexContext.getFlexSession();
 					session.setAttribute(SESSION_ADMIN, user_id);
 					VbyP.accessLog(user_id+" Admin Login");
-					rvo.setbResult(true);
+					rvo.setRslt(true);
 				} else {
-					rvo.setstrDescription("않되요.");
+					rvo.setText("않되요.");
 				}
 				
 			}
@@ -56,10 +56,10 @@ public class MasterDS {
 		return rvo;
 	}
 
-    public BooleanAndDescriptionVO isLogin() {
-        BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-        if (bSession()) { rvo.setbResult(true); }
-        else { rvo.setbResult(false); }
+    public CommonVO isLogin() {
+        CommonVO rvo = new CommonVO();
+        if (bSession()) { rvo.setRslt(true); }
+        else { rvo.setRslt(false); }
         return rvo;
     }
 
@@ -105,16 +105,16 @@ public class MasterDS {
 	}
 	
 	// member update
-	public BooleanAndDescriptionVO setMember(MemberVO mvo) {
+	public CommonVO setMember(MemberVO mvo) {
 
         if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
 
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		SessionManager sm = new SessionManager(sqlMapper.openSession(true));
 		int rslt = sm.update(ns + "update_member", mvo);
 		
-		if (rslt > 0) bvo.setbResult(true);
-		else bvo.setbResult(false);
+		if (rslt > 0) bvo.setRslt(true);
+		else bvo.setRslt(false);
 		
 		return bvo;
 
@@ -179,14 +179,14 @@ public class MasterDS {
 
 	
 	// bill add
-	public BooleanAndDescriptionVO setCharge(String user_id, int amount, int point) {
+	public CommonVO setCharge(String user_id, int amount, int point) {
 		
 		VbyP.accessLog("setCharge : user_id"+user_id+" amount="+amount+" point="+point);
 
         if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
 
 		Billing billing = Billing.getInstance();
-		BooleanAndDescriptionVO bavo = new BooleanAndDescriptionVO();
+		CommonVO bavo = new CommonVO();
 		
 		MemberVO mvo = getMember(user_id); 
 		
@@ -208,8 +208,8 @@ public class MasterDS {
 			Point pdao = new PointDAO();
 			int rslt = pdao.setPoint(mvo, 3, point * PointManager.DEFULT_POINT);
 			if (rslt != 1) {
-				bavo.setbResult(false);
-				bavo.setstrDescription("pointdao fail");
+				bavo.setRslt(false);
+				bavo.setText("pointdao fail");
 			}
 				
 		}
@@ -219,14 +219,14 @@ public class MasterDS {
 	}
 	
 	// bill add
-	public BooleanAndDescriptionVO setChargeAuto(String user_id, int amount) {
+	public CommonVO setChargeAuto(String user_id, int amount) {
 		
 		VbyP.accessLog("setCharge : user_id"+user_id+" amount="+amount);
 
         if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
 
 		Billing billing = Billing.getInstance();
-		BooleanAndDescriptionVO bavo = new BooleanAndDescriptionVO();
+		CommonVO bavo = new CommonVO();
 		
 		MemberVO mvo = getMember(user_id);
 		
@@ -256,10 +256,10 @@ public class MasterDS {
 			Point pdao = new PointDAO();
 			int rslt = pdao.setPoint(mvo, 3, point * PointManager.DEFULT_POINT);
 			if (rslt != 1) {
-				bavo.setbResult(false);
-				bavo.setstrDescription("pointdao fail");
+				bavo.setRslt(false);
+				bavo.setText("pointdao fail");
 			} else {
-				bavo.setbResult(true);
+				bavo.setRslt(true);
 			}
 				
 		}
@@ -327,16 +327,16 @@ public class MasterDS {
 	}
 	
 	// stop Member
-	public BooleanAndDescriptionVO setMemberStop(MemberVO mvo) {
+	public CommonVO setMemberStop(MemberVO mvo) {
 
         if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		
 		String stopId = SLibrary.IfNull(VbyP.getValue("STOP_SEND_ID"));
 		VbyP.setProperties("STOP_SEND_ID", stopId+","+mvo.getUser_id());
 		
-		bvo.setbResult(true);
-		bvo.setstrDescription(SLibrary.IfNull(VbyP.getValue("STOP_SEND_ID")));
+		bvo.setRslt(true);
+		bvo.setText(SLibrary.IfNull(VbyP.getValue("STOP_SEND_ID")));
 		
 		
 		return bvo;
@@ -344,10 +344,10 @@ public class MasterDS {
 	}
 	
 	// stop sent
-	public BooleanAndDescriptionVO setStopSend() {
+	public CommonVO setStopSend() {
 
         if (!bSession()) { VbyP.accessLog("admin no session"); return null; }
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		
 		String stop = SLibrary.IfNull(VbyP.getValue("STOP_SEND"));
 		
@@ -359,8 +359,8 @@ public class MasterDS {
 		
 		VbyP.setProperties("STOP_SEND", flag);
 		
-		bvo.setbResult(true);
-		bvo.setstrDescription(flag);
+		bvo.setRslt(true);
+		bvo.setText(flag);
 		
 		
 		return bvo;

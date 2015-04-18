@@ -21,7 +21,7 @@ public class UserInformationVO implements Serializable {
 		user_id = SLibrary.IfNull(hm, "user_id");
 		line = SLibrary.IfNull(hm, "line");
 		point = SLibrary.IfNull(hm, "point");
-		levaeYN = SLibrary.IfNull(hm, "levaeYN");
+		levaeYN = SLibrary.IfNull(hm, "leaveYN");
 		hp = SLibrary.IfNull(hm, "hp");
 		unit_cost = SLibrary.intValue(SLibrary.IfNull(hm, "unit_cost"));
 	}

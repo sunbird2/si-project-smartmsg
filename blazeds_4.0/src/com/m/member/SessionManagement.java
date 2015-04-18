@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import com.common.VbyP;
 import com.common.db.PreparedExecuteQueryManager;
 import com.common.util.SLibrary;
-import com.m.common.BooleanAndDescriptionVO;
+import com.m.common.CommonVO;
 import com.m.common.PointManager;
 
 import flex.messaging.FlexSession;
@@ -153,10 +153,10 @@ public class SessionManagement {
 			return false;
 	}
 	
-	public BooleanAndDescriptionVO createSession(Connection conn, String user_id, String password) {
+	public CommonVO createSession(Connection conn, String user_id, String password) {
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(false);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(false);
 		
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
 		pq.setPrepared( conn, VbyP.getSQL("login") );
@@ -167,23 +167,23 @@ public class SessionManagement {
 		
 		if (rslt != 1) {
 			
-			rvo.setstrDescription("login fail!");
+			rvo.setText("login fail!");
 		}else {
 			
-			rvo.setbResult(true);
+			rvo.setRslt(true);
 		}
 		
-		if (rvo.getbResult())
+		if (rvo.isRslt())
 			this.setSession(user_id);
 		
 		
 		return rvo;
 	}
 	
-	public BooleanAndDescriptionVO loginSuper(Connection conn, String user_id, String password) {
+	public CommonVO loginSuper(Connection conn, String user_id, String password) {
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(false);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(false);
 		
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
 		
@@ -195,23 +195,23 @@ public class SessionManagement {
 		
 		if (rslt != 1) {
 			
-			rvo.setstrDescription("bad login!");
+			rvo.setText("bad login!");
 		}else {
 			
-			rvo.setbResult(true);
+			rvo.setRslt(true);
 		}
 		
-		if (rvo.getbResult())
+		if (rvo.isRslt())
 			this.setSession(user_id);
 		
 		
 		return rvo;
 	}
 	
-	public BooleanAndDescriptionVO loginAdmin(Connection conn, String user_id, String password) {
+	public CommonVO loginAdmin(Connection conn, String user_id, String password) {
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(false);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(false);
 		
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
 		pq.setPrepared( conn, VbyP.getSQL("loginAdmin") );
@@ -222,13 +222,13 @@ public class SessionManagement {
 		
 		if (rslt != 1) {
 			
-			rvo.setstrDescription("");
+			rvo.setText("");
 		}else {
 			
-			rvo.setbResult(true);
+			rvo.setRslt(true);
 		}
 		
-		if (rvo.getbResult())
+		if (rvo.isRslt())
 			this.setSessionAdmin(user_id);
 		
 		

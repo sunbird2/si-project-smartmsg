@@ -1,5 +1,5 @@
 /** 
-* <B>readProperties Class</B>´Â ½Ã½ºÅÛ ÇÁ·ÎÆÛÆ¼¸¦ ÀÐ¾î ¿É´Ï´Ù. </br>
+* <B>readProperties Class</B>ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½Ð¾ï¿½ ï¿½É´Ï´ï¿½. </br>
 * @author si hoon 
 * @version 1.0 2008.10
 */
@@ -32,7 +32,7 @@ public class ReadProperties implements ReadPropertiesAble
 		
 		
 		/**
-		 * common.properties ÆÄÀÏÀÌ ¾øÀ» °æ¿ì »ý¼ºÇÑ´Ù.
+		 * common.properties ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½.
 		 */
 		public void createProperties(String fileName) {
 			
@@ -40,45 +40,45 @@ public class ReadProperties implements ReadPropertiesAble
 			
 			try {
 				new BufferedWriter(new FileWriter(path+fileName));
-				initProperties(fileName);//±âº»¼³Á¤
+				initProperties(fileName);//ï¿½âº»ï¿½ï¿½ï¿½ï¿½
 			}catch(Exception e){				
-				System.out.println("¼³Á¤ÆÄÀÏ »ý¼º¿¡ ½ÇÆÐ ÇÏ¿´½À´Ï´Ù. ->"+e.toString());
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ->"+e.toString());
 			}
 		}
 		
 		/**
-		 * common.properties¿¡ ±âº»¼Ó¼ºµéÀ» ¼³Á¤
+		 * common.propertiesï¿½ï¿½ ï¿½âº»ï¿½Ó¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		 */
 		public void initProperties(String fileName) {
 			
 			if ( fileName != null && fileName.equals(COMMON_PROPERTIES)) {
-				setProperties("service" , "on");//À¥¼­ºñ½º »ç¿ë¿©ºÎ			
-				setProperties("host" , "");//È£½ºÆ® URL			
-				setProperties("debugLog" , "Y");//µð¹ö±× ·Î±× »ç¿ë
+				setProperties("service" , "on");//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ë¿©ï¿½ï¿½			
+				setProperties("host" , "");//È£ï¿½ï¿½Æ® URL			
+				setProperties("debugLog" , "Y");//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ ï¿½ï¿½ï¿½
 				setProperties("debugLogPath" , "");			
-				setProperties("errorLog" , "Y");//¿¡·¯ ·Î±× »ç¿ë
+				setProperties("errorLog" , "Y");//ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ ï¿½ï¿½ï¿½
 				setProperties("errorLogPath" , "");			
-				setProperties("getParameterDecode" , "");//GET¹æ½Ä ÀÎÄÚµù			
-				setProperties("postParameterDecode" , "");//POST¹æ½Ä ÀÎÄÚµù			
-				setProperties("fileDecode" , "");//ÆÄÀÏ ´Ù¿î·Îµå ÀÎÄÚµù			
-				setProperties("dbInsertDecode" , "");//DB Insert ÀÎÄÚµù			
-				setProperties("dbSelectDecode" , "");//DB Select ÀÎÄÚµù			
-				setProperties("was" , "tomcat");//WAS Á¾·ù
+				setProperties("getParameterDecode" , "");//GETï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½			
+				setProperties("postParameterDecode" , "");//POSTï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½			
+				setProperties("fileDecode" , "");//ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½Îµï¿½ ï¿½ï¿½ï¿½Úµï¿½			
+				setProperties("dbInsertDecode" , "");//DB Insert ï¿½ï¿½ï¿½Úµï¿½			
+				setProperties("dbSelectDecode" , "");//DB Select ï¿½ï¿½ï¿½Úµï¿½			
+				setProperties("was" , "tomcat");//WAS ï¿½ï¿½ï¿½ï¿½
 				setProperties("JNDI" , "java:/comp/env");//JNDI resource
-				setProperties("DataSource" , "jdbc/Oracle");//DataSource ¸í
-				setProperties("max_size_excel_upload_MB","10");//¿¢¼¿·Î´õ ¾÷·Îµå ÆÄÀÏ Å©±â
-				setProperties("excel_content_type", "application/vnd.ms-excel|application/octet-stream");//¿¢¼¿ ÆÄÀÏ Çü½Ä
-				setProperties("excel_upload","");//¿¢¼¿¾÷·Îµå °æ·Î
+				setProperties("DataSource" , "jdbc/Oracle");//DataSource ï¿½ï¿½
+				setProperties("max_size_excel_upload_MB","10");//ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½
+				setProperties("excel_content_type", "application/vnd.ms-excel|application/octet-stream");//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+				setProperties("excel_upload","");//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½
 				
-				setProperties("mmsimage_upload_path","");//MMSÀÌ¹ÌÁö ¾÷·Îµå °æ·Î
-				setProperties("mmsimage_content_type","");//MMSÀÌ¹ÌÁö ÆÄÀÏ Å¸ÀÔ
-				setProperties("max_size_mmsimage_upload_MB","");//MMSÃÖ´ë ¿ë·®
+				setProperties("mmsimage_upload_path","");//MMSï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½
+				setProperties("mmsimage_content_type","");//MMSï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
+				setProperties("max_size_mmsimage_upload_MB","");//MMSï¿½Ö´ï¿½ ï¿½ë·®
 			}
 			
 		}
 		
 		/**
-		 * ½º·¹µå¿¡¼­ ¼³Á¤ÆÄÀÏÀÇ °æ·Î ½Àµæ
+		 * ï¿½ï¿½ï¿½ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		 * @param file
 		 * @return
 		 * @throws NullPointerException
@@ -87,7 +87,7 @@ public class ReadProperties implements ReadPropertiesAble
 			
 			String path = "";
 			ClassLoader cl;
-			//WEB-INF/classes À§Ä¡¸¦ Ã£´Â´Ù.
+			//WEB-INF/classes ï¿½ï¿½Ä¡ï¿½ï¿½ Ã£ï¿½Â´ï¿½.
 			cl = Thread.currentThread().getContextClassLoader();
 			if (cl == null)	cl = ClassLoader.getSystemClassLoader();			
 			
@@ -96,7 +96,7 @@ public class ReadProperties implements ReadPropertiesAble
 			try {
 				
 				String OS = System.getProperty("os.name");
-				if (Pattern.matches("Windows.*", OS)) {//À©µµ¿ì¿ë
+				if (Pattern.matches("Windows.*", OS)) {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					
 					String windowPath = url.getPath();			
 					path = windowPath.substring(1,windowPath.length());	
@@ -107,7 +107,7 @@ public class ReadProperties implements ReadPropertiesAble
 					path = url.getPath();				
 				}
 			}catch(NullPointerException e) {
-				System.out.println(HeadDir+"°¡ ¾ø½À´Ï´Ù."+e.toString());
+				System.out.println(HeadDir+"ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."+e.toString());
 				throw e;
 			}
 			
@@ -115,7 +115,7 @@ public class ReadProperties implements ReadPropertiesAble
 		}
 		
 		/**
-		 * ½º·¹µå¿¡¼­ ¼³Á¤ÆÄÀÏÀÇ °æ·Î ½Àµæ
+		 * ï¿½ï¿½ï¿½ï¿½ï¿½å¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		 * @param file
 		 * @return
 		 * @throws NullPointerException
@@ -124,7 +124,7 @@ public class ReadProperties implements ReadPropertiesAble
 			
 			String path = "";
 			ClassLoader cl;
-			//WEB-INF/classes À§Ä¡¸¦ Ã£´Â´Ù.
+			//WEB-INF/classes ï¿½ï¿½Ä¡ï¿½ï¿½ Ã£ï¿½Â´ï¿½.
 			cl = Thread.currentThread().getContextClassLoader();
 			if (cl == null)	cl = ClassLoader.getSystemClassLoader();			
 			
@@ -133,7 +133,7 @@ public class ReadProperties implements ReadPropertiesAble
 			try {
 				
 				String OS = System.getProperty("os.name");
-				if (Pattern.matches("Windows.*", OS)) {//À©µµ¿ì¿ë
+				if (Pattern.matches("Windows.*", OS)) {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					
 					String windowPath = url.getPath();			
 					path = windowPath.substring(1,windowPath.length());	
@@ -144,7 +144,7 @@ public class ReadProperties implements ReadPropertiesAble
 					path = url.getPath();				
 				}
 			}catch(NullPointerException e) {
-				System.out.println(file+"°¡ ¾ø½À´Ï´Ù."+e.toString());
+				System.out.println(file+"ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½."+e.toString());
 				createProperties(file);
 				throw e;
 			}
@@ -153,9 +153,9 @@ public class ReadProperties implements ReadPropertiesAble
 		}
 		
 		/**  
-		* common.properties key ÀÇ °ªÀ» ¹ÝÈ¯
-		* @param key - ¼³Á¤¸í
-		* @return value - ¼³Á¤°ª
+		* common.properties key ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
+		* @param key - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		* @return value - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		*/
 		public String getValue( String key ) throws IOException , NullPointerException{
 
@@ -173,7 +173,7 @@ public class ReadProperties implements ReadPropertiesAble
 			}
 			catch (IOException e)
 			{
-				System.out.println("¼³Á¤ÆÄÀÏ ·Îµù ¿¡·¯!!("+src+")=>"+e.toString());
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½!!("+src+")=>"+e.toString());
 				throw e;
 			}
 			
@@ -183,9 +183,9 @@ public class ReadProperties implements ReadPropertiesAble
 		}
 		
 		/**  
-		* sql.properties ÆÄÀÏÀÇ key ÀÇ °ªÀ» ¹ÝÈ¯
-		* @param key - ¼³Á¤¸í
-		* @return value - ¼³Á¤°ª
+		* sql.properties ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ key ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
+		* @param key - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		* @return value - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		*/
 		public String getSQL( String key ) {
 
@@ -203,7 +203,7 @@ public class ReadProperties implements ReadPropertiesAble
 			}
 			catch (IOException e)
 			{
-				System.out.println("¼³Á¤ÆÄÀÏ ·Îµù ¿¡·¯!!("+src+")=>"+e.toString());
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½!!("+src+")=>"+e.toString());
 			}
 			
 			String rslt = p.getProperty(key);
@@ -212,7 +212,7 @@ public class ReadProperties implements ReadPropertiesAble
 		}			
 		
 		/**
-		 * common.properties ÆÄÀÏÀÇ ¼³Á¤À» º¯°æÇÑ´Ù.
+		 * common.properties ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		 * @param key
 		 * @param value
 		 */
@@ -235,7 +235,7 @@ public class ReadProperties implements ReadPropertiesAble
 		}
 		
 		/**
-		 * Æ¯Á¤¼³Á¤ ÆÄÀÏÀÇ °ªÀ» ¹ÝÈ¯ÇÑ´Ù.
+		 * Æ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ñ´ï¿½.
 		 * @param fileName
 		 * @param key
 		 * @return
@@ -246,21 +246,20 @@ public class ReadProperties implements ReadPropertiesAble
 			String src = "";
 			
 			src = propertiesPath(HeadDir+fileName);
-			
+			String rslt = null;
 			try
 			{
 				FileInputStream fis = new FileInputStream(src);
 				BufferedInputStream bis = new BufferedInputStream(fis);
 				p.load(bis);
+				rslt = p.getProperty(key);
 				bis.close();
 			}
 			catch (IOException e)
 			{
-				System.out.println("¼³Á¤ÆÄÀÏ ·Îµù ¿¡·¯!!("+src+")=>"+e.toString());
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½!!("+src+")=>"+e.toString());
 			}
 			
-			String rslt = p.getProperty(key);
-						
 			return rslt;
 		}
 		
@@ -282,7 +281,7 @@ public class ReadProperties implements ReadPropertiesAble
 			}
 			catch (IOException e)
 			{
-				System.out.println("¼³Á¤ÆÄÀÏ ·Îµù ¿¡·¯!!("+src+")=>"+e.toString());
+				System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½!!("+src+")=>"+e.toString());
 			}
 			
 			Enumeration<?> en = p.propertyNames();

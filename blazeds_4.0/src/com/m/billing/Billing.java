@@ -8,7 +8,7 @@ import com.common.VbyP;
 import com.common.db.PreparedExecuteQueryManager;
 import com.common.util.SLibrary;
 import com.m.common.AdminSMS;
-import com.m.common.BooleanAndDescriptionVO;
+import com.m.common.CommonVO;
 import com.m.common.PointManager;
 import com.m.member.SessionManagement;
 import com.m.member.UserInformationVO;
@@ -67,10 +67,10 @@ public class Billing {
 		return al;
 	}
 	
-	public BooleanAndDescriptionVO setCash(Connection conn, String user_id, String account, String amount, String method, String reqName) {
+	public CommonVO setCash(Connection conn, String user_id, String account, String amount, String method, String reqName) {
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(false);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(false);
 		int rslt = 0;
 		
 		
@@ -93,21 +93,21 @@ public class Billing {
 			if ( rslt < 1)
 				throw new Exception("무통장 등록에 실패 하였습니다.");
 			
-			rvo.setbResult(true);
+			rvo.setRslt(true);
 			
 		}catch (Exception e) {
 			
-			rvo.setbResult(false);
-			rvo.setstrDescription(e.getMessage());
+			rvo.setRslt(false);
+			rvo.setText(e.getMessage());
 			
 		}
 		return rvo;
 	}
 	
-	public BooleanAndDescriptionVO setCashBilling( Connection conn, BillingVO bvo, int count, boolean bSMS) {
+	public CommonVO setCashBilling( Connection conn, BillingVO bvo, int count, boolean bSMS) {
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(false);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(false);
 		UserInformationVO uvo = null;
 		int rslt = 0;
 		
@@ -136,7 +136,7 @@ public class Billing {
 			if (rslt != 1)
 				throw new Exception("건수 충전에 실패 하였습니다.");
 
-			rvo.setbResult(true);
+			rvo.setRslt(true);
 			
 			if (bSMS == true && !SLibrary.isNull( uvo.getHp() ) ) {
 
@@ -147,8 +147,8 @@ public class Billing {
 			
 		}catch (Exception e) {
 			
-			rvo.setbResult(false);
-			rvo.setstrDescription(e.getMessage());
+			rvo.setRslt(false);
+			rvo.setText(e.getMessage());
 			
 		}
 		return rvo;
@@ -163,10 +163,10 @@ public class Billing {
 		return pq.ExecuteQueryString();
 	}
 	
-	public BooleanAndDescriptionVO setBilling( Connection conn, BillingVO bvo) {
+	public CommonVO setBilling( Connection conn, BillingVO bvo) {
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(false);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(false);
 		UserInformationVO uvo = null;
 		int point = 0;
 		int rslt = 0;
@@ -214,12 +214,12 @@ public class Billing {
 			if (rslt != 1)
 				throw new Exception("건수 충전에 실패 하였습니다.");
 
-			rvo.setbResult(true);
+			rvo.setRslt(true);
 			
 		}catch (Exception e) {
 			
-			rvo.setbResult(false);
-			rvo.setstrDescription(e.getMessage());
+			rvo.setRslt(false);
+			rvo.setText(e.getMessage());
 			
 		}
 		return rvo;

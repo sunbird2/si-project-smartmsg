@@ -7,7 +7,7 @@ import java.util.HashMap;
 import com.common.VbyP;
 import com.common.db.PreparedExecuteQueryManager;
 import com.common.util.SLibrary;
-import com.m.common.BooleanAndDescriptionVO;
+import com.m.common.CommonVO;
 import com.m.log.ISentData;
 import com.m.log.SentStatusVO;
 import com.m.send.LogVO;
