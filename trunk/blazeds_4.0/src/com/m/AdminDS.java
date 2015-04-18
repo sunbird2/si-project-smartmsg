@@ -12,7 +12,7 @@ import com.m.admin.vo.MemberVO;
 import com.m.billing.Billing;
 import com.m.billing.BillingVO;
 import com.m.common.AdminSMS;
-import com.m.common.BooleanAndDescriptionVO;
+import com.m.common.CommonVO;
 import com.m.common.PointManager;
 import com.m.member.SessionManagement;
 import com.m.member.UserInformationVO;
@@ -26,20 +26,20 @@ public class AdminDS extends SessionManagement {
 	/*###############################
 	#	Member						#
 	###############################*/
-	public BooleanAndDescriptionVO login(String user_id, String password) {
+	public CommonVO login(String user_id, String password) {
 
 		Connection conn = null;
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		CommonVO rvo = new CommonVO();
 		
 		try {
 			
 			conn = VbyP.getDB();
 			if ( SLibrary.isNull(user_id) ) {
-				rvo.setbResult(false);
-				rvo.setstrDescription("no id.");
+				rvo.setRslt(false);
+				rvo.setText("no id.");
 			}else if ( SLibrary.isNull(password) ) {
-				rvo.setbResult(false);
-				rvo.setstrDescription("no pw.");
+				rvo.setRslt(false);
+				rvo.setText("no pw.");
 			}else {
 				rvo = super.loginAdmin(conn, user_id, password);
 			}
@@ -56,14 +56,14 @@ public class AdminDS extends SessionManagement {
 		
 		return rvo;
 	}
-	public BooleanAndDescriptionVO isLogin() {
+	public CommonVO isLogin() {
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();			
+		CommonVO rvo = new CommonVO();			
 		if (this.bAdminSession()) {
-			rvo.setbResult(true);
+			rvo.setRslt(true);
 		}
 		else {
-			rvo.setbResult(false);
+			rvo.setRslt(false);
 		}
 		
 		return rvo;
@@ -76,7 +76,7 @@ public class AdminDS extends SessionManagement {
 		ArrayList<HashMap<String, String>> al = new ArrayList<HashMap<String, String>>();
 		VbyP.accessLog(getAdminSession()+" >> getMember");
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -114,7 +114,7 @@ public class AdminDS extends SessionManagement {
 		VbyP.accessLog(getAdminSession()+" >> ȸ�� ����"+mvo.getUser_id());
 		int rslt = 0;
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -158,7 +158,7 @@ public class AdminDS extends SessionManagement {
 		VbyP.accessLog(getAdminSession()+" >> updateMemberPasswd "+user_id);
 		int rslt = 0;
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -188,7 +188,7 @@ public class AdminDS extends SessionManagement {
 		VbyP.accessLog(getAdminSession()+" >> deleteMember "+user_id);
 		int rslt = 0;
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -224,7 +224,7 @@ public class AdminDS extends SessionManagement {
 		ArrayList<HashMap<String, String>> al = new ArrayList<HashMap<String, String>>();
 		VbyP.accessLog(getAdminSession()+" >> getPoint");
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				conn = VbyP.getDB();
@@ -264,7 +264,7 @@ public class AdminDS extends SessionManagement {
 		int rslt = 0;
 		
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 			
 			try {
 				conn = VbyP.getDB();
@@ -293,7 +293,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> getUnit : "+ user_id);
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 			
 			try {
 				conn = VbyP.getDB();
@@ -315,14 +315,14 @@ public class AdminDS extends SessionManagement {
 		return d;
 	}
 	
-	public BooleanAndDescriptionVO setCash(String user_id, int amount, int point, boolean bSMS) {
+	public CommonVO setCash(String user_id, int amount, int point, boolean bSMS) {
 		
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> setCash:"+amount+","+point+","+bSMS);
 
-		BooleanAndDescriptionVO badvo = null;
+		CommonVO badvo = null;
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 			
 			try {
 				conn = VbyP.getDB();
@@ -352,7 +352,7 @@ public class AdminDS extends SessionManagement {
 		ArrayList<HashMap<String, String>> al = new ArrayList<HashMap<String, String>>();
 		VbyP.accessLog(getAdminSession()+" >> getPointLog");
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -390,7 +390,7 @@ public class AdminDS extends SessionManagement {
 		ArrayList<HashMap<String, String>> al = new ArrayList<HashMap<String, String>>();
 		VbyP.accessLog(getAdminSession()+" >> getSentLog");
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -428,7 +428,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		ArrayList<HashMap<String, String>> al = new ArrayList<HashMap<String, String>>();
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -466,7 +466,7 @@ public class AdminDS extends SessionManagement {
 		Connection connSMS = null;
 		ArrayList<HashMap<String, String>> al = new ArrayList<HashMap<String, String>>();
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -511,7 +511,7 @@ public class AdminDS extends SessionManagement {
 		ArrayList<HashMap<String, String>> al = new ArrayList<HashMap<String, String>>();
 		VbyP.accessLog(getAdminSession()+" >> getBilling");
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				conn = VbyP.getDB();
@@ -546,7 +546,7 @@ public class AdminDS extends SessionManagement {
 		VbyP.accessLog(getAdminSession()+" >> updateBilling"+bvo.getUser_id());
 		int rslt = 0;
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -583,7 +583,7 @@ public class AdminDS extends SessionManagement {
 		VbyP.accessLog(getAdminSession()+" >> deleteBilling"+Integer.toString(idx));
 		int rslt = 0;
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -610,7 +610,7 @@ public class AdminDS extends SessionManagement {
 		ArrayList<HashMap<String, String>> al = new ArrayList<HashMap<String, String>>();
 		VbyP.accessLog(getAdminSession()+" >> getCashList");
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				conn = VbyP.getDB();
@@ -645,7 +645,7 @@ public class AdminDS extends SessionManagement {
 		ArrayList<HashMap<String, String>> al = new ArrayList<HashMap<String, String>>();
 		VbyP.accessLog(getAdminSession()+" >> getTaxList");
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				conn = VbyP.getDB();
@@ -680,7 +680,7 @@ public class AdminDS extends SessionManagement {
 		VbyP.accessLog(getAdminSession()+" >> deleteCash:"+Integer.toString(idx));
 		int rslt = 0;
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -707,7 +707,7 @@ public class AdminDS extends SessionManagement {
 		VbyP.accessLog(getAdminSession()+" >> setTaxDelete:"+Integer.toString(idx));
 		int rslt = 0;
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -734,7 +734,7 @@ public class AdminDS extends SessionManagement {
 		VbyP.accessLog(getAdminSession()+" >> setTaxComplet"+Integer.toString(idx));
 		int rslt = 0;
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -898,7 +898,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >>updateEmoti:"+Integer.toString(idx));
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -924,7 +924,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> updateEmotiForeign "+Integer.toString(idx));
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -950,7 +950,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> updateEmotiCate "+Integer.toString(idx));
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -978,7 +978,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> updateEmotiCateLMS "+Integer.toString(idx));
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -1003,7 +1003,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> firstEmoti "+Integer.toString(idx));
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -1027,7 +1027,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> LMS firstEmotiLMS "+Integer.toString(idx));
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -1051,7 +1051,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> MMS firstEmotiMMS "+Integer.toString(idx));
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -1076,7 +1076,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> Foreign firstEmotiForeign "+Integer.toString(idx));
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -1101,7 +1101,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> deleteEmoti "+Integer.toString(idx));
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -1126,7 +1126,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> deleteEmotiForeign "+Integer.toString(idx));
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -1151,7 +1151,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> deleteEmotiLMS "+Integer.toString(idx));
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -1176,7 +1176,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> deleteEmotiMMS "+Integer.toString(idx));
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -1201,7 +1201,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> addEmoti "+cate+" "+msg);
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				
@@ -1227,7 +1227,7 @@ public class AdminDS extends SessionManagement {
 		Connection conn = null;
 		VbyP.accessLog(getAdminSession()+" >> addEmotiCate "+gubun+"/"+cate+" "+msg);
 		
-		if (isLogin().getbResult()) {		
+		if (isLogin().isRslt()) {		
 		
 			try {
 				

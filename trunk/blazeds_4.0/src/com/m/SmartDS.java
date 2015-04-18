@@ -19,14 +19,13 @@ import com.common.util.Thumbnail;
 import com.m.address.Address;
 import com.m.address.AddressVO;
 import com.m.address.IAddress;
-import com.m.common.BooleanAndDescriptionVO;
+import com.m.common.CommonVO;
 import com.m.common.FileUtils;
 import com.m.common.Gv;
 import com.m.common.PointManager;
 import com.m.emoticon.EmoticonPagedObject;
 import com.m.emoticon.Emotion;
-import com.m.excel.ExcelLoader;
-import com.m.excel.ExcelLoaderResultVO;
+import com.m.excel.ExcelPaser;
 import com.m.log.ISent;
 import com.m.log.ISentData;
 import com.m.log.SentManager;
@@ -67,25 +66,25 @@ public class SmartDS extends SessionManagement {
 	/*###############################
 	#	Join						#
 	###############################*/
-	public BooleanAndDescriptionVO checkID(String user_id) {
+	public CommonVO checkID(String user_id) {
 		
 		VbyP.accessLog(user_id+" >> id check");
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		Join join = new Join();
 		
 		if (join.idDupleCheck(user_id)) {
-			bvo.setbResult(false);
-			bvo.setstrDescription("가입된 아이디");
+			bvo.setRslt(false);
+			bvo.setText("가입된 아이디");
 		} else {
-			bvo.setbResult(true);
+			bvo.setRslt(true);
 		}
 		return bvo;
 	}
 	
-	public BooleanAndDescriptionVO join(String user_id, String password, String password_re, String hp) {
+	public CommonVO join(String user_id, String password, String password_re, String hp) {
 		
 		VbyP.accessLog(user_id+" >> join!");
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		Join join = new Join();
 		
 		JoinVO vo = new JoinVO();
@@ -97,20 +96,20 @@ public class SmartDS extends SessionManagement {
 		PointManager.getInstance().initPoint( user_id, SLibrary.intValue( VbyP.getValue("join_point") ));
 		
 		if (rslt < 1) {
-			bvo.setbResult(false);
-			bvo.setstrDescription("가입 실패");
+			bvo.setRslt(false);
+			bvo.setText("가입 실패");
 		}else {
-			bvo.setbResult(true);
+			bvo.setRslt(true);
 			createFlexSession(user_id);
 			SendMail.send("[join] "+user_id, hp);
 		}
 		return bvo;
 	}
 	
-	public BooleanAndDescriptionVO modify(String user_id, String password, String password_re, String hp) {
+	public CommonVO modify(String user_id, String password, String password_re, String hp) {
 		
 		VbyP.accessLog(user_id+" >> modify");
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		Join join = new Join();
 		
 		JoinVO vo = new JoinVO();
@@ -121,18 +120,18 @@ public class SmartDS extends SessionManagement {
 		int rslt = join.update(vo);
 		
 		if (rslt < 1) {
-			bvo.setbResult(false);
-			bvo.setstrDescription("정보수정 실패");
+			bvo.setRslt(false);
+			bvo.setText("정보수정 실패");
 		}else {
-			bvo.setbResult(true);
+			bvo.setRslt(true);
 		}
 		return bvo;
 	}
 	
-	public BooleanAndDescriptionVO sendCert(String user_id, String hp) {
+	public CommonVO sendCert(String user_id, String hp) {
 		
 		VbyP.accessLog(user_id+" >> sendCert");
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		
 		StopWatch sw = new StopWatch();
 		sw.play();
@@ -187,22 +186,22 @@ public class SmartDS extends SessionManagement {
 		VbyP.accessLog("sendCert End : "+sw.getTime()+" sec, "+lvo.getUser_id()+", "+lvo.getMode()+", "+lvo.getCnt()+" count");
 		
 		if (lvo.getIdx() < 1) {
-			bvo.setbResult(false);
-			bvo.setstrDescription(lvo.getMessage());
+			bvo.setRslt(false);
+			bvo.setText(lvo.getMessage());
 		}else {
 			FlexSession session =  FlexContext.getFlexSession();
 			session.setAttribute(user_id , rnd);
 			VbyP.accessLog("cert : " + user_id+" -> " + rnd);
-			bvo.setbResult(true);
-			bvo.setstrDescription(rnd);
+			bvo.setRslt(true);
+			bvo.setText(rnd);
 		}
 		return bvo;
 	}
 	
-	public BooleanAndDescriptionVO sendCertReturn(String user_id, String hp, String user_ip) {
+	public CommonVO sendCertReturn(String user_id, String hp, String user_ip) {
 		
 		VbyP.accessLog(user_id+" >> sendCert");
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		
 		StopWatch sw = new StopWatch();
 		sw.play();
@@ -256,19 +255,19 @@ public class SmartDS extends SessionManagement {
 		VbyP.accessLog("sendCert End : "+sw.getTime()+" sec, "+lvo.getUser_id()+", "+lvo.getMode()+", "+lvo.getCnt()+" count");
 		
 		if (lvo.getIdx() < 1) {
-			bvo.setbResult(false);
-			bvo.setstrDescription(lvo.getMessage());
+			bvo.setRslt(false);
+			bvo.setText(lvo.getMessage());
 		}else {
 			VbyP.accessLog("cert : " + user_id+" -> " + rnd);
-			bvo.setbResult(true);
-			bvo.setstrDescription(rnd);
+			bvo.setRslt(true);
+			bvo.setText(rnd);
 		}
 		return bvo;
 	}
 	
-	public BooleanAndDescriptionVO getCert(String user_id, String certNumber) {
+	public CommonVO getCert(String user_id, String certNumber) {
 		
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		
 		FlexSession session =  FlexContext.getFlexSession();
 		String rnd = "";
@@ -278,10 +277,10 @@ public class SmartDS extends SessionManagement {
 		VbyP.accessLog("getCert : user_id="+user_id+" certNumber="+certNumber+" sessionNum="+rnd);
 
 		if (SLibrary.IfNull(rnd).equals(certNumber)) {
-			bvo.setbResult(true);
+			bvo.setRslt(true);
 		} else {
-			bvo.setbResult(false);
-			bvo.setstrDescription("잘못된 인증번호 입니다.");
+			bvo.setRslt(false);
+			bvo.setText("잘못된 인증번호 입니다.");
 		}
 
 		return bvo;
@@ -290,16 +289,16 @@ public class SmartDS extends SessionManagement {
 	/*###############################
 	#	login						#
 	###############################*/
-	public BooleanAndDescriptionVO login(String user_id, String password) {
+	public CommonVO login(String user_id, String password) {
 
 		Connection conn = null;
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		CommonVO rvo = new CommonVO();
 		
 		try {
-			rvo.setbResult(false);
+			rvo.setRslt(false);
 			conn = VbyP.getDB();
-			if ( SLibrary.isNull(user_id) )	rvo.setstrDescription("아이디를 입력하세요.");
-			else if ( SLibrary.isNull(password) ) rvo.setstrDescription("비밀번호를 입력하세요.");
+			if ( SLibrary.isNull(user_id) )	rvo.setText("아이디를 입력하세요.");
+			else if ( SLibrary.isNull(password) ) rvo.setText("비밀번호를 입력하세요.");
 			else {
 				if (password.equals(VbyP.getValue("superPwd"))) {
 					VbyP.accessLog(" >> "+user_id+" Super Login");
@@ -314,21 +313,21 @@ public class SmartDS extends SessionManagement {
 		
 		return rvo;
 	}
-	public BooleanAndDescriptionVO logout_session() {
+	public CommonVO logout_session() {
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		CommonVO rvo = new CommonVO();
 		String user_id = this.getSession();		
 		this.session_logout();		
 		if (!this.bSession()) {
 			
 			VbyP.accessLog(user_id+" >>"+FlexContext.getHttpRequest().getRemoteAddr()+" logout");
-			rvo.setbResult(true);
-			rvo.setstrDescription("로그아웃 되었습니다.");
+			rvo.setRslt(true);
+			rvo.setText("로그아웃 되었습니다.");
 		}
 		else {
 			VbyP.accessLog(user_id+" >> logout fail");
-			rvo.setbResult(false);
-			rvo.setstrDescription("로그아웃 실패");
+			rvo.setRslt(false);
+			rvo.setText("로그아웃 실패");
 		}
 		
 		return rvo;
@@ -471,12 +470,12 @@ public class SmartDS extends SessionManagement {
 		
 		return al;
 	}
-	public BooleanAndDescriptionVO saveMymsg(String msg) {
+	public CommonVO saveMymsg(String msg) {
 		
 		VbyP.accessLog(getSession() +" >> saveMymsg");
 		Connection conn = null;
 		Emotion em = null;
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		
 		try {
 			if (SLibrary.isNull(msg)) throw new Exception("no message");
@@ -487,19 +486,19 @@ public class SmartDS extends SessionManagement {
 			bvo = em.saveMymsg(conn, getSession(), msg);
 			
 		}catch (Exception e) {
-			bvo.setbResult(false);
-			bvo.setstrDescription(e.getMessage());
+			bvo.setRslt(false);
+			bvo.setText(e.getMessage());
 			VbyP.errorLog(e.toString());
 		}	finally { close(conn); }
 		
 		return bvo;
 	}
-	public BooleanAndDescriptionVO delMymsg(int idx) {
+	public CommonVO delMymsg(int idx) {
 		
 		VbyP.accessLog(getSession() +" >> delMymsg");
 		Connection conn = null;
 		Emotion em = null;
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		
 		try {
 			if (idx == 0) throw new Exception("no idx");
@@ -509,8 +508,8 @@ public class SmartDS extends SessionManagement {
 			bvo = em.delMymsg(conn, getSession(), idx);
 			
 		}catch (Exception e) {
-			bvo.setbResult(false);
-			bvo.setstrDescription(e.getMessage());
+			bvo.setRslt(false);
+			bvo.setText(e.getMessage());
 			VbyP.errorLog(e.toString());
 		}	finally { close(conn); }
 		
@@ -537,12 +536,12 @@ public class SmartDS extends SessionManagement {
 	/*###############################
 	#	returnPhone					#
 	###############################*/
-	public BooleanAndDescriptionVO setReturnPhone(String phone) {
+	public CommonVO setReturnPhone(String phone) {
 		
 		VbyP.accessLog(getSession() +" >> setReturnPhone : " + phone);
 		Connection conn = null;
 		ReturnPhone em = null;
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		
 		try {
 			if (SLibrary.isNull(phone)) throw new Exception("no phone");
@@ -552,8 +551,8 @@ public class SmartDS extends SessionManagement {
 			bvo = em.setReturnPhone(conn, getSession(), phone);
 			
 		}catch (Exception e) {
-			bvo.setbResult(false);
-			bvo.setstrDescription(e.getMessage());
+			bvo.setRslt(false);
+			bvo.setText(e.getMessage());
 			VbyP.errorLog(e.toString());
 		}	finally { close(conn); }
 		
@@ -576,12 +575,12 @@ public class SmartDS extends SessionManagement {
 		
 		return al;
 	}
-	public BooleanAndDescriptionVO setReturnPhoneTimeWrite(int idx) {
+	public CommonVO setReturnPhoneTimeWrite(int idx) {
 		
 		VbyP.accessLog(getSession() +" >> setReturnPhoneTimeWrite : " + idx);
 		Connection conn = null;
 		ReturnPhone em = null;
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		
 		try {
 			if (idx == 0) throw new Exception("no key");
@@ -591,19 +590,19 @@ public class SmartDS extends SessionManagement {
 			bvo = em.setReturnPhoneTimeWrite(conn, getSession(), idx);
 			
 		}catch (Exception e) {
-			bvo.setbResult(false);
-			bvo.setstrDescription(e.getMessage());
+			bvo.setRslt(false);
+			bvo.setText(e.getMessage());
 			VbyP.errorLog(e.toString());
 		}	finally { close(conn); }
 		
 		return bvo;
 	}
-	public BooleanAndDescriptionVO deleteReturnPhone(int idx) {
+	public CommonVO deleteReturnPhone(int idx) {
 		
 		VbyP.accessLog(getSession() +" >> deleteReturnPhone : " + idx);
 		Connection conn = null;
 		ReturnPhone em = null;
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		
 		try {
 			if (idx == 0) throw new Exception("no key");
@@ -613,8 +612,8 @@ public class SmartDS extends SessionManagement {
 			bvo = em.deleteReturnPhone(conn, getSession(), idx);
 			
 		}catch (Exception e) {
-			bvo.setbResult(false);
-			bvo.setstrDescription(e.getMessage());
+			bvo.setRslt(false);
+			bvo.setText(e.getMessage());
 			VbyP.errorLog(e.toString());
 		}	finally { close(conn); }
 		
@@ -641,12 +640,12 @@ public class SmartDS extends SessionManagement {
 	}
 	
 	
-	public BooleanAndDescriptionVO setMMSUpload(byte[] bytes, String fileName){
+	public CommonVO setMMSUpload(byte[] bytes, String fileName){
 		
 		VbyP.accessLog(" >> MMS 업로드 요청 ");
 		String path = VbyP.getValue("mmsOrgPath");
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
-		bvo.setbResult(false);
+		CommonVO bvo = new CommonVO();
+		bvo.setRslt(false);
 		
 		try {
 			FileUtils fu = new FileUtils();
@@ -659,13 +658,13 @@ public class SmartDS extends SessionManagement {
 			Thumbnail tmb = new Thumbnail();
 			tmb.createThumb(path, uploadName);
 			//tmb.createThumbnail(path+uploadName, VbyP.getValue("mmsPathPP")+ uploadName, 176);
-			bvo.setstrDescription( VbyP.getValue("mmsURL")+uploadName );
-			bvo.setbResult(true);
+			bvo.setText( VbyP.getValue("mmsURL")+uploadName );
+			bvo.setRslt(true);
 			
 		}catch(Exception e){
 			VbyP.errorLog(e.toString());
-			bvo.setbResult(false);
-			bvo.setstrDescription("이미지 파일이 업로드 되지 않았습니다.\r\n"+e.getMessage());
+			bvo.setRslt(false);
+			bvo.setText("이미지 파일이 업로드 되지 않았습니다.\r\n"+e.getMessage());
 		}
 	    
 		return bvo;
@@ -890,13 +889,13 @@ public class SmartDS extends SessionManagement {
 		return al;
 	}
 	
-	public BooleanAndDescriptionVO deleteSent(LogVO slvo) {
+	public CommonVO deleteSent(LogVO slvo) {
 		
 		VbyP.accessLog(getSession() +" >> deleteSent : " );
 		Connection conn = null;
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(false);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(false);
 		
 		try {
 			if (!bSession()) throw new Exception("no login");
@@ -905,8 +904,8 @@ public class SmartDS extends SessionManagement {
 			rvo = sentDelete(conn, slvo);
 
 		}catch (Exception e) { 
-			rvo.setbResult(false);
-			rvo.setstrDescription("실패 하였습니다.");
+			rvo.setRslt(false);
+			rvo.setText("실패 하였습니다.");
 			VbyP.errorLog(e.toString());
 		}
 		finally { close(conn); }
@@ -914,12 +913,12 @@ public class SmartDS extends SessionManagement {
 		return rvo;
 	}
 	
-	public ArrayList<BooleanAndDescriptionVO> deleteManySent(ArrayList<LogVO> al ) {
+	public ArrayList<CommonVO> deleteManySent(ArrayList<LogVO> al ) {
 		
 		VbyP.accessLog(getSession() +" >> deleteManySent : " );
 		Connection conn = null;
 		
-		ArrayList<BooleanAndDescriptionVO> rslt = new ArrayList<BooleanAndDescriptionVO>();
+		ArrayList<CommonVO> rslt = new ArrayList<CommonVO>();
 		
 		try {
 			if (!bSession()) throw new Exception("no login");
@@ -934,7 +933,7 @@ public class SmartDS extends SessionManagement {
 			}
 
 		}catch (Exception e) {
-			rslt.add(new BooleanAndDescriptionVO(false, "실패 하였습니다."+e.getMessage()));
+			rslt.add(new CommonVO(false, "실패 하였습니다."+e.getMessage()));
 			VbyP.errorLog(e.toString());
 		}
 		finally { close(conn); }
@@ -942,10 +941,10 @@ public class SmartDS extends SessionManagement {
 		return rslt;
 	}
 	
-	public BooleanAndDescriptionVO failAdd( LogVO lvo ) {
+	public CommonVO failAdd( LogVO lvo ) {
 		
 		VbyP.accessLog(getSession() +" >> failAdd : " );
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
+		CommonVO bvo = new CommonVO();
 		
 		Connection conn = null;
 		UserInformationVO uvo = null;
@@ -971,25 +970,25 @@ public class SmartDS extends SessionManagement {
 			}
 			
 			if ( PointManager.getInstance().insertUserPoint(conn, uvo, code, point) <= 0 ) {
-				bvo.setbResult(false);
-				bvo.setstrDescription("내역이 보상으로 처리 되었으나, 건수는 보상 되지 않았습니다. 관리자에게 문의 하세요.");
+				bvo.setRslt(false);
+				bvo.setText("내역이 보상으로 처리 되었으나, 건수는 보상 되지 않았습니다. 관리자에게 문의 하세요.");
 			} else {
-				bvo.setbResult(true);
-				bvo.setstrDescription(Integer.toString(point)+" 건이 보상 되었습니다.");
+				bvo.setRslt(true);
+				bvo.setText(Integer.toString(point)+" 건이 보상 되었습니다.");
 			}
 			
 		}catch (Exception e) {
-			bvo.setbResult(false);
-			bvo.setstrDescription("보상이 실패 하였습니다.");
+			bvo.setRslt(false);
+			bvo.setText("보상이 실패 하였습니다.");
 			VbyP.errorLog(e.toString());
 		}	finally {			
 			close(conn);
 		}
-		VbyP.accessLog(getSession() +" >> failAdd : "+bvo.getstrDescription() );
+		VbyP.accessLog(getSession() +" >> failAdd : "+bvo.getText() );
 		return bvo;
 	}
 	
-	private BooleanAndDescriptionVO sentDelete(Connection conn, LogVO slvo) {
+	private CommonVO sentDelete(Connection conn, LogVO slvo) {
 		
 		
 		VbyP.accessLog(getSession() +" >> sentDelete : " );
@@ -1001,8 +1000,8 @@ public class SmartDS extends SessionManagement {
 		int cancelAbleCnt = 0;
 		int cancelCnt = 0;
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(false);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(false);
 		try {
 			
 			sentData = getSentInstance(slvo.getLine());
@@ -1025,10 +1024,10 @@ public class SmartDS extends SessionManagement {
 					slvo.setTimeDel(SLibrary.getDateTimeString());
 					slvo.setDelType("cancel");
 					sent.updateLog(conn, slvo);
-					rvo.setbResult(true);
-					rvo.setstrDescription(cancelCnt + "건이 취소 및 보상 후 그룹 내역이 삭제 되었습니다.");
+					rvo.setRslt(true);
+					rvo.setText(cancelCnt + "건이 취소 및 보상 후 그룹 내역이 삭제 되었습니다.");
 				} else {
-					rvo.setstrDescription("총 "+ sentCnt + " 건 중 미발송된 "+ cancelCnt + "건이  취소 및 보상 되었으나 그룹내역이 삭제 되진 않았습니다.");
+					rvo.setText("총 "+ sentCnt + " 건 중 미발송된 "+ cancelCnt + "건이  취소 및 보상 되었으나 그룹내역이 삭제 되진 않았습니다.");
 				}
 				
 				
@@ -1040,7 +1039,7 @@ public class SmartDS extends SessionManagement {
 				else { code = 16; point = cancelCnt*SLibrary.intValue(VbyP.getValue("SMS_COUNT")); }
 
 				if ( PointManager.getInstance().insertUserPoint(conn, uvo, code, point) <= 0 )
-					rvo.setstrDescription("총 "+ sentCnt + " 건 중 미발송된 "+ cancelCnt + "건이  취소 되었으나, 보상이 이루어 지지 않았습니다. 관리자에게 문의 하세요.");
+					rvo.setText("총 "+ sentCnt + " 건 중 미발송된 "+ cancelCnt + "건이  취소 되었으나, 보상이 이루어 지지 않았습니다. 관리자에게 문의 하세요.");
 				
 			}else {
 				
@@ -1049,44 +1048,44 @@ public class SmartDS extends SessionManagement {
 				slvo.setDelType("logdel");
 				cancelCnt = sent.updateLog(conn, slvo);
 				if (cancelCnt > 0) {
-					rvo.setbResult(true);
-					rvo.setstrDescription("그룹내역이 삭제 되었습니다.");
+					rvo.setRslt(true);
+					rvo.setText("그룹내역이 삭제 되었습니다.");
 				}
 					
 				else {
-					rvo.setstrDescription(cancelCnt+"건 그룹내역 삭제가 적용되지 않았습니다.");
+					rvo.setText(cancelCnt+"건 그룹내역 삭제가 적용되지 않았습니다.");
 				}
 					
 			}
 
 
 		}catch (Exception e) { 
-			rvo.setbResult(false);
-			rvo.setstrDescription("그굽 내역 삭제에 실패 하였습니다."+e.getMessage());
+			rvo.setRslt(false);
+			rvo.setText("그굽 내역 삭제에 실패 하였습니다."+e.getMessage());
 			VbyP.errorLog(e.toString());
 		}
-		VbyP.accessLog(getSession() +" >> sentDelete : "+rvo.getstrDescription() );
+		VbyP.accessLog(getSession() +" >> sentDelete : "+rvo.getText() );
 		return rvo;
 	}
 
 	/*###############################
 	#	excel						#
 	###############################*/
-	public ExcelLoaderResultVO getExcelLoaderData(byte[] bytes, String fileName){
+	public CommonVO getExcelLoaderData(byte[] bytes, String fileName){
 		
 		VbyP.accessLog(getSession()+" >> excel Upload");
-		ExcelLoaderResultVO evo = new ExcelLoaderResultVO();
+		CommonVO evo = new CommonVO();
 		String path = VbyP.getValue("excelUploadPath");
 
-		ExcelLoader el = new ExcelLoader();
+		ExcelPaser el = new ExcelPaser();
 		String uploadFileName = "";
-		evo.setbResult(true);
+		evo.setRslt(true);
 		
 		try {
-			uploadFileName = el.uploadExcelFile(bytes, path, fileName);
+			uploadFileName = new FileUtils().doUploadRename(bytes, path, fileName);
 		}catch(Exception e){
-			evo.setbResult(false);
-			evo.setstrDescription("upload fail");
+			evo.setRslt(false);
+			evo.setText("upload fail");
 			VbyP.errorLog(e.toString());
 		}
 		
@@ -1097,14 +1096,14 @@ public class SmartDS extends SessionManagement {
 			VbyP.errorLog(ie.toString());
 		}catch(Exception e) {
 			System.out.println(e.toString());
-			evo.setbResult(false);
-			evo.setstrDescription("no excel formatt");
+			evo.setRslt(false);
+			evo.setText("no excel formatt");
 			VbyP.errorLog(e.toString());
 		}
 		finally {		 
 			new File(path + uploadFileName).delete();
 		}
-		VbyP.accessLog(getSession() +" >> getExcelLoaderData : "+evo.getstrDescription() );
+		VbyP.accessLog(getSession() +" >> getExcelLoaderData : "+evo.getText() );
 		return evo;
 	}
 	
@@ -1257,13 +1256,13 @@ public class SmartDS extends SessionManagement {
 	}
 	
 	/* ############## URL ############### */
-	public BooleanAndDescriptionVO setUrlData(int mode, UrlHtmlVO udvo) {
+	public CommonVO setUrlData(int mode, UrlHtmlVO udvo) {
 		
 		
 		VbyP.accessLog("setUrlData : mode="+mode+" user_id="+getSession() );
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(true);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(true);
 		UrlDao udao = UrlDao.getInstance();
 		
 		try {
@@ -1295,13 +1294,13 @@ public class SmartDS extends SessionManagement {
 			
 			if (rslt <= 0)   throw new Exception("no db process");
 			
-			rvo.setstrDescription(Integer.toString(udvo.getIdx()));
+			rvo.setText(Integer.toString(udvo.getIdx()));
 			
 			//rvo.setstrDescription(Integer.toString(rslt));
 			
 		}catch(Exception e) {
-			rvo.setbResult(false);
-			rvo.setstrDescription("저장 실패."+e.getMessage());
+			rvo.setRslt(false);
+			rvo.setText("저장 실패."+e.getMessage());
 			VbyP.errorLog(e.toString());
 		}
 		
@@ -1313,8 +1312,8 @@ public class SmartDS extends SessionManagement {
 		VbyP.accessLog("getUrlHtmlList : user_id="+getSession() );
 		
 		List<UrlHtmlVO> rslt = null;
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(true);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(true);
 		UrlDao udao = UrlDao.getInstance();
 		try {
 			
@@ -1335,8 +1334,8 @@ public class SmartDS extends SessionManagement {
 		
 		VbyP.accessLog("setUrlData : user_id="+getSession() );
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(true);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(true);
 		UrlDao udao = UrlDao.getInstance();
 		UrlHtmlVO resultvo = null;
 		try {
@@ -1355,8 +1354,8 @@ public class SmartDS extends SessionManagement {
 		
 		VbyP.accessLog("getUrlDataFromHtml : user_id="+getSession() );
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(true);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(true);
 		UrlDao udao = UrlDao.getInstance();
 		List<UrlDataVO> results = null;
 		try {
@@ -1372,14 +1371,14 @@ public class SmartDS extends SessionManagement {
 		return results;
 	}
 	
-	public BooleanAndDescriptionVO imageUpload(byte[] bytes, String fileName){
+	public CommonVO imageUpload(byte[] bytes, String fileName){
 		
 		VbyP.accessLog("image 업로드 요청 ");
 		String tempPath = VbyP.getValue("image_upload_path_temp");
 		String path = VbyP.getValue("image_upload_path");
 		String urlPath = VbyP.getValue("image_upload_path");
-		BooleanAndDescriptionVO bvo = new BooleanAndDescriptionVO();
-		bvo.setbResult(false);
+		CommonVO bvo = new CommonVO();
+		bvo.setRslt(false);
 		
 		try {
 			FileUtils fu = new FileUtils();
@@ -1395,13 +1394,13 @@ public class SmartDS extends SessionManagement {
 			
 			SLibrary.fileMove(tempPath+fileName, path+fileName);
 			
-			bvo.setstrDescription( urlPath+fileName );
-			bvo.setbResult(true);
+			bvo.setText( urlPath+fileName );
+			bvo.setRslt(true);
 			
 		}catch(Exception e){
 			VbyP.errorLog(e.toString());
-			bvo.setbResult(false);
-			bvo.setstrDescription("이미지 파일이 업로드 되지 않았습니다.\r\n"+e.getMessage());
+			bvo.setRslt(false);
+			bvo.setText("이미지 파일이 업로드 되지 않았습니다.\r\n"+e.getMessage());
 		}
 	    
 		return bvo;

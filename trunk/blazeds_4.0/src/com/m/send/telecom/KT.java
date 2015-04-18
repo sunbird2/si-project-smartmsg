@@ -125,6 +125,7 @@ public class KT implements ILineSet {
 	
 	private String getSubject(String msg) {
 		return SLibrary.cutBytes(msg.replaceAll("<","〈").replaceAll(">","〉"), 40, false, "");
+		//return "";
 	}
 	
 	@Override

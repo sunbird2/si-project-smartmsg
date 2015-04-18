@@ -8,7 +8,7 @@ import java.util.List;
 import com.common.VbyP;
 import com.common.db.PreparedExecuteQueryManager;
 import com.common.util.SLibrary;
-import com.m.common.BooleanAndDescriptionVO;
+import com.m.common.CommonVO;
 
 public class Emotion {
 
@@ -193,11 +193,11 @@ public class Emotion {
 	}
 	
 	
-	public BooleanAndDescriptionVO saveMymsg(Connection conn, String user_id, String msg) {
+	public CommonVO saveMymsg(Connection conn, String user_id, String msg) {
 		
 		VbyP.accessLog(user_id+" >> saveMymsg "+msg);
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(false);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(false);
 		
 		StringBuffer buf = new StringBuffer();
 		buf.append(VbyP.getSQL("insert_mymsg"));
@@ -207,16 +207,16 @@ public class Emotion {
 		pq.setString(2, msg);
 		pq.executeUpdate();
 		
-		rvo.setbResult(true);
+		rvo.setRslt(true);
 		
 		return rvo;
 		
 	}
 	
-	public BooleanAndDescriptionVO delMymsg(Connection conn, String user_id, int idx) {
+	public CommonVO delMymsg(Connection conn, String user_id, int idx) {
 		
 		VbyP.accessLog(user_id+" >> delMymsg "+idx);
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
+		CommonVO rvo = new CommonVO();
 		
 		StringBuffer buf = new StringBuffer();
 		buf.append(VbyP.getSQL("delete_mymsg"));
@@ -226,7 +226,7 @@ public class Emotion {
 		pq.setInt(2, idx);
 		pq.executeUpdate();
 		
-		rvo.setbResult(true);
+		rvo.setRslt(true);
 	
 		return rvo;
 		

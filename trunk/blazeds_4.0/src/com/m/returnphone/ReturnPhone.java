@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 import com.common.VbyP;
 import com.common.db.PreparedExecuteQueryManager;
-import com.m.common.BooleanAndDescriptionVO;
+import com.m.common.CommonVO;
 
 public class ReturnPhone {
 
@@ -16,10 +16,10 @@ public class ReturnPhone {
 		return em;
 	}
 	
-	public BooleanAndDescriptionVO setReturnPhone(Connection conn, String user_id, String phone) {
+	public CommonVO setReturnPhone(Connection conn, String user_id, String phone) {
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(false);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(false);
 			
 		StringBuffer buf = new StringBuffer();
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
@@ -31,8 +31,8 @@ public class ReturnPhone {
 		pq.setString(2, phone.replaceAll("-", ""));
 		
 		int rslt = pq.executeUpdate();
-		if (rslt > 0) rvo.setbResult(true);
-		else rvo.setstrDescription("save fail.");
+		if (rslt > 0) rvo.setRslt(true);
+		else rvo.setText("save fail.");
 				
 		return rvo;
 	}
@@ -55,10 +55,10 @@ public class ReturnPhone {
 	}
 	
 	
-	public BooleanAndDescriptionVO setReturnPhoneTimeWrite(Connection conn, String user_id, int idx) {
+	public CommonVO setReturnPhoneTimeWrite(Connection conn, String user_id, int idx) {
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(false);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(false);
 		StringBuffer buf = new StringBuffer();
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
 	
@@ -69,17 +69,17 @@ public class ReturnPhone {
 		pq.setString(2, user_id);
 		
 		int rslt = pq.executeUpdate();
-		if (rslt > 0) rvo.setbResult(true);
-		else rvo.setstrDescription("set fail.");
+		if (rslt > 0) rvo.setRslt(true);
+		else rvo.setText("set fail.");
 				
 		return rvo;
 	}
 	
 	
-	public BooleanAndDescriptionVO deleteReturnPhone(Connection conn, String user_id, int idx) {
+	public CommonVO deleteReturnPhone(Connection conn, String user_id, int idx) {
 		
-		BooleanAndDescriptionVO rvo = new BooleanAndDescriptionVO();
-		rvo.setbResult(false);
+		CommonVO rvo = new CommonVO();
+		rvo.setRslt(false);
 			
 		StringBuffer buf = new StringBuffer();
 		PreparedExecuteQueryManager pq = new PreparedExecuteQueryManager();
@@ -91,8 +91,8 @@ public class ReturnPhone {
 		pq.setString(2, user_id);
 		
 		int rslt = pq.executeUpdate();
-		if (rslt > 0) rvo.setbResult(true);
-		else rvo.setstrDescription("delete fail.");
+		if (rslt > 0) rvo.setRslt(true);
+		else rvo.setText("delete fail.");
 			
 					
 		return rvo;

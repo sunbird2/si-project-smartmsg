@@ -7,10 +7,11 @@ import java.util.Hashtable;
 import com.common.VbyP;
 import com.common.db.PreparedExecuteQueryManager;
 import com.common.util.SLibrary;
-import com.m.common.Filtering;
+import com.m.common.AdminSMS;
 import com.m.common.Gv;
 import com.m.common.PointManager;
 import com.m.common.Refuse;
+import com.m.common.SpamChecker;
 import com.m.member.UserInformationVO;
 import com.m.send.telecom.HAN;
 import com.m.send.telecom.KT;
@@ -377,11 +378,14 @@ public class SendManager implements ISend {
 			throw new Exception( VbyP.getValue("maxSendCount")+" 건 이상 발송 하실 수 없습니다.");
 		
 		//탈퇴회원 체크
-		if( uvo.getLevaeYN().equals("Y") ){ throw new Exception("잘못된 접근입니다."); 	}
+		if( uvo.getLevaeYN().equals("Y") ){ throw new Exception("관리자에 의해 차단되었습니다.(탈퇴)"); 	}
 		
 		if( Integer.parseInt(uvo.getPoint()) < sendCount*typePoint )
 			throw new Exception("잔여건수가 부족합니다.\\r\\n충전 후 이용하세요. \\r\\n\\r\\n + 남은건 : "+ uvo.getPoint()+" \\r\\n + 발송건 : "+ Integer.toString(sendCount*typePoint)+" ( "+Integer.toString(sendCount)+"*"+Integer.toString(typePoint)+" )"+"\\r\\n ※ 전화번호당 LMS는 3건 MMS는 15건 차감됩니다.");
 		
+		
+		filterChecker(sendCount, smvo.getMessage(), uvo, conn, smvo.getReqIP());
+		/*
 		//message 필터링
 		if ( Integer.parseInt(VbyP.getValue("filterMinCount")) <= sendCount  ) {
 			
@@ -406,6 +410,7 @@ public class SendManager implements ISend {
 			VbyP.accessLog(uvo.getUser_id() +" >> 전송 요청 : IP필터 ("+Filtering.ipFiltering(uvo.getUser_id(), smvo.getReqIP())+")");
 			throw new Exception("고객님은 현재 발송이 제한되어 있습니다.");
 		}
+		*/
 		
 		if (SLibrary.getByte(smvo.getMessage()) > 2000) throw new Exception("2000byte 이상 발송 할수 없습니다.");
 		
@@ -473,6 +478,28 @@ public class SendManager implements ISend {
 			}
 		}
 		return rslt;
+	}
+	
+	private void filterChecker(int cnt, String msg, UserInformationVO mvo,
+			Connection conn, String ip) throws Exception {
+				
+		if (Integer.parseInt(VbyP.getValue("filterMinCount")) <= cnt) {
+			String fmsg = null;
+			fmsg = SpamChecker.spamAllCheck(msg);
+			if (fmsg == null)
+				fmsg = SpamChecker.spamCheck(mvo.getUser_id(), msg);
+
+			if (fmsg != null) {
+				VbyP.accessLog(mvo.getUser_id() + " 스팸차단 (" + fmsg + ")");
+				throw new Exception("스팸성 문구가 포함 되었습니다.");
+			}
+		}
+
+		if (SpamChecker.ipCheck(mvo.getUser_id(), ip) != null) {
+			VbyP.accessLog(mvo.getUser_id() + " >> 전송 요청 : IP필터 ("
+					+ SpamChecker.ipCheck(mvo.getUser_id(), ip) + ")");
+			throw new Exception("관리자에의해 차단되었습니다.");
+		}
 	}
 	
 
