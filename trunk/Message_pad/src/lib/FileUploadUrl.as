@@ -1,5 +1,7 @@
 package lib
 {
+	import com.adobe.serialization.json.JSON;
+	
 	import flash.events.DataEvent;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -165,7 +167,7 @@ package lib
 		private function completeHandler(event:DataEvent):void {
 			
 			if (event.data != null) {
-				var data:*  =JSON.parse(event.data);
+				var data:*  =JSON.decode(event.data);
 				arrRs.push(data);
 			}
 			if (_pb != null)
@@ -177,7 +179,7 @@ package lib
 		private function completeLoaderHandler(event:Event):void {
 			
 			if (loader.data != null) {
-				var data:*  =JSON.parse(loader.data);
+				var data:*  =JSON.decode(loader.data);
 				arrRs.push(data);
 			}
 			if (_pb != null)

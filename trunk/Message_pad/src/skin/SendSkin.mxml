@@ -67,9 +67,9 @@
 													color.MMS="0xFF4444">SMS</s:span><s:span>  </s:span><s:span id="byte" fontSize="12">0</s:span><s:span>byte</s:span></s:p></s:content>
 						</s:RichText>
 						<s:HGroup  bottom="0" right="5" gap="0">
-							<s:Image id="addUrl" source="/skin/ics/assets/light/icon/7-location-web-site.png" buttonMode="true" toolTip=" " visible="false"
+							<s:Image id="addUrl" source="/skin/ics/assets/light/icon/7-location-web-site.png" buttonMode="true" toolTip=" " visible="false" width="32"
 									 toolTipCreate="SLibrary.iosTip('모바일웹 첨부','모바일웹을 제작하여 해당 링크를 메시지에 첨부하여 발송 합니다.', event)" />
-							<s:Image id="addImage" source="/skin/ics/assets/light/icon/5-content-picture.png" buttonMode="true" toolTip=" " 
+							<s:Image id="addImage" source="/skin/ics/assets/light/icon/5-content-picture.png" buttonMode="true" toolTip=" " width="32" height="32"
 									 toolTipCreate="SLibrary.iosTip('이미지 첨부','MMS 발송을 위해 이미지를 첨부 하실 수 있습니다.', event)" />
 							<s:Image id="addTxt" source="/skin/ics/assets/light/icon/4-collections-new-label.png" buttonMode="true" toolTip=" " 
 									 toolTipCreate="SLibrary.iosTip('합성 추가','전화번호별 다른 메시지를 발송하기 위해 합성할 문자를 추가 합니다.\n추가된 {이름},{합성1}.. 등이 전화번호의 이름, 합성1.. 로 변경되어 발송 됩니다.', event)"/>
